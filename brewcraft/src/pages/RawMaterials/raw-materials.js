@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import {
@@ -110,15 +111,19 @@ class RawMaterials extends Component {
                             <TabPane tabId="1" className="p-3">
                                 <Card>
                                     <CardBody>
-                                        <h4 className="card-title">Default Datatable</h4>
-                                        <p className="card-title-desc">mdbreact DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction
-                        function: <code>&lt;MDBDataTable /&gt;</code>.
+                                        <h4 className="card-title">All Raw Materials</h4>
+                                        <p className="card-title-desc">Raw materials are aggregated by <Link
+                                                onClick={(() => {
+                                                    this.toggleCustom("2");
+                                                })}
+                                                >raw material type.
+                                            </Link> Raw material cost is calculated using a weighted-average cost formula over the current year-to-date period.
                                         </p>
-                                            <MDBDataTable
-                                                responsive
-                                                bordered
-                                                data={data}
-                                            />
+                                        <MDBDataTable
+                                            responsive
+                                            bordered
+                                            data={data}
+                                        />
                                     </CardBody>
                                 </Card>
                             </TabPane>
