@@ -4,6 +4,7 @@
         80
     ],
     "search.exclude": {
+        "/brewcraft/src/assets/": true,
         "/brewcraft/template/**": true
     }
 }
