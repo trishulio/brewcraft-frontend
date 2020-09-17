@@ -10,6 +10,15 @@ import LockScreen from "../pages/Authentication/pages-lock-screen";
 //Dashboard
 import Dashboard from '../pages/Dashboard/dashboard';
 
+//Brewcraft
+import Brews from '../pages/Brews/brews';
+import Equipment from '../pages/Equipment/equipment';
+import Facility from '../pages/Facility/facility';
+import FinishedGoods from '../pages/FinishedGoods/finished-goods';
+import Packaging from '../pages/Packaging/packaging';
+import RawMaterials from '../pages/RawMaterials/raw-materials';
+import Reports from '../pages/Reports/reports';
+
 //Calender
 import Calendar from "../pages/Calendar/calendar";
 
@@ -84,6 +93,15 @@ import Pages500 from "../pages/Extra Pages/pages-500";
 const authProtectedRoutes = [
   // DashBoard
   { path: "/dashboard", component: Dashboard },
+
+  // Brewcraft
+  { path: "/brews", component: Brews },
+  { path: "/equipment", component: Equipment },
+  { path: "/facility", component: Facility },
+  { path: "/finished-goods", component: FinishedGoods },
+  { path: "/packaging", component: Packaging },
+  { path: "/raw-materials", component: RawMaterials },
+  { path: "/reports", component: Reports },
 
   //Calendar
   { path: "/calendar", component: Calendar },

@@ -15,7 +15,7 @@ class SettingsButton extends Component {
             <React.Fragment>
                     <div className="dropdown d-inline-block">
                         <button type="button" onClick={ this.rightsidebarToggle } className="btn header-item noti-icon right-bar-toggle waves-effect">
-                            <i className="mdi mdi-spin mdi-settings"></i>
+                            <i className="mdi mdi-settings"></i>
                         </button>
                     </div>
             </React.Fragment>

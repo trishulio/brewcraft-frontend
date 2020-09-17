@@ -25,8 +25,8 @@ class Topbar extends Component {
             isMobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
         };
     }
-    
-    sidebarToggle = () =>{
+
+    sidebarToggle = () => {
         if (this.props.leftSideBarType === "default") {
             this.props.changeSidebarType("condensed", this.state.isMobile);
         } else if (this.props.leftSideBarType === "condensed") {
@@ -80,11 +80,11 @@ class Topbar extends Component {
                             <FullScreen/>
 
                             <NotificationMenu/>
-                    
+
                             <ProfileMenu/>
 
                             <SettingsButton/>
-                    
+
                         </div>
                     </div>
                 </header>

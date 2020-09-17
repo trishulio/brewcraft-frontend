@@ -23,7 +23,7 @@ class Topbar extends Component {
         this.toggleMenu.bind(this);
         this.toggleSearch.bind(this);
     }
-    
+
 
     componentDidMount(){
         //set for temporary
@@ -41,11 +41,11 @@ class Topbar extends Component {
     render() {
         return (
             <React.Fragment>
-        
+
             <div className="navbar-header">
                 <Container fluid>
                     <div className="float-left">
-                        
+
                         <div className="navbar-brand-box">
                             <Link to="/dashboard" className="logo logo-dark">
                                 <span className="logo-sm">
@@ -55,7 +55,7 @@ class Topbar extends Component {
                                     <img src={logodark} alt="" height="19"/>
                                 </span>
                             </Link>
-    
+
                             <Link to="/dashboard" className="logo logo-light">
                                 <span className="logo-sm">
                                     <img src={logosm} alt="" height="22"/>
@@ -65,7 +65,7 @@ class Topbar extends Component {
                                 </span>
                             </Link>
                         </div>
-    
+
                         <button type="button"
                             className="btn btn-sm px-3 font-size-24 d-lg-none header-item waves-effect waves-light"
                             onClick={this.toggleMenu}
@@ -75,10 +75,10 @@ class Topbar extends Component {
                             <i className="mdi mdi-menu"></i>
                         </button>
                     </div>
-    
+
                     <div className="float-right">
-    
-                        
+
+
                         <form className="app-search d-none d-lg-inline-block">
                             <div className="position-relative">
                                 <input type="text" className="form-control" placeholder="Search..."/>
@@ -87,15 +87,15 @@ class Topbar extends Component {
                         </form>
 
                         <LanguageMenu class="d-lg-inline-block" />
-    
+
                         <FullScreen/>
-    
+
                         <Dropdown isOpen={this.state.isSearch} toggle={this.toggleSearch} className="d-inline-block d-lg-none ml-2">
                             <DropdownToggle tag="button" type="button" className="btn header-item noti-icon waves-effect" id="page-header-search-dropdown" data-toggle="dropdown">
                                 <i className="mdi mdi-magnify"></i>
                             </DropdownToggle>
                             <DropdownMenu right className="dropdown-menu-lg p-0" aria-labelledby="page-header-search-dropdown">
-    
+
                                 <form className="p-3">
                                     <div className="form-group m-0">
                                         <div className="input-group">
@@ -110,11 +110,11 @@ class Topbar extends Component {
                         </Dropdown>
 
                         <NotificationMenu/>
-    
+
                         <ProfileMenu/>
-    
+
                         <SettingsButton/>
-    
+
                     </div>
                 </Container>
             </div>

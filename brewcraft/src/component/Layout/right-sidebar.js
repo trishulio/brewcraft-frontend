@@ -42,7 +42,7 @@ class RightSideBar extends Component {
         this.changeLeftSidebarType = this.changeLeftSidebarType.bind(this);
         this.changeThemePreloader = this.changeThemePreloader.bind(this);
     }
-    
+
     //update local state after changing layout
     componentDidUpdate(prevProps) {
         if (prevProps !== this.props) {
@@ -101,7 +101,7 @@ class RightSideBar extends Component {
         document.body.classList.remove('right-bar-enabled');
         this.props.hideRightSidebar();
     }
-    
+
     render() {
         return (
             <React.Fragment>
@@ -115,23 +115,23 @@ class RightSideBar extends Component {
                         </div>
 
                         <hr className="my-0" />
-                        
+
                         <div className="p-4">
                             <div className="radio-toolbar">
                                 <span>Layouts</span><br />
-                                <input 
-                                    type="radio" 
-                                    id="radioVertical" 
-                                    name="radioFruit" 
+                                <input
+                                    type="radio"
+                                    id="radioVertical"
+                                    name="radioFruit"
                                     value="vertical"
                                     checked={this.state.layoutType === "vertical"}
                                     onChange={this.changeLayout} />
-                                <label htmlFor="radioVertical">Vertical</label> 
+                                <label htmlFor="radioVertical">Vertical</label>
                                 {"   "}
-                                <input 
-                                    type="radio" 
-                                    id="radioHorizontal" 
-                                    name="radioFruit" 
+                                <input
+                                    type="radio"
+                                    id="radioHorizontal"
+                                    name="radioFruit"
                                     value="horizontal"
                                     checked={this.state.layoutType === "horizontal"}
                                     onChange={this.changeLayout} />
@@ -140,19 +140,19 @@ class RightSideBar extends Component {
                             <br/>
                             <div className="radio-toolbar">
                                 <span id="radio-title">Layout Width</span><br />
-                                <input 
-                                    type="radio" 
-                                    id="radioFluid" 
-                                    name="radioWidth" 
+                                <input
+                                    type="radio"
+                                    id="radioFluid"
+                                    name="radioWidth"
                                     value="fluid"
                                     checked={this.state.layoutWidth !== "boxed"}
                                     onChange={this.changeLayoutWidth} />
-                                <label htmlFor="radioFluid">Fluid</label> 
+                                <label htmlFor="radioFluid">Fluid</label>
                                 {"   "}
-                                <input 
-                                    type="radio" 
-                                    id="radioBoxed" 
-                                    name="radioWidth" 
+                                <input
+                                    type="radio"
+                                    id="radioBoxed"
+                                    name="radioWidth"
                                     value="boxed"
                                     checked={this.state.layoutWidth === "boxed"}
                                     onChange={this.changeLayoutWidth} />
@@ -163,69 +163,69 @@ class RightSideBar extends Component {
                                 {this.state.layoutType === "vertical" ? <React.Fragment>
                                 <div className="radio-toolbar">
                                 <span id="radio-title">Topbar Theme</span><br />
-                                <input 
-                                    type="radio" 
-                                    id="radioThemeLight" 
-                                    name="radioTheme" 
+                                <input
+                                    type="radio"
+                                    id="radioThemeLight"
+                                    name="radioTheme"
                                     value="light"
                                     checked={this.state.topbarTheme === "light"}
                                     onChange={this.changeTopbarTheme} />
 
-                                <label htmlFor="radioThemeLight">Light</label> 
+                                <label htmlFor="radioThemeLight">Light</label>
                                 {"   "}
-                                <input 
-                                    type="radio" 
-                                    id="radioThemeDark" 
-                                    name="radioTheme" 
+                                <input
+                                    type="radio"
+                                    id="radioThemeDark"
+                                    name="radioTheme"
                                     value="dark"
                                     checked={this.state.topbarTheme === "dark"}
                                     onChange={this.changeTopbarTheme} />
-                                <label htmlFor="radioThemeDark">Dark</label> 
+                                <label htmlFor="radioThemeDark">Dark</label>
                                 {"   "}
-                                {this.state.layoutType === "vertical" ? null : 
-                                <> <input 
-                                    type="radio" 
-                                    id="radioThemeColored" 
-                                    name="radioTheme" 
+                                {this.state.layoutType === "vertical" ? null :
+                                <> <input
+                                    type="radio"
+                                    id="radioThemeColored"
+                                    name="radioTheme"
                                     value="colored"
                                     checked={this.state.topbarTheme === "colored"}
                                     onChange={this.changeTopbarTheme} />
                                 <label htmlFor="radioThemeColored">Colored</label> </> }
-                                
+
                             </div>
-                            
+
                             <hr />
                                 <div className="radio-toolbar">
                                 <span id="radio-title">Left Sidebar Type</span>
                                 <br />
-                                <input 
-                                    type="radio" 
-                                    id="sidebarDefault" 
-                                    name="sidebarType" 
+                                <input
+                                    type="radio"
+                                    id="sidebarDefault"
+                                    name="sidebarType"
                                     value="default"
                                     checked={this.state.sidebarType === "default"}
                                     onChange={this.changeLeftSidebarType} />
 
-                                <label htmlFor="sidebarDefault">Default</label> 
+                                <label htmlFor="sidebarDefault">Default</label>
                                 {"   "}
-                                <input 
-                                    type="radio" 
-                                    id="sidebarCompact" 
-                                    name="sidebarType" 
+                                <input
+                                    type="radio"
+                                    id="sidebarCompact"
+                                    name="sidebarType"
                                     value="compact"
                                     checked={this.state.sidebarType === "compact"}
                                     onChange={this.changeLeftSidebarType}  />
-                                <label htmlFor="sidebarCompact">Compact</label> 
+                                <label htmlFor="sidebarCompact">Compact</label>
                                 {"   "}
-                                <input 
-                                    type="radio" 
-                                    id="sidebarIcon" 
-                                    name="sidebarType" 
+                                <input
+                                    type="radio"
+                                    id="sidebarIcon"
+                                    name="sidebarType"
                                     value="icon"
                                     checked={this.state.sidebarType === "icon"}
                                     onChange={this.changeLeftSidebarType}
                                 />
-                                <label htmlFor="sidebarIcon">Icon</label> 
+                                <label htmlFor="sidebarIcon">Icon</label>
 
                                 </div>
 
@@ -234,34 +234,34 @@ class RightSideBar extends Component {
                                             <div className="radio-toolbar">
                                 <span id="radio-title">Left Sidebar Type</span>
                                 <br />
-                                <input 
-                                    type="radio" 
-                                    id="leftsidebarThemelight" 
-                                    name="leftsidebarTheme" 
+                                <input
+                                    type="radio"
+                                    id="leftsidebarThemelight"
+                                    name="leftsidebarTheme"
                                     value="light"
                                     checked={this.state.leftSideBarTheme === "light"}
                                     onChange={this.changeLeftSidebarTheme} />
 
-                                <label htmlFor="leftsidebarThemelight">Light</label> 
+                                <label htmlFor="leftsidebarThemelight">Light</label>
                                 {"   "}
-                                <input 
-                                    type="radio" 
-                                    id="leftsidebarThemedark" 
-                                    name="leftsidebarTheme" 
+                                <input
+                                    type="radio"
+                                    id="leftsidebarThemedark"
+                                    name="leftsidebarTheme"
                                     value="dark"
                                     checked={this.state.leftSideBarTheme === "dark"}
                                     onChange={this.changeLeftSidebarTheme}  />
-                                <label htmlFor="leftsidebarThemedark">Dark</label> 
+                                <label htmlFor="leftsidebarThemedark">Dark</label>
                                 {"   "}
-                                <input 
-                                    type="radio" 
-                                    id="leftsidebarThemecolored" 
-                                    name="leftsidebarTheme" 
+                                <input
+                                    type="radio"
+                                    id="leftsidebarThemecolored"
+                                    name="leftsidebarTheme"
                                     value="colored"
                                     checked={this.state.leftSideBarTheme === "colored"}
                                     onChange={this.changeLeftSidebarTheme}
                                 />
-                                <label htmlFor="leftsidebarThemecolored">Colored</label> 
+                                <label htmlFor="leftsidebarThemecolored">Colored</label>
 
                                 </div>
                                 <hr />
@@ -314,18 +314,10 @@ class RightSideBar extends Component {
                                         />
                                     </Link>
                                 </div>
-
-                                <Link
-                                    to="#"
-                                    className="btn btn-primary btn-block mt-3"
-                                    target="_blank"
-                                >
-                                    <i className="mdi mdi-cart mr-1"></i> Purchase Now
-                                </Link>
                         </div>
                     </PerfectScrollbar>
                 </div>
-                <div className="rightbar-overlay"></div> 
+                <div className="rightbar-overlay"></div>
             </React.Fragment>
         );
     }
@@ -333,7 +325,7 @@ class RightSideBar extends Component {
 
 const mapStatetoProps = state => {
     const Layout = state.Layout;
-    return { 
+    return {
         layoutType : Layout.layoutType,
         leftSideBarTheme : Layout.leftSideBarTheme,
         layoutWidth : Layout.layoutWidth,

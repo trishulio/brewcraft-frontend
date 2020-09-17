@@ -31,11 +31,12 @@ class NotificationMenu extends Component {
     render() {
         return (
             <React.Fragment>
-                    <Dropdown isOpen={this.state.menu} toggle={this.toggle} className="d-inline-block ml-1">
+                    <Dropdown isOpen={this.state.menu} toggle={this.toggle} className="d-inline-block ml-1" disabled={true}>
                         <DropdownToggle
                             className="btn header-item noti-icon waves-effect"
                             tag="button"
                             id="page-header-notifications-dropdown"
+                            disabled={true}
                         >
                             <i className="ti-bell"></i>
                             <span className="badge badge-danger badge-pill">3</span>
@@ -67,7 +68,7 @@ class NotificationMenu extends Component {
                                                 </Media>
                                             </Link>
                                         )
-                                    } 
+                                    }
                             </PerfectScrollbar>
                             <div className="p-2 border-top">
                                 <Link className="btn btn-sm btn-link font-size-14 btn-block text-center" to="#">

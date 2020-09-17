@@ -27,7 +27,7 @@ class LanguageMenu extends Component {
         return (
             <React.Fragment>
                    <Dropdown isOpen={this.state.menu} toggle={this.toggle} id="languagemenu" className={"d-none ml-2 " + this.props.class}>
-                        <DropdownToggle tag="button" className="btn header-item waves-effect">
+                        <DropdownToggle tag="button" className="btn header-item waves-effect" disabled={true}>
                             <img className="mr-2" src={usFlag} alt="Header Language" height="16"/> English <span className="mdi mdi-chevron-down"></span>
                         </DropdownToggle>
                         <DropdownMenu right>
