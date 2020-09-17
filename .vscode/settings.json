@@ -1,0 +1,9 @@
+{
+    "files.trimTrailingWhitespace": true,
+    "editor.rulers": [
+        80
+    ],
+    "search.exclude": {
+        "/brewcraft/template/**": true
+    }
+}
