@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import {
@@ -9,15 +8,14 @@ import {
     CardBody,
     TabContent,
     TabPane,
-    Collapse,
     NavLink,
     NavItem,
     Nav,
-    Button
   } from "reactstrap";
 import classnames from "classnames";
 import { data } from "../../helpers/providers/materials";
 import { MDBDataTable } from "mdbreact";
+import Overview from "./overview";
 
 class RawMaterials extends Component {
     constructor(props) {
@@ -27,7 +25,16 @@ class RawMaterials extends Component {
                 { title : "Dashboard", link : "#" },
                 { title : "Raw Materials", link : "#" }
             ],
-            customActiveTab: "1"
+            customActiveTab: "1",
+            malts: [
+                { title : "Pale 2 Row Malt", quantity : 12, cost : 2100 },
+                { title : "Carastan Malt", quantity : 47, cost : 2400 },
+                { title : "Munich Malt", quantity : 710.8, cost : 8900 },
+                { title : "Wheat", quantity : 0, cost : 0 },
+                { title : "Black malt", quantity : 0, cost : 0 },
+                { title : "Chocolate Malt", quantity : 250.2, cost : 340 },
+                { title : "Crystal Malt", quantity : 0, cost : 0 }
+            ]
         }
         this.toggleCustom = this.toggleCustom.bind(this);
     }
@@ -48,7 +55,7 @@ class RawMaterials extends Component {
         return(
             <React.Fragment>
                 <Row>
-                    <Col xl="10">
+                    <Col xl="12">
                         <Nav tabs className="nav-tabs-custom" role="tablist">
                             <NavItem>
                                 <NavLink
@@ -75,7 +82,7 @@ class RawMaterials extends Component {
                                     }}
                                 >
                                     <span className="d-block d-sm-none"><i className="fas fa-cog"></i></span>
-                                    <span className="d-none d-sm-block">Material Types</span>
+                                    <span className="d-none d-sm-block">Materials</span>
                                 </NavLink>
                             </NavItem>
                             <NavItem>
@@ -103,29 +110,13 @@ class RawMaterials extends Component {
                                     }}
                                 >
                                     <span className="d-block d-sm-none"><i className="far fa-user"></i></span>
-                                    <span className="d-none d-sm-block">New Transaction</span>
+                                    <span className="d-none d-sm-block">View Ledger</span>
                                 </NavLink>
                             </NavItem>
                         </Nav>
                         <TabContent activeTab={this.state.customActiveTab}>
                             <TabPane tabId="1" className="p-3">
-                                <Card>
-                                    <CardBody>
-                                        <h4 className="card-title">All Raw Materials</h4>
-                                        <p className="card-title-desc">Raw materials are aggregated by <Link
-                                                onClick={(() => {
-                                                    this.toggleCustom("2");
-                                                })}
-                                                >raw material type.
-                                            </Link> Raw material cost is calculated using a weighted-average cost formula over the current year-to-date period.
-                                        </p>
-                                        <MDBDataTable
-                                            responsive
-                                            bordered
-                                            data={data}
-                                        />
-                                    </CardBody>
-                                </Card>
+                                <Overview/>
                             </TabPane>
                             <TabPane tabId="2" className="p-3">
                                 <Card>
@@ -156,17 +147,6 @@ class RawMaterials extends Component {
                         </p>
                             </TabPane>
                         </TabContent>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xl="10">
-
-                    </Col>
-                </Row>
-
-                <Row>
-                    <Col xs="12">
-
                     </Col>
                 </Row>
             </React.Fragment>
