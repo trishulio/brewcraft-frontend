@@ -100,6 +100,7 @@ const authProtectedRoutes = [
   { path: "/facility", component: Facility },
   { path: "/finished-goods", component: FinishedGoods },
   { path: "/packaging", component: Packaging },
+  { path: "/raw-materials/:tab", component: RawMaterials },
   { path: "/raw-materials", component: RawMaterials },
   { path: "/reports", component: Reports },
 
