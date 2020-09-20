@@ -5,6 +5,8 @@ import Layout from './layout/reducer';
 
 import Breadcrumb from "./Breadcrumb/reducer";
 
+import Brewery from "./Brewery/reducer";
+
 // Authentication Module
 import Account from './auth/register/reducer';
 import Login from './auth/login/reducer';
@@ -17,6 +19,9 @@ const rootReducer = combineReducers({
 
     //Breadcrumb items
     Breadcrumb,
+
+    // Brewery
+    Brewery,
 
     // Authentication
     Account,

@@ -1,37 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
-import { Link } from "react-router-dom";
-import { data } from "../../helpers/providers/materials";
-import DountChart from "../AllCharts/chartjs/dountchart";
 import {
-    Alert,
     UncontrolledAlert,
     Col,
     Row,
     Card,
     CardBody,
-    TabContent,
-    TabPane,
-    NavLink,
-    NavItem,
-    Nav,
-    Table,
-    Form,
-    FormGroup,
-    Label,
-    Input,
-    InputGroupAddon,
-    InputGroup,
   } from "reactstrap";
 import Select from "react-select";
-import classnames from "classnames";
-import { MDBDataTable } from "mdbreact";
-import BarChart from "../../component/MaterialsChart/barchart-discover";
-import MiniCard from "../Dashboard/mini-card";
+import BootstrapTable from 'react-bootstrap-table-next';
+import cellEditFactory from "react-bootstrap-table2-editor";
 import RangePicker from "../../component/RangePicker";
 
-class Discover extends Component {
+class Records extends Component {
     constructor(props) {
         super(props);
         const date = new Date();
@@ -47,12 +29,45 @@ class Discover extends Component {
                 { title : "Book Value", icon : "mdi-cube-outline", result : "+11%", value : "$20,587", desc : "From previous period", color : "info" },
             ],
             startDate: new Date(date.getFullYear(), date.getMonth(), 1),
-            endDate: date
+            endDate: date,
+            products: [
+                { receipt_id: "SASK04910-1", date: date.toDateString(), type: "Hops", qty: 1, cost: "$190", supplier: "Saskatchewan Farms" },
+                { receipt_id: "MAN3556-F", date: date.toDateString(), type: "Hops", qty: 2, cost: "$290", supplier: "Manitoba Acres" },
+                { receipt_id: "SASK0440-1", date: date.toDateString(), type: "Malt", qty: 3, cost: "$34,000", supplier: "Saskatchewan Farms" },
+                { receipt_id: "SASK0423-1", date: date.toDateString(), type: "Hops", qty: 4, cost: "$320", supplier: "Saskatchewan Farms" },
+                { receipt_id: "MAN3243-FD", date: date.toDateString(), type: "Yeast", qty: 5, cost: "$59", supplier: "Manitoba Acres" }
+            ],
+            columns: [
+                {
+                    dataField: "date",
+                    text: "Date Received"
+                },
+                {
+                    dataField: "receipt_id",
+                    text: "Order Id"
+                },
+                {
+                    dataField: "supplier",
+                    text: "Supplier"
+                },
+                {
+                  dataField: "type",
+                  text: "Material"
+                },
+                {
+                  dataField: "qty",
+                  text: "Quantity"
+                },
+                {
+                  dataField: "cost",
+                  text: "Cost"
+                }
+            ]
         }
     }
 
     componentDidMount() {
-        this.props.setBreadcrumbItems("Discover", this.state.breadcrumbItems);
+        this.props.setBreadcrumbItems("Records", this.state.breadcrumbItems);
     }
 
     render() {
@@ -110,60 +125,15 @@ class Discover extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <MiniCard reports={this.state.reports} />
-                </Row>
-                <Row>
-                    <Col md={4}>
-                        <Card>
-                            <CardBody>
-                                <h4 className="card-title mb-4">Value</h4>
-                                <div className="row text-center mt-4">
-                                    <div className="col-sm-6">
-                                        <h5 className="mb-0 font-size-20">694</h5>
-                                        <p className="text-muted">Hops</p>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <h5 className="mb-0 font-size-20">55210</h5>
-                                        <p className="text-muted">Malts</p>
-                                    </div>
-                                </div>
-                                <DountChart/>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col md={8}>
-                        <Card>
-                            <CardBody>
-                                <h4 className="card-title mb-4">Raw Materials</h4>
-                                <div className="row text-center mt-4">
-                                    <div className="col-sm-4">
-                                        <h5 className="mb-0 font-size-20">6,940 kg</h5>
-                                        <p className="text-muted">Total Hops</p>
-                                    </div>
-                                    <div className="col-sm-4">
-                                        <h5 className="mb-0 font-size-20">55,210 kg</h5>
-                                        <p className="text-muted">Total Malts</p>
-                                    </div>
-                                    <div className="col-sm-4">
-                                        <h5 className="mb-0 font-size-20">98 kg</h5>
-                                        <p className="text-muted">Other</p>
-                                    </div>
-                                </div>
-                                <BarChart/>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                </Row>
-                <Row>
                         <Col xs="12">
                             <Card>
                                 <CardBody>
-                                    <h4 className="mb-4 card-title">Transactions</h4>
-                                    <MDBDataTable
-                                        responsive
-                                        bordered
-                                        striped
-                                        data={data}
+                                    <h4 className="card-title">Transactions</h4>
+                                    <BootstrapTable
+                                        keyField="id"
+                                        data={this.state.products}
+                                        columns={this.state.columns}
+                                        cellEdit={cellEditFactory({ mode: "click" })}
                                     />
                                 </CardBody>
                             </Card>
@@ -174,4 +144,4 @@ class Discover extends Component {
     }
 }
 
-export default connect(null, { setBreadcrumbItems })(Discover);
+export default connect(null, { setBreadcrumbItems })(Records);

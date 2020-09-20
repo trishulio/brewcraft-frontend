@@ -12,6 +12,8 @@ import Dashboard from '../pages/Dashboard/dashboard';
 
 // Brewcraft
 import RawMaterials from '../pages/RawMaterials';
+import RawMaterialsDiscover from '../pages/RawMaterials/discover';
+import RawMaterialsRecords from '../pages/RawMaterials/records';
 
 import Brews from '../pages/Brews/brews';
 import Equipment from '../pages/Equipment/equipment';
@@ -101,9 +103,12 @@ const authProtectedRoutes = [
   { path: "/facility", component: Facility },
   { path: "/finished-goods", component: FinishedGoods },
   { path: "/packaging", component: Packaging },
-  { path: "/raw-materials/:tab", component: RawMaterials },
-  { path: "/raw-materials", component: RawMaterials },
   { path: "/reports", component: Reports },
+
+  // Raw Materials
+  { path: "/raw-materials/discover", component: RawMaterialsDiscover },
+  { path: "/raw-materials/records", component: RawMaterialsRecords },
+  { path: "/raw-materials", component: RawMaterials },
 
   //Calendar
   { path: "/calendar", component: Calendar },

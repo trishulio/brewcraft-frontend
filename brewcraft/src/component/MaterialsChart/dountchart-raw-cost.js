@@ -3,34 +3,6 @@ import { Doughnut } from 'react-chartjs-2';
 
 class DountChart extends Component {
     render() {
-        const data = {
-            labels: ["Pale 2 row malt", "Carastan", "Munich", "Chocolate"],
-            datasets: [
-                {
-                    data: [21000, 20400, 20900, 25900],
-                    backgroundColor: [
-                        "#aaaaaa",
-                        "#bbbbbb",
-                        "#cccccc",
-                        "#dddddd"
-                    ],
-                    hoverBackgroundColor: [
-                        "#7a6fbe",
-                        "#7a6fbe",
-                        "#7a6fbe",
-                        "#7a6fbe"
-                        // "#ececec"
-                    ],
-                    hoverBorderColor: "#fff"
-                }
-            ],
-            legend: {
-                position: 'bottom',
-                align: 'start'
-            }
-
-        };
-
         const option = {
             tooltips: {
                 callbacks: {
@@ -50,7 +22,7 @@ class DountChart extends Component {
         }
         return (
             <React.Fragment>
-                <Doughnut width={4} height={4} data={data} options={option} />
+                <Doughnut width={4} height={4} data={this.props.data} options={option} />
             </React.Fragment>
         );
     }

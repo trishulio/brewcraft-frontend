@@ -2,6 +2,8 @@ export * from './layout/actions';
 
 export * from './Breadcrumb/actions';
 
+export * from './Brewery/actions';
+
 // Authentication module
 export * from './auth/register/actions';
 export * from './auth/login/actions';

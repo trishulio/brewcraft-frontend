@@ -22,7 +22,7 @@ import InProcessBarChart from "../../component/MaterialsChart/barchart-in-proces
 import DountChart from "../../component/MaterialsChart/dountchart-raw-cost";
 import MiniCard from "../Dashboard/mini-card";
 
-class Overview extends Component {
+class Materials extends Component {
     constructor(props) {
         super(props);
         const date = new Date();
@@ -39,6 +39,10 @@ class Overview extends Component {
                 { title : "Waste", icon : "mdi-cube-outline", result : "+11%", value : "$20,587", desc : "From previous period", color : "info" },
             ]
         }
+    }
+
+    componentDidMount() {
+        this.props.setBreadcrumbItems("Materials", this.state.breadcrumbItems);
     }
 
     toggleMaterialActiveTab(card, tab) {
@@ -363,4 +367,4 @@ class Overview extends Component {
     }
 }
 
-export default connect(null, { setBreadcrumbItems })(Overview);
+export default connect(null, { setBreadcrumbItems })(Materials);

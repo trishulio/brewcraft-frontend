@@ -4,21 +4,6 @@ import { Bar } from 'react-chartjs-2';
 class InProcessBarChart extends Component {
 
     render() {
-        const data = {
-            labels: ["Pale 2 row malt", "Carastan", "Munich", "Wheat", "Black malt", "Chocolate", "Crystal"],
-            datasets: [
-                {
-                    label: "Raw Materials Kg",
-                    backgroundColor: "#28bbe3",
-                    borderColor: "#28bbe3",
-                    borderWidth: 1,
-                    hoverBackgroundColor: "#28bbe3",
-                    hoverBorderColor: "#28bbe3",
-                    data: [120, 470, 710, 0, 0, 250, 0]
-                }
-            ]
-        };
-
         const option = {
             tootlbar: {
                 show: false
@@ -42,7 +27,7 @@ class InProcessBarChart extends Component {
 
         return (
             <React.Fragment>
-                <Bar width={4} height={4} data={data} options={option} />
+                <Bar width={4} height={4} data={this.props.data} options={option} />
             </React.Fragment>
         );
     }

@@ -11,7 +11,7 @@ const initialState={
     ],
 }
 
-const layout = (state=initialState,action) => {
+const layout = (state=initialState, action) => {
     switch(action.type){
         case SET_BREADCRUMB_ITEMS:
             return {
