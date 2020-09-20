@@ -15,8 +15,8 @@ import {
 import classnames from "classnames";
 import { data } from "../../helpers/providers/materials";
 import { MDBDataTable } from "mdbreact";
-import Overview from "./overview";
 import Materials from "./materials";
+import Discover from "./discover";
 
 class RawMaterials extends Component {
     constructor(props) {
@@ -41,22 +41,21 @@ class RawMaterials extends Component {
 
     componentDidMount() {
         let title = "";
-        if (this.state.tab) {
-            const words = this.props.match.params.tab.split("-");
-            title = "";
-            words.forEach(word => {
-                title += word.charAt(0).toUpperCase() + word.slice(1);
-            });
-        } else {
-            title = "Raw Materials";
-        }
+        switch(this.state.tab?.toLowerCase()) {
+            case "discover":
+                title = "Discover";
+                break;
+            default:
+                title = "Overview";
+                break
+        };
         this.props.setBreadcrumbItems(title, this.state.breadcrumbItems);
     }
 
     render() {
         return(
             <React.Fragment>
-                { this.state.tab === "overview" && <Overview/> }
+                { this.state.tab === "discover" && <Discover/> }
                 { this.state.tab === undefined && <Materials/> }
             </React.Fragment>
         );

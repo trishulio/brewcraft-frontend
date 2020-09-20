@@ -8,7 +8,7 @@ import DatePicker from "react-datepicker";
 
 export function RangePicker(props) {
     return (
-        <Form inline className="mb-3 float-right">
+        <Form inline>
         <FormGroup className="mr-3">
         <InputGroup>
             <DatePicker

@@ -7,16 +7,17 @@ import Pagesregister from '../pages/Authentication/Register';
 import ForgetPassword from '../pages/Authentication/ForgetPassword';
 import LockScreen from "../pages/Authentication/pages-lock-screen";
 
-//Dashboard
+// Dashboard
 import Dashboard from '../pages/Dashboard/dashboard';
 
-//Brewcraft
+// Brewcraft
+import RawMaterials from '../pages/RawMaterials';
+
 import Brews from '../pages/Brews/brews';
 import Equipment from '../pages/Equipment/equipment';
 import Facility from '../pages/Facility/facility';
 import FinishedGoods from '../pages/FinishedGoods/finished-goods';
 import Packaging from '../pages/Packaging/packaging';
-import RawMaterials from '../pages/RawMaterials/raw-materials';
 import Reports from '../pages/Reports/reports';
 
 //Calender
