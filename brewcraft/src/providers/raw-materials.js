@@ -299,7 +299,82 @@ const fetchOverview = () => {
 };
 
 const fetchDiscover = () => {
-    return Promise.resolve({});
+    return Promise.resolve({
+        inventory_quantity: {
+            stats: [{
+                text: "Total Cost",
+                value: "-"
+            }, {
+                text: "Average Cost",
+                value: "-"
+            }, {
+                text: "Other",
+                value: "-"
+            }],
+            labels: ["Pale 2 row malt", "Carastan", "Munich", "Wheat", "Black malt", "Chocolate", "Crystal"],
+            datasets: [
+                {
+                    label: "Net Movement",
+                    backgroundColor: "#28bbe3",
+                    borderColor: "#28bbe3",
+                    borderWidth: 1,
+                    hoverBackgroundColor: "#28bbe3",
+                    hoverBorderColor: "#28bbe3",
+                    data: [120, 470, 710, -340, -700, 250, -90]
+                },
+                {
+                    label: "Raw Materials Kg",
+                    backgroundColor: "#eeeeee",
+                    borderColor: "#eeeeee",
+                    borderWidth: 1,
+                    hoverBackgroundColor: "#28bbe3",
+                    hoverBorderColor: "#28bbe3",
+                    data: [120, 470, 710, 90, 180, 250, -90]
+                }
+            ]
+        },
+        records: {
+            data: {
+                rows: [{
+                    name: "Pale 2 Row Malt",
+                    type: "pale 2-row",
+                    supplier: "Saskatchewan Farms",
+                    cost: "$2,100",
+                    quantity: "12.0 Kg"
+                }],
+                columns: [{
+                    label: 'Name',
+                    field: 'name',
+                    sort: 'asc',
+                    width: 200
+                },
+                {
+                    label: 'Type',
+                    field: 'type',
+                    sort: 'asc',
+                    width: 150
+                },
+                {
+                    label: 'Supplier Name',
+                    field: 'supplier',
+                    sort: 'asc',
+                    width: 270
+                },
+                {
+                    label: 'Cost',
+                    field: 'cost',
+                    sort: 'asc',
+                    width: 100
+                },
+                {
+                    label: 'Quantity',
+                    field: 'quantity',
+                    sort: 'asc',
+                    width: 100
+                }]
+            }
+        }
+    });
 }
 
 export default {

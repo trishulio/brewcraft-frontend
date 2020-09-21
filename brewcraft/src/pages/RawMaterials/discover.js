@@ -1,31 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { setBreadcrumbItems } from "../../store/actions";
-import { Link } from "react-router-dom";
+import { setBreadcrumbItems, setRawMaterialDiscover } from "../../store/actions";
 import DataProvider from "../../providers/raw-materials";
-import DountChart from "../AllCharts/chartjs/dountchart";
+import DountChart from "../../component/MaterialsChart/dountchart";
 import {
-    Alert,
     UncontrolledAlert,
     Col,
     Row,
     Card,
     CardBody,
-    TabContent,
-    TabPane,
-    NavLink,
-    NavItem,
-    Nav,
-    Table,
-    Form,
-    FormGroup,
-    Label,
-    Input,
-    InputGroupAddon,
-    InputGroup,
   } from "reactstrap";
 import Select from "react-select";
-import classnames from "classnames";
 import { MDBDataTable } from "mdbreact";
 import BarChart from "../../component/MaterialsChart/barchart-discover";
 import MiniCard from "../Dashboard/mini-card";
@@ -39,20 +24,16 @@ class Discover extends Component {
             breadcrumbItems : [
                 { title : "Dashboard", link : "#" },
                 { title : "Raw Materials", link : "#" }
-            ],
-            reports : [
-                { title : "Waste", icon : "mdi-trash-can-outline", result : "0%", value : "$1,700.08", desc : "From previous period", color : "warning" },
-                { title : "Purchased", icon : "mdi-buffer", result : "-29%", value : "$46,782", desc : "From previous period", color : "danger" },
-                { title : "Converted", icon : "mdi-tag-text-outline", result : "0%", value : "$15,900", desc : "From previous period", color : "warning" },
-                { title : "Book Value", icon : "mdi-cube-outline", result : "+11%", value : "$20,587", desc : "From previous period", color : "info" },
-            ],
-            startDate: new Date(date.getFullYear(), date.getMonth(), 1),
-            endDate: date
+            ]
         }
     }
 
     componentDidMount() {
         this.props.setBreadcrumbItems("Discover", this.state.breadcrumbItems);
+        DataProvider.fetchDiscover()
+            .then(oData => {
+                this.props.setRawMaterialDiscover(oData);
+            });
     }
 
     render() {
@@ -65,35 +46,33 @@ class Discover extends Component {
                     </UncontrolledAlert>
                     <div className="pr-2 mb-3" style={{ width: "50%", display: 'inline-block'}} >
                     <Select
-                        value={null}
-                        placeholder="Material Type .."
-                        // onChange={this.handleSelectGroup}
-                        options={[{
-                            label: "Picnic",
-                            options: [
-                              { label: "Mustard", value: "Mustard" },
-                              { label: "Ketchup", value: "Ketchup" },
-                              { label: "Relish", value: "Relish" }
-                            ]
-                          }]}
-                        className="select2 select2-multiple"
+                        onChange={(option) => {
+                            this.props.setRawMaterialDiscover({
+                                material_type: {
+                                    ...this.props.material_type,
+                                    value: option.value
+                                }
+                            });
+                        }}
+                        placeholder="Material Type ..."
+                        className="basic-single"
+                        classNamePrefix="select"
+                        defaultValue={this.props.material_type.value}
+                        options={this.props.material_type.options}
                     />
                     </div>
                     <div className="pl-2 mb-3" style={{ width: "50%", display: 'inline-block'}} >
                     <Select
-                        value={null}
-                        // onChange={this.handleSelectGroup}
-                        placeholder="Material .."
+                        onChange={(option) => {
+                            this.props.setRawMaterialDiscover({
+                                ...this.props,
+                                material: option ? option.value : null
+                            });
+                        }}
+                        placeholder="Material ..."
                         isMulti={true}
-                        options={[{
-                            label: "Picnic",
-                            options: [
-                              { label: "Mustard", value: "Mustard" },
-                              { label: "Ketchup", value: "Ketchup" },
-                              { label: "Relish", value: "Relish" }
-                            ]
-                          }]}
-                        className="select2"
+                        options={this.props.material.options}
+                        className="select2 select2-multiple"
                     />
                     </div>
                     </Col>
@@ -103,14 +82,14 @@ class Discover extends Component {
                         </UncontrolledAlert>
                         <div className="mb-3 float-right">
                             <RangePicker
-                                startDate={this.state.startDate}
-                                endDate={this.state.endDate}
+                                startDate={this.props.begin_date}
+                                endDate={this.props.end_date}
                             />
                         </div>
                     </Col>
                 </Row>
                 <Row>
-                    <MiniCard reports={this.state.reports} />
+                    <MiniCard reports={this.props.reports} />
                 </Row>
                 <Row>
                     <Col md={4}>
@@ -118,16 +97,14 @@ class Discover extends Component {
                             <CardBody>
                                 <h4 className="card-title mb-4">Value</h4>
                                 <div className="row text-center mt-4">
-                                    <div className="col-sm-6">
-                                        <h5 className="mb-0 font-size-20">694</h5>
-                                        <p className="text-muted">Hops</p>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <h5 className="mb-0 font-size-20">55210</h5>
-                                        <p className="text-muted">Malts</p>
-                                    </div>
+                                    {this.props.inventory_value.stats.map(stat => (
+                                        <div className="col-sm-6">
+                                            <h5 className="mb-0 font-size-20">{stat.value}</h5>
+                                            <p className="text-muted">{stat.text}</p>
+                                        </div>
+                                    ))}
                                 </div>
-                                <DountChart/>
+                                <DountChart data={this.props.inventory_value} />
                             </CardBody>
                         </Card>
                     </Col>
@@ -136,20 +113,14 @@ class Discover extends Component {
                             <CardBody>
                                 <h4 className="card-title mb-4">Raw Materials</h4>
                                 <div className="row text-center mt-4">
-                                    <div className="col-sm-4">
-                                        <h5 className="mb-0 font-size-20">6,940 kg</h5>
-                                        <p className="text-muted">Total Hops</p>
-                                    </div>
-                                    <div className="col-sm-4">
-                                        <h5 className="mb-0 font-size-20">55,210 kg</h5>
-                                        <p className="text-muted">Total Malts</p>
-                                    </div>
-                                    <div className="col-sm-4">
-                                        <h5 className="mb-0 font-size-20">98 kg</h5>
-                                        <p className="text-muted">Other</p>
-                                    </div>
+                                    {this.props.inventory_quantity.stats.map(stat => (
+                                        <div className="col-sm-4">
+                                            <h5 className="mb-0 font-size-20">{stat.value}</h5>
+                                            <p className="text-muted">{stat.text}</p>
+                                        </div>
+                                    ))}
                                 </div>
-                                <BarChart/>
+                                <BarChart data={this.props.inventory_quantity}/>
                             </CardBody>
                         </Card>
                     </Col>
@@ -163,7 +134,7 @@ class Discover extends Component {
                                         responsive
                                         bordered
                                         striped
-                                        data={DataProvider.data}
+                                        data={this.props.records.data}
                                     />
                                 </CardBody>
                             </Card>
@@ -174,4 +145,41 @@ class Discover extends Component {
     }
 }
 
-export default connect(null, { setBreadcrumbItems })(Discover);
+const mapStatetoProps = state => {
+    const Discover = state.Brewery.modules.raw_materials.discover;
+    return {
+        ...Discover,
+        reports: [
+            {
+                title: "Inventory",
+                icon: "mdi-cube-outline",
+                desc : "From previous period",
+                color: "info",
+                ...Discover.mini_card.raw_materials
+            },
+            {
+                title: "Purchases",
+                icon: "mdi-cube",
+                desc : "From previous period",
+                color: "info",
+                ...Discover.mini_card.in_process
+            },
+            {
+                title : "COGS",
+                icon : "mdi-tag-text-outline",
+                desc : "From previous period",
+                color: "info",
+                ...Discover.mini_card.cogs
+            },
+            {
+                title : "Waste",
+                icon : "mdi-trash-can-outline",
+                desc : "From previous period",
+                color: "info",
+                ...Discover.mini_card.waste
+            }
+        ]
+    };
+};
+
+export default connect(mapStatetoProps, { setBreadcrumbItems, setRawMaterialDiscover })(Discover);

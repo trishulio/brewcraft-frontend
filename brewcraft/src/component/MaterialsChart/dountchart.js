@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-import { Bar } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 
-class BarChart extends Component {
-
+class DountChart extends Component {
     constructor(props) {
         super(props);
     }
 
     render() {
         const option = {
-            tootlbar: {
-                show: false
-            },
             tooltips: {
                 callbacks: {
                     label: function (tooltipItem, data) {
@@ -28,17 +24,12 @@ class BarChart extends Component {
                 }
             }
         }
-
         return (
             <React.Fragment>
-                <Bar
-                    width={8}
-                    height={4}
-                    data={this.props.data}
-                    options={option} />
+                <Doughnut width={479} height={260} data={this.props.data} options={option} />
             </React.Fragment>
         );
     }
 }
 
-export default BarChart;
+export default DountChart;
