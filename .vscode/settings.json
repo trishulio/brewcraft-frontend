@@ -5,6 +5,8 @@
     ],
     "search.exclude": {
         "/brewcraft/src/assets/": false,
-        "/brewcraft/template/**": true
+        "/brewcraft/template/bracket/**": true,
+        "/brewcraft/template/lexa/Documentation/**": true,
+        "/brewcraft/template/lexa/React/src/assets/**": true
     }
 }

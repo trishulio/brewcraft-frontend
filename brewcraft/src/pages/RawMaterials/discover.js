@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import { Link } from "react-router-dom";
-import { data } from "../../helpers/providers/materials";
+import DataProvider from "../../providers/raw-materials";
 import DountChart from "../AllCharts/chartjs/dountchart";
 import {
     Alert,
@@ -163,7 +163,7 @@ class Discover extends Component {
                                         responsive
                                         bordered
                                         striped
-                                        data={data}
+                                        data={DataProvider.data}
                                     />
                                 </CardBody>
                             </Card>
