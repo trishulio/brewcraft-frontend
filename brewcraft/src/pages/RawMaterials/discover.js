@@ -165,7 +165,7 @@ const mapStatetoProps = state => {
                 ...Discover.mini_card.in_process
             },
             {
-                title : "COGS",
+                title : "Cost of Goods",
                 icon : "mdi-tag-text-outline",
                 desc : "From previous period",
                 color: "info",
