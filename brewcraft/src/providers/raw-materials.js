@@ -85,6 +85,10 @@ const data = {
 };
 
 const fetchOverview = () => {
+
+    /* TODO */
+    /* Make call to API here !! */
+
     return new Promise ((resolve, reject) => {
         setTimeout(() => {
             resolve({
