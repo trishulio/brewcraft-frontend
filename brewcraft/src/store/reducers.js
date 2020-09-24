@@ -11,6 +11,7 @@ import Brewery from "./Brewery/reducer";
 import Account from './auth/register/reducer';
 import Login from './auth/login/reducer';
 import Forget from './auth/forgetpwd/reducer';
+import Contacts from './Contacts/reducer';
 
 const rootReducer = combineReducers({
 
@@ -26,7 +27,9 @@ const rootReducer = combineReducers({
     // Authentication
     Account,
     Login,
-    Forget
+    Forget,
+    // Contacts
+    Contacts
 
 });
 

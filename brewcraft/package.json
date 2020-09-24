@@ -23,6 +23,7 @@
     "chartist-plugin-tooltips-updated": "^0.1.2",
     "draft-js": "^0.11.5",
     "google-maps-react": "^2.0.6",
+    "lodash": "^4.17.20",
     "mdbreact": "^4.26.0",
     "metismenujs": "^1.1.0",
     "morris-js-module": "^1.2.1",
