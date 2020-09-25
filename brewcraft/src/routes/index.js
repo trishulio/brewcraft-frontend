@@ -21,6 +21,7 @@ import Facility from '../pages/Facility/facility';
 import FinishedGoods from '../pages/FinishedGoods/finished-goods';
 import Packaging from '../pages/Packaging/packaging';
 import Reports from '../pages/Reports/reports';
+import { Suppliers } from "../pages/Suppliers/Suppliers";
 
 const authProtectedRoutes = [
   // DashBoard
@@ -33,6 +34,9 @@ const authProtectedRoutes = [
   { path: "/finished-goods", component: FinishedGoods },
   { path: "/packaging", component: Packaging },
   { path: "/reports", component: Reports },
+
+  // Suppliers
+  { path: '/suppliers', component: Suppliers },
 
   // Raw Materials
   { path: "/raw-materials/discover", component: RawMaterialsDiscover },
