@@ -22,7 +22,7 @@ import FinishedGoods from '../pages/FinishedGoods/finished-goods';
 import Packaging from '../pages/Packaging/packaging';
 import Reports from '../pages/Reports/reports';
 
-import Contacts from '../pages/Contacts/Contacts';
+import Customers from '../pages/Customers/Customers';
 
 
 const authProtectedRoutes = [
@@ -43,7 +43,7 @@ const authProtectedRoutes = [
   { path: "/raw-materials", component: RawMaterials },
 
 // contacts
-  { path: "/contacts", component: Contacts },
+  { path: "/customers", component: Customers },
 
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
 ];

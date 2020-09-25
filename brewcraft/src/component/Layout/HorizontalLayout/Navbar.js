@@ -185,7 +185,7 @@ class Navbar extends Component {
                                     </div>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="reports">
+                                    <Link className="nav-link" to="/reports">
                                         <i className="ti-stats-up"></i>Reports
                                     </Link>
                                 </li>
@@ -209,6 +209,11 @@ class Navbar extends Component {
                                 <li className="nav-item">
                                     <Link className="nav-link" to="facility">
                                         <i className="ti-clipboard"></i>Facility
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/customers">
+                                        <i className="ti-user"></i>Customers
                                     </Link>
                                 </li>
                             </ul>
