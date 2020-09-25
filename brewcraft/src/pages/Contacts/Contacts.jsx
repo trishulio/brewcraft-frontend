@@ -2,7 +2,17 @@ import React, { useEffect, useState } from "react";
 import { setBreadcrumbItems } from "../../store/actions";
 import BootstrapTable from "react-bootstrap-table-next";
 import { useSelector, useDispatch } from "react-redux";
-import { Card, Col, Row, Button, CardBody } from "reactstrap";
+import {
+  Card,
+  Col,
+  Row,
+  Button,
+  CardBody,
+  Dropdown,
+  DropdownToggle,
+  DropdownItem,
+  DropdownMenu,
+} from "reactstrap";
 import { Modalcall } from "./components/Modalcall";
 import Contact from "./components/Contact";
 import {
@@ -10,6 +20,7 @@ import {
   editContact,
   deleteContact,
 } from "../../store/Contacts/actions";
+import cellEditFactory from 'react-bootstrap-table2-editor';
 import { get, filter, forEach } from "lodash";
 
 export default function Contacts() {
@@ -26,6 +37,7 @@ export default function Contacts() {
     type: null,
     formData: null,
   });
+  const [btnprimary1, setBtnprimary1] = useState(false);
 
   const [rowSelection, setRowSelection] = useState([]);
   // fetch redux data from store
@@ -133,7 +145,7 @@ export default function Contacts() {
   // delete contact list to saga
   const deleteDispatch = () => {
     const idData = forEach(rowSelection, (value) => {
-      return get(data,['value', 'id']);
+      return get(data, ["value", "id"]);
     });
     dispatch(deleteContact(idData.sort()));
     setDeleteshow(false);
@@ -187,47 +199,58 @@ export default function Contacts() {
         <Col>
           <Card>
             <CardBody>
-              <Button
-                onClick={createFormshow}
-                type="button"
-                color="primary"
-                className="waves-effect waves-light"
+              <Dropdown
+                isOpen={btnprimary1}
+                toggle={() => setBtnprimary1(!btnprimary1)}
               >
-                Create contact
-              </Button>
-              <Button
-                onClick={editforFromlist}
-                type="button"
-                color="secondary"
-                className="waves-effect"
-                disabled={rowSelection.length != 1}
-              >
-                Edit contact
-              </Button>
-              <Button
-                onClick={deleteDialogopen}
-                type="button"
-                color="warning"
-                className="waves-effect waves-light"
-                disabled={rowSelection.length == 0}
-              >
-                Delete contact
-              </Button>
-              <BootstrapTable
-                keyField="id"
-                data={data}
-                columns={columns}
-                striped
-                hover
-                selectRow={{
-                  mode: "checkbox",
-                  clickToSelect: true,
-                  onSelect: (row, isSelect, rowIndex, e) =>
-                    singleColmunselect(row, isSelect, rowIndex, e),
-                  onSelectAll: (isSelect, rows, e) =>
-                    allSelection(isSelect, rows, e),
-                }}
-              />
+                <DropdownToggle tag="button" className="btn btn-primary">
+                  Contact<i className="mdi mdi-chevron-down"></i>
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem href="#" onClick={createFormshow}>
+                    Create
+                  </DropdownItem>
+                  <DropdownItem
+                    href="#"
+                    onClick={editforFromlist}
+                    disabled={rowSelection.length != 1}
+                  >
+                    Edit
+                  </DropdownItem>
+                  <DropdownItem
+                    href="#"
+                    onClick={deleteDialogopen}
+                    disabled={rowSelection.length == 0}
+                  >
+                    Delete
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+              <div className="table-rep-plugin">
+                <div
+                  className="table-responsive mb-0"
+                  data-pattern="priority-columns"
+                >
+                  <BootstrapTable
+                    className="pd-0"
+                    cellEdit={ cellEditFactory({ mode: 'click' }) }
+                   
+                    keyField="id"
+                    data={data}
+                    columns={columns}
+                    striped
+                    hover
+                    selectRow={{
+                      mode: "checkbox",
+                      clickToSelect: false,
+                      onSelect: (row, isSelect, rowIndex, e) =>
+                        singleColmunselect(row, isSelect, rowIndex, e),
+                      onSelectAll: (isSelect, rows, e) =>
+                        allSelection(isSelect, rows, e),
+                    }}
+                  />
+                </div>
+              </div>
             </CardBody>
           </Card>
         </Col>
