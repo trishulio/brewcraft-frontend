@@ -1,7 +1,6 @@
 import React from 'react';
 import { Row, Col, Card, CardBody, FormGroup, Label, Input, Button } from 'reactstrap';
 import Select from 'react-select';
-import './UpdateModal.css';
 
 export const UpdateModalUI = ({ handleUpdate, handleSelectChange, disabled, fields, vendors, handleInputChange }) => {
     return <Row>

@@ -1,13 +1,19 @@
 import React from 'react';
-import styles from './Modal.module.css';
+import {
+    Modal,
+    ModalBody,
+    ModalFooter,
+    Button
+} from "reactstrap";
 
-export const ModalUI = ({content, handleModalClose}) => {
-    return <div className={styles.Modal}>
-        <div className={styles['Modal-Body']}>
-            <span
-                onClick={handleModalClose}
-                className={styles['Modal-Close']}>&times;</span>
+
+export const ModalUI = ({ content, handleModalClose }) => {
+    return <Modal isOpen={true} autoFocus>
+        <ModalBody>
             {content}
-        </div>
-    </div>
+            <ModalFooter>
+                <Button type="button" color="secondary" className="waves-effect" onClick={handleModalClose}>Close</Button>
+            </ModalFooter>
+        </ModalBody>
+    </Modal>
 }

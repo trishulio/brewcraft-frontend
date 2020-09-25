@@ -1,7 +1,6 @@
 import React from 'react';
 import { MDBDataTable } from 'mdbreact';
 import Select from 'react-select'
-import styles from './Suppliers.module.css';
 import { Card, CardBody } from 'reactstrap';
 
 export const SuppliersUI = ({data, actions = [], handleSelectChange}) => {
@@ -10,7 +9,7 @@ export const SuppliersUI = ({data, actions = [], handleSelectChange}) => {
             options={actions}
             onChange={handleSelectChange}
             placeholder="Select Action..."
-            className={styles.Select}
+            className="ml-auto col-6"
         />
         <Card style={{marginTop: 10}}>
             <CardBody>
