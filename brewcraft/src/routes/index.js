@@ -11,8 +11,8 @@ import LockScreen from "../pages/Authentication/pages-lock-screen";
 import Dashboard from '../pages/Dashboard/dashboard';
 
 // Deliveries
-import Deliveries from '../pages/Deliveries/dashboard';
-import DeliveryDrivers from '../pages/Deliveries/drivers';
+import Deliveries from '../pages/Delivery/delivery';
+import DeliveryDrivers from '../pages/Delivery/deliver-detail';
 
 // Brews
 import BrewsDashboard from '../pages/Brews/dashboard';
