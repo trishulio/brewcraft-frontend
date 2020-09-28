@@ -13,7 +13,7 @@ import Login from './auth/login/reducer';
 import Forget from './auth/forgetpwd/reducer';
 import { suppliersReducer } from './suppliers/suppliers-reducer';
 import { globalReducer } from './global/globalReducer';
-
+import Contacts from './Contacts/reducer';
 const rootReducer = combineReducers({
 
     // public
@@ -31,6 +31,8 @@ const rootReducer = combineReducers({
     Forget,
     suppliers: suppliersReducer,
     global: globalReducer
+    // Contacts
+    Contacts
 });
 
 export default rootReducer;

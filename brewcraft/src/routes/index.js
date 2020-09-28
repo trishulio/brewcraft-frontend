@@ -23,6 +23,9 @@ import Packaging from '../pages/Packaging/packaging';
 import Reports from '../pages/Reports/reports';
 import { Suppliers } from "../pages/Suppliers/Suppliers";
 
+import Contacts from '../pages/Contacts/Contacts';
+
+
 const authProtectedRoutes = [
   // DashBoard
   { path: "/dashboard", component: Dashboard },
@@ -42,6 +45,9 @@ const authProtectedRoutes = [
   { path: "/raw-materials/discover", component: RawMaterialsDiscover },
   { path: "/raw-materials/records", component: RawMaterialsRecords },
   { path: "/raw-materials", component: RawMaterials },
+
+// contacts
+  { path: "/contacts", component: Contacts },
 
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
 ];
