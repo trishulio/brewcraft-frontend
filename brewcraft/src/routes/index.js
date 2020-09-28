@@ -10,6 +10,8 @@ import LockScreen from "../pages/Authentication/pages-lock-screen";
 // Dashboard
 import Dashboard from '../pages/Dashboard/dashboard';
 
+import Bills from '../pages/Bills/Bills';
+
 // Brewcraft
 import RawMaterials from '../pages/RawMaterials';
 import RawMaterialsDiscover from '../pages/RawMaterials/discover';
@@ -28,6 +30,9 @@ import Customers from '../pages/Customers/Customers';
 const authProtectedRoutes = [
   // DashBoard
   { path: "/dashboard", component: Dashboard },
+
+  //Purchases
+  { path: "/bills", component: Bills },
 
   // Brewcraft
   { path: "/brews", component: Brews },
