@@ -1,6 +1,7 @@
 import React from 'react';
-import { Row, Col, FormGroup, Label, Button } from 'reactstrap';
+import { Row, Col, FormGroup, Label } from 'reactstrap';
 import Select from 'react-select';
+import { ModalActionContainer } from '../../ModalAction/functional/ModalActionContainer';
 
 export const DeleteModalUI = ({vendors, handleDelete, handleVendorChange}) => {
     return <Row>
@@ -14,7 +15,7 @@ export const DeleteModalUI = ({vendors, handleDelete, handleVendorChange}) => {
                 className="w-100"
                 options={vendors}/>
             </FormGroup>
-            <Button onClick={handleDelete}>Delete</Button>
+            <ModalActionContainer onSubmit={handleDelete}/>
         </Col>
     </Row>
 }
