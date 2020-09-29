@@ -14,6 +14,7 @@ import Forget from './auth/forgetpwd/reducer';
 import { suppliersReducer } from './suppliers/suppliers-reducer';
 import { globalReducer } from './global/globalReducer';
 import Contacts from './Contacts/reducer';
+import {modalReducer} from "./modal/modal-reducer";
 const rootReducer = combineReducers({
 
     // public
@@ -30,9 +31,9 @@ const rootReducer = combineReducers({
     Login,
     Forget,
     suppliers: suppliersReducer,
-    global: globalReducer
     // Contacts
-    Contacts
+    Contacts,
+    modal: modalReducer,
 });
 
 export default rootReducer;
