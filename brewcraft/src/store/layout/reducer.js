@@ -12,7 +12,7 @@ import {
 } from './actionTypes';
 
 const initialState={
-    layoutType: "vertical",
+    layoutType: "horizontal",
     topbarTheme: "light",
     leftSideBarTheme: "dark",
     layoutWidth: "fluid",

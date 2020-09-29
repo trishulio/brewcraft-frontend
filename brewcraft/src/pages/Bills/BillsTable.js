@@ -10,13 +10,12 @@ import {
   Row,
 } from "reactstrap";
 import { MDBBtn, MDBDataTable } from "mdbreact";
-//Import datatable css
-import "./datatables.scss";
 import Select from "react-select";
 //Import Date Picker
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useSelector } from "react-redux";
+import "../Tables/datatables.scss";
 
 const optionGroup = [
   {
@@ -93,7 +92,7 @@ const BillsTable = () => {
         </div>,
         <div className="text-right">Total ${row.totalAmount}</div>,
       ],
-      paymentStatus: [<div className="cell-status">{row.paymentStatus}</div>],
+      paymentStatus: [<div className="cell-status bg-success py-1 text-center rounded-pill">{row.paymentStatus}</div>],
       actions: [
         <div className="d-flex align-items-center justify-content-between">
           <div className="text-primary font-weight-bold">Record a payment</div>
@@ -107,7 +106,7 @@ const BillsTable = () => {
             }
             className="mr-1 mt-2"
           >
-            <DropdownToggle className="row-action" caret>
+            <DropdownToggle className="text-secondary border-secondary px-2 py-1 rounded-circle bg-transparent" caret>
               <i className="mdi mdi-menu-down"></i>
             </DropdownToggle>
             <DropdownMenu right>
@@ -174,6 +173,7 @@ const BillsTable = () => {
               searching={false}
               displayEntries={false}
               striped
+              className="bills-table"
             ></MDBDataTable>
           </Col>
         </Row>
