@@ -1,13 +1,13 @@
 import React from 'react';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeModal } from '../../../store/modal/modal-actions';
 import {
     Modal,
     ModalBody,
     ModalFooter,
     Button
 } from "reactstrap";
+import {closeModal} from "../../store/modal/modal-actions";
 
 export const ModalContainer = () => {
     const modal = useSelector(state => state.modal);
