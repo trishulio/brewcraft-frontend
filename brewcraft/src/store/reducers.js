@@ -7,7 +7,7 @@ import Breadcrumb from "./Breadcrumb/reducer";
 
 import Brewery from "./Brewery/reducer";
 import Customers from './Customers/reducer';
-import Materials from './materials/reducer';
+import Materials from './Materials/reducer';
 
 import Purchases from "./Purchases/reducer";
 
