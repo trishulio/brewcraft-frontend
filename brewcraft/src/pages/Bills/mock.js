@@ -13,7 +13,7 @@ export const MOCK_TABLE_DATA = [
     date: '2017-04-02',
     number: '35694947c030449739712850f32287e35',
     vendor: 'Evanto',
-    amountDue: '0.00',
+    amountDue: '0.02',
     totalAmount: '85.06',
     paymentStatus: 'Paid',
   },

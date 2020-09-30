@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Badge,
   Card,
   CardBody,
   Col,
@@ -73,28 +74,67 @@ const BillsTable = () => {
       {
         label: "Actions",
         field: "actions",
-        sort: "asc",
+        sort: "disabled",
         width: 170,
       },
     ],
     rows: bills.map((row) => ({
-      date: [<div className="text-primary font-weight-bold">{row.date}</div>],
-      number: [
-        <div className="text-primary font-weight-bold">{row.number}</div>,
-      ],
-      vendor: [
-        <div className="text-primary font-weight-bold">{row.vendor}</div>,
-        "Vendor",
-      ],
-      amountDue: [
-        <div className="text-primary text-right font-weight-bold">
-          ${row.amountDue}
-        </div>,
-        <div className="text-right">Total ${row.totalAmount}</div>,
-      ],
-      paymentStatus: [<div className="cell-status bg-success py-1 text-center rounded-pill">{row.paymentStatus}</div>],
+      date: (
+        <div
+          className="text-primary font-weight-bold"
+          key="date"
+          searchvalue={row.date}
+        >
+          {row.date}
+        </div>
+      ),
+      number: (
+        <div
+          className="text-primary font-weight-bold"
+          key="number"
+          searchvalue={row.number}
+        >
+          {row.number}
+        </div>
+      ),
+      vendor: (
+        <React.Fragment searchvalue={row.vendor}>
+          <div className="text-primary font-weight-bold" key="vender">
+            {row.vendor}
+          </div>
+          "Vendor"
+        </React.Fragment>
+      ),
+      amountDue: (
+        <React.Fragment searchvalue={row.amountDue}>
+          <div
+            className="text-primary text-right font-weight-bold"
+            key="amount"
+          >
+            ${row.amountDue}
+          </div>
+          <div className="text-right" key="total">
+            Total ${row.totalAmount}
+          </div>
+        </React.Fragment>
+      ),
+      paymentStatus: (
+        <div
+          className="d-flex align-items-center justify-content-center"
+          searchvalue={row.paymentStatus}
+        >
+          <h5>
+            <Badge color="success" className="mr-1">
+              {row.paymentStatus}
+            </Badge>
+          </h5>
+        </div>
+      ),
       actions: [
-        <div className="d-flex align-items-center justify-content-between">
+        <div
+          className="d-flex align-items-center justify-content-between"
+          key="actions"
+        >
           <div className="text-primary font-weight-bold">Record a payment</div>
           <Dropdown
             isOpen={rowActionStatus.id === row.id && rowActionStatus.open}
@@ -106,7 +146,10 @@ const BillsTable = () => {
             }
             className="mr-1 mt-2"
           >
-            <DropdownToggle className="text-secondary border-secondary px-2 py-1 rounded-circle bg-transparent" caret>
+            <DropdownToggle
+              className="text-secondary border-secondary px-2 py-1 rounded-circle bg-transparent"
+              caret
+            >
               <i className="mdi mdi-menu-down"></i>
             </DropdownToggle>
             <DropdownMenu right>
@@ -170,9 +213,16 @@ const BillsTable = () => {
               btn
               data={data}
               noBottomColumns
-              searching={false}
+              // searching={false}
               displayEntries={false}
               striped
+              sortRows={[
+                "date",
+                "number",
+                "vendor",
+                "amountDue",
+                "paymentStatus",
+              ]}
               className="bills-table"
             ></MDBDataTable>
           </Col>
