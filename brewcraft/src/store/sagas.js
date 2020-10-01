@@ -5,8 +5,8 @@ import accountSaga from './auth/register/saga';
 import loginSaga from './auth/login/saga';
 import forgetSaga from './auth/forgetpwd/saga';
 import LayoutSaga from './layout/saga';
-import Contacts from './Contacts/saga';
 import Suppliers from "./Suppliers/saga";
+import Customers from './Customers/saga';
 
 export default function* rootSaga() {
     yield all([
@@ -16,6 +16,7 @@ export default function* rootSaga() {
         loginSaga(),
         forgetSaga(),
         LayoutSaga(),
+        Customers()
         Contacts(),
         Suppliers()
     ])

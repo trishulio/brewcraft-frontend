@@ -6,6 +6,8 @@ import Layout from './layout/reducer';
 import Breadcrumb from "./Breadcrumb/reducer";
 
 import Brewery from "./Brewery/reducer";
+import Customers from './Customers/reducer';
+import Materials from './materials/reducer';
 
 // Authentication Module
 import Account from './auth/register/reducer';
@@ -14,6 +16,7 @@ import Forget from './auth/forgetpwd/reducer';
 import Suppliers  from './Suppliers/reducer';
 import Contacts from './Contacts/reducer';
 import Modal from "./Modal/reducer";
+
 const rootReducer = combineReducers({
 
     // public
@@ -24,6 +27,8 @@ const rootReducer = combineReducers({
 
     // Brewery
     Brewery,
+    Customers,
+    Materials,
 
     // Authentication
     Account,
