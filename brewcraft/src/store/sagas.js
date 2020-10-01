@@ -16,8 +16,7 @@ export default function* rootSaga() {
         loginSaga(),
         forgetSaga(),
         LayoutSaga(),
-        Customers()
-        Contacts(),
+        Customers(),
         Suppliers()
     ])
 }
