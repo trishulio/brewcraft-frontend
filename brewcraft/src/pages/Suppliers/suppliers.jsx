@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useMemo} from 'react';
 import {Modal} from '../../component/Modal/modal';
 import {batch, useDispatch, useSelector} from "react-redux";
-import {openModal} from "../../store/modal/modal-actions";
+import {openModal} from "../../store/Modal/actions";
 import {setBreadcrumbItems} from "../../store/Breadcrumb/actions";
 import {getSuppliersData, startGetSuppliersWatcher} from "../../store/Suppliers/actions";
 import Select from "react-select";

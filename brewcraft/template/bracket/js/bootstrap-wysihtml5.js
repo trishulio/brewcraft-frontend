@@ -46,20 +46,20 @@
         "link": function(locale, options) {
             var size = (options && options.size) ? ' btn-'+options.size : '';
             return "<li>" +
-              "<div class='bootstrap-wysihtml5-insert-link-modal modal fade'>" +
-                "<div class='modal-dialog'>" +
-                  "<div class='modal-content'>" +
-                    "<div class='modal-header'>" +
-                      "<a class='close' data-dismiss='modal'>&times;</a>" +
-                      "<h3 class='modal-title'>" + locale.link.insert + "</h3>" +
+              "<div class='bootstrap-wysihtml5-insert-link-Modal Modal fade'>" +
+                "<div class='Modal-dialog'>" +
+                  "<div class='Modal-content'>" +
+                    "<div class='Modal-header'>" +
+                      "<a class='close' data-dismiss='Modal'>&times;</a>" +
+                      "<h3 class='Modal-title'>" + locale.link.insert + "</h3>" +
                     "</div>" +
-                    "<div class='modal-body'>" +
+                    "<div class='Modal-body'>" +
                       "<input value='http://' class='bootstrap-wysihtml5-insert-link-url form-control'>" +
                       "<label class='checkbox'> <input type='checkbox' class='bootstrap-wysihtml5-insert-link-target' checked>" + locale.link.target + "</label>" +
                     "</div>" +
-                    "<div class='modal-footer'>" +
-                      "<a href='#' class='btn btn-default' data-dismiss='modal'>" + locale.link.cancel + "</a>" +
-                      "<a href='#' class='btn btn-primary' data-dismiss='modal'>" + locale.link.insert + "</a>" +
+                    "<div class='Modal-footer'>" +
+                      "<a href='#' class='btn btn-default' data-dismiss='Modal'>" + locale.link.cancel + "</a>" +
+                      "<a href='#' class='btn btn-primary' data-dismiss='Modal'>" + locale.link.insert + "</a>" +
                     "</div>" +
                   "</div>" +
                 "</div>" +
@@ -71,19 +71,19 @@
         "image": function(locale, options) {
             var size = (options && options.size) ? ' btn-'+options.size : '';
             return "<li>" +
-              "<div class='bootstrap-wysihtml5-insert-image-modal modal fade'>" +
-                "<div class='modal-dialog'>" +
-                  "<div class='modal-content'>" +
-                    "<div class='modal-header'>" +
-                      "<a class='close' data-dismiss='modal'>&times;</a>" +
-                      "<h3 class='modal-title'>" + locale.image.insert + "</h3>" +
+              "<div class='bootstrap-wysihtml5-insert-image-Modal Modal fade'>" +
+                "<div class='Modal-dialog'>" +
+                  "<div class='Modal-content'>" +
+                    "<div class='Modal-header'>" +
+                      "<a class='close' data-dismiss='Modal'>&times;</a>" +
+                      "<h3 class='Modal-title'>" + locale.image.insert + "</h3>" +
                     "</div>" +
-                    "<div class='modal-body'>" +
+                    "<div class='Modal-body'>" +
                       "<input value='http://' class='bootstrap-wysihtml5-insert-image-url form-control'>" +
                     "</div>" +
-                    "<div class='modal-footer'>" +
-                      "<a href='#' class='btn btn-default' data-dismiss='modal'>" + locale.image.cancel + "</a>" +
-                      "<a href='#' class='btn btn-primary' data-dismiss='modal'>" + locale.image.insert + "</a>" +
+                    "<div class='Modal-footer'>" +
+                      "<a href='#' class='btn btn-default' data-dismiss='Modal'>" + locale.image.cancel + "</a>" +
+                      "<a href='#' class='btn btn-primary' data-dismiss='Modal'>" + locale.image.insert + "</a>" +
                     "</div>" +
                   "</div>" +
                 "</div>" +
@@ -155,7 +155,7 @@
 
         createEditor: function(options) {
             options = options || {};
-            
+
             // Add the toolbar to a clone of the options object so multiple instances
             // of the WYISYWG don't break because "toolbar" is already defined
             options = $.extend(true, {}, options);
@@ -238,7 +238,7 @@
 
         initInsertImage: function(toolbar) {
             var self = this;
-            var insertImageModal = toolbar.find('.bootstrap-wysihtml5-insert-image-modal');
+            var insertImageModal = toolbar.find('.bootstrap-wysihtml5-insert-image-Modal');
             var urlInput = insertImageModal.find('.bootstrap-wysihtml5-insert-image-url');
             var insertButton = insertImageModal.find('a.btn-primary');
             var initialValue = urlInput.val();
@@ -279,7 +279,7 @@
                     self.editor.currentView.element.focus(false);
                     caretBookmark = self.editor.composer.selection.getBookmark();
                     insertImageModal.appendTo('body').modal('show');
-                    insertImageModal.on('click.dismiss.modal', '[data-dismiss="modal"]', function(e) {
+                    insertImageModal.on('click.dismiss.Modal', '[data-dismiss="Modal"]', function(e) {
                         e.stopPropagation();
                     });
                     return false;
@@ -292,7 +292,7 @@
 
         initInsertLink: function(toolbar) {
             var self = this;
-            var insertLinkModal = toolbar.find('.bootstrap-wysihtml5-insert-link-modal');
+            var insertLinkModal = toolbar.find('.bootstrap-wysihtml5-insert-link-Modal');
             var urlInput = insertLinkModal.find('.bootstrap-wysihtml5-insert-link-url');
             var targetInput = insertLinkModal.find('.bootstrap-wysihtml5-insert-link-target');
             var insertButton = insertLinkModal.find('a.btn-primary');
@@ -341,7 +341,7 @@
                     self.editor.currentView.element.focus(false);
                     caretBookmark = self.editor.composer.selection.getBookmark();
                     insertLinkModal.appendTo('body').modal('show');
-                    insertLinkModal.on('click.dismiss.modal', '[data-dismiss="modal"]', function(e) {
+                    insertLinkModal.on('click.dismiss.Modal', '[data-dismiss="Modal"]', function(e) {
                         e.stopPropagation();
                     });
                     return false;
@@ -387,7 +387,7 @@
             return methods.init.apply( this, arguments );
         } else {
             $.error( 'Method ' +  method + ' does not exist on jQuery.wysihtml5' );
-        }    
+        }
     };
 
     $.fn.wysihtml5.Constructor = Wysihtml5;

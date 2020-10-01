@@ -1,7 +1,7 @@
 import {put, takeEvery, select} from "redux-saga/effects";
 import {setData} from "./actions";
 import {GET_SUPPLIERS_DATA, CREATE_SUPPLIER, DELETE_SUPPLIER, UPDATE_SUPPLIER} from "./actionTypes";
-import {closeModal} from "../modal/modal-actions";
+import {closeModal} from "../Modal/actions";
 import {batch} from "react-redux";
 
 const delay = (ms) => new Promise(res => setTimeout(res, ms))

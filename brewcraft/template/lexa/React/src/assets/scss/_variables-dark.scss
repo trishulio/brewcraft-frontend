@@ -50,7 +50,7 @@ $topnav-bg:   #323a4e;
 // Right Sidebar
 $rightbar-width:  280px;
 
-// Brand 
+// Brand
 $navbar-brand-box-width: 240px;
 
 // Boxed layout width
@@ -71,7 +71,7 @@ $display-block: none;
 // Variables
 //
 // Variables should follow the `$component-state-property-size` formula for
-// consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
+// consistent naming. Ex: $nav-link-disabled-color and $Modal-content-box-shadow-xs.
 
 // Color system
 
@@ -584,7 +584,7 @@ $form-grid-gutter-width:                10px;
 $form-group-margin-bottom:              1rem;
 
 $input-group-addon-color:               $input-color;
-$input-group-addon-bg:                  lighten($gray-200, 4%); 
+$input-group-addon-bg:                  lighten($gray-200, 4%);
 $input-group-addon-border-color:        $input-border-color;
 
 $custom-forms-transition:               background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
@@ -1001,7 +1001,7 @@ $badge-pill-border-radius:          10rem;
 
 // Modals
 
-// Padding applied to the modal body
+// Padding applied to the Modal body
 $modal-inner-padding:               1rem;
 
 $modal-dialog-margin:               .5rem;

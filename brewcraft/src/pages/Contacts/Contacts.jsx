@@ -234,7 +234,7 @@ export default function Contacts() {
                   <BootstrapTable
                     className="pd-0"
                     cellEdit={ cellEditFactory({ mode: 'click' }) }
-                   
+
                     keyField="id"
                     data={data}
                     columns={columns}
@@ -255,7 +255,7 @@ export default function Contacts() {
           </Card>
         </Col>
       </Row>
-      {/* if show is false it will not effect modal && if the state is changing this will not render */}
+      {/* if show is false it will not effect Modal && if the state is changing this will not render */}
       {show && (
         <Modalcall
           show={show}
