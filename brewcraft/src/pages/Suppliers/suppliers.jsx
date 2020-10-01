@@ -13,7 +13,7 @@ import {UpdateModal} from "./components/updateModal";
 
 export const Suppliers = () => {
   const dispatch = useDispatch();
-  const tableData = useSelector(state => state.suppliers);
+  const tableData = useSelector(state => state.Suppliers);
 
   const vendors = useMemo(() => tableData.rows.map(row => ({label: row.name, value: row.id, ...row})), [tableData])
 

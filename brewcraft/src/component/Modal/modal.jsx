@@ -10,7 +10,7 @@ import {
 import {closeModal} from "../../store/modal/modal-actions";
 
 export const Modal = () => {
-    const modal = useSelector(state => state.modal);
+    const modal = useSelector(state => state.Modal);
     const dispatch = useDispatch();
 
     const handleModalClose = useCallback(() => {

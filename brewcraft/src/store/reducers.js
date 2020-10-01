@@ -11,9 +11,9 @@ import Brewery from "./Brewery/reducer";
 import Account from './auth/register/reducer';
 import Login from './auth/login/reducer';
 import Forget from './auth/forgetpwd/reducer';
-import { reducer } from './Suppliers/reducer';
+import Suppliers  from './Suppliers/reducer';
 import Contacts from './Contacts/reducer';
-import {modalReducer} from "./modal/modal-reducer";
+import Modal from "./modal/modal-reducer";
 const rootReducer = combineReducers({
 
     // public
@@ -29,10 +29,10 @@ const rootReducer = combineReducers({
     Account,
     Login,
     Forget,
-    suppliers: reducer,
+    Suppliers,
     // Contacts
     Contacts,
-    modal: modalReducer,
+    Modal,
 });
 
 export default rootReducer;

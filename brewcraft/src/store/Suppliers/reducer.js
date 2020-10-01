@@ -30,7 +30,7 @@ const initialState = {
     rows: [],
 }
 
-export const reducer = (state = initialState, action) => {
+export default function Suppliers(state = initialState, action) {
     switch(action.type) {
         case SET_DATA:
             return {

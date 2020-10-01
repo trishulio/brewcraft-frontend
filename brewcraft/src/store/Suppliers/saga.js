@@ -21,7 +21,7 @@ export function* getSuppliersData() {
 
 export function* createSupplier(action) {
   const data = action.payload;
-  const tableData = yield select(state => state.suppliers.rows);
+  const tableData = yield select(state => state.Suppliers.rows);
   yield delay(500);
   yield put(setData([...tableData, { ...data, id: 2 }]));
   yield put(closeModal());
@@ -29,7 +29,7 @@ export function* createSupplier(action) {
 
 export function* deleteSupplier(action) {
   const id = action.payload;
-  const tableData = yield select(state => state.suppliers.rows);
+  const tableData = yield select(state => state.Suppliers.rows);
   yield delay(500);
   const index = tableData.findIndex(row => row.id === id);
   yield put(setData([...tableData.slice(0, index), ...tableData.slice(index + 1)]));
@@ -39,7 +39,7 @@ export function* deleteSupplier(action) {
 
 export function* updateSupplier(action) {
   const formData = action.payload;
-  const tableData = yield select(state => state.suppliers.rows);
+  const tableData = yield select(state => state.Suppliers.rows);
   yield delay(500);
   const data = {
     name: formData.name,
