@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
-import {deleteSupplier} from "../../../store/suppliers/suppliers-actions";
+import {deleteSupplierWatcher} from "../../../store/Suppliers/actions";
 import {Col, FormGroup, Label, Row} from "reactstrap";
 import Select from "react-select";
-import {ModalActionContainer} from "./ModalAction";
+import {ModalAction} from "./modalAction";
 
-export const DeleteModalContainer = ({vendors}) => {
+export const DeleteModal = ({vendors}) => {
   const [vendorId, setVendorId] = useState(0);
   const dispatch = useDispatch();
   const handleVendorChange = e => {
@@ -13,7 +13,7 @@ export const DeleteModalContainer = ({vendors}) => {
   }
 
   const handleDelete = () => {
-    dispatch(deleteSupplier(vendorId));
+    dispatch(deleteSupplierWatcher(vendorId));
   }
 
   return <Row>
@@ -27,7 +27,7 @@ export const DeleteModalContainer = ({vendors}) => {
                 className="w-100"
                 options={vendors}/>
       </FormGroup>
-      <ModalActionContainer onSubmit={handleDelete}/>
+      <ModalAction onSubmit={handleDelete}/>
     </Col>
   </Row>;
 }

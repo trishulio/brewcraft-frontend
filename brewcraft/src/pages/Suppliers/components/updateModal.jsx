@@ -1,11 +1,11 @@
 import React, {useMemo, useState} from "react";
 import {useDispatch} from "react-redux";
-import {updateSupplier} from "../../../store/suppliers/suppliers-actions";
+import {updateSupplier, updateSupplierWatcher} from "../../../store/Suppliers/actions";
 import {Col, FormGroup, Input, Label, Row} from "reactstrap";
 import Select from "react-select";
-import {ModalActionContainer} from "./ModalAction";
+import {ModalAction} from "./modalAction";
 
-export const UpdateModalContainer = ({ vendors }) => {
+export const UpdateModal = ({ vendors }) => {
   const [fields, setFields] = useState({});
   const dispatch = useDispatch();
 
@@ -14,7 +14,7 @@ export const UpdateModalContainer = ({ vendors }) => {
   }
 
   const handleUpdate = () => {
-    dispatch(updateSupplier(fields));
+    dispatch(updateSupplierWatcher(fields));
   }
 
   const handleSelectChange = e => {
@@ -77,7 +77,7 @@ export const UpdateModalContainer = ({ vendors }) => {
                onChange={handleInputChange}
                type="text" id="actions" />
       </FormGroup>
-      <ModalActionContainer onSubmit={handleUpdate} />;
+      <ModalAction onSubmit={handleUpdate} />;
     </Col>
   </Row>;
 }

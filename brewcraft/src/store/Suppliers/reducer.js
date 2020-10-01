@@ -1,4 +1,4 @@
-import { suppliersConstants } from "./suppliers-constants";
+import { SET_DATA } from "./actionTypes";
 
 const initialState = {
     columns: [
@@ -30,9 +30,9 @@ const initialState = {
     rows: [],
 }
 
-export const suppliersReducer = (state = initialState, action) => {
+export const reducer = (state = initialState, action) => {
     switch(action.type) {
-        case suppliersConstants.SET_DATA:
+        case SET_DATA:
             return {
                 ...state,
                 rows: action.payload,

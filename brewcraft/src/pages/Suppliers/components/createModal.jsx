@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
-import {createSupplier} from "../../../store/suppliers/suppliers-actions";
 import {Col, FormGroup, Input, Label, Row} from "reactstrap";
-import {ModalActionContainer} from "./ModalAction";
+import {ModalAction} from "./modalAction";
+import {startCreateSupplierWatcher} from "../../../store/Suppliers/actions";
 
-export const CreateModalContainer = () => {
+export const CreateModal = () => {
   const [fields, setFields] = useState({});
   const dispatch = useDispatch();
 
@@ -13,7 +13,7 @@ export const CreateModalContainer = () => {
   }
 
   const handleCreate = () => {
-    dispatch(createSupplier(fields));
+    dispatch(startCreateSupplierWatcher(fields));
   };
 
   return <Row>
@@ -55,7 +55,7 @@ export const CreateModalContainer = () => {
                onChange={handleInputChange}
                type="text" id="actions"/>
       </FormGroup>
-      <ModalActionContainer onSubmit={handleCreate}/>
+      <ModalAction onSubmit={handleCreate}/>
     </Col>
   </Row>;
 }

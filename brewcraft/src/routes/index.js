@@ -21,7 +21,7 @@ import Facility from '../pages/Facility/facility';
 import FinishedGoods from '../pages/FinishedGoods/finished-goods';
 import Packaging from '../pages/Packaging/packaging';
 import Reports from '../pages/Reports/reports';
-import { Suppliers } from "../pages/Suppliers/Suppliers";
+import { Suppliers } from "../pages/Suppliers/suppliers";
 
 import Contacts from '../pages/Contacts/Contacts';
 
@@ -39,7 +39,7 @@ const authProtectedRoutes = [
   { path: "/reports", component: Reports },
 
   // Suppliers
-  { path: '/suppliers', component: Suppliers },
+  { path: '/Suppliers', component: Suppliers },
 
   // Raw Materials
   { path: "/raw-materials/discover", component: RawMaterialsDiscover },

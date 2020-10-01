@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import ReactDOM from "react-dom";
 import {Button} from "reactstrap";
 
-export const ModalActionContainer = ({onSubmit}) => {
+export const ModalAction = ({onSubmit}) => {
   const [el, setEl] = useState(null);
 
 

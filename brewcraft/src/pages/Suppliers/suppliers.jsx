@@ -1,15 +1,15 @@
 import React, {useCallback, useEffect, useMemo} from 'react';
-import {ModalContainer} from '../../component/Modal/Modal';
+import {Modal} from '../../component/Modal/modal';
 import {batch, useDispatch, useSelector} from "react-redux";
 import {openModal} from "../../store/modal/modal-actions";
 import {setBreadcrumbItems} from "../../store/Breadcrumb/actions";
-import {getSuppliersData} from "../../store/suppliers/suppliers-actions";
+import {getSuppliersData, startGetSuppliersWatcher} from "../../store/Suppliers/actions";
 import Select from "react-select";
 import {Card, CardBody} from "reactstrap";
 import {MDBDataTable} from "mdbreact";
-import {CreateModalContainer} from "./components/CreateModal";
-import {DeleteModalContainer} from "./components/DeleteModal";
-import {UpdateModalContainer} from "./components/UpdateModal";
+import {CreateModal} from "./components/createModal";
+import {DeleteModal} from "./components/deleteModal";
+import {UpdateModal} from "./components/updateModal";
 
 export const Suppliers = () => {
   const dispatch = useDispatch();
@@ -19,15 +19,15 @@ export const Suppliers = () => {
 
 
   const handleCreateOpen = useCallback(() => {
-    dispatch(openModal(<CreateModalContainer/>));
+    dispatch(openModal(<CreateModal/>));
   }, []);
 
   const handleDeleteOpen = useCallback(() => {
-    dispatch(openModal(<DeleteModalContainer vendors={vendors}/>));
+    dispatch(openModal(<DeleteModal vendors={vendors}/>));
   }, [vendors, dispatch]);
 
   const handleUpdateOpen = useCallback(() => {
-    dispatch(openModal(<UpdateModalContainer vendors={vendors}/>))
+    dispatch(openModal(<UpdateModal vendors={vendors}/>))
   }, [vendors, dispatch]);
 
   useEffect(() => {
@@ -36,8 +36,8 @@ export const Suppliers = () => {
         {title: "Dashboard", link: "#"},
         {title: "Suppliers", link: "#"}
       ]))
-      dispatch(getSuppliersData());
     })
+    dispatch(startGetSuppliersWatcher())
   }, []);
 
   const actions = useMemo(() => [
@@ -67,6 +67,6 @@ export const Suppliers = () => {
         />
       </CardBody>
     </Card>
-    <ModalContainer/>
+    <Modal/>
   </>;
 }
