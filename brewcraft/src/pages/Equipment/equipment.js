@@ -8,8 +8,8 @@ class Equipment extends Component {
         super(props);
         this.state = {
             breadcrumbItems : [
-                { title : "Dashboard", link : "#" },
-                { title : "Equipment", link : "#" }
+                { title : "Dashboard", link : "/dashboard" },
+                { title : "Facilities", link : "/facilities" }
             ]
         }
     }

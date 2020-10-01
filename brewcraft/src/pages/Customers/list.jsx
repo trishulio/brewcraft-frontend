@@ -19,11 +19,11 @@ import {
   saveContact,
   editContact,
   deleteContact,
-} from "../../store/Contacts/actions";
+} from "../../store/Customers/actions";
 import cellEditFactory from 'react-bootstrap-table2-editor';
 import { get, filter, forEach } from "lodash";
 
-export default function Contacts() {
+export default function Customers() {
   //local state
   // dialog open & close
   const [show, setShow] = useState(false);
@@ -42,7 +42,7 @@ export default function Contacts() {
   const [rowSelection, setRowSelection] = useState([]);
   // fetch redux data from store
   const { data, loading, error, formLoading } = useSelector(
-    (state) => state.Contacts
+    (state) => state.Customers
   );
 
   // dispatch action
@@ -51,14 +51,14 @@ export default function Contacts() {
   // component did mount alternative for functional component
   useEffect(() => {
     dispatch(
-      setBreadcrumbItems("Contacts", [
+      setBreadcrumbItems("Customers", [
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Contacts", link: "#" },
+        { title: "Customers", link: "#" },
       ])
     );
   }, []);
 
-  // if contacts is fatching first time
+  // if customers is fatching first time
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -120,19 +120,19 @@ export default function Contacts() {
     },
   ];
 
-  // open form for create new contact
+  // open form for create new customer
   const createFormshow = () => {
     setModaldata({ title: "Create Contact", type: "create", formData: null });
     setShow(true);
   };
 
-  // open form for edit  contact
+  // open form for edit  customer
   const editFormshow = (formData) => {
     setModaldata({ title: "Edit Contact", type: "edit", formData });
     setShow(true);
   };
 
-  // open form for delete a contact
+  // open form for delete a customer
   const deleteFormshow = () => {
     setModaldata({ title: "Create Contact", type: "create", formData: null });
     setShow(true);
@@ -142,7 +142,7 @@ export default function Contacts() {
   const closeDialog = () => {
     setShow(false);
   };
-  // delete contact list to saga
+  // delete customer list to saga
   const deleteDispatch = () => {
     const idData = forEach(rowSelection, (value) => {
       return get(data, ["value", "id"]);
@@ -154,10 +154,10 @@ export default function Contacts() {
   const handleValidSubmit = (event, values) => {
     const { type, formData } = modaldata;
     if (type == "edit") {
-      // edit contact data send to redux
+      // edit customer data send to redux
       dispatch(editContact({ ...values, id: get(formData, "id") }));
     } else {
-      // create new contact data send to redux
+      // create new customer data send to redux
       dispatch(saveContact(values));
     }
     setShow(false);
@@ -234,7 +234,7 @@ export default function Contacts() {
                   <BootstrapTable
                     className="pd-0"
                     cellEdit={ cellEditFactory({ mode: 'click' }) }
-                   
+
                     keyField="id"
                     data={data}
                     columns={columns}

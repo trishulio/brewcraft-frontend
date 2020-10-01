@@ -103,7 +103,7 @@ const initialState = {
   },
 };
 
-const Contacts = (state = initialState, { type, payload }) => {
+const Customers = (state = initialState, { type, payload }) => {
   switch (type) {
     case FETCH_CONTACTS_REQUEST:
       return {
@@ -189,4 +189,4 @@ const Contacts = (state = initialState, { type, payload }) => {
   return state;
 };
 
-export default Contacts;
+export default Customers;
