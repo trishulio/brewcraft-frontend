@@ -29,7 +29,7 @@ const optionGroup = [
   },
 ];
 
-const BillsTable = () => {
+const InvoicesTable = () => {
   const [selectedMulti, setSelectedMulti] = React.useState(null);
   const [fromDate, setFromDate] = React.useState(null);
   const [toDate, setToDate] = React.useState(null);
@@ -37,7 +37,7 @@ const BillsTable = () => {
     open: false,
     id: null,
   });
-  const { bills } = useSelector((state) => state.Purchases);
+  const { invoices } = useSelector((state) => state.Purchases);
 
   const data = {
     columns: [
@@ -78,7 +78,7 @@ const BillsTable = () => {
         width: 170,
       },
     ],
-    rows: bills.map((row) => ({
+    rows: invoices.map((row) => ({
       date: (
         <div
           className="text-primary font-weight-bold"
@@ -172,7 +172,7 @@ const BillsTable = () => {
           <Col xs="12">
             <div className="d-flex justify-content-end align-items-center mt-4">
               <MDBBtn rounded color="primary">
-                Create a bill
+                Create an invoice
               </MDBBtn>
             </div>
             <div className="mt-4 mb-4">
@@ -232,4 +232,4 @@ const BillsTable = () => {
   );
 };
 
-export default BillsTable;
+export default InvoicesTable;

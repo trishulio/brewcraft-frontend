@@ -18,6 +18,7 @@ class Navbar extends Component {
             isFinishedGoods: false,
             isPackaging: false,
             isRawMaterials : false,
+            isPurchases: false,
             layoutType: this.props.layoutType,
             layoutWidth: this.props.layoutWidth,
             isPreloader: this.props.isPreloader
@@ -114,6 +115,24 @@ class Navbar extends Component {
                                     <Link className="nav-link" to="/dashboard">
                                         <i className="ti-dashboard"></i>Dashboard
                                     </Link>
+                                </li>
+                                <li className="nav-item dropdown">
+                                    <Link
+                                        onClick={e => { e.preventDefault(); this.setState({ isPurchases: !this.state.isPurchases }); }}
+                                        className="nav-link dropdown-toggle arrow-none"
+                                        to="/#"
+                                        id="topnav-raw-materials"
+                                        role="button"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                    >
+                                        <i className="ti-package"></i>Purchases
+                                    </Link>
+                                    <div className={this.state.isRawMaterials ? "dropdown-menu dropdown-menu-left show" : "dropdown-menu dropdown-menu-left"} aria-labelledby="topnav-raw-materials">
+                                    <Link className="nav-link" to="/invoices">
+                                        Invoices
+                                    </Link>
+                                    </div>
                                 </li>
                                 <li className="nav-item dropdown">
                                     <Link

@@ -1,22 +1,22 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
-import DatatableTables from "./BillsTable";
+import InvoicesTable from "./InvoicesTable";
 
-const Bills = () => {
+const Invoices = () => {
   const dispatch = useDispatch();
   const breadcrumbItems = [
     { title: "Purchases", link: "/purchase" },
-    { title: "Bills", link: "#" },
+    { title: "Invoices", link: "#" },
   ];
 
   React.useEffect(() => {
-    dispatch(setBreadcrumbItems("Bills", breadcrumbItems));
+    dispatch(setBreadcrumbItems("Invoices", breadcrumbItems));
   }, [dispatch]);
 
   return (
-      <DatatableTables />
+      <InvoicesTable />
   );
 };
 
-export default Bills;
+export default Invoices;

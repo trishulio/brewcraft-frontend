@@ -1,7 +1,7 @@
-import { MOCK_TABLE_DATA } from "../../pages/Bills/mock";
+import { MOCK_TABLE_DATA } from "../../pages/Invoices/mock";
 
 const initialState = {
-    bills: MOCK_TABLE_DATA
+  invoices: MOCK_TABLE_DATA
 };
 
 const purchases = (state = initialState, action) => {
