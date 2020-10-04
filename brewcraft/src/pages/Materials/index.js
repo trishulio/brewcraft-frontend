@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import { connect, Provider } from "react-redux";
-import { setBreadcrumbItems } from "../../store/actions";
+import { connect } from "react-redux";
 import { Col, Row } from "reactstrap";
+import { setBreadcrumbItems } from "../../store/actions";
+import {
+    formatCurrency,
+    formatPercent
+} from "../../helpers/textUtils";
 import MiniCard from "../Dashboard/mini-card";
-import InventoryValue from "./inventory-value";
-import InventoryQuantity from "./inventory-quantity";
-import InProcessQuantity from "./in-process-quantity";
-import RecentPurchases from "./recent-purchases";
-import RecentWaste from "./recent-waste";
+import InventoryValue from "./components/raw-materials-value-chart";
+import InventoryQuantity from "./components/materials-quantity-chart";
+import InProcessQuantity from "./components/in-process-value-chart";
+import RecentPurchases from "./components/recent-purchases";
+import RecentWaste from "./components/recent-waste";
 
 class RawMaterials extends Component {
     constructor(props) {
@@ -65,28 +69,30 @@ const mapStatetoProps = state => {
             {
                 title: "Materials Value",
                 icon: "mdi-cube-outline",
-                desc : "From previous month",
-                value: Materials.RawMaterial.value
+                desc : "From previous day",
+                value: formatCurrency(Materials.RawMaterial.value),
+                result: formatPercent(Materials.RawMaterial.value_increase),
+                color: "info"
+            },
+            {
+                title: "In-Process",
+                icon: "mdi-cube",
+                value: formatCurrency(Materials.InProcess.value)
             },
             {
                 title : "MTD Materials Used",
                 icon : "mdi-tag-text-outline",
                 desc : "From previous month",
-                value: Materials.Used.mtd_value,
-                result: Materials.Used.mtd_increase,
+                value: formatCurrency(Materials.Used.mtd_value),
+                result: formatPercent(Materials.Used.mtd_increase),
                 color: Materials.Used.mtd_increase > 0 ? "info" : "warning"
-            },
-            {
-                title: "In-Process",
-                icon: "mdi-cube",
-                value: Materials.InProcess.value
             },
             {
                 title : "MTD Materials Waste",
                 icon : "mdi-trash-can-outline",
                 desc : "From previous month",
-                value: Materials.Wasted.mtd_value,
-                result: Materials.Wasted.mtd_increase,
+                value: formatCurrency(Materials.Wasted.mtd_value),
+                result: formatPercent(Materials.Wasted.mtd_increase),
                 color: Materials.Wasted.mtd_increase > 0 ? "info" : "warning"
             }
         ]

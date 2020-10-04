@@ -10,18 +10,9 @@ import LockScreen from "../pages/Authentication/pages-lock-screen";
 // Dashboard
 import Dashboard from '../pages/Dashboard/dashboard';
 
-<<<<<<< HEAD
-import Invoices from '../pages/Invoices/Invoices';
-
-// Brewcraft
-import RawMaterials from '../pages/RawMaterials';
-import RawMaterialsDiscover from '../pages/RawMaterials/discover';
-import RawMaterialsRecords from '../pages/RawMaterials/records';
-=======
 // Deliveries
 import Deliveries from '../pages/Deliveries/dashboard';
 import DeliveryDrivers from '../pages/Deliveries/drivers';
->>>>>>> layout application routing and create endpoint components
 
 // Brews
 import BrewsDashboard from '../pages/Brews/dashboard';
@@ -48,7 +39,7 @@ import FinishedGoodsRecords from '../pages/FinishedGoods/records';
 import Locations from '../pages/Locations';
 
 // Materials
-import MaterialsRawMaterials from '../pages/Materials/raw-materials';
+import MaterialsRawMaterials from '../pages/Materials/inventory';
 import MaterialsInProcess from '../pages/Materials/in-process';
 import MaterialsUsedMaterials from '../pages/Materials/used-materials';
 import MaterialsWastedMaterials from '../pages/Materials/wasted-materials';
@@ -67,7 +58,7 @@ import ReportsN10 from '../pages/Reports/n10';
 // Vendors
 import VendorsDashboard from '../pages/Vendors/dashboard';
 import VendorsList from '../pages/Vendors/list';
-import VendorsInvoices from '../pages/Vendors/invoices';
+import VendorsInvoices from '../pages/Vendors/invoices/Invoices';
 
 const authProtectedRoutes = [
   // Customers
@@ -102,13 +93,13 @@ const authProtectedRoutes = [
   { path: "/facilities/locations", component: Locations },
 
   // Materials
-  { path: "/materials/", component: MaterialsDashboard },
   { path: "/materials/discover", component: MaterialsDiscover },
   { path: "/materials/raw-materials", component: MaterialsRawMaterials },
   { path: "/materials/in-process", component: MaterialsInProcess },
   { path: "/materials/used-materials", component: MaterialsUsedMaterials },
   { path: "/materials/wasted-materials", component: MaterialsWastedMaterials },
   { path: "/material/records", component: MaterialsRecords },
+  { path: "/materials/", component: MaterialsDashboard },
 
   // Packaging
   { path: "/packaging/inventory", component: PackagingInventory },

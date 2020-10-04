@@ -5,7 +5,7 @@ import {
     CardFooter,
     Button
 } from "reactstrap";
-import TransactionTable from "../../component/TransactionsTable";
+import TransactionTable from "../../../component/TransactionsTable";
 
 class RecentWaste extends Component {
     constructor(props) {

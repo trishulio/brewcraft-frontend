@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import {
-    setRawMaterialsInventoryValueActiveTab
-} from "../../store/actions";
-import {
     Card,
     CardBody,
     Nav,
@@ -12,15 +9,58 @@ import {
     TabContent,
     TabPane
 } from "reactstrap";
+import { Bar } from 'react-chartjs-2';
 import classnames from "classnames";
-import BarChart from "../../component/MaterialsChart/barchart-raw-quantity";
+import {
+    formatWeightKG,
+    formatKeyAsLabel
+} from "../../../helpers/textUtils";
 
 class InventoryValue extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            active_tab: "hops"
+            active_tab: "hops",
+
         };
+    }
+
+    barChart(data) {
+        const options = {
+            legend: {
+                position: "bottom"
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        var dataset = data.datasets[tooltipItem.datasetIndex];
+                        var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+                        var total = meta.total;
+                        var currentValue = dataset.data[tooltipItem.index];
+                        var percentage = parseFloat((currentValue / total * 100).toFixed(1));
+                        return currentValue + ' (' + percentage + '%)';
+                    },
+                    title: function (tooltipItem, data) {
+                        return data.labels[tooltipItem[0].index];
+                    }
+                }
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        };
+        return (
+            <React.Fragment>
+                <Bar
+                    width={ window.innerWidth >= 992 ? 8 : 4 }
+                    height={4}
+                    data={data}
+                    options={options} />
+            </React.Fragment>);
     }
 
     render() {
@@ -28,14 +68,6 @@ class InventoryValue extends Component {
             <Card>
                 <CardBody>
                     <h4 className="card-title mb-4">Materials Quantity</h4>
-                    <div className="row text-center mt-4">
-                        {this.props.stats.map(stat => (
-                            <div className="col-sm-4">
-                                <h5 className="mb-0 font-size-20">{stat.value}</h5>
-                                <p className="text-muted">{stat.title}</p>
-                            </div>
-                        ))}
-                    </div>
                     <Nav tabs className="nav-tabs-custom" role="tablist">
                         {this.props.tabs.map(tab => (
                             <NavItem>
@@ -58,10 +90,26 @@ class InventoryValue extends Component {
                     </Nav>
                     <TabContent activeTab={this.state.active_tab}>
                         <TabPane tabId="hops" className="p-3">
-                            <BarChart data={this.props.data.hops}/>
+                            <div className="row text-center mt-4">
+                                {this.props.stats.map(stat => (
+                                    <div className="col-sm-4">
+                                        <h5 className="mb-0 font-size-20">{formatWeightKG(stat.value)}</h5>
+                                        <p className="text-muted">{stat.title}</p>
+                                    </div>
+                                ))}
+                            </div>
+                            {this.barChart(this.props.data.hops)}
                         </TabPane>
                         <TabPane tabId="malts" className="p-3">
-                            <BarChart data={this.props.data.malts}/>
+                            <div className="row text-center mt-4">
+                                {this.props.stats.map(stat => (
+                                    <div className="col-sm-4">
+                                        <h5 className="mb-0 font-size-20">{formatWeightKG(stat.value)}</h5>
+                                        <p className="text-muted">{stat.title}</p>
+                                    </div>
+                                ))}
+                            </div>
+                            {this.barChart(this.props.data.malts)}
                         </TabPane>
                     </TabContent>
                 </CardBody>
@@ -89,19 +137,32 @@ const mapStatetoProps = state => {
     props.data = {};
     Materials.RawMaterial.types.forEach(type => {
         props.data[type] = {
-            labels: Materials.RawMaterial[type].types,
+            labels: Materials.RawMaterial[type].types.map(type => formatKeyAsLabel(type)),
             datasets: [{
+                label: "YTD Used Material",
+                backgroundColor: "#28bbe3",
+                borderColor: "#28bbe3",
+                borderWidth: 1,
+                hoverBackgroundColor: "#28bbe3",
+                hoverBorderColor: "#28bbe3",
+                data: []
+            }, {
+                label: "YTD Wasted Material",
+                backgroundColor: "#28bbe3",
+                borderColor: "#28bbe3",
+                borderWidth: 1,
+                hoverBackgroundColor: "#28bbe3",
+                hoverBorderColor: "#28bbe3",
                 data: []
             }]
         };
         Materials.RawMaterial[type].types.forEach(subType => {
-            props.data[type].datasets[0].data.push(Materials.RawMaterial[type][subType].cost.value);
+            props.data[type].datasets[0].data.push(Materials.Wasted[type][subType].quantity.ytd_total);
+            props.data[type].datasets[1].data.push(Materials.Used[type][subType].quantity.ytd_total);
         });
     });
 
-    return props;
-
-    //     data: {
+    // props.data = {
     //         hops: {
     //             labels: ["Cascade", "Centennial", "Chinook", "Simcoe", "Citra", "Amarillo", "Mosaic", "Crystal", "Hall Mitt", "CTZ"],
     //             datasets: [
@@ -130,8 +191,8 @@ const mapStatetoProps = state => {
     //                 }
     //             ]
     //         }
-    //     }
-    // };
+    //     };
+    return  props;
 };
 
 export default connect(mapStatetoProps, {})(InventoryValue);

@@ -10,7 +10,7 @@ import {
     TabPane
 } from "reactstrap";
 import classnames from "classnames";
-import InProcessBarChart from "../../component/MaterialsChart/barchart-in-process";
+import InProcessBarChart from "../../../component/MaterialsChart/barchart-in-process";
 
 class InventoryValue extends Component {
     constructor(props) {
@@ -24,7 +24,7 @@ class InventoryValue extends Component {
         return (
             <Card>
                 <CardBody>
-                    <h4 className="card-title mb-4">In-Process</h4>
+                    <h4 className="card-title mb-4">In-Process Value</h4>
                     <div className="row text-center mt-4">
                         {this.props.stats.map(stat => (
                             <div className="col-sm-12">

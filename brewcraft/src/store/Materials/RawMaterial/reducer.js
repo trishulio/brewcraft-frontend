@@ -3,14 +3,15 @@ import {
 } from './actionTypes';
 
 const initialState = {
-    value: 2700,
+    value: 4700,
+    value_increase: 10,
     mtd_average_value: 2700,
     mtd_average_value_increase: 0,
     ytd_average_value: 2700,
     ytd_average_value_increase: 0,
     types: ["hops", "malts"],
     hops: {
-        value: 200,
+        value: 2000,
         mtd_average_value: 200,
         mtd_average_value_increase: 0,
         ytd_average_value: 200,
@@ -22,7 +23,7 @@ const initialState = {
                 value: 200,
             },
             quantity: {
-                value: 20
+                value: 200
             },
             purchases: [{
                 item_id: "1",

@@ -1,4 +1,4 @@
-import { MOCK_TABLE_DATA } from "../../pages/Invoices/mock";
+import { MOCK_TABLE_DATA } from "../../pages/Vendors/invoices/mock";
 
 const initialState = {
   invoices: MOCK_TABLE_DATA

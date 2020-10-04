@@ -43,8 +43,12 @@ const initialState = {
         types: ["2rowmalt"],
         "2rowmalt": {
             name: "2 Row Malt",
-            cost: 600,
-            quantity: 30,
+            cost: {
+                value: 600
+            },
+            quantity: {
+                value: 30
+            },
             purchases: [{
                 item_id: "2",
                 invoice_id: "INVOICE-001",

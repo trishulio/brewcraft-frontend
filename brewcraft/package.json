@@ -48,6 +48,7 @@
     "react-jvectormap": "^0.0.16",
     "react-modal-video": "^1.2.3",
     "react-multiple-datepicker": "^0.1.0",
+    "react-number-format": "^4.4.1",
     "react-perfect-scrollbar": "^1.5.8",
     "react-rangeslider": "^2.2.0",
     "react-raphael-chart": "^0.8.0",

@@ -16,7 +16,7 @@ import Select from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useSelector } from "react-redux";
-import "../Tables/datatables.scss";
+import "../../Tables/datatables.scss";
 
 const optionGroup = [
   {
