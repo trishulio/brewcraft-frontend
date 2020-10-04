@@ -13,7 +13,7 @@ import {
   DropdownItem,
   DropdownMenu,
 } from "reactstrap";
-import { Modalcall } from "./components/Modalcall";
+import { Modalcall } from "../../component/Common/Modalcall";
 import Contact from "./components/Contact";
 import {
   saveContact,

@@ -207,8 +207,8 @@ class Navbar extends Component {
                                         <div className={this.state.isFinishedGoods ? "dropdown-menu dropdown-menu-left show" : "dropdown-menu dropdown-menu-left"} aria-labelledby="topnav-finished-goods">
                                             <Link to="/finished-goods/dashboard" className="dropdown-item">Dashboard</Link>
                                             <Link to="/finished-goods/inventory" className="dropdown-item">Inventory</Link>
-                                            <Link to="/finished-goods/deliveries" className="dropdown-item">Deliveries</Link>
-                                            <Link to="/finished-goods/delivery-drivers" className="dropdown-item">Delivery Drivers</Link>
+                                            <Link to="/deliveries" className="dropdown-item">Deliveries</Link>
+                                            <Link to="/delivery-drivers" className="dropdown-item">Delivery Drivers</Link>
                                             <Link to="/finished-goods/records" className="dropdown-item">Records</Link>
                                         </div>
                                     </li>

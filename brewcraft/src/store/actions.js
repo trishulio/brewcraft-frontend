@@ -4,7 +4,7 @@ export * from './Breadcrumb/actions';
 
 export * from './Brewery/actions';
 
-export * from './materials/actions';
+export * from './Materials/actions';
 
 // Authentication module
 export * from './auth/register/actions';

@@ -7,7 +7,7 @@ import Breadcrumb from "./Breadcrumb/reducer";
 
 import Brewery from "./Brewery/reducer";
 import Customers from './Customers/reducer';
-import Materials from './materials/reducer';
+import Materials from './Materials/reducer';
 
 import Purchases from "./Purchases/reducer";
 
@@ -15,6 +15,8 @@ import Purchases from "./Purchases/reducer";
 import Account from './auth/register/reducer';
 import Login from './auth/login/reducer';
 import Forget from './auth/forgetpwd/reducer';
+import Driver from './Driver/reducer';
+import Vechicles from './Vechicles/reducer';
 
 const rootReducer = combineReducers({
   // public
@@ -35,7 +37,11 @@ const rootReducer = combineReducers({
     // Authentication
     Account,
     Login,
-    Forget
+    Forget,
+    // Contacts
+    Driver,
+    Vechicles
+
 });
 
 export default rootReducer;
