@@ -8,14 +8,13 @@ class FinishedGoods extends Component {
         super(props);
         this.state = {
             breadcrumbItems : [
-                { title : "Dashboard", link : "#" },
-                { title : "Finished Goods", link : "#" }
+                { title : "Dashboard", link : "#" }
             ]
         }
     }
 
     componentDidMount(){
-        this.props.setBreadcrumbItems("FinishedGoods", this.state.breadcrumbItems);
+        this.props.setBreadcrumbItems("Finished Goods", this.state.breadcrumbItems);
     }
 
     render() {

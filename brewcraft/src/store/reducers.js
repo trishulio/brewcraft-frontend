@@ -6,13 +6,14 @@ import Layout from './layout/reducer';
 import Breadcrumb from "./Breadcrumb/reducer";
 
 import Brewery from "./Brewery/reducer";
+import Customers from './Customers/reducer';
+import Materials from './materials/reducer';
 
 // Authentication Module
 import Account from './auth/register/reducer';
 import Login from './auth/login/reducer';
 import Forget from './auth/forgetpwd/reducer';
 import Suppliers  from './Suppliers/reducer';
-import Contacts from './Contacts/reducer';
 import Modal from "./Modal/reducer";
 
 const rootReducer = combineReducers({
@@ -25,14 +26,14 @@ const rootReducer = combineReducers({
 
     // Brewery
     Brewery,
+    Customers,
+    Materials,
 
     // Authentication
     Account,
     Login,
-    Forget,
+    Forget
     Suppliers,
-    // Contacts
-    Contacts,
     Modal,
 });
 
