@@ -7,7 +7,7 @@ import Breadcrumb from "./Breadcrumb/reducer";
 
 import Brewery from "./Brewery/reducer";
 import Customers from './Customers/reducer';
-import Materials from './materials/reducer';
+import Materials from './Materials/reducer';
 
 // Authentication Module
 import Account from './auth/register/reducer';
@@ -32,7 +32,7 @@ const rootReducer = combineReducers({
     // Authentication
     Account,
     Login,
-    Forget
+    Forget,
     Suppliers,
     Modal,
 });

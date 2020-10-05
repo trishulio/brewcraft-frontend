@@ -27,9 +27,6 @@ import CustomersInvoices from '../pages/Customers/invoices';
 // Equipment
 import Equipment from '../pages/Equipment/equipment';
 import Facility from '../pages/Facility/facility';
-import FinishedGoods from '../pages/FinishedGoods/finished-goods';
-import Packaging from '../pages/Packaging/packaging';
-import Reports from '../pages/Reports/reports';
 import { Suppliers } from "../pages/Suppliers/suppliers";
 
 // Finished Goods
@@ -89,10 +86,6 @@ const authProtectedRoutes = [
   // Suppliers
   { path: '/Suppliers', component: Suppliers },
 
-  // Raw Materials
-  { path: "/raw-materials/discover", component: RawMaterialsDiscover },
-  { path: "/raw-materials/records", component: RawMaterialsRecords },
-  { path: "/raw-materials", component: RawMaterials },
   // Finished Goods
   { path: "/finished-goods/dashboard", component: FinishedGoodsDashboard },
   { path: "/finished-goods/inventory", component: FinishedGoodsInventory },
