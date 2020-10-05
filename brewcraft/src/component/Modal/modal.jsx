@@ -7,7 +7,7 @@ import {
     ModalFooter,
     Button
 } from "reactstrap";
-import {closeModal} from "../../store/modal/modal-actions";
+import {closeModal} from "../../store/Modal/actions";
 
 export const Modal = () => {
     const modal = useSelector(state => state.Modal);

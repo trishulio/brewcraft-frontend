@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect, useMemo} from 'react';
 import {Modal} from '../../component/Modal/modal';
 import {batch, useDispatch, useSelector} from "react-redux";
-import {openModal} from "../../store/modal/modal-actions";
+import {openModal} from "../../store/Modal/actions";
 import {setBreadcrumbItems} from "../../store/Breadcrumb/actions";
-import {getSuppliersData, startGetSuppliersWatcher} from "../../store/Suppliers/actions";
+import {startGetSuppliersWatcher} from "../../store/Suppliers/actions";
 import Select from "react-select";
 import {Card, CardBody} from "reactstrap";
 import {MDBDataTable} from "mdbreact";
@@ -20,7 +20,7 @@ export const Suppliers = () => {
 
   const handleCreateOpen = useCallback(() => {
     dispatch(openModal(<CreateModal/>));
-  }, []);
+  }, [dispatch]);
 
   const handleDeleteOpen = useCallback(() => {
     dispatch(openModal(<DeleteModal vendors={vendors}/>));
@@ -38,13 +38,13 @@ export const Suppliers = () => {
       ]))
     })
     dispatch(startGetSuppliersWatcher())
-  }, []);
+  }, [dispatch]);
 
   const actions = useMemo(() => [
     {value: 'create', label: 'Create', onSelect: handleCreateOpen},
     {value: 'update', label: 'Update', onSelect: handleUpdateOpen},
     {value: 'delete', label: 'Delete', onSelect: handleDeleteOpen},
-  ], [handleDeleteOpen, handleCreateOpen]);
+  ], [handleDeleteOpen, handleCreateOpen, handleUpdateOpen]);
 
   const handleSelectChange = e => {
     e.onSelect();
