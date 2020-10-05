@@ -19,7 +19,7 @@ const fetchrequest = function () {
   return true;
 };
 
-function* fetchContacts() {
+function* fetchCustomers() {
   const result = yield call(fetchrequest);
 }
 
@@ -100,8 +100,8 @@ function* deleteContact(action) {
 
 }
 
-export default function* Contacts() {
-  yield takeLatest(FETCH_CONTACTS_REQUEST, fetchContacts);
+export default function* Customers() {
+  yield takeLatest(FETCH_CONTACTS_REQUEST, fetchCustomers);
   yield takeLatest(ADD_CONTACTS_REQUEST, addContact);
   yield takeLatest(EDIT_CONTACTS_REQUEST, editContact);
   yield takeLatest(DELETE_CONTACTS_REQUEST, deleteContact);

@@ -16,13 +16,13 @@ class MiniCard extends Component {
                                     <div className="text-white">
                                         <h6 className="text-uppercase mb-3 font-size-16">{report.title}</h6>
                                         <h2 className="mb-4">{report.value}</h2>
-                                        <Badge color={report.color}> {report.result}</Badge> <span className="ml-2">{report.desc}</span>
+                                        {report.result && <><Badge color={report.color}> {report.result}</Badge><span className="ml-2">{report.desc}</span></>}
                                     </div>
                                 </CardBody>
                             </Card>
                         </Col>
                     )
-                } 
+                }
             </React.Fragment>
         );
     }

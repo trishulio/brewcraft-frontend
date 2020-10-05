@@ -54,7 +54,7 @@ const layout = (state=initialState,action) => {
                 ...state,
                 leftSideBarType: action.payload.sidebarType
             };
-        
+
         case CHANGE_TOPBAR_THEME:
             return {
                 ...state,
@@ -74,14 +74,14 @@ const layout = (state=initialState,action) => {
                 is_toggle : action.payload
             }
             break;
-        
+
         case TOGGLE_RIGHT_SIDEBAR:
             state = {
                 ...state,
                 show_rightsidebar : action.payload
             }
             break;
-        
+
         case HIDE_RIGHT_SIDEBAR:
             state = {
                 ...state,

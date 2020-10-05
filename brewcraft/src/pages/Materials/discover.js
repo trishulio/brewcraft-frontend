@@ -24,16 +24,17 @@ class Discover extends Component {
             breadcrumbItems : [
                 { title : "Dashboard", link : "#" },
                 { title : "Raw Materials", link : "#" }
-            ]
+            ],
+            material_value: null
         }
     }
 
     componentDidMount() {
         this.props.setBreadcrumbItems("Discover", this.state.breadcrumbItems);
-        DataProvider.fetchDiscover()
-            .then(oData => {
-                this.props.setRawMaterialDiscover(oData);
-            });
+        // DataProvider.fetchDiscover()
+        //     .then(oData => {
+        //         this.props.setRawMaterialDiscover(oData);
+        //     });
     }
 
     render() {
@@ -57,8 +58,8 @@ class Discover extends Component {
                         placeholder="Material Type ..."
                         className="basic-single"
                         classNamePrefix="select"
-                        defaultValue={this.props.material_type.value}
-                        options={this.props.material_type.options}
+                        defaultValue={this.state.material_value}
+                        options={this.props.material_options}
                     />
                     </div>
                     <div className="pl-2 mb-3" style={{ width: "50%", display: 'inline-block'}} >
@@ -146,40 +147,44 @@ class Discover extends Component {
 }
 
 const mapStatetoProps = state => {
-    const Discover = state.Brewery.modules.raw_materials.discover;
+    const Materials = state.Materials;
     return {
-        ...Discover,
         reports: [
             {
                 title: "Inventory",
                 icon: "mdi-cube-outline",
                 desc : "From previous period",
                 color: "info",
-                ...Discover.mini_card.raw_materials
+                result: Materials.RawMaterial.mtd_increase,
+                color: Materials.RawMaterial.mtd_increase > 0 ? "info" : "warning"
             },
             {
                 title: "Purchases",
                 icon: "mdi-cube",
                 desc : "From previous period",
                 color: "info",
-                ...Discover.mini_card.in_process
+                result: "-",
+                color: "info"
             },
             {
                 title : "Cost of Goods",
                 icon : "mdi-tag-text-outline",
                 desc : "From previous period",
                 color: "info",
-                ...Discover.mini_card.cogs
+                result: Materials.Used.mtd_increase,
+                color: Materials.Used.mtd_increase > 0 ? "info" : "warning"
             },
             {
                 title : "Waste",
                 icon : "mdi-trash-can-outline",
                 desc : "From previous period",
                 color: "info",
-                ...Discover.mini_card.waste
+                result: Materials.Wasted.mtd_increase,
+                color: Materials.Wasted.mtd_increase > 0 ? "info" : "warning"
             }
-        ]
+        ],
+        material_options: state.Materials.RawMaterial.types,
     };
 };
 
-export default connect(mapStatetoProps, { setBreadcrumbItems, setRawMaterialDiscover })(Discover);
+export default connect(mapStatetoProps, { setBreadcrumbItems })(Discover);
