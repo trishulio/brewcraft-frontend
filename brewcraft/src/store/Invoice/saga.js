@@ -12,33 +12,32 @@ import {
   DELETE_INVOICE_REQUEST,
   DELETE_INVOICE_SUCCESS,
 } from "./actionTypes";
-import {get, omit} from 'lodash'
+import {get} from 'lodash'
 
 
 function* addInvoice(action) {
   let dailogStatus = get(action,'payload');
   const id  = yield Math.random();
   
-  // yield put({
-  //   type: ADD_INVOICE_SUCCESS,
-  //   payload: {
-  //     id: id,
-  //     invoice_id:3,
-  //     status: "status test",
-  //     due: "due test",
-  //     date: "date test",
-  //     number: "number test",
-  //     customer: "customer test",
-  //     amount_due: "amount_due test",
-  //     delivery_date: "delivery_date test",
-  //     payment_date: "payment_date test",
-  //     unpaid:false,
-  //     paid:true,
-  //   } 
-  // });
-  console.log(dailogStatus);
+  yield put({
+    type: ADD_INVOICE_SUCCESS,
+    payload: {
+      id: id,
+      invoice_id:3,
+      status: "status test",
+      due: "due test",
+      date: "date test",
+      number: "number test",
+      customer: "customer test",
+      amount_due: "amount_due test",
+      delivery_date: "delivery_date test",
+      payment_date: "payment_date test",
+      unpaid:false,
+      paid:true,
+    } 
+  });
 
-    // yield call(get(dailogStatus,'sFn'),{success:true, message:"done!"});
+    yield call(get(dailogStatus,'sFn'),{success:true, message:"done!"});
 }
 
 function* editInvoice(action) {
