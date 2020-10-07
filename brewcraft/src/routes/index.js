@@ -60,6 +60,10 @@ import VendorsDashboard from '../pages/Vendors/dashboard';
 import VendorsList from '../pages/Vendors/list';
 import VendorsInvoices from '../pages/Vendors/invoices/Invoices';
 
+import Invoices from '../pages/Invoices/invoices';
+import Createinvoice from '../pages/Invoices/create-invoice';
+import Viewinvoice from '../pages/Invoices/view-invoice';
+
 const authProtectedRoutes = [
   // Customers
   // { path: "/customers/dashboard", component: CustomersDashboard },
@@ -113,7 +117,10 @@ const authProtectedRoutes = [
   { path: "/vendors/dashboard", component: VendorsDashboard },
   { path: "/vendors/list", component: VendorsList },
   { path: "/vendors/invoices", component: VendorsInvoices },
-
+// invoice
+{ path: "/invoices", exact: true, component: Invoices },
+{ path: "/create-invoice",  component: Createinvoice },
+{ path: "/invoices/view-invoice/:id", component: Viewinvoice },
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
 ];
 
