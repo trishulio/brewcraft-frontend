@@ -12,10 +12,10 @@ export default function ContextMenu({ row, fnlist }) {
       title: "Send",
       eventFn: sendB,
     },
-    {
-      title: "Send reminder",
-      eventFn: sendReminderB,
-    },
+    // {
+    //   title: "Send reminder",
+    //   eventFn: sendReminderB,
+    // },
     {
       title: "Record payment",
       eventFn: recordPaymentB,

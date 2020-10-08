@@ -10,7 +10,7 @@ import {
   Button,
 } from "reactstrap";
 import { useHistory, useRouteMatch } from "react-router-dom";
-import { get } from "lodash";
+import { get,filter } from "lodash";
 import Tabs from "./tabs";
 import ExpanTable from "./expand-table";
 
@@ -74,23 +74,23 @@ export default function Invoices() {
     return null;
   }
   const send = (row) => {
-    console.log(row);
   };
   const sendReminder = (row) => {
-    console.log(row);
   };
   const recordPayment = (row) => {
-    console.log(row);
+    
   };
   const viewInvoice = (row) => history.push(`${path}/view-invoice/${get(row,"id")}`);
   const createInvoice = () => history.push(`/create-invoice`);
+  
+  console.log(data);
   const tabList = [
     {
       id: 0,
       title: "Unpaid",
       component: (
         <ExpanTable
-          invoicelist={data}
+          invoicelist={filter(data,(o)=>{return o.unpaid})}
           send={send}
           sendReminder={sendReminder}
           recordPayment={recordPayment}
@@ -103,7 +103,7 @@ export default function Invoices() {
       title: "Paid",
       component: (
         <ExpanTable
-          invoicelist={data}
+          invoicelist={filter(data,(o)=>{return o.paid})}
           send={send}
           sendReminder={sendReminder}
           recordPayment={recordPayment}

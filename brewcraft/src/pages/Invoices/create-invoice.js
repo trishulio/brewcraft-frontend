@@ -183,7 +183,9 @@ export default function CreateInvoice(props) {
     }
   };
   // create form
+ 
   const creatInvoice = (event, values) => {
+
     let valid = 0;
     map(stateData, (value, index) => {
       if (get(value, "item") == "") {
@@ -258,7 +260,7 @@ export default function CreateInvoice(props) {
                   <hr />
                 </Col>
               </Rowtable>
-              <AvForm onValidSubmit={creatInvoice}>
+              <AvForm onValidSubmit={creatInvoice} >
                 <InvoiceDate choosefn={chooseCustomer} customer={customer} />
                 <Rowtable>
                   <Col xs="12">
@@ -306,7 +308,8 @@ export default function CreateInvoice(props) {
                                 <Button
                                   type="submit"
                                   color="primary"
-                                  className="mt-3"
+                                  className="mt-3 mr-1"
+                                  name="submit"
                                 >
                                   Create Form
                                 </Button>

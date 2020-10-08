@@ -45,7 +45,7 @@ export default function Tabs({tabitems}) {
 
       <TabContent activeTab={activeTab}>
         {map(tabitems, (value, index) => (
-          <TabPane tabId={value.id} className="p-3" key={index}>
+          <TabPane tabId={value.id}  key={index}>
             {value.component}
           </TabPane>
         ))}

@@ -41,7 +41,22 @@ const initialState = {
       payment_date: "payment_date test",
       unpaid:false,
       paid:true,
-    }, 
+    },
+    {
+      id: "1",
+      invoice_id:2,
+      status: "status test",
+      due: "due test",
+      date: "date test",
+      number: "number test",
+      customer: "customer test",
+      amount_due: "amount_due test",
+      delivery_date: "delivery_date test",
+      payment_date: "payment_date test",
+      unpaid:true,
+      paid:false,
+    },
+     
    
   ],
   loading: false,

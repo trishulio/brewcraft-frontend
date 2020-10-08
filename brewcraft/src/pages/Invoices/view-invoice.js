@@ -206,13 +206,6 @@ export default function Viewinvoice() {
                           >
                             <i className="fa fa-print"></i>
                           </Link>
-                          <Link
-                            to="#"
-                            onClick={sendEmail}
-                            className="btn btn-primary waves-effect waves-light"
-                          >
-                            Send
-                          </Link>
                         </div>
                       </div>
                     </div>
