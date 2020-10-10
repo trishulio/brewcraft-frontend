@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { ListGroupItem, Row, Col, ListGroup, Input } from "reactstrap";
+import { ListGroupItem, Row, Col, ListGroup, Input, Button } from "reactstrap";
 import {
   sortableContainer,
   sortableElement,
@@ -8,10 +8,15 @@ import {
 import { get } from "lodash";
 import { sumBy } from "lodash";
 import ItemSelect from "./item-select";
-import { AvField } from "availity-reactstrap-validation";
+import {
+  formatPercent,
+  formatCurrency,
+  Notzero,
+} from "../../helpers/textUtils";
+// dragable Icon
 const DragHandle = sortableHandle(() => (
   <Fragment>
-    <i className="mdi mdi-drag-variant"></i>
+     <i className="mdi mdi-drag-variant DragHandler iconhover"></i>
   </Fragment>
 ));
 
@@ -19,7 +24,7 @@ const DragHandle = sortableHandle(() => (
 const fonSizeicon = {
   fontSize: "1rem",
 };
-
+// drag row
 const DragableItem = sortableElement(
   ({
     item: argumentItme,
@@ -61,9 +66,9 @@ const DragableItem = sortableElement(
               <Col>
                 <Input
                   type="textarea"
-                  name="text"
+                  name="description"
                   value={description}
-                  readOnly
+                  onChange={handerlLocal}
                 />
               </Col>
             </Row>
@@ -94,29 +99,35 @@ const DragableItem = sortableElement(
           <Col xs="2" className="text-center">
             <Row>
               <Col>
-                {quantity * price != 0 ? "$" + quantity * price : "-"}
-
+                <Notzero value={quantity * price}>
+                  {formatCurrency(quantity * price)}
+                </Notzero>
                 <span className="float-right mt-3">
-                  <i
-                    className="mdi mdi-minus-box-multiple-outline"
-                    style={fonSizeicon}
-                    onClick={removerowLocal}
-                  ></i>
+                  <Notzero value={rowid}>
+                     <i
+                      className="mdi mdi-minus-box-multiple-outline pointer iconhover"
+                      style={fonSizeicon}
+                      onClick={removerowLocal}
+                    />
+                  
+                  </Notzero>
                 </span>
               </Col>
             </Row>
             <Row>
               <Col>
-                {taxpercentage}%
+                <Notzero value={taxpercentage}>
+                  {formatPercent(taxpercentage)}
+                </Notzero>
                 <br />
-                {/* tax calculation */}
                 <span>
-                  <strong>Total: </strong>
-                  {quantity * price != 0
-                    ? "$" +
-                      ((quantity * price * taxpercentage) / 100 +
-                        quantity * price)
-                    : "-"}
+                  <Notzero value={quantity * price}>
+                    <strong>Total: </strong>
+                    {formatCurrency(
+                      (quantity * price * taxpercentage) / 100 +
+                        quantity * price
+                    )}
+                  </Notzero>
                 </span>
               </Col>
             </Row>
@@ -126,10 +137,9 @@ const DragableItem = sortableElement(
     );
   }
 );
-
+// table
 const DragableTable = sortableContainer(({ children, calculation, addrow }) => {
   // sum of all total cart
-
   const sum = sumBy(
     calculation,
     (o) => (o.quantity * o.price * o.taxpercentage) / 100 + o.quantity * o.price
@@ -163,7 +173,7 @@ const DragableTable = sortableContainer(({ children, calculation, addrow }) => {
             <Col xs="9">
               <span>
                 <i
-                  className="mdi mdi-plus-box-multiple-outline"
+                  className="mdi mdi-plus-box-multiple-outline pointer iconhover"
                   style={fonSizeicon}
                   onClick={addrow}
                 ></i>
@@ -174,7 +184,9 @@ const DragableTable = sortableContainer(({ children, calculation, addrow }) => {
               <strong>Subtotal</strong>
             </Col>
             <Col xs="2" className="text-center">
-              <strong>${sum}</strong>
+              <strong>
+                <Notzero value={sum}>{formatCurrency(sum)}</Notzero>
+              </strong>
             </Col>
           </Row>
         </ListGroupItem>
@@ -185,7 +197,9 @@ const DragableTable = sortableContainer(({ children, calculation, addrow }) => {
               <strong>Total</strong>
             </Col>
             <Col xs="2" className="text-center">
-              <strong>${sum}</strong>
+              <strong>
+                <Notzero value={sum}>{formatCurrency(sum)}</Notzero>
+              </strong>
             </Col>
           </Row>
         </ListGroupItem>

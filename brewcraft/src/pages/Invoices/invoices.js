@@ -13,30 +13,30 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 import { get,filter } from "lodash";
 import Tabs from "./tabs";
 import ExpanTable from "./expand-table";
-
+import {formatCurrency,formatPercent} from '../../helpers/textUtils';
 export default function Invoices() {
   const [cardData, setCardData] = useState([
     {
       title: "Overdue",
       icon: "mdi-chart-arc",
-      result: "+11%",
-      value: "18000,0",
+      result: "-11",
+      value: "180000",
       desc: "Last update 9 minutes ago",
       color: "info",
     },
     {
       title: "Due within next 30 days",
       icon: "mdi-chart-bar",
-      result: "-29%",
-      value: "$46,782",
+      result: "-29",
+      value: "46782",
       desc: "",
       color: "danger",
     },
     {
       title: "Average time to get paid",
       icon: "mdi-chart-histogram",
-      result: "0%",
-      value: "$15.9",
+      result: "0",
+      value: "15.9",
       desc: "",
       color: "warning",
     },
@@ -83,7 +83,6 @@ export default function Invoices() {
   const viewInvoice = (row) => history.push(`${path}/view-invoice/${get(row,"id")}`);
   const createInvoice = () => history.push(`/create-invoice`);
   
-  console.log(data);
   const tabList = [
     {
       id: 0,
@@ -151,8 +150,8 @@ export default function Invoices() {
                   <h6 className="text-uppercase mb-3 font-size-16">
                     {report.title}
                   </h6>
-                  <h2 className="mb-4">{report.value}</h2>
-                  <Badge color={report.color}> {report.result}</Badge>
+                  <h2 className="mb-4">{formatCurrency(report.value)}</h2>
+                  <Badge color={report.color}> {formatPercent(report.result)}</Badge>
                   <span className="ml-2">{report.desc}</span>
                 </div>
               </CardBody>

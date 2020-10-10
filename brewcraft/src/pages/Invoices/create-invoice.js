@@ -60,7 +60,6 @@ export default function CreateInvoice(props) {
     loading: customerLoading,
     error: customerError,
   } = get(store, "tax");
-
   // if inventory is fatching first time
   let options = [];
   map(inventoryData, (value, index) => {
@@ -88,7 +87,6 @@ export default function CreateInvoice(props) {
       </option>
     );
   });
-
   // component did mount alternative for functional component
   useEffect(() => {
     dispatch(
@@ -98,7 +96,6 @@ export default function CreateInvoice(props) {
       ])
     );
   }, []);
-
   // if contacts is fatching first time
   if (loading) {
     return <div>Loading...</div>;
@@ -111,23 +108,33 @@ export default function CreateInvoice(props) {
   if (!data) {
     return null;
   }
-
   // on sort end fn trigger
   const onSortEnd = ({ oldIndex, newIndex }) =>
     setStateData(arrayMove(stateData, oldIndex, newIndex));
-
   //  change quanitty fn
   const quanittyHandler = (rowId, value, name) => {
+
     const valueSOrted = stateData.slice();
 
-    const valueCasted = parseInt(value);
+      if(name =="description"){
 
-    if (isNaN(valueCasted) || Math.abs(valueCasted) == 0) {
-      valueSOrted[rowId][name] = 1;
-    } else {
-      valueSOrted[rowId][name] = Math.abs(valueCasted);
-    }
+        valueSOrted[rowId][name] = value;
+      }else{
+  
+        const valueSOrted = stateData.slice();
 
+        const valueCasted = parseInt(value);
+
+        if (isNaN(valueCasted) || Math.abs(valueCasted) == 0) {
+  
+          valueSOrted[rowId][name] = 1;
+  
+        } else {
+  
+          valueSOrted[rowId][name] = Math.abs(valueCasted);
+  
+        }
+      }
     setStateData([...valueSOrted]);
   };
   // change item select
@@ -163,7 +170,6 @@ export default function CreateInvoice(props) {
     );
     setStateData([...valueSOrted]);
   };
-
   // add row on the invoice
   const addProductRow = () => {
     const valueSOrted = stateData.slice();
@@ -183,8 +189,7 @@ export default function CreateInvoice(props) {
     }
   };
   // create form
- 
-  const creatInvoice = (event, values) => {
+   const creatInvoice = (event, values) => {
 
     let valid = 0;
     map(stateData, (value, index) => {
@@ -250,9 +255,6 @@ export default function CreateInvoice(props) {
               <Rowtable>
                 <Col xs="12">
                   <div className="invoice-title">
-                    <h4 className="float-right font-size-16">
-                      <strong>Invoice #12345</strong>
-                    </h4>
                     <h3 className="mt-0">
                       <img src={darkimg} alt="logo" height="24" />
                     </h3>
@@ -311,7 +313,7 @@ export default function CreateInvoice(props) {
                                   className="mt-3 mr-1"
                                   name="submit"
                                 >
-                                  Create Form
+                                  Create Invoice
                                 </Button>
                               </div>
                             </Col>

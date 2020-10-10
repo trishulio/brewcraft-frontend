@@ -61,9 +61,9 @@ export default function ExpanTable({
     },
     expandColumnRenderer: ({ expanded }) => {
       return expanded ? (
-        <i className="ti-arrow-down" />
+        <i className="ti-arrow-down pointer iconhover" />
       ) : (
-        <i className="ti-angle-right" />
+        <i className="ti-angle-right pointer iconhover" />
       );
     },
   };
