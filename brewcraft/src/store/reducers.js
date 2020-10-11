@@ -17,7 +17,9 @@ import Login from './auth/login/reducer';
 import Forget from './auth/forgetpwd/reducer';
 import Driver from './Driver/reducer';
 import Vechicles from './Vechicles/reducer';
-
+import Invoice from './Invoice/reducer';
+import Inventory from './Inventory/reducer';
+import Tax from './Tax/reducer';
 const rootReducer = combineReducers({
   // public
   Layout,
@@ -40,7 +42,10 @@ const rootReducer = combineReducers({
     Forget,
     // Contacts
     Driver,
-    Vechicles
+    Vechicles,
+    Invoice,
+    Inventory,
+    Tax
 
 });
 

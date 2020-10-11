@@ -21,8 +21,10 @@ import Brews from '../pages/Brews/brews';
 
 // Customers
 // import CustomersDashboard from '../pages/Customers/dashboard';
-import CustomersList from '../pages/Customers/list';
-import CustomersInvoices from '../pages/Customers/invoices';
+import CustomerList from '../pages/Customers/list';
+import CustomerInvoices from '../pages/CustomerInvoices/invoices';
+import CustomerNewInvoice from '../pages/CustomerInvoices/create-invoice';
+import CustomerViewInvoice from '../pages/CustomerInvoices/view-invoice';
 
 // Equipment
 import Equipment from '../pages/Equipment/equipment';
@@ -63,8 +65,10 @@ import VendorsInvoices from '../pages/Vendors/invoices/Invoices';
 const authProtectedRoutes = [
   // Customers
   // { path: "/customers/dashboard", component: CustomersDashboard },
-  { path: "/customers/list", component: CustomersList },
-  { path: "/customers/invoices", component: CustomersInvoices },
+  { path: "/customers/list", component: CustomerList },
+  { path: "/customers/invoice/new", component: CustomerNewInvoice },
+  { path: "/customers/invoice/:id", component: CustomerViewInvoice },
+  { path: "/customers/invoices", component: CustomerInvoices },
 
   // Brews
   { path: "/brews/active-brews", component: BrewsActive },

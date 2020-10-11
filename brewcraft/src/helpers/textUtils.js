@@ -80,3 +80,16 @@ export function formatVolumeML(value) {
 export function formatKeyAsLabel(name) {
     return name.charAt(0).toUpperCase() + name.slice(1)
 }
+export function Notzero (props) {
+    
+    if (props.value != 0) {
+    
+        return props.children;
+   
+    } else {
+     
+        return null;
+        
+    }
+};
+  

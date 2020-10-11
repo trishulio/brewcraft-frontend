@@ -16,3 +16,20 @@
 
 //Import Custome scss
 @import "./assets/scss/custom-style.scss";
+
+.DragHandler{
+
+    cursor:move;
+    
+}
+.pointer{
+
+    cursor: pointer;
+    
+}
+.iconhover{
+    opacity: .75;
+}
+.iconhover:hover{
+    opacity: 1;
+}

@@ -10,6 +10,7 @@ import Customers from './Customers/saga';
 // import Delivery from './Delivery/saga';
 import Driver from './Driver/saga';
 import  Vechicles from './Vechicles/saga';
+import  Invoice from './Invoice/saga';
 
 export default function* rootSaga() {
     yield all([
@@ -21,6 +22,7 @@ export default function* rootSaga() {
         LayoutSaga(),
         Customers(),
         Driver(),
-        Vechicles()
+        Vechicles(),
+        Invoice()
     ])
 }
