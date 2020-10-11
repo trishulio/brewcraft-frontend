@@ -120,19 +120,19 @@ export default function CreateInvoice(props) {
 
         valueSOrted[rowId][name] = value;
       }else{
-  
+
         const valueSOrted = stateData.slice();
 
         const valueCasted = parseInt(value);
 
         if (isNaN(valueCasted) || Math.abs(valueCasted) == 0) {
-  
+
           valueSOrted[rowId][name] = 1;
-  
+
         } else {
-  
+
           valueSOrted[rowId][name] = Math.abs(valueCasted);
-  
+
         }
       }
     setStateData([...valueSOrted]);
@@ -226,7 +226,7 @@ export default function CreateInvoice(props) {
   const setCustomerstate = () => {
     const userIndex = findIndex(customerData, (o)=>o.id ==slectVlaue)
     if(userIndex != -1){
-      // change when you attached customer redux store 
+      // change when you attached customer redux store
       setCustomer({
         name: get(customerData,`[${userIndex}].label`),
         address1: get(customerData,`[${userIndex}].label`),
@@ -234,7 +234,7 @@ export default function CreateInvoice(props) {
       });
         setShow(false);
     }
-   
+
   };
   // after sucess call fn
   const afterSuccessFn = ({ success, message }) => {

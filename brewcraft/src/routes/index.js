@@ -21,8 +21,10 @@ import Brews from '../pages/Brews/brews';
 
 // Customers
 // import CustomersDashboard from '../pages/Customers/dashboard';
-import CustomersList from '../pages/Customers/list';
-import CustomersInvoices from '../pages/Customers/invoices';
+import CustomerList from '../pages/Customers/list';
+import CustomerInvoices from '../pages/CustomerInvoices/invoices';
+import CustomerNewInvoice from '../pages/CustomerInvoices/create-invoice';
+import CustomerViewInvoice from '../pages/CustomerInvoices/view-invoice';
 
 // Equipment
 import Equipment from '../pages/Equipment/equipment';
@@ -60,15 +62,13 @@ import VendorsDashboard from '../pages/Vendors/dashboard';
 import VendorsList from '../pages/Vendors/list';
 import VendorsInvoices from '../pages/Vendors/invoices/Invoices';
 
-import Invoices from '../pages/Invoices/invoices';
-import Createinvoice from '../pages/Invoices/create-invoice';
-import Viewinvoice from '../pages/Invoices/view-invoice';
-
 const authProtectedRoutes = [
   // Customers
   // { path: "/customers/dashboard", component: CustomersDashboard },
-  { path: "/customers/list", component: CustomersList },
-  { path: "/customers/invoices", component: CustomersInvoices },
+  { path: "/customers/list", component: CustomerList },
+  { path: "/customers/invoice/new", component: CustomerNewInvoice },
+  { path: "/customers/invoice/:id", component: CustomerViewInvoice },
+  { path: "/customers/invoices", component: CustomerInvoices },
 
   // Brews
   { path: "/brews/active-brews", component: BrewsActive },
@@ -117,10 +117,7 @@ const authProtectedRoutes = [
   { path: "/vendors/dashboard", component: VendorsDashboard },
   { path: "/vendors/list", component: VendorsList },
   { path: "/vendors/invoices", component: VendorsInvoices },
-// invoice
-{ path: "/invoices", exact: true, component: Invoices },
-{ path: "/create-invoice",  component: Createinvoice },
-{ path: "/invoices/view-invoice/:id", component: Viewinvoice },
+
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
 ];
 

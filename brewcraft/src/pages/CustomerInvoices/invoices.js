@@ -78,11 +78,11 @@ export default function Invoices() {
   const sendReminder = (row) => {
   };
   const recordPayment = (row) => {
-    
+
   };
   const viewInvoice = (row) => history.push(`${path}/view-invoice/${get(row,"id")}`);
-  const createInvoice = () => history.push(`/create-invoice`);
-  
+  const createInvoice = () => history.push(`/customers/invoice/new`);
+
   const tabList = [
     {
       id: 0,

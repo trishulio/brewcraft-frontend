@@ -165,9 +165,10 @@ class Navbar extends Component {
                                             <i className="ti-thumb-up"></i>Customers
                                     </Link>
                                         <div className={this.state.isCustomer ? "dropdown-menu dropdown-menu-left show" : "dropdown-menu dropdown-menu-left"} aria-labelledby="topnav-customers">
-                                            <Link to="/customers/dashboard" className="dropdown-item">Dashboard</Link>
+                                            {/* <Link to="/customers/dashboard" className="dropdown-item">Dashboard</Link> */}
                                             <Link to="/customers/list" className="dropdown-item">List Customers</Link>
                                             <Link to="/customers/invoices" className="dropdown-item">Sales Invoices</Link>
+                                            <Link to="/customers/invoice/new" className="dropdown-item">New Invoice</Link>
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">
