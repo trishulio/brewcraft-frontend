@@ -17,6 +17,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useSelector } from "react-redux";
 import "../../Tables/datatables.scss";
+import {useHistory} from 'react-router-dom'; 
+import { get } from 'lodash';
 
 const optionGroup = [
   {
@@ -33,6 +35,7 @@ const InvoicesTable = () => {
   const [selectedMulti, setSelectedMulti] = React.useState(null);
   const [fromDate, setFromDate] = React.useState(null);
   const [toDate, setToDate] = React.useState(null);
+  const history = useHistory();
   const [rowActionStatus, setRowActionStatus] = React.useState({
     open: false,
     id: null,
@@ -153,7 +156,8 @@ const InvoicesTable = () => {
               <i className="mdi mdi-menu-down"></i>
             </DropdownToggle>
             <DropdownMenu right>
-              <DropdownItem href="#">Action</DropdownItem>
+              <DropdownItem onClick={()=>{editInvoice(row)}}>Edit</DropdownItem>
+              <DropdownItem onClick={()=>{editInvoice(row)}}>Delete</DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>,
@@ -164,6 +168,12 @@ const InvoicesTable = () => {
   const handleMulti = (selectedOption) => {
     setSelectedMulti(selectedOption);
   };
+  const editInvoice = (invoice) =>{
+    history.push(`/vendors/invoices/${get(invoice,'id')}`);
+  }
+  const deleteInvoice = (invoice) =>{
+    console.log(invoice);
+  }
 
   return (
     <Card>
