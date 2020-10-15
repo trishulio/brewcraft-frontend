@@ -176,6 +176,8 @@ const InvoicesTable = () => {
   const deleteInvoice = (invoice) =>{
     console.log(invoice);
   }
+  const creatInvoice = () =>history.push(`/vendors/invoices/create`);
+  
 
   return (
     <Card>
@@ -183,7 +185,7 @@ const InvoicesTable = () => {
         <Row>
           <Col xs="12">
             <div className="d-flex justify-content-end align-items-center mt-4">
-              <MDBBtn rounded color="primary">
+              <MDBBtn rounded color="primary" onClick={creatInvoice}>
                 Create an invoice
               </MDBBtn>
             </div>

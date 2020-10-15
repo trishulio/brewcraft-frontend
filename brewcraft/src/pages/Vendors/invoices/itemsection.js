@@ -9,10 +9,6 @@ import {
 import ItemExpenseContext from "./item-expense-context";
 import Item from "./item";
 
-const fonSizeicon = {
-  fontSize: "1rem",
-};
-
 /**
  * @param {Object} item
  * @description Po Form
@@ -59,8 +55,8 @@ export default function Itemsection({ item }) {
             <Col xs="9">
               <span>
                 <i
-                  className="mdi mdi-plus-box-multiple-outline pointer iconhover"
-                  style={fonSizeicon}
+                  className="mdi mdi-plus-box-multiple-outline pointer iconhover iconfont"
+                  title="add item"
                   onClick={addrow}
                 ></i>
                 Add an item

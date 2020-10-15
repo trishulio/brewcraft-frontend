@@ -88,13 +88,31 @@ export function formatKeyAsLabel(name) {
  */
 export function Notzero (props) {
     
-    if (props.value != 0) {
+    if (props.value !== 0) {
     
         return props.children;
    
     } else {
      
         return null;
+        
+    }
+};
+/**
+ * 
+ * @author Anuj Gupta
+ * @param {number} value is required  number
+ * @param {any} children is required any
+ */
+export function NotMinusoneNun (props) {
+    
+    if (props.value != null && props.value !== -1) {
+    
+        return props.children;
+   
+    } else {
+     
+        return  <div>not found</div>;
         
     }
 };

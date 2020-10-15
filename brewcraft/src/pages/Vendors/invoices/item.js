@@ -2,7 +2,7 @@ import { get, map, attempt } from "lodash";
 import React, { Fragment, useContext } from "react";
 import { Row, Col, ListGroupItem, Input } from "reactstrap";
 import { ItemSelect } from "../../../component/item-select";
-import { Notzero } from "../../../helpers/textUtils";
+import { Notzero, formatCurrency } from "../../../helpers/textUtils";
 import ItemExpenseContext from "./item-expense-context";
 
 /**
@@ -13,13 +13,7 @@ import ItemExpenseContext from "./item-expense-context";
  *
  */
 
-// may be can change with css class
-const fonSizeicon = {
-  fontSize: "1rem",
-};
-
 export default function Item({ value, indexv }) {
-
   const selectoption = useContext(ItemExpenseContext);
   /**
    *
@@ -114,17 +108,21 @@ export default function Item({ value, indexv }) {
               type="number"
               name="tax"
               required
-              value={get(value, "qty")}
+              value={get(value, "tax")}
               onChange={changeevent}
             />
           </Col>
           <Col xs="3">
-            {get(value, "price") + get(value, "qty")}
+            {formatCurrency(
+              (get(value, "qty") * get(value, "price") * get(value, "tax")) /
+                100 +
+                get(value, "qty") * get(value, "price")
+            )}
             <Notzero value={indexv}>
               <span className="float-right mt-3">
                 <i
-                  className="mdi mdi-minus-box-multiple-outline pointer iconhover"
-                  style={fonSizeicon}
+                  className="mdi mdi-delete-forever pointer iconhover iconfont"
+                  title="delet item"
                   onClick={removerowLocal}
                 ></i>
               </span>
