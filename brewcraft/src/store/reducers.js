@@ -20,6 +20,9 @@ import Vechicles from './Vechicles/reducer';
 import Invoice from './Invoice/reducer';
 import Inventory from './Inventory/reducer';
 import Tax from './Tax/reducer';
+import PurchaseItem from './PurchaseItem/reducer';
+import ExpenseCategory from './ExpenseCategory/reducer';
+
 const rootReducer = combineReducers({
   // public
   Layout,
@@ -45,7 +48,9 @@ const rootReducer = combineReducers({
     Vechicles,
     Invoice,
     Inventory,
-    Tax
+    Tax,
+    PurchaseItem,
+    ExpenseCategory
 
 });
 

@@ -1,20 +1,45 @@
-import { map } from 'lodash';
-import React,{Fragment} from 'react';
-import { Col, Row,ListGroupItem, ListGroup } from 'reactstrap';
-import {Notzero, formatCurrency,formatPercent} from '../../../helpers/textUtils';
-import Item from './item'
-const fonSizeicon = {
-    fontSize: "1rem",
-  };
-export default function Itemsection({item}){
-   
-  const addrow = () =>{
+import { attempt, get, map, sumBy } from "lodash";
+import React, { Fragment, useContext } from "react";
+import { Col, Row, ListGroupItem, ListGroup } from "reactstrap";
+import {
+  Notzero,
+  formatCurrency,
+  formatPercent,
+} from "../../../helpers/textUtils";
+import ItemExpenseContext from "./item-expense-context";
+import Item from "./item";
 
-  }
- 
-  const sum =1;
-    return <Fragment>
-        <ListGroup>
+const fonSizeicon = {
+  fontSize: "1rem",
+};
+
+/**
+ * @param {Object} item
+ * @description Po Form
+ * @author Anuj Gupta
+ *
+ */
+export default function Itemsection({ item }) {
+  const select = useContext(ItemExpenseContext);
+
+  /**
+   *
+   * Add click FN
+   *
+   */
+  const addrow = () => attempt(get(select, "add"));
+
+  /**
+   * Sum of amount
+   */
+  const sum = sumBy(
+    item,
+    (o) => (o.qty * o.price * o.tax) / 100 + o.qty * o.price
+  );
+
+  return (
+    <Fragment>
+      <ListGroup>
         <ListGroupItem>
           <Row>
             <Col xs="2">Item</Col>
@@ -26,9 +51,9 @@ export default function Itemsection({item}){
             <Col xs="3">Amount</Col>
           </Row>
         </ListGroupItem>
-        {
-            map(item, (val, index)=><Item key={index} value={val} />)
-        }
+        {map(item, (val, index) => (
+          <Item key={index} value={val} indexv={index} />
+        ))}
         <ListGroupItem>
           <Row>
             <Col xs="9">
@@ -66,4 +91,5 @@ export default function Itemsection({item}){
         </ListGroupItem>
       </ListGroup>
     </Fragment>
+  );
 }

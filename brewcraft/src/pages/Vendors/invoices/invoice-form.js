@@ -19,7 +19,7 @@ export default function InvoiceForm({ detail }) {
             </Row>
             <div className="mt-5">
               <Vendorsection vendor={omit(detail, "item_list")} />
-              <Itemsection item={get(detail, "item_list")} />
+              <Itemsection item={get(detail, "item_list")}/>
               <Button
                 type="submit"
                 color="primary"

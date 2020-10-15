@@ -32,6 +32,7 @@ const optionGroup = [
 ];
 
 const InvoicesTable = () => {
+
   const [selectedMulti, setSelectedMulti] = React.useState(null);
   const [fromDate, setFromDate] = React.useState(null);
   const [toDate, setToDate] = React.useState(null);
@@ -40,6 +41,7 @@ const InvoicesTable = () => {
     open: false,
     id: null,
   });
+  
   const { invoices } = useSelector((state) => state.Purchases);
 
   const data = {

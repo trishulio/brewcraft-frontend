@@ -3,6 +3,14 @@ import React, { Fragment } from "react";
 import { Col, Row, FormGroup, Label, Input } from "reactstrap";
 import { ItemSelectAV } from "../../../component/item-select";
 import { AvField, AvInput } from "availity-reactstrap-validation";
+
+/**
+ * 
+ * @param {any} vendor for pre filled the form data
+ * @description PO header section
+ * @author Anuj Gupta
+ *  
+ */
 export default function Vendorsection({ vendor }) {
   return (
     <Fragment>
