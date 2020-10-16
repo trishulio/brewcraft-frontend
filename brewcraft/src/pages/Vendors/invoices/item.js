@@ -61,7 +61,6 @@ export default function Item({ value, indexv }) {
               value={get(value, "item")}
               changefn={changeevent}
             >
-              <option>Select</option>
               {renderSelect(selectoption, "purchase")}
             </ItemSelect>
           </Col>
@@ -73,7 +72,6 @@ export default function Item({ value, indexv }) {
               value={get(value, "expence_cat")}
               changefn={changeevent}
             >
-              <option>Select</option>
               {renderSelect(selectoption, "dxpenseCategory")}
             </ItemSelect>
           </Col>

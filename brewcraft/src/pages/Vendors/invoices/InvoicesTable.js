@@ -159,7 +159,6 @@ const InvoicesTable = () => {
             </DropdownToggle>
             <DropdownMenu right>
               <DropdownItem onClick={()=>{editInvoice(row)}}>Edit</DropdownItem>
-              <DropdownItem onClick={()=>{editInvoice(row)}}>Delete</DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>,
@@ -170,11 +169,9 @@ const InvoicesTable = () => {
   const handleMulti = (selectedOption) => {
     setSelectedMulti(selectedOption);
   };
+
   const editInvoice = (invoice) =>{
     history.push(`/vendors/invoices/${get(invoice,'id')}`);
-  }
-  const deleteInvoice = (invoice) =>{
-    console.log(invoice);
   }
   const creatInvoice = () =>history.push(`/vendors/invoices/create`);
   

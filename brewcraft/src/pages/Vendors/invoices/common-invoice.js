@@ -6,6 +6,8 @@ import { AvForm } from "availity-reactstrap-validation";
 import { ItemExpenseProvider } from "./item-expense-context";
 import { Modalcall } from "../../../component/Common/Modalcall";
 import { Button } from "reactstrap";
+import {deleteInvoice, saveInvoice, editInvoice} from '../../../store/Invoice/actions'
+import {useHistory} from 'react-router-dom';
 /**
  * @author Anuj Gupta
  * @description InvoicesDetail access 3 store from redux invoicedata, invoices, purchaseItem, expenseCategory
@@ -14,7 +16,7 @@ import { Button } from "reactstrap";
  */
 export default function Commoninvoice({ data, type }) {
   const [invoiceData, setInvoiceData] = useState();
-
+  const history = useHistory();
   const dispatch = useDispatch();
   const [deleteshow, setDeleteshow] = useState(false);
 
@@ -44,17 +46,25 @@ export default function Commoninvoice({ data, type }) {
    * Form Submit
    */
   const handleValidSubmit = (event, values) => {
-    console.log(values);
-    // dispatch update form
+      console.log(invoiceData);
+      if(type === "edit"){
+        dispatch(editInvoice({data:invoiceData,callback:dialogCLoseS}));
+    }else{
+        dispatch(saveInvoice({data:invoiceData,callback:dialogCLoseS}));
+    }
+
   };
 
   /**
-   *
+   *@description delete dialog with dispatch
    */
   const removeThisBill = () => setDeleteshow(true);
-  const deleteDispatch = () => {
-    console.log(invoiceData);
-  };
+  const deleteDispatch = () => dispatch(deleteInvoice({data:invoiceData,callback:dialogCLoseS}));
+  const dialogCLoseS = () =>{
+    setDeleteshow(false);
+    history.goBack();
+
+  }
   /**
    * @description Add Item rows on the form
    */

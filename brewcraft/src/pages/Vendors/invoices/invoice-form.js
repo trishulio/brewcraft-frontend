@@ -3,7 +3,12 @@ import { Card, CardBody, Col, Row, Button } from "reactstrap";
 import Vendorsection from "./vendorsection";
 import Itemsection from "./itemsection";
 import { omit, get } from "lodash";
+import { useHistory} from 'react-router-dom';
 export default function InvoiceForm({ detail, removebill, type }) {
+  const history = useHistory();
+  const gobackup = () =>{
+   history.goBack();
+  }
   return (
     <Row>
       <Col>
@@ -36,7 +41,7 @@ export default function InvoiceForm({ detail, removebill, type }) {
                 >
                   {detail ? "Update" : "Submit"}
                 </Button>
-                <Button type="reset" color="secondary" className="waves-effect">
+                <Button type="reset" color="secondary" className="waves-effect" onClick={gobackup}>
                   Cancel
                 </Button>
               </div>
