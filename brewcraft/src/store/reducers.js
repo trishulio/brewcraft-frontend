@@ -25,11 +25,15 @@ import ExpenseCategory from './ExpenseCategory/reducer';
 import Vendor from "./Vendor/reducer";
 import Currency from "./Currency/reducer";
 const rootReducer = combineReducers({
-  // public
+  
+
+    // public
     Layout,
+
     //Breadcrumb items
     Breadcrumb,
     Purchases,
+
     // Brewery
     Brewery,
     Customers,
