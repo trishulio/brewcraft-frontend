@@ -38,9 +38,8 @@ export default function Itemsection({ item }) {
       <ListGroup>
         <ListGroupItem>
           <Row>
-            <Col xs="2">Item</Col>
-            <Col xs="2">Expense Category</Col>
-            <Col xs="2">Description</Col>
+            <Col xs="3">Item</Col>
+            <Col xs="3">Description</Col>
             <Col xs="1">Qty</Col>
             <Col xs="1">Price</Col>
             <Col xs="1">Tax</Col>

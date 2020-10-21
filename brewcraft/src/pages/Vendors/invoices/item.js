@@ -53,7 +53,7 @@ export default function Item({ value, indexv }) {
     <Fragment>
       <ListGroupItem>
         <Row>
-          <Col xs="2">
+          <Col xs="3">
             <ItemSelect
               type="select"
               name="item"
@@ -64,18 +64,7 @@ export default function Item({ value, indexv }) {
               {renderSelect(selectoption, "purchase")}
             </ItemSelect>
           </Col>
-          <Col xs="2">
-            <ItemSelect
-              type="select"
-              name="expence_cat"
-              required
-              value={get(value, "expence_cat")}
-              changefn={changeevent}
-            >
-              {renderSelect(selectoption, "dxpenseCategory")}
-            </ItemSelect>
-          </Col>
-          <Col xs="2">
+          <Col xs="3">
             <Input
               type="textarea"
               name="description"

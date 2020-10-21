@@ -22,23 +22,18 @@ import Inventory from './Inventory/reducer';
 import Tax from './Tax/reducer';
 import PurchaseItem from './PurchaseItem/reducer';
 import ExpenseCategory from './ExpenseCategory/reducer';
-
+import Vendor from "./Vendor/reducer";
+import Currency from "./Currency/reducer";
 const rootReducer = combineReducers({
   // public
-  Layout,
-
-    // public
     Layout,
-
     //Breadcrumb items
     Breadcrumb,
     Purchases,
-
     // Brewery
     Brewery,
     Customers,
     Materials,
-
     // Authentication
     Account,
     Login,
@@ -50,7 +45,9 @@ const rootReducer = combineReducers({
     Inventory,
     Tax,
     PurchaseItem,
-    ExpenseCategory
+    ExpenseCategory,
+    Vendor,
+    Currency
 
 });
 

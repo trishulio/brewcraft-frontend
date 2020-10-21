@@ -20,10 +20,12 @@ export default function Commoninvoice({ data, type }) {
   const dispatch = useDispatch();
   const [deleteshow, setDeleteshow] = useState(false);
 
-  const { purchaseItem, dxpenseCategory } = useSelector((state) => {
+  const { purchaseItem, dxpenseCategory, vendors, currency } = useSelector((state) => {
     return {
       purchaseItem: get(state, "PurchaseItem"),
       dxpenseCategory: get(state, "ExpenseCategory"),
+      vendors: get(state, "Vendor"),
+      currency: get(state, "Currency"),
     };
   });
   useEffect(() => {
@@ -46,7 +48,6 @@ export default function Commoninvoice({ data, type }) {
    * Form Submit
    */
   const handleValidSubmit = (event, values) => {
-      console.log(invoiceData);
       if(type === "edit"){
         dispatch(editInvoice({data:invoiceData,callback:dialogCLoseS}));
     }else{
@@ -101,6 +102,8 @@ export default function Commoninvoice({ data, type }) {
   const select = {
     purchase: get(purchaseItem, "data"),
     dxpenseCategory: get(dxpenseCategory, "data"),
+    vendors:get(vendors,'data'),
+    currency:get(currency, 'data'),
     inpuval: changeInput,
     add: addItemrow,
     del: deletRow,

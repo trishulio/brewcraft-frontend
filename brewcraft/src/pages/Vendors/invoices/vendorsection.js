@@ -1,9 +1,9 @@
-import { get } from "lodash";
-import React, { Fragment } from "react";
+import { get, map } from "lodash";
+import React, { Fragment, useContext, useCallback, useMemo } from "react";
 import { Col, Row, FormGroup, Label, Input } from "reactstrap";
 import { ItemSelectAV } from "../../../component/item-select";
 import { AvField, AvInput } from "availity-reactstrap-validation";
-
+import ItemExpenseContext from "./item-expense-context";
 /**
  *
  * @param {any} vendor for pre filled the form data
@@ -12,6 +12,40 @@ import { AvField, AvInput } from "availity-reactstrap-validation";
  *
  */
 export default function Vendorsection({ vendor }) {
+ 
+  const selectOption = useContext(ItemExpenseContext);
+
+  /**
+   *
+   * @param {any} vendorData data from vendor reducer
+   *
+   */
+  const vendorOption = (vendorData) =>
+    map(vendorData, (value, index) => {
+      console.log(value);
+      return (
+        <option value={get(value, "id")} key={`${index}_vendor`}>
+          {get(value, "label")}
+        </option>
+      );
+    });
+
+  /**
+   *
+   *  @description Option List creating for select
+   * 
+   */
+  const renderSelect = useCallback(
+    () => vendorOption(get(selectOption, "vendors")),
+    [get(selectOption, "vendors")]
+  );
+
+  const renderSelectCurrency = useCallback(
+    () => vendorOption(get(selectOption, "currency")),
+    [get(selectOption, "currency")]
+  );
+
+  // useMemo()
   return (
     <Fragment>
       <Row>
@@ -22,10 +56,12 @@ export default function Vendorsection({ vendor }) {
             </Label>
             <Col sm="7">
               <ItemSelectAV
-                value={get(vendor, "vendor")}
+                value={get(vendor, "vendors")}
                 name="vendor"
                 required={true}
-              />
+              >
+                {renderSelect()}
+              </ItemSelectAV>
             </Col>
           </FormGroup>
         </Col>
@@ -73,7 +109,9 @@ export default function Vendorsection({ vendor }) {
                 value={get(vendor, "currency")}
                 name="currency"
                 required={true}
-              />
+              >
+                {renderSelectCurrency()}
+                </ItemSelectAV>
             </Col>
           </FormGroup>
         </Col>
