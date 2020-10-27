@@ -41,8 +41,8 @@ export default function Createinvoice() {
         { title: "vendors", link: "/vendors" },
         { title: `Invoices Create`, link: "/Invoices" },
       ])
-    );
-  }, []);
+     );
+     }, []);
 
   return (
     <Fragment>
