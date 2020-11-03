@@ -60,7 +60,7 @@ import ReportsN10 from '../pages/Reports/n10';
 // Vendors
 import VendorsDashboard from '../pages/Vendors/dashboard';
 import VendorsList from '../pages/Vendors/list';
-import Invoices from '../pages/Vendors/invoices/invoices';
+import Invoices from '../pages/Vendors/invoices/Invoices';
 import InvoicesDetail from '../pages/Vendors/invoices/invoice-detail';
 import Createinvoice from '../pages/Vendors/invoices/create-invoice';
 
@@ -121,7 +121,7 @@ const authProtectedRoutes = [
   { path: "/vendors/invoices", exact:true, component: Invoices },
   { path: "/vendors/invoices/create", component: Createinvoice },
   { path: "/vendors/invoices/:id", component: InvoicesDetail },
-  
+
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
 ];
 
