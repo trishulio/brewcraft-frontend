@@ -46,8 +46,10 @@ function* editInvoice(action) {
 
 
 function* deleteInvoice(action) {
-  yield put({ type: DELETE_INVOICE_SUCCESS, payload: { ...action.payload } });
-
+ 
+//  push data to redux
+  yield call(get(action,'payload.callback'));
+ 
 }
 
 export default function* Invoice() {

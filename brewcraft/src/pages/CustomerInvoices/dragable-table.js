@@ -7,7 +7,7 @@ import {
 } from "react-sortable-hoc";
 import { get } from "lodash";
 import { sumBy } from "lodash";
-import ItemSelect from "./item-select";
+import {ItemSelect} from "../../component/item-select";
 import {
   formatPercent,
   formatCurrency,
