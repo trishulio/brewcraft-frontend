@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import { Switch, BrowserRouter as Router } from 'react-router-dom';
 import { connect } from "react-redux";
-
 import { authProtectedRoutes, publicRoutes } from "./routes/";
 import AppRoute from "./routes/route";
-
 import VerticalLayout from "./component/Layout/VerticalLayout";
 import HorizontalLayout from "./component/Layout/HorizontalLayout/";
 import NonAuthLayout from "./component/NonAuthLayout/NonAuthLayout";
+import { listenAuthEvents } from "./helpers/authUtils";
 
 // Import scss
 import "./theme.scss";
 
-//Fake backend
-import fakeBackend from './helpers/fakeBackend';
+// Fake backend
+// import fakeBackend from './helpers/fakeBackend';
+// fakeBackend();
 
-fakeBackend();
+listenAuthEvents();
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -43,8 +44,7 @@ class App extends Component {
       <React.Fragment>
         <Router>
           <Switch>
-            
-          {publicRoutes.map((route, idx) => (
+            {publicRoutes.map((route, idx) => (
               <AppRoute
                 path={route.path}
                 component={route.component}
@@ -53,7 +53,6 @@ class App extends Component {
                 isAuthProtected={false}
               />
             ))}
-
             {authProtectedRoutes.map((route, idx) => (
               <AppRoute
                 path={route.path}
@@ -64,7 +63,7 @@ class App extends Component {
                 {...route}
               />
             ))}
-            
+
           </Switch>
         </Router>
       </React.Fragment>

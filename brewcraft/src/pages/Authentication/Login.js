@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Card, CardBody, Alert, Button } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Auth } from 'aws-amplify';
 import { checkLogin, clearErrorLogin, clearError } from '../../store/actions';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import logodark from "../../assets/images/logo-dark.png";
+import { setLoggedInUser } from '../../helpers/authUtils';
 
 class Pageslogin extends Component {
 
@@ -17,8 +19,14 @@ class Pageslogin extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(event, values) {
-        this.props.checkLogin(values.username, values.password, this.props.history);
+    async handleSubmit(event, values) {
+        try {
+            await Auth.signIn(values.username, values.password);
+            setLoggedInUser({ username: values.username, email: values.email, history: this.props.history });
+            this.props.history.push("/dashboard");
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     componentDidMount() {

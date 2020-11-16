@@ -17,34 +17,16 @@ class Layout extends Component {
             isMenuOpened: false
         };
     }
-    
-    componentDidUpdate(prevProps) {
-        if (prevProps !== this.props) {
-          if(this.props.isPreloader === true)
-            {
-              document.getElementById('preloader').style.display = "block";
-              document.getElementById('status').style.display = "block";
-    
-              setTimeout(function(){ 
-    
-              document.getElementById('preloader').style.display = "none";
-              document.getElementById('status').style.display = "none";
-    
-              }, 2500);
-            }
-            else
-            {
-              document.getElementById('preloader').style.display = "none";
-              document.getElementById('status').style.display = "none";
-            }
-        }
+
+    componentDidUpdate() {
+        document.getElementById('preloader').style.display = "block";
+        document.getElementById('status').style.display = "block";
     }
-    
+
     componentDidMount() {
-        
         window.scrollTo(0, 0);
         let currentage = this.capitalizeFirstLetter(this.props.location.pathname);
-    
+
         document.title =
           currentage + " | Lexa - Responsive Bootstrap 4 Admin Dashboard";
     }
@@ -103,5 +85,5 @@ const mapStatetoProps = state => {
     const { isPreloader } = state.Layout;
       return { isPreloader };
 };
-  
+
 export default withRouter(connect(mapStatetoProps, {})(Layout));

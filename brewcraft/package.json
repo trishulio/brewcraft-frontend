@@ -1,5 +1,5 @@
 {
-  "name": "lexa",
+  "name": "brewcraft-ui",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -16,6 +16,8 @@
     "apexcharts": "3.16.0",
     "array-move": "^3.0.1",
     "availity-reactstrap-validation": "^2.6.1",
+    "aws-amplify": "^3.3.8",
+    "aws-sdk": "^2.792.0",
     "axios": "^0.19.2",
     "axios-mock-adapter": "^1.18.1",
     "bootstrap": "^v4.5.0",
