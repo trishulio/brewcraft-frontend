@@ -11,11 +11,10 @@ import { listenAuthEvents } from "./helpers/authUtils";
 // Import scss
 import "./theme.scss";
 
-// Fake backend
-// import fakeBackend from './helpers/fakeBackend';
-// fakeBackend();
-
-listenAuthEvents();
+if (process.env.NODE_ENV !== 'production') {
+  // write authentication events to console log
+  listenAuthEvents();
+}
 
 class App extends Component {
   constructor(props) {

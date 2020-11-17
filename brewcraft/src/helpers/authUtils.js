@@ -19,7 +19,7 @@ const authenticateUser = async () => {
         setLoggedInUser({
             username: payload["cognito:username"],
             email: payload.email,
-            session: res
+            ...res
         });
         // hide preloader
         document.getElementById('preloader').style.display = "none";

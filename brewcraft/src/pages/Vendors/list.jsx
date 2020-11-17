@@ -1,20 +1,37 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Button } from "reactstrap";
 import { setBreadcrumbItems } from "../../store/actions";
+import { getSuppliers } from "./provider";
 
-export default function VendorList() {
-    // dispatch action
-    const dispatch = useDispatch();
+class VendorList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+        this.handleNewUserClick = this.handleNewUserClick.bind(this);
+    }
 
-    // component did mount alternative for functional component
-    useEffect(() => {
-        dispatch(
-            setBreadcrumbItems("All Vendors", [
-                { title: "Dashboard", link: "/dashboard" },
-                { title: "Vendors", link: "/vendors/dashboard" }
-            ])
-        );
-    }, []);
+    componentDidMount() {
+        this.props.setBreadcrumbItems("Vendors", [
+            { title: "List all vendors", link: "/vendors" }
+        ]);
+        getSuppliers().then(res => {
+            console.log(res);
+        });
+    }
 
-    return <h1>Hello Vendor List!</h1>;
+    render() {
+        return (
+            <React.Fragment>
+                <Button onClick={this.handleNewUserClick}>Create User</Button>
+            </React.Fragment>
+        )
+    }
 }
+
+const mapStatetoProps = state => {
+    const Materials = state.Materials;
+    return {};
+};
+
+export default connect(mapStatetoProps, {setBreadcrumbItems})(VendorList);

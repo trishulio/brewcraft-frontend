@@ -1,7 +1,6 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
-
-import { authenticateUser, getLoggedInUser } from '../helpers/authUtils';
+import { Route } from "react-router-dom";
+import { authenticateUser } from '../helpers/authUtils';
 
 const AppRoute = ({
   component: Component,
@@ -13,10 +12,7 @@ const AppRoute = ({
     {...rest}
     render={props => {
       if (isAuthProtected) {
-        // return (
-        //   <Redirect to={{ pathname: "/login", state: { from: props.location } }} exact />
-        // );
-        authenticateUser(); // oauth
+        authenticateUser(); // oauth redirect
       }
       return (
         <Layout>
