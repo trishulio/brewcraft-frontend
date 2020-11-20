@@ -1,3 +1,5 @@
+import { getLoggedInUser } from "../helpers/authUtils";
+
 const data = {
     columns: [
         {

@@ -1,26 +1,69 @@
 import axios from 'axios';
+import { Auth, Hub } from 'aws-amplify';
+import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth/lib-esm/types";
 
-//Set the logged in user data in local session 
-const setLoggeedInUser = (user) => {
+// Set the logged in user data in local session
+const setLoggedInUser = (user) => {
     localStorage.setItem('user', JSON.stringify(user));
 }
 
-// Gets the logged in user data from local session 
-// const getLoggedInUser = () => {
-//     const user = localStorage.getItem('user');
-//     if (user)
-//         return JSON.parse(user);
-//     return null;
-// }
-
 const getLoggedInUser = () => {
-        if(!localStorage.getItem('user')) return null;
-        return JSON.parse(localStorage.getItem('user'));
+    if (!localStorage.getItem('user')) return null;
+    return JSON.parse(localStorage.getItem('user'));
 }
 
-//is user is logged in
-const isUserAuthenticated = () => {
-    return getLoggedInUser() !== null;
+// is user is logged in
+const authenticateUser = async () => {
+    return Auth.currentSession().then(res => {
+        const payload = res.getIdToken().decodePayload();
+        setLoggedInUser({
+            username: payload["cognito:username"],
+            email: payload.email,
+            ...res
+        });
+        // hide preloader
+        document.getElementById('preloader').style.display = "none";
+        document.getElementById('status').style.display = "none";
+    })
+    .catch(() => {
+        setLoggedInUser(null);
+        Auth.federatedSignIn({
+            provider: CognitoHostedUIIdentityProvider.Cognito
+        });
+    })
+}
+
+const signOut = function () {
+    setLoggedInUser(null);
+    Auth.signOut();
+}
+
+const listenAuthEvents = () => {
+    Hub.listen('auth', (data) => {
+        switch (data.payload.event) {
+            case 'signIn':
+                console.info('user signed in');
+                break;
+            case 'signUp':
+                console.info('user signed up');
+                break;
+            case 'signOut':
+                console.info('user signed out');
+                break;
+            case 'signIn_failure':
+                console.error('user sign in failed');
+                break;
+            case 'tokenRefresh':
+                console.info('token refresh succeeded');
+                break;
+            case 'tokenRefresh_failure':
+                console.error('token refresh failed');
+                break;
+            case 'configured':
+                console.info('the Auth module is configured');
+                break;
+        }
+    });
 }
 
 // Register Method
@@ -31,7 +74,7 @@ const postRegister = (url, data) => {
         throw response.data;
     }).catch(err => {
         var message;
-        if (err.response && err.response.status ) {
+        if (err.response && err.response.status) {
             switch (err.response.status) {
                 case 404: message = "Sorry! the page you are looking for could not be found"; break;
                 case 500: message = "Sorry! something went wrong, please contact our support team"; break;
@@ -55,7 +98,7 @@ const postLogin = (url, data) => {
     });
 }
 
-// postForgetPwd 
+// postForgetPwd
 const postForgetPwd = (url, data) => {
     return axios.post(url, data).then(response => {
         if (response.status === 400 || response.status === 500)
@@ -67,4 +110,4 @@ const postForgetPwd = (url, data) => {
 }
 
 
-export { setLoggeedInUser, getLoggedInUser, isUserAuthenticated, postRegister, postLogin, postForgetPwd }
+export { getLoggedInUser, authenticateUser, listenAuthEvents, postRegister, postLogin, postForgetPwd, setLoggedInUser, signOut }

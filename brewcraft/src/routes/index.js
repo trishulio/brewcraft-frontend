@@ -1,12 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 
-import Pageslogin from '../pages/Authentication/Login';
-import Logout from '../pages/Authentication/Logout';
-import Pagesregister from '../pages/Authentication/Register';
-import ForgetPassword from '../pages/Authentication/ForgetPassword';
-import LockScreen from "../pages/Authentication/pages-lock-screen";
-
 // Dashboard
 import Dashboard from '../pages/Dashboard/dashboard';
 
@@ -125,12 +119,6 @@ const authProtectedRoutes = [
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
 ];
 
-const publicRoutes = [
-  { path: "/logout", component: Logout },
-  { path: "/login", component: Pageslogin },
-  { path: "/register", component: Pagesregister },
-  { path: '/forget-password', component: ForgetPassword },
-  { path: '/pages-lock-screen', component: LockScreen }
-];
+const publicRoutes = [];
 
 export { authProtectedRoutes, publicRoutes };

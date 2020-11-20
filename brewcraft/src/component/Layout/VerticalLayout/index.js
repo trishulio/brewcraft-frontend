@@ -13,7 +13,7 @@ class LayoutV extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+
     };
   }
 
@@ -21,26 +21,9 @@ class LayoutV extends Component {
     return string.charAt(1).toUpperCase() + string.slice(2);
   };
 
-  componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
-      if(this.props.isPreloader === true)
-        {
-          document.getElementById('preloader').style.display = "block";
-          document.getElementById('status').style.display = "block";
-
-          setTimeout(function(){ 
-
-          document.getElementById('preloader').style.display = "none";
-          document.getElementById('status').style.display = "none";
-
-          }, 2500);
-        }
-        else
-        {
-          document.getElementById('preloader').style.display = "none";
-          document.getElementById('status').style.display = "none";
-        }
-    }
+  componentDidUpdate() {
+    document.getElementById('preloader').style.display = "block";
+    document.getElementById('status').style.display = "block";
 }
 
   componentDidMount() {
@@ -73,7 +56,7 @@ class LayoutV extends Component {
 
           {/* render navbar */}
           <Navbar/>
-          
+
           <div className="main-content">
             <div className="page-content">
               <Container fluid>
