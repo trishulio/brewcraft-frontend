@@ -14,6 +14,7 @@ import "./theme.scss";
 if (process.env.NODE_ENV !== 'production') {
   // write authentication events to console log
   listenAuthEvents();
+  
 }
 
 class App extends Component {
