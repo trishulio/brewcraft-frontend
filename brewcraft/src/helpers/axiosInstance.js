@@ -4,7 +4,7 @@ import { getLoggedInUser } from "./authUtils"
 
 const AxiosInstance = Axios.create({
    
-    timeout: 5000,
+    // timeout: 5000,
     mode: 'no-cors',
     crossDomain: true
 });

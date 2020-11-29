@@ -25,6 +25,24 @@ const initialState = {
       address: "Product 1 description Product 1 description ",
     },
   ],
+  vendorList:[
+    {
+      cname: "Tiger Nixon",
+      contact: "System Architect",
+      email: "Edinburgh",
+      phone: "2011/04/25",
+    },{
+      cname: "Garrett Winters",
+      contact: "Accountant",
+      email: "Tokyo",
+      phone: "2011/07/25",
+    },{
+      cname: "Ashton Cox",
+      contact: "Junior Technical Author",
+      email: "San Francisco",
+      phone: "2009/01/12",
+    },
+  ],
   loading: false,
   error: null,
   formLoading: {

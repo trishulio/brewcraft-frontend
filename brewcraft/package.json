@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://44.239.239.187:9000",
+  "secure": false,
   "dependencies": {
     "@fullcalendar/bootstrap": "^4.4.0",
     "@fullcalendar/core": "^4.4.0",
