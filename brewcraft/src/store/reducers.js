@@ -11,13 +11,12 @@ import Invoice from './Invoice/reducer';
 import Inventory from './Inventory/reducer';
 import Tax from './Tax/reducer';
 import Vendor from './Vendor/reducer';
+import Company from './Company/reducer';
 const rootReducer = combineReducers({
   Layout,
-
   //Breadcrumb items
   Breadcrumb,
   Purchases,
-
   // Brewery
   Brewery,
   Customers,
@@ -28,7 +27,8 @@ const rootReducer = combineReducers({
   Invoice,
   Inventory,
   Tax,
-  Vendor
+  Vendor,
+  Company
 });
 
 export default rootReducer;

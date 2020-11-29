@@ -18,17 +18,18 @@ function fetchVendorsRequest() {
 
 function* fetchVendors() {
  
-  let { Data, Message, Error} = yield call(fetchVendorsRequest);
+  let { Data, Message, error} = yield call(fetchVendorsRequest);
+  console.log(error);
 
-  if(Error){
+  // if(error){
 
-      yield put({type:FETCH_VENDOR_SUCCESS, payload:"working"})
+  //     yield put({type:FETCH_VENDOR_SUCCESS, payload:"working"})
 
-  }else{
+  // }else{
 
-      yield put({type: FETCH_VENDOR_FAILURE, payload:"working"})
+  //     yield put({type: FETCH_VENDOR_FAILURE, payload:"working"})
 
-  }
+  // }
  
 }
 
