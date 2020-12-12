@@ -8,3 +8,4 @@ export const saveCompany = (payload) => ({
   type: ADD_COMPANY_REQUEST,
   payload: payload,
 });
+

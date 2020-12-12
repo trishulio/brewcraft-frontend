@@ -12,44 +12,63 @@ import {SUPPLIERS} from "../../helpers/url"
 import {attempt,get, omit} from 'lodash'
 
 
-function fetchVendorsRequest() {
-  return AxiosInstance.get(SUPPLIERS)
+async function fetchVendorsRequest() {
+  return await AxiosInstance.get(SUPPLIERS)
 }
 
 function* fetchVendors() {
+  
+ try{
+   
+  let response = yield call(fetchVendorsRequest);
+  let {StatusCode, Message, Data} = response.Data 
+
+  if(StatusCode --- 200){
  
-  let { Data, Message, error} = yield call(fetchVendorsRequest);
+      yield put({type:FETCH_VENDOR_SUCCESS, payload:Data})
+ 
+  }else{
+ 
+      yield put({type: FETCH_VENDOR_FAILURE, payload:2})
+ 
+  }
+ }catch(error){
+
   console.log(error);
 
-  // if(error){
+ }
 
-  //     yield put({type:FETCH_VENDOR_SUCCESS, payload:"working"})
-
-  // }else{
-
-  //     yield put({type: FETCH_VENDOR_FAILURE, payload:"working"})
-
-  // }
  
 }
 
-function addVendorRequest(payload) {
-  return AxiosInstance.post(SUPPLIERS, payload)
+async function addVendorRequest(payload) {
+
+  return await AxiosInstance.post(SUPPLIERS, payload)
+
 }
 
 function* addVendor(action) {
- 
-  let { Data, Message, Error} = yield call(addVendorRequest(action.payload));
+  
+  
+  yield put({type:ADD_VENDOR_SUCCESS, payload:{...get(action,'payload.form'),id:Math.random()*1000, c_id:1} });
+  yield call(get(action,'payload.successFn'));
+  // once api ready you can use bellow comments code 
+//  try{
 
-  if(Error){
+//    let { Data, Message, Error} = yield call(addVendorRequest(get(action,'payload.form')));
+   
+//    if(Error){
+     
+//      yield put({type:ADD_VENDOR_SUCCESS, payload:Message})
+     
+//     }else{
+      
+//       yield put({type: ADD_VENDOR_FAILURE, payload:Data})
+      
+//     }
+//   }catch(e){
 
-      yield put({type:ADD_VENDOR_SUCCESS, payload:Message})
-
-  }else{
-
-      yield put({type: ADD_VENDOR_FAILURE, payload:Data})
-
-  }
+//   }
  
 }
 
