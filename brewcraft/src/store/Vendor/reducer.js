@@ -6,41 +6,36 @@ import {
   ADD_VENDOR_SUCCESS,
   ADD_VENDOR_FAILURE,
 } from "./actionTypes";
+import {cloneDeep} from "lodash"; 
 
 const initialState = {
   data: [
-    {
-      id: 1,
-      label: "Vendor 1",
-      address: "Product 1 description Product 1 description ",
-    },
-    {
-      id: 2,
-      label: "Vendor 2",
-      address: "Product 1 description Product 1 description ",
-    },
-    {
-      id: 3,
-      label: "Vendor 3",
-      address: "Product 1 description Product 1 description ",
-    },
-  ],
-  vendorList:[
     {
       cname: "Tiger Nixon",
       contact: "System Architect",
       email: "Edinburgh",
       phone: "2011/04/25",
-    },{
+      id:1,
+      address: "Product 1 description Product 1 description ",
+      c_id:1
+    },
+    {
       cname: "Garrett Winters",
       contact: "Accountant",
       email: "Tokyo",
       phone: "2011/07/25",
-    },{
+      id:2,
+      address: "Product 1 description Product 1 description ",
+      c_id:2
+    },
+    {
       cname: "Ashton Cox",
       contact: "Junior Technical Author",
       email: "San Francisco",
       phone: "2009/01/12",
+      id:3,
+      address: "Product 1 description Product 1 description ",
+      c_id:3
     },
   ],
   loading: false,
@@ -76,10 +71,17 @@ const Vendor = (state = initialState, { type, payload }) => {
         message: payload,
       };
     case ADD_VENDOR_SUCCESS:
-      return {
-        ...state,
-        loading: true,
-      };
+      {
+        const stateOld =  cloneDeep(state.data);
+        stateOld.push(payload);
+        console.log(stateOld);
+        return {
+          ...state,
+          data:[...stateOld],
+          loading: true,
+        };
+      }
+      
     default:
       state = { ...state };
       break;

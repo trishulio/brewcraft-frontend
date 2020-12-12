@@ -10,35 +10,29 @@ import {
 const initialState = {
   data: [
     {
-      cname: "Tiger Nixon",
-      id:121,
-     
+      label: "Company Name",
+      field: "cname",
+      sort: "asc",
+      width: 150,
     },
     {
-      cname: "Tiger Nixon 1",
-      id:1212,
-     
+      label: "Contact",
+      field: "contact",
+      sort: "asc",
+      width: 270,
     },
     {
-      cname: "Tiger Nixon 2",
-      id:1213,
-     
+      label: "Phone",
+      field: "phone",
+      sort: "asc",
+      width: 200,
     },
     {
-      cname: "Tiger Nixon 3",
-      id:1214,
-     
+      label: "Email",
+      field: "email",
+      sort: "asc",
+      width: 200,
     },
-    {
-      cname: "Tiger Nixon 4",
-      id:1215,
-     
-    },
-    {
-      cname: "Tiger Nixon 5",
-      id:1216,
-     
-    }
   ],
   loading: false,
   error: null,

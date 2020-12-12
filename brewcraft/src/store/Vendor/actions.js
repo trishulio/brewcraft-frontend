@@ -7,7 +7,7 @@ export const fetchVendor = (payload) => ({
   type: FETCH_VENDOR_REQUEST,
   payload: payload,
 });
-export const saveVendor = (payload) => ({
+export const createVendorAction = (payload) => ({
   type: ADD_VENDOR_REQUEST,
   payload: payload,
 });
