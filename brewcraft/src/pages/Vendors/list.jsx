@@ -1,15 +1,15 @@
-import { get,map } from "lodash";
-import React, { useEffect, Fragment, useState,useCallback } from "react";
+import { get, map } from "lodash";
+import React, {
+  useEffect,
+  Fragment,
+  useState,
+  useCallback,
+  useContext,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import { fetchVendor } from "../../store/Vendor/actions";
-import {
-  Row,
-  Col,
-  Card,
-  CardBody,
-  Button,
-} from "reactstrap";
+import { Row, Col, Card, CardBody, Button } from "reactstrap";
 import { MDBDataTable } from "mdbreact";
 import { Modalcall } from "../../component/Common/Modalcall";
 import { fetchCompany, saveCompany } from "../../store/Company/actions";
@@ -65,15 +65,19 @@ export default function VendorList() {
     dispatch(fetchCompany());
   }, []);
 
-  const rowEvent = useCallback(() =>{
-    return map(data, (row)=>{
-      return {...row,
-        cname:<span onClick={()=>editCompanyDailog(row.c_id)} >{row.cname}</span>,
-        contact:<span onClick={()=>editContactDailog(row.id)} >{row.contact}</span>
-      }
-    })
-    
-  },[data])
+  const rowEvent = useCallback(() => {
+    return map(data, (row) => {
+      return {
+        ...row,
+        cname: (
+          <span onClick={() => editCompanyDailog(row.c_id)}>{row.cname}</span>
+        ),
+        contact: (
+          <span onClick={() => editContactDailog(row.id)}>{row.contact}</span>
+        ),
+      };
+    });
+  }, [data]);
   // if (loading) {
   //     return <div>Loading...</div>;
   //   }
@@ -87,18 +91,18 @@ export default function VendorList() {
   if (!data) {
     return null;
   }
-/**
- * @description open cloase dialogs
- */
+  /**
+   * @description open cloase dialogs
+   */
   const addCompanyDailog = () => setIsCompanyDialog(!isCompanyDialog);
   const addContactDailog = () => setIsContactDialog(!isContactDialog);
 
-  const editCompanyDailog = (copanyId) =>{
+  const editCompanyDailog = (copanyId) => {
     console.log(copanyId);
-  }
-  const editContactDailog = (contactId) =>{
+  };
+  const editContactDailog = (contactId) => {
     console.log(contactId);
-  }   
+  };
   /**
    *
    * @param {event} sytenthic event
@@ -115,12 +119,14 @@ export default function VendorList() {
    * @param {formData} form fields list
    * @description creat new vendor
    */
+
   const createVendor = (event, formData) =>
     dispatch(
-      createVendorAction({ form: formData, successFn: addContactDailog })
+      createVendorAction({
+        form: formData,
+        successFn: addContactDailog,
+      })
     );
-
-
 
   return (
     <Fragment>
@@ -143,9 +149,10 @@ export default function VendorList() {
               <MDBDataTable
                 responsive
                 bordered
-                data={{ 
-                   columns: tabledata, rows:rowEvent(),
-              }}
+                data={{
+                  columns: tabledata,
+                  rows: rowEvent(),
+                }}
               />
             </CardBody>
           </Card>
@@ -157,20 +164,14 @@ export default function VendorList() {
         handlerClose={addCompanyDailog}
         title="Add Company"
       >
-        <AddCompany
-          companySubmit={companySubmit}
-          close={addCompanyDailog}
-        />
+        <AddCompany companySubmit={companySubmit} close={addCompanyDailog} />
       </Modalcall>
       <Modalcall
         show={isContactDialog}
         handlerClose={addContactDailog}
         title="Add Contact"
       >
-        <AddContact
-          companyContact={createVendor}
-          close={addContactDailog}
-        />
+        <AddContact companyContact={createVendor} close={addContactDailog} />
       </Modalcall>
     </Fragment>
   );
