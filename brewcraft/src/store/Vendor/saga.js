@@ -10,6 +10,7 @@ import {
 import AxiosInstance from "../../helpers/axiosInstance"
 import {SUPPLIERS} from "../../helpers/url"
 import {attempt,get, omit} from 'lodash'
+import {apiResponse,SUCCESS,ERROR} from "../../helpers/snackHelper";
 
 
 async function fetchVendorsRequest() {
@@ -51,7 +52,7 @@ function* addVendor(action) {
   
   
   yield put({type:ADD_VENDOR_SUCCESS, payload:{...get(action,'payload.form'),id:Math.random()*1000, c_id:1} });
-  yield call(get(action,'payload.successFn'));
+  yield call(apiResponse,SUCCESS,get(action,'payload.successFn'));
   // once api ready you can use bellow comments code 
 //  try{
 
