@@ -7,6 +7,18 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { Auth } from 'aws-amplify';
 
+let redirectSignIn;
+let redirectSignOut;
+if (process.env.NODE_ENV === "production") {
+    redirectSignIn = document.location.href;
+    redirectSignOut = document.location.href;
+    console.log("production " + redirectSignIn);
+} else {
+    console.log("not production");
+    redirectSignIn = "http://localhost:3000/";
+    redirectSignOut = "http://localhost:3000/";
+}
+
 // https://aws-amplify.github.io/docs/js/authentication#manual-setup
 Auth.configure({
     region: process.env.REACT_APP_USER_POOL_REGION,
@@ -21,8 +33,8 @@ Auth.configure({
         "openid",
         "aws.cognito.signin.user.admin"
       ],
-      redirectSignIn: process.env.NODE_ENV === 'production' ? document.location.href : 'http://localhost:3000/',
-      redirectSignOut: process.env.NODE_ENV === 'production' ? document.location.href : 'http://localhost:3000/',
+      redirectSignIn: redirectSignIn,
+      redirectSignOut: redirectSignOut,
       responseType: 'code',
     },
 });
