@@ -10,7 +10,7 @@ export default function AddCompany({ companySubmit,close }) {
           <Row>
             <Col lg="12">
               <AvField
-                name="cName"
+                name="firstName"
                 label="Company Name*"
                 placeholder="Company Name"
                 type="text"

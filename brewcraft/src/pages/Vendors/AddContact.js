@@ -2,15 +2,22 @@ import React from "react";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Row, Col, Card, CardBody, Button ,ModalFooter} from "reactstrap";
 
-export default function AddContact({ companyContact,close }) {
+export default function AddContact({ companyContact,close, optionsList }) {
+  const defaultValues = {
+    firstName:'',
+    lastName:'',
+    phoneNumber:'',
+    email:'',
+    supplier:""
+  }
   return (
-    <AvForm onValidSubmit={companyContact}>
+    <AvForm onValidSubmit={companyContact} model={defaultValues}>
       <Card>
         <CardBody>
           <Row>
             <Col lg="6">
               <AvField
-                name="contact"
+                name="firstName"
                 label="First Name*"
                 placeholder="Enter First Name"
                 type="text"
@@ -20,7 +27,7 @@ export default function AddContact({ companyContact,close }) {
             </Col>
             <Col lg="6">
               <AvField
-                name="last"
+                name="lastName"
                 label="Last Name*"
                 placeholder="Enter Last Name"
                 type="text"
@@ -30,7 +37,7 @@ export default function AddContact({ companyContact,close }) {
             </Col>
             <Col lg="6">
               <AvField
-                name="phone"
+                name="phoneNumber"
                 label="Phone*"
                 placeholder="Enter Phone"
                 type="text"
@@ -50,12 +57,9 @@ export default function AddContact({ companyContact,close }) {
             </Col>
 
             <Col lg="6">
-            <AvField type="select" name="cname" label="Company">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
+            <AvField type="select" name="supplier" label="Company" default validate={{ required: {value: true, errorMessage: 'Please select a valid company'}}} >
+              <option disabled value="">Select Company</option>
+              {optionsList}
             </AvField>
             </Col>
             

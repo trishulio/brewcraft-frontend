@@ -1,59 +1,49 @@
-import { get, map } from "lodash";
-import React, {
-  useEffect,
-  Fragment,
-  useState,
-  useCallback,
-  useContext,
-} from "react";
+import { get, map, pick, reduce, set } from "lodash";
+import React, { useEffect, Fragment, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
-import { fetchVendor } from "../../store/Vendor/actions";
 import { Row, Col, Card, CardBody, Button } from "reactstrap";
-import { MDBDataTable } from "mdbreact";
 import { Modalcall } from "../../component/Common/Modalcall";
-import { fetchCompany, saveCompany } from "../../store/Company/actions";
-import { createVendorAction } from "../../store/Vendor/actions";
+import {
+  fetchVendor,
+  addVendor,
+  editVendor,
+  deleteVendor,
+  addVendorContact,
+  editVendorContact,
+  deleteVendorContact,
+} from "../../store/Vendor/actions";
 import AddCompany from "./AddCompany";
 import AddContact from "./AddContact";
+import VendorListTable from "./VendorList";
 
 export default function VendorList() {
   const [isCompanyDialog, setIsCompanyDialog] = useState(false);
   const [isContactDialog, setIsContactDialog] = useState(false);
-
-  // dispatch action
-  const { data, loading, error } = useSelector((state) => {
-    return get(state, "Vendor");
-  });
-
+  const [contactUpdate, setContactUpdate] = useState();
+  const [companyUpdate, setCompanyUpdate] = useState();
   const dispatch = useDispatch();
-  //   table header defination
-  const tabledata = [
-    {
-      label: "Company Name",
-      field: "cname",
-      sort: "asc",
-      width: 150,
-    },
-    {
-      label: "Contact",
-      field: "contact",
-      sort: "asc",
-      width: 270,
-    },
-    {
-      label: "Phone",
-      field: "phone",
-      sort: "asc",
-      width: 200,
-    },
-    {
-      label: "Email",
-      field: "email",
-      sort: "asc",
-      width: 200,
-    },
-  ];
+  // dispatch action
+  const {
+    data: data1,
+    loading: loading1,
+    error: error1,
+    supplier,
+  } = useSelector((state) => {
+    const { data, loading, error } = get(state, "Vendor");
+    const supplierInner = reduce(
+      get(data, "suppliers"),
+      (old, current) => {
+        return old.concat( map(get(current, "contacts"), (value) => {
+          set(value, "cName", get(current, "name"));
+          set(value, "cId", get(current, "id")); 
+          return value;
+        }))
+      },
+      []
+    );
+    return { data, loading, error, supplier: supplierInner };
+  });
 
   useEffect(() => {
     dispatch(
@@ -62,33 +52,28 @@ export default function VendorList() {
       ])
     );
     dispatch(fetchVendor());
-    dispatch(fetchCompany());
   }, []);
-
-  const rowEvent = useCallback(() => {
-    return map(data, (row) => {
-      return {
-        ...row,
-        cname: (
-          <span onClick={() => editCompanyDailog(row.c_id)}>{row.cname}</span>
-        ),
-        contact: (
-          <span onClick={() => editContactDailog(row.id)}>{row.contact}</span>
-        ),
-      };
-    });
-  }, [data]);
-  // if (loading) {
-  //     return <div>Loading...</div>;
-  //   }
-
+  /**
+   *
+   */
+  const companyOptionsList = useCallback(
+    () =>
+      map(get(data1, "suppliers"), (value, index) => (
+        <option value={value.id} key={index}>
+          {value.name}
+        </option>
+      )),
+    [data1]
+  );
+  if (loading1) {
+    return <div>Loading...</div>;
+  }
   // somthing wrong first time
-  if (error) {
+  if (error1) {
     return <div>Error</div>;
   }
-
   // unconditional error occur
-  if (!data) {
+  if (!data1) {
     return null;
   }
   /**
@@ -98,10 +83,10 @@ export default function VendorList() {
   const addContactDailog = () => setIsContactDialog(!isContactDialog);
 
   const editCompanyDailog = (copanyId) => {
-    console.log(copanyId);
+    setCompanyUpdate(copanyId)
   };
   const editContactDailog = (contactId) => {
-    console.log(contactId);
+    setContactUpdate(contactId)
   };
   /**
    *
@@ -110,8 +95,21 @@ export default function VendorList() {
    * @description creat new company
    */
 
-  const companySubmit = (event, formData) =>
-    dispatch(saveCompany({ form: formData, successFn: addCompanyDailog }));
+  const companySubmit = (event, formData) => {
+    const formCompose = {
+      contacts: [],
+      name: get(formData, "firstName"),
+      address: pick(formData, [
+        "addressLine1",
+        "addressLine2",
+        "country",
+        "province",
+        "city",
+        "postalCode",
+      ]),
+    };
+    dispatch(addVendor({ form: formCompose, successFn: addCompanyDailog }));
+  };
 
   /**
    *
@@ -120,10 +118,10 @@ export default function VendorList() {
    * @description creat new vendor
    */
 
-  const createVendor = (event, formData) =>
+  const createContact = (event, formData) =>
     dispatch(
-      createVendorAction({
-        form: formData,
+      addVendorContact({
+        form: { ...formData, position: "" },
         successFn: addContactDailog,
       })
     );
@@ -146,33 +144,38 @@ export default function VendorList() {
         <Col xs="12">
           <Card>
             <CardBody>
-              <MDBDataTable
-                responsive
-                bordered
-                data={{
-                  columns: tabledata,
-                  rows: rowEvent(),
-                }}
+              <VendorListTable
+                suppliers={supplier}
+                editCompany={editCompanyDailog}
+                editContact={editContactDailog}
               />
             </CardBody>
           </Card>
         </Col>
       </Row>
-
-      <Modalcall
-        show={isCompanyDialog}
-        handlerClose={addCompanyDailog}
-        title="Add Company"
-      >
-        <AddCompany companySubmit={companySubmit} close={addCompanyDailog} />
-      </Modalcall>
-      <Modalcall
-        show={isContactDialog}
-        handlerClose={addContactDailog}
-        title="Add Contact"
-      >
-        <AddContact companyContact={createVendor} close={addContactDailog} />
-      </Modalcall>
+      {isCompanyDialog && (
+        <Modalcall
+          show={isCompanyDialog}
+          handlerClose={addCompanyDailog}
+          title="Add Company"
+        >
+          <AddCompany companySubmit={companySubmit} close={addCompanyDailog} />
+        </Modalcall>
+      )}
+      {isContactDialog && (
+        <Modalcall
+          show={isContactDialog}
+          handlerClose={addContactDailog}
+          title="Add Contact"
+        >
+          <AddContact
+            companyContact={createContact}
+            close={addContactDailog}
+            optionsList={companyOptionsList()}
+            
+          />
+        </Modalcall>
+      )}
     </Fragment>
   );
 }
