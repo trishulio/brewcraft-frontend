@@ -7,7 +7,7 @@ import Driver from './Driver/saga';
 import  Vechicles from './Vechicles/saga';
 import  Invoice from './Invoice/saga';
 import Vendors from './Vendor/saga';
-import Company from './Company/saga';
+
 
 export default function* rootSaga() {
     yield all([
@@ -18,6 +18,6 @@ export default function* rootSaga() {
         Vechicles(),
         Invoice(),
         Vendors(),
-        Company()
+       
     ])
 }
