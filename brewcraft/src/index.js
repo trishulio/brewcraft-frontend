@@ -25,7 +25,7 @@ const params = {
 };
 if (process.env.NODE_ENV === "production") {
     params.oauth.redirectSignIn = process.env.REACT_APP_REDIRECT_SIGN_IN;
-    params.oauth.redirectSignOut = process.env.REACT_APP_REDIRECT_SIGN_IN;
+    params.oauth.redirectSignOut = process.env.REACT_APP_REDIRECT_SIGN_OUT;
 } else {
     params.oauth.redirectSignIn = "http://localhost:3000/";
     params.oauth.redirectSignOut = "http://localhost:3000/";
