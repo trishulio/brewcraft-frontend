@@ -7,37 +7,31 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { Auth } from 'aws-amplify';
 
-let redirectSignIn;
-let redirectSignOut;
-if (process.env.NODE_ENV === "production") {
-    redirectSignIn = document.location.href;
-    redirectSignOut = document.location.href;
-    console.log("production " + redirectSignIn);
-} else {
-    console.log("not production");
-    redirectSignIn = "http://localhost:3000/";
-    redirectSignOut = "http://localhost:3000/";
-}
-
-// https://aws-amplify.github.io/docs/js/authentication#manual-setup
-Auth.configure({
+const params = {
     region: process.env.REACT_APP_USER_POOL_REGION,
     userPoolId: process.env.REACT_APP_USER_POOL_ID,
     userPoolWebClientId: process.env.REACT_APP_USER_POOL_WEB_CLIENT_ID,
     oauth: {
-      domain: process.env.REACT_APP_USER_POOL_DOMAIN,
-      scope: [
-        "phone",
-        "email",
-        "profile",
-        "openid",
-        "aws.cognito.signin.user.admin"
-      ],
-      redirectSignIn: redirectSignIn,
-      redirectSignOut: redirectSignOut,
-      responseType: 'code',
-    },
-});
+        domain: process.env.REACT_APP_USER_POOL_DOMAIN,
+        scope: [
+            "phone",
+            "email",
+            "profile",
+            "openid",
+            "aws.cognito.signin.user.admin"
+        ],
+        responseType: 'code',
+    }
+};
+if (process.env.NODE_ENV === "production") {
+    params.oauth.redirectSignIn = process.env.REACT_APP_REDIRECT_SIGN_IN;
+    params.oauth.redirectSignOut = process.env.REACT_APP_REDIRECT_SIGN_IN;
+} else {
+    params.oauth.redirectSignIn = "http://localhost:3000/";
+    params.oauth.redirectSignOut = "http://localhost:3000/";
+}
+// https://aws-amplify.github.io/docs/js/authentication#manual-setup
+Auth.configure(params);
 
 const app = (
     <Provider store={store}>
