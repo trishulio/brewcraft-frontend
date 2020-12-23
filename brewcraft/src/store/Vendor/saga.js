@@ -33,7 +33,7 @@ import {
  *
  */
 async function fetchVendorsRequest() {
-  return await AxiosInstance.get(SUPPLIERS);
+  return await AxiosInstance.get(SUPPLIERS).then(r=>r).catch((error)=>console.log(error));
 }
 function* fetchVendors() {
   let response = yield call(fetchVendorsRequest);
@@ -50,15 +50,14 @@ function* fetchVendors() {
  */
 
 async function addVendorRequest(payload) {
-  return await AxiosInstance.post(SUPPLIERS, payload);
+  return await AxiosInstance.post(SUPPLIERS, payload).then(r=>r).catch((error)=>console.log(error));
 }
 
 function* addVendor(action) {
 
-  let response = yield call(addVendorRequest,get(action, "payload.form"));
   yield call(
     commonResponseHanderlCreated,
-    response,
+    yield call(addVendorRequest,get(action, "payload.form")),
     { redux: ADD_VENDOR_SUCCESS },
     { redux: ADD_VENDOR_FAILURE, snack: ERROR }
   );
@@ -70,7 +69,7 @@ function* addVendor(action) {
  */
 
 async function addVendorContactRequest(payload) {
-  return await AxiosInstance.post(`${SUPPLIERS}\\${get(payload,'supplier')}\\contacts`, omit(payload,'supplier'));
+  return await AxiosInstance.post(`${SUPPLIERS}\\${get(payload,'supplier')}\\contacts`, omit(payload,'supplier')).then(r=>r).catch((error)=>console.log(error));
 }
 function* addVendorContact(action) {
   let response = yield call(addVendorContactRequest,get(action, "payload.form"));
