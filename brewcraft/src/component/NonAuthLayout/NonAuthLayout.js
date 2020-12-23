@@ -7,7 +7,7 @@ class NonAuthLayout extends Component {
         this.state={};
         this.capitalizeFirstLetter.bind(this);
     }
-    
+
     capitalizeFirstLetter = string => {
         return string.charAt(1).toUpperCase() + string.slice(2);
       };
@@ -16,7 +16,7 @@ class NonAuthLayout extends Component {
         let currentage = this.capitalizeFirstLetter(this.props.location.pathname);
 
         document.title =
-          currentage + " | Lexa - Responsive Bootstrap 4 Admin Dashboard";
+          currentage + " | Brewcraft - Process Control Management";
     }
     render() {
         return <React.Fragment>

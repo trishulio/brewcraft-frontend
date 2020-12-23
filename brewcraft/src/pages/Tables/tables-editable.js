@@ -19,12 +19,12 @@ class EditableTables extends Component {
         super(props);
         this.state = {
             breadcrumbItems : [
-                { title : "Lexa", link : "#" },
+                { title : "Brewcraft", link : "#" },
                 { title : "Tables", link : "#" },
                 { title : "Editable Table", link : "#" },
             ],
         }
-    }  
+    }
 
     componentDidMount(){
       this.props.setBreadcrumbItems("Editable Table", this.state.breadcrumbItems);
@@ -38,7 +38,7 @@ class EditableTables extends Component {
             { id: 4, age: 44, qty: 4, cost: 4.99 },
             { id: 5, age: 55, qty: 5, cost: 5.99 }
           ];
-          
+
           const columns = [
             {
               dataField: "id",
@@ -79,7 +79,7 @@ class EditableTables extends Component {
                                 </CardBody>
                             </Card>
                         </Col>
-                    </Row>        
+                    </Row>
             </React.Fragment>
         );
     }

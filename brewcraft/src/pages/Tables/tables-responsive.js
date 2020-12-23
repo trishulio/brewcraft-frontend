@@ -19,12 +19,12 @@ class ResponsiveTables extends Component {
         super(props);
         this.state = {
             breadcrumbItems : [
-                { title : "Lexa", link : "#" },
+                { title : "Brewcraft", link : "#" },
                 { title : "Tables", link : "#" },
                 { title : "Responsive Table", link : "#" },
             ],
         }
-    } 
+    }
 
     componentDidMount(){
         this.props.setBreadcrumbItems("Responsive Table", this.state.breadcrumbItems);
@@ -78,7 +78,7 @@ class ResponsiveTables extends Component {
             { id: 8, company: "GOOG Google Inc.", trade: 597.74, time: "12:12PM", change: "14.81 (2.54%)", close:582.93, Open:597.95, Bid:"597.73 x 100", Ask:"597.91 x 300", target:731.10 },
             { id: 9, company: "GOOG Google Inc.", trade: 597.74, time: "12:12PM", change: "14.81 (2.54%)", close:582.93, Open:597.95, Bid:"597.73 x 100", Ask:"597.91 x 300", target:731.10 },
         ];
-          
+
         const CustomToggleList = ({
             columns,
             onColumnToggle,
