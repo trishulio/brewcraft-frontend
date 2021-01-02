@@ -2,14 +2,15 @@ import React, { Component } from "react";
 import { Container } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { ToastContainer, MDBContainer } from "mdbreact";
+import { MDBContainer } from "mdbreact";
+import { ToastContainer, toast } from 'react-toastify';
 //Import Components
 import Topbar from "./Topbar";
 import Breadcrumb from "../../Common/breadcrumb";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import RightSideBar from "../right-sidebar";
-
+import 'react-toastify/dist/ReactToastify.css';
 class Layout extends Component {
   constructor(props) {
     super(props);

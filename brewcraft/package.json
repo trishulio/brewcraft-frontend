@@ -2,7 +2,7 @@
   "name": "brewcraft-ui",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://ec2-3-14-14-61.us-east-2.compute.amazonaws.com:9000",
+  "proxy": "http://api.brewcraft.io/",
   "dependencies": {
     "@fullcalendar/bootstrap": "^4.4.0",
     "@fullcalendar/core": "^4.4.0",
@@ -63,6 +63,7 @@
     "react-sparklines": "^1.7.0",
     "react-streetview": "^1.1.1",
     "react-switch": "^5.0.1",
+    "react-toastify": "^6.2.0",
     "reactstrap": "^8.4.1",
     "redux": "^4.0.5",
     "redux-saga": "^1.1.3",

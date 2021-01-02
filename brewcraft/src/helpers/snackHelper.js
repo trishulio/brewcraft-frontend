@@ -1,4 +1,4 @@
-import { toast} from "mdbreact";
+import {toast } from 'react-toastify';
 
 export const INFO = "info";
 export const SUCCESS = "success";
