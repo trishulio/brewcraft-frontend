@@ -21,7 +21,7 @@ class DatatableTables extends Component {
         super(props);
         this.state = {
             breadcrumbItems : [
-                { title : "Lexa", link : "#" },
+                { title : "Brewcraft", link : "#" },
                 { title : "Tables", link : "#" },
                 { title : "Data Table", link : "#" },
             ],

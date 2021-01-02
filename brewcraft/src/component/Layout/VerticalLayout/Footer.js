@@ -9,7 +9,7 @@ class Footer extends Component {
                         <Container fluid>
                             <Row>
                                 <Col sm="12">
-                                    © {new Date().getFullYear()} Lexa <span className="d-none d-sm-inline-block"> - Crafted with <i className="mdi mdi-heart text-danger"></i> by Themesbrand.</span>
+                                © {new Date().getFullYear()} <span className="d-none d-sm-inline-block"> - Crafted with <i className="mdi mdi-heart text-danger"></i> by ns3.</span>
                                 </Col>
                             </Row>
                         </Container>

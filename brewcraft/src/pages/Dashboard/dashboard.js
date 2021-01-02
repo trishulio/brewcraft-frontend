@@ -22,7 +22,7 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             breadcrumbItems : [
-                { title : "Lexa", link : "#" },
+                { title : "Brewcraft", link : "#" },
                 { title : "Dashboard", link : "#" },
                 { title : "Dashboard", link : "#" },
             ],
@@ -42,7 +42,7 @@ class Dashboard extends Component {
     render() {
         return (
             <React.Fragment>
-                
+
                     <Row>
                         <MiniCard reports={this.state.reports} />
                     </Row>
@@ -63,7 +63,7 @@ class Dashboard extends Component {
                         </Col>
 
                     </Row>
-                    
+
 
                     <Row>
 
@@ -84,7 +84,7 @@ class Dashboard extends Component {
                             <YearlySales/>
                         </Col>
                     </Row>
-                    
+
                     <Row>
                         <Col xl="6">
                             {/* latest transactions */}
