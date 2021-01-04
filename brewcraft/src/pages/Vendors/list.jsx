@@ -30,7 +30,7 @@ export default function VendorList() {
     error: error1,
     supplier,
   } = useSelector((state) => {
-    const { data, loading, error } = get(state, "Vendor");
+    const { data, loading, error } = state.Vendor;
     const supplierInner = reduce(
       get(data, "suppliers"),
       (old, current) => {
@@ -153,7 +153,7 @@ export default function VendorList() {
           </Card>
         </Col>
       </Row>
-      {isCompanyDialog && (
+      {!!isCompanyDialog && (
         <Modalcall
           show={isCompanyDialog}
           handlerClose={addCompanyDailog}
@@ -162,7 +162,7 @@ export default function VendorList() {
           <AddCompany companySubmit={companySubmit} close={addCompanyDailog} />
         </Modalcall>
       )}
-      {isContactDialog && (
+      {!!isContactDialog && (
         <Modalcall
           show={isContactDialog}
           handlerClose={addContactDailog}
