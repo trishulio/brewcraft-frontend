@@ -25,7 +25,7 @@ export default function Vendorsection({ vendor }) {
       console.log(value);
       return (
         <option value={get(value, "id")} key={`${index}_vendor`}>
-          {get(value, "label")}
+          {get(value, "cname")}
         </option>
       );
     });

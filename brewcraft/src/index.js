@@ -21,8 +21,8 @@ Auth.configure({
             "openid",
             "aws.cognito.signin.user.admin"
         ],
-        redirectSignIn: process.env.REACT_APP_REDIRECT_SIGN_IN,
-        redirectSignOut: process.env.REACT_APP_REDIRECT_SIGN_OUT,
+        redirectSignIn: window.location.origin + "/",
+        redirectSignOut: window.location.origin + "/",
         responseType: 'code',
     }
 });
