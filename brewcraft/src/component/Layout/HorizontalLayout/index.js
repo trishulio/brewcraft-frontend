@@ -28,9 +28,9 @@ class Layout extends Component {
     window.scrollTo(0, 0);
     let currentage = this.capitalizeFirstLetter(this.props.location.pathname);
 
-    document.title =
-      currentage + " | Lexa - Responsive Bootstrap 4 Admin Dashboard";
-  }
+        document.title =
+          currentage + " | Brewcraft - Process Control Management";
+    }
 
   capitalizeFirstLetter = (string) => {
     return string.charAt(1).toUpperCase() + string.slice(2);

@@ -5,7 +5,7 @@ import {
 const initialState={
     title : "Dashboard",
     breadcrumbItems : [
-        { title : "Lexa", link : "#" },
+        { title : "Brewcraft", link : "#" },
         { title : "Dashboard", link : "#" },
         { title : "Dashboard", link : "#" },
     ],

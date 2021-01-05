@@ -17,12 +17,12 @@ class BasicTables extends Component {
         super(props);
         this.state = {
             breadcrumbItems : [
-                { title : "Lexa", link : "#" },
+                { title : "Brewcraft", link : "#" },
                 { title : "Tables", link : "#" },
                 { title : "Basic Tables", link : "#" },
             ],
         }
-    } 
+    }
 
     componentDidMount(){
         this.props.setBreadcrumbItems("Basic Tables", this.state.breadcrumbItems);
@@ -123,7 +123,7 @@ class BasicTables extends Component {
                             </Card>
                         </Col>
                     </Row>
-                    
+
 
                     <Row>
                         <Col lg="6">
@@ -214,7 +214,7 @@ class BasicTables extends Component {
                             </Card>
                         </Col>
                     </Row>
-                    
+
 
                     <Row>
                         <Col lg="6">
@@ -305,7 +305,7 @@ class BasicTables extends Component {
                             </Card>
                         </Col>
                     </Row>
-                    
+
 
                     <Row>
                         <Col lg="6">
@@ -414,7 +414,7 @@ class BasicTables extends Component {
                             </Card>
                         </Col>
                     </Row>
-                    
+
 
                     <Row>
                         <Col lg="6">
@@ -522,7 +522,7 @@ class BasicTables extends Component {
                             </Card>
                         </Col>
                     </Row>
-                    
+
 
                     <Row>
                         <Col lg="12">
@@ -581,7 +581,7 @@ class BasicTables extends Component {
                                 </CardBody>
                             </Card>
                         </Col>
-                    </Row>           
+                    </Row>
             </React.Fragment>
         );
     }
