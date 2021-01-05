@@ -1,8 +1,11 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import AxiosInstance from "../../helpers/axiosInstance";
-import {  get,omit } from "lodash";
+import { get, omit } from "lodash";
 import { apiResponse, SUCCESS, ERROR } from "../../helpers/snackHelper";
-import { commonResponseHanderlGet, commonResponseHanderlCreated } from "../../helpers/commonSagaUtility";
+import {
+  commonResponseHanderlGet,
+  commonResponseHanderlCreated,
+} from "../../helpers/commonSagaUtility";
 import { SUPPLIERS } from "../../helpers/url";
 import {
   FETCH_VENDOR_REQUEST,
@@ -25,15 +28,17 @@ import {
   EDIT_VENDOR_CONTACT_FAILURE,
   DELETE_VENDOR_CONTACT_REQUEST,
   DELETE_VENDOR_CONTACT_SUCCESS,
-  DELETE_VENDOR_CONTACT_FAILURE
+  DELETE_VENDOR_CONTACT_FAILURE,
 } from "./actionTypes";
 
 /**
- * @description FETCH VENDOR LIST 
+ * @description FETCH VENDOR LIST
  *
  */
 async function fetchVendorsRequest() {
-  return await AxiosInstance.get(SUPPLIERS).then(r=>r).catch((error)=>console.log(error));
+  return await AxiosInstance.get(SUPPLIERS)
+    .then((r) => r)
+    .catch((error) => console.log(error));
 }
 function* fetchVendors() {
   let response = yield call(fetchVendorsRequest);
@@ -46,40 +51,56 @@ function* fetchVendors() {
 }
 
 /**
- * @description ADD VENDOR 
+ * @description ADD VENDOR
  */
 
 async function addVendorRequest(payload) {
-  return await AxiosInstance.post(SUPPLIERS, payload).then(r=>r).catch((error)=>console.log(error));
+  return await AxiosInstance.post(SUPPLIERS, payload)
+    .then((r) => r)
+    .catch((error) => console.log(error));
 }
 
 function* addVendor(action) {
-
   yield call(
     commonResponseHanderlCreated,
-    yield call(addVendorRequest,get(action, "payload.form")),
-    { redux: ADD_VENDOR_SUCCESS },
+    yield call(addVendorRequest, get(action, "payload.form")),
+    {
+      redux: ADD_VENDOR_SUCCESS,
+      success: get(action, "payload.successFn"),
+      snack: SUCCESS,
+    },
     { redux: ADD_VENDOR_FAILURE, snack: ERROR }
   );
-
 }
 
 /**
- * @description ADD VENDOR  CONTACT 
+ * @description ADD VENDOR  CONTACT
  */
 
 async function addVendorContactRequest(payload) {
-  return await AxiosInstance.post(`${SUPPLIERS}\\${get(payload,'supplier')}\\contacts`, omit(payload,'supplier')).then(r=>r).catch((error)=>console.log(error));
+  return await AxiosInstance.post(
+    `${SUPPLIERS}\\${get(payload, "supplier")}\\contacts`,
+    omit(payload, "supplier")
+  )
+    .then((r) => r)
+    .catch((error) => console.log(error));
 }
 function* addVendorContact(action) {
-  let response = yield call(addVendorContactRequest,get(action, "payload.form"));
+  let response = yield call(
+    addVendorContactRequest,
+    get(action, "payload.form")
+  );
   yield call(
     commonResponseHanderlCreated,
     response,
-    { redux: ADD_VENDOR_SUCCESS },
-    { redux: ADD_VENDOR_FAILURE, snack: ERROR }
+    {
+      redux: ADD_VENDOR_CONTACT_SUCCESS,
+      success: get(action, "payload.successFn"),
+      snack: SUCCESS,
+    },
+    { redux: ADD_VENDOR_CONTACT_FAILURE, snack: ERROR },
+    { supplier: get(action, "payload.form.supplier") }
   );
-
 }
 
 export default function* Vendors() {
