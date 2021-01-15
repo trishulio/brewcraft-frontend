@@ -65,9 +65,9 @@ export default function VendorList() {
       )),
     [data1]
   );
-  if (loading1) {
-    return <div>Loading...</div>;
-  }
+  // if (loading1) {
+  //   return <div>Loading...</div>;
+  // }
   // somthing wrong first time
   if (error1) {
     return <div>Error</div>;

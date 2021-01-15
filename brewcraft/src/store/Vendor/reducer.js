@@ -21,7 +21,7 @@ import {
   DELETE_VENDOR_CONTACT_SUCCESS,
   DELETE_VENDOR_CONTACT_FAILURE,
 } from "./actionTypes";
-import { cloneDeep } from "lodash";
+import { cloneDeep, findIndex, get, omit } from "lodash";
 
 const initialState = {
   data: {},
@@ -66,42 +66,53 @@ const Vendor = (state = initialState, { type, payload }) => {
         formLoading: { ...state.formLoading, loading: true, error: false },
       };
     case ADD_VENDOR_SUCCESS: {
-      const stateOld = cloneDeep(state.data);
-      console.log(stateOld);
+      const suppliers = cloneDeep(get(state, "data.suppliers", []));
+      suppliers.push(payload);
       return {
         ...state,
+        data: {
+          ...state.data,
+          suppliers: [...suppliers],
+        },
       };
     }
     case EDIT_VENDOR_SUCCESS: {
       const stateOld = cloneDeep(state.data);
-      console.log(EDIT_VENDOR_SUCCESS);
       return {
         ...state,
       };
     }
     case DELETE_VENDOR_SUCCESS: {
       const stateOld = cloneDeep(state.data);
-      console.log(DELETE_VENDOR_SUCCESS);
       return {
         ...state,
       };
     }
     case ADD_VENDOR_CONTACT_SUCCESS: {
-      console.log(payload);
+      const suppliers = cloneDeep(get(state, "data.suppliers", []));
+      const indexOf = findIndex(
+        get(state, "data.suppliers"),
+        (o) => o.id === parseInt(get(payload, "supplier"))
+      );
+      if (indexOf !== -1) {
+        suppliers[indexOf]["contacts"].push(omit(payload, "supplier"));
+      }
       return {
         ...state,
-        formLoading: { ...state.formLoading, loading: true, error: false },
+        data: {
+          ...state.data,
+          suppliers: [...suppliers],
+        },
+        formLoading: { ...state.formLoading, loading: false, error: false },
       };
     }
     case EDIT_VENDOR_CONTACT_SUCCESS: {
-      console.log("EDIT_VENDOR_CONTACT_SUCCESS");
       return {
         ...state,
         formLoading: { ...state.formLoading, loading: false, error: false },
       };
     }
     case DELETE_VENDOR_CONTACT_SUCCESS: {
-      console.log("DELETE_VENDOR_CONTACT_SUCCESS");
       return {
         ...state,
         formLoading: { ...state.formLoading, loading: false, error: false },
