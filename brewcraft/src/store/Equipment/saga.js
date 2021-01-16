@@ -7,10 +7,28 @@ EDIT_EQUIPMENTS_FAILURE
 } from "./actionTypes";
 import {attempt,get, omit} from 'lodash'
 import {EQUIPMENT} from "../../helpers/url";
+import AxiosInstance from "../../helpers/axiosInstance"
+import { apiResponse, SUCCESS, ERROR } from "../../helpers/snackHelper";
+import {
+  commonResponseHanderlGet,
+  commonResponseHanderlCreated,
+} from "../../helpers/commonSagaUtility";
 
-function* fetchEquipments(){
-    yield put({type:FETCH_EQUIPMENTS_SUCCESS})
-}
+
+async function fetchEquipmentsRequest() {
+    return await AxiosInstance.get(EQUIPMENT)
+      .then((r) => r)
+      .catch((error) => console.log(error));
+  }
+  function* fetchEquipments() {
+    let response = yield call(fetchEquipmentsRequest);
+    yield call(
+      commonResponseHanderlGet,
+      response,
+      { redux: FETCH_EQUIPMENTS_SUCCESS },
+      { redux: FETCH_EQUIPMENTS_FAILURE, snack: ERROR }
+    );
+  }
 
 export default function* Equipments() {
 

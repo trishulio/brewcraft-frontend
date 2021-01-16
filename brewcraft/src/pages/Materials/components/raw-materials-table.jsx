@@ -1,14 +1,13 @@
 import React,{useCallback} from "react";
 import { MDBDataTable } from "mdbreact";
 import {map} from "lodash"
-export default function RawMaterials({facilities, editFn}) {
+export default function RawMaterials({data, editFn}) {
   const tabledata = [
     {
       label: "Name",
-      field: "cName",
+      field: "Name",
       sort: "asc",
       width: 150,
-      // <onClick: className="0">.</onClick:>,
     },
     {
       label: "Type",
@@ -17,20 +16,38 @@ export default function RawMaterials({facilities, editFn}) {
       width: 270,
     },
     {
-      label: "Status",
+      label: "Available (kg)",
       field: "phoneNumber",
       sort: "asc",
       width: 200,
     },
     {
-      label: "Capacity",
+      label: "Current (s)",
+      field: "email",
+      sort: "asc",
+      width: 200,
+    },
+    {
+      label: "Cost/kg(s/kg)",
+      field: "email",
+      sort: "asc",
+      width: 200,
+    },
+    {
+      label: "Used (kg)",
+      field: "email",
+      sort: "asc",
+      width: 200,
+    },
+    {
+      label: "Waste (kg)",
       field: "email",
       sort: "asc",
       width: 200,
     },
   ];
   const rowEvent = useCallback(() => {
-    return map(facilities, (row) => {
+    return map(data, (row) => {
       return {
         ...row,
         cName: (
@@ -40,7 +57,7 @@ export default function RawMaterials({facilities, editFn}) {
         )
       };
     });
-  }, [facilities]);
+  }, [data]);
   return (
     <MDBDataTable
       responsive
