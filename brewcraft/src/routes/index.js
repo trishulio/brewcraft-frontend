@@ -21,10 +21,10 @@ import CustomerNewInvoice from '../pages/CustomerInvoices/create-invoice';
 import CustomerViewInvoice from '../pages/CustomerInvoices/view-invoice';
 
 // Equipment
-import Equipment from '../pages/Equipment/equipment';
+import Equipment from '../pages/Equipment/index'
 
 // Facility
-import Facility from '../pages/Facilities';
+// import Facility from '../pages/Facilities';
 
 // Finished Goods
 import FinishedGoodsDashboard from '../pages/FinishedGoods/dashboard';
@@ -35,13 +35,15 @@ import FinishedGoodsRecords from '../pages/FinishedGoods/records';
 import Locations from '../pages/Locations';
 
 // Materials
-import MaterialsRawMaterials from '../pages/Materials/inventory';
+import MaterialsRawMaterials from '../pages/Materials/raw-materials';
 import MaterialsInProcess from '../pages/Materials/in-process';
 import MaterialsUsedMaterials from '../pages/Materials/used-materials';
 import MaterialsWastedMaterials from '../pages/Materials/wasted-materials';
 import MaterialsDiscover from '../pages/Materials/discover';
 import MaterialsRecords from '../pages/Materials/records';
 import MaterialsDashboard from '../pages/Materials';
+
+
 
 // Packaging
 import PackagingInventory from '../pages/Packaging/inventory';
@@ -82,7 +84,7 @@ const authProtectedRoutes = [
   { path: "/equipment", component: Equipment },
 
   // Facility
-  { path: "/facilities", component: Facility },
+  // { path: "/facilities", component: Facility },
 
   // Finished Goods
   { path: "/finished-goods/dashboard", component: FinishedGoodsDashboard },
