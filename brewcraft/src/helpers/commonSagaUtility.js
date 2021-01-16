@@ -1,29 +1,34 @@
-import { put } from "redux-saga/effects";
+import { call, put } from "redux-saga/effects";
 import {get} from "lodash";
-function* withouHeader(response,header, success, fail) {
+import { apiResponse} from "./snackHelper";
+function* withouHeader(response,header, success, fail, formData) {
   try {
+    
     let { status, message, data } = response;
+    
     if (status === header) {
-      yield put({ type: get(success, "redux"), payload: data });
-      if(get(success, "snack")){
-        console.log("working");
-    }
+      yield put({ type: get(success, "redux"), payload: {...data, ...(formData && {...formData} )}});
+      yield get(success, "success") && call(get(success, "success"));
+      yield get(success, "snack") && call(apiResponse,get(success, "snack"));
+
 } else {
+    
+  
     yield put({ type: get(fail, "redux"), payload: data });
-    if(get(success, "snack")){
-        console.log("working error ");
-      }
+    yield get(fail, "snack") && call(apiResponse,get(fail, "snack"));
+    
     }
   } catch (error) {
-    console.log(error);
-    // yield put({type:fail, payload:})
+
+    yield get(fail, "snack") && call(apiResponse,get(fail, "snack"));
+
   }
 }
 
-function* commonResponseHanderlGet(response, success, fail) {
-  yield withouHeader(response,200, success, fail)
+function* commonResponseHanderlGet(response, success, fail,formData) {
+  yield withouHeader(response,200, success, fail,formData)
 }
-function* commonResponseHanderlCreated(response, success, fail) {
-  yield withouHeader(response,201, success, fail) 
+function* commonResponseHanderlCreated(response, success, fail,formData) {
+  yield withouHeader(response,201, success, fail, formData) 
 }
 export { commonResponseHanderlGet,commonResponseHanderlCreated };
