@@ -2,7 +2,7 @@ import React from "react";
 import { AvForm, AvField,AvCheckboxGroup, AvCheckbox } from "availity-reactstrap-validation";
 import { Row, Col,Button } from "reactstrap";
 
-export default function NewMaterial({ submitFn, close, optionsList, model }) {
+export default function NewMaterial({ submitFn, optionsList, model }) {
   return (
     <AvForm onValidSubmit={submitFn} model={model}>
       <Row>
@@ -86,7 +86,7 @@ export default function NewMaterial({ submitFn, close, optionsList, model }) {
         </Col>
         <Col lg="6">
           <AvField
-            name="Max. Waste"
+            name="MaxWaste"
             label="Max. Waste"
             placeholder="Max. Waste"
             type="text"
