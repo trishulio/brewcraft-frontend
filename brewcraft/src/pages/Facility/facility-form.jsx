@@ -2,15 +2,15 @@ import React from "react";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Row, Col, Card, CardBody, Button, ModalFooter } from "reactstrap";
 
-export default function FacilityForm({ companySubmit, close }) {
+export default function FacilityForm({ companySubmit, close, FormModal }) {
   return (
-    <AvForm onValidSubmit={companySubmit}>
+    <AvForm onValidSubmit={companySubmit} model={FormModal}>
       <Card>
         <CardBody>
           <Row>
-            <Col lg="12">
+            <Col lg="6">
               <AvField
-                name="Name"
+                name="name"
                 label="Name*"
                 placeholder="Name"
                 type="text"
@@ -18,23 +18,66 @@ export default function FacilityForm({ companySubmit, close }) {
                 validate={{ required: { value: true } }}
               />
             </Col>
-            <Col lg="12">
+            <Col lg="6">
               <AvField
-                name="Type"
-                label="Type"
-                placeholder="Type"
+                name="phoneNumber"
+                label="Phone Number"
+                placeholder="Phone Number"
                 type="text"
-                errorMessage="Type"
+                errorMessage="Please Insert a valid Phone Number."
                 validate={{ required: { value: true } }}
               />
             </Col>
-            <Col lg="12">
+            <Col lg="6">
               <AvField
-                name="Capacity"
-                label="Capacity*"
-                placeholder="Capacity"
+                name="address.addressLine1"
+                label="Address Line1"
+                placeholder="Address Line1"
                 type="text"
-                errorMessage="Enter Capacity"
+
+              />
+            </Col>
+            <Col lg="6">
+              <AvField
+                name="address.addressLine2"
+                label="Address Line2"
+                placeholder="Address Line2"
+                type="text"
+              />
+            </Col>
+            <Col lg="6">
+              <AvField
+                name="address.country"
+                label="Country"
+                placeholder="Country"
+                type="text"
+              />
+            </Col>
+            <Col lg="6">
+              <AvField
+                name="address.province"
+                label="Province"
+                placeholder="Province"
+                type="text"
+              />
+            </Col>
+            <Col lg="6">
+              <AvField
+                name="address.city"
+                label="City*"
+                placeholder="City"
+                type="text"
+                errorMessage="Please insert a valid City"
+                validate={{ required: { value: true } }}
+              />
+            </Col>
+            <Col lg="6">
+              <AvField
+                name="address.postalCode"
+                label="Postal Code*"
+                placeholder="Postal Code"
+                type="text"
+                errorMessage="Please insert a valid Postal Code"
                 validate={{ required: { value: true } }}
               />
             </Col>

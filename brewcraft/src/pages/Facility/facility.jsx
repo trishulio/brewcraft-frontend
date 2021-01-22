@@ -6,25 +6,36 @@ import { Row, Col, Card, CardBody, Button } from "reactstrap";
 import { Modalcall } from "../../component/Common/Modalcall";
 import FacilityTable from "./facility-table";
 import FacilityForm from "./facility-form";
-
+import { getFacilities } from "../../store/Equipment/actions";
 export default function Facility() {
   const [isOpen, setIsOpen] = useState(false);
-  const [editForm, setEditForm] = useState({edit:false, formData:null})
+  const [editForm, setEditForm] = useState({ edit: false, formData: null });
   const dispatch = useDispatch();
-  const {
-    data,
-    loading,
-    error
-   } = useSelector((state) => state.Equipments);
+  const { data, loading, error } = useSelector((state) => state.Equipments);
 
   useEffect(() => {
     dispatch(
-        setBreadcrumbItems("Facility", [
-            { title: "Dashboard", link: "/dashboard" }
-        ]));
-    // dispatch(getEquipments());
-
+      setBreadcrumbItems("Facility", [
+        { title: "Dashboard", link: "/dashboard" },
+      ])
+    );
+    dispatch(getFacilities());
   }, []);
+  const FormModal = {
+    name: "dsfadf",
+    address: {
+      addressLine1: "",
+      addressLine2: "",
+      country: "",
+      province: "",
+      city: "",
+      postalCode: "",
+    },
+    phoneNumber: "",
+    faxNumber: "",
+    equipment: [],
+    storages: [],
+  };
   // if (loading) {
   //   return <div>Loading...</div>;
   // }
@@ -37,11 +48,18 @@ export default function Facility() {
     return null;
   }
 
-  const dialogCloseFn = () =>{
+  const dialogCloseFn = () => {
     setIsOpen(false);
-  }
-  const dialogOpenFn = () =>{
+  };
+  const dialogOpenFn = () => {
     setIsOpen(true);
+  };
+
+  const createFacilities = (e, model) =>{
+    const Model = {...FormModal,...model }
+    console.log(Model);
+
+    
   }
 
   return (
@@ -60,7 +78,7 @@ export default function Facility() {
           <Card>
             <CardBody>
               <FacilityTable
-                facilities={data}
+                facilities={get(data, "content", [])}
                 editFn={dialogCloseFn}
               />
             </CardBody>
@@ -73,11 +91,9 @@ export default function Facility() {
           handlerClose={dialogCloseFn}
           title="Add Company"
         >
-         <FacilityForm />
-         
+          <FacilityForm  FormModal={FormModal}  close={dialogCloseFn} companySubmit={createFacilities} />
         </Modalcall>
       )}
-      
     </Fragment>
   );
 }
