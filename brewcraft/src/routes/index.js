@@ -24,7 +24,7 @@ import CustomerViewInvoice from '../pages/CustomerInvoices/view-invoice';
 import Equipment from '../pages/Equipment/index'
 
 // Facility
-// import Facility from '../pages/Facilities';
+import Facility from "../pages/Facility/facility";
 
 // Finished Goods
 import FinishedGoodsDashboard from '../pages/FinishedGoods/dashboard';
@@ -84,7 +84,7 @@ const authProtectedRoutes = [
   { path: "/equipment", component: Equipment },
 
   // Facility
-  // { path: "/facilities", component: Facility },
+  { path: "/facilities", component: Facility, exact:true },
 
   // Finished Goods
   { path: "/finished-goods/dashboard", component: FinishedGoodsDashboard },
