@@ -129,9 +129,10 @@ class Navbar extends Component {
                                             <i className="ti-flag-alt"></i>Facilities
                                     </Link>
                                         <div className={this.state.isFacility ? "dropdown-menu dropdown-menu-left show" : "dropdown-menu dropdown-menu-left"} aria-labelledby="topnav-facilities">
+                                            <Link to="/facilities/" className="dropdown-item">Facilities List</Link>
                                             <Link to="/facilities/locations" className="dropdown-item">Locations</Link>
                                             <Link to="/equipment/" className="dropdown-item">Equipment</Link>
-                                            <Link to="/facilities/" className="dropdown-item">Floor View</Link>
+                                            <Link to="/floor-view/" className="dropdown-item">Floor View</Link>
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">

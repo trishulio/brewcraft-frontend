@@ -12,7 +12,7 @@ import {
   EDIT_EQUIPMENTS_SUCCESS,
   EDIT_EQUIPMENTS_FAILURE,
 } from "./actionTypes";
-import { findIndex, get, filter, indexOf, values, map, remove } from "lodash";
+import { findIndex, get, omit } from "lodash";
 const initialState = {
   data: [],
   loading: false,
@@ -51,12 +51,18 @@ const Equipments = (state = initialState, { type, payload }) => {
         formLoading: { ...state.formLoading, error: false, loading: true },
       };
     case ADD_EQUIPMENTS_SUCCESS:
-      return {
-        ...state,
-        data: [...state.data, payload],
-        formLoading: { ...state.formLoading, loading: false },
-      };
+      {
+        let data = {...state.data.content};
+        data[0].equipment.push(omit(payload,'facility'))
+        return {
+          ...state,
+          data: { content:{...data} },
+          formLoading: { ...state.formLoading, loading: false },
+        };
+      }
+      
     case ADD_EQUIPMENTS_FAILURE:
+    case EDIT_EQUIPMENTS_FAILURE:
       return {
         ...state,
         formLoading: {
@@ -72,22 +78,20 @@ const Equipments = (state = initialState, { type, payload }) => {
         formLoading: { ...state.formLoading, loading: true },
       };
     case EDIT_EQUIPMENTS_SUCCESS:
-      const editIndex = findIndex([...state.data], function (o) {
-        return o.id == get(payload, "id");
-      });
-      const storeData = state.data.slice();
-      storeData[editIndex] = { ...state.data[editIndex], ...payload };
-      return {
-        ...state,
-        data: [...storeData],
-        formLoading: { ...state.formLoading, loading: false },
-      };
-    case EDIT_EQUIPMENTS_FAILURE:
-      return {
-        ...state,
-        formLoading: { ...state.formLoading, loading: true },
-      };
-
+      {
+        const editIndex = findIndex(state.data.content[0].equipment, function (o) {
+          return o.id == get(payload,'id');
+        });
+        let content = [...state.data.content[0].equipment];
+        content[editIndex] = {...omit(payload,'facility')};
+        const ContentState =  {...state.data, content: {...state.data.content} };
+        ContentState.content[0].equipment = [...content];
+        return {
+          ...state,
+          data: {...ContentState },
+          formLoading: { ...state.formLoading, loading: false },
+        };
+      }
     default:
       state = { ...state };
       break;

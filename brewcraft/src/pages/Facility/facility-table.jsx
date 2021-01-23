@@ -1,30 +1,47 @@
-import React,{useCallback} from "react";
+import React, { useCallback } from "react";
 import { MDBDataTable } from "mdbreact";
-import {map} from "lodash"
-export default function FacilityTable({facilities, editFn}) {
+import { map } from "lodash";
+/**
+ * 
+ * @param {Object} facilities facilities should be non-empty array object for table rendering
+ * @param {Function}  editFn non-mandatory javascript function
+ */
+export default function FacilityTable({ facilities, editFn }) {
   const tabledata = [
     {
       label: "Name",
-      field: "cName",
+      field: "name",
       sort: "asc",
       width: 150,
       // <onClick: className="0">.</onClick:>,
     },
     {
-      label: "Type",
-      field: "firstName",
+      label: "Phone Number",
+      field: "phoneNumber",
       sort: "asc",
       width: 270,
     },
     {
-      label: "Status",
-      field: "phoneNumber",
+      label: "Address Line 1",
+      field: "addressLine1",
       sort: "asc",
       width: 200,
     },
     {
-      label: "Capacity",
-      field: "email",
+      label: "Address Line 2",
+      field: "addressLine2",
+      sort: "asc",
+      width: 200,
+    },
+    {
+      label: "City",
+      field: "city",
+      sort: "asc",
+      width: 200,
+    },
+    {
+      label: "Country",
+      field: "country",
       sort: "asc",
       width: 200,
     },
@@ -35,16 +52,18 @@ export default function FacilityTable({facilities, editFn}) {
         ...row,
         cName: (
           <span onClick={() => editFn(row.id)} className="btnParent">
-              {row.cName}
-         </span>
-        )
+            {row.cName}
+          </span>
+        ),
       };
     });
   }, [facilities]);
   return (
     <MDBDataTable
       responsive
-      bordered
+      striped
+      scrollY
+      maxHeight="500px"
       data={{
         columns: tabledata,
         rows: rowEvent(),

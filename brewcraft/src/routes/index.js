@@ -85,6 +85,7 @@ const authProtectedRoutes = [
 
   // Facility
   { path: "/facilities", component: Facility, exact:true },
+  { path: "/floor-view", component: Facility, exact:true },
 
   // Finished Goods
   { path: "/finished-goods/dashboard", component: FinishedGoodsDashboard },

@@ -1,7 +1,13 @@
 import React from "react";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Row, Col, Card, CardBody, Button, ModalFooter } from "reactstrap";
-
+/**
+ * 
+ * @param {Function} companySubmit Mandatory 
+ * @param {Function} close Mandatory
+ * @param {Object} FormModal Mandatory
+ * 
+ */
 export default function FacilityForm({ companySubmit, close, FormModal }) {
   return (
     <AvForm onValidSubmit={companySubmit} model={FormModal}>

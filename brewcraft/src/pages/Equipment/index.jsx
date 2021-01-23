@@ -1,34 +1,79 @@
 import React, { useEffect, Fragment, useState, useCallback } from "react";
-import { get, map, pick, reduce, set } from "lodash";
+import { get, isArray, map, findIndex, filter, set } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import { Row, Col, Card, CardBody, Button } from "reactstrap";
 import { Modalcall } from "../../component/Common/Modalcall";
 import EquipmentTable from "./EquipmentTable";
-import {getEquipments,editEquipments,saveEquipments} from "../../store/Equipment/actions"
+import {
+  getFacilities,
+  editEquipments,
+  saveEquipments,
+} from "../../store/Equipment/actions";
 import EquipmentForm from "./EquipmentForm";
 
 export default function Equipments() {
   const [isOpen, setIsOpen] = useState(false);
-  const [editForm, setEditForm] = useState({edit:false, formData:null})
+  const [editForm, setEditForm] = useState({
+    edit: false,
+    heading: "Add Equipment",
+  });
+  const [formModel, setFormModel] = useState({
+    id: null,
+    name: "",
+    type: "",
+    status: "Active",
+    maxCapacity: {
+      value: "",
+      symbol: "l",
+    },
+  });
   const dispatch = useDispatch();
-  const {
-    data,
-    loading,
-    error
-   } = useSelector((state) => state.Equipments);
-
+  const { data, loading, error } = useSelector((state) => state.Equipments);
+  const typeSelection = [
+    "Barrel",
+    "Boil Kettle",
+    "Brite Tank",
+    "Fermenter",
+    "Mix Tank",
+    "Serving Tank",
+    "Tote",
+    "Whirl Pool",
+  ];
   useEffect(() => {
+    /**
+     * @description setting current page breadcrub
+     *
+     */
     dispatch(
-        setBreadcrumbItems("Equipments", [
-            { title: "Dashboard", link: "/dashboard" }
-        ]));
-    dispatch(getEquipments());
-
+      setBreadcrumbItems("Equipments", [
+        { title: "Dashboard", link: "/dashboard" },
+      ])
+    );
+    /**
+     * @description get facilities if data type is array
+     *
+     */
+    isArray(data) && dispatch(getFacilities());
   }, []);
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
+
+  const tableData = useCallback(() => {
+    return map(get(data, "content[0].equipment", []), (currentList) => {
+      return { ...currentList, ...currentList.maxCapacity };
+    });
+  }, [data]);
+  const selectType = useCallback(() => {
+    return map(typeSelection, (currentList, key) => {
+      return (
+        <option type={currentList} key={key}>
+          {currentList}
+        </option>
+      );
+    });
+  }, [typeSelection]);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   // somthing wrong first time
   if (error) {
     return <div>Error</div>;
@@ -37,14 +82,55 @@ export default function Equipments() {
   if (!data) {
     return null;
   }
-
-  const dialogCloseFn = () =>{
+  const dialogCloseFn = () => {
     setIsOpen(false);
-  }
-  const dialogOpenFn = () =>{
+  };
+  const dialogOpenFn = () => {
+    setFormModel({
+      id: null,
+      name: "",
+      type: "",
+      status: "",
+      maxCapacity: {
+        value: "",
+        symbol:""
+      },
+    });
     setIsOpen(true);
-  }
+    setEditForm({ edit: false, heading: "Add Equipment" });
+  };
+  const createEquipment = (e, model) => {
+    const Model = {
+      ...formModel,
+      ...model,
+      maxCapacity: {
+        ...formModel.maxCapacity,
+        ...model.maxCapacity,
+      },
+      equipmentId: get(data, "content[0].id"),
+    };
+    if(editForm.edit){
+      dispatch(editEquipments({ form: Model, successFn: dialogCloseFn }));
+    }else{
+      dispatch(saveEquipments({ form: Model, successFn: dialogCloseFn }));
+    }
+  };
 
+  const editEnable = (rowId) => {
+    const data_filter = filter(tableData(), (o) => o.id === rowId);
+    setFormModel({
+      id: get(data_filter[0], "id"),
+      name: get(data_filter[0], "name"),
+      type: get(data_filter[0], "type"),
+      status: get(data_filter[0], "status"),
+      maxCapacity: {
+        value: get(data_filter[0], "value"),
+        symbol: get(data_filter[0], "symbol"),
+      },
+    });
+    setEditForm({ edit: true, heading: "Edit Equipment" });
+    setIsOpen(true);
+  };
   return (
     <Fragment>
       <Row>
@@ -60,10 +146,7 @@ export default function Equipments() {
         <Col xs="12">
           <Card>
             <CardBody>
-              <EquipmentTable
-                facilities={data}
-                editFn={dialogCloseFn}
-              />
+              <EquipmentTable facilities={tableData()} editFn={editEnable} />
             </CardBody>
           </Card>
         </Col>
@@ -72,13 +155,16 @@ export default function Equipments() {
         <Modalcall
           show={isOpen}
           handlerClose={dialogCloseFn}
-          title="Add Company"
+          title={editForm.heading}
         >
-         <EquipmentForm />
-         
+          <EquipmentForm
+            companySubmit={createEquipment}
+            close={dialogCloseFn}
+            formModal={formModel}
+            type={selectType()}
+          />
         </Modalcall>
       )}
-      
     </Fragment>
   );
 }

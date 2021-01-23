@@ -1,6 +1,6 @@
 import {
   FETCH_FACILITIES_REQUEST,
-
+  ADD_FACILITIES_REQUEST,
   ADD_EQUIPMENTS_REQUEST,
   EDIT_EQUIPMENTS_REQUEST,
   FETCH_EQUIPMENTS_REQUEST 
@@ -8,6 +8,10 @@ import {
 
 export const getFacilities = () => ({
   type: FETCH_FACILITIES_REQUEST
+});
+export const saveFacilities = (payload) => ({
+  type: ADD_FACILITIES_REQUEST,
+  payload:payload
 });
 export const getEquipments = (payload) => ({
   type: FETCH_EQUIPMENTS_REQUEST,

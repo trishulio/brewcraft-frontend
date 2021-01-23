@@ -1,12 +1,12 @@
 import React, { useEffect, Fragment, useState, useCallback } from "react";
-import { get, map, pick, reduce, set } from "lodash";
+import { get, map, omit, isArray } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import { Row, Col, Card, CardBody, Button } from "reactstrap";
 import { Modalcall } from "../../component/Common/Modalcall";
 import FacilityTable from "./facility-table";
 import FacilityForm from "./facility-form";
-import { getFacilities } from "../../store/Equipment/actions";
+import { getFacilities, saveFacilities} from "../../store/Equipment/actions";
 export default function Facility() {
   const [isOpen, setIsOpen] = useState(false);
   const [editForm, setEditForm] = useState({ edit: false, formData: null });
@@ -19,10 +19,10 @@ export default function Facility() {
         { title: "Dashboard", link: "/dashboard" },
       ])
     );
-    dispatch(getFacilities());
+    isArray(data) && dispatch(getFacilities());
   }, []);
   const FormModal = {
-    name: "dsfadf",
+    name: "",
     address: {
       addressLine1: "",
       addressLine2: "",
@@ -36,9 +36,15 @@ export default function Facility() {
     equipment: [],
     storages: [],
   };
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
+  const tableData = useCallback(()=>{
+    return map(get(data, "content", []), (currentList)=>{
+      return omit({...currentList, ...currentList.address},['address','equipment','storages']);
+    })
+  },[data]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   // somthing wrong first time
   if (error) {
     return <div>Error</div>;
@@ -57,9 +63,7 @@ export default function Facility() {
 
   const createFacilities = (e, model) =>{
     const Model = {...FormModal,...model }
-    console.log(Model);
-
-    
+    dispatch(saveFacilities({form:Model, successFn:dialogCloseFn}))
   }
 
   return (
@@ -78,7 +82,7 @@ export default function Facility() {
           <Card>
             <CardBody>
               <FacilityTable
-                facilities={get(data, "content", [])}
+                facilities={tableData()}
                 editFn={dialogCloseFn}
               />
             </CardBody>
@@ -89,7 +93,7 @@ export default function Facility() {
         <Modalcall
           show={isOpen}
           handlerClose={dialogCloseFn}
-          title="Add Company"
+          title="Add Facilitie"
         >
           <FacilityForm  FormModal={FormModal}  close={dialogCloseFn} companySubmit={createFacilities} />
         </Modalcall>

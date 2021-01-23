@@ -1,16 +1,23 @@
 import React from "react";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Row, Col, Card, CardBody, Button, ModalFooter } from "reactstrap";
+/**
+ *
+ * @param {Function} companySubmit Mandatory
+ * @param {Function} close Mandatory
+ * @param {Object} FormModal Mandatory
+ *
+ */
 
-export default function EquipmentForm({ companySubmit, close }) {
+export default function EquipmentForm({ companySubmit, close, formModal, type }) {
   return (
-    <AvForm onValidSubmit={companySubmit}>
+    <AvForm onValidSubmit={companySubmit} model={formModal}>
       <Card>
         <CardBody>
           <Row>
             <Col lg="12">
               <AvField
-                name="Name"
+                name="name"
                 label="Name*"
                 placeholder="Name"
                 type="text"
@@ -19,18 +26,21 @@ export default function EquipmentForm({ companySubmit, close }) {
               />
             </Col>
             <Col lg="12">
-              <AvField
-                name="Type"
+              <AvField 
+                type="select"
+                name="type"
                 label="Type"
                 placeholder="Type"
-                type="text"
                 errorMessage="Type"
                 validate={{ required: { value: true } }}
-              />
+              >
+                <option value="">Select</option>
+                {type}
+                </AvField>
             </Col>
             <Col lg="12">
               <AvField
-                name="Capacity"
+                name="maxCapacity.value"
                 label="Capacity*"
                 placeholder="Capacity"
                 type="text"
