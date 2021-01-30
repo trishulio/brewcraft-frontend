@@ -19,11 +19,6 @@ class Layout extends Component {
     };
   }
 
-  componentDidUpdate() {
-    document.getElementById("preloader").style.display = "block";
-    document.getElementById("status").style.display = "block";
-  }
-
   componentDidMount() {
     window.scrollTo(0, 0);
     let currentage = this.capitalizeFirstLetter(this.props.location.pathname);
@@ -73,7 +68,7 @@ class Layout extends Component {
           <div className="main-content">
             <div className="page-content">
               <Container fluid>
-                <MDBContainer> 
+                <MDBContainer>
                   {this.props.children}
                   <ToastContainer
                     hideProgressBar={true}

@@ -21,64 +21,59 @@ class LayoutV extends Component {
     return string.charAt(1).toUpperCase() + string.slice(2);
   };
 
-  componentDidUpdate() {
-    document.getElementById('preloader').style.display = "block";
-    document.getElementById('status').style.display = "block";
-}
-
   componentDidMount() {
     window.scrollTo(0, 0);
     let currentage = this.capitalizeFirstLetter(this.props.location.pathname);
 
     document.title =
-      currentage + " | Brewcraft - Process Control Management";
+    currentage + " | Brewcraft - Process Control Management";
   }
 
   render() {
     return (
       <React.Fragment>
-        <div id="preloader">
-            <div id="status">
-                <div className="spinner-chase">
-                    <div className="chase-dot"></div>
-                    <div className="chase-dot"></div>
-                    <div className="chase-dot"></div>
-                    <div className="chase-dot"></div>
-                    <div className="chase-dot"></div>
-                    <div className="chase-dot"></div>
-                </div>
-            </div>
-        </div>
-       <div id="layout-wrapper">
+      <div id="preloader">
+      <div id="status">
+      <div className="spinner-chase">
+      <div className="chase-dot"></div>
+      <div className="chase-dot"></div>
+      <div className="chase-dot"></div>
+      <div className="chase-dot"></div>
+      <div className="chase-dot"></div>
+      <div className="chase-dot"></div>
+      </div>
+      </div>
+      </div>
+      <div id="layout-wrapper">
 
-          {/* render topbar */}
-          <Topbar/>
+      {/* render topbar */}
+      <Topbar/>
 
-          {/* render navbar */}
-          <Navbar/>
+      {/* render navbar */}
+      <Navbar/>
 
-          <div className="main-content">
-            <div className="page-content">
-              <Container fluid>
-                <Breadcrumb/>
-                {this.props.children}
-                {/* render Footer */}
-                <Footer/>
-              </Container>
-            </div>
-          </div>
-        </div>
-        <RightSideBar/>
+      <div className="main-content">
+      <div className="page-content">
+      <Container fluid>
+      <Breadcrumb/>
+      {this.props.children}
+      {/* render Footer */}
+      <Footer/>
+      </Container>
+      </div>
+      </div>
+      </div>
+      <RightSideBar/>
       </React.Fragment>
-    );
+      );
+    }
   }
-}
 
-const mapStatetoProps = state => {
-  const Layout = state.Layout;
-  return {
+  const mapStatetoProps = state => {
+    const Layout = state.Layout;
+    return {
       isPreloader : Layout.isPreloader
+    };
   };
-};
 
-export default withRouter(connect(mapStatetoProps, null)(LayoutV));
+  export default withRouter(connect(mapStatetoProps, null)(LayoutV));
