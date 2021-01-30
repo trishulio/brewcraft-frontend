@@ -148,7 +148,6 @@ class Navbar extends Component {
                                             <i className="ti-user"></i>Suppliers
                                     </Link>
                                         <div className={this.state.isSupplier ? "dropdown-menu dropdown-menu-left show" : "dropdown-menu dropdown-menu-left"} aria-labelledby="topnav-suppliers">
-                                            <Link to="/vendors/dashboard" className="dropdown-item">Dashboard</Link>
                                             <Link to="/vendors/list" className="dropdown-item">List Suppliers</Link>
                                             <Link to="/vendors/invoices" className="dropdown-item">Purchase Invoices</Link>
                                         </div>
@@ -185,12 +184,8 @@ class Navbar extends Component {
                                             <i className="ti-package"></i>Materials
                                     </Link>
                                         <div className={this.state.isRawMaterials ? "dropdown-menu dropdown-menu-left show" : "dropdown-menu dropdown-menu-left"} aria-labelledby="topnav-raw-materials">
-                                            <Link to="/materials/" className="dropdown-item">Dashboard</Link>
                                             <Link to="/materials/raw-materials" className="dropdown-item">Raw Materials</Link>
                                             <Link to="/materials/in-process" className="dropdown-item">In-Process</Link>
-                                            <Link to="/materials/used-materials" className="dropdown-item">Used Materials</Link>
-                                            <Link to="/materials/wasted-materials" className="dropdown-item">Wasted Materials</Link>
-                                            {/* <Link to="/materials/discover" className="dropdown-item">Discover</Link> */}
                                             <Link to="/materials/records" className="dropdown-item">Records</Link>
                                         </div>
                                     </li>
@@ -207,14 +202,12 @@ class Navbar extends Component {
                                             <i className="ti-truck"></i>Finished Goods
                                     </Link>
                                         <div className={this.state.isFinishedGoods ? "dropdown-menu dropdown-menu-left show" : "dropdown-menu dropdown-menu-left"} aria-labelledby="topnav-finished-goods">
-                                            <Link to="/finished-goods/dashboard" className="dropdown-item">Dashboard</Link>
                                             <Link to="/finished-goods/inventory" className="dropdown-item">Inventory</Link>
                                             <Link to="/deliveries" className="dropdown-item">Deliveries</Link>
                                             <Link to="/delivery-drivers" className="dropdown-item">Delivery Drivers</Link>
-                                            <Link to="/finished-goods/records" className="dropdown-item">Records</Link>
                                         </div>
                                     </li>
-                                    <li className="nav-item dropdown">
+                                    {/* <li className="nav-item dropdown">
                                         <Link
                                             onClick={e => { e.preventDefault(); this.setState({ isBrews: !this.state.isBrews }); }}
                                             className="nav-link dropdown-toggle arrow-none"
@@ -231,8 +224,8 @@ class Navbar extends Component {
                                             <Link to="/brews/active-brews" className="dropdown-item">Active Brews</Link>
                                             <Link to="/brews/" className="dropdown-item">All Brews</Link>
                                         </div>
-                                    </li>
-                                    <li className="nav-item dropdown">
+                                    </li> */}
+                                    {/* <li className="nav-item dropdown">
                                         <Link
                                             onClick={e => { e.preventDefault(); this.setState({ isPackaging: !this.state.isPackaging }); }}
                                             className="nav-link dropdown-toggle arrow-none"
@@ -248,8 +241,8 @@ class Navbar extends Component {
                                             <Link to="/packaging/inventory" className="dropdown-item">Inventory</Link>
                                             <Link to="/packaging/records" className="dropdown-item">Records</Link>
                                         </div>
-                                    </li>
-                                    <li className="nav-item dropdown">
+                                    </li> */}
+                                    {/* <li className="nav-item dropdown">
                                         <Link
                                             onClick={e => { e.preventDefault(); this.setState({ isPackaging: !this.state.isReport }); }}
                                             className="nav-link dropdown-toggle arrow-none"
@@ -265,7 +258,7 @@ class Navbar extends Component {
                                             <Link to="/reports/k50b" className="dropdown-item">K50B - Excise Duty Return</Link>
                                             <Link to="/reports/n10" className="dropdown-item">N10 - Application for Refund/Drawback</Link>
                                         </div>
-                                    </li>
+                                    </li> */}
                                 </ul>
                             </Collapse>
                         </nav>

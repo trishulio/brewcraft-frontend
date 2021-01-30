@@ -14,7 +14,6 @@ import BrewsActive from '../pages/Brews/active';
 import Brews from '../pages/Brews/brews';
 
 // Customers
-// import CustomersDashboard from '../pages/Customers/dashboard';
 import CustomerList from '../pages/Customers/list';
 import CustomerInvoices from '../pages/CustomerInvoices/invoices';
 import CustomerNewInvoice from '../pages/CustomerInvoices/create-invoice';
@@ -27,9 +26,7 @@ import Equipment from '../pages/Equipment/index'
 import Facility from "../pages/Facility/facility";
 
 // Finished Goods
-import FinishedGoodsDashboard from '../pages/FinishedGoods/dashboard';
 import FinishedGoodsInventory from '../pages/FinishedGoods/inventory';
-import FinishedGoodsRecords from '../pages/FinishedGoods/records';
 
 // Locations
 import Locations from '../pages/Locations';
@@ -37,13 +34,8 @@ import Locations from '../pages/Locations';
 // Materials
 import MaterialsRawMaterials from '../pages/Materials/raw-materials';
 import MaterialsInProcess from '../pages/Materials/in-process';
-import MaterialsUsedMaterials from '../pages/Materials/used-materials';
-import MaterialsWastedMaterials from '../pages/Materials/wasted-materials';
 import MaterialsDiscover from '../pages/Materials/discover';
 import MaterialsRecords from '../pages/Materials/records';
-import MaterialsDashboard from '../pages/Materials';
-
-
 
 // Packaging
 import PackagingInventory from '../pages/Packaging/inventory';
@@ -62,7 +54,6 @@ import Createinvoice from '../pages/Vendors/invoices/create-invoice';
 
 const authProtectedRoutes = [
   // Customers
-  // { path: "/customers/dashboard", component: CustomersDashboard },
   { path: "/customers/list", component: CustomerList },
   { path: "/customers/invoice/new", component: CustomerNewInvoice },
   { path: "/customers/invoice/:id", component: CustomerViewInvoice },
@@ -88,9 +79,7 @@ const authProtectedRoutes = [
   { path: "/floor-view", component: Facility, exact:true },
 
   // Finished Goods
-  { path: "/finished-goods/dashboard", component: FinishedGoodsDashboard },
   { path: "/finished-goods/inventory", component: FinishedGoodsInventory },
-  { path: "/finished-goods/records", component: FinishedGoodsRecords },
 
   // Locations
   { path: "/facilities/locations", component: Locations },
@@ -99,10 +88,7 @@ const authProtectedRoutes = [
   { path: "/materials/discover", component: MaterialsDiscover },
   { path: "/materials/raw-materials", component: MaterialsRawMaterials },
   { path: "/materials/in-process", component: MaterialsInProcess },
-  { path: "/materials/used-materials", component: MaterialsUsedMaterials },
-  { path: "/materials/wasted-materials", component: MaterialsWastedMaterials },
-  { path: "/material/records", component: MaterialsRecords },
-  { path: "/materials/", component: MaterialsDashboard },
+  { path: "/materials/records", component: MaterialsRecords },
 
   // Packaging
   { path: "/packaging/inventory", component: PackagingInventory },
