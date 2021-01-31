@@ -17,11 +17,11 @@ export default function NewMaterialType({ companyContact,close, optionsList }) {
           <Row>
             <Col lg="6">
               <AvField
-                name="Name"
+                name="categoryName"
                 label="Name*"
-                placeholder="Enter First Name"
+                placeholder="Enter Category Name"
                 type="text"
-                errorMessage="Enter First Name"
+                errorMessage="Enter Valid Name"
                 validate={{ required: { value: true } }}
               />
             </Col>

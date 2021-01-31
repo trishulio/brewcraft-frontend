@@ -32,10 +32,11 @@ import FinishedGoodsInventory from '../pages/FinishedGoods/inventory';
 import Locations from '../pages/Locations';
 
 // Materials
-import MaterialsRawMaterials from '../pages/Materials/raw-materials';
+import MaterialsRawMaterials from '../pages/Materials/raw-ingredients';
 import MaterialsInProcess from '../pages/Materials/in-process';
 import MaterialsDiscover from '../pages/Materials/discover';
 import MaterialsRecords from '../pages/Materials/records';
+import MaterialCategories from '../pages/Materials/categories';
 
 // Packaging
 import PackagingInventory from '../pages/Packaging/inventory';
@@ -86,9 +87,10 @@ const authProtectedRoutes = [
 
   // Materials
   { path: "/materials/discover", component: MaterialsDiscover },
-  { path: "/materials/raw-materials", component: MaterialsRawMaterials },
+  { path: "/materials/raw-ingredients", component: MaterialsRawMaterials },
   { path: "/materials/in-process", component: MaterialsInProcess },
   { path: "/materials/records", component: MaterialsRecords },
+  { path: "/materials/categories", component: MaterialCategories },
 
   // Packaging
   { path: "/packaging/inventory", component: PackagingInventory },
