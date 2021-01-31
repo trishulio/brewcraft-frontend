@@ -14,10 +14,10 @@ import {
   DropdownMenu,
 } from "reactstrap";
 import { Modalcall } from "../../component/Common/Modalcall";
-import RawMaterials from "./components/raw-materials-table";
-import RawFilter from "./components/raw-filter";
-import NewMaterial from "./components/new-material";
-import NewMaterialType from "./components/new-material-type";
+import RawMaterials from "./components/materials-table";
+import RawFilter from "./components/material-filter";
+import MaterialDialog from "./components/material-dialog";
+import MaterialCategoryDialog from "./components/material-category-dialog";
 
 export default function Facilities() {
   const [isNewMaterialOpen, setIsNewMaterialOpen] = useState(false);
@@ -55,11 +55,10 @@ export default function Facilities() {
   useEffect(() => {
     dispatch(
       setBreadcrumbItems("Raw Materials", [
-        { title: "Materials", link: "/materials" },
+        { title: "Dashboard", link: "/dashboard" },
         { title: "Raw Materials", link: "#" },
       ])
     );
-    // dispatch(getEquipments());
   }, []);
   // somthing wrong first time
   if (error) {
@@ -95,7 +94,12 @@ export default function Facilities() {
     <Fragment>
       <Row>
         <Col xs="12">
-          <Dropdown
+          <div className="float-right mb-3">
+            <Button color="link" onClick={newMaterialOpen}>
+              Add Material
+            </Button>
+          </div>
+          {/* <Dropdown
             isOpen={btnprimary1}
             toggle={() => setBtnprimary1(!btnprimary1)}
             className="float-right mb-2"
@@ -111,18 +115,18 @@ export default function Facilities() {
                 Record Waste
               </DropdownItem>
             </DropdownMenu>
-          </Dropdown>
+          </Dropdown> */}
         </Col>
       </Row>
       <Row>
-        <Col xs="3">
+        <Col md="3">
           <Card>
             <CardBody>
               <RawFilter submitFn={filterSubmit} model={filterModel} optionsList={TypeOption()} />
             </CardBody>
           </Card>
         </Col>
-        <Col xs="9">
+        <Col md="9">
           <Card>
             <CardBody>
               <RawMaterials data={data}  />
@@ -136,7 +140,7 @@ export default function Facilities() {
           handlerClose={newMaterialClose}
           title="New Material"
         >
-          <NewMaterial submitFn={newMaterialSubmit} close={newMaterialClose} model={MaterialModel} optionsList={TypeOption()} />
+          <MaterialDialog submitFn={newMaterialSubmit} close={newMaterialClose} model={MaterialModel} optionsList={TypeOption()} />
         </Modalcall>
       )}
       {!!isNewMaterialTypeOpen && (
@@ -145,7 +149,7 @@ export default function Facilities() {
           handlerClose={newMaterialTypeClose}
           title="New Material Type"
         >
-          <NewMaterialType submitFn={newMaterialTypeSubmit} close={newMaterialTypeClose} model={MaterialModel}  />
+          <MaterialCategoryDialog submitFn={newMaterialTypeSubmit} close={newMaterialTypeClose} model={MaterialModel}  />
         </Modalcall>
       )}
     </Fragment>

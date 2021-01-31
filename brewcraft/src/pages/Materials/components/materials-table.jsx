@@ -1,7 +1,7 @@
 import React,{useCallback} from "react";
 import { MDBDataTable } from "mdbreact";
 import {map} from "lodash"
-export default function RawMaterials({data, editFn}) {
+export default function MaterialsTable({data, editFn}) {
   const tabledata = [
     {
       label: "Name",

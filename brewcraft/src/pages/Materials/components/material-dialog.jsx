@@ -2,7 +2,7 @@ import React from "react";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Row, Col, Card, CardBody, Button, ModalFooter } from "reactstrap";
 
-export default function NewMaterial({ submitFn, close, optionsList, model }) {
+export default function MaterialDialog({ submitFn, close, optionsList, model }) {
   return (
     <AvForm onValidSubmit={submitFn} model={model}>
       <Card>
@@ -10,11 +10,11 @@ export default function NewMaterial({ submitFn, close, optionsList, model }) {
           <Row>
             <Col lg="6">
               <AvField
-                name="firstName"
-                label="First Name*"
-                placeholder="Enter First Name"
+                name="materialName"
+                label="Name"
+                placeholder="Enter Material Name"
                 type="text"
-                errorMessage="Enter First Name"
+                errorMessage="Enter Valid Name"
                 validate={{ required: { value: true } }}
               />
             </Col>
@@ -22,18 +22,18 @@ export default function NewMaterial({ submitFn, close, optionsList, model }) {
             <Col lg="6">
               <AvField
                 type="select"
-                name="supplier"
-                label="Company"
+                name="materialCategory"
+                label="Category"
                 default
                 validate={{
                   required: {
                     value: true,
-                    errorMessage: "Please select a valid company",
+                    errorMessage: "Select a valid category",
                   },
                 }}
               >
                 <option disabled value="">
-                  Select Company
+                  Select Category
                 </option>
                 {optionsList}
               </AvField>
@@ -53,7 +53,6 @@ export default function NewMaterial({ submitFn, close, optionsList, model }) {
             type="submit"
             color="primary"
             className="waves-effect waves-light"
-            // disabled={forstatus.loading}
           >
             Save changes
           </Button>

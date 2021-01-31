@@ -25,8 +25,6 @@ export default function NewMaterialType({ companyContact,close, optionsList }) {
                 validate={{ required: { value: true } }}
               />
             </Col>
-            
-            
           </Row>
         </CardBody>
         <ModalFooter>
