@@ -1,48 +1,50 @@
 import React,{useCallback} from "react";
 import { MDBDataTable } from "mdbreact";
-import {map} from "lodash"
+import {map} from "lodash";
+
 export default function VendorListTable({suppliers, editCompany, editContact}) {
   const tabledata = [
     {
-      label: "Company Name",
-      field: "cName",
+      label: "Name",
+      field: "contactName",
       sort: "asc",
-      width: 150,
-      onClick:editCompany,
+      width: 200,
+      onClick: editContact
     },
     {
-      label: "Contact",
-      field: "firstName",
+      label: "Company",
+      field: "companyName",
       sort: "asc",
-      width: 270,
+      width: 200,
+      onClick: editCompany
     },
     {
       label: "Phone",
       field: "phoneNumber",
       sort: "asc",
-      width: 200,
+      width: 100,
     },
     {
       label: "Email",
       field: "email",
       sort: "asc",
-      width: 200,
-    },
+      width: 100,
+    }
   ];
   const rowEvent = useCallback(() => {
     return map(suppliers, (row) => {
       return {
         ...row,
-        cName: (
-          <span onClick={() => editCompany(row.cId)} className="btnParent">
-              {row.cName}
-         </span>
-        ),
-        firstName: (
-          <span onClick={() => editContact(row.id)} className="btnParent">
+        contactName: (
+          <span style={{cursor: "pointer"}} onClick={() => editContact(row.id)} className="btn-link">
               {row.firstName}
           </span>
         ),
+        companyName: (
+          <span style={{cursor: "pointer"}} onClick={() => editCompany(row.cId)} className="btn-link">
+              {row.cName}
+         </span>
+        )
       };
     });
   }, [suppliers]);
@@ -52,7 +54,7 @@ export default function VendorListTable({suppliers, editCompany, editContact}) {
       bordered
       data={{
         columns: tabledata,
-        rows: rowEvent(),
+        rows: rowEvent()
       }}
     />
   );

@@ -62,7 +62,7 @@ export default function AddContact({ companyContact,close, optionsList }) {
               {optionsList}
             </AvField>
             </Col>
-            
+
           </Row>
         </CardBody>
         <ModalFooter>

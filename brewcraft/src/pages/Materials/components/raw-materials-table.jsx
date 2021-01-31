@@ -5,46 +5,20 @@ export default function RawMaterials({data, editFn}) {
   const tabledata = [
     {
       label: "Name",
-      field: "Name",
+      field: "name",
       sort: "asc",
-      width: 150,
+      width: 300,
     },
     {
-      label: "Type",
-      field: "firstName",
-      sort: "asc",
-      width: 270,
+      label: "Category",
+      field: "category",
+      sort: "asc"
     },
     {
-      label: "Available (kg)",
-      field: "phoneNumber",
-      sort: "asc",
-      width: 200,
-    },
-    {
-      label: "Current (s)",
-      field: "email",
-      sort: "asc",
-      width: 200,
-    },
-    {
-      label: "Cost/kg(s/kg)",
-      field: "email",
-      sort: "asc",
-      width: 200,
-    },
-    {
-      label: "Used (kg)",
-      field: "email",
-      sort: "asc",
-      width: 200,
-    },
-    {
-      label: "Waste (kg)",
-      field: "email",
-      sort: "asc",
-      width: 200,
-    },
+      label: "Available",
+      field: "quantity",
+      sort: "asc"
+    }
   ];
   const rowEvent = useCallback(() => {
     return map(data, (row) => {

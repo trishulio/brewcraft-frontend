@@ -14,12 +14,12 @@ class Navbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isFacilities: true,
-            isSuppliers: true,
-            isCustomers: true,
-            isEquipment: true,
-            isMaterials: true,
-            isFinishedGoods: true,
+            isFacilities: false,
+            isSuppliers: false,
+            isCustomers: false,
+            isEquipment: false,
+            isMaterials: false,
+            isFinishedGoods: false,
             // isBrews: false,
             // isPackaging: false,
             // isReports: false,
@@ -121,6 +121,24 @@ class Navbar extends Component {
                                     </li>
                                     <li className="nav-item dropdown">
                                         <Link
+                                            onClick={e => { e.preventDefault(); this.setState({ isMaterials: !this.state.isMaterials }); }}
+                                            className="nav-link dropdown-toggle arrow-none"
+                                            to="/#"
+                                            id="topnav-raw-materials"
+                                            role="button"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                        >
+                                            <i className="ti-package"></i>Materials
+                                    </Link>
+                                        <div className={this.state.isMaterials ? "dropdown-menu dropdown-menu-left show" : "dropdown-menu dropdown-menu-left"} aria-labelledby="topnav-raw-materials">
+                                            <Link to="/materials/raw-materials" className="dropdown-item">Raw Materials</Link>
+                                            <Link to="/materials/in-process" className="dropdown-item">In-Process</Link>
+                                            <Link to="/materials/records" className="dropdown-item">Records</Link>
+                                        </div>
+                                    </li>
+                                    <li className="nav-item dropdown">
+                                        <Link
                                             onClick={e => { e.preventDefault(); this.setState({ isFacilities: !this.state.isFacilities }); }}
                                             className="nav-link dropdown-toggle arrow-none"
                                             to="/#"
@@ -172,24 +190,6 @@ class Navbar extends Component {
                                             <Link to="/customers/list" className="dropdown-item">List Customers</Link>
                                             <Link to="/customers/invoices" className="dropdown-item">Sales Invoices</Link>
                                             <Link to="/customers/invoice/new" className="dropdown-item">New Invoice</Link>
-                                        </div>
-                                    </li>
-                                    <li className="nav-item dropdown">
-                                        <Link
-                                            onClick={e => { e.preventDefault(); this.setState({ isMaterials: !this.state.isMaterials }); }}
-                                            className="nav-link dropdown-toggle arrow-none"
-                                            to="/#"
-                                            id="topnav-raw-materials"
-                                            role="button"
-                                            data-toggle="dropdown"
-                                            aria-haspopup="true"
-                                        >
-                                            <i className="ti-package"></i>Materials
-                                    </Link>
-                                        <div className={this.state.isMaterials ? "dropdown-menu dropdown-menu-left show" : "dropdown-menu dropdown-menu-left"} aria-labelledby="topnav-raw-materials">
-                                            <Link to="/materials/raw-materials" className="dropdown-item">Raw Materials</Link>
-                                            <Link to="/materials/in-process" className="dropdown-item">In-Process</Link>
-                                            <Link to="/materials/records" className="dropdown-item">Records</Link>
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">

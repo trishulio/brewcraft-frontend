@@ -61,9 +61,6 @@ export default function Facilities() {
     );
     // dispatch(getEquipments());
   }, []);
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
   // somthing wrong first time
   if (error) {
     return <div>Error</div>;

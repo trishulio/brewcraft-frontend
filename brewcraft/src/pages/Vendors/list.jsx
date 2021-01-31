@@ -13,9 +13,9 @@ import {
   editVendorContact,
   deleteVendorContact,
 } from "../../store/Vendor/actions";
-import AddCompany from "./AddCompany";
-import AddContact from "./AddContact";
-import VendorListTable from "./VendorList";
+import AddCompany from "./components/company-modal";
+import AddContact from "./components/contact-modal";
+import VendorListTable from "./components/vendor-list-table";
 
 export default function VendorList() {
   const [isCompanyDialog, setIsCompanyDialog] = useState(false);
@@ -36,7 +36,7 @@ export default function VendorList() {
       (old, current) => {
         return old.concat( map(get(current, "contacts"), (value) => {
           set(value, "cName", get(current, "name"));
-          set(value, "cId", get(current, "id")); 
+          set(value, "cId", get(current, "id"));
           return value;
         }))
       },
@@ -53,9 +53,7 @@ export default function VendorList() {
     );
     dispatch(fetchVendor());
   }, []);
-  /**
-   *
-   */
+
   const companyOptionsList = useCallback(
     () =>
       map(get(data1, "suppliers"), (value, index) => (
@@ -65,10 +63,7 @@ export default function VendorList() {
       )),
     [data1]
   );
-  // if (loading1) {
-  //   return <div>Loading...</div>;
-  // }
-  // somthing wrong first time
+  // something wrong first time
   if (error1) {
     return <div>Error</div>;
   }
@@ -77,15 +72,16 @@ export default function VendorList() {
     return null;
   }
   /**
-   * @description open cloase dialogs
+   * @description open close dialogs
    */
-  const addCompanyDailog = () => setIsCompanyDialog(!isCompanyDialog);
-  const addContactDailog = () => setIsContactDialog(!isContactDialog);
+  const addCompanyDialog = () => setIsCompanyDialog(!isCompanyDialog);
+  const addContactDialog = () => setIsContactDialog(!isContactDialog);
 
-  const editCompanyDailog = (copanyId) => {
-    setCompanyUpdate(copanyId)
+  const editCompanyDialog = (companyId) => {
+    debugger;
+    setCompanyUpdate(companyId)
   };
-  const editContactDailog = (contactId) => {
+  const editContactDialog = (contactId) => {
     setContactUpdate(contactId)
   };
   /**
@@ -108,33 +104,33 @@ export default function VendorList() {
         "postalCode",
       ]),
     };
-    dispatch(addVendor({ form: formCompose, successFn: addCompanyDailog }));
+    dispatch(addVendor({ form: formCompose, successFn: addCompanyDialog }));
   };
 
   /**
    *
    * @param {event} sytenthic event
    * @param {formData} form fields list
-   * @description creat new vendor
+   * @description create new vendor
    */
 
   const createContact = (event, formData) =>
     dispatch(
       addVendorContact({
         form: { ...formData, position: "" },
-        successFn: addContactDailog,
+        successFn: addContactDialog,
       })
     );
 
   return (
-    <Fragment>
+    <React.Fragment>
       <Row>
         <Col xs="12">
           <div className="float-right mb-3">
-            <Button color="link" onClick={addCompanyDailog}>
+            <Button color="link" onClick={addCompanyDialog}>
               Add Company
             </Button>
-            <Button color="link" onClick={addContactDailog}>
+            <Button color="link" onClick={addContactDialog}>
               Add Contact
             </Button>
           </div>
@@ -146,8 +142,8 @@ export default function VendorList() {
             <CardBody>
               <VendorListTable
                 suppliers={supplier}
-                editCompany={editCompanyDailog}
-                editContact={editContactDailog}
+                editCompany={editCompanyDialog}
+                editContact={editContactDialog}
               />
             </CardBody>
           </Card>
@@ -156,26 +152,25 @@ export default function VendorList() {
       {!!isCompanyDialog && (
         <Modalcall
           show={isCompanyDialog}
-          handlerClose={addCompanyDailog}
+          handlerClose={addCompanyDialog}
           title="Add Company"
         >
-          <AddCompany companySubmit={companySubmit} close={addCompanyDailog} />
+          <AddCompany companySubmit={companySubmit} close={addCompanyDialog} />
         </Modalcall>
       )}
       {!!isContactDialog && (
         <Modalcall
           show={isContactDialog}
-          handlerClose={addContactDailog}
+          handlerClose={addContactDialog}
           title="Add Contact"
         >
           <AddContact
             companyContact={createContact}
-            close={addContactDailog}
+            close={addContactDialog}
             optionsList={companyOptionsList()}
-            
           />
         </Modalcall>
       )}
-    </Fragment>
+    </React.Fragment>
   );
 }
