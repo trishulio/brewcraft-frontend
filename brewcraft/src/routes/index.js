@@ -32,7 +32,8 @@ import FinishedGoodsInventory from '../pages/FinishedGoods/inventory';
 import Locations from '../pages/Locations';
 
 // Materials
-import MaterialsRawMaterials from '../pages/Materials/raw-ingredients';
+import MaterialsIngredients from '../pages/Materials/ingredients';
+import MaterialsPackaging from '../pages/Materials/packaging';
 import MaterialsInProcess from '../pages/Materials/in-process';
 import MaterialsDiscover from '../pages/Materials/discover';
 import MaterialsRecords from '../pages/Materials/records';
@@ -87,7 +88,8 @@ const authProtectedRoutes = [
 
   // Materials
   { path: "/materials/discover", component: MaterialsDiscover },
-  { path: "/materials/raw-ingredients", component: MaterialsRawMaterials },
+  { path: "/materials/ingredients", component: MaterialsIngredients },
+  { path: "/materials/packaging", component: MaterialsPackaging },
   { path: "/materials/in-process", component: MaterialsInProcess },
   { path: "/materials/records", component: MaterialsRecords },
   { path: "/materials/categories", component: MaterialCategories },

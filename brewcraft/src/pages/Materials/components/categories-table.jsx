@@ -10,7 +10,7 @@ export default function MaterialsTable({data, editFn}) {
       width: 300
     },
     {
-      label: "Parent",
+      label: "Class",
       field: "parentCategory",
       sort: "asc",
       width: 300

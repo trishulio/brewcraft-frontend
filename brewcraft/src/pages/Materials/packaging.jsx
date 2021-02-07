@@ -10,8 +10,8 @@ import {
   Button
 } from "reactstrap";
 import { Modalcall } from "../../component/Common/Modalcall";
-import RawMaterials from "./components/materials-table";
-import RawFilter from "./components/material-filter";
+import MaterialsTable from "./components/materials-table";
+import MaterialsFilter from "./components/material-filter";
 import MaterialDialog from "./components/material-dialog";
 
 export default function Facilities() {
@@ -38,7 +38,7 @@ export default function Facilities() {
 
   useEffect(() => {
     dispatch(
-      setBreadcrumbItems("Raw Ingredients", [
+      setBreadcrumbItems("Packaging", [
         { title: "Dashboard", link: "/dashboard" },
         { title: "Materials", link: "#" },
       ])
@@ -75,7 +75,7 @@ export default function Facilities() {
         <Col xs="12">
           <div className="float-right mb-3">
             <Button color="link" onClick={newMaterialOpen}>
-              Add Material
+              Add Packaging
             </Button>
           </div>
         </Col>
@@ -84,14 +84,14 @@ export default function Facilities() {
         <Col md="3">
           <Card>
             <CardBody>
-              <RawFilter submitFn={filterSubmit} model={filterModel} optionsList={TypeOption()} />
+              <MaterialsFilter submitFn={filterSubmit} model={filterModel} optionsList={TypeOption()} />
             </CardBody>
           </Card>
         </Col>
         <Col md="9">
           <Card>
             <CardBody>
-              <RawMaterials data={data}  />
+              <MaterialsTable data={data}  />
             </CardBody>
           </Card>
         </Col>
@@ -100,7 +100,7 @@ export default function Facilities() {
         <Modalcall
           show={isNewMaterialOpen}
           handlerClose={newMaterialClose}
-          title="New Material"
+          title="New Packaging"
         >
           <MaterialDialog submitFn={newMaterialSubmit} close={newMaterialClose} model={MaterialModel} optionsList={TypeOption()} />
         </Modalcall>

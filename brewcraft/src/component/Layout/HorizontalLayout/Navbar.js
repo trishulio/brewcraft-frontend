@@ -132,10 +132,11 @@ class Navbar extends Component {
                                             <i className="ti-package"></i>Materials
                                     </Link>
                                         <div className={this.state.isMaterials ? "dropdown-menu dropdown-menu-left show" : "dropdown-menu dropdown-menu-left"} aria-labelledby="topnav-raw-materials">
-                                            <Link to="/materials/raw-ingredients" className="dropdown-item">Raw Ingredients</Link>
+                                            <Link to="/materials/ingredients" className="dropdown-item">Ingredients</Link>
+                                            <Link to="/materials/packaging" className="dropdown-item">Packaging</Link>
                                             <Link to="/materials/categories" className="dropdown-item">Categories</Link>
-                                            <Link to="/materials/in-process" className="dropdown-item">In-Process</Link>
-                                            <Link to="/materials/records" className="dropdown-item">Records</Link>
+                                            {/* <Link to="/materials/in-process" className="dropdown-item">In-Process</Link>
+                                            <Link to="/materials/records" className="dropdown-item">Records</Link> */}
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">

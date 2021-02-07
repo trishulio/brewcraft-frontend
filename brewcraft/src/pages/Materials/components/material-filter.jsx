@@ -8,17 +8,22 @@ export default function MaterialFilter({ submitFn, optionsList, model }) {
       <Row>
         <Col lg="12">
           <AvField
+            type="select"
             name="materialName"
-            label="Material Name"
-            placeholder="Material Name"
-            type="text"
-          />
+            label="Name"
+            default
+          >
+            <option disabled value="">
+              Select
+            </option>
+            {optionsList}
+          </AvField>
         </Col>
         <Col lg="12">
           <AvField
             type="select"
             name="materialCategory"
-            label="Material Category"
+            label="Category"
             default
           >
             <option disabled value="">
