@@ -5,7 +5,7 @@ export default function MaterialsTable({data, editFn}) {
   const tabledata = [
     {
       label: "Category",
-      field: "categoryName",
+      field: "name",
       sort: "asc",
       width: 300
     },
@@ -24,6 +24,10 @@ export default function MaterialsTable({data, editFn}) {
   ];
   const rowEvent = useCallback(() => {
     return map(data, (row) => {
+      row.parentCategory=row.parentCategoryId ? data.find(item=>{
+        return item.id===row.parentCategoryId
+      }).name : ""
+
       return {
         ...row,
         cName: (
@@ -34,6 +38,7 @@ export default function MaterialsTable({data, editFn}) {
       };
     });
   }, [data]);
+ 
   return (
     <MDBDataTable
       responsive

@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment, useState, useCallback } from "react";
 import { get, map } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import { setBreadcrumbItems } from "../../store/actions";
+import {  fetchMaterialCategories, saveCategory } from "../../store/actions";
 import {
   Row,
   Col,
@@ -18,27 +18,20 @@ export default function Facilities() {
 
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector(
-    (state) => state.Materials.RawMaterial
+    (state) => state.Materials.MaterialCategories
   );
   const MaterialModel = {
     locationType: 'work',
     name: 'Availity',
     checkItOut: true,
   };
-  const TypeOption = useCallback(()=>{
-      return map(get(data,'types'), (dataType)=>{
-        return <option value={dataType}>{dataType}</option>
-      })
-  },[get(data,'types')])
 
   useEffect(() => {
     dispatch(
-      setBreadcrumbItems("Categories", [
-        { title: "Dashboard", link: "/dashboard" },
-        { title: "Materials", link: "#" },
-      ])
+      fetchMaterialCategories()
     );
   }, []);
+
 
   if (error) {
     return <div>Error</div>;
@@ -47,15 +40,18 @@ export default function Facilities() {
   if (!data) {
     return null;
   }
-
   const newMaterialCategoryOpen = () =>{
     setIsNewMaterialCategoryOpen(true)
   }
   const newMaterialCategoryClose = () =>{
     setIsNewMaterialCategoryOpen(false)
   }
-  const newMaterialCategorySubmit = (e) =>{
-    console.log(e);
+  const newMaterialCategorySubmit = (e,values) =>{
+
+    const {categoryName,materialCategory}=values
+    dispatch(saveCategory({name : categoryName}))
+    
+    newMaterialCategoryClose()
   }
 
   return (
@@ -73,7 +69,7 @@ export default function Facilities() {
         <Col xs="12">
           <Card>
             <CardBody>
-              <CategoriesTable data={data}  />
+              <CategoriesTable data={data}   />
             </CardBody>
           </Card>
         </Col>

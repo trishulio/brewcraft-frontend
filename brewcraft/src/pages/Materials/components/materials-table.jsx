@@ -1,7 +1,10 @@
-import React,{useCallback} from "react";
+import React,{useCallback,useEffect} from "react";
 import { MDBDataTable } from "mdbreact";
 import {map} from "lodash"
-export default function MaterialsTable({data, editFn}) {
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMaterialCategories  } from "../../../store/Materials/actions";
+export default function MaterialsTable({categories,editFn,data}) {
+
   const tabledata = [
     {
       label: "Name",
@@ -22,6 +25,9 @@ export default function MaterialsTable({data, editFn}) {
   ];
   const rowEvent = useCallback(() => {
     return map(data, (row) => {
+      row.category= categories.data.find(item=>{
+        return item.id===row.parentCategoryId
+      }).name
       return {
         ...row,
         cName: (

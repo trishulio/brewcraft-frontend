@@ -4,6 +4,8 @@ import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Row, Col, Card, CardBody, Button, ModalFooter } from "reactstrap";
 
 export default function MaterialDialog({ submitFn, close, optionsList, model }) {
+
+
   return (
     <AvForm onValidSubmit={submitFn} model={model}>
       <Card>

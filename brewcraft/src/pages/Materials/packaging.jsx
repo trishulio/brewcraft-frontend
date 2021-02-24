@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment, useState, useCallback } from "react";
 import { get, map } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import { setBreadcrumbItems } from "../../store/actions";
+import { savePackagingMaterial,fetchPackagingMaterial,fetchMaterialCategories } from "../../store/actions";
 import {
   Row,
   Col,
@@ -18,7 +18,12 @@ export default function Facilities() {
   const [isNewMaterialOpen, setIsNewMaterialOpen] = useState(false);
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector(
-    (state) => state.Materials.RawMaterial
+    (state) => state.Materials.PackagingMaterial
+  );
+  const categories = useSelector(
+    (state) => {
+      return state.Materials.MaterialCategories
+    }
   );
   const MaterialModel = {
     locationType: 'work',
@@ -31,17 +36,17 @@ export default function Facilities() {
     hideItemsWithNoQuantity: true
   };
   const TypeOption = useCallback(()=>{
-      return map(get(data,'types'), (dataType)=>{
-        return <option value={dataType}>{dataType}</option>
-      })
-  },[get(data,'types')])
-
+    
+    return map(categories.data, (dataType)=>{
+      return <option value={dataType.id} key={dataType.id} >{dataType.name}</option>
+    })
+},[categories])
   useEffect(() => {
     dispatch(
-      setBreadcrumbItems("Packaging", [
-        { title: "Dashboard", link: "/dashboard" },
-        { title: "Materials", link: "#" },
-      ])
+      fetchPackagingMaterial()
+    );
+    dispatch(
+      fetchMaterialCategories()
     );
   }, []);
 
@@ -52,7 +57,8 @@ export default function Facilities() {
   if (!data) {
     return null;
   }
-
+  if (!categories.data)
+  {return null;}
   const filterSubmit = (e) =>{
     console.log(filterModel);
   }
@@ -65,8 +71,11 @@ export default function Facilities() {
     setIsNewMaterialOpen(false)
   }
 
-  const newMaterialSubmit = (e) =>{
-    console.log(e);
+  const newMaterialSubmit = (e,values) =>{
+    const {materialName,materialCategory}=values
+    dispatch(savePackagingMaterial({name : materialName}))
+    
+    newMaterialClose()
   }
 
   return (
@@ -91,7 +100,7 @@ export default function Facilities() {
         <Col md="9">
           <Card>
             <CardBody>
-              <MaterialsTable data={data}  />
+              <MaterialsTable data={data} categories={categories}  />
             </CardBody>
           </Card>
         </Col>

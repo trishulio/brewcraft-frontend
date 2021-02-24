@@ -10,11 +10,12 @@ import { listenAuthEvents } from "./helpers/authUtils";
 
 // Import scss
 import "./theme.scss";
+import { api, fetchMaterialCategories, fetchMaterials } from './store/Materials/api';
 
 if (process.env.NODE_ENV !== 'production') {
   // write authentication events to console log
   listenAuthEvents();
-  
+
 }
 
 class App extends Component {
@@ -39,7 +40,6 @@ class App extends Component {
 
   render() {
     const Layout = this.getLayout();
-
     return (
       <React.Fragment>
         <Router>
