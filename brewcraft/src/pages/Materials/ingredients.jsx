@@ -38,11 +38,15 @@ export default function Facilities() {
     MaterialType: '',
     hideItemsWithNoQuantity: true
   };
+
   const TypeOption = useCallback(()=>{
-    
-      return map(categories.data, (dataType)=>{
+      return categories.data.length ? map(categories.data.sort((a,b)=>{
+        if(a.name < b.name) { return -1; }
+        if(a.name > b.name) { return 1; }
+        return 0;
+      }), (dataType)=>{
         return <option value={dataType.id} key={dataType.id} >{dataType.name}</option>
-      })
+      }): []
   },[categories])
 
   useEffect(() => {
@@ -57,11 +61,12 @@ export default function Facilities() {
   if (error) {
     return <div>error</div>;
   }
+  if (categories.loading)
+  {return null;}
   if (!data) {
     return null;
   }
-  if (!categories.data)
-  {return null;}
+
   const filterSubmit = (e) =>{
     console.log(filterModel);
   }
@@ -81,7 +86,6 @@ export default function Facilities() {
     newMaterialClose()
   }
   return (
-    !loading && (
       <Fragment>
       <Row>
         <Col xs="12">
@@ -118,7 +122,7 @@ export default function Facilities() {
         </Modalcall>
       )}
     </Fragment>
-    )
+    
    
   );
 }

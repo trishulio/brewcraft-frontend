@@ -175,6 +175,7 @@ const MaterialCategories = (state = initialState, { type, payload, data }) => {
 
       return {
         ...state,
+        data : null ,
         loading: true,
         error: null,
       };
@@ -285,6 +286,7 @@ const Ingredients = (state = initialState, { type, payload, data }) => {
         error: null,
       };
     case FETCH_INGREDIENTS_SUCCESS:
+
       return {
         ...state,
         data,
