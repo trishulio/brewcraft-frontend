@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment, useState, useCallback } from "react";
 import { get, map } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import { saveIngredient , fetchIngredients ,fetchMaterialCategories} from "../../store/actions";
+import { saveIngredient , fetchIngredients ,fetchMaterialCategories,setBreadcrumbItems} from "../../store/actions";
 import {
   Row,
   Col,
@@ -50,6 +50,12 @@ export default function Facilities() {
   },[categories])
 
   useEffect(() => {
+    dispatch(
+      setBreadcrumbItems("Ingredients", [
+        { title: "Dashboard", link: "/dashboard" },
+        { title: "Materials", link: "#" },
+      ])
+    );
     dispatch(
       fetchIngredients()
     );

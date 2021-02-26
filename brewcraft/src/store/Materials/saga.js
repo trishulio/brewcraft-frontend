@@ -148,14 +148,14 @@ function* addIngredientGenerator(action) {
 
 function* addCategoryGenerator(action) {
   try {
-    let res = yield call(api.addCategory, get(action, "payload.name"));
-    console.log(res)
+    let res = yield call(api.addMaterialCategory, get(action, "payload.name"),get(action, "payload.parentCategoryId"));
     yield put({ type: ADD_CATEGORY_SUCCESS, data: res });
   } catch (e) {
     yield put({ type: ADD_CATEGORY_FAILURE });
   }
 }
 function* addPackagingMaterialGenerator(action) {
+
   try {
     let res = yield call(api.addPackagingMaterial, get(action, "payload.name"));
     yield put({ type: ADD_PACKAGING_MATERIAL_SUCCESS, data: res });

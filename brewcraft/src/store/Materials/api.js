@@ -81,11 +81,6 @@ async function addIngredient(name) {
     .then((r) => r)
     .catch((error) => console.log(error));
 }
-async function addCategory(name) {
-  return await AxiosInstance.post(`${MATERIALS}/categories`, { name, parentCategoryId: null })
-    .then((r) => r)
-    .catch((error) => console.log(error));
-}
 async function addPackagingMaterial(name) {
   return await AxiosInstance.post(`${MATERIALS}/categories`, { name, parentCategoryId: 2 })
     .then((r) => r)
@@ -109,7 +104,6 @@ export const api = {
   fetchMaterialCategoryById,
   addIngredient,
   addPackagingMaterial,
-  addCategory,
   fetchCategories,
   addMaterialCategory
 };

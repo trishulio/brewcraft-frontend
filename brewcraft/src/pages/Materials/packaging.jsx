@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment, useState, useCallback } from "react";
 import { get, map } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import { savePackagingMaterial,fetchPackagingMaterial,fetchMaterialCategories } from "../../store/actions";
+import { savePackagingMaterial,fetchPackagingMaterial,fetchMaterialCategories,setBreadcrumbItems } from "../../store/actions";
 import {
   Row,
   Col,
@@ -45,6 +45,12 @@ export default function Facilities() {
     }): []
 },[categories])
   useEffect(() => {
+    dispatch(
+      setBreadcrumbItems("Packaging", [
+        { title: "Dashboard", link: "/dashboard" },
+        { title: "Materials", link: "#" },
+      ])
+    );
     dispatch(
       fetchPackagingMaterial()
     );

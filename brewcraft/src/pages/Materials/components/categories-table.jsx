@@ -23,7 +23,7 @@ export default function MaterialsTable({data, editFn}) {
     }
   ];
   const rowEvent = useCallback(() => {
-    return map(data, (row) => {
+    return map(data.length && data.filter(item=>item.parentCategoryId!==null), (row) => {
       row.parentCategory=row.parentCategoryId ? data.find(item=>{
         return item.id===row.parentCategoryId
       }).name : ""

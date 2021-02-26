@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment, useState, useCallback } from "react";
 import { get, map } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import {  fetchMaterialCategories, saveCategory } from "../../store/actions";
+import {  fetchMaterialCategories, saveCategory ,setBreadcrumbItems } from "../../store/actions";
 import {
   Row,
   Col,
@@ -28,11 +28,21 @@ export default function Facilities() {
 
   useEffect(() => {
     dispatch(
+      setBreadcrumbItems("Categories", [
+        { title: "Dashboard", link: "/dashboard" },
+        { title: "Materials", link: "#" },
+      ])
+    );
+    dispatch(
       fetchMaterialCategories()
     );
   }, []);
 
-
+  const TypeOption = useCallback(()=>{
+    return data.length ? map(data.filter((a)=>a.parentCategoryId===null), (dataType)=>{
+      return <option value={dataType.id} key={dataType.id} >{dataType.name}</option>
+    }): []
+},[data])
   if (error) {
     return <div>Error</div>;
   }
@@ -47,9 +57,8 @@ export default function Facilities() {
     setIsNewMaterialCategoryOpen(false)
   }
   const newMaterialCategorySubmit = (e,values) =>{
-
-    const {categoryName,materialCategory}=values
-    dispatch(saveCategory({name : categoryName}))
+    const {categoryName , materialCategory} = values
+    dispatch(saveCategory({name : categoryName,parentCategoryId : materialCategory}))
     
     newMaterialCategoryClose()
   }
@@ -80,7 +89,7 @@ export default function Facilities() {
           handlerClose={newMaterialCategoryClose}
           title="New Material Category"
         >
-          <MaterialCategoryDialog submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel}  />
+          <MaterialCategoryDialog submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel} optionsList={TypeOption(data)} />
         </Modalcall>
       )}
     </Fragment>
