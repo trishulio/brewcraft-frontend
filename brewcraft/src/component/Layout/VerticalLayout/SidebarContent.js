@@ -208,14 +208,14 @@ class SidebarContent extends Component {
             <li>
               <Link to="/#" className="has-arrow waves-effect">
                 <i className="mdi mdi-pencil"></i>
-                <span>Facility Settings</span>
+                <span>Facilities</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/facilities">Facility Locations</Link>
+                  <Link to="/facilities">Locations</Link>
                 </li>
                 <li>
-                  <Link to="/facilities/locations">Storage Locations</Link>
+                  <Link to="/facilities/locations">Storage</Link>
                 </li>
                 <li>
                   <Link to="/equipment">Equipment</Link>

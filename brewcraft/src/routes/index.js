@@ -34,9 +34,6 @@ import Locations from '../pages/Locations';
 // Materials
 import MaterialsIngredients from '../pages/Materials/ingredients';
 import MaterialsPackaging from '../pages/Materials/packaging';
-import MaterialsInProcess from '../pages/Materials/in-process';
-import MaterialsDiscover from '../pages/Materials/discover';
-import MaterialsRecords from '../pages/Materials/records';
 import MaterialCategories from '../pages/Materials/categories';
 
 // Packaging
