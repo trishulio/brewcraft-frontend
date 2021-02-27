@@ -32,13 +32,13 @@ import FinishedGoodsInventory from '../pages/FinishedGoods/inventory';
 import Locations from '../pages/Locations';
 
 // Materials
+import Material from '../pages/Materials/material';
 import MaterialsIngredients from '../pages/Materials/ingredients';
 import MaterialsPackaging from '../pages/Materials/packaging';
 import MaterialCategories from '../pages/Materials/categories';
 
 // Packaging
 import PackagingInventory from '../pages/Packaging/inventory';
-import PackagingRecords from '../pages/Packaging/records';
 
 // Reports
 import ReportsK50B from '../pages/Reports/k50b';
@@ -84,27 +84,22 @@ const authProtectedRoutes = [
   { path: "/facilities/locations", component: Locations },
 
   // Materials
-  { path: "/materials/ingredients/:id", component: MaterialsIngredients },
+  { path: "/materials/:id", component: Material },
   { path: "/materials/ingredients", component: MaterialsIngredients },
   { path: "/materials/packaging", component: MaterialsPackaging },
   { path: "/materials/categories", component: MaterialCategories },
   { path: "/materials/purchases", component: PurchaseInvoices },
-  // { path: "/materials/discover", component: MaterialsDiscover },
-  // { path: "/materials/in-process", component: MaterialsInProcess },
-  // { path: "/materials/records", component: MaterialsRecords },
 
   // Packaging
   { path: "/packaging/inventory", component: PackagingInventory },
-  { path: "/packaging/records", component: PackagingRecords },
 
   // Reports
-  { path: "/reports", component: ReportsK50B },
-  { path: "/reports", component: ReportsN10 },
+  { path: "/reports/k50b", component: ReportsK50B },
+  { path: "/reports/n10", component: ReportsN10 },
 
   // Vendors
   { path: "/vendors/dashboard", component: VendorsDashboard },
   { path: "/vendors/list", component: VendorsList },
-  // { path: "/vendors/invoices", exact:true, component: PurchaseInvoices },
   { path: "/vendors/invoices/create", component: Createinvoice },
   { path: "/vendors/invoices/:id", component: InvoicesDetail },
 
