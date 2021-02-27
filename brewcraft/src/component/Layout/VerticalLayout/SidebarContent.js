@@ -141,48 +141,12 @@ class SidebarContent extends Component {
         <div id="sidebar-menu">
           <ul className="metismenu list-unstyled" id="side-menu">
             <li className="menu-title">Main</li>
-
             <li>
               <Link to="/dashboard" className="waves-effect">
                 <i className="mdi mdi-view-dashboard"></i>
                 <span>Dashboard</span>
               </Link>
             </li>
-
-            <li>
-              <Link to="/#" className="has-arrow waves-effect">
-                <i className="mdi mdi-flag"></i>
-                <span>Purchases</span>
-              </Link>
-              <ul className="sub-menu" aria-expanded="false">
-                <li>
-                  <Link to="/invoices">
-                    Invoices
-                  </Link>
-                </li>
-              </ul>
-            </li>
-
-            <li>
-              <Link to="/#" className="has-arrow waves-effect">
-                <i className="mdi mdi-flag"></i>
-                <span>Brews</span>
-              </Link>
-              <ul className="sub-menu" aria-expanded="false">
-                <li>
-                  <Link to="/brews">
-                    Overview{" "}
-                    <span className="badge badge-pill badge-primary float-right">
-                      2
-                    </span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/#">Start a brew</Link>
-                </li>
-              </ul>
-            </li>
-
             <li>
               <Link to="/#" className="has-arrow waves-effect">
                 <i className="mdi mdi-hops"></i>
@@ -190,74 +154,88 @@ class SidebarContent extends Component {
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/raw-materials">Overview</Link>
+                  <Link to="/materials/ingredients">Ingredients</Link>
                 </li>
                 <li>
-                  <Link to="ui-buttons">Record Transaction</Link>
+                  <Link to="/materials/packaging">Packaging</Link>
+                </li>
+                <li>
+                  <Link to="/materials/categories">Categories</Link>
+                </li>
+                <li>
+                  <Link to="/materials/purchases">Purchase Invoices</Link>
                 </li>
               </ul>
             </li>
-
             <li>
               <Link to="/#" className="has-arrow waves-effect">
-                <i className="mdi mdi-crown"></i>
-                <span>Packaging</span>
+                <i className="mdi mdi-flag"></i>
+                <span>Batches</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/packaging">Overview</Link>
+                  <Link to="/brews/overview">
+                    Brews{" "}<span className="badge badge-pill badge-primary float-right">2</span>
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/#">Record Transaction</Link>
+                  <Link to="/brews">
+                    Fermentations
+                  </Link>
                 </li>
               </ul>
             </li>
-
             <li>
               <Link to="/#" className="has-arrow waves-effect">
-                <i className="mdi mdi-truck-fast"></i>
+                <i className="ti-package"></i>
                 <span>Finished Goods</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/finished-goods">Overview</Link>
+                  <Link to="/finished-goods">Product Inventory</Link>
                 </li>
                 <li>
-                  <Link to="/#">Record Transaction</Link>
+                  <Link to="/#">Sales Invoices</Link>
                 </li>
               </ul>
             </li>
-
             <li>
-              <Link to="/reports" className="waves-effect">
-                <i className="mdi mdi-trending-up"></i>
-                <span>Reports</span>
+              <Link to="/dashboard" className="waves-effect">
+                <i className="mdi mdi-crown"></i>
+                <span>Products</span>
               </Link>
             </li>
-
-            <li className="menu-title">Beta</li>
             <li>
               <Link to="/#" className="has-arrow waves-effect">
                 <i className="mdi mdi-pencil"></i>
-                <span>Equipment</span>
+                <span>Facility Settings</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/equipment"> Overview</Link>
+                  <Link to="/facilities">Facility Locations</Link>
                 </li>
                 <li>
-                  <Link to="/#"> Settings</Link>
+                  <Link to="/facilities/locations">Storage Locations</Link>
+                </li>
+                <li>
+                  <Link to="/equipment">Equipment</Link>
+                </li>
+                <li>
+                  <Link to="/equipment">Equipment Types</Link>
                 </li>
               </ul>
             </li>
-
+            <li className="menu-title">Reports</li>
             <li>
-              <Link to="/facility" className="waves-effect">
-                <i className="mdi mdi-clipboard"></i>
-                <span className="badge badge-pill badge-primary float-right">
-                  2
-                </span>
-                <span>Facility</span>
+              <Link to="/#" className="waves-effect">
+                <i className="mdi mdi-trending-up"></i>
+                <span>Canada N10</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/#" className="waves-effect">
+                <i className="mdi mdi-trending-up"></i>
+                <span>BC K50B</span>
               </Link>
             </li>
           </ul>
