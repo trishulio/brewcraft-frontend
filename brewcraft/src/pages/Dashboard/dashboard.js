@@ -22,9 +22,7 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             breadcrumbItems : [
-                { title : "Brewcraft", link : "#" },
-                { title : "Dashboard", link : "#" },
-                { title : "Dashboard", link : "#" },
+                { title : "Brewcraft", link : "#" }
             ],
             reports : [
                 { title : "Orders", icon : "mdi-cube-outline", result : "+11%", value : "1,587", desc : "From previous period", color : "info" },
