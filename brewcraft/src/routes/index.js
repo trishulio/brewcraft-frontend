@@ -84,11 +84,11 @@ const authProtectedRoutes = [
   { path: "/facilities/locations", component: Locations },
 
   // Materials
-  { path: "/materials/:id", component: Material },
   { path: "/materials/ingredients", component: MaterialsIngredients },
   { path: "/materials/packaging", component: MaterialsPackaging },
   { path: "/materials/categories", component: MaterialCategories },
   { path: "/materials/purchases", component: PurchaseInvoices },
+  { path: "/materials/:id", component: Material },
 
   // Packaging
   { path: "/packaging/inventory", component: PackagingInventory },
