@@ -225,6 +225,24 @@ class SidebarContent extends Component {
                 </li>
               </ul>
             </li>
+            <li>
+              <Link to="/#" className="has-arrow waves-effect">
+                <i className="mdi mdi-account-heart"></i>
+                <span>Contacts</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/vendors/list">Suppliers</Link>
+                </li>
+                <li>
+                  <Link to="/vendors/list">Customers</Link>
+                </li>
+                <li>
+                  <Link to="/#">Companies</Link>
+                </li>
+              </ul>
+            </li>
+            <li></li>
             <li className="menu-title">Reports</li>
             <li>
               <Link to="/#" className="waves-effect">

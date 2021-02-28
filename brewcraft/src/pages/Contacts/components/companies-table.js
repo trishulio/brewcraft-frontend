@@ -1,8 +1,11 @@
 import React,{useCallback} from "react";
 import { MDBDataTable } from "mdbreact";
 import {map} from "lodash";
+import {
+  Button
+} from 'reactstrap';
 
-export default function VendorListTable({suppliers, editCompany, editContact}) {
+export default function ContactsTable({suppliers, editCompany, editContact, addCompanyDialog}) {
   const tabledata = [
     {
       label: "Name",
@@ -29,6 +32,10 @@ export default function VendorListTable({suppliers, editCompany, editContact}) {
       field: "email",
       sort: "asc",
       width: 100,
+    },
+    {
+      label: "",
+      field: "edit"
     }
   ];
   const rowEvent = useCallback(() => {
@@ -44,6 +51,9 @@ export default function VendorListTable({suppliers, editCompany, editContact}) {
           <span style={{cursor: "pointer"}} onClick={() => editCompany(row.cId)} className="btn-link">
               {row.cName}
          </span>
+        ),
+        edit: (
+          <Button onClick={() => addCompanyDialog(row.id)}>Edit</Button>
         )
       };
     });

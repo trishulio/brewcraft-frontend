@@ -5,7 +5,7 @@ import {
   Notzero,
   formatCurrency,
   formatPercent,
-} from "../../../helpers/textUtils";
+} from "../../helpers/textUtils";
 import ItemExpenseContext from "./item-expense-context";
 import Item from "./item";
 

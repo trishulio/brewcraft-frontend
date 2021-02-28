@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setBreadcrumbItems } from "../../../store/actions";
+import { setBreadcrumbItems } from "../../store/actions";
 import InvoicesTable from "./InvoicesTable";
 
 const Invoices = () => {

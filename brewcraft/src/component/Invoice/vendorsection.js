@@ -1,7 +1,7 @@
 import { get, map } from "lodash";
 import React, { Fragment, useContext, useCallback, useMemo } from "react";
 import { Col, Row, FormGroup, Label, Input } from "reactstrap";
-import { ItemSelectAV } from "../../../component/item-select";
+import { ItemSelectAV } from "./item-select";
 import { AvField, AvInput } from "availity-reactstrap-validation";
 import ItemExpenseContext from "./item-expense-context";
 /**
@@ -12,7 +12,7 @@ import ItemExpenseContext from "./item-expense-context";
  *
  */
 export default function Vendorsection({ vendor }) {
- 
+
   const selectOption = useContext(ItemExpenseContext);
 
   /**
@@ -33,7 +33,7 @@ export default function Vendorsection({ vendor }) {
   /**
    *
    *  @description Option List creating for select
-   * 
+   *
    */
   const renderSelect = useCallback(
     () => vendorOption(get(selectOption, "vendors")),

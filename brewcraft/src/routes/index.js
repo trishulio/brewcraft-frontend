@@ -37,19 +37,16 @@ import MaterialsIngredients from '../pages/Materials/ingredients';
 import MaterialsPackaging from '../pages/Materials/packaging';
 import MaterialCategories from '../pages/Materials/categories';
 
-// Packaging
-import PackagingInventory from '../pages/Packaging/inventory';
-
 // Reports
 import ReportsK50B from '../pages/Reports/k50b';
 import ReportsN10 from '../pages/Reports/n10';
 
-// Vendors
-import VendorsDashboard from '../pages/Vendors/dashboard';
-import VendorsList from '../pages/Vendors/list';
-import PurchaseInvoices from '../pages/Vendors/invoices/Invoices';
-import InvoicesDetail from '../pages/Vendors/invoices/invoice-detail';
-import Createinvoice from '../pages/Vendors/invoices/create-invoice';
+// Contacts
+import ContactsDashboard from '../pages/Contacts/dashboard';
+import ContactsList from '../pages/Contacts/suppliers';
+import PurchaseInvoices from '../component/Invoice/Invoices';
+import InvoicesDetail from '../component/Invoice/invoice-detail';
+import Createinvoice from '../component/Invoice/create-invoice';
 
 const authProtectedRoutes = [
   // Customers
@@ -90,16 +87,13 @@ const authProtectedRoutes = [
   { path: "/materials/purchases", component: PurchaseInvoices },
   { path: "/materials/:id", component: Material },
 
-  // Packaging
-  { path: "/packaging/inventory", component: PackagingInventory },
-
   // Reports
   { path: "/reports/k50b", component: ReportsK50B },
   { path: "/reports/n10", component: ReportsN10 },
 
-  // Vendors
-  { path: "/vendors/dashboard", component: VendorsDashboard },
-  { path: "/vendors/list", component: VendorsList },
+  // Contacts
+  { path: "/vendors/dashboard", component: ContactsDashboard },
+  { path: "/vendors/list", component: ContactsList },
   { path: "/vendors/invoices/create", component: Createinvoice },
   { path: "/vendors/invoices/:id", component: InvoicesDetail },
 

@@ -110,7 +110,6 @@ export default function Material() {
                     <Card>
                         <CardHeader>Material Quantity</CardHeader>
                         <CardBody>
-                            {/* <h4 className="mb-4 card-title">Material Details</h4> */}
                             <div className="table-responsive">
                                 <Table className="table mb-0">
                                     <tbody>

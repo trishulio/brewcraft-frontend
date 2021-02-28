@@ -16,8 +16,8 @@ import Select from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useSelector } from "react-redux";
-import "../../Tables/datatables.scss";
-import {useHistory} from 'react-router-dom'; 
+import "../Tables/datatables.scss";
+import {useHistory} from 'react-router-dom';
 import { get } from 'lodash';
 
 const optionGroup = [
@@ -41,7 +41,7 @@ const InvoicesTable = () => {
     open: false,
     id: null,
   });
-  
+
   const { invoices } = useSelector((state) => state.Purchases);
 
   const data = {
@@ -174,7 +174,7 @@ const InvoicesTable = () => {
     history.push(`/vendors/invoices/${get(invoice,'id')}`);
   }
   const creatInvoice = () =>history.push(`/vendors/invoices/create`);
-  
+
 
   return (
     <Card>

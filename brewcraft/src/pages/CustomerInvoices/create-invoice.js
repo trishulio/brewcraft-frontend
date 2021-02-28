@@ -15,7 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { AvForm } from "availity-reactstrap-validation";
 import InvoiceDate from "./invoice-date";
 import { Modalcall } from "../../component/Common/Modalcall";
-import {ItemSelect} from "../../component/item-select"
+import {ItemSelect} from "../../component/Invoice/item-select"
 import { saveInvoice } from "../../store/Invoice/actions";
 import { useHistory } from "react-router-dom";
 const darkimg =

@@ -1,8 +1,8 @@
 import { get, map, attempt } from "lodash";
 import React, { Fragment, useContext } from "react";
 import { Row, Col, ListGroupItem, Input } from "reactstrap";
-import { ItemSelect } from "../../../component/item-select";
-import { Notzero, formatCurrency } from "../../../helpers/textUtils";
+import { ItemSelect } from "./item-select";
+import { Notzero, formatCurrency } from "../../helpers/textUtils";
 import ItemExpenseContext from "./item-expense-context";
 
 /**
