@@ -49,19 +49,13 @@ import InvoicesDetail from '../component/Invoice/invoice-detail';
 import Createinvoice from '../component/Invoice/create-invoice';
 
 const authProtectedRoutes = [
-  // Customers
-  { path: "/customers/list", component: CustomerList },
-  { path: "/customers/invoice/new", component: CustomerNewInvoice },
-  { path: "/customers/invoice/:id", component: CustomerViewInvoice },
-  { path: "/customers/invoices", component: CustomerInvoices },
+  // Dashboard
+  { path: "/dashboard", component: Dashboard },
 
   // Brews
   { path: "/brews/active-brews", component: BrewsActive },
   { path: "/brews/dashboard", component: BrewsDashboard },
   { path: "/brews", component: Brews },
-
-  // Dashboard
-  { path: "/dashboard", component: Dashboard },
 
   // Deliveries
   { path: "/deliveries", component: Deliveries },
@@ -75,7 +69,10 @@ const authProtectedRoutes = [
   { path: "/floor-view", component: Facility, exact:true },
 
   // Finished Goods
-  { path: "/finished-goods/inventory", component: FinishedGoodsInventory },
+  { path: "/finished-goods", component: FinishedGoodsInventory },
+  { path: "/sales-invoices/new", component: CustomerNewInvoice },
+  { path: "/sales-invoices/:id", component: CustomerViewInvoice },
+  { path: "/sales-invoices", component: CustomerInvoices },
 
   // Locations
   { path: "/facilities/locations", component: Locations },
@@ -92,11 +89,13 @@ const authProtectedRoutes = [
   { path: "/reports/n10", component: ReportsN10 },
 
   // Contacts
+  { path: "/customers/list", component: CustomerList },
   { path: "/vendors/dashboard", component: ContactsDashboard },
   { path: "/vendors/list", component: ContactsList },
   { path: "/vendors/invoices/create", component: Createinvoice },
   { path: "/vendors/invoices/:id", component: InvoicesDetail },
 
+  // Default
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
 ];
 

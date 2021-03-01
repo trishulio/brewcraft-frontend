@@ -195,7 +195,7 @@ class SidebarContent extends Component {
                   <Link to="/finished-goods">Product Inventory</Link>
                 </li>
                 <li>
-                  <Link to="/#">Sales Invoices</Link>
+                  <Link to="/sales-invoices">Sales Invoices</Link>
                 </li>
               </ul>
             </li>

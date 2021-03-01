@@ -81,7 +81,7 @@ export default function Invoices() {
 
   };
   const viewInvoice = (row) => history.push(`${path}/view-invoice/${get(row,"id")}`);
-  const createInvoice = () => history.push(`/customers/invoice/new`);
+  const createInvoice = () => history.push(`/sales-invoices/new`);
 
   const tabList = [
     {
