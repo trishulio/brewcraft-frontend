@@ -9,7 +9,7 @@ import {
   CardBody,
   Button
 } from "reactstrap";
-import { Modalcall } from "../../component/Common/Modalcall";
+import { Modal } from "../../component/Common/Modal";
 import CategoriesTable from "./components/categories-table";
 import MaterialCategoryDialog from "./components/material-category-dialog";
 
@@ -79,13 +79,13 @@ export default function Facilities() {
         </Col>
       </Row>
       {!!isNewMaterialCategoryOpen && (
-        <Modalcall
+        <Modal
           show={isNewMaterialCategoryOpen}
           handlerClose={newMaterialCategoryClose}
           title="New Material Category"
         >
           <MaterialCategoryDialog submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel}  />
-        </Modalcall>
+        </Modal>
       )}
     </Fragment>
   );

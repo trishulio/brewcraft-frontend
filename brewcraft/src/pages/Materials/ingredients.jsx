@@ -9,7 +9,7 @@ import {
   CardBody,
   Button
 } from "reactstrap";
-import { Modalcall } from "../../component/Common/Modalcall";
+import { Modal } from "../../component/Common/Modal";
 import RawMaterials from "./components/materials-table";
 import RawFilter from "./components/material-filter";
 import MaterialDialog from "./components/material-dialog";
@@ -97,13 +97,13 @@ export default function Facilities() {
         </Col>
       </Row>
       {!!isNewMaterialOpen && (
-        <Modalcall
+        <Modal
           show={isNewMaterialOpen}
           handlerClose={newMaterialClose}
           title="New Ingredient"
         >
           <MaterialDialog submitFn={newMaterialSubmit} close={newMaterialClose} model={MaterialModel} optionsList={TypeOption()} />
-        </Modalcall>
+        </Modal>
       )}
     </Fragment>
   );

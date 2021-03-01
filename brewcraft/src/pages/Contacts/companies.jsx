@@ -14,7 +14,7 @@ import {
   DropdownMenu,
   DropdownItem
    } from "reactstrap";
-import { Modalcall } from "../../component/Common/Modalcall";
+import { Modal } from "../../component/Common/Modal";
 import {
   fetchVendor,
   addVendor,
@@ -171,16 +171,16 @@ export default function VendorList() {
         </Col>
       </Row>
       {!!isCompanyDialog && (
-        <Modalcall
+        <Modal
           show={isCompanyDialog}
           handlerClose={addCompanyDialog}
           title="Add Company"
         >
           <AddCompany companySubmit={companySubmit} close={addCompanyDialog} />
-        </Modalcall>
+        </Modal>
       )}
       {!!isContactDialog && (
-        <Modalcall
+        <Modal
           show={isContactDialog}
           handlerClose={addContactDialog}
           title="Add Contact"
@@ -190,7 +190,7 @@ export default function VendorList() {
             close={addContactDialog}
             optionsList={companyOptionsList()}
           />
-        </Modalcall>
+        </Modal>
       )}
     </React.Fragment>
   );

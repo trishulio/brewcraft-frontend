@@ -3,7 +3,7 @@ import { get, isArray, map, findIndex, filter, set } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import { Row, Col, Card, CardBody, Button } from "reactstrap";
-import { Modalcall } from "../../component/Common/Modalcall";
+import { Modal } from "../../component/Common/Modal";
 import EquipmentTable from "./EquipmentTable";
 import {
   getFacilities,
@@ -152,7 +152,7 @@ export default function Equipments() {
         </Col>
       </Row>
       {!!isOpen && (
-        <Modalcall
+        <Modal
           show={isOpen}
           handlerClose={dialogCloseFn}
           title={editForm.heading}
@@ -163,7 +163,7 @@ export default function Equipments() {
             formModal={formModel}
             type={selectType()}
           />
-        </Modalcall>
+        </Modal>
       )}
     </Fragment>
   );

@@ -14,7 +14,7 @@ import { parseInt, map, findIndex, get, set } from "lodash";
 import { useSelector, useDispatch } from "react-redux";
 import { AvForm } from "availity-reactstrap-validation";
 import InvoiceDate from "./invoice-date";
-import { Modalcall } from "../../component/Common/Modalcall";
+import { Modal } from "../../component/Common/Modal";
 import {ItemSelect} from "../../component/Invoice/item-select"
 import { saveInvoice } from "../../store/Invoice/actions";
 import { useHistory } from "react-router-dom";
@@ -330,7 +330,7 @@ export default function CreateInvoice(props) {
       </Rowtable>
 
       {show && (
-        <Modalcall
+        <Modal
           show={show}
           handlerClose={modalClose}
           title="change customer"
@@ -352,7 +352,7 @@ export default function CreateInvoice(props) {
               </Button>
             </Col>
           </Rowtable>
-        </Modalcall>
+        </Modal>
       )}
     </Fragment>
   );
