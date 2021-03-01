@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 
 import {
   toggleSidebar,
@@ -163,7 +162,7 @@ class SidebarContent extends Component {
                   <Link to="/materials/categories">Categories</Link>
                 </li>
                 <li>
-                  <Link to="/materials/purchases">Purchase Invoices</Link>
+                  <Link to="/purchase-invoices">Purchase Invoices</Link>
                 </li>
               </ul>
             </li>
@@ -232,10 +231,10 @@ class SidebarContent extends Component {
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/vendors/list">Suppliers</Link>
+                  <Link to="/suppliers">Suppliers</Link>
                 </li>
                 <li>
-                  <Link to="/vendors/list">Customers</Link>
+                  <Link to="/suppliers">Customers</Link>
                 </li>
                 <li>
                   <Link to="/#">Companies</Link>

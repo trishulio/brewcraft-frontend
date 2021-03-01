@@ -126,7 +126,6 @@ export default function VendorList() {
    * @param {formData} form fields list
    * @description create new vendor
    */
-
   const createContact = (event, formData) =>
     dispatch(
       addVendorContact({

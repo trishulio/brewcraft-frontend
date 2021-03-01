@@ -24,12 +24,10 @@ import Equipment from '../pages/Equipment/index'
 
 // Facility
 import Facility from "../pages/Facility/facility";
+import Locations from '../pages/Locations';
 
 // Finished Goods
 import FinishedGoodsInventory from '../pages/FinishedGoods/inventory';
-
-// Locations
-import Locations from '../pages/Locations';
 
 // Materials
 import Material from '../pages/Materials/material';
@@ -42,11 +40,10 @@ import ReportsK50B from '../pages/Reports/k50b';
 import ReportsN10 from '../pages/Reports/n10';
 
 // Contacts
-import ContactsDashboard from '../pages/Contacts/dashboard';
-import ContactsList from '../pages/Contacts/suppliers';
-import PurchaseInvoices from '../component/Invoice/Invoices';
-import InvoicesDetail from '../component/Invoice/invoice-detail';
-import Createinvoice from '../component/Invoice/create-invoice';
+import SuppliersList from '../pages/Contacts/suppliers';
+import PurchaseInvoices from '../pages/PurchaseInvoices/invoices';
+import PurchaseInvoicesDetail from '../pages/PurchaseInvoices/invoice';
+import PurchaseInvoicesCreate from '../pages/PurchaseInvoices/invoice-new';
 
 const authProtectedRoutes = [
   // Dashboard
@@ -81,7 +78,6 @@ const authProtectedRoutes = [
   { path: "/materials/ingredients", component: MaterialsIngredients },
   { path: "/materials/packaging", component: MaterialsPackaging },
   { path: "/materials/categories", component: MaterialCategories },
-  { path: "/materials/purchases", component: PurchaseInvoices },
   { path: "/materials/:id", component: Material },
 
   // Reports
@@ -90,10 +86,12 @@ const authProtectedRoutes = [
 
   // Contacts
   { path: "/customers/list", component: CustomerList },
-  { path: "/vendors/dashboard", component: ContactsDashboard },
-  { path: "/vendors/list", component: ContactsList },
-  { path: "/vendors/invoices/create", component: Createinvoice },
-  { path: "/vendors/invoices/:id", component: InvoicesDetail },
+  { path: "/suppliers", component: SuppliersList },
+
+  // Purchase Invoices
+  { path: "/purchase-invoices/create", component: PurchaseInvoicesCreate },
+  { path: "/purchase-invoices/:id", component: PurchaseInvoicesDetail },
+  { path: "/purchase-invoices", component: PurchaseInvoices },
 
   // Default
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }

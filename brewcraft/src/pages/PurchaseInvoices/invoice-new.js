@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
-import Commoninvoice from "./common-invoice";
+import Commoninvoice from "../../component/Invoice/common-invoice";
 
 /**
  * @author Anuj Gupta

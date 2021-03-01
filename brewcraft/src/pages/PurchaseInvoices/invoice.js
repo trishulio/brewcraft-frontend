@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { findIndex, get } from "lodash";
 import { setBreadcrumbItems } from "../../store/actions";
 import { NotMinusoneNun } from "../../helpers/textUtils";
-import Commoninvoice from "./common-invoice";
+import Commoninvoice from "../../component/Invoice/common-invoice";
 
 /* Dummy Axios call Data */
 const dummyInvoice = {
@@ -51,18 +51,18 @@ export default function InvoicesDetail() {
 
   useEffect(() => {
     dispatch(
-      setBreadcrumbItems("Purchases", [
-        { title: "Purchases", link: "/Purchases" },
-        { title: "vendors", link: "/vendors" },
-        { title: `Invoices ${id}`, link: "/Invoices" },
+      setBreadcrumbItems(
+        "Invoice: " + invoices["invoices"][id].number, [
+        { title: "Purchase Invoices", link: "/Purchases" },
+        { title: invoices["invoices"][id].vendor, link: "/suppliers" }
       ])
     );
 
     /*   find invoices from redux store  */
-    const invoic = findIndex(get(invoices, "invoices"), function (o) {
+    const invoiceData = findIndex(get(invoices, "invoices"), function (o) {
       return o.id == id;
     });
-    setHasInvoice(invoic);
+    setHasInvoice(invoiceData);
     setDataInvoice(dummyInvoice);
 
   }, []);

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
-import InvoicesTable from "./InvoicesTable";
+import InvoicesTable from "../../component/Invoice/invoices-table";
 
 const Invoices = () => {
   const dispatch = useDispatch();
