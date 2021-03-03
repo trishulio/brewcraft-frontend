@@ -57,8 +57,9 @@ export const deleteMaterial = (payload) => ({
   payload: payload,
 });
 
-export const fetchMaterialCategories = () => ({
+export const fetchMaterialCategories = (type) => ({
   type: FETCH_MATERIAL_CATEGORIES_REQUEST,
+  payload : {type}
 });
 export const fetchIngredients = () => ({
   type: FETCH_INGREDIENTS_REQUEST,

@@ -3,8 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Row, Col, Card, CardBody, Button, ModalFooter } from "reactstrap";
 
-export default function MaterialDialog({ submitFn, close, optionsList, model }) {
-
+export default function MaterialDialog({to, submitFn, close, optionsList, model , categoryModelOpen }) {
 
   return (
     <AvForm onValidSubmit={submitFn} model={model}>
@@ -24,7 +23,7 @@ export default function MaterialDialog({ submitFn, close, optionsList, model }) 
             <Col lg="6">
               <AvField
                 type="select"
-                name="materialCategory"
+                name="materialCategoryId"
                 label="Category"
                 default
                 validate={{
@@ -39,7 +38,30 @@ export default function MaterialDialog({ submitFn, close, optionsList, model }) 
                 </option>
                 {optionsList}
               </AvField>
-              <Link to="/materials/categories">Add Category</Link>
+             
+            </Col>
+          </Row>
+          <Row>
+          <Col lg="6">
+              <AvField
+                name="materialBaseQuantityUnit"
+                label="Base Quantity Unit"
+                placeholder="Enter Base Quantity Unit"
+                type="text"
+                errorMessage="Enter Valid Base Quantity Unit"
+                validate={{ required: { value: true } }}
+              />
+            </Col>
+            <Col lg="6">
+              <AvField
+                name="materialDescription"
+                label="Description"
+                placeholder="Enter Description"
+                type="textarea"
+                errorMessage="Enter Valid Description"
+                validate={{ required: { value: true } }}
+              />
+              <Link to={to} onClick={categoryModelOpen} >Add Category</Link>
             </Col>
           </Row>
         </CardBody>

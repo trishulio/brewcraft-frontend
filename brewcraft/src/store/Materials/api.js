@@ -1,4 +1,5 @@
 import AxiosInstance from "../../helpers/axiosInstance";
+import { INGREDIENTS , PACKAGING , NOTNULL , ALL } from "../../helpers/constants";
 import { MATERIALS } from "../../helpers/url";
 
 async function fetchMaterials() {
@@ -35,20 +36,27 @@ async function patchMaterial(id, payload) {
     .catch((error) => console.log(error));
 }
 //Categories
-async function fetchMaterialCategories() {
-  return await AxiosInstance.get(`${MATERIALS}/categories`)
-    .then((r) => r)
-    .catch((error) => console.log(error));
+async function fetchMaterialCategories(type) {
+  const data=await AxiosInstance.get(`${MATERIALS}/categories`)
+  .then((r) => type===ALL ?  r.data.content : type=== NOTNULL? r.data.content.filter(item => item.parentCategoryId !== null): r.data.content.filter(item => item.parentCategoryId === type))
+  .catch((error) => console.log(error))
+
+  return data
+
+   
 }
-async function fetchIngredients() {
-  return (await fetchMaterialCategories()).data.content.filter(item => item.parentCategoryId === 1)
-}
+
 // retrieves basic ingredients with parentCategoryid===null
 async function fetchCategories() {
-  return (await fetchMaterialCategories()).data.content.filter(item => item.parentCategoryId === null)
+  return (await fetchMaterialCategories(null))
 }
+// fetches packaging and ingredients materials
 async function fetchPackagingMaterials() {
-  return (await fetchMaterialCategories()).data.content.filter(item => item.parentCategoryId === 2);
+  return (await fetchMaterials()).data.content.filter(item => item.materialClass.id===PACKAGING)
+}
+async function fetchIngredients() {
+  const data =(await fetchMaterials()).data.content.filter(item => item.materialClass.id===INGREDIENTS)
+  return data
 }
 async function fetchMaterialCategoryById(id) {
   return await AxiosInstance.get(`${MATERIALS}/categories/${id}`)
@@ -76,15 +84,13 @@ async function addMaterialCategory(name, parentCategoryId) {
     .then((r) => r)
     .catch((error) => console.log(error));
 }
-async function addIngredient(name) {
-  return await AxiosInstance.post(`${MATERIALS}/categories`, { name, parentCategoryId: 1 })
-    .then((r) => r)
-    .catch((error) => console.log(error));
+async function addIngredient(data) {
+  return await addMaterial(data)
+
 }
-async function addPackagingMaterial(name) {
-  return await AxiosInstance.post(`${MATERIALS}/categories`, { name, parentCategoryId: 2 })
-    .then((r) => r)
-    .catch((error) => console.log(error));
+async function addPackagingMaterial(data) {
+  return await addMaterial(data)
+
 }
 
 

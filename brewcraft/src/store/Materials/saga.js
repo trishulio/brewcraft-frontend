@@ -95,11 +95,11 @@ function* deleteMaterialGenerator(action) {
     yield put({ type: DELETE_MATERIAL_FAILURE });
   }
 }
-function* fetchMaterialCategoriesGenerator() {
+function* fetchMaterialCategoriesGenerator(action) {
   try {
-    let data = yield call(api.fetchMaterialCategories);
+    let data = yield call(api.fetchMaterialCategories,get(action, "payload.type"));
 
-    yield put({ type: FETCH_MATERIAL_CATEGORIES_SUCCESS, data: data.data });
+    yield put({ type: FETCH_MATERIAL_CATEGORIES_SUCCESS, data: data });
   } catch (e) {
     yield put({ type: FETCH_MATERIAL_CATEGORIES_FAILURE });
   }
@@ -139,7 +139,7 @@ function* fetchMaterialCategoryByIdGenerator() {
 }
 function* addIngredientGenerator(action) {
   try {
-    let res = yield call(api.addIngredient, get(action, "payload.name"));
+    let res = yield call(api.addIngredient, get(action, "payload"));
     yield put({ type: ADD_INGREDIENT_SUCCESS, data: res });
   } catch (e) {
     yield put({ type: ADD_INGREDIENT_FAILURE });
@@ -157,7 +157,7 @@ function* addCategoryGenerator(action) {
 function* addPackagingMaterialGenerator(action) {
 
   try {
-    let res = yield call(api.addPackagingMaterial, get(action, "payload.name"));
+    let res = yield call(api.addPackagingMaterial, get(action, "payload"));
     yield put({ type: ADD_PACKAGING_MATERIAL_SUCCESS, data: res });
   } catch (e) {
     yield put({ type: ADD_PACKAGING_MATERIAL_FAILURE });

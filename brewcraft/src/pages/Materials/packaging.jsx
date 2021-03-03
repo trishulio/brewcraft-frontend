@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment, useState, useCallback } from "react";
 import { get, map } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import { savePackagingMaterial,fetchPackagingMaterial,fetchMaterialCategories,setBreadcrumbItems } from "../../store/actions";
+import { savePackagingMaterial, fetchPackagingMaterial, fetchMaterialCategories, setBreadcrumbItems, fetchCategories,saveCategory } from "../../store/actions";
 import {
   Row,
   Col,
@@ -11,10 +11,13 @@ import {
 } from "reactstrap";
 import { Modalcall } from "../../component/Common/Modalcall";
 import MaterialsTable from "./components/materials-table";
+import MaterialCategoryDialog from "./components/material-category-dialog";
 import MaterialsFilter from "./components/material-filter";
 import MaterialDialog from "./components/material-dialog";
+import { PACKAGING } from "../../helpers/constants";
+export default function Facilities(props) {
 
-export default function Facilities() {
+  const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] = useState(false);
   const [isNewMaterialOpen, setIsNewMaterialOpen] = useState(false);
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector(
@@ -25,25 +28,25 @@ export default function Facilities() {
       return state.Materials.MaterialCategories
     }
   );
+  const nullParentCategories = useSelector(
+    (state) => {
+      return state.Materials.Categories
+    }
+  );
   const MaterialModel = {
     locationType: 'work',
     name: 'Availity',
     checkItOut: true,
   };
-  let filterModel = {
-    MaterialName: '',
-    MaterialType: '',
-    hideItemsWithNoQuantity: true
-  };
-  const TypeOption = useCallback(()=>{
-    return categories.data.length ? map(categories.data.sort((a,b)=>{
-      if(a.name < b.name) { return -1; }
-      if(a.name > b.name) { return 1; }
+  const TypeOption = useCallback((categories) => {
+    return categories.length ? map(categories.sort((a, b) => {
+      if (a.name < b.name) { return -1; }
+      if (a.name > b.name) { return 1; }
       return 0;
-    }), (dataType)=>{
+    }), (dataType) => {
       return <option value={dataType.id} key={dataType.id} >{dataType.name}</option>
-    }): []
-},[categories])
+    }) : []
+  }, [categories])
   useEffect(() => {
     dispatch(
       setBreadcrumbItems("Packaging", [
@@ -55,7 +58,10 @@ export default function Facilities() {
       fetchPackagingMaterial()
     );
     dispatch(
-      fetchMaterialCategories()
+      fetchMaterialCategories(PACKAGING)
+    );
+    dispatch(
+      fetchCategories()
     );
   }, []);
 
@@ -66,27 +72,45 @@ export default function Facilities() {
   if (!data) {
     return null;
   }
-  if (categories.loading)
-  {return null;}
-  const filterSubmit = (e) =>{
-    console.log(filterModel);
-  }
+  if (categories.loading) { return null; }
 
-  const newMaterialOpen = () =>{
+  const newMaterialOpen = () => {
     setIsNewMaterialOpen(true)
   }
 
-  const newMaterialClose = () =>{
+  const newMaterialClose = () => {
     setIsNewMaterialOpen(false)
   }
+  const newMaterialCategoryOpen = () =>{
+    newMaterialClose()
+    setIsNewMaterialCategoryOpen(true)
+  }
+  const newMaterialCategoryClose = () =>{
+    setIsNewMaterialCategoryOpen(false)
+  }
+  const newMaterialSubmit = (e, values) => {
+    const {
+      materialName,
+      materialCategoryId,
+      materialBaseQuantityUnit,
+      materialDescription
+    } = values
+    dispatch(savePackagingMaterial({
+      name: materialName,
+      categoryId: materialCategoryId,
+      baseQuantityUnit: materialBaseQuantityUnit,
+      description: materialDescription,
+      upc : ""
+    }))
 
-  const newMaterialSubmit = (e,values) =>{
-    const {materialName,materialCategory}=values
-    dispatch(savePackagingMaterial({name : materialName}))
-    
     newMaterialClose()
   }
-
+  const newMaterialCategorySubmit = (e,values) =>{
+    const {categoryName , materialCategory} = values
+    dispatch(saveCategory({name : categoryName,parentCategoryId : materialCategory}))
+    
+    newMaterialCategoryClose()
+  }
   return (
     <Fragment>
       <Row>
@@ -99,17 +123,10 @@ export default function Facilities() {
         </Col>
       </Row>
       <Row>
-        <Col md="3">
+        <Col md="12">
           <Card>
             <CardBody>
-              <MaterialsFilter submitFn={filterSubmit} model={filterModel} optionsList={TypeOption()} />
-            </CardBody>
-          </Card>
-        </Col>
-        <Col md="9">
-          <Card>
-            <CardBody>
-              <MaterialsTable data={data} categories={categories}  />
+              <MaterialsTable data={data} />
             </CardBody>
           </Card>
         </Col>
@@ -120,7 +137,16 @@ export default function Facilities() {
           handlerClose={newMaterialClose}
           title="New Packaging"
         >
-          <MaterialDialog submitFn={newMaterialSubmit} close={newMaterialClose} model={MaterialModel} optionsList={TypeOption()} />
+          <MaterialDialog to={props.match.url} categoryModelOpen={newMaterialCategoryOpen} submitFn={newMaterialSubmit} close={newMaterialClose} model={MaterialModel} optionsList={TypeOption(categories.data.filter(item=>item.parentCategoryId===PACKAGING))} />
+        </Modalcall>
+      )}
+        {!!isNewMaterialCategoryOpen && (
+        <Modalcall
+          show={isNewMaterialCategoryOpen}
+          handlerClose={newMaterialCategoryClose}
+          title="New Material Category"
+        >
+          <MaterialCategoryDialog  submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel} optionsList={TypeOption(nullParentCategories.data)} />
         </Modalcall>
       )}
     </Fragment>

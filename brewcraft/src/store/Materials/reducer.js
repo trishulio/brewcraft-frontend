@@ -64,7 +64,7 @@ const initialState = {
   },
 };
 const Materials = (state = initialState,  { type, payload, data }) => {
-
+  
 
   switch (type) {
     case FETCH_MATERIAL_BY_ID_REQUEST:
@@ -170,6 +170,7 @@ const Materials = (state = initialState,  { type, payload, data }) => {
   return state;
 };
 const MaterialCategories = (state = initialState, { type, payload, data }) => {
+
   switch (type) {
     case FETCH_MATERIAL_CATEGORIES_REQUEST:
 
@@ -182,7 +183,7 @@ const MaterialCategories = (state = initialState, { type, payload, data }) => {
     case FETCH_MATERIAL_CATEGORIES_SUCCESS:
       return {
         ...state,
-        data : data.content,
+        data : data,
         loading: false,
         error: null,
       };
@@ -277,6 +278,7 @@ const MaterialCategories = (state = initialState, { type, payload, data }) => {
   return state;
 };
 const Ingredients = (state = initialState, { type, payload, data }) => {
+
   switch (type) {
     case FETCH_INGREDIENTS_REQUEST:
 
@@ -286,7 +288,6 @@ const Ingredients = (state = initialState, { type, payload, data }) => {
         error: null,
       };
     case FETCH_INGREDIENTS_SUCCESS:
-
       return {
         ...state,
         data,
@@ -294,7 +295,6 @@ const Ingredients = (state = initialState, { type, payload, data }) => {
         error: null,
       };
     case FETCH_INGREDIENTS_FAILURE:
-
       return {
         ...state,
         loading: false,
@@ -383,7 +383,38 @@ const PackagingMaterial = (state = initialState, { type, payload, data }) => {
 
   return state;
 };
+const Categories = (state = initialState, { type, payload, data }) => {
+  switch (type) {
+    case FETCH_CATEGORIES_REQUEST:
 
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case FETCH_CATEGORIES_SUCCESS:
+      return {
+        ...state,
+        data,
+        loading: false,
+        error: null,
+      };
+    case FETCH_CATEGORIES_FAILURE:
+
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+
+    default:
+      state = { ...state };
+      break;
+
+  }
+
+  return state;
+};
 export default combineReducers({
   RawMaterial,
   InProcess,
@@ -392,6 +423,7 @@ export default combineReducers({
   Materials,
   MaterialCategories,
   Ingredients,
-  PackagingMaterial
+  PackagingMaterial,
+  Categories
 
 });

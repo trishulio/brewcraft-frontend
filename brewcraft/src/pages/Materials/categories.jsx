@@ -12,6 +12,7 @@ import {
 import { Modalcall } from "../../component/Common/Modalcall";
 import CategoriesTable from "./components/categories-table";
 import MaterialCategoryDialog from "./components/material-category-dialog";
+import { ALL } from "../../helpers/constants";
 
 export default function Facilities() {
   const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] = useState(false);
@@ -34,7 +35,7 @@ export default function Facilities() {
       ])
     );
     dispatch(
-      fetchMaterialCategories()
+      fetchMaterialCategories(ALL)
     );
   }, []);
 

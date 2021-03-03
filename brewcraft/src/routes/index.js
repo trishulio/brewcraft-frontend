@@ -38,7 +38,7 @@ import MaterialsPackaging from '../pages/Materials/packaging';
 import MaterialCategories from '../pages/Materials/categories';
 
 // Packaging
-import PackagingInventory from '../pages/Packaging/inventory';
+// import PackagingInventory from '../pages/Packaging/inventory';
 
 // Reports
 import ReportsK50B from '../pages/Reports/k50b';
@@ -91,7 +91,7 @@ const authProtectedRoutes = [
   { path: "/materials/:id", component: Material },
 
   // Packaging
-  { path: "/packaging/inventory", component: PackagingInventory },
+  // { path: "/packaging/inventory", component: PackagingInventory },
 
   // Reports
   { path: "/reports/k50b", component: ReportsK50B },
