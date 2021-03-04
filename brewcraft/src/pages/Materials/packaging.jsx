@@ -12,9 +12,9 @@ import {
 import { Modalcall } from "../../component/Common/Modalcall";
 import MaterialsTable from "./components/materials-table";
 import MaterialCategoryDialog from "./components/material-category-dialog";
-import MaterialsFilter from "./components/material-filter";
 import MaterialDialog from "./components/material-dialog";
 import { PACKAGING } from "../../helpers/constants";
+import { ToastContainer } from 'react-toastify';
 export default function Facilities(props) {
 
   const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] = useState(false);
@@ -82,7 +82,6 @@ export default function Facilities(props) {
     setIsNewMaterialOpen(false)
   }
   const newMaterialCategoryOpen = () =>{
-    newMaterialClose()
     setIsNewMaterialCategoryOpen(true)
   }
   const newMaterialCategoryClose = () =>{
@@ -102,13 +101,12 @@ export default function Facilities(props) {
       description: materialDescription,
       upc : ""
     }))
-
     newMaterialClose()
   }
   const newMaterialCategorySubmit = (e,values) =>{
     const {categoryName , materialCategory} = values
     dispatch(saveCategory({name : categoryName,parentCategoryId : materialCategory}))
-    
+
     newMaterialCategoryClose()
   }
   return (
@@ -149,6 +147,7 @@ export default function Facilities(props) {
           <MaterialCategoryDialog  submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel} optionsList={TypeOption(nullParentCategories.data)} />
         </Modalcall>
       )}
+      <ToastContainer />
     </Fragment>
   );
 }

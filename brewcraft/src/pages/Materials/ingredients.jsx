@@ -12,9 +12,9 @@ import {
 import { Modalcall } from "../../component/Common/Modalcall";
 import RawMaterials from "./components/materials-table";
 import MaterialCategoryDialog from "./components/material-category-dialog";
-import RawFilter from "./components/material-filter";
 import MaterialDialog from "./components/material-dialog";
 import { INGREDIENTS } from "../../helpers/constants";
+import { ToastContainer } from 'react-toastify';
 
 export default function   Facilities(props) {
   const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] = useState(false);
@@ -53,6 +53,7 @@ export default function   Facilities(props) {
   }, [categories])
 
   useEffect(() => {
+ 
     dispatch(
       setBreadcrumbItems("Ingredients", [
         { title: "Dashboard", link: "/dashboard" },
@@ -69,7 +70,6 @@ export default function   Facilities(props) {
       fetchCategories()
     );
   }, []);
-  console.log(categories)
   if (error) {
     return <div>error</div>;
   }
@@ -86,8 +86,6 @@ export default function   Facilities(props) {
     setIsNewMaterialOpen(false)
   }
   const newMaterialCategoryOpen = () => {
-    
-    newMaterialClose()
     setIsNewMaterialCategoryOpen(true)
   }
   const newMaterialCategoryClose = () => {
@@ -154,6 +152,7 @@ export default function   Facilities(props) {
           <MaterialCategoryDialog submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel} optionsList={TypeOption(nullParentCategories.data)} />
         </Modalcall>
       )}
+      <ToastContainer />
     </Fragment>
 
 

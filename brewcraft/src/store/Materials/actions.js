@@ -17,6 +17,7 @@ import {
   FETCH_PACKAGING_MATERIAL_REQUEST,
   FETCH_CATEGORIES_REQUEST,
   ADD_CATEGORY_REQUEST,
+  FETCH_ALL_CATEGORIES_REQUEST,
 } from "./actionTypes";
 export const setRawMaterialsInventoryValueActiveTab = (active_tab) => ({
   type: SET_RAW_MATERIALS_INVENTORY_VALUE_ACTIVE_TAB,
@@ -63,6 +64,9 @@ export const fetchMaterialCategories = (type) => ({
 });
 export const fetchIngredients = () => ({
   type: FETCH_INGREDIENTS_REQUEST,
+});
+export const fetchAllCategories = () => ({
+  type: FETCH_ALL_CATEGORIES_REQUEST,
 });
 export const fetchPackagingMaterial = () => ({
   type: FETCH_PACKAGING_MATERIAL_REQUEST,

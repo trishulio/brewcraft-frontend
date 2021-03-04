@@ -7,7 +7,7 @@ import VerticalLayout from "./component/Layout/VerticalLayout";
 import HorizontalLayout from "./component/Layout/HorizontalLayout/";
 import NonAuthLayout from "./component/NonAuthLayout/NonAuthLayout";
 import { listenAuthEvents } from "./helpers/authUtils";
-
+import 'react-toastify/dist/ReactToastify.css';
 // Import scss
 import "./theme.scss";
 import { api, fetchMaterialCategories, fetchMaterials } from './store/Materials/api';

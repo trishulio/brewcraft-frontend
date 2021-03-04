@@ -40,7 +40,6 @@ async function fetchMaterialCategories(type) {
   const data=await AxiosInstance.get(`${MATERIALS}/categories`)
   .then((r) => type===ALL ?  r.data.content : type=== NOTNULL? r.data.content.filter(item => item.parentCategoryId !== null): r.data.content.filter(item => item.parentCategoryId === type))
   .catch((error) => console.log(error))
-
   return data
 
    

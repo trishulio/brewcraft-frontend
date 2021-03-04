@@ -43,11 +43,15 @@ import {
   FETCH_CATEGORIES_REQUEST,
   ADD_CATEGORY_SUCCESS,
   ADD_CATEGORY_FAILURE,
-  ADD_CATEGORY_REQUEST
+  ADD_CATEGORY_REQUEST,
+  FETCH_ALL_CATEGORIES_REQUEST,
+  FETCH_ALL_CATEGORIES_SUCCESS,
+  FETCH_ALL_CATEGORIES_FAILURE
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
+import { ALL } from "../../helpers/constants";
 
 function* fetchMaterialsGenerator() {
   try {
@@ -112,12 +116,20 @@ function* fetchIngredientsGenerator() {
     yield put({ type: FETCH_INGREDIENTS_FAILURE });
   }
 }
-function* fetchCategoriessGenerator() {
+function* fetchCategoriesGenerator() {
   try {
     let data = yield call(api.fetchCategories);
     yield put({ type: FETCH_CATEGORIES_SUCCESS, data: data });
   } catch (e) {
     yield put({ type: FETCH_CATEGORIES_FAILURE });
+  }
+}
+function* fetchAllCategoriesGenerator() {
+  try {
+    let data = yield call(api.fetchMaterialCategories,ALL);
+    yield put({ type: FETCH_ALL_CATEGORIES_SUCCESS, data: data });
+  } catch (e) {
+    yield put({ type: FETCH_ALL_CATEGORIES_FAILURE });
   }
 }
 function* fetchPackagingMaterialGenerator() {
@@ -217,7 +229,8 @@ function* Materials() {
     DELETE_MATERIAL_CATEGORY_REQUEST,
     deleteMaterialCategoryGenerator
   );
-  yield takeEvery(FETCH_CATEGORIES_REQUEST, fetchCategoriessGenerator);
+  yield takeEvery(FETCH_CATEGORIES_REQUEST, fetchCategoriesGenerator);
+  yield takeEvery(FETCH_ALL_CATEGORIES_REQUEST, fetchAllCategoriesGenerator);
   yield takeEvery(ADD_CATEGORY_REQUEST, addCategoryGenerator);
 }
 export default Materials;

@@ -5,6 +5,7 @@ import InProcess from "./InProcess/reducer";
 import Used from "./Used/reducer";
 import Wasted from "./Wasted/reducer";
 import { MATERIALS } from "../../helpers/url";
+import {apiResponse} from '../../helpers/snackHelper'
 import {
   ADD_MATERIAL_REQUEST,
   EDIT_MATERIAL_REQUEST,
@@ -46,6 +47,9 @@ import {
   FETCH_CATEGORIES_SUCCESS,
   FETCH_CATEGORIES_FAILURE,
   FETCH_CATEGORIES_REQUEST,
+  FETCH_ALL_CATEGORIES_SUCCESS,
+  FETCH_ALL_CATEGORIES_FAILURE,
+  FETCH_ALL_CATEGORIES_REQUEST,
   ADD_CATEGORY_SUCCESS,
   ADD_CATEGORY_FAILURE,
   ADD_CATEGORY_REQUEST
@@ -94,6 +98,7 @@ const Materials = (state = initialState,  { type, payload, data }) => {
         error: null,
       };
     case FETCH_MATERIALS_SUCCESS:
+      apiResponse('success')
       return {
         ...state,
         data,
@@ -101,6 +106,7 @@ const Materials = (state = initialState,  { type, payload, data }) => {
         error: null,
       };
     case FETCH_MATERIALS_FAILURE:
+      apiResponse('error')
       return {
         ...state,
         loading: false,
@@ -112,6 +118,7 @@ const Materials = (state = initialState,  { type, payload, data }) => {
         formLoading: { ...state.formLoading, error: false, loading: true },
       };
     case ADD_MATERIAL_SUCCESS:
+      apiResponse('success')
 
       return {
         ...state,
@@ -119,6 +126,7 @@ const Materials = (state = initialState,  { type, payload, data }) => {
         formLoading: { ...state.formLoading, loading: false },
       };
     case ADD_MATERIAL_FAILURE:
+      apiResponse('error')
       return {
         ...state,
         formLoading: {
@@ -181,6 +189,7 @@ const MaterialCategories = (state = initialState, { type, payload, data }) => {
         error: null,
       };
     case FETCH_MATERIAL_CATEGORIES_SUCCESS:
+      apiResponse('success')
       return {
         ...state,
         data : data,
@@ -188,6 +197,7 @@ const MaterialCategories = (state = initialState, { type, payload, data }) => {
         error: null,
       };
     case FETCH_MATERIAL_CATEGORIES_FAILURE:
+      apiResponse('error')
 
       return {
         ...state,
@@ -201,6 +211,7 @@ const MaterialCategories = (state = initialState, { type, payload, data }) => {
         error: null,
       };
     case FETCH_MATERIAL_CATEGORY_BY_ID_SUCCESS:
+      apiResponse('success')
       return {
         ...state,
         data: data,
@@ -208,6 +219,7 @@ const MaterialCategories = (state = initialState, { type, payload, data }) => {
         error: null,
       };
     case FETCH_MATERIAL_CATEGORY_BY_ID_FAILURE:
+      apiResponse('error')
       return {
         ...state,
         loading: false,
@@ -219,12 +231,14 @@ const MaterialCategories = (state = initialState, { type, payload, data }) => {
           formLoading: { ...state.formLoading, error: false, loading: true },
         };
       case ADD_CATEGORY_SUCCESS:
+        apiResponse('success')
         return {
           ...state,
           data:[...state.data, data.data],
           formLoading: { ...state.formLoading, loading: false },
         };
       case ADD_CATEGORY_FAILURE:
+        apiResponse('error')
        
         return {
           ...state,
@@ -288,6 +302,7 @@ const Ingredients = (state = initialState, { type, payload, data }) => {
         error: null,
       };
     case FETCH_INGREDIENTS_SUCCESS:
+      apiResponse('success')
       return {
         ...state,
         data,
@@ -295,6 +310,7 @@ const Ingredients = (state = initialState, { type, payload, data }) => {
         error: null,
       };
     case FETCH_INGREDIENTS_FAILURE:
+      apiResponse('error')
       return {
         ...state,
         loading: false,
@@ -306,12 +322,14 @@ const Ingredients = (state = initialState, { type, payload, data }) => {
         formLoading: { ...state.formLoading, error: false, loading: true },
       };
     case ADD_INGREDIENT_SUCCESS:
+      apiResponse('success')
       return {
         ...state,
         data: [...state.data,data.data],
         formLoading: { ...state.formLoading, loading: false },
       };
     case ADD_INGREDIENT_FAILURE:
+      apiResponse('error')
       return {
         ...state,
         formLoading: {
@@ -340,6 +358,7 @@ const PackagingMaterial = (state = initialState, { type, payload, data }) => {
         error: null,
       };
     case FETCH_PACKAGING_MATERIAL_SUCCESS:
+      apiResponse('success')
       return {
         ...state,
         data,
@@ -347,6 +366,7 @@ const PackagingMaterial = (state = initialState, { type, payload, data }) => {
         error: null,
       };
     case FETCH_PACKAGING_MATERIAL_FAILURE:
+      apiResponse('error')
 
       return {
         ...state,
@@ -359,12 +379,14 @@ const PackagingMaterial = (state = initialState, { type, payload, data }) => {
         formLoading: { ...state.formLoading, error: false, loading: true },
       };
     case ADD_PACKAGING_MATERIAL_SUCCESS:
+      apiResponse('success')
       return {
         ...state,
         data: [...state.data, data.data],
         formLoading: { ...state.formLoading, loading: false },
       };
     case ADD_PACKAGING_MATERIAL_FAILURE:
+      apiResponse('error')
       return {
         ...state,
         formLoading: {
@@ -393,6 +415,7 @@ const Categories = (state = initialState, { type, payload, data }) => {
         error: null,
       };
     case FETCH_CATEGORIES_SUCCESS:
+      apiResponse('success')
       return {
         ...state,
         data,
@@ -400,6 +423,41 @@ const Categories = (state = initialState, { type, payload, data }) => {
         error: null,
       };
     case FETCH_CATEGORIES_FAILURE:
+      apiResponse('error')
+
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+
+    default:
+      state = { ...state };
+      break;
+
+  }
+
+  return state;
+};
+const AllCategories = (state = initialState, { type, payload, data }) => {
+  switch (type) {
+    case FETCH_ALL_CATEGORIES_REQUEST:
+
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case FETCH_ALL_CATEGORIES_SUCCESS:
+      apiResponse('success')
+      return {
+        ...state,
+        data,
+        loading: false,
+        error: null,
+      };
+    case FETCH_ALL_CATEGORIES_FAILURE:
+      apiResponse('error')
 
       return {
         ...state,
@@ -424,6 +482,7 @@ export default combineReducers({
   MaterialCategories,
   Ingredients,
   PackagingMaterial,
-  Categories
+  Categories,
+  AllCategories
 
 });

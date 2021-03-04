@@ -18,6 +18,16 @@ export default function MaterialsTable({editFn,data}) {
       sort: "asc"
     },
     {
+      label: "Description",
+      field: "description",
+      sort: "asc"
+    },
+    {
+      label: "Unit",
+      field: "baseQuantityUnit",
+      sort: "asc"
+    },
+    {
       label: "Available",
       field: "quantity",
       sort: "asc"
