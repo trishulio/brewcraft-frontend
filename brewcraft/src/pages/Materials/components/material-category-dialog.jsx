@@ -1,8 +1,7 @@
 import React from "react";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Row, Col, Card, CardBody, Button ,ModalFooter} from "reactstrap";
-
-export default function NewMaterialType({ companyContact,close, optionsList }) {
+export default function NewMaterialType({submitFn, companyContact,close, optionsList }) {
   const defaultValues = {
     firstName:'',
     lastName:'',
@@ -11,7 +10,7 @@ export default function NewMaterialType({ companyContact,close, optionsList }) {
     supplier:""
   }
   return (
-    <AvForm onValidSubmit={companyContact} model={defaultValues}>
+    <AvForm onValidSubmit={submitFn} model={defaultValues}>
       <Card>
         <CardBody>
           <Row>
@@ -24,6 +23,25 @@ export default function NewMaterialType({ companyContact,close, optionsList }) {
                 errorMessage="Enter Valid Name"
                 validate={{ required: { value: true } }}
               />
+            </Col>
+            <Col lg="6">
+              <AvField
+                type="select"
+                name="materialCategory"
+                label="Category"
+                default
+                validate={{
+                  required: {
+                    value: true,
+                    errorMessage: "Select a valid category",
+                  },
+                }}
+              >
+                <option disabled value="">
+                  Select Category
+                </option>
+                {optionsList}
+              </AvField>
             </Col>
           </Row>
         </CardBody>

@@ -91,7 +91,6 @@ export default function VendorList() {
   const addContactDialog = () => setIsContactDialog(!isContactDialog);
 
   const editCompanyDialog = (companyId) => {
-    debugger;
     setCompanyUpdate(companyId)
   };
   const editContactDialog = (contactId) => {

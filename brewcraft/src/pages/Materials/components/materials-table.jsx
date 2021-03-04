@@ -1,7 +1,10 @@
-import React,{useCallback} from "react";
+import React,{useCallback,useEffect} from "react";
 import { MDBDataTable } from "mdbreact";
 import {map} from "lodash"
-export default function MaterialsTable({data, editFn}) {
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMaterialCategories  } from "../../../store/Materials/actions";
+export default function MaterialsTable({editFn,data}) {
+
   const tabledata = [
     {
       label: "Name",
@@ -11,7 +14,7 @@ export default function MaterialsTable({data, editFn}) {
     },
     {
       label: "Category",
-      field: "category",
+      field: "categoryName",
       sort: "asc"
     },
     {
@@ -22,6 +25,8 @@ export default function MaterialsTable({data, editFn}) {
   ];
   const rowEvent = useCallback(() => {
     return map(data, (row) => {
+      
+      row.categoryName= row.category.name
       return {
         ...row,
         cName: (

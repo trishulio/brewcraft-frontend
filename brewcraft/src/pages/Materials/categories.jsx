@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment, useState, useCallback } from "react";
 import { get, map } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import { setBreadcrumbItems } from "../../store/actions";
+import {  fetchMaterialCategories, saveCategory ,setBreadcrumbItems } from "../../store/actions";
 import {
   Row,
   Col,
@@ -12,24 +12,20 @@ import {
 import { Modal } from "../../component/Common/Modal";
 import CategoriesTable from "./components/categories-table";
 import MaterialCategoryDialog from "./components/material-category-dialog";
+import { ALL } from "../../helpers/constants";
 
 export default function Facilities() {
   const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] = useState(false);
 
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector(
-    (state) => state.Materials.RawMaterial
+    (state) => state.Materials.MaterialCategories
   );
   const MaterialModel = {
     locationType: 'work',
     name: 'Availity',
     checkItOut: true,
   };
-  const TypeOption = useCallback(()=>{
-      return map(get(data,'types'), (dataType)=>{
-        return <option value={dataType}>{dataType}</option>
-      })
-  },[get(data,'types')])
 
   useEffect(() => {
     dispatch(
@@ -38,8 +34,16 @@ export default function Facilities() {
         { title: "Materials", link: "#" },
       ])
     );
+    dispatch(
+      fetchMaterialCategories(ALL)
+    );
   }, []);
 
+  const TypeOption = useCallback(()=>{
+    return data.length ? map(data.filter((a)=>a.parentCategoryId===null), (dataType)=>{
+      return <option value={dataType.id} key={dataType.id} >{dataType.name}</option>
+    }): []
+},[data])
   if (error) {
     return <div>Error</div>;
   }
@@ -47,15 +51,17 @@ export default function Facilities() {
   if (!data) {
     return null;
   }
-
   const newMaterialCategoryOpen = () =>{
     setIsNewMaterialCategoryOpen(true)
   }
   const newMaterialCategoryClose = () =>{
     setIsNewMaterialCategoryOpen(false)
   }
-  const newMaterialCategorySubmit = (e) =>{
-    console.log(e);
+  const newMaterialCategorySubmit = (e,values) =>{
+    const {categoryName , materialCategory} = values
+    dispatch(saveCategory({name : categoryName,parentCategoryId : materialCategory}))
+
+    newMaterialCategoryClose()
   }
 
   return (
@@ -73,7 +79,7 @@ export default function Facilities() {
         <Col xs="12">
           <Card>
             <CardBody>
-              <CategoriesTable data={data}  />
+              <CategoriesTable data={data}   />
             </CardBody>
           </Card>
         </Col>
@@ -84,7 +90,7 @@ export default function Facilities() {
           handlerClose={newMaterialCategoryClose}
           title="New Material Category"
         >
-          <MaterialCategoryDialog submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel}  />
+          <MaterialCategoryDialog submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel} optionsList={TypeOption(data)} />
         </Modal>
       )}
     </Fragment>

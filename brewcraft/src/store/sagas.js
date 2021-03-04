@@ -8,7 +8,7 @@ import  Vechicles from './Vechicles/saga';
 import  Invoice from './Invoice/saga';
 import Vendors from './Vendor/saga';
 import Equipments from './Equipment/saga';
-
+import Materials from './Materials/saga';
 
 export default function* rootSaga() {
     yield all([
@@ -19,7 +19,7 @@ export default function* rootSaga() {
         Vechicles(),
         Invoice(),
         Vendors(),
-        Equipments()
-       
+        Equipments(),
+        Materials()
     ])
 }
