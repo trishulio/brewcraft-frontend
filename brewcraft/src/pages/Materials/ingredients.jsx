@@ -9,7 +9,7 @@ import {
   CardBody,
   Button
 } from "reactstrap";
-import { Modalcall } from "../../component/Common/Modalcall";
+import { Modal } from "../../component/Common/Modal";
 import RawMaterials from "./components/materials-table";
 import MaterialCategoryDialog from "./components/material-category-dialog";
 import MaterialDialog from "./components/material-dialog";
@@ -41,7 +41,7 @@ export default function   Facilities(props) {
     checkItOut: true,
   };
 
-  
+
   const TypeOption = useCallback((categories) => {
     return categories.length ? map(categories.sort((a, b) => {
       if (a.name < b.name) { return -1; }
@@ -86,6 +86,7 @@ export default function   Facilities(props) {
     setIsNewMaterialOpen(false)
   }
   const newMaterialCategoryOpen = () => {
+    newMaterialClose()
     setIsNewMaterialCategoryOpen(true)
   }
   const newMaterialCategoryClose = () => {
@@ -135,22 +136,22 @@ export default function   Facilities(props) {
         </Col>
       </Row>
       {!!isNewMaterialOpen && (
-        <Modalcall
+        <Modal
           show={isNewMaterialOpen}
           handlerClose={newMaterialClose}
           title="New Ingredient"
         >
           <MaterialDialog to={props.match.url} categoryModelOpen={newMaterialCategoryOpen} submitFn={newMaterialSubmit} close={newMaterialClose} model={MaterialModel} optionsList={TypeOption(categories.data.filter(item=>item.parentCategoryId===INGREDIENTS))} />
-        </Modalcall>
+        </Modal>
       )}
       {!!isNewMaterialCategoryOpen && (
-        <Modalcall
+        <Modal
           show={isNewMaterialCategoryOpen}
           handlerClose={newMaterialCategoryClose}
           title="New Material Category"
         >
           <MaterialCategoryDialog submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel} optionsList={TypeOption(nullParentCategories.data)} />
-        </Modalcall>
+        </Modal>
       )}
       <ToastContainer />
     </Fragment>

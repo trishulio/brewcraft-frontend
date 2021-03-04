@@ -3,7 +3,7 @@ import { get, map, omit, isArray } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import { Row, Col, Card, CardBody, Button } from "reactstrap";
-import { Modalcall } from "../../component/Common/Modalcall";
+import { Modal } from "../../component/Common/Modal";
 import FacilityTable from "./facility-table";
 import FacilityForm from "./facility-form";
 import { getFacilities, saveFacilities} from "../../store/Equipment/actions";
@@ -90,13 +90,13 @@ export default function Facility() {
         </Col>
       </Row>
       {!!isOpen && (
-        <Modalcall
+        <Modal
           show={isOpen}
           handlerClose={dialogCloseFn}
           title="Add Facilitie"
         >
           <FacilityForm  FormModal={FormModal}  close={dialogCloseFn} companySubmit={createFacilities} />
-        </Modalcall>
+        </Modal>
       )}
     </Fragment>
   );

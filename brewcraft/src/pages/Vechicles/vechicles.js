@@ -11,7 +11,7 @@ import {
 import BootstrapTable from "react-bootstrap-table-next";
 import Imagefortable from "../../component/Imagefortable";
 import VechicleForm from "./vechicle-form";
-import { Modalcall } from "../../component/Common/Modalcall";
+import { Modal } from "../../component/Common/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { get, filter } from "lodash";
 import {
@@ -215,7 +215,7 @@ export default function Vechicles({ driverid }) {
         </Col>
       </Row>
       {show && (
-        <Modalcall
+        <Modal
           show={show}
           handlerClose={setShow}
           title={modaldata.title}
@@ -228,10 +228,10 @@ export default function Vechicles({ driverid }) {
             forstatus={formLoading}
             predata={modaldata}
           />
-        </Modalcall>
+        </Modal>
       )}
       {deleteshow && (
-        <Modalcall
+        <Modal
           show={deleteshow}
           handlerClose={setDeleteshow}
           title="Delete Vechicles"
@@ -246,7 +246,7 @@ export default function Vechicles({ driverid }) {
           >
             are you sure to delete?
           </Button>
-        </Modalcall>
+        </Modal>
       )}
     </Fragment>
   );

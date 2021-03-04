@@ -2,8 +2,19 @@ import { get, map, pick, reduce, set } from "lodash";
 import React, { useEffect, Fragment, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
-import { Row, Col, Card, CardBody, Button } from "reactstrap";
-import { Modalcall } from "../../component/Common/Modalcall";
+import {
+  Row,
+  Button,
+  Col,
+  Card,
+  CardHeader,
+  CardBody,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+   } from "reactstrap";
+import { Modal } from "../../component/Common/Modal";
 import {
   fetchVendor,
   addVendor,
@@ -14,14 +25,15 @@ import {
   deleteVendorContact,
 } from "../../store/Vendor/actions";
 import AddCompany from "./components/company-modal";
-import AddContact from "./components/contact-modal";
-import VendorListTable from "./components/vendor-list-table";
+import ContactModal from "./components/contact-modal";
+import ContactsTable from "./components/contacts-table";
 
 export default function VendorList() {
   const [isCompanyDialog, setIsCompanyDialog] = useState(false);
   const [isContactDialog, setIsContactDialog] = useState(false);
   const [contactUpdate, setContactUpdate] = useState();
   const [companyUpdate, setCompanyUpdate] = useState();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const dispatch = useDispatch();
   // dispatch action
   const {
@@ -47,8 +59,9 @@ export default function VendorList() {
 
   useEffect(() => {
     dispatch(
-      setBreadcrumbItems("Vendors", [
-        { title: "List all vendors", link: "/vendors" },
+      setBreadcrumbItems("Suppliers", [
+        { title: "Contacts", link: "#" },
+        { title: "Suppliers", link: "#" }
       ])
     );
     dispatch(fetchVendor());
@@ -112,7 +125,6 @@ export default function VendorList() {
    * @param {formData} form fields list
    * @description create new vendor
    */
-
   const createContact = (event, formData) =>
     dispatch(
       addVendorContact({
@@ -121,25 +133,33 @@ export default function VendorList() {
       })
     );
 
+  const toggleDropDown = () => setDropdownOpen(prevState => !prevState);
+
   return (
     <React.Fragment>
       <Row>
         <Col xs="12">
-          <div className="float-right mb-3">
-            <Button color="link" onClick={addCompanyDialog}>
-              Add Company
-            </Button>
-            <Button color="link" onClick={addContactDialog}>
-              Add Contact
-            </Button>
+          <div className="float-left mb-3">
+            <Dropdown isOpen={dropdownOpen} toggle={toggleDropDown}>
+              <DropdownToggle caret color="primary">
+                  Add <i className="mdi mdi-chevron-down"></i>
+              </DropdownToggle>
+              <DropdownMenu>
+                  <DropdownItem onClick={addCompanyDialog}>Add Contact</DropdownItem>
+                  <DropdownItem onClick={addContactDialog}>Add Company</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           </div>
         </Col>
       </Row>
       <Row>
         <Col xs="12">
           <Card>
+            <CardHeader>
+              Suppliers Table
+            </CardHeader>
             <CardBody>
-              <VendorListTable
+              <ContactsTable
                 suppliers={supplier}
                 editCompany={editCompanyDialog}
                 editContact={editContactDialog}
@@ -149,26 +169,26 @@ export default function VendorList() {
         </Col>
       </Row>
       {!!isCompanyDialog && (
-        <Modalcall
+        <Modal
           show={isCompanyDialog}
           handlerClose={addCompanyDialog}
           title="Add Company"
         >
           <AddCompany companySubmit={companySubmit} close={addCompanyDialog} />
-        </Modalcall>
+        </Modal>
       )}
       {!!isContactDialog && (
-        <Modalcall
+        <Modal
           show={isContactDialog}
           handlerClose={addContactDialog}
           title="Add Contact"
         >
-          <AddContact
+          <ContactModal
             companyContact={createContact}
             close={addContactDialog}
             optionsList={companyOptionsList()}
           />
-        </Modalcall>
+        </Modal>
       )}
     </React.Fragment>
   );

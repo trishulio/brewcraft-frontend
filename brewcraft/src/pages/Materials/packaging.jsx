@@ -9,7 +9,7 @@ import {
   CardBody,
   Button
 } from "reactstrap";
-import { Modalcall } from "../../component/Common/Modalcall";
+import { Modal } from "../../component/Common/Modal";
 import MaterialsTable from "./components/materials-table";
 import MaterialCategoryDialog from "./components/material-category-dialog";
 import MaterialDialog from "./components/material-dialog";
@@ -130,22 +130,22 @@ export default function Facilities(props) {
         </Col>
       </Row>
       {!!isNewMaterialOpen && (
-        <Modalcall
+        <Modal
           show={isNewMaterialOpen}
           handlerClose={newMaterialClose}
           title="New Packaging"
         >
           <MaterialDialog to={props.match.url} categoryModelOpen={newMaterialCategoryOpen} submitFn={newMaterialSubmit} close={newMaterialClose} model={MaterialModel} optionsList={TypeOption(categories.data.filter(item=>item.parentCategoryId===PACKAGING))} />
-        </Modalcall>
+        </Modal>
       )}
         {!!isNewMaterialCategoryOpen && (
-        <Modalcall
+        <Modal
           show={isNewMaterialCategoryOpen}
           handlerClose={newMaterialCategoryClose}
           title="New Material Category"
         >
           <MaterialCategoryDialog  submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel} optionsList={TypeOption(nullParentCategories.data)} />
-        </Modalcall>
+        </Modal>
       )}
       <ToastContainer />
     </Fragment>

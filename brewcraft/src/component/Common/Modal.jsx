@@ -1,9 +1,9 @@
 import React from "react";
-import { Modal, ModalHeader, ModalBody, Button, ModalFooter } from "reactstrap";
+import { Modal as ModalReactStrap, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-const Modalcall = ({ show, handlerClose, title, children, size }) => {
+export const Modal = ({ show, handlerClose, title, children, size, footer }) => {
   return (
-    <Modal
+    <ModalReactStrap
       isOpen={show}
       toggle={() => handlerClose(false)}
       autoFocus={true}
@@ -11,7 +11,7 @@ const Modalcall = ({ show, handlerClose, title, children, size }) => {
     >
       <ModalHeader toggle={() => handlerClose(false)}>{title}</ModalHeader>
       <ModalBody>{children}</ModalBody>
-    </Modal>
+      <ModalFooter>{footer}</ModalFooter>
+    </ModalReactStrap>
   );
 };
-export { Modalcall };

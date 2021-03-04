@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import Imagefortable from '../../component/Imagefortable';
-import { Modalcall } from "../../component/Common/Modalcall";
+import { Modal } from "../../component/Common/Modal";
 import DriverForm from './driver-form';
 import { get } from "lodash";
 import {saveDelivery, editDelivery,deleteDelivery} from '../../store/Driver/actions';
@@ -24,7 +24,7 @@ export default function Delivery() {
   const [show, setShow] = useState(false);
   const [btnprimary1, setBtnprimary1] = useState(false);
    // dialog open & close
- 
+
   const history = useHistory();
   const { path } = useRouteMatch();
   const dispatch = useDispatch();
@@ -147,13 +147,13 @@ export default function Delivery() {
                 />
               </div>
             </div>
-            
+
           </CardBody>
         </Card>
       </Col>
     </Row>
     {show && (
-      <Modalcall
+      <Modal
         show={show}
         handlerClose={setShow}
         title={"Create Delivery Driver"}
@@ -164,8 +164,8 @@ export default function Delivery() {
             close={closeDialog}
             forstatus={formLoading}
             />
-        
-      </Modalcall>
+
+      </Modal>
     )}
     </>
   );

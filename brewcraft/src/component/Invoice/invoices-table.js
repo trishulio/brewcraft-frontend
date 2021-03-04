@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Badge,
+  Button,
   Card,
   CardBody,
   Col,
@@ -10,14 +11,14 @@ import {
   DropdownToggle,
   Row,
 } from "reactstrap";
-import { MDBBtn, MDBDataTable } from "mdbreact";
+import { MDBDataTable } from "mdbreact";
 import Select from "react-select";
 //Import Date Picker
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useSelector } from "react-redux";
-import "../../Tables/datatables.scss";
-import {useHistory} from 'react-router-dom'; 
+import "../Tables/datatables.scss";
+import { useHistory } from 'react-router-dom';
 import { get } from 'lodash';
 
 const optionGroup = [
@@ -41,7 +42,7 @@ const InvoicesTable = () => {
     open: false,
     id: null,
   });
-  
+
   const { invoices } = useSelector((state) => state.Purchases);
 
   const data = {
@@ -103,15 +104,16 @@ const InvoicesTable = () => {
         </div>
       ),
       vendor: (
-        <React.Fragment searchvalue={row.vendor}>
-          <div className="text-primary font-weight-bold" key="vender">
+          <div
+            className="text-primary font-weight-bold"
+            key="vender"
+            searchvalue={row.vendor}
+          >
             {row.vendor}
           </div>
-          "Vendor"
-        </React.Fragment>
       ),
       amountDue: (
-        <React.Fragment searchvalue={row.amountDue}>
+        <div searchvalue={row.amountDue}>
           <div
             className="text-primary text-right font-weight-bold"
             key="amount"
@@ -121,7 +123,7 @@ const InvoicesTable = () => {
           <div className="text-right" key="total">
             Total ${row.totalAmount}
           </div>
-        </React.Fragment>
+        </div>
       ),
       paymentStatus: (
         <div
@@ -170,22 +172,33 @@ const InvoicesTable = () => {
     setSelectedMulti(selectedOption);
   };
 
-  const editInvoice = (invoice) =>{
-    history.push(`/vendors/invoices/${get(invoice,'id')}`);
+  const editInvoice = (invoice) => {
+    history.push(`/purchase-invoices/${get(invoice, 'id')}`);
   }
-  const creatInvoice = () =>history.push(`/vendors/invoices/create`);
-  
+
+  const createInvoice = () => {
+    history.push(`/purchase-invoices/create`);
+  }
 
   return (
+    <React.Fragment>
+    <Row>
+      <Col xs="12">
+        <div className="float-left mb-3">
+            <Button
+              color="primary"
+              className="waves-effect waves-light"
+              onClick={createInvoice}
+            >
+              New Invoice
+            </Button>
+        </div>
+      </Col>
+    </Row>
     <Card>
       <CardBody>
         <Row>
           <Col xs="12">
-            <div className="d-flex justify-content-end align-items-center mt-4">
-              <MDBBtn rounded color="primary" onClick={creatInvoice}>
-                Create an invoice
-              </MDBBtn>
-            </div>
             <div className="mt-4 mb-4">
               <Row>
                 <Col xs={3}>
@@ -240,6 +253,7 @@ const InvoicesTable = () => {
         </Row>
       </CardBody>
     </Card>
+    </React.Fragment>
   );
 };
 

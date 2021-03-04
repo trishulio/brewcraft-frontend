@@ -24,12 +24,10 @@ import Equipment from '../pages/Equipment/index'
 
 // Facility
 import Facility from "../pages/Facility/facility";
+import Locations from '../pages/Locations';
 
 // Finished Goods
 import FinishedGoodsInventory from '../pages/FinishedGoods/inventory';
-
-// Locations
-import Locations from '../pages/Locations';
 
 // Materials
 import Material from '../pages/Materials/material';
@@ -37,34 +35,24 @@ import MaterialsIngredients from '../pages/Materials/ingredients';
 import MaterialsPackaging from '../pages/Materials/packaging';
 import MaterialCategories from '../pages/Materials/categories';
 
-// Packaging
-// import PackagingInventory from '../pages/Packaging/inventory';
-
 // Reports
 import ReportsK50B from '../pages/Reports/k50b';
 import ReportsN10 from '../pages/Reports/n10';
 
-// Vendors
-import VendorsDashboard from '../pages/Vendors/dashboard';
-import VendorsList from '../pages/Vendors/list';
-import PurchaseInvoices from '../pages/Vendors/invoices/Invoices';
-import InvoicesDetail from '../pages/Vendors/invoices/invoice-detail';
-import Createinvoice from '../pages/Vendors/invoices/create-invoice';
+// Contacts
+import SuppliersList from '../pages/Contacts/suppliers';
+import PurchaseInvoices from '../pages/PurchaseInvoices/invoices';
+import PurchaseInvoicesDetail from '../pages/PurchaseInvoices/invoice';
+import PurchaseInvoicesCreate from '../pages/PurchaseInvoices/invoice-new';
 
 const authProtectedRoutes = [
-  // Customers
-  { path: "/customers/list", component: CustomerList },
-  { path: "/customers/invoice/new", component: CustomerNewInvoice },
-  { path: "/customers/invoice/:id", component: CustomerViewInvoice },
-  { path: "/customers/invoices", component: CustomerInvoices },
+  // Dashboard
+  { path: "/dashboard", component: Dashboard },
 
   // Brews
   { path: "/brews/active-brews", component: BrewsActive },
   { path: "/brews/dashboard", component: BrewsDashboard },
   { path: "/brews", component: Brews },
-
-  // Dashboard
-  { path: "/dashboard", component: Dashboard },
 
   // Deliveries
   { path: "/deliveries", component: Deliveries },
@@ -78,7 +66,10 @@ const authProtectedRoutes = [
   { path: "/floor-view", component: Facility, exact:true },
 
   // Finished Goods
-  { path: "/finished-goods/inventory", component: FinishedGoodsInventory },
+  { path: "/finished-goods", component: FinishedGoodsInventory },
+  { path: "/sales-invoices/new", component: CustomerNewInvoice },
+  { path: "/sales-invoices/:id", component: CustomerViewInvoice },
+  { path: "/sales-invoices", component: CustomerInvoices },
 
   // Locations
   { path: "/facilities/locations", component: Locations },
@@ -87,22 +78,22 @@ const authProtectedRoutes = [
   { path: "/materials/ingredients", component: MaterialsIngredients },
   { path: "/materials/packaging", component: MaterialsPackaging },
   { path: "/materials/categories", component: MaterialCategories },
-  { path: "/materials/purchases", component: PurchaseInvoices },
   { path: "/materials/:id", component: Material },
-
-  // Packaging
-  // { path: "/packaging/inventory", component: PackagingInventory },
 
   // Reports
   { path: "/reports/k50b", component: ReportsK50B },
   { path: "/reports/n10", component: ReportsN10 },
 
-  // Vendors
-  { path: "/vendors/dashboard", component: VendorsDashboard },
-  { path: "/vendors/list", component: VendorsList },
-  { path: "/vendors/invoices/create", component: Createinvoice },
-  { path: "/vendors/invoices/:id", component: InvoicesDetail },
+  // Contacts
+  { path: "/customers/list", component: CustomerList },
+  { path: "/suppliers", component: SuppliersList },
 
+  // Purchase Invoices
+  { path: "/purchase-invoices/create", component: PurchaseInvoicesCreate },
+  { path: "/purchase-invoices/:id", component: PurchaseInvoicesDetail },
+  { path: "/purchase-invoices", component: PurchaseInvoices },
+
+  // Default
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
 ];
 

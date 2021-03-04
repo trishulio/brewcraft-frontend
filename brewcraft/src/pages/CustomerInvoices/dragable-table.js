@@ -7,7 +7,7 @@ import {
 } from "react-sortable-hoc";
 import { get } from "lodash";
 import { sumBy } from "lodash";
-import {ItemSelect} from "../../component/item-select";
+import {ItemSelect} from "../../component/Invoice/item-select";
 import {
   formatPercent,
   formatCurrency,
@@ -109,7 +109,7 @@ const DragableItem = sortableElement(
                       style={fonSizeicon}
                       onClick={removerowLocal}
                     />
-                  
+
                   </Notzero>
                 </span>
               </Col>

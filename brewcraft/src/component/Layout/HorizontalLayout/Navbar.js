@@ -171,8 +171,8 @@ class Navbar extends Component {
                                             <i className="ti-user"></i>Suppliers
                                     </Link>
                                         <div className={this.state.isSuppliers ? "dropdown-menu dropdown-menu-left show" : "dropdown-menu dropdown-menu-left"} aria-labelledby="topnav-suppliers">
-                                            <Link to="/vendors/list" className="dropdown-item">List Suppliers</Link>
-                                            <Link to="/vendors/invoices" className="dropdown-item">Purchase Invoices</Link>
+                                            <Link to="/suppliers" className="dropdown-item">List Suppliers</Link>
+                                            <Link to="/purchase-invoices" className="dropdown-item">Purchase Invoices</Link>
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">
