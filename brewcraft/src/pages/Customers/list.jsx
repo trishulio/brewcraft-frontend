@@ -13,7 +13,7 @@ import {
   DropdownItem,
   DropdownMenu,
 } from "reactstrap";
-import { Modalcall } from "../../component/Common/Modalcall";
+import { Modal } from "../../component/Common/Modal";
 import Contact from "./components/Contact";
 import {
   saveContact,
@@ -257,7 +257,7 @@ export default function Customers() {
       </Row>
       {/* if show is false it will not effect modal && if the state is changing this will not render */}
       {show && (
-        <Modalcall
+        <Modal
           show={show}
           handlerClose={setShow}
           title={modaldata.title}
@@ -270,10 +270,10 @@ export default function Customers() {
             forstatus={formLoading}
             predata={modaldata}
           />
-        </Modalcall>
+        </Modal>
       )}
       {deleteshow && (
-        <Modalcall
+        <Modal
           show={deleteshow}
           handlerClose={setDeleteshow}
           title="Delete Contact"
@@ -288,7 +288,7 @@ export default function Customers() {
           >
             are you sure to delete?
           </Button>
-        </Modalcall>
+        </Modal>
       )}
     </>
   );

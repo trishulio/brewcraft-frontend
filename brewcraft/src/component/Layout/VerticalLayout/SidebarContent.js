@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 
 import {
   toggleSidebar,
@@ -163,7 +162,7 @@ class SidebarContent extends Component {
                   <Link to="/materials/categories">Categories</Link>
                 </li>
                 <li>
-                  <Link to="/materials/purchases">Purchase Invoices</Link>
+                  <Link to="/purchase-invoices">Purchase Invoices</Link>
                 </li>
               </ul>
             </li>
@@ -195,7 +194,7 @@ class SidebarContent extends Component {
                   <Link to="/finished-goods">Product Inventory</Link>
                 </li>
                 <li>
-                  <Link to="/#">Sales Invoices</Link>
+                  <Link to="/sales-invoices">Sales Invoices</Link>
                 </li>
               </ul>
             </li>
@@ -225,6 +224,24 @@ class SidebarContent extends Component {
                 </li>
               </ul>
             </li>
+            <li>
+              <Link to="/#" className="has-arrow waves-effect">
+                <i className="mdi mdi-account-heart"></i>
+                <span>Contacts</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/suppliers">Suppliers</Link>
+                </li>
+                <li>
+                  <Link to="/suppliers">Customers</Link>
+                </li>
+                <li>
+                  <Link to="/#">Companies</Link>
+                </li>
+              </ul>
+            </li>
+            <li></li>
             <li className="menu-title">Reports</li>
             <li>
               <Link to="/#" className="waves-effect">

@@ -9,9 +9,10 @@ import {
   CardBody,
   Button
 } from "reactstrap";
-import { Modalcall } from "../../component/Common/Modalcall";
+import { Modal } from "../../component/Common/Modal";
 import CategoriesTable from "./components/categories-table";
 import MaterialCategoryDialog from "./components/material-category-dialog";
+import { ToastContainer } from 'react-toastify';
 import { ALL } from "../../helpers/constants";
 import { ToastContainer } from 'react-toastify';
 export default function Facilities() {
@@ -47,10 +48,10 @@ export default function Facilities() {
   if (error) {
     return <div>Error</div>;
   }
-
-  if (!data) {
+  if (!data.length) {
     return null;
   }
+  
   const newMaterialCategoryOpen = () =>{
     setIsNewMaterialCategoryOpen(true)
   }
@@ -60,7 +61,7 @@ export default function Facilities() {
   const newMaterialCategorySubmit = (e,values) =>{
     const {categoryName , materialCategory} = values
     dispatch(saveCategory({name : categoryName,parentCategoryId : materialCategory}))
-    
+
     newMaterialCategoryClose()
   }
 
@@ -85,13 +86,13 @@ export default function Facilities() {
         </Col>
       </Row>
       {!!isNewMaterialCategoryOpen && (
-        <Modalcall
+        <Modal
           show={isNewMaterialCategoryOpen}
           handlerClose={newMaterialCategoryClose}
           title="New Material Category"
         >
           <MaterialCategoryDialog submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel} optionsList={TypeOption(data)} />
-        </Modalcall>
+        </Modal>
       )}
       <ToastContainer />
     </Fragment>

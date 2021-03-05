@@ -4,9 +4,9 @@ import InvoicesForm from "./invoice-form";
 import { get } from "lodash";
 import { AvForm } from "availity-reactstrap-validation";
 import { ItemExpenseProvider } from "./item-expense-context";
-import { Modalcall } from "../../../component/Common/Modalcall";
+import { Modal } from "../Common/Modal";
 import { Button } from "reactstrap";
-import {deleteInvoice, saveInvoice, editInvoice} from '../../../store/Invoice/actions'
+import {deleteInvoice, saveInvoice, editInvoice} from '../../store/Invoice/actions'
 import {useHistory} from 'react-router-dom';
 /**
  * @author Anuj Gupta
@@ -121,7 +121,7 @@ export default function Commoninvoice({ data, type }) {
         </ItemExpenseProvider>
       </AvForm>
       {deleteshow && (
-        <Modalcall
+        <Modal
           show={deleteshow}
           handlerClose={setDeleteshow}
           title="Delete Bill"
@@ -136,7 +136,7 @@ export default function Commoninvoice({ data, type }) {
           >
             are you sure to delete?
           </Button>
-        </Modalcall>
+        </Modal>
       )}
     </Fragment>
   );
