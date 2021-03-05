@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment, useState, useCallback } from "react";
 import { get, map } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import { saveIngredient, fetchIngredients, fetchMaterialCategories, setBreadcrumbItems, fetchCategories, saveCategory } from "../../store/actions";
+import { saveIngredient, fetchIngredients, fetchMaterialCategories, setBreadcrumbItems, fetchCategories, saveCategory, fetchAllCategories } from "../../store/actions";
 import {
   Row,
   Col,
@@ -12,10 +12,9 @@ import {
 import { Modal } from "../../component/Common/Modal";
 import RawMaterials from "./components/materials-table";
 import MaterialCategoryDialog from "./components/material-category-dialog";
-import RawFilter from "./components/material-filter";
 import MaterialDialog from "./components/material-dialog";
 import { INGREDIENTS } from "../../helpers/constants";
-
+import { ToastContainer } from 'react-toastify';
 export default function   Facilities(props) {
   const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] = useState(false);
   const [isNewMaterialOpen, setIsNewMaterialOpen] = useState(false);
@@ -27,7 +26,7 @@ export default function   Facilities(props) {
   );
   const categories = useSelector(
     (state) => {
-      return state.Materials.MaterialCategories
+      return state.Materials.AllCategories
     }
   );
   const nullParentCategories = useSelector(
@@ -53,6 +52,7 @@ export default function   Facilities(props) {
   }, [categories])
 
   useEffect(() => {
+ 
     dispatch(
       setBreadcrumbItems("Ingredients", [
         { title: "Dashboard", link: "/dashboard" },
@@ -63,13 +63,12 @@ export default function   Facilities(props) {
       fetchIngredients()
     );
     dispatch(
-      fetchMaterialCategories(INGREDIENTS)
+      fetchAllCategories()
     );
     dispatch(
       fetchCategories()
     );
   }, []);
-  console.log(categories)
   if (error) {
     return <div>error</div>;
   }
@@ -86,8 +85,6 @@ export default function   Facilities(props) {
     setIsNewMaterialOpen(false)
   }
   const newMaterialCategoryOpen = () => {
-
-    newMaterialClose()
     setIsNewMaterialCategoryOpen(true)
   }
   const newMaterialCategoryClose = () => {
@@ -154,6 +151,7 @@ export default function   Facilities(props) {
           <MaterialCategoryDialog submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel} optionsList={TypeOption(nullParentCategories.data)} />
         </Modal>
       )}
+      <ToastContainer />
     </Fragment>
 
 

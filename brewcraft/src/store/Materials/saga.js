@@ -43,11 +43,16 @@ import {
   FETCH_CATEGORIES_REQUEST,
   ADD_CATEGORY_SUCCESS,
   ADD_CATEGORY_FAILURE,
-  ADD_CATEGORY_REQUEST
+  ADD_CATEGORY_REQUEST,
+  FETCH_ALL_CATEGORIES_REQUEST,
+  FETCH_ALL_CATEGORIES_SUCCESS,
+  FETCH_ALL_CATEGORIES_FAILURE,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
+import { ALL } from "../../helpers/constants";
+import { snackFailure, snackSuccess } from "./actions";
 
 function* fetchMaterialsGenerator() {
   try {
@@ -70,8 +75,10 @@ function* addMaterialGenerator(action) {
   try {
     let res = yield call(api.addMaterial, get(action, "payload.form"));
     yield put({ type: ADD_MATERIAL_SUCCESS, data: res });
+    yield put(snackSuccess());
   } catch (e) {
     yield put({ type: ADD_MATERIAL_FAILURE });
+    yield put(snackFailure());
   }
 }
 
@@ -83,16 +90,20 @@ function* editMaterialGenerator(action) {
       get(action, "payload.form")
     );
     yield put({ type: EDIT_MATERIAL_SUCCESS, data: res });
+    yield put(snackSuccess());
   } catch (e) {
     yield put({ type: EDIT_MATERIAL_FAILURE });
+    yield put(snackFailure());
   }
 }
 function* deleteMaterialGenerator(action) {
   try {
     let res = yield call(api.deleteMaterial, get(action, "payload.id"));
     yield put({ type: DELETE_MATERIAL_SUCCESS, data: res });
+    yield put(snackSuccess());
   } catch (e) {
     yield put({ type: DELETE_MATERIAL_FAILURE });
+    yield put(snackFailure());
   }
 }
 function* fetchMaterialCategoriesGenerator(action) {
@@ -112,12 +123,20 @@ function* fetchIngredientsGenerator() {
     yield put({ type: FETCH_INGREDIENTS_FAILURE });
   }
 }
-function* fetchCategoriessGenerator() {
+function* fetchCategoriesGenerator() {
   try {
     let data = yield call(api.fetchCategories);
     yield put({ type: FETCH_CATEGORIES_SUCCESS, data: data });
   } catch (e) {
     yield put({ type: FETCH_CATEGORIES_FAILURE });
+  }
+}
+function* fetchAllCategoriesGenerator() {
+  try {
+    let data = yield call(api.fetchMaterialCategories,ALL);
+    yield put({ type: FETCH_ALL_CATEGORIES_SUCCESS, data: data });
+  } catch (e) {
+    yield put({ type: FETCH_ALL_CATEGORIES_FAILURE });
   }
 }
 function* fetchPackagingMaterialGenerator() {
@@ -141,8 +160,10 @@ function* addIngredientGenerator(action) {
   try {
     let res = yield call(api.addIngredient, get(action, "payload"));
     yield put({ type: ADD_INGREDIENT_SUCCESS, data: res });
+    yield put(snackSuccess());
   } catch (e) {
     yield put({ type: ADD_INGREDIENT_FAILURE });
+    yield put(snackFailure());
   }
 }
 
@@ -150,8 +171,10 @@ function* addCategoryGenerator(action) {
   try {
     let res = yield call(api.addMaterialCategory, get(action, "payload.name"),get(action, "payload.parentCategoryId"));
     yield put({ type: ADD_CATEGORY_SUCCESS, data: res });
+    yield put(snackSuccess());
   } catch (e) {
     yield put({ type: ADD_CATEGORY_FAILURE });
+    yield put(snackFailure());
   }
 }
 function* addPackagingMaterialGenerator(action) {
@@ -159,8 +182,10 @@ function* addPackagingMaterialGenerator(action) {
   try {
     let res = yield call(api.addPackagingMaterial, get(action, "payload"));
     yield put({ type: ADD_PACKAGING_MATERIAL_SUCCESS, data: res });
+    yield put(snackSuccess());
   } catch (e) {
     yield put({ type: ADD_PACKAGING_MATERIAL_FAILURE });
+    yield put(snackFailure());
   }
 }
 
@@ -172,16 +197,20 @@ function* editMaterialCategoryGenerator(action) {
       get(action, "payload.form")
     );
     yield put({ type: EDIT_MATERIAL_CATEGORY_SUCCESS, data: res });
+    yield put(snackSuccess());
   } catch (e) {
     yield put({ type: EDIT_MATERIAL_CATEGORY_FAILURE });
+    yield put(snackFailure());
   }
 }
 function* deleteMaterialCategoryGenerator(action) {
   try {
     let res = yield call(api.deleteMaterialCategory, get(action, "payload.id"));
     yield put({ type: DELETE_MATERIAL_CATEGORY_SUCCESS, data: res });
+    yield put(snackSuccess());
   } catch (e) {
     yield put({ type: DELETE_MATERIAL_CATEGORY_FAILURE });
+    yield put(snackFailure());
   }
 }
 
@@ -217,7 +246,8 @@ function* Materials() {
     DELETE_MATERIAL_CATEGORY_REQUEST,
     deleteMaterialCategoryGenerator
   );
-  yield takeEvery(FETCH_CATEGORIES_REQUEST, fetchCategoriessGenerator);
+  yield takeEvery(FETCH_CATEGORIES_REQUEST, fetchCategoriesGenerator);
+  yield takeEvery(FETCH_ALL_CATEGORIES_REQUEST, fetchAllCategoriesGenerator);
   yield takeEvery(ADD_CATEGORY_REQUEST, addCategoryGenerator);
 }
 export default Materials;
