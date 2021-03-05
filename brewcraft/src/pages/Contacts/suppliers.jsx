@@ -1,5 +1,5 @@
+import React, { useEffect, useState, useCallback } from "react";
 import { get, map, pick, reduce, set } from "lodash";
-import React, { useEffect, Fragment, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import {
@@ -9,10 +9,7 @@ import {
   Card,
   CardHeader,
   CardBody,
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
+  CardFooter
    } from "reactstrap";
 import { Modal } from "../../component/Common/Modal";
 import {
@@ -28,19 +25,18 @@ import AddCompany from "./components/company-modal";
 import ContactModal from "./components/contact-modal";
 import ContactsTable from "./components/contacts-table";
 
-export default function VendorList() {
-  const [isCompanyDialog, setIsCompanyDialog] = useState(false);
-  const [isContactDialog, setIsContactDialog] = useState(false);
-  const [contactUpdate, setContactUpdate] = useState();
-  const [companyUpdate, setCompanyUpdate] = useState();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+export default function Suppliers() {
+  const [isOpenCompanyDialog, setIsOpenCompanyDialog] = useState(false);
+  const [isOpenSupplierDialog, setIsOpenSupplierDialog] = useState(false);
+  const [supplier, setSupplier] = useState(null);
+
   const dispatch = useDispatch();
   // dispatch action
   const {
-    data: data1,
+    data,
     loading: loading1,
     error: error1,
-    supplier,
+    suppliers,
   } = useSelector((state) => {
     const { data, loading, error } = state.Vendor;
     const supplierInner = reduce(
@@ -54,8 +50,17 @@ export default function VendorList() {
       },
       []
     );
-    return { data, loading, error, supplier: supplierInner };
+    return { data, loading, error, suppliers: supplierInner };
   });
+
+  // // something wrong first time
+  // if (error1) {
+  //   return <div>Error</div>;
+  // }
+  // // unconditional error occur
+  // if (!data1) {
+  //   return null;
+  // }
 
   useEffect(() => {
     dispatch(
@@ -64,45 +69,92 @@ export default function VendorList() {
         { title: "Suppliers", link: "#" }
       ])
     );
-    dispatch(fetchVendor());
+    setSupplier(null);
   }, []);
 
   const companyOptionsList = useCallback(
     () =>
-      map(get(data1, "suppliers"), (value, index) => (
+      map(get(data, "suppliers"), (value, index) => (
         <option value={value.id} key={index}>
           {value.name}
         </option>
       )),
-    [data1]
+    [data]
   );
-  // something wrong first time
-  if (error1) {
-    return <div>Error</div>;
-  }
-  // unconditional error occur
-  if (!data1) {
-    return null;
-  }
-  /**
-   * @description open close dialogs
-   */
-  const addCompanyDialog = () => setIsCompanyDialog(!isCompanyDialog);
-  const addContactDialog = () => setIsContactDialog(!isContactDialog);
 
-  const editCompanyDialog = (companyId) => {
+  const onNewSupplier = () => {
+    setSupplier(null);
+    setIsOpenSupplierDialog(true);
+  }
+
+  const onEditSupplier = (supplierId) => {
+    if (!isOpenSupplierDialog) {
+      dispatch(
+        fetchVendor({
+          id: supplierId,
+          successFn: supplier => {
+            if (!supplier) {
+              // print snack
+              setSupplier(null);
+            } {
+              setSupplier(supplier);
+              setIsOpenSupplierDialog(!isOpenSupplierDialog);
+            }
+          },
+        })
+      )
+    }
+  }
+
+  const onSupplierDialogClose = (isSave, supplier) => {
     debugger;
-    setCompanyUpdate(companyId)
+    if (isSave) {
+      dispatch(
+        addVendorContact({
+          form: { ...supplier, position: "" },
+          successFn: () => {
+            suppliers = reduce(
+              get(data, "suppliers"),
+              (old, current) => {
+                return old.concat( map(get(current, "contacts"), (value) => {
+                  set(value, "cName", get(current, "name"));
+                  set(value, "cId", get(current, "id"));
+                  return value;
+                }))
+              },
+              []
+            );
+            setIsOpenSupplierDialog(false);
+          }
+        })
+      )
+    } else {
+      setSupplier(null);
+      setIsOpenSupplierDialog(!isOpenSupplierDialog);
+    }
+  }
+
+  const onCompanyDialogClose = (companyId) => {
+    if (companyId) {
+      _saveCompany(companyId).then(() => {
+        // update companies state
+        setIsOpenCompanyDialog(false);
+      })
+      .catch(error => {
+        // shake
+        // print snackbar
+      });
+    }
+    setIsOpenCompanyDialog(false);
   };
-  const editContactDialog = (contactId) => {
-    setContactUpdate(contactId)
+
+  const _saveSupplier = (supplier) => {
+    return Promise.resolve();
   };
-  /**
-   *
-   * @param {event} sytenthic event
-   * @param {formData} form fields list
-   * @description creat new company
-   */
+
+  const _saveCompany = (company) => {
+    return Promise.resolve();
+  };
 
   const companySubmit = (event, formData) => {
     const formCompose = {
@@ -117,43 +169,19 @@ export default function VendorList() {
         "postalCode",
       ]),
     };
-    dispatch(addVendor({ form: formCompose, successFn: addCompanyDialog }));
+    dispatch(addVendor({ form: formCompose, successFn: onCompanyDialogClose }));
   };
-
-  /**
-   *
-   * @param {event} sytenthic event
-   * @param {formData} form fields list
-   * @description create new vendor
-   */
 
   const createContact = (event, formData) =>
     dispatch(
       addVendorContact({
         form: { ...formData, position: "" },
-        successFn: addContactDialog,
+        successFn: onSupplierDialogClose,
       })
     );
 
-  const toggleDropDown = () => setDropdownOpen(prevState => !prevState);
-
   return (
     <React.Fragment>
-      <Row>
-        <Col xs="12">
-          <div className="float-left mb-3">
-            <Dropdown isOpen={dropdownOpen} toggle={toggleDropDown}>
-              <DropdownToggle caret color="primary">
-                  Add <i className="mdi mdi-chevron-down"></i>
-              </DropdownToggle>
-              <DropdownMenu>
-                  <DropdownItem onClick={addCompanyDialog}>Add Contact</DropdownItem>
-                  <DropdownItem onClick={addContactDialog}>Add Company</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </div>
-        </Col>
-      </Row>
       <Row>
         <Col xs="12">
           <Card>
@@ -162,33 +190,44 @@ export default function VendorList() {
             </CardHeader>
             <CardBody>
               <ContactsTable
-                suppliers={supplier}
-                editCompany={editCompanyDialog}
-                editContact={editContactDialog}
+                suppliers={suppliers}
+                editContact={onEditSupplier}
               />
             </CardBody>
+            <CardFooter>
+              <Row>
+                <Col xs="12">
+                  <div className="float-left mt-1">
+                      <Button color="secondary" className="waves-effect" onClick={onNewSupplier}>New Supplier</Button>
+                  </div>
+                </Col>
+              </Row>
+            </CardFooter>
           </Card>
         </Col>
       </Row>
-      {!!isCompanyDialog && (
+      {!!isOpenSupplierDialog && (
         <Modal
-          show={isCompanyDialog}
-          handlerClose={addCompanyDialog}
-          title="Add Company"
-        >
-          <AddCompany companySubmit={companySubmit} close={addCompanyDialog} />
-        </Modal>
-      )}
-      {!!isContactDialog && (
-        <Modal
-          show={isContactDialog}
-          handlerClose={addContactDialog}
-          title="Add Contact"
+          show={isOpenSupplierDialog}
+          handlerClose={onSupplierDialogClose}
+          title={!!supplier ? "Edit Supplier" : "New Supplier"}
         >
           <ContactModal
-            companyContact={createContact}
-            close={addContactDialog}
+            contact={supplier}
+            close={onSupplierDialogClose}
             optionsList={companyOptionsList()}
+          />
+        </Modal>
+      )}
+      {!!isOpenCompanyDialog && (
+        <Modal
+          show={isOpenCompanyDialog}
+          handlerClose={onCompanyDialogClose}
+          title="Add Company"
+          data={this.state}
+        >
+          <AddCompany
+            companySubmit={companySubmit}
           />
         </Modal>
       )}

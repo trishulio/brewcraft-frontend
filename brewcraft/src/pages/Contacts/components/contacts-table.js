@@ -5,7 +5,7 @@ import {
   Button
 } from 'reactstrap';
 
-export default function ContactsTable({suppliers, editCompany, editContact, addCompanyDialog}) {
+export default function ContactsTable({suppliers, editCompany, editContact}) {
   const tabledata = [
     {
       label: "Name",
@@ -42,18 +42,10 @@ export default function ContactsTable({suppliers, editCompany, editContact, addC
     return map(suppliers, (row) => {
       return {
         ...row,
-        contactName: (
-          <span style={{cursor: "pointer"}} onClick={() => editContact(row.id)} className="btn-link">
-              {row.firstName}
-          </span>
-        ),
-        companyName: (
-          <span style={{cursor: "pointer"}} onClick={() => editCompany(row.cId)} className="btn-link">
-              {row.cName}
-         </span>
-        ),
+        contactName: row.firstName,
+        companyName: row.cName,
         edit: (
-          <Button onClick={() => addCompanyDialog(row.id)}>Edit</Button>
+          <Button onClick={() => editContact(row.id)}>Edit</Button>
         )
       };
     });

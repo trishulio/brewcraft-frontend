@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Row, Col, Card, CardBody, Button ,ModalFooter} from "reactstrap";
 
-export default function AddContact({ companyContact,close, optionsList }) {
-  const defaultValues = {
-    firstName:'',
-    lastName:'',
-    phoneNumber:'',
-    email:'',
-    supplier:""
-  }
+export default function Contact({ data, close, optionsList }) {
+  const [contact, setContact] = useState(data);
+
+  const handleSubmit = (event, values) => {
+    debugger;
+    close(true, values);
+  };
+
   return (
-    <AvForm onValidSubmit={companyContact} model={defaultValues}>
+    <AvForm onValidSubmit={handleSubmit} model={contact}>
       <Card>
         <CardBody>
           <Row>
@@ -57,7 +57,7 @@ export default function AddContact({ companyContact,close, optionsList }) {
             </Col>
 
             <Col lg="6">
-            <AvField type="select" name="supplier" label="Company" default validate={{ required: {value: true, errorMessage: 'Please select a valid company'}}} >
+            <AvField type="select" name="supplier" label="Company" default validate={{ required: {value: false, errorMessage: 'Please select a valid company'}}} >
               <option disabled value="">Select Company</option>
               {optionsList}
             </AvField>
@@ -67,20 +67,11 @@ export default function AddContact({ companyContact,close, optionsList }) {
         </CardBody>
         <ModalFooter>
           <Button
-            type="reset"
+            type="submit"
             color="secondary"
             className="waves-effect"
-            onClick={close}
           >
-            Close
-          </Button>
-          <Button
-            type="submit"
-            color="primary"
-            className="waves-effect waves-light"
-            // disabled={forstatus.loading}
-          >
-            Save changes
+            Save
           </Button>
         </ModalFooter>
       </Card>

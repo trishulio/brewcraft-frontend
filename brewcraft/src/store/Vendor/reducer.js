@@ -39,6 +39,7 @@ const Vendor = (state = initialState, { type, payload }) => {
     case FETCH_VENDOR_REQUEST:
       return {
         ...state,
+        data: { ...payload },
         loading: true,
         error: false,
       };
