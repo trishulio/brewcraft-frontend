@@ -48,9 +48,17 @@ import {
   FETCH_CATEGORIES_REQUEST,
   ADD_CATEGORY_SUCCESS,
   ADD_CATEGORY_FAILURE,
-  ADD_CATEGORY_REQUEST
+  ADD_CATEGORY_REQUEST,
+  SNACK_WARNING,
+  SNACK_SUCCESS,
+  SNACK_FAILURE,
+  SNACK_INFO,
+  FETCH_ALL_CATEGORIES_REQUEST,
+  FETCH_ALL_CATEGORIES_SUCCESS,
+  FETCH_ALL_CATEGORIES_FAILURE
 } from "./actionTypes";
 import { findIndex, get, filter, indexOf, values, map, remove } from "lodash";
+import { apiResponse } from "../../helpers/snackHelper";
 const initialState = {
   data: {
 
@@ -63,8 +71,8 @@ const initialState = {
     message: "",
   },
 };
-const Materials = (state = initialState,  { type, payload, data }) => {
-  
+const Materials = (state = initialState, { type, payload, data }) => {
+
 
   switch (type) {
     case FETCH_MATERIAL_BY_ID_REQUEST:
@@ -176,14 +184,14 @@ const MaterialCategories = (state = initialState, { type, payload, data }) => {
 
       return {
         ...state,
-        data : null ,
+        data: null,
         loading: true,
         error: null,
       };
     case FETCH_MATERIAL_CATEGORIES_SUCCESS:
       return {
         ...state,
-        data : data,
+        data: data,
         loading: false,
         error: null,
       };
@@ -213,28 +221,6 @@ const MaterialCategories = (state = initialState, { type, payload, data }) => {
         loading: false,
         error: payload,
       };
-      case ADD_CATEGORY_REQUEST:
-        return {
-          ...state,
-          formLoading: { ...state.formLoading, error: false, loading: true },
-        };
-      case ADD_CATEGORY_SUCCESS:
-        return {
-          ...state,
-          data:[...state.data, data.data],
-          formLoading: { ...state.formLoading, loading: false },
-        };
-      case ADD_CATEGORY_FAILURE:
-       
-        return {
-          ...state,
-          formLoading: {
-            ...state.formLoading,
-            loading: false,
-            error: true,
-            message: payload,
-          },
-        };
     case EDIT_MATERIAL_CATEGORY_REQUEST:
       return {
         ...state,
@@ -308,7 +294,7 @@ const Ingredients = (state = initialState, { type, payload, data }) => {
     case ADD_INGREDIENT_SUCCESS:
       return {
         ...state,
-        data: [...state.data,data.data],
+        data: [...state.data, data.data],
         formLoading: { ...state.formLoading, loading: false },
       };
     case ADD_INGREDIENT_FAILURE:
@@ -415,6 +401,95 @@ const Categories = (state = initialState, { type, payload, data }) => {
 
   return state;
 };
+const AllCategories = (state = initialState, { type, payload, data }) => {
+  console.log(type,data)
+  switch (type) {
+    case FETCH_ALL_CATEGORIES_REQUEST:
+
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case FETCH_ALL_CATEGORIES_SUCCESS:
+      return {
+        ...state,
+        data,
+        loading: false,
+        error: null,
+      };
+    case FETCH_ALL_CATEGORIES_FAILURE:
+
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+      case ADD_CATEGORY_REQUEST:
+        return {
+          ...state,
+          formLoading: { ...state.formLoading, error: false, loading: true },
+        };
+      case ADD_CATEGORY_SUCCESS:
+        return {
+          ...state,
+          data: [...state.data, data.data],
+          formLoading: { ...state.formLoading, loading: false },
+        };
+      case ADD_CATEGORY_FAILURE:
+  
+        return {
+          ...state,
+          formLoading: {
+            ...state.formLoading,
+            loading: false,
+            error: true,
+            message: payload,
+          },
+        };
+    default:
+      state = { ...state };
+      break;
+
+  }
+
+  return state;
+};
+const SnackBar = (state = initialState, { type, payload, data }) => {
+  switch (type) {
+    case SNACK_WARNING:
+      apiResponse('warning')
+      return {
+        ...state,
+        warning: payload,
+      };
+    case SNACK_SUCCESS:
+      apiResponse('success')
+      return {
+        ...state,
+        data,
+        error: null,
+      };
+    case SNACK_FAILURE:
+      apiResponse('error')
+      return {
+        ...state,
+        error: payload,
+      };
+    case SNACK_INFO:
+      apiResponse('info')
+      return {
+        ...state,
+      };
+
+    default:
+      state = { ...state };
+      break;
+
+  }
+
+  return state;
+};
 export default combineReducers({
   RawMaterial,
   InProcess,
@@ -424,6 +499,8 @@ export default combineReducers({
   MaterialCategories,
   Ingredients,
   PackagingMaterial,
-  Categories
+  Categories,
+  SnackBar,
+  AllCategories
 
 });

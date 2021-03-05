@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment, useState, useCallback } from "react";
 import { get, map } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import {  fetchMaterialCategories, saveCategory ,setBreadcrumbItems } from "../../store/actions";
+import {  fetchAllCategories, saveCategory ,setBreadcrumbItems } from "../../store/actions";
 import {
   Row,
   Col,
@@ -13,13 +13,13 @@ import { Modalcall } from "../../component/Common/Modalcall";
 import CategoriesTable from "./components/categories-table";
 import MaterialCategoryDialog from "./components/material-category-dialog";
 import { ALL } from "../../helpers/constants";
-
+import { ToastContainer } from 'react-toastify';
 export default function Facilities() {
   const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] = useState(false);
 
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector(
-    (state) => state.Materials.MaterialCategories
+    (state) => state.Materials.AllCategories
   );
   const MaterialModel = {
     locationType: 'work',
@@ -35,8 +35,8 @@ export default function Facilities() {
       ])
     );
     dispatch(
-      fetchMaterialCategories(ALL)
-    );
+      fetchAllCategories()
+    );  
   }, []);
 
   const TypeOption = useCallback(()=>{
@@ -93,6 +93,7 @@ export default function Facilities() {
           <MaterialCategoryDialog submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel} optionsList={TypeOption(data)} />
         </Modalcall>
       )}
+      <ToastContainer />
     </Fragment>
   );
 }

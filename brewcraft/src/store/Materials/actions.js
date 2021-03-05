@@ -17,6 +17,11 @@ import {
   FETCH_PACKAGING_MATERIAL_REQUEST,
   FETCH_CATEGORIES_REQUEST,
   ADD_CATEGORY_REQUEST,
+  FETCH_ALL_CATEGORIES_REQUEST,
+  SNACK_SUCCESS,
+  SNACK_FAILURE,
+  SNACK_WARNING,
+  SNACK_INFO,
 } from "./actionTypes";
 export const setRawMaterialsInventoryValueActiveTab = (active_tab) => ({
   type: SET_RAW_MATERIALS_INVENTORY_VALUE_ACTIVE_TAB,
@@ -64,6 +69,9 @@ export const fetchMaterialCategories = (type) => ({
 export const fetchIngredients = () => ({
   type: FETCH_INGREDIENTS_REQUEST,
 });
+export const fetchAllCategories = () => ({
+  type: FETCH_ALL_CATEGORIES_REQUEST,
+});
 export const fetchPackagingMaterial = () => ({
   type: FETCH_PACKAGING_MATERIAL_REQUEST,
 });
@@ -95,4 +103,19 @@ export const fetchCategories = () => ({
 export const saveCategory = (payload) => ({
   type: ADD_CATEGORY_REQUEST,
   payload: payload,
+});
+export const snackSuccess = () => {
+  console.log('test')
+  return ({
+    type: SNACK_SUCCESS,
+  })
+};
+export const snackFailure = () => ({
+  type: SNACK_FAILURE,
+});
+export const snackWarning = () => ({
+  type: SNACK_WARNING,
+});
+export const snackInfo = () => ({
+  type: SNACK_INFO,
 });

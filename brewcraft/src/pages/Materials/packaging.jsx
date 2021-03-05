@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment, useState, useCallback } from "react";
 import { get, map } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import { savePackagingMaterial, fetchPackagingMaterial, fetchMaterialCategories, setBreadcrumbItems, fetchCategories,saveCategory } from "../../store/actions";
+import { savePackagingMaterial, fetchPackagingMaterial,       fetchAllCategories, setBreadcrumbItems, fetchCategories,saveCategory } from "../../store/actions";
 import {
   Row,
   Col,
@@ -15,6 +15,7 @@ import MaterialCategoryDialog from "./components/material-category-dialog";
 import MaterialsFilter from "./components/material-filter";
 import MaterialDialog from "./components/material-dialog";
 import { PACKAGING } from "../../helpers/constants";
+import { ToastContainer } from 'react-toastify';
 export default function Facilities(props) {
 
   const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] = useState(false);
@@ -25,7 +26,7 @@ export default function Facilities(props) {
   );
   const categories = useSelector(
     (state) => {
-      return state.Materials.MaterialCategories
+      return state.Materials.AllCategories
     }
   );
   const nullParentCategories = useSelector(
@@ -58,13 +59,12 @@ export default function Facilities(props) {
       fetchPackagingMaterial()
     );
     dispatch(
-      fetchMaterialCategories(PACKAGING)
+      fetchAllCategories()
     );
     dispatch(
       fetchCategories()
     );
   }, []);
-
   if (error) {
     return <div>Error</div>;
   }
@@ -82,7 +82,6 @@ export default function Facilities(props) {
     setIsNewMaterialOpen(false)
   }
   const newMaterialCategoryOpen = () =>{
-    newMaterialClose()
     setIsNewMaterialCategoryOpen(true)
   }
   const newMaterialCategoryClose = () =>{
@@ -149,6 +148,7 @@ export default function Facilities(props) {
           <MaterialCategoryDialog  submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel} optionsList={TypeOption(nullParentCategories.data)} />
         </Modalcall>
       )}
+      <ToastContainer />
     </Fragment>
   );
 }
