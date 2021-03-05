@@ -14,7 +14,6 @@ import CategoriesTable from "./components/categories-table";
 import MaterialCategoryDialog from "./components/material-category-dialog";
 import { ToastContainer } from 'react-toastify';
 import { ALL } from "../../helpers/constants";
-import { ToastContainer } from 'react-toastify';
 export default function Facilities() {
   const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] = useState(false);
 
