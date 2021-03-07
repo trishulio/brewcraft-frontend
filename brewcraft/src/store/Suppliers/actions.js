@@ -3,8 +3,7 @@ import {
   FETCH_SUPPLIERS_REQUEST,
   CREATE_SUPPLIER_REQUEST,
   UPDATE_SUPPLIER_REQUEST,
-  DELETE_SUPPLIER_REQUEST,
-  FETCH_COMPANIES_REQUEST
+  DELETE_SUPPLIER_REQUEST
 } from "./actionTypes";
 
 export const fetchSupplier = payload => ({
@@ -29,8 +28,4 @@ export const updateSupplier = payload => ({
 export const deleteSupplier = (payload) => ({
   type: DELETE_SUPPLIER_REQUEST,
   payload: payload
-});
-
-export const fetchCompanies = () => ({
-  type: FETCH_COMPANIES_REQUEST
 });

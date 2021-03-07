@@ -1,5 +1,4 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import AxiosInstance from "../../helpers/axiosInstance";
 import { get } from "lodash";
 import {
   FETCH_SUPPLIER_REQUEST,
@@ -16,10 +15,7 @@ import {
   UPDATE_SUPPLIER_FAILURE,
   DELETE_SUPPLIER_REQUEST,
   DELETE_SUPPLIER_SUCCESS,
-  DELETE_SUPPLIER_FAILURE,
-  FETCH_COMPANIES_REQUEST,
-  FETCH_COMPANIES_SUCCESS,
-  FETCH_COMPANIES_FAILURE
+  DELETE_SUPPLIER_FAILURE
 } from "./actionTypes";
 import {
   fetchSupplierRequest,
@@ -93,25 +89,10 @@ function* deleteSupplier(action) {
   }
 }
 
-async function fetchCompaniesRequest() {
-  // API refers to companies as suppliers
-  return await AxiosInstance.get("/api/suppliers");
-}
-
-function* fetchCompanies() {
-  try {
-    const response = yield call(fetchCompaniesRequest);
-    yield put({ type: FETCH_COMPANIES_SUCCESS, payload: response.data.suppliers });
-  } catch (e) {
-    yield put ({ type: FETCH_COMPANIES_FAILURE, payload: [] });
-  }
-}
-
 export default function* Suppliers() {
   yield takeLatest(FETCH_SUPPLIER_REQUEST, fetchSupplier);
   yield takeLatest(FETCH_SUPPLIERS_REQUEST, fetchSuppliers);
   yield takeLatest(CREATE_SUPPLIER_REQUEST, createSupplier);
   yield takeLatest(UPDATE_SUPPLIER_REQUEST, updateSupplier);
   yield takeLatest(DELETE_SUPPLIER_REQUEST, deleteSupplier);
-  yield takeLatest(FETCH_COMPANIES_REQUEST, fetchCompanies);
 }

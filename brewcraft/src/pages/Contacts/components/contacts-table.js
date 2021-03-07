@@ -46,7 +46,7 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
       return {
         ...row,
         contactName: row.firstName,
-        companyName: row.cName,
+        companyName: row.supplier.name,
         edit: (
           <Button onClick={() => editContact(row.id)}>Edit</Button>
         ),
