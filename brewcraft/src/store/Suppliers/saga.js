@@ -1,7 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import AxiosInstance from "../../helpers/axiosInstance";
 import { get } from "lodash";
-import { apiResponse, SUCCESS, ERROR } from "../../helpers/snackHelper";
 import {
   FETCH_SUPPLIER_REQUEST,
   FETCH_SUPPLIER_SUCCESS,
@@ -22,11 +21,13 @@ import {
   FETCH_COMPANIES_SUCCESS,
   FETCH_COMPANIES_FAILURE
 } from "./actionTypes";
-
-async function fetchSuppliersRequest() {
-  // API refers to companies as suppliers
-  return await AxiosInstance.get("/api/suppliers/contacts");
-}
+import {
+  fetchSupplierRequest,
+  fetchSuppliersRequest,
+  createSupplierRequest,
+  updateSupplierRequest,
+  deleteSupplierRequest
+} from "./api";
 
 function* fetchSuppliers() {
   try {
@@ -36,10 +37,6 @@ function* fetchSuppliers() {
     yield put ({ type: FETCH_SUPPLIERS_FAILURE, payload: [] });
   }
 }
-
-const fetchSupplierRequest = async (id) => {
-  return await AxiosInstance.get(`/api/suppliers/contacts/${id}`);
-};
 
 function* fetchSupplier(action) {
   try {
@@ -51,13 +48,7 @@ function* fetchSupplier(action) {
   }
 }
 
-const createSupplierRequest = async (companyId, data) => {
-  // API refers to companies as suppliers
-  return await AxiosInstance.post(`/api/suppliers/${companyId}/contacts`, data);
-};
-
 function* createSupplier(action) {
-  debugger;
   try {
     const data = {
       firstName: action.payload.firstName,
@@ -73,11 +64,6 @@ function* createSupplier(action) {
     yield put ({ type: CREATE_SUPPLIER_FAILURE });
   }
 }
-
-const updateSupplierRequest = async (companyId, contactId, data) => {
-  // API refers to companies as suppliers
-  return await AxiosInstance.put(`/api/suppliers/${companyId}/contacts/${contactId}`, data);
-};
 
 function* updateSupplier(action) {
   try {
@@ -95,13 +81,6 @@ function* updateSupplier(action) {
   } catch (e) {
     yield put ({ type: UPDATE_SUPPLIER_FAILURE });
   }
-}
-
-
-
-async function deleteSupplierRequest(contactId) {
-  // API refers to companies as suppliers
-  return await AxiosInstance.delete("/api/suppliers/contacts/" + contactId);
 }
 
 function* deleteSupplier(action) {
