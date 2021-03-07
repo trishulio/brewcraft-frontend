@@ -19,7 +19,7 @@ import {
   updateSupplier,
   deleteSupplier,
   fetchCompanies
-} from "../../store/Vendor/actions";
+} from "../../store/Suppliers/actions";
 import AddCompany from "./components/company-modal";
 import ContactModal from "./components/contact-modal";
 import ContactsTable from "./components/contacts-table";
