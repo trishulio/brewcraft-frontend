@@ -3,7 +3,7 @@ import { MDBDataTable } from "mdbreact";
 import {map} from "lodash"
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMaterialCategories  } from "../../../store/Materials/actions";
-export default function MaterialsTable({editFn,data}) {
+export default function MaterialsTable({editFn, data}) {
 
   const tabledata = [
     {
@@ -35,7 +35,7 @@ export default function MaterialsTable({editFn,data}) {
   ];
   const rowEvent = useCallback(() => {
     return map(data, (row) => {
-      
+
       row.categoryName= row.category.name
       return {
         ...row,

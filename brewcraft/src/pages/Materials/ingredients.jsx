@@ -15,7 +15,7 @@ import MaterialCategoryDialog from "./components/material-category-dialog";
 import MaterialDialog from "./components/material-dialog";
 import { INGREDIENTS } from "../../helpers/constants";
 import { ToastContainer } from 'react-toastify';
-export default function   Facilities(props) {
+export default function Facilities(props) {
   const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] = useState(false);
   const [isNewMaterialOpen, setIsNewMaterialOpen] = useState(false);
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ export default function   Facilities(props) {
   }, [categories])
 
   useEffect(() => {
- 
+
     dispatch(
       setBreadcrumbItems("Ingredients", [
         { title: "Dashboard", link: "/dashboard" },

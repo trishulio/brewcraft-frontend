@@ -1,143 +1,79 @@
 import {
-  FETCH_VENDOR_REQUEST,
-  FETCH_VENDOR_SUCCESS,
-  FETCH_VENDOR_FAILURE,
-  ADD_VENDOR_REQUEST,
-  ADD_VENDOR_SUCCESS,
-  ADD_VENDOR_FAILURE,
-  EDIT_VENDOR_REQUEST,
-  EDIT_VENDOR_SUCCESS,
-  EDIT_VENDOR_FAILURE,
-  DELETE_VENDOR_REQUEST,
-  DELETE_VENDOR_SUCCESS,
-  DELETE_VENDOR_FAILURE,
-  ADD_VENDOR_CONTACT_REQUEST,
-  ADD_VENDOR_CONTACT_SUCCESS,
-  ADD_VENDOR_CONTACT_FAILURE,
-  EDIT_VENDOR_CONTACT_REQUEST,
-  EDIT_VENDOR_CONTACT_SUCCESS,
-  EDIT_VENDOR_CONTACT_FAILURE,
-  DELETE_VENDOR_CONTACT_REQUEST,
-  DELETE_VENDOR_CONTACT_SUCCESS,
-  DELETE_VENDOR_CONTACT_FAILURE,
+  FETCH_SUPPLIER_REQUEST,
+  FETCH_SUPPLIER_SUCCESS,
+  FETCH_SUPPLIER_FAILURE,
+  FETCH_SUPPLIERS_REQUEST,
+  FETCH_SUPPLIERS_SUCCESS,
+  FETCH_SUPPLIERS_FAILURE,
+  UPDATE_SUPPLIER_REQUEST,
+  UPDATE_SUPPLIER_SUCCESS,
+  UPDATE_SUPPLIER_FAILURE,
+  DELETE_SUPPLIER_REQUEST,
+  DELETE_SUPPLIER_SUCCESS,
+  DELETE_SUPPLIER_FAILURE,
+  FETCH_COMPANIES_REQUEST,
+  FETCH_COMPANIES_SUCCESS,
+  FETCH_COMPANIES_FAILURE
 } from "./actionTypes";
 import { cloneDeep, findIndex, get, omit } from "lodash";
 
 const initialState = {
-  data: {},
-  loading: false,
-  error: null,
-  formLoading: {
-    loading: false,
-    error: false,
-    message: "",
-  },
+  suppliers: [],
+  supplier: null,
+  companies: [],
+  loading: false
 };
 
-const Vendor = (state = initialState, { type, payload }) => {
+const Supplier = (state = initialState, { type, payload }) => {
   switch (type) {
-    case FETCH_VENDOR_REQUEST:
+    case FETCH_SUPPLIER_REQUEST:
+    case FETCH_SUPPLIERS_REQUEST:
+    case UPDATE_SUPPLIER_REQUEST:
+    case DELETE_SUPPLIER_REQUEST:
+    case FETCH_COMPANIES_REQUEST:
       return {
         ...state,
-        data: { ...payload },
-        loading: true,
-        error: false,
-      };
-    case FETCH_VENDOR_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        data: { ...payload },
-      };
-    case FETCH_VENDOR_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: true,
-        message: payload,
-      };
-    case ADD_VENDOR_REQUEST:
-    case EDIT_VENDOR_REQUEST:
-    case DELETE_VENDOR_REQUEST:
-    case ADD_VENDOR_CONTACT_REQUEST:
-    case EDIT_VENDOR_CONTACT_REQUEST:
-    case DELETE_VENDOR_CONTACT_REQUEST:
-      return {
-        ...state,
-        formLoading: { ...state.formLoading, loading: true, error: false },
-      };
-    case ADD_VENDOR_SUCCESS: {
-      const suppliers = cloneDeep(get(state, "data.suppliers", []));
-      suppliers.push(payload);
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          suppliers: [...suppliers],
-        },
-      };
-    }
-    case EDIT_VENDOR_SUCCESS: {
-      const stateOld = cloneDeep(state.data);
-      return {
-        ...state,
-      };
-    }
-    case DELETE_VENDOR_SUCCESS: {
-      const stateOld = cloneDeep(state.data);
-      return {
-        ...state,
-      };
-    }
-    case ADD_VENDOR_CONTACT_SUCCESS: {
-      const suppliers = cloneDeep(get(state, "data.suppliers", []));
-      const indexOf = findIndex(
-        get(state, "data.suppliers"),
-        (o) => o.id === parseInt(get(payload, "supplier"))
-      );
-      if (indexOf !== -1) {
-        suppliers[indexOf]["contacts"].push(omit(payload, "supplier"));
+        loading: true
       }
+    case FETCH_SUPPLIER_SUCCESS:
+    case FETCH_SUPPLIER_FAILURE:
       return {
         ...state,
-        data: {
-          ...state.data,
-          suppliers: [...suppliers],
-        },
-        formLoading: { ...state.formLoading, loading: false, error: false },
+        supplier: { ...payload },
+        loading: false
       };
-    }
-    case EDIT_VENDOR_CONTACT_SUCCESS: {
+    case FETCH_SUPPLIERS_SUCCESS:
+    case FETCH_SUPPLIERS_FAILURE:
       return {
         ...state,
-        formLoading: { ...state.formLoading, loading: false, error: false },
+        suppliers: { ...payload },
+        loading: false
       };
-    }
-    case DELETE_VENDOR_CONTACT_SUCCESS: {
+    case UPDATE_SUPPLIER_SUCCESS:
+    case UPDATE_SUPPLIER_FAILURE:
       return {
         ...state,
-        formLoading: { ...state.formLoading, loading: false, error: false },
+        supplier: { ...payload },
+        loading: false
       };
-    }
-    case ADD_VENDOR_FAILURE:
-    case EDIT_VENDOR_FAILURE:
-    case DELETE_VENDOR_FAILURE:
-    case ADD_VENDOR_CONTACT_FAILURE:
-    case EDIT_VENDOR_CONTACT_FAILURE:
-    case DELETE_VENDOR_CONTACT_FAILURE:
+    case DELETE_SUPPLIER_SUCCESS:
+    case DELETE_SUPPLIER_FAILURE:
       return {
         ...state,
-        formLoading: {
-          ...state.formLoading,
-          loading: false,
-          error: true,
-          message: payload,
-        },
+        loading: false
       };
+    case FETCH_COMPANIES_SUCCESS:
+    case FETCH_COMPANIES_FAILURE:
+      return {
+        ...state,
+        companies: { ...payload },
+        loading: false
+      }
     default:
       state = { ...state };
       break;
   }
   return state;
 };
-export default Vendor;
+
+export default Supplier;

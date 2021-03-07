@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { get, map, pick, reduce, set } from "lodash";
+import { get, pick } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import {
@@ -13,13 +13,12 @@ import {
    } from "reactstrap";
 import { Modal } from "../../component/Common/Modal";
 import {
-  fetchVendor,
-  addVendor,
-  editVendor,
-  deleteVendor,
-  addVendorContact,
-  editVendorContact,
-  deleteVendorContact,
+  fetchSupplier,
+  fetchSuppliers,
+  createSupplier,
+  updateSupplier,
+  deleteSupplier,
+  fetchCompanies
 } from "../../store/Vendor/actions";
 import AddCompany from "./components/company-modal";
 import ContactModal from "./components/contact-modal";
@@ -29,39 +28,12 @@ export default function Suppliers() {
   const [isOpenCompanyDialog, setIsOpenCompanyDialog] = useState(false);
   const [isOpenSupplierDialog, setIsOpenSupplierDialog] = useState(false);
   const [supplier, setSupplier] = useState(null);
-
+  const { suppliers, companies } = useSelector(
+    (state) => {
+      return state.Vendor
+    }
+  );
   const dispatch = useDispatch();
-  // dispatch action
-  const {
-    data,
-    loading: loading1,
-    error: error1,
-    suppliers,
-  } = useSelector((state) => {
-    const { data, loading, error } = state.Vendor;
-    const supplierInner = reduce(
-      get(data, "suppliers"),
-      (old, current) => {
-        return old.concat( map(get(current, "contacts"), (value) => {
-          set(value, "cName", get(current, "name"));
-          set(value, "cId", get(current, "id"));
-          return value;
-        }))
-      },
-      []
-    );
-    return { data, loading, error, suppliers: supplierInner };
-  });
-
-  // // something wrong first time
-  // if (error1) {
-  //   return <div>Error</div>;
-  // }
-  // // unconditional error occur
-  // if (!data1) {
-  //   return null;
-  // }
-
   useEffect(() => {
     dispatch(
       setBreadcrumbItems("Suppliers", [
@@ -69,94 +41,82 @@ export default function Suppliers() {
         { title: "Suppliers", link: "#" }
       ])
     );
-    setSupplier(null);
+    dispatch(
+      fetchSuppliers()
+    );
   }, []);
-
-  const companyOptionsList = useCallback(
-    () =>
-      map(get(data, "suppliers"), (value, index) => (
-        <option value={value.id} key={index}>
-          {value.name}
-        </option>
-      )),
-    [data]
-  );
 
   const onNewSupplier = () => {
     setSupplier(null);
+    dispatch(fetchCompanies());
     setIsOpenSupplierDialog(true);
-  }
+  };
 
   const onEditSupplier = (supplierId) => {
     if (!isOpenSupplierDialog) {
       dispatch(
-        fetchVendor({
+        fetchSupplier({
           id: supplierId,
-          successFn: supplier => {
-            if (!supplier) {
-              // print snack
-              setSupplier(null);
-            } {
-              setSupplier(supplier);
-              setIsOpenSupplierDialog(!isOpenSupplierDialog);
-            }
-          },
-        })
-      )
-    }
-  }
-
-  const onSupplierDialogClose = (isSave, supplier) => {
-    debugger;
-    if (isSave) {
-      dispatch(
-        addVendorContact({
-          form: { ...supplier, position: "" },
-          successFn: () => {
-            suppliers = reduce(
-              get(data, "suppliers"),
-              (old, current) => {
-                return old.concat( map(get(current, "contacts"), (value) => {
-                  set(value, "cName", get(current, "name"));
-                  set(value, "cId", get(current, "id"));
-                  return value;
-                }))
-              },
-              []
-            );
-            setIsOpenSupplierDialog(false);
+          success: (data) => {
+              setSupplier(data);
+              setIsOpenSupplierDialog(true);
           }
-        })
+        }),
       )
+      dispatch(fetchCompanies());
+    }
+  };
+
+  const onDeleteSupplier = (supplierId) => {
+    dispatch(
+      deleteSupplier({
+        id: supplierId,
+        success: () => {
+          dispatch(
+            fetchSuppliers()
+          );
+          // print snack
+        }
+      })
+    );
+  };
+
+  const onSupplierDialogClose = (isSave, data) => {
+    if (isSave) {
+      if (supplier) {
+        // update supplier
+        dispatch(
+          updateSupplier({
+            ...supplier,
+            ...data,
+            success: () => {
+              dispatch(fetchSuppliers());
+              setIsOpenSupplierDialog(false);
+            }
+          }));
+      } else {
+        // create supplier
+        dispatch(
+          createSupplier({
+            ...data,
+            success: () => {
+              dispatch(fetchSuppliers());
+              setIsOpenSupplierDialog(false);
+            }
+          }));
+      }
     } else {
-      setSupplier(null);
-      setIsOpenSupplierDialog(!isOpenSupplierDialog);
+      setIsOpenSupplierDialog(false);
     }
   }
 
   const onCompanyDialogClose = (companyId) => {
-    if (companyId) {
-      _saveCompany(companyId).then(() => {
-        // update companies state
-        setIsOpenCompanyDialog(false);
-      })
-      .catch(error => {
-        // shake
-        // print snackbar
-      });
-    }
+    // TODO
     setIsOpenCompanyDialog(false);
   };
 
-  const _saveSupplier = (supplier) => {
-    return Promise.resolve();
-  };
-
-  const _saveCompany = (company) => {
-    return Promise.resolve();
-  };
-
   const companySubmit = (event, formData) => {
+    // TODO
     const formCompose = {
       contacts: [],
       name: get(formData, "firstName"),
@@ -169,16 +129,8 @@ export default function Suppliers() {
         "postalCode",
       ]),
     };
-    dispatch(addVendor({ form: formCompose, successFn: onCompanyDialogClose }));
+    // dispatch(addVendor({ form: formCompose, successFn: onCompanyDialogClose }));
   };
-
-  const createContact = (event, formData) =>
-    dispatch(
-      addVendorContact({
-        form: { ...formData, position: "" },
-        successFn: onSupplierDialogClose,
-      })
-    );
 
   return (
     <React.Fragment>
@@ -190,8 +142,9 @@ export default function Suppliers() {
             </CardHeader>
             <CardBody>
               <ContactsTable
-                suppliers={suppliers}
+                data={suppliers}
                 editContact={onEditSupplier}
+                deleteContact={onDeleteSupplier}
               />
             </CardBody>
             <CardFooter>
@@ -214,8 +167,9 @@ export default function Suppliers() {
         >
           <ContactModal
             contact={supplier}
+            companies={companies}
             close={onSupplierDialogClose}
-            optionsList={companyOptionsList()}
+            companiesDialog={() => setIsOpenCompanyDialog(true)}
           />
         </Modal>
       )}
@@ -224,7 +178,7 @@ export default function Suppliers() {
           show={isOpenCompanyDialog}
           handlerClose={onCompanyDialogClose}
           title="Add Company"
-          data={this.state}
+          data={companies}
         >
           <AddCompany
             companySubmit={companySubmit}

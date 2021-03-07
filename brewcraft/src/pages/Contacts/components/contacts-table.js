@@ -5,7 +5,7 @@ import {
   Button
 } from 'reactstrap';
 
-export default function ContactsTable({suppliers, editCompany, editContact}) {
+export default function ContactsTable({data, editCompany, editContact, deleteContact}) {
   const tabledata = [
     {
       label: "Name",
@@ -36,20 +36,26 @@ export default function ContactsTable({suppliers, editCompany, editContact}) {
     {
       label: "",
       field: "edit"
+    },{
+      label: "",
+      field: "delete"
     }
   ];
   const rowEvent = useCallback(() => {
-    return map(suppliers, (row) => {
+    return map(data, (row) => {
       return {
         ...row,
         contactName: row.firstName,
         companyName: row.cName,
         edit: (
           <Button onClick={() => editContact(row.id)}>Edit</Button>
+        ),
+        delete: (
+          <Button onClick={() => deleteContact(row.id)}>Delete</Button>
         )
       };
     });
-  }, [suppliers]);
+  }, [data]);
   return (
     <MDBDataTable
       responsive

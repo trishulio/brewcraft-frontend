@@ -11,7 +11,7 @@ export default function AddCompany({ companySubmit,close }) {
             <Col lg="12">
               <AvField
                 name="firstName"
-                label="Company Name*"
+                label="Company Name"
                 placeholder="Company Name"
                 type="text"
                 errorMessage="Enter Company Name"
@@ -24,6 +24,7 @@ export default function AddCompany({ companySubmit,close }) {
                 label="Address Line 1"
                 placeholder="Address line 1"
                 type="text"
+                validate={{ required: { value: true } }}
                />
             </Col>
             <Col lg="6">
