@@ -8,7 +8,7 @@ import {
 
 async function fetchCompaniesRequest() {
     // API refers to companies as suppliers
-    return await AxiosInstance.get("/api/suppliers");
+    return await AxiosInstance.get("/api/v1/suppliers");
 }
 
 function* fetchCompanies() {
