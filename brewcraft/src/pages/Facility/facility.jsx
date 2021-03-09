@@ -92,7 +92,7 @@ export default function Facility() {
       {!!isOpen && (
         <Modal
           show={isOpen}
-          handlerClose={dialogCloseFn}
+          close={dialogCloseFn}
           title="Add Facilitie"
         >
           <FacilityForm  FormModal={FormModal}  close={dialogCloseFn} companySubmit={createFacilities} />

@@ -136,7 +136,7 @@ export default function Facilities(props) {
       {!!isNewMaterialOpen && (
         <Modal
           show={isNewMaterialOpen}
-          handlerClose={newMaterialClose}
+          close={newMaterialClose}
           title="New Ingredient"
         >
           <MaterialDialog to={props.match.url} categoryModelOpen={newMaterialCategoryOpen} submitFn={newMaterialSubmit} close={newMaterialClose} model={MaterialModel} optionsList={TypeOption(categories.data.filter(item=>item.parentCategoryId===INGREDIENTS))} />
@@ -145,7 +145,7 @@ export default function Facilities(props) {
       {!!isNewMaterialCategoryOpen && (
         <Modal
           show={isNewMaterialCategoryOpen}
-          handlerClose={newMaterialCategoryClose}
+          close={newMaterialCategoryClose}
           title="New Material Category"
         >
           <MaterialCategoryDialog submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel} optionsList={TypeOption(nullParentCategories.data)} />

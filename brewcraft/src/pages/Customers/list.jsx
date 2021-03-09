@@ -259,7 +259,7 @@ export default function Customers() {
       {show && (
         <Modal
           show={show}
-          handlerClose={setShow}
+          close={setShow}
           title={modaldata.title}
           size="lg"
         >
@@ -275,7 +275,7 @@ export default function Customers() {
       {deleteshow && (
         <Modal
           show={deleteshow}
-          handlerClose={setDeleteshow}
+          close={setDeleteshow}
           title="Delete Contact"
           size="sm"
         >

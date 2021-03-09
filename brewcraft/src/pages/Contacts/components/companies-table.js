@@ -5,65 +5,78 @@ import {
   Button
 } from 'reactstrap';
 
-export default function ContactsTable({suppliers, editCompany, editContact, addCompanyDialog}) {
-  const tabledata = [
+export default function CompaniesTable({companies, editCompany, deleteCompany}) {
+  const columns = [
     {
       label: "Name",
-      field: "contactName",
+      field: "name",
       sort: "asc",
-      width: 200,
-      onClick: editContact
+      width: 200
     },
     {
-      label: "Company",
-      field: "companyName",
+      label: "Address",
+      field: "address",
       sort: "asc",
-      width: 200,
-      onClick: editCompany
+      width: 200
     },
     {
-      label: "Phone",
-      field: "phoneNumber",
+      label: "Country",
+      field: "country",
       sort: "asc",
       width: 100,
     },
     {
-      label: "Email",
-      field: "email",
+      label: "Province",
+      field: "province",
+      sort: "asc",
+      width: 100,
+    },
+    {
+      label: "City",
+      field: "city",
+      sort: "asc",
+      width: 100,
+    },
+    {
+      label: "Postal Code",
+      field: "postalCode",
       sort: "asc",
       width: 100,
     },
     {
       label: "",
       field: "edit"
+    },
+    {
+      label: "",
+      field: "delete"
     }
   ];
   const rowEvent = useCallback(() => {
-    return map(suppliers, (row) => {
+    return map(companies, (row) => {
+      const address = row.address || {};
       return {
         ...row,
-        contactName: (
-          <span style={{cursor: "pointer"}} onClick={() => editContact(row.id)} className="btn-link">
-              {row.firstName}
-          </span>
-        ),
-        companyName: (
-          <span style={{cursor: "pointer"}} onClick={() => editCompany(row.cId)} className="btn-link">
-              {row.cName}
-         </span>
-        ),
+        address: address.addressLine1 + (address.addressLine2 ? " " + address.addressLine2 : ""),
+        country: address.country,
+        city: address.city,
+        province: address.province,
+        postalCode: address.postalCode,
         edit: (
-          <Button onClick={() => addCompanyDialog(row.id)}>Edit</Button>
+          <Button onClick={() => editCompany(row.id)}>Edit</Button>
+        ),
+        delete: (
+          <Button onClick={() => deleteCompany(row.id)}>Delete</Button>
         )
       };
     });
-  }, [suppliers]);
+  }, [companies]);
   return (
     <MDBDataTable
       responsive
       bordered
       data={{
-        columns: tabledata,
+        columns: columns,
         rows: rowEvent()
       }}
     />

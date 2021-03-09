@@ -41,6 +41,7 @@ import ReportsN10 from '../pages/Reports/n10';
 
 // Contacts
 import SuppliersList from '../pages/Contacts/suppliers';
+import CompaniesList from '../pages/Contacts/companies';
 import PurchaseInvoices from '../pages/PurchaseInvoices/invoices';
 import PurchaseInvoicesDetail from '../pages/PurchaseInvoices/invoice';
 import PurchaseInvoicesCreate from '../pages/PurchaseInvoices/invoice-new';
@@ -87,6 +88,7 @@ const authProtectedRoutes = [
   // Contacts
   { path: "/customers/list", component: CustomerList },
   { path: "/suppliers", component: SuppliersList },
+  { path: "/contacts/companies", component: CompaniesList },
 
   // Purchase Invoices
   { path: "/purchase-invoices/create", component: PurchaseInvoicesCreate },

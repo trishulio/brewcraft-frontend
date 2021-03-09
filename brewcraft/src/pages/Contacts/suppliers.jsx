@@ -169,7 +169,7 @@ export default function Suppliers() {
       {!!isOpenSupplierDialog && (
         <Modal
           show={isOpenSupplierDialog}
-          handlerClose={onSupplierDialogClose}
+          close={onSupplierDialogClose}
           title={!!supplier ? "Edit Supplier" : "New Supplier"}
         >
           <ContactModal
@@ -183,7 +183,7 @@ export default function Suppliers() {
       {!!isOpenCompanyDialog && (
         <Modal
           show={isOpenCompanyDialog}
-          handlerClose={onCompanyDialogClose}
+          close={onCompanyDialogClose}
           title="Add Company"
           data={companies}
         >

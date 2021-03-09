@@ -154,7 +154,7 @@ export default function Equipments() {
       {!!isOpen && (
         <Modal
           show={isOpen}
-          handlerClose={dialogCloseFn}
+          close={dialogCloseFn}
           title={editForm.heading}
         >
           <EquipmentForm
