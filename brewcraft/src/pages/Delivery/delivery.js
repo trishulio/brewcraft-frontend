@@ -155,7 +155,7 @@ export default function Delivery() {
     {show && (
       <Modal
         show={show}
-        handlerClose={setShow}
+        close={setShow}
         title={"Create Delivery Driver"}
         size="lg"
       >

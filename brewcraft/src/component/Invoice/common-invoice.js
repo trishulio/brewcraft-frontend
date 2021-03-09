@@ -123,7 +123,7 @@ export default function Commoninvoice({ data, type }) {
       {deleteshow && (
         <Modal
           show={deleteshow}
-          handlerClose={setDeleteshow}
+          close={setDeleteshow}
           title="Delete Bill"
           size="sm"
         >

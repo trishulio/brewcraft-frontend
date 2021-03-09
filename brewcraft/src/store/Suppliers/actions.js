@@ -25,7 +25,7 @@ export const updateSupplier = payload => ({
   payload: payload
 });
 
-export const deleteSupplier = (payload) => ({
+export const deleteSupplier = payload => ({
   type: DELETE_SUPPLIER_REQUEST,
   payload: payload
 });

@@ -332,7 +332,7 @@ export default function CreateInvoice(props) {
       {show && (
         <Modal
           show={show}
-          handlerClose={modalClose}
+          close={modalClose}
           title="change customer"
           size="xs"
         >
