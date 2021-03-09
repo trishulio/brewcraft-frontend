@@ -217,7 +217,7 @@ export default function Vechicles({ driverid }) {
       {show && (
         <Modal
           show={show}
-          handlerClose={setShow}
+          close={setShow}
           title={modaldata.title}
           size="lg"
         >
@@ -233,7 +233,7 @@ export default function Vechicles({ driverid }) {
       {deleteshow && (
         <Modal
           show={deleteshow}
-          handlerClose={setDeleteshow}
+          close={setDeleteshow}
           title="Delete Vechicles"
           size="sm"
         >

@@ -24,7 +24,7 @@ const initialState = {
   },
 };
 
-const Equipments = (state = initialState, { type, payload }) => {
+const Equipment = (state = initialState, { type, payload }) => {
   switch (type) {
     case FETCH_FACILITIES_REQUEST:
       return {
@@ -60,7 +60,7 @@ const Equipments = (state = initialState, { type, payload }) => {
           formLoading: { ...state.formLoading, loading: false },
         };
       }
-      
+
     case ADD_EQUIPMENTS_FAILURE:
     case EDIT_EQUIPMENTS_FAILURE:
       return {
@@ -99,4 +99,4 @@ const Equipments = (state = initialState, { type, payload }) => {
   return state;
 };
 
-export default Equipments;
+export default Equipment;

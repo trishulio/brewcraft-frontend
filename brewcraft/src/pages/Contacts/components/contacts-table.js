@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import {IconButton, Tooltip,Typography} from '@material-ui/core';
+import {IconButton, Tooltip,Typography,Button} from '@material-ui/core';
 import {AddCircle, Edit,Delete} from '@material-ui/icons';
 import MUIDataTable, { TableFilterList, TableToolbarSelect } from "mui-datatables";
 import Chip from '@material-ui/core/Chip';
@@ -8,38 +8,44 @@ import { map } from "lodash";
 
 export default function ContactsTable({data, editCompany, editContact, deleteContact, addContact}) {
   const columns = [{
-    name: "First Name",
+    label: "First Name",
+    name: "contactName",
     options: {
       filter: true,
       sort: true
     }
   }, {
-    name: "Last Name",
+    label: "Last Name",
+    name: "lastName",
     options: {
       filter: true,
       sort: true
     }
   }, {
-    name: "Company",
+    label: "Company",
+    name: "companyName",
     options: {
       filter: true,
       sort: true
     }
   }, {
-    name: "Position",
+    label: "Position",
+    name: "position",
     options: {
       filter: true,
       sort: false,
       display: false
     }
   }, {
-    name: "Phone",
+    label: "Phone",
+    name: "phoneNumber",
     options: {
       filter: false,
       sort: false
     }
   }, {
-    name: "Email",
+    label: "Email",
+    name: "email",
     options: {
       filter: false,
       sort: false
@@ -49,14 +55,17 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
 
   const rowEvent = useCallback(() => {
     return map(data, (row) => {
-      return [
-        row.firstName,
-        row.lastName,
-        row.supplier?.name,
-        row.position,
-        row.phoneNumber,
-        row.email,
-      ];
+      return {
+        ...row,
+        contactName: row.firstName,
+        companyName: row.supplier.name,
+        edit: (
+          <Button onClick={() => editContact(row.id)}>Edit</Button>
+        ),
+        delete: (
+          <Button onClick={() => deleteContact(row.id)}>Delete</Button>
+        )
+      };
     });
 
   }, [data]);

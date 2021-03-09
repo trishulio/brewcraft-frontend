@@ -3,7 +3,7 @@ import {
   ADD_FACILITIES_REQUEST,
   ADD_EQUIPMENTS_REQUEST,
   EDIT_EQUIPMENTS_REQUEST,
-  FETCH_EQUIPMENTS_REQUEST 
+  FETCH_EQUIPMENTS_REQUEST
 } from "./actionTypes";
 
 export const getFacilities = () => ({
@@ -13,15 +13,15 @@ export const saveFacilities = (payload) => ({
   type: ADD_FACILITIES_REQUEST,
   payload:payload
 });
-export const getEquipments = (payload) => ({
+export const getEquipment = (payload) => ({
   type: FETCH_EQUIPMENTS_REQUEST,
   payload: payload,
 });
-export const saveEquipments = (payload) => ({
+export const saveEquipment = (payload) => ({
   type: ADD_EQUIPMENTS_REQUEST,
   payload: payload,
 });
-export const editEquipments = (payload) => ({
+export const editEquipment = (payload) => ({
   type: EDIT_EQUIPMENTS_REQUEST,
   payload: payload,
 });

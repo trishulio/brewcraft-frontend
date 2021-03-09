@@ -11,7 +11,7 @@ export default function Facility() {
   const [isOpen, setIsOpen] = useState(false);
   const [editForm, setEditForm] = useState({ edit: false, formData: null });
   const dispatch = useDispatch();
-  const { data, loading, error } = useSelector((state) => state.Equipments);
+  const { data, loading, error } = useSelector((state) => state.Equipment);
 
   useEffect(() => {
     dispatch(
@@ -92,7 +92,7 @@ export default function Facility() {
       {!!isOpen && (
         <Modal
           show={isOpen}
-          handlerClose={dialogCloseFn}
+          close={dialogCloseFn}
           title="Add Facilitie"
         >
           <FacilityForm  FormModal={FormModal}  close={dialogCloseFn} companySubmit={createFacilities} />

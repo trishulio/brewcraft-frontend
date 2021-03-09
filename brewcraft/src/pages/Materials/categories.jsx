@@ -36,7 +36,7 @@ export default function Facilities() {
     );
     dispatch(
       fetchAllCategories()
-    );  
+    );
   }, []);
 
   const TypeOption = useCallback(()=>{
@@ -50,7 +50,7 @@ export default function Facilities() {
   if (!data.length) {
     return null;
   }
-  
+
   const newMaterialCategoryOpen = () =>{
     setIsNewMaterialCategoryOpen(true)
   }
@@ -87,7 +87,7 @@ export default function Facilities() {
       {!!isNewMaterialCategoryOpen && (
         <Modal
           show={isNewMaterialCategoryOpen}
-          handlerClose={newMaterialCategoryClose}
+          close={newMaterialCategoryClose}
           title="New Material Category"
         >
           <MaterialCategoryDialog submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel} optionsList={TypeOption(data)} />

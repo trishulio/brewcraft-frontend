@@ -1,7 +1,5 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import AxiosInstance from "../../helpers/axiosInstance";
 import { get } from "lodash";
-import { apiResponse, SUCCESS, ERROR } from "../../helpers/snackHelper";
 import {
   FETCH_SUPPLIER_REQUEST,
   FETCH_SUPPLIER_SUCCESS,
@@ -17,16 +15,15 @@ import {
   UPDATE_SUPPLIER_FAILURE,
   DELETE_SUPPLIER_REQUEST,
   DELETE_SUPPLIER_SUCCESS,
-  DELETE_SUPPLIER_FAILURE,
-  FETCH_COMPANIES_REQUEST,
-  FETCH_COMPANIES_SUCCESS,
-  FETCH_COMPANIES_FAILURE
+  DELETE_SUPPLIER_FAILURE
 } from "./actionTypes";
-
-async function fetchSuppliersRequest() {
-  // API refers to companies as suppliers
-  return await AxiosInstance.get("/api/suppliers/contacts");
-}
+import {
+  fetchSupplierRequest,
+  fetchSuppliersRequest,
+  createSupplierRequest,
+  updateSupplierRequest,
+  deleteSupplierRequest
+} from "./api";
 
 function* fetchSuppliers() {
   try {
@@ -36,10 +33,6 @@ function* fetchSuppliers() {
     yield put ({ type: FETCH_SUPPLIERS_FAILURE, payload: [] });
   }
 }
-
-const fetchSupplierRequest = async (id) => {
-  return await AxiosInstance.get(`/api/suppliers/contacts/${id}`);
-};
 
 function* fetchSupplier(action) {
   try {
@@ -51,13 +44,7 @@ function* fetchSupplier(action) {
   }
 }
 
-const createSupplierRequest = async (companyId, data) => {
-  // API refers to companies as suppliers
-  return await AxiosInstance.post(`/api/suppliers/${companyId}/contacts`, data);
-};
-
 function* createSupplier(action) {
-  debugger;
   try {
     const data = {
       firstName: action.payload.firstName,
@@ -73,11 +60,6 @@ function* createSupplier(action) {
     yield put ({ type: CREATE_SUPPLIER_FAILURE });
   }
 }
-
-const updateSupplierRequest = async (companyId, contactId, data) => {
-  // API refers to companies as suppliers
-  return await AxiosInstance.put(`/api/suppliers/${companyId}/contacts/${contactId}`, data);
-};
 
 function* updateSupplier(action) {
   try {
@@ -97,13 +79,6 @@ function* updateSupplier(action) {
   }
 }
 
-
-
-async function deleteSupplierRequest(contactId) {
-  // API refers to companies as suppliers
-  return await AxiosInstance.delete("/api/suppliers/contacts/" + contactId);
-}
-
 function* deleteSupplier(action) {
   try {
     yield call(deleteSupplierRequest, action.payload.id);
@@ -114,25 +89,10 @@ function* deleteSupplier(action) {
   }
 }
 
-async function fetchCompaniesRequest() {
-  // API refers to companies as suppliers
-  return await AxiosInstance.get("/api/suppliers");
-}
-
-function* fetchCompanies() {
-  try {
-    const response = yield call(fetchCompaniesRequest);
-    yield put({ type: FETCH_COMPANIES_SUCCESS, payload: response.data.suppliers });
-  } catch (e) {
-    yield put ({ type: FETCH_COMPANIES_FAILURE, payload: [] });
-  }
-}
-
 export default function* Suppliers() {
   yield takeLatest(FETCH_SUPPLIER_REQUEST, fetchSupplier);
   yield takeLatest(FETCH_SUPPLIERS_REQUEST, fetchSuppliers);
   yield takeLatest(CREATE_SUPPLIER_REQUEST, createSupplier);
   yield takeLatest(UPDATE_SUPPLIER_REQUEST, updateSupplier);
   yield takeLatest(DELETE_SUPPLIER_REQUEST, deleteSupplier);
-  yield takeLatest(FETCH_COMPANIES_REQUEST, fetchCompanies);
 }

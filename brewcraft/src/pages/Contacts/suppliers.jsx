@@ -17,9 +17,11 @@ import {
   fetchSuppliers,
   createSupplier,
   updateSupplier,
-  deleteSupplier,
-  fetchCompanies
+  deleteSupplier
 } from "../../store/Suppliers/actions";
+import {
+  fetchCompanies
+} from "../../store/Companies/actions";
 import AddCompany from "./components/company-modal";
 import ContactModal from "./components/contact-modal";
 import ContactsTable from "./components/contacts-table";
@@ -28,9 +30,14 @@ export default function Suppliers() {
   const [isOpenCompanyDialog, setIsOpenCompanyDialog] = useState(false);
   const [isOpenSupplierDialog, setIsOpenSupplierDialog] = useState(false);
   const [supplier, setSupplier] = useState(null);
-  const { suppliers, companies } = useSelector(
+  const { suppliers } = useSelector(
     (state) => {
-      return state.Vendor
+      return state.Suppliers
+    }
+  );
+  const { companies } = useSelector(
+    (state) => {
+      return state.Companies
     }
   );
   const dispatch = useDispatch();
@@ -154,7 +161,7 @@ export default function Suppliers() {
       {!!isOpenSupplierDialog && (
         <Modal
           show={isOpenSupplierDialog}
-          handlerClose={onSupplierDialogClose}
+          close={onSupplierDialogClose}
           title={!!supplier ? "Edit Supplier" : "New Supplier"}
         >
           <ContactModal
@@ -168,7 +175,7 @@ export default function Suppliers() {
       {!!isOpenCompanyDialog && (
         <Modal
           show={isOpenCompanyDialog}
-          handlerClose={onCompanyDialogClose}
+          close={onCompanyDialogClose}
           title="Add Company"
           data={companies}
         >

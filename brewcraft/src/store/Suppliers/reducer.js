@@ -10,12 +10,8 @@ import {
   UPDATE_SUPPLIER_FAILURE,
   DELETE_SUPPLIER_REQUEST,
   DELETE_SUPPLIER_SUCCESS,
-  DELETE_SUPPLIER_FAILURE,
-  FETCH_COMPANIES_REQUEST,
-  FETCH_COMPANIES_SUCCESS,
-  FETCH_COMPANIES_FAILURE
+  DELETE_SUPPLIER_FAILURE
 } from "./actionTypes";
-import { cloneDeep, findIndex, get, omit } from "lodash";
 
 const initialState = {
   suppliers: [],
@@ -30,7 +26,6 @@ const Supplier = (state = initialState, { type, payload }) => {
     case FETCH_SUPPLIERS_REQUEST:
     case UPDATE_SUPPLIER_REQUEST:
     case DELETE_SUPPLIER_REQUEST:
-    case FETCH_COMPANIES_REQUEST:
       return {
         ...state,
         loading: true
@@ -62,13 +57,6 @@ const Supplier = (state = initialState, { type, payload }) => {
         ...state,
         loading: false
       };
-    case FETCH_COMPANIES_SUCCESS:
-    case FETCH_COMPANIES_FAILURE:
-      return {
-        ...state,
-        companies: { ...payload },
-        loading: false
-      }
     default:
       state = { ...state };
       break;
