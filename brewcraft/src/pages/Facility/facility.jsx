@@ -11,7 +11,7 @@ export default function Facility() {
   const [isOpen, setIsOpen] = useState(false);
   const [editForm, setEditForm] = useState({ edit: false, formData: null });
   const dispatch = useDispatch();
-  const { data, loading, error } = useSelector((state) => state.Equipments);
+  const { data, loading, error } = useSelector((state) => state.Equipment);
 
   useEffect(() => {
     dispatch(

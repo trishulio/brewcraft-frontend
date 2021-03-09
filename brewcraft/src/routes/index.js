@@ -20,7 +20,7 @@ import CustomerNewInvoice from '../pages/CustomerInvoices/create-invoice';
 import CustomerViewInvoice from '../pages/CustomerInvoices/view-invoice';
 
 // Equipment
-import Equipment from '../pages/Equipment/index'
+import Equipment from '../pages/Equipment/equipment';
 
 // Facility
 import Facility from "../pages/Facility/facility";

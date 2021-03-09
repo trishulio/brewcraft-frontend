@@ -7,7 +7,7 @@ import Driver from './Driver/saga';
 import Vechicles from './Vechicles/saga';
 import Invoice from './Invoice/saga';
 import Suppliers from './Suppliers/saga';
-import Equipments from './Equipment/saga';
+import Equipment from './Equipment/saga';
 import Materials from './Materials/saga';
 
 export default function* rootSaga() {
@@ -19,7 +19,7 @@ export default function* rootSaga() {
         Vechicles(),
         Invoice(),
         Suppliers(),
-        Equipments(),
+        Equipment(),
         Materials()
     ])
 }

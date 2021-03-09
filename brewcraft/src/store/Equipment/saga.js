@@ -108,7 +108,7 @@ function* editEquipment(action) {
   );
 }
 
-export default function* Equipments() {
+export default function* Equipment() {
   yield takeLatest(FETCH_FACILITIES_REQUEST, fetchFacilities);
   yield takeLatest(ADD_FACILITIES_REQUEST, addFacilities);
   yield takeLatest(ADD_EQUIPMENTS_REQUEST, addEquipment);
