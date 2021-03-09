@@ -145,17 +145,9 @@ export default function Suppliers() {
                 data={suppliers}
                 editContact={onEditSupplier}
                 deleteContact={onDeleteSupplier}
+                addContact={onNewSupplier}
               />
             </CardBody>
-            <CardFooter>
-              <Row>
-                <Col xs="12">
-                  <div className="float-left mt-1">
-                      <Button color="secondary" className="waves-effect" onClick={onNewSupplier}>New Supplier</Button>
-                  </div>
-                </Col>
-              </Row>
-            </CardFooter>
           </Card>
         </Col>
       </Row>
