@@ -71,7 +71,7 @@ function* updateSupplier(action) {
       phoneNumber: action.payload.phoneNumber,
       version: action.payload.version,
     };
-    yield call(updateSupplierRequest, action.payload.supplier.id, action.payload.id, data);
+    yield call(updateSupplierRequest, action.payload.supplier, action.payload.id, data);
     yield put({ type: UPDATE_SUPPLIER_SUCCESS });
     action.payload.success && action.payload.success();
   } catch (e) {
