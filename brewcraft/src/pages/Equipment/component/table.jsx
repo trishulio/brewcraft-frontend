@@ -7,23 +7,13 @@ import {Button} from "reactstrap";
  * @param {Object} facilities facilities should be non-empty array object for table rendering
  * @param {Function}  editFn non-mandatory javascript function
  */
-export default function EquipmentTable({ facilities, editFn }) {
+export default function EquipmentTable({ equipment, editEquipmentItem, deleteEquipmentItem }) {
   const tabledata = [
     {
       label: "Name",
       field: "name",
       sort: "asc",
-      width: 150,
-      // attributes: {
-      //   'aria-controls': 'name',
-      //   'aria-label': 'Name',
-      // },
-    },
-    {
-      label: "Status",
-      field: "status",
-      sort: "asc",
-      width: 270,
+      width: 150
     },
     {
       label: "Type",
@@ -32,30 +22,45 @@ export default function EquipmentTable({ facilities, editFn }) {
       width: 200,
     },
     {
-      label: "value",
-      field: "value",
+      label: "Facility",
+      field: "facility",
+      sort: "asc",
+      width: 270,
+    },
+    {
+      label: "Max Capacity",
+      field: "maxCapacity",
       sort: "asc",
       width: 200,
     },
     {
-      label: "symbol",
-      field: "symbol",
+      label: "Status",
+      field: "status",
       sort: "asc",
-      width: 200,
+      width: 270,
     },
+    {
+      field: "edit"
+    },
+    {
+      field: "delete"
+    }
   ];
   const rowEvent = useCallback(() => {
-    return map(facilities, (row) => {
+    return map(equipment, (row) => {
       return {
         ...row,
-        name: (
-          <Button color="link" onClick={() => editFn(row.id)} className="btnParent">
-            {row.name}
-          </Button>
+        facility: row.facility.name,
+        maxCapacity: row.maxCapacity.value + " " + row.maxCapacity.symbol,
+        edit: (
+          <Button onClick={() => editEquipmentItem(row.id)}>Edit</Button>
         ),
+        delete: (
+          <Button onClick={() => deleteEquipmentItem(row.id)}>Delete</Button>
+        )
       };
     });
-  }, [facilities]);
+  }, [equipment]);
   return (
     <MDBDataTable
       responsive

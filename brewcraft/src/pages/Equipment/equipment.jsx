@@ -2,21 +2,24 @@ import React, { useEffect, Fragment, useState, useCallback } from "react";
 import { get, isArray, map, findIndex, filter, set } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
-import { Row, Col, Card, CardBody, Button } from "reactstrap";
+import { Row, Col, Card, CardBody, CardFooter, Button } from "reactstrap";
 import { Modal } from "../../component/Common/Modal";
 import EquipmentTable from "./component/table";
 import {
-  getFacilities,
-  editEquipment,
-  saveEquipment,
+  fetchFacilities,
+  fetchEquipment,
+  fetchEquipmentItem,
+  createEquipmentItem,
+  updateEquipmentItem,
+  deleteEquipmentItem
 } from "../../store/Equipment/actions";
 import EquipmentForm from "./component/form";
 
 export default function Equipment() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState(null);
+  const [equipmentItem, setEquipmentItem] = useState(null);
   const dispatch = useDispatch();
-  const { equipment } = useSelector((state) => state.Equipment);
+  const { equipment, facilities } = useSelector((state) => state.Equipment);
 
   const typeSelection = [
     "Barrel",
@@ -31,93 +34,63 @@ export default function Equipment() {
 
   useEffect(() => {
     dispatch(
-      setBreadcrumbItems("Equipment", [
+      setBreadcrumbItems("Facility Equipment", [
         { title: "Dashboard", link: "/dashboard" },
       ])
     );
-    dispatch(getFacilities());
+    dispatch(fetchEquipment());
+    dispatch(fetchFacilities());
   }, []);
 
-  // const tableData = useCallback(() => {
-  //   return map(get(data, "content[0].equipment", []), (currentList) => {
-  //     return { ...currentList, ...currentList.maxCapacity };
-  //   });
-  // }, [data]);
-  // const selectType = useCallback(() => {
-  //   return map(typeSelection, (currentList, key) => {
-  //     return (
-  //       <option type={currentList} key={key}>
-  //         {currentList}
-  //       </option>
-  //     );
-  //   });
-  // }, [typeSelection]);
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-  // // somthing wrong first time
-  // if (error) {
-  //   return <div>Error</div>;
-  // }
-  // // unconditional error occur
-  // if (!data) {
-  //   return null;
-  // }
-  // const dialogCloseFn = () => {
-  //   setIsOpen(false);
-  // };
-  // const dialogOpenFn = () => {
-  //   setFormModel({
-  //     id: null,
-  //     name: "",
-  //     type: "",
-  //     status: "",
-  //     maxCapacity: {
-  //       value: "",
-  //       symbol:""
-  //     },
-  //   });
-  //   setIsOpen(true);
-  //   setEditForm({ edit: false, heading: "Add Equipment" });
-  // };
-  // const createEquipment = (e, model) => {
-  //   const Model = {
-  //     ...formModel,
-  //     ...model,
-  //     maxCapacity: {
-  //       ...formModel.maxCapacity,
-  //       ...model.maxCapacity,
-  //     },
-  //     equipmentId: get(data, "content[0].id"),
-  //   };
-  //   if(editForm.edit){
-  //     dispatch(editEquipment({ form: Model, successFn: dialogCloseFn }));
-  //   }else{
-  //     dispatch(saveEquipment({ form: Model, successFn: dialogCloseFn }));
-  //   }
-  // };
-
-  // const editEnable = (rowId) => {
-  //   const data_filter = filter(tableData(), (o) => o.id === rowId);
-  //   setFormModel({
-  //     id: get(data_filter[0], "id"),
-  //     name: get(data_filter[0], "name"),
-  //     type: get(data_filter[0], "type"),
-  //     status: get(data_filter[0], "status"),
-  //     maxCapacity: {
-  //       value: get(data_filter[0], "value"),
-  //       symbol: get(data_filter[0], "symbol"),
-  //     },
-  //   });
-  //   setEditForm({ edit: true, heading: "Edit Equipment" });
-  //   setIsOpen(true);
-  // };
-
   const onAddEquipment = () => {
+    setEquipmentItem(null);
     setIsOpen(true);
   };
 
+  const onEditEquipment = equipmentId => {
+    dispatch(
+      fetchEquipmentItem({
+        id: equipmentId,
+        success: (data) => {
+          setEquipmentItem(data);
+          setIsOpen(true);
+        }
+      }));
+  };
+
+  const onDeleteEquipment = equipmentId => {
+    dispatch(
+      deleteEquipmentItem({
+        id: equipmentId,
+        success: () => {
+          dispatch(fetchEquipment());
+        }
+      }));
+  };
+
   const onDialogClose = (isSave, data) => {
+    if (isSave) {
+      if (equipmentItem) {
+        dispatch(
+          updateEquipmentItem({
+            ...equipmentItem,
+            ...data,
+            success: () => {
+              dispatch(fetchEquipment());
+              setIsOpen(false);
+            }
+          }));
+      } else {
+        dispatch(
+          createEquipmentItem({
+            ...data,
+            success: () => {
+              dispatch(fetchEquipment());
+              setIsOpen(false);
+            }
+          }));
+      }
+    }
     setIsOpen(false);
   };
 
@@ -125,22 +98,23 @@ export default function Equipment() {
     <Fragment>
       <Row>
         <Col xs="12">
-          <div className="float-right mb-3">
-            <Button color="link" onClick={onAddEquipment}>
-              Add Equipment
-            </Button>
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="12">
           <Card>
             <CardBody>
               <EquipmentTable
-                facilities={equipment}
-                editFn={onDialogClose}
+                equipment={equipment}
+                editEquipmentItem={onEditEquipment}
+                deleteEquipmentItem={onDeleteEquipment}
               />
             </CardBody>
+            <CardFooter>
+              <Row>
+                <Col xs="12">
+                  <div className="float-left mt-1">
+                      <Button color="secondary" className="waves-effect" onClick={onAddEquipment}>Add Equipment</Button>
+                  </div>
+                </Col>
+              </Row>
+            </CardFooter>
           </Card>
         </Col>
       </Row>
@@ -148,11 +122,13 @@ export default function Equipment() {
         <Modal
           show={isOpen}
           close={onDialogClose}
-          title={equipment ? "Edit Equipment" : "Add Equipment"}
+          title={equipmentItem ? "Edit Equipment" : "Add Equipment"}
         >
           <EquipmentForm
             close={onDialogClose}
-            formModal={selected}
+            equipmentTypes={typeSelection}
+            facilities={facilities}
+            formModal={equipmentItem}
           />
         </Modal>
       )}

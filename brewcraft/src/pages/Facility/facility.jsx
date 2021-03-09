@@ -6,7 +6,7 @@ import { Row, Col, Card, CardBody, Button } from "reactstrap";
 import { Modal } from "../../component/Common/Modal";
 import FacilityTable from "./facility-table";
 import FacilityForm from "./facility-form";
-import { getFacilities, saveFacilities} from "../../store/Equipment/actions";
+import { fetchFacilities, createFacility } from "../../store/Equipment/actions";
 export default function Facility() {
   const [isOpen, setIsOpen] = useState(false);
   const [editForm, setEditForm] = useState({ edit: false, formData: null });
@@ -19,7 +19,7 @@ export default function Facility() {
         { title: "Dashboard", link: "/dashboard" },
       ])
     );
-    isArray(data) && dispatch(getFacilities());
+    isArray(data) && dispatch(fetchFacilities());
   }, []);
   const FormModal = {
     name: "",
@@ -63,7 +63,7 @@ export default function Facility() {
 
   const createFacilities = (e, model) =>{
     const Model = {...FormModal,...model }
-    dispatch(saveFacilities({form:Model, successFn:dialogCloseFn}))
+    dispatch(createFacility({form:Model, successFn:dialogCloseFn}))
   }
 
   return (
