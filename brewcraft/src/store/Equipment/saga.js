@@ -22,6 +22,9 @@ import {
   DELETE_EQUIPMENT_ITEM_SUCCESS,
   DELETE_EQUIPMENT_ITEM_FAILURE
 } from "./actionTypes";
+import {
+  TOGGLE_PRELOADER
+} from "../layout/actionTypes";
 import { get, omit } from "lodash";
 import AxiosInstance from "../../helpers/axiosInstance";
 
@@ -115,7 +118,6 @@ function* editEquipment(action) {
     },
     version: action.payload.version + 1
   };
-  debugger;
   try {
     yield call(editEquipmentItemRequest, action.payload.facility.id, action.payload.id, data);
     yield put({ type: UPDATE_EQUIPMENT_ITEM_SUCCESS });
@@ -138,14 +140,10 @@ function* deleteEquipmentItem(action) {
   }
 }
 
-function* deleteFacility(action) {
-
-}
-
 export default function* Equipment() {
   yield takeLatest(FETCH_FACILITIES_REQUEST, fetchFacilities);
   yield takeLatest(CREATE_FACILITY_REQUEST, addFacilities);
-  yield takeLatest(DELETE_FACILITY_REQUEST, deleteFacility);
+  // yield takeLatest(DELETE_FACILITY_REQUEST, deleteFacility);
   yield takeLatest(FETCH_EQUIPMENT_REQUEST, fetchEquipment);
   yield takeLatest(FETCH_EQUIPMENT_ITEM_REQUEST, fetchEquipmentItem);
   yield takeLatest(CREATE_EQUIPMENT_ITEM_REQUEST, createEquipmentItem);

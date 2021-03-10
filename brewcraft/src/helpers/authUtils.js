@@ -21,9 +21,6 @@ const authenticateUser = async () => {
             email: payload.email,
             ...res
         });
-        // hide preloader
-        document.getElementById('preloader').style.display = "none";
-        document.getElementById('status').style.display = "none";
     })
     .catch(() => {
         setLoggedInUser(null);

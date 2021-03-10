@@ -13,6 +13,7 @@ import {
   updateEquipmentItem,
   deleteEquipmentItem
 } from "../../store/Equipment/actions";
+import { togglePreloader } from "../../store/layout/actions";
 import EquipmentForm from "./component/form";
 
 export default function Equipment() {

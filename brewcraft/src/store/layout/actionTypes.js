@@ -6,6 +6,7 @@ export const CHANGE_SIDEBAR_TYPE = "CHANGE_SIDEBAR_TYPE";
 
 // Preloader
 export const CHANGE_PRELOADER = "CHANGE_PRELOADER";
+export const TOGGLE_PRELOADER = 'TOGGLE_PRELOADER';
 
 export const ACTIVATE_NON_AUTH_LAYOUT = 'non_auth_layout';
 

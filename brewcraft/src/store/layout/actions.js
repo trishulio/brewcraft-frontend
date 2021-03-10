@@ -8,7 +8,8 @@ import {
     CHANGE_LAYOUT_WIDTH,
     CHANGE_SIDEBAR_TYPE,
     CHANGE_PRELOADER,
-    CHANGE_TOPBAR_THEME
+    CHANGE_TOPBAR_THEME,
+    TOGGLE_PRELOADER
 } from './actionTypes';
 
 export const changeLayout = layout => ({
@@ -56,11 +57,16 @@ export const activateNonAuthLayout = () => {
     }
 }
 
+export const togglePreloader = is_show => ({
+    type: TOGGLE_PRELOADER,
+    payload: is_show
+})
+
 export const toggleSidebar = (is_toggle) => {
     return {
         type: TOGGLE,
             payload: { is_toggle }
-           
+
     }
 }
 

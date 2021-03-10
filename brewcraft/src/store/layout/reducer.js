@@ -8,7 +8,8 @@ import {
     CHANGE_LAYOUT_WIDTH,
     CHANGE_SIDEBAR_TYPE,
     CHANGE_TOPBAR_THEME,
-    CHANGE_PRELOADER
+    CHANGE_PRELOADER,
+    TOGGLE_PRELOADER
 } from './actionTypes';
 
 const initialState={
@@ -38,6 +39,10 @@ const layout = (state=initialState,action) => {
             };
 
         case CHANGE_PRELOADER:
+            return {
+                ...state
+            };
+        case TOGGLE_PRELOADER:
             return {
                 ...state,
                 isPreloader: action.payload

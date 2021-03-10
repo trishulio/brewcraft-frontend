@@ -20,8 +20,7 @@ import {
 
 const initialState = {
   equipment: [],
-  facilities: [],
-  loading: false
+  facilities: []
 };
 
 const Equipment = (state = initialState, { type, payload }) => {
@@ -38,7 +37,7 @@ const Equipment = (state = initialState, { type, payload }) => {
     case DELETE_EQUIPMENT_ITEM_REQUEST:
       return {
         ...state,
-        loading: true
+        payload: payload
       };
     case FETCH_FACILITIES_SUCCESS:
     case FETCH_FACILITIES_FAILURE:

@@ -12,8 +12,9 @@ import {
   DELETE_EQUIPMENT_ITEM_REQUEST
 } from "./actionTypes";
 
-export const fetchEquipment = () => ({
-  type: FETCH_EQUIPMENT_REQUEST
+export const fetchEquipment = payload => ({
+  type: FETCH_EQUIPMENT_REQUEST,
+  payload: payload
 });
 
 export const fetchEquipmentItem = payload => ({

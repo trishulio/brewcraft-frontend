@@ -5,7 +5,7 @@ import {
   CHANGE_TOPBAR_THEME,
   CHANGE_SIDEBAR_THEME,
   CHANGE_LAYOUT_WIDTH,
-  CHANGE_SIDEBAR_TYPE,
+  CHANGE_SIDEBAR_TYPE
 } from "./actionTypes";
 
 import {
@@ -75,7 +75,7 @@ function* changeLayout({ payload: layout }) {
         yield put(changeTopbarThemeAction('light'));
       }
       yield call(changeBodyAttribute, "data-layout", layout);
-      
+
     } catch (error) { }
 }
 
@@ -142,7 +142,7 @@ function* LayoutSaga() {
       fork(watchChangeTopbarTheme),
       fork(watchChangeLeftSidebarTheme),
       fork(watchChangeLayoutWidth),
-      fork(watchChangeLeftSidebarType),
+      fork(watchChangeLeftSidebarType)
     ]);
   }
 

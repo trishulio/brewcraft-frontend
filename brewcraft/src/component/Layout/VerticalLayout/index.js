@@ -32,7 +32,7 @@ class LayoutV extends Component {
   render() {
     return (
       <React.Fragment>
-      <div id="preloader">
+      { this.props.isPreloader && <div id="preloader">
       <div id="status">
       <div className="spinner-chase">
       <div className="chase-dot"></div>
@@ -43,7 +43,8 @@ class LayoutV extends Component {
       <div className="chase-dot"></div>
       </div>
       </div>
-      </div>
+      </div>}
+
       <div id="layout-wrapper">
 
       {/* render topbar */}
