@@ -13,6 +13,7 @@ import Invoice from './Invoice/reducer';
 import Inventory from './Inventory/reducer';
 import Tax from './Tax/reducer';
 import Suppliers from './Suppliers/reducer';
+import Profile from './Profile/reducer';
 
 const rootReducer = combineReducers({
   Layout,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   Customers,
   Companies,
   Materials,
+  Profile,
   Driver,
   Vechicles,
   Invoice,
