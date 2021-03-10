@@ -10,14 +10,11 @@ import { listenAuthEvents } from "./helpers/authUtils";
 import 'react-toastify/dist/ReactToastify.css';
 // Import scss
 import "./theme.scss";
-import { api, fetchMaterialCategories, fetchMaterials } from './store/Materials/api';
 
 if (process.env.NODE_ENV !== 'production') {
   // write authentication events to console log
   listenAuthEvents();
-
 }
-
 class App extends Component {
   constructor(props) {
     super(props);
