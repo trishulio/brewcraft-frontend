@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from "react";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import {IconButton, Tooltip,Typography,Button} from '@material-ui/core';
-import {AddCircle, Edit,Delete} from '@material-ui/icons';
-import MUIDataTable, { TableFilterList, TableToolbarSelect } from "mui-datatables";
+import {AddCircle, Edit,Delete, Refresh} from '@material-ui/icons';
+import MUIDataTable, { TableFilterList, TableToolbarSelect, } from "mui-datatables";
 import Chip from '@material-ui/core/Chip';
 import { map } from "lodash";
 
-export default function ContactsTable({data, editCompany, editContact, deleteContact, addContact}) {
+export default function ContactsTable({data, editCompany, editContact, deleteContact, addContact,refreshTable}) {
   const columns = [{
     label: "First Name",
     name: "contactName",
@@ -79,6 +79,9 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
           },
         },
         MUIDataTableToolbar: {
+          root: {
+            minHeight:'40px'
+          },
           actions: {
             display: "flex",
             flex: "initial",
@@ -114,8 +117,12 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
               color:"#7a6fbe"
           }
         }
-      }
-      }
+      },
+
+      },
+      typography: {
+        "fontFamily": 'Poppins',
+       }
     });
   };
 
@@ -124,12 +131,19 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
     idsToDelete.map((id)=>deleteContact(id));
   }
 
-  const addContactButton = () => (
-    <Tooltip disableFocusListener title="Add Contact">
-      <IconButton onClick={() =>addContact()}>
-        <AddCircle  />
-      </IconButton>
-    </Tooltip>
+  const customToolbarButton = () => (
+    <div>
+      <Tooltip disableFocusListener title="Add Contact">
+        <IconButton onClick={() =>addContact()}>
+          <AddCircle  />
+        </IconButton>
+      </Tooltip>
+          <Tooltip disableFocusListener title="Refresh">
+          <IconButton onClick={() =>refreshTable()}>
+            <Refresh  />
+          </IconButton>
+        </Tooltip>
+      </div>
   );
 
   const customToolbarSelectButton = (rowsSelected) => {
@@ -165,7 +179,7 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
           filter: true,
           filterType: "checkbox",
           search: true,
-          customToolbar:addContactButton,
+          customToolbar:customToolbarButton,
           customToolbarSelect:customToolbarSelectButton
           // tableBodyHeight: "400px"
         }}

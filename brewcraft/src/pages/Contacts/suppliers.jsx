@@ -117,6 +117,12 @@ export default function Suppliers() {
     }
   }
 
+  const onRefreshSupplierTable=()=>{
+    dispatch(
+      fetchSuppliers()
+    );
+  }
+
   const onCompanyDialogClose = (companyId) => {
     // TODO
     setIsOpenCompanyDialog(false);
@@ -153,6 +159,7 @@ export default function Suppliers() {
                 editContact={onEditSupplier}
                 deleteContact={onDeleteSupplier}
                 addContact={onNewSupplier}
+                refreshTable={onRefreshSupplierTable}
               />
             </CardBody>
           </Card>
