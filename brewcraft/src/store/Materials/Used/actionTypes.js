@@ -1,1 +1,0 @@
-export const SET_USED_MATERIAL = "SET_USED_MATERIAL";

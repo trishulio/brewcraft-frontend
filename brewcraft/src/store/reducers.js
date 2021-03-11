@@ -14,6 +14,7 @@ import Inventory from './Inventory/reducer';
 import Tax from './Tax/reducer';
 import Suppliers from './Suppliers/reducer';
 import Profile from './Profile/reducer';
+import Snackbar from "./Snackbar/reducer";
 
 const rootReducer = combineReducers({
   Layout,
@@ -30,7 +31,8 @@ const rootReducer = combineReducers({
   Inventory,
   Suppliers,
   Tax,
-  Equipment
+  Equipment,
+  Snackbar
 });
 
 export default rootReducer;

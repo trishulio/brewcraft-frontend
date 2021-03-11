@@ -52,7 +52,7 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { ALL } from "../../helpers/constants";
-import { snackFailure, snackSuccess } from "./actions";
+import { snackFailure, snackSuccess } from "../Snackbar/actions";
 
 function* fetchMaterialsGenerator() {
   try {
@@ -160,10 +160,10 @@ function* addIngredientGenerator(action) {
   try {
     let res = yield call(api.addIngredient, get(action, "payload"));
     yield put({ type: ADD_INGREDIENT_SUCCESS, data: res });
-    yield put(snackSuccess());
+    yield put(snackSuccess(`Created Ingredient "${action.payload.name}".`));
   } catch (e) {
     yield put({ type: ADD_INGREDIENT_FAILURE });
-    yield put(snackFailure());
+    yield put(snackFailure("Failed to create Ingredient."));
   }
 }
 

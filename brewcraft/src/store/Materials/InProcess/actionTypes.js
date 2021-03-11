@@ -1,1 +1,0 @@
-export const SET_IN_PROCESS = "SET_IN_PROCESS";
