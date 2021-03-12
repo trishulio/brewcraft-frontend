@@ -1,6 +1,6 @@
 # Fuzzy Potato - Brewcraft UI
 
-##Install
+## Install
 ```
 # Create .env file defaults
 echo "
@@ -12,18 +12,18 @@ REACT_APP_USER_POOL_DOMAIN=auth.brewcraft.io
 " > brewcraft/.env
 ```
 
-##Run
+## Run
 ```
 # start on http://localhost/3000
 cd brewcraft
 npm run start
 ```
 
-##Auth
+## Auth
 ```
 user: admin
 password: Freebeer1!
 ```
 
-##Contact
+## Contact
 [Michael](mailto:northstar8888@protonmail.com?subject=[GitHub]%20Hi)
