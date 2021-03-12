@@ -1,9 +1,12 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Row, Col, Card, CardBody, Button, ModalFooter } from "reactstrap";
+import { AvForm, AvField } from "availity-reactstrap-validation";
+import { map } from "lodash";
 
 export default function MaterialDialog({to, submitFn, close, optionsList, model , categoryModelOpen }) {
+
+  const units = ["hl", "l", "ml", "kg", "g"];
 
   return (
     <AvForm onValidSubmit={submitFn} model={model}>
@@ -21,6 +24,20 @@ export default function MaterialDialog({to, submitFn, close, optionsList, model 
               />
             </Col>
             <Col lg="6">
+              <AvField type="select" name="baseQuantityUnit" label="Unit of Measure" placeholder="Unit" errorMessage="Enter Unit" validate={{ required: { value: true } }}>
+              <option disabled value="">Select Unit</option>
+                {
+                  map(units, (value, index) => (
+                    <option value={value} key={value}>
+                      {value}
+                    </option>
+                  ))
+                }
+              </AvField>
+            </Col>
+          </Row>
+          <Row className="container-fluid d-flex row-no-padding full-height align-items-center justify-content-center">
+            <Col lg="6" style={{paddingLeft: 0}}>
               <AvField
                 type="select"
                 name="materialCategoryId"
@@ -38,30 +55,22 @@ export default function MaterialDialog({to, submitFn, close, optionsList, model 
                 </option>
                 {optionsList}
               </AvField>
-             
+            </Col>
+            <Col lg="6">
+              <Link to={to} className="mt-1" onClick={categoryModelOpen} >Add Category</Link>
             </Col>
           </Row>
           <Row>
-          <Col lg="6">
-              <AvField
-                name="materialBaseQuantityUnit"
-                label="Base Quantity Unit"
-                placeholder="Enter Base Quantity Unit"
-                type="text"
-                errorMessage="Enter Valid Base Quantity Unit"
-                validate={{ required: { value: true } }}
-              />
-            </Col>
-            <Col lg="6">
+            <Col xs="12">
               <AvField
                 name="materialDescription"
                 label="Description"
                 placeholder="Enter Description"
                 type="textarea"
                 errorMessage="Enter Valid Description"
-                validate={{ required: { value: true } }}
+                rows={5}
+                validate={{ required: { value: false } }}
               />
-              <Link to={to} onClick={categoryModelOpen} >Add Category</Link>
             </Col>
           </Row>
         </CardBody>

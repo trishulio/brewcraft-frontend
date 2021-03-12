@@ -139,7 +139,7 @@ class SidebarContent extends Component {
       <React.Fragment>
         <div id="sidebar-menu">
           <ul className="metismenu list-unstyled" id="side-menu">
-            <li className="menu-title">Main</li>
+            <li className="menu-title">Beta v0.1</li>
             <li>
               <Link to="/dashboard" className="waves-effect">
                 <i className="mdi mdi-view-dashboard"></i>
@@ -219,9 +219,6 @@ class SidebarContent extends Component {
                 <li>
                   <Link to="/equipment">Equipment</Link>
                 </li>
-                <li>
-                  <Link to="/equipment">Equipment Types</Link>
-                </li>
               </ul>
             </li>
             <li>
@@ -240,20 +237,6 @@ class SidebarContent extends Component {
                   <Link to="/contacts/companies">Companies</Link>
                 </li>
               </ul>
-            </li>
-            <li></li>
-            <li className="menu-title">Reports</li>
-            <li>
-              <Link to="/#" className="waves-effect">
-                <i className="mdi mdi-trending-up"></i>
-                <span>Canada N10</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/#" className="waves-effect">
-                <i className="mdi mdi-trending-up"></i>
-                <span>BC K50B</span>
-              </Link>
             </li>
           </ul>
         </div>
