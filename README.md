@@ -26,4 +26,4 @@ password: Freebeer1!
 ```
 
 ## Contact
-[Michael](mailto:northstar8888@protonmail.com?subject=[GitHub]%20Hi)
+[northstar8888@protonmail.com](mailto:northstar8888@protonmail.com?subject=[GitHub]%20Hi)
