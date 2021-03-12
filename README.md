@@ -3,6 +3,7 @@
 ## Install
 ```
 # Create .env file defaults
+
 echo "
 REACT_APP_USER_POOL_REGION=us-east-1
 REACT_APP_USER_POOL_ID=us-east-1_XaeBRun4X
@@ -15,6 +16,7 @@ REACT_APP_USER_POOL_DOMAIN=auth.brewcraft.io
 ## Run
 ```
 # start on http://localhost/3000
+
 cd brewcraft
 npm run start
 ```
