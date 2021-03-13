@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import {IconButton, Tooltip,Typography,Button} from '@material-ui/core';
-import {AddCircle, Edit,Delete, Refresh} from '@material-ui/icons';
+import {Add, Edit,Delete, Refresh} from '@material-ui/icons';
 import MUIDataTable, { TableFilterList, TableToolbarSelect, } from "mui-datatables";
 import Chip from '@material-ui/core/Chip';
 import { map } from "lodash";
@@ -104,25 +104,38 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
              }
          },
         },
-      MuiIconButton: {
-        root: {
-          '&:hover': {
-            color: "#7a6fbe"
-        }
-        }
-      },
-      MuiCheckbox: {
-        root: {
-          "&$checked$checked": {
-              color:"#7a6fbe"
+        MUIDataTableFooter:{
+          root:{
+            marginTop:'25px'
           }
-        }
-      },
+        },
+        MuiTableRow: {
+          root: {
+              "&:last-child td": {
+                  borderBottom: 0,
+              },
+          }
+        },
+        MuiIconButton: {
+          root: {
+            '&:hover': {
+              color: "#7a6fbe"
+          },
+          borderRadius:'0%'
+          }
+        },
+        MuiCheckbox: {
+          root: {
+            "&$checked$checked": {
+                color:"#7a6fbe"
+            }
+          }
+        },
 
-      },
-      typography: {
-        "fontFamily": 'Poppins',
-       }
+        },
+        typography: {
+          "fontFamily": 'Poppins',
+        }
     });
   };
 
@@ -140,7 +153,7 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
     <div>
       <Tooltip disableFocusListener title="Add Contact">
         <IconButton onClick={() =>addContact()}>
-          <AddCircle  />
+          <Add  />
         </IconButton>
       </Tooltip>
           <Tooltip disableFocusListener title="Refresh">
