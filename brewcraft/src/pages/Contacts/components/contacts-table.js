@@ -1,12 +1,15 @@
 import React, { useState, useCallback } from "react";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import {IconButton, Tooltip,Typography,Button} from '@material-ui/core';
+import {IconButton, Tooltip,Typography,Button,TextField} from '@material-ui/core';
 import {Add, Edit,Delete, Refresh} from '@material-ui/icons';
 import MUIDataTable, { TableFilterList, TableToolbarSelect, } from "mui-datatables";
 import Chip from '@material-ui/core/Chip';
 import { map } from "lodash";
 
 export default function ContactsTable({data, editCompany, editContact, deleteContact, addContact,refreshTable}) {
+
+  const[searchText,setSearchText]=useState("");
+
   const columns = [{
     label: "First Name",
     name: "contactName",
@@ -131,12 +134,31 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
             }
           }
         },
-
+        MuiOutlinedInput: {
+          root: {
+            "&:hover $notchedOutline": {
+              borderColor: "#7a6fbe"
+            },
+            "&$focused $notchedOutline": {
+              borderColor: "#7a6fbe"
+            },
+            "&&& $input": {
+              padding: "6px"
+            }
+          }
         },
-        typography: {
-          "fontFamily": 'Poppins',
+        MuiFormControl:{
+          root:{
+            padding:12
+          }
         }
-    });
+
+      },
+      typography: {
+        "fontFamily": 'Poppins',
+      },
+    }
+    );
   };
 
   const deleteButtonOnClick=(rowsDeleted)=>{
@@ -149,15 +171,21 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
     editContact(idToEdit);
   }
 
+  const refreshButtonOnClick=()=>{
+   setSearchText("");
+   refreshTable();
+  }
+
   const customToolbarButton = () => (
     <div>
+      <TextField id="contacts-search" placeholder="Search" type="search" variant="outlined" onChange={(e)=>setSearchText(e.target.value)} value={searchText}/>
       <Tooltip disableFocusListener title="Add Contact">
         <IconButton onClick={() =>addContact()}>
           <Add  />
         </IconButton>
       </Tooltip>
           <Tooltip disableFocusListener title="Refresh">
-          <IconButton onClick={() =>refreshTable()}>
+          <IconButton onClick={() =>refreshButtonOnClick()}>
             <Refresh  />
           </IconButton>
         </Tooltip>
@@ -191,7 +219,8 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
         options={{
           filter: true,
           filterType: "checkbox",
-          search: true,
+          search: false,
+          searchText,
           customToolbar:customToolbarButton,
           customToolbarSelect:customToolbarSelectButton
           // tableBodyHeight: "400px"
