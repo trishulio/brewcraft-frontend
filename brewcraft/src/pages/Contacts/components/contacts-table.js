@@ -131,6 +131,11 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
     idsToDelete.map((id)=>deleteContact(id));
   }
 
+  const editButtonOnClick=(rowsSelected)=>{
+    const idToEdit = data[rowsSelected?.data[0].dataIndex].id;
+    editContact(idToEdit);
+  }
+
   const customToolbarButton = () => (
     <div>
       <Tooltip disableFocusListener title="Add Contact">
@@ -148,16 +153,11 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
 
   const customToolbarSelectButton = (rowsSelected) => {
     const isShowEditButton=rowsSelected?.data?.length>1 ? false: true;
-    let supplierId='';
-
-    if(isShowEditButton && rowsSelected?.data?.length===1 ){
-      supplierId=  rowsSelected.data[0].dataIndex ;
-    }
 
   return(
     <div>
   { isShowEditButton && <Tooltip disableFocusListener title="Edit Contact">
-      <IconButton onClick={() =>editContact(supplierId)}>
+      <IconButton onClick={() =>editButtonOnClick(rowsSelected)}>
         <Edit  />
       </IconButton>
     </Tooltip>}
