@@ -89,16 +89,16 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
             display: "flex",
             flex: "initial",
             // move all icons to the right
-            "& > span, & > button": {
+            "& > span, & > button, & input": {
+              order: 0
+            },
+            // // target the custom toolbar icon
+            "& > span:last-child, & > button:last-child": {
               order: 99
             },
-            // target the custom toolbar icon
-            "& > span:last-child, & > button:last-child": {
-              order: 1
-            },
-            // target any icon
-            "& > span:nth-child(1), & > button:nth-child(1)": {
-              order: 2
+            // // target any icon
+            "& > button:nth-child(5), & > button:nth-child(5)": {
+              order: -1
             }
           },
           icon: {
@@ -149,7 +149,7 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
         },
         MuiFormControl:{
           root:{
-            padding:12
+            padding:8
           }
         }
 
@@ -177,19 +177,25 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
   }
 
   const customToolbarButton = () => (
-    <div>
-      <TextField id="contacts-search" placeholder="Search" type="search" variant="outlined" onChange={(e)=>setSearchText(e.target.value)} value={searchText}/>
+    <>
       <Tooltip disableFocusListener title="Add Contact">
         <IconButton onClick={() =>addContact()}>
           <Add  />
+      </IconButton>
+      </Tooltip>
+      <Tooltip disableFocusListener title="Refresh">
+        <IconButton onClick={() =>refreshButtonOnClick()}>
+          <Refresh  />
         </IconButton>
       </Tooltip>
-          <Tooltip disableFocusListener title="Refresh">
-          <IconButton onClick={() =>refreshButtonOnClick()}>
-            <Refresh  />
-          </IconButton>
-        </Tooltip>
-      </div>
+      <TextField
+          id="contacts-search"
+          placeholder="Search"
+          type="search"
+          variant="outlined"
+          onChange={(e)=>setSearchText(e.target.value)}
+        value={searchText}/>
+      </>
   );
 
   const customToolbarSelectButton = (rowsSelected) => {
