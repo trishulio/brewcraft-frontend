@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import {IconButton, Tooltip,Typography,Button,TextField} from '@material-ui/core';
+import {IconButton, Tooltip,Typography,Button,TextField,TableFooter, TableCell, TableRow} from '@material-ui/core';
 import {Add, Edit,Delete, Refresh} from '@material-ui/icons';
 import MUIDataTable, { TableFilterList, TableToolbarSelect, } from "mui-datatables";
 import Chip from '@material-ui/core/Chip';
@@ -110,7 +110,7 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
         MUIDataTableFooter:{
           root:{
             marginTop:'25px'
-          }
+          },
         },
         MuiTableRow: {
           root: {
@@ -151,8 +151,13 @@ export default function ContactsTable({data, editCompany, editContact, deleteCon
           root:{
             padding:8
           }
+        },
+        MuiInputBase: {
+          input: {
+            height:'1.3em',
+            fontSize: '0.71094rem',
+          },
         }
-
       },
       typography: {
         "fontFamily": 'Poppins',
