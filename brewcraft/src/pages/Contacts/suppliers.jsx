@@ -117,6 +117,12 @@ export default function Suppliers() {
     }
   }
 
+  const onRefreshSupplierTable=()=>{
+    dispatch(
+      fetchSuppliers()
+    );
+  }
+
   const onCompanyDialogClose = (companyId) => {
     // TODO
     setIsOpenCompanyDialog(false);
@@ -152,17 +158,10 @@ export default function Suppliers() {
                 data={suppliers}
                 editContact={onEditSupplier}
                 deleteContact={onDeleteSupplier}
+                addContact={onNewSupplier}
+                refreshTable={onRefreshSupplierTable}
               />
             </CardBody>
-            <CardFooter>
-              <Row>
-                <Col xs="12">
-                  <div className="float-left mt-1">
-                      <Button color="secondary" className="waves-effect" onClick={onNewSupplier}>New Supplier</Button>
-                  </div>
-                </Col>
-              </Row>
-            </CardFooter>
           </Card>
         </Col>
       </Row>
