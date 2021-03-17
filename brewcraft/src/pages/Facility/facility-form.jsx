@@ -27,7 +27,7 @@ export default function FacilityForm({ companySubmit, close, FormModal }) {
             <Col lg="6">
               <AvField
                 name="phoneNumber"
-                label="Phone Number"
+                label="Phone Number*"
                 placeholder="Phone Number"
                 type="text"
                 errorMessage="Please Insert a valid Phone Number."
@@ -37,34 +37,37 @@ export default function FacilityForm({ companySubmit, close, FormModal }) {
             <Col lg="6">
               <AvField
                 name="address.addressLine1"
-                label="Address Line1"
+                label="Address Line1*"
                 placeholder="Address Line1"
                 type="text"
-
+                validate={{ required: { value: true } }}
               />
             </Col>
             <Col lg="6">
               <AvField
                 name="address.addressLine2"
-                label="Address Line2"
+                label="Address Line2*"
                 placeholder="Address Line2"
                 type="text"
+                validate={{ required: { value: true } }}
               />
             </Col>
             <Col lg="6">
               <AvField
                 name="address.country"
-                label="Country"
+                label="Country*"
                 placeholder="Country"
                 type="text"
+                validate={{ required: { value: true } }}
               />
             </Col>
             <Col lg="6">
               <AvField
                 name="address.province"
-                label="Province"
+                label="Province*"
                 placeholder="Province"
                 type="text"
+                validate={{ required: { value: true } }}
               />
             </Col>
             <Col lg="6">

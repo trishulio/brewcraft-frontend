@@ -20,7 +20,9 @@ import {
   UPDATE_EQUIPMENT_ITEM_FAILURE,
   DELETE_EQUIPMENT_ITEM_REQUEST,
   DELETE_EQUIPMENT_ITEM_SUCCESS,
-  DELETE_EQUIPMENT_ITEM_FAILURE
+  DELETE_EQUIPMENT_ITEM_FAILURE,
+  CREATE_FACILITY_FAILURE,
+  CREATE_FACILITIY_SUCCESS
 } from "./actionTypes";
 import {
   TOGGLE_PRELOADER
@@ -78,7 +80,15 @@ async function addFacilitiesRequest(payload) {
   return await AxiosInstance.post("/api/v1/facilities", payload)
 }
 function* addFacilities(action) {
-  let response = yield call(addFacilitiesRequest, get(action, "payload.form"));
+  
+  try {
+    let response = yield call(addFacilitiesRequest, get(action, "payload.formData"));
+    yield put({ type: CREATE_FACILITIY_SUCCESS, payload: response.data });
+    yield call(action.payload.success);
+  }
+  catch (e) {
+    yield put({ type: CREATE_FACILITY_FAILURE, payload: [] });
+  }
 }
 
 async function createEquipmentItemRequest(facilityId, data) {

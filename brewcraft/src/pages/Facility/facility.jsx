@@ -7,11 +7,14 @@ import { Modal } from "../../component/Common/Modal";
 import FacilityTable from "./facility-table";
 import FacilityForm from "./facility-form";
 import { fetchFacilities, createFacility } from "../../store/Equipment/actions";
+
 export default function Facility() {
+
   const [isOpen, setIsOpen] = useState(false);
   const [editForm, setEditForm] = useState({ edit: false, formData: null });
   const dispatch = useDispatch();
-  const { data, loading, error } = useSelector((state) => state.Equipment);
+
+  const { facilities:data } = useSelector((state) => state.Equipment);
 
   useEffect(() => {
     dispatch(
@@ -19,8 +22,9 @@ export default function Facility() {
         { title: "Dashboard", link: "/dashboard" },
       ])
     );
-    isArray(data) && dispatch(fetchFacilities());
+    data && dispatch(fetchFacilities());
   }, []);
+
   const FormModal = {
     name: "",
     address: {
@@ -36,23 +40,12 @@ export default function Facility() {
     equipment: [],
     storages: [],
   };
-  const tableData = useCallback(()=>{
-    return map(get(data, "content", []), (currentList)=>{
+
+  const tableData = useCallback(()=> {
+    return map(data, (currentList)=>{
       return omit({...currentList, ...currentList.address},['address','equipment','storages']);
     })
   },[data]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  // somthing wrong first time
-  if (error) {
-    return <div>Error</div>;
-  }
-  // unconditional error occur
-  if (!data) {
-    return null;
-  }
 
   const dialogCloseFn = () => {
     setIsOpen(false);
@@ -63,7 +56,13 @@ export default function Facility() {
 
   const createFacilities = (e, model) =>{
     const Model = {...FormModal,...model }
-    dispatch(createFacility({form:Model, successFn:dialogCloseFn}))
+    dispatch(
+      createFacility({
+        formData:Model,
+        success: () => {
+          dialogCloseFn()
+        }
+      }));
   }
 
   return (
@@ -93,7 +92,7 @@ export default function Facility() {
         <Modal
           show={isOpen}
           close={dialogCloseFn}
-          title="Add Facilitie"
+          title="Add Facility"
         >
           <FacilityForm  FormModal={FormModal}  close={dialogCloseFn} companySubmit={createFacilities} />
         </Modal>

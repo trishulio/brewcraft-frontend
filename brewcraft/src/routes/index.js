@@ -27,7 +27,7 @@ import Equipment from '../pages/Equipment/equipment';
 
 // Facility
 import Facility from "../pages/Facility/facility";
-import Locations from '../pages/Locations';
+import Storage from '../pages/Storage';
 
 // Materials
 import Material from '../pages/Materials/material';
@@ -70,7 +70,7 @@ const authProtectedRoutes = [
   { path: "/products", component: Products },
 
   // Facility
-  { path: "/facilities/locations", component: Locations },
+  // { path: "/facilities/locations", component: Locations },
   { path: "/facilities", component: Facility, exact: true },
   { path: "/floor-view", component: Facility, exact: true },
   { path: "/equipment", component: Equipment },
@@ -88,6 +88,15 @@ const authProtectedRoutes = [
   // Deliveries
   { path: "/deliveries", component: Deliveries },
   { path: "/delivery-drivers", component: DeliveryDrivers },
+  // Locations
+  // { path: "/facilities", component: Facility },
+  { path: "/facilities/storage", component: Storage },
+
+  // Materials
+  { path: "/materials/ingredients", component: MaterialsIngredients },
+  { path: "/materials/packaging", component: MaterialsPackaging },
+  { path: "/materials/categories", component: MaterialCategories },
+  { path: "/materials/:id", component: Material },
 
   // Reports
   { path: "/reports/k50b", component: ReportsK50B },
