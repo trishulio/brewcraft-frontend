@@ -6,7 +6,7 @@ import {
   CREATE_FACILITY_REQUEST,
   UPDATE_FACILITY_REQUEST,
   DELETE_FACILITY_REQUEST,
-
+  CREATE_FACILITIY_SUCCESS,
   FETCH_EQUIPMENT_REQUEST,
   FETCH_EQUIPMENT_SUCCESS,
   FETCH_EQUIPMENT_FAILURE,
@@ -53,6 +53,11 @@ const Equipment = (state = initialState, { type, payload }) => {
         equipment: payload,
         loading: false
       };
+    case CREATE_FACILITIY_SUCCESS:
+      return {
+        ...state,
+        facilities:[...state.facilities, payload]
+      }
     default:
       state = { ...state };
       break;
