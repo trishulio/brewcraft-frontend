@@ -91,7 +91,6 @@ function* updateCompany(action) {
 }
 
 function* deleteCompany(action) {
-    debugger;
     try {
         yield call(deleteCompanyRequest, action.payload.id);
         yield put({ type: DELETE_COMPANY_SUCCESS });

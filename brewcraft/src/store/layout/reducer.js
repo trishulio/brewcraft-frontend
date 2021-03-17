@@ -14,7 +14,7 @@ import {
 
 const initialState={
     layoutType: "vertical",
-    topbarTheme: "light",
+    topbarTheme: "dark",
     leftSideBarTheme: "dark",
     layoutWidth: "fluid",
     leftSideBarType: "default",

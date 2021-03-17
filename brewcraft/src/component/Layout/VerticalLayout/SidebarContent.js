@@ -37,6 +37,7 @@ class SidebarContent extends Component {
 
   componentDidMount() {
     document.body.setAttribute("data-sidebar", "dark");
+    document.body.setAttribute("data-topbar", "dark");
     this.initMenu();
   }
 
