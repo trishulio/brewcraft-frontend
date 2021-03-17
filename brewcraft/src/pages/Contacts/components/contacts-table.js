@@ -6,7 +6,7 @@ import MUIDataTable, { TableFilterList, TableToolbarSelect, } from "mui-datatabl
 import Chip from '@material-ui/core/Chip';
 import { map } from "lodash";
 
-export default function ContactsTable({data, editCompany, editContact, deleteContact, addContact,refreshTable}) {
+export default function ContactsTable({data, editContact, deleteContact, addContact,refreshTable}) {
 
   const[searchText,setSearchText]=useState("");
 
