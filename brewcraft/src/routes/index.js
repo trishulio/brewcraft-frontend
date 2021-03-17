@@ -29,6 +29,9 @@ import Equipment from '../pages/Equipment/equipment';
 import Facility from "../pages/Facility/facility";
 import Storage from '../pages/Storage';
 
+// Finished Goods
+import FinishedGoodsInventory from '../pages/FinishedGoods/inventory';
+
 // Materials
 import Material from '../pages/Materials/material';
 import Category from "../pages/Materials/category";
