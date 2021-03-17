@@ -15,6 +15,7 @@ import BootstrapTable from "../../component/Tables/bootstrap-table";
 import { MDBCard, MDBCardBody } from "mdbreact";
 
 export default function Facility() {
+
   const [isOpen, setIsOpen] = useState(false);
   const [editForm, setEditForm] = useState({ edit: false, formData: null });
   const [tableColumn, setTableColumn] = useState([
