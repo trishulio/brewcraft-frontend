@@ -18,7 +18,7 @@ const initialState={
     leftSideBarTheme: "dark",
     layoutWidth: "fluid",
     leftSideBarType: "default",
-    isPreloader : false,
+    isPreloader : true,
     is_toggle : true,
     show_rightsidebar : false,
     isMobile: false

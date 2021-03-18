@@ -21,12 +21,14 @@ const authenticateUser = async () => {
             email: payload.email,
             ...res
         });
+        return true;
     })
     .catch(() => {
         setLoggedInUser(null);
         Auth.federatedSignIn({
             provider: CognitoHostedUIIdentityProvider.Cognito
         });
+        return false;
     })
 }
 
