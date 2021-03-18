@@ -27,6 +27,7 @@ import {
 } from "../layout/actionTypes";
 import { get, omit } from "lodash";
 import AxiosInstance from "../../helpers/axiosInstance";
+import { snackFailure, snackSuccess } from "../Snackbar/actions";
 
 async function fetchFacilitiesRequest() {
   return await AxiosInstance.get("/api/v1/facilities");
@@ -97,8 +98,10 @@ function* createEquipmentItem(action) {
     yield call(createEquipmentItemRequest, action.payload.facility, data);
     yield put({ type: CREATE_EQUIPMENT_ITEM_SUCCESS });
     action.payload.success && action.payload.success();
+    yield put(snackSuccess());
   } catch (e) {
     yield put({ type: CREATE_EQUIPMENT_ITEM_FAILURE });
+    yield put(snackFailure());
   }
 }
 
@@ -122,8 +125,10 @@ function* editEquipment(action) {
     yield call(editEquipmentItemRequest, action.payload.facility.id, action.payload.id, data);
     yield put({ type: UPDATE_EQUIPMENT_ITEM_SUCCESS });
     action.payload.success && action.payload.success(data);
+    yield put(snackSuccess());
   } catch (e) {
     yield put({ type: UPDATE_EQUIPMENT_ITEM_FAILURE });
+    yield put(snackFailure());
   }
 }
 
@@ -134,9 +139,12 @@ async function deleteEquipmentItemRequest(id) {
 function* deleteEquipmentItem(action) {
   try {
     yield call(deleteEquipmentItemRequest, action.payload.id);
+    yield put({ type: DELETE_EQUIPMENT_ITEM_SUCCESS });
     action.payload.success && action.payload.success();
+    yield put(snackSuccess());
   } catch (e) {
-
+    yield put({ type: DELETE_EQUIPMENT_ITEM_FAILURE });
+    yield put(snackFailure());
   }
 }
 
