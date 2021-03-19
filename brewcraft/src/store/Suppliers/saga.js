@@ -24,6 +24,7 @@ import {
   updateSupplierRequest,
   deleteSupplierRequest
 } from "./api";
+import { snackFailure, snackSuccess } from "../Snackbar/actions";
 
 function* fetchSuppliers() {
   try {
@@ -31,6 +32,7 @@ function* fetchSuppliers() {
     yield put({ type: FETCH_SUPPLIERS_SUCCESS, payload: response.data.supplierContacts });
   } catch (e) {
     yield put ({ type: FETCH_SUPPLIERS_FAILURE, payload: [] });
+    yield put(snackFailure());
   }
 }
 
@@ -41,6 +43,7 @@ function* fetchSupplier(action) {
     action.payload.success && action.payload.success(data.data);
   } catch (e) {
     yield put ({ type: FETCH_SUPPLIER_FAILURE, payload: null });
+    yield put(snackFailure());
   }
 }
 
@@ -56,8 +59,10 @@ function* createSupplier(action) {
     yield call(createSupplierRequest, action.payload.supplier, data);
     yield put({ type: CREATE_SUPPLIER_SUCCESS });
     action.payload.success && action.payload.success();
+    yield put(snackSuccess());
   } catch (e) {
     yield put ({ type: CREATE_SUPPLIER_FAILURE });
+    yield put(snackFailure());
   }
 }
 
@@ -74,8 +79,10 @@ function* updateSupplier(action) {
     yield call(updateSupplierRequest, action.payload.supplier.id, action.payload.id, data);
     yield put({ type: UPDATE_SUPPLIER_SUCCESS });
     action.payload.success && action.payload.success();
+    yield put(snackSuccess());
   } catch (e) {
     yield put ({ type: UPDATE_SUPPLIER_FAILURE });
+    yield put(snackFailure());
   }
 }
 
@@ -84,8 +91,10 @@ function* deleteSupplier(action) {
     yield call(deleteSupplierRequest, action.payload.id);
     yield put({ type: DELETE_SUPPLIER_SUCCESS });
     action.payload.success && action.payload.success();
+    yield put(snackSuccess());
   } catch (e) {
     yield put ({ type: DELETE_SUPPLIER_FAILURE });
+    yield put(snackFailure());
   }
 }
 

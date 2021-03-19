@@ -54,6 +54,7 @@ function* fetchEquipment() {
   }
   catch (e) {
     yield put({ type: FETCH_EQUIPMENT_FAILURE, payload: [] });
+    yield put(snackFailure());
   }
 }
 
@@ -69,6 +70,7 @@ function* fetchEquipmentItem(action) {
   }
   catch (e) {
     yield put({ type: FETCH_EQUIPMENT_ITEM_FAILURE, payload: [] });
+    yield put(snackFailure());
   }
 }
 
