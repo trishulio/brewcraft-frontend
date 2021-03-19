@@ -1,16 +1,16 @@
 import React from "react";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Row, Col, Card, CardBody, Button ,ModalFooter} from "reactstrap";
-export default function NewMaterialType({submitFn, companyContact,close, optionsList }) {
-  const defaultValues = {
-    firstName:'',
-    lastName:'',
-    phoneNumber:'',
-    email:'',
-    supplier:""
-  }
+export default function NewMaterialType({submitFn,model, companyContact,close, optionsList }) {
+  // const defaultValues = {
+  //   firstName:'',
+  //   lastName:'',
+  //   phoneNumber:'',
+  //   email:'',
+  //   supplier:""
+  // }
   return (
-    <AvForm onValidSubmit={submitFn} model={defaultValues}>
+    <AvForm onValidSubmit={submitFn} model={model}>
       <Card>
         <CardBody>
           <Row>

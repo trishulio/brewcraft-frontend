@@ -47,6 +47,18 @@ import {
   FETCH_ALL_CATEGORIES_REQUEST,
   FETCH_ALL_CATEGORIES_SUCCESS,
   FETCH_ALL_CATEGORIES_FAILURE,
+  EDIT_INGREDIENT_REQUEST,
+  DELETE_INGREDIENT_REQUEST,
+  EDIT_PACKAGING_MATERIAL_REQUEST,
+  DELETE_PACKAGING_MATERIAL_REQUEST,
+  EDIT_INGREDIENT_SUCCESS,
+  DELETE_INGREDIENT_SUCCESS,
+  EDIT_PACKAGING_MATERIAL_SUCCESS,
+  DELETE_PACKAGING_MATERIAL_SUCCESS,
+  EDIT_INGREDIENT_FAILURE,
+  DELETE_INGREDIENT_FAILURE,
+  EDIT_PACKAGING_MATERIAL_FAILURE,
+  DELETE_PACKAGING_MATERIAL_FAILURE,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
@@ -63,12 +75,12 @@ function* fetchMaterialsGenerator() {
     yield put({ type: FETCH_MATERIALS_FAILURE });
   }
 }
-function* fetchMaterialByIdGenerator() {
+function* fetchMaterialByIdGenerator(action) {
   try {
-    let data = yield call(api.fetchMaterialById);
-    yield put({ type: FETCH_MATERIAL_BY_ID_SUCCESS, data: data.data });
+    let response = yield call(api.fetchMaterialById,get(action,"payload.id"));
+    action.payload.success && action.payload.success(response.data);
   } catch (e) {
-    yield put({ type: FETCH_MATERIAL_BY_ID_FAILURE });
+    yield put({ type: FETCH_MATERIAL_BY_ID_FAILURE , payload: []});
   }
 }
 function* addMaterialGenerator(action) {
@@ -99,10 +111,58 @@ function* editMaterialGenerator(action) {
 function* deleteMaterialGenerator(action) {
   try {
     let res = yield call(api.deleteMaterial, get(action, "payload.id"));
-    yield put({ type: DELETE_MATERIAL_SUCCESS, data: res });
+    yield put({ type: DELETE_MATERIAL_SUCCESS });
     yield put(snackSuccess());
   } catch (e) {
     yield put({ type: DELETE_MATERIAL_FAILURE });
+    yield put(snackFailure());
+  }
+}
+function* editIngredientGenerator(action) {
+  try {
+    let res = yield call(
+      api.updateMaterial,
+      get(action, "payload.id"),
+      get(action, "payload.form")
+    );
+    yield put({ type: EDIT_INGREDIENT_SUCCESS, data: res , payload : get(action,'payload')});
+    yield put(snackSuccess());
+  } catch (e) {
+    yield put({ type: EDIT_INGREDIENT_FAILURE });
+    yield put(snackFailure());
+  }
+}
+function* deleteIngredientGenerator(action) {
+  try {
+    let res = yield call(api.deleteMaterial, get(action, "payload.id"));
+    yield put({ type: DELETE_INGREDIENT_SUCCESS , payload : get(action, "payload") });
+    yield put(snackSuccess());
+  } catch (e) {
+    yield put({ type: DELETE_INGREDIENT_FAILURE });
+    yield put(snackFailure());
+  }
+}
+function* editPackagingGenerator(action) {
+  try {
+    let res = yield call(
+      api.updateMaterial,
+      get(action, "payload.id"),
+      get(action, "payload.form")
+    );
+    yield put({ type: EDIT_PACKAGING_MATERIAL_SUCCESS, data: res , payload : get(action,'payload') });
+    yield put(snackSuccess());
+  } catch (e) {
+    yield put({ type: EDIT_PACKAGING_MATERIAL_FAILURE });
+    yield put(snackFailure());
+  }
+}
+function* deletePackagingGenerator(action) {
+  try {
+    let res = yield call(api.deleteMaterial, get(action, "payload.id"));
+    yield put({ type: DELETE_PACKAGING_MATERIAL_SUCCESS, payload : get(action, "payload") });
+    yield put(snackSuccess());
+  } catch (e) {
+    yield put({ type: DELETE_PACKAGING_MATERIAL_FAILURE });
     yield put(snackFailure());
   }
 }
@@ -148,10 +208,10 @@ function* fetchPackagingMaterialGenerator() {
     yield put({ type: FETCH_PACKAGING_MATERIAL_FAILURE });
   }
 }
-function* fetchMaterialCategoryByIdGenerator() {
+function* fetchMaterialCategoryByIdGenerator(action) {
   try {
-    let data = yield call(api.fetchMaterialCategoryById);
-    yield put({ type: FETCH_MATERIAL_CATEGORY_BY_ID_SUCCESS, data: data.data });
+    let response = yield call(api.fetchMaterialCategoryById,get(action,"payload.id"));
+    action.payload.success && action.payload.success(response.data);
   } catch (e) {
     yield put({ type: FETCH_MATERIAL_CATEGORY_BY_ID_FAILURE });
   }
@@ -196,7 +256,7 @@ function* editMaterialCategoryGenerator(action) {
       get(action, "payload.id"),
       get(action, "payload.form")
     );
-    yield put({ type: EDIT_MATERIAL_CATEGORY_SUCCESS, data: res });
+    yield put({ type: EDIT_MATERIAL_CATEGORY_SUCCESS, data: res , payload : get(action,'payload')});
     yield put(snackSuccess());
   } catch (e) {
     yield put({ type: EDIT_MATERIAL_CATEGORY_FAILURE });
@@ -206,7 +266,7 @@ function* editMaterialCategoryGenerator(action) {
 function* deleteMaterialCategoryGenerator(action) {
   try {
     let res = yield call(api.deleteMaterialCategory, get(action, "payload.id"));
-    yield put({ type: DELETE_MATERIAL_CATEGORY_SUCCESS, data: res });
+    yield put({ type: DELETE_MATERIAL_CATEGORY_SUCCESS  , payload : get(action, "payload")});
     yield put(snackSuccess());
   } catch (e) {
     yield put({ type: DELETE_MATERIAL_CATEGORY_FAILURE });
@@ -249,5 +309,10 @@ function* Materials() {
   yield takeEvery(FETCH_CATEGORIES_REQUEST, fetchCategoriesGenerator);
   yield takeEvery(FETCH_ALL_CATEGORIES_REQUEST, fetchAllCategoriesGenerator);
   yield takeEvery(ADD_CATEGORY_REQUEST, addCategoryGenerator);
+  yield takeEvery(EDIT_INGREDIENT_REQUEST, editIngredientGenerator);
+  yield takeEvery(DELETE_INGREDIENT_REQUEST, deleteIngredientGenerator);
+  yield takeEvery(EDIT_PACKAGING_MATERIAL_REQUEST, editPackagingGenerator);
+  yield takeEvery(DELETE_PACKAGING_MATERIAL_REQUEST, deletePackagingGenerator);
+  
 }
 export default Materials;

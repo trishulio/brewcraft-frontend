@@ -1,7 +1,7 @@
 import React,{useCallback} from "react";
-import { MDBDataTable } from "mdbreact";
+import { MDBDataTable ,MDBBtn} from "mdbreact";
 import {map} from "lodash"
-export default function MaterialsTable({data, editFn}) {
+export default function MaterialsTable({data, editFn,deleteFn}) {
   const tabledata = [
     {
       label: "Category",
@@ -20,6 +20,12 @@ export default function MaterialsTable({data, editFn}) {
       field: "categoryQuantity",
       sort: "asc",
       width: 50
+    },
+    {
+      field: "edit"
+    },
+    {
+      field: "delete"
     }
   ];
   const rowEvent = useCallback(() => {
@@ -34,6 +40,12 @@ export default function MaterialsTable({data, editFn}) {
           <span onClick={() => editFn(row.id)} className="btnParent">
               {row.cName}
          </span>
+        ),
+        edit: (
+          <MDBBtn color="dark" onClick={() => editFn(row.id)}>Edit</MDBBtn>
+        ),
+        delete: (
+          <MDBBtn color="danger" onClick={() => deleteFn(row.id)}>Delete</MDBBtn>
         )
       };
     });

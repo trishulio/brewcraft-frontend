@@ -7,7 +7,6 @@ import { map } from "lodash";
 export default function MaterialDialog({to, submitFn, close, optionsList, model , categoryModelOpen }) {
 
   const units = ["hl", "l", "ml", "kg", "g"];
-
   return (
     <AvForm onValidSubmit={submitFn} model={model}>
       <Card>
@@ -24,7 +23,7 @@ export default function MaterialDialog({to, submitFn, close, optionsList, model 
               />
             </Col>
             <Col lg="6">
-              <AvField type="select" name="baseQuantityUnit" label="Unit of Measure" placeholder="Unit" errorMessage="Enter Unit" validate={{ required: { value: true } }}>
+              <AvField type="select" name="materialBaseQuantityUnit" label="Unit of Measure" placeholder="Unit" errorMessage="Enter Unit" validate={{ required: { value: true } }}>
               <option disabled value="">Select Unit</option>
                 {
                   map(units, (value, index) => (

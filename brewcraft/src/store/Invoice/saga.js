@@ -1,8 +1,8 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import {
-  FETCH_INVOICE_REQUEST,
-  FETCH_INVOICE_SUCCESS,
-  FETCH_INVOICE_FAILURE,
+  FETCH_INVOICES_REQUEST,
+  FETCH_INVOICES_SUCCESS,
+  FETCH_INVOICES_FAILURE,
   ADD_INVOICE_REQUEST,
   ADD_INVOICE_SUCCESS,
   ADD_INVOICE_FAILURE,
@@ -11,49 +11,70 @@ import {
   EDIT_INVOICE_FAILURE,
   DELETE_INVOICE_REQUEST,
   DELETE_INVOICE_SUCCESS,
+  FETCH_INVOICE_BY_ID_REQUEST,
+  FETCH_INVOICE_BY_ID_SUCCESS,
+  FETCH_INVOICE_BY_ID_FAILURE,
+  DELETE_INVOICE_FAILURE,
 } from "./actionTypes";
-import {get} from 'lodash'
+import { get } from "lodash";
+import {api} from './api'
+import { snackFailure, snackSuccess } from "../Snackbar/actions";
+function* fetchInvoicesGenerator() {
+  try {
+    let data = yield call(api.fetchInvoices);
 
-
-function* addInvoice(action) {
-  let dailogStatus = get(action,'payload');
-  const id  = yield Math.random();
-  
-  yield put({
-    type: ADD_INVOICE_SUCCESS,
-    payload: {
-      id: id,
-      invoice_id:3,
-      status: "status test",
-      due: "due test",
-      date: "date test",
-      number: "number test",
-      customer: "customer test",
-      amount_due: "amount_due test",
-      delivery_date: "delivery_date test",
-      payment_date: "payment_date test",
-      unpaid:false,
-      paid:true,
-    } 
-  });
-
-    yield call(get(dailogStatus,'sFn'),{success:true, message:"done!"});
+    yield put({ type: FETCH_INVOICES_SUCCESS, data: data.data });
+  } catch (e) {
+    yield put({ type: FETCH_INVOICES_FAILURE });
+  }
+}
+function* fetchInvoiceByIdGenerator() {
+  try {
+    let data = yield call(api.fetchInvoiceById);
+    yield put({ type: FETCH_INVOICE_BY_ID_SUCCESS, data: data.data });
+  } catch (e) {
+    yield put({ type: FETCH_INVOICE_BY_ID_FAILURE });
+  }
+}
+function* addInvoiceGenerator(action) {
+  try {
+    let res = yield call(api.addInvoice, get(action, "payload.form"));
+    yield put({ type: ADD_INVOICE_SUCCESS, data: res });
+    yield put(snackSuccess());
+  } catch (e) {
+    yield put({ type: ADD_INVOICE_FAILURE });
+    yield put(snackFailure());
+  }
 }
 
-function* editInvoice(action) {
-  yield put({ type: EDIT_INVOICE_SUCCESS, payload: { ...action.payload } });
+function* editInvoiceGenerator(action) {
+  try {
+    let res = yield call(
+      api.updateInvoice,
+      get(action, "payload.id"),
+      get(action, "payload.form")
+    );
+    yield put({ type: EDIT_INVOICE_SUCCESS, data: res });
+    yield put(snackSuccess());
+  } catch (e) {
+    yield put({ type: EDIT_INVOICE_FAILURE });
+    yield put(snackFailure());
+  }
 }
-
-
-function* deleteInvoice(action) {
- 
-//  push data to redux
-  yield call(get(action,'payload.callback'));
- 
+function* deleteInvoiceGenerator(action) {
+  try {
+    let res = yield call(api.deleteInvoice, get(action, "payload.id"));
+    yield put({ type: DELETE_INVOICE_SUCCESS, data: res });
+    yield put(snackSuccess());
+  } catch (e) {
+    yield put({ type: DELETE_INVOICE_FAILURE });
+    yield put(snackFailure());
+  }
 }
-
 export default function* Invoice() {
-  yield takeLatest(ADD_INVOICE_REQUEST, addInvoice);
-  yield takeLatest(EDIT_INVOICE_REQUEST, editInvoice);
-  yield takeLatest(DELETE_INVOICE_REQUEST, deleteInvoice);
+  yield takeEvery(FETCH_INVOICES_REQUEST, fetchInvoicesGenerator);
+  yield takeEvery(FETCH_INVOICE_BY_ID_REQUEST, fetchInvoiceByIdGenerator);
+  yield takeEvery(ADD_INVOICE_REQUEST, addInvoiceGenerator);
+  yield takeEvery(EDIT_INVOICE_REQUEST, editInvoiceGenerator);
+  yield takeEvery(DELETE_INVOICE_REQUEST, deleteInvoiceGenerator);
 }

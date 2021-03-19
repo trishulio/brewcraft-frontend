@@ -1,29 +1,31 @@
 import React, { useEffect, Fragment, useState, useCallback } from "react";
 import { get, map } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import {  fetchAllCategories, saveCategory ,setBreadcrumbItems } from "../../store/actions";
 import {
-  Row,
-  Col,
-  Card,
-  CardBody,
-  Button
-} from "reactstrap";
+  fetchAllCategories,
+  saveCategory,
+  setBreadcrumbItems,
+  fetchMaterialCategoryById,
+  deleteMaterialCategory,
+  editMaterialCategory,
+} from "../../store/actions";
+import { Row, Col, Card, CardBody, Button } from "reactstrap";
 import { Modal } from "../../component/Common/Modal";
 import CategoriesTable from "./components/categories-table";
 import MaterialCategoryDialog from "./components/material-category-dialog";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 import { ALL } from "../../helpers/constants";
 export default function Facilities() {
-  const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] = useState(false);
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [isEdit, setEdit] = useState(false);
+  const [category, setCategory] = useState(null);
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector(
     (state) => state.Materials.AllCategories
   );
   const MaterialModel = {
-    locationType: 'work',
-    name: 'Availity',
+    locationType: "work",
+    name: "Availity",
     checkItOut: true,
   };
 
@@ -34,16 +36,23 @@ export default function Facilities() {
         { title: "Materials", link: "#" },
       ])
     );
-    dispatch(
-      fetchAllCategories()
-    );
+    dispatch(fetchAllCategories());
   }, []);
 
-  const TypeOption = useCallback(()=>{
-    return data.length ? map(data.filter((a)=>a.parentCategoryId===null), (dataType)=>{
-      return <option value={dataType.id} key={dataType.id} >{dataType.name}</option>
-    }): []
-},[data])
+  const TypeOption = useCallback(() => {
+    return data.length
+      ? map(
+          data.filter((a) => a.parentCategoryId === null),
+          (dataType) => {
+            return (
+              <option value={dataType.id} key={dataType.id}>
+                {dataType.name}
+              </option>
+            );
+          }
+        )
+      : [];
+  }, [data]);
   if (error) {
     return <div>Error</div>;
   }
@@ -51,19 +60,50 @@ export default function Facilities() {
     return null;
   }
 
-  const newMaterialCategoryOpen = () =>{
-    setIsNewMaterialCategoryOpen(true)
-  }
-  const newMaterialCategoryClose = () =>{
-    setIsNewMaterialCategoryOpen(false)
-  }
-  const newMaterialCategorySubmit = (e,values) =>{
-    const {categoryName , materialCategory} = values
-    dispatch(saveCategory({name : categoryName,parentCategoryId : materialCategory}))
+  const newMaterialCategoryOpen = () => {
+    setIsOpen(true);
+  };
+  const newMaterialCategoryClose = () => {
+    setIsOpen(false);
+    setEdit(false);
+  };
+  const newMaterialCategorySubmit = (e, values) => {
+    const { categoryName, materialCategory } = values;
+    if (isEdit) {
+      dispatch(
+        editMaterialCategory({
+          id: category.id,
+          form: { name: categoryName, parentCategoryId: materialCategory },
+        })
+      );
+      setEdit(false);
+    } else {
+      dispatch(
+        saveCategory({ name: categoryName, parentCategoryId: materialCategory })
+      );
+    }
 
-    newMaterialCategoryClose()
-  }
-
+    newMaterialCategoryClose();
+  };
+  const editCategoryAction = (id) => {
+    dispatch(
+      fetchMaterialCategoryById({
+        id: id,
+        success: (data) => {
+          setCategory({
+            ...data,
+            categoryName: data.name,
+            materialCategory: data.parentCategoryId,
+          });
+          setEdit(true);
+          setIsOpen(true);
+        },
+      })
+    );
+  };
+  const deleteCategoryAction = (id) => {
+    dispatch(deleteMaterialCategory({ id }));
+  };
   return (
     <Fragment>
       <Row>
@@ -79,18 +119,27 @@ export default function Facilities() {
         <Col xs="12">
           <Card>
             <CardBody>
-              <CategoriesTable data={data}   />
+              <CategoriesTable
+                editFn={editCategoryAction}
+                deleteFn={deleteCategoryAction}
+                data={data}
+              />
             </CardBody>
           </Card>
         </Col>
       </Row>
-      {!!isNewMaterialCategoryOpen && (
+      {!!isOpen && (
         <Modal
-          show={isNewMaterialCategoryOpen}
+          show={isOpen}
           close={newMaterialCategoryClose}
           title="New Material Category"
         >
-          <MaterialCategoryDialog submitFn={newMaterialCategorySubmit} close={newMaterialCategoryClose} model={MaterialModel} optionsList={TypeOption(data)} />
+          <MaterialCategoryDialog
+            submitFn={newMaterialCategorySubmit}
+            close={newMaterialCategoryClose}
+            model={isEdit ? category : MaterialModel}
+            optionsList={TypeOption(data)}
+          />
         </Modal>
       )}
       <ToastContainer />

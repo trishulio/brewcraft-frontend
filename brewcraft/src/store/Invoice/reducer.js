@@ -1,7 +1,7 @@
 import {
-  FETCH_INVOICE_REQUEST,
-  FETCH_INVOICE_SUCCESS,
-  FETCH_INVOICE_FAILURE,
+  FETCH_INVOICES_REQUEST,
+  FETCH_INVOICES_SUCCESS,
+  FETCH_INVOICES_FAILURE,
   ADD_INVOICE_REQUEST,
   ADD_INVOICE_SUCCESS,
   ADD_INVOICE_FAILURE,
@@ -13,52 +13,7 @@ import {
 } from "./actionTypes";
 import { findIndex, get, filter,indexOf, values } from "lodash";
 const initialState = {
-  data: [
-    {
-      id: "1",
-      invoice_id:2,
-      status: "status test",
-      due: "due test",
-      date: "date test",
-      number: "number test",
-      customer: "customer test",
-      amount_due: "amount_due test",
-      delivery_date: "delivery_date test",
-      payment_date: "payment_date test",
-      unpaid:false,
-      paid:true,
-    },
-    {
-      id: "2",
-      invoice_id:3,
-      status: "status test",
-      due: "due test",
-      date: "date test",
-      number: "number test",
-      customer: "customer test",
-      amount_due: "amount_due test",
-      delivery_date: "delivery_date test",
-      payment_date: "payment_date test",
-      unpaid:false,
-      paid:true,
-    },
-    {
-      id: "1",
-      invoice_id:2,
-      status: "status test",
-      due: "due test",
-      date: "date test",
-      number: "number test",
-      customer: "customer test",
-      amount_due: "amount_due test",
-      delivery_date: "delivery_date test",
-      payment_date: "payment_date test",
-      unpaid:true,
-      paid:false,
-    },
-     
-   
-  ],
+  data: [],
   loading: false,
   error: null,
   formLoading: {
@@ -68,22 +23,23 @@ const initialState = {
   },
 };
 
-const Invoice = (state = initialState, { type, payload }) => {
+const Invoice = (state = initialState, { type, payload ,data}) => {
   switch (type) {
-    case FETCH_INVOICE_REQUEST:
+    case FETCH_INVOICES_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case FETCH_INVOICE_SUCCESS:
+    case FETCH_INVOICES_SUCCESS:
+
       return {
         ...state,
         data: payload,
         loading: false,
         error: null,
       };
-    case FETCH_INVOICE_FAILURE:
+    case FETCH_INVOICES_FAILURE:
       return {
         ...state,
         loading: false,
