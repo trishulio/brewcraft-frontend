@@ -33,8 +33,8 @@ export default function VendorList() {
   useEffect(() => {
     dispatch(
       setBreadcrumbItems("Companies", [
-        { title: "Contacts", link: "#" },
-        { title: "Companies", link: "#" }
+        { title: "Suppliers", link: "#" },
+        { title: "Contacts", link: "#" }
       ]));
     dispatch(fetchCompanies());
   }, []);
@@ -105,9 +105,6 @@ export default function VendorList() {
       <Row>
         <Col xs="12">
           <Card>
-            <CardHeader>
-            Companies Table
-            </CardHeader>
             <CardBody>
               <CompaniesTable
               data={companies}
