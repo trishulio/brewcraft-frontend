@@ -4,12 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import {
   Row,
-  Button,
   Col,
   Card,
-  CardHeader,
-  CardBody,
-  CardFooter
+  CardBody
    } from "reactstrap";
 import { Modal } from "../../component/Common/Modal";
 import {
@@ -43,9 +40,9 @@ export default function Suppliers() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
-      setBreadcrumbItems("Suppliers", [
-        { title: "Contacts", link: "#" },
-        { title: "Suppliers", link: "#" }
+      setBreadcrumbItems("Supplier Contacts", [
+        { title: "Suppliers", link: "#" },
+        { title: "Contacts", link: "#" }
       ])
     );
     dispatch(
@@ -150,9 +147,6 @@ export default function Suppliers() {
       <Row>
         <Col xs="12">
           <Card>
-            <CardHeader>
-              Suppliers Table
-            </CardHeader>
             <CardBody>
               <ContactsTable
                 data={suppliers}
