@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Route } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 import { togglePreloader } from "../store/layout/actions";
 import { authenticateUser } from '../helpers/authUtils';
 
@@ -25,6 +26,7 @@ const AppRoute = function({
       render={props => {
         return isLoggedIn &&
           <Layout>
+             <ToastContainer />
             <Component {...props} />
           </Layout>
       }}
