@@ -23,6 +23,7 @@ import {
     updateCompanyRequest,
     deleteCompanyRequest
 } from "./api.js";
+import { snackFailure, snackSuccess } from "../Snackbar/actions";
 
 function* fetchCompanies() {
     try {
@@ -30,6 +31,7 @@ function* fetchCompanies() {
         yield put({ type: FETCH_COMPANIES_SUCCESS, payload: response.data.suppliers });
     } catch (e) {
         yield put ({ type: FETCH_COMPANIES_FAILURE, payload: [] });
+        yield put(snackFailure());
     }
 }
 
@@ -40,6 +42,7 @@ function* fetchCompany(action) {
         action.payload.success && action.payload.success(response.data);
     } catch (e) {
         yield put ({ type: FETCH_COMPANY_FAILURE, payload: [] });
+        yield put(snackFailure());
     }
 }
 
@@ -61,8 +64,10 @@ function* createCompany(action) {
         yield call(createCompanyRequest, data);
         yield put({ type: CREATE_COMPANY_SUCCESS });
         action.payload.success && action.payload.success();
+        yield put(snackSuccess());
     } catch (e) {
         yield put ({ type: CREATE_COMPANY_FAILURE });
+        yield put(snackFailure());
     }
 }
 
@@ -85,19 +90,22 @@ function* updateCompany(action) {
         yield call(updateCompanyRequest, action.payload.id, data);
         yield put({ type: UPDATE_COMPANY_SUCCESS });
         action.payload.success && action.payload.success();
+        yield put(snackSuccess());
     } catch (e) {
         yield put ({ type: UPDATE_COMPANY_FAILURE });
+        yield put(snackFailure());
     }
 }
 
 function* deleteCompany(action) {
-    debugger;
     try {
         yield call(deleteCompanyRequest, action.payload.id);
         yield put({ type: DELETE_COMPANY_SUCCESS });
         action.payload.success && action.payload.success();
+        yield put(snackSuccess());
     } catch (e) {
         yield put ({ type: DELETE_COMPANY_FAILURE });
+        yield put(snackFailure());
     }
 }
 

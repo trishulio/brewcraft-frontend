@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-
 import {
   toggleSidebar,
   hideRightSidebar,
@@ -38,6 +37,7 @@ class SidebarContent extends Component {
 
   componentDidMount() {
     document.body.setAttribute("data-sidebar", "dark");
+    document.body.setAttribute("data-topbar", "dark");
     this.initMenu();
   }
 
@@ -139,7 +139,7 @@ class SidebarContent extends Component {
       <React.Fragment>
         <div id="sidebar-menu">
           <ul className="metismenu list-unstyled" id="side-menu">
-            <li className="menu-title">Beta v0.1</li>
+            <li className="menu-title">Main</li>
             <li>
               <Link to="/dashboard" className="waves-effect">
                 <i className="mdi mdi-view-dashboard"></i>
@@ -161,9 +161,6 @@ class SidebarContent extends Component {
                 <li>
                   <Link to="/materials/categories">Categories</Link>
                 </li>
-                <li>
-                  <Link to="/purchase-invoices">Purchase Invoices</Link>
-                </li>
               </ul>
             </li>
             <li>
@@ -182,19 +179,10 @@ class SidebarContent extends Component {
                     Fermentations
                   </Link>
                 </li>
-              </ul>
-            </li>
-            <li>
-              <Link to="/#" className="has-arrow waves-effect">
-                <i className="ti-package"></i>
-                <span>Finished Goods</span>
-              </Link>
-              <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/finished-goods">Product Inventory</Link>
-                </li>
-                <li>
-                  <Link to="/sales-invoices">Sales Invoices</Link>
+                  <Link to="/#" className="waves-effect">
+                    <span>Finished Goods</span>
+                  </Link>
                 </li>
               </ul>
             </li>
@@ -204,37 +192,56 @@ class SidebarContent extends Component {
                 <span>Products</span>
               </Link>
             </li>
+            <li className="menu-title">Facility</li>
             <li>
               <Link to="/#" className="has-arrow waves-effect">
-                <i className="mdi mdi-pencil"></i>
-                <span>Facilities</span>
+                <i className="mdi mdi-map-marker"></i>
+                <span>Locations</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/facilities">Locations</Link>
+                  <Link to="/facilities">Facilities</Link>
                 </li>
                 <li>
-                  <Link to="/facilities/locations">Storage</Link>
+                  <Link to="/facilities/locations">Storages</Link>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <Link to="/equipment" className="waves-effect">
+                <i className="mdi mdi-pencil"></i>
+                <span>Equipment</span>
+              </Link>
+            </li>
+            <li className="menu-title">Account</li>
+            <li>
+              <Link to="/#" className="has-arrow waves-effect">
+                <i className="mdi mdi-cash"></i>
+                <span>Purchases</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/suppliers">Supplier Contacts</Link>
                 </li>
                 <li>
-                  <Link to="/equipment">Equipment</Link>
+                  <Link to="/contacts/companies">Companies</Link>
+                </li>
+                <li>
+                  <Link to="/purchase-invoices">Invoices</Link>
                 </li>
               </ul>
             </li>
             <li>
               <Link to="/#" className="has-arrow waves-effect">
-                <i className="mdi mdi-account-heart"></i>
-                <span>Contacts</span>
+              <i className="mdi mdi-currency-usd"></i>
+                <span>Sales</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
-                <li>
-                  <Link to="/suppliers">Suppliers</Link>
-                </li>
                 <li>
                   <Link to="/suppliers">Customers</Link>
                 </li>
                 <li>
-                  <Link to="/contacts/companies">Companies</Link>
+                  <Link to="/sales-invoices">Receipts</Link>
                 </li>
               </ul>
             </li>

@@ -33,8 +33,8 @@ export default function VendorList() {
   useEffect(() => {
     dispatch(
       setBreadcrumbItems("Companies", [
-        { title: "Contacts", link: "#" },
-        { title: "Companies", link: "#" }
+        { title: "Suppliers", link: "#" },
+        { title: "Contacts", link: "#" }
       ]));
     dispatch(fetchCompanies());
   }, []);
@@ -66,6 +66,11 @@ export default function VendorList() {
     );
   };
 
+  const onRefreshCompanyTable=()=>{
+    dispatch(
+      fetchCompanies()
+    );
+  }
   const onCompanyDialogClose = (isSave, data) => {
     if (isSave) {
       if (company) {
@@ -97,35 +102,33 @@ export default function VendorList() {
 
   return (
     <React.Fragment>
-    <Row>
-    <Col xs="12">
-    <Card>
-    <CardHeader>
-    Companies Table
-    </CardHeader>
-    <CardBody>
-    <CompaniesTable
-    companies={companies}
-    editCompany={onEditCompany}
-    deleteCompany={onDeleteCompany}
-    />
-    </CardBody>
-    <CardFooter><Button onClick={onAddCompany}>Add Company</Button></CardFooter>
-    </Card>
-    </Col>
-    </Row>
-    {!!isOpenCompanyDialog && (
-      <Modal
-      show={isOpenCompanyDialog}
-      close={onCompanyDialogClose}
-      title={company ? "Edit Company" : "Add Company"}
-      >
-      <CompanyModal
-        company={company}
+      <Row>
+        <Col xs="12">
+          <Card>
+            <CardBody>
+              <CompaniesTable
+              data={companies}
+              editCompany={onEditCompany}
+              deleteCompany={onDeleteCompany}
+              addCompany={onAddCompany}
+              refreshTable={onRefreshCompanyTable}
+              />
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+      {!!isOpenCompanyDialog && (
+        <Modal
+        show={isOpenCompanyDialog}
         close={onCompanyDialogClose}
-      />
-      </Modal>
-    )}
+        title={company ? "Edit Company" : "Add Company"}
+        >
+          <CompanyModal
+            company={company}
+            close={onCompanyDialogClose}
+          />
+        </Modal>
+      )}
     </React.Fragment>
   );
 }
