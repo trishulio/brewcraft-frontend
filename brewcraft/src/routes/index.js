@@ -9,9 +9,9 @@ import Deliveries from '../pages/Delivery/delivery';
 import DeliveryDrivers from '../pages/Delivery/deliver-detail';
 
 // Brews
-import BrewsDashboard from '../pages/Brews/dashboard';
-import BrewsActive from '../pages/Brews/active';
-import Brews from '../pages/Brews/brews';
+import Brews from '../pages/Batches/brews';
+import Fermentations from '../pages/Batches/fermentations';
+import FinishedGoods from '../pages/Batches/finished-goods';
 
 // Customers
 import CustomerList from '../pages/Customers/list';
@@ -50,10 +50,10 @@ const authProtectedRoutes = [
   // Dashboard
   { path: "/dashboard", component: Dashboard },
 
-  // Brews
-  { path: "/brews/active-brews", component: BrewsActive },
-  { path: "/brews/dashboard", component: BrewsDashboard },
-  { path: "/brews", component: Brews },
+  // Batches
+  { path: "/batches/brews", component: Brews },
+  { path: "/batches/fermentations", component: Fermentations },
+  { path: "/batches/finished-goods", component: Brews },
 
   // Deliveries
   { path: "/deliveries", component: Deliveries },

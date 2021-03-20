@@ -74,7 +74,7 @@ class Breadcrumb extends Component {
               </ol>
             </div>
           </Col>
-          <Col sm="6">
+          {/* <Col sm="6">
             <div className="state-information d-none d-sm-block">
               <div
                 className={
@@ -105,7 +105,7 @@ class Breadcrumb extends Component {
                 <div className="info">Cogs $3200.08</div>
               </div>
             </div>
-          </Col>
+          </Col> */}
         </Row>
       </React.Fragment>
     );
