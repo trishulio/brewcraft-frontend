@@ -14,6 +14,7 @@ import { get,filter } from "lodash";
 import Tabs from "./tabs";
 import ExpanTable from "./expand-table";
 import {formatCurrency,formatPercent} from '../../helpers/textUtils';
+import { fetchInvoices } from "../../store/Invoice/actions";
 export default function Invoices() {
   const [cardData, setCardData] = useState([
     {
@@ -59,6 +60,7 @@ export default function Invoices() {
         { title: "Invoices", link: "/invoices" },
       ])
     );
+    dispatch(fetchInvoices())
   }, []);
 
   // if contacts is fatching first time

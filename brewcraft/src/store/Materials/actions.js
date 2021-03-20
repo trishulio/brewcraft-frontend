@@ -17,7 +17,11 @@ import {
   FETCH_PACKAGING_MATERIAL_REQUEST,
   FETCH_CATEGORIES_REQUEST,
   ADD_CATEGORY_REQUEST,
-  FETCH_ALL_CATEGORIES_REQUEST
+  FETCH_ALL_CATEGORIES_REQUEST,
+  EDIT_INGREDIENT_REQUEST,
+  DELETE_INGREDIENT_REQUEST,
+  EDIT_PACKAGING_MATERIAL_REQUEST,
+  DELETE_PACKAGING_MATERIAL_REQUEST,
 } from "./actionTypes";
 export const setRawMaterialsInventoryValueActiveTab = (active_tab) => ({
   type: SET_RAW_MATERIALS_INVENTORY_VALUE_ACTIVE_TAB,
@@ -60,7 +64,7 @@ export const deleteMaterial = (payload) => ({
 
 export const fetchMaterialCategories = (type) => ({
   type: FETCH_MATERIAL_CATEGORIES_REQUEST,
-  payload : {type}
+  payload: { type },
 });
 export const fetchIngredients = () => ({
   type: FETCH_INGREDIENTS_REQUEST,
@@ -79,11 +83,28 @@ export const saveIngredient = (payload) => ({
   type: ADD_INGREDIENT_REQUEST,
   payload: payload,
 });
+export const editIngredient = (payload) => ({
+  type: EDIT_INGREDIENT_REQUEST,
+  payload: payload,
+});
+
+export const deleteIngredient = (payload) => ({
+  type: DELETE_INGREDIENT_REQUEST,
+  payload: payload,
+});
 export const savePackagingMaterial = (payload) => ({
   type: ADD_PACKAGING_MATERIAL_REQUEST,
   payload: payload,
 });
+export const editPackagingMaterial = (payload) => ({
+  type: EDIT_PACKAGING_MATERIAL_REQUEST,
+  payload: payload,
+});
 
+export const deletePackagingMaterial = (payload) => ({
+  type: DELETE_PACKAGING_MATERIAL_REQUEST,
+  payload: payload,
+});
 export const editMaterialCategory = (payload) => ({
   type: EDIT_MATERIAL_CATEGORY_REQUEST,
   payload: payload,
