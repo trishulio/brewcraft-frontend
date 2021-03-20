@@ -36,7 +36,7 @@ export default function MaterialDialog({to, submitFn, close, optionsList, model 
             </Col>
           </Row>
           <Row className="container-fluid d-flex row-no-padding full-height align-items-center justify-content-center">
-            <Col lg="6" style={{paddingLeft: 0}}>
+            <Col xs="6" style={{paddingLeft: 0}}>
               <AvField
                 type="select"
                 name="materialCategoryId"
@@ -55,8 +55,10 @@ export default function MaterialDialog({to, submitFn, close, optionsList, model 
                 {optionsList}
               </AvField>
             </Col>
-            <Col lg="6">
-              <Link to={to} className="mt-1" onClick={categoryModelOpen} >Add Category</Link>
+            <Col xs="6">
+              <div className="mt-2">
+                <Link to={to} onClick={categoryModelOpen} >Add Category</Link>
+              </div>
             </Col>
           </Row>
           <Row>
