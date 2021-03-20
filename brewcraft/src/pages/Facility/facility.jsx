@@ -15,7 +15,6 @@ import BootstrapTable from "../../component/Tables/bootstrap-table";
 import { MDBCard, MDBCardBody } from "mdbreact";
 
 export default function Facility() {
-
   const [isOpen, setIsOpen] = useState(false);
   const [editForm, setEditForm] = useState({ edit: false, formData: null });
   const [tableColumn, setTableColumn] = useState([
@@ -135,26 +134,24 @@ export default function Facility() {
     }
     setSelectRows(selectRows);
   };
-  /**
+    /**
    * @delete Fun
    */
-  const dialogOpenDeleteFn = (rows) => {
-    setSelectRows(rows);
-    setDeleteIsopen(true);
+  const dialogOpenDeleteFn = () => {
+    if (selectRows.length) {
+      setDeleteIsopen(true);
+    }
   };
   const dialogOpenDeleteCloseFn = () => setDeleteIsopen(false);
   const deleteConfirmFn = () => {
-    dispatch(
-      deleteFacilities({
-        id: selectRows[0],
-        success: () => {
-          setSelectRows([]);
-          dialogOpenDeleteCloseFn();
-        },
-      })
-    );
+    dispatch(deleteFacilities({
+      id: selectRows[0],
+      success: () => {
+        setSelectRows([]);
+        dialogOpenDeleteCloseFn();
+      },
+    }));
   };
-
   return (
     <Fragment>
       <Row>
@@ -174,6 +171,15 @@ export default function Facility() {
         </Col>
       </Row>
       {!!isOpen && (
+        <Modal show={isOpen} close={dialogCloseFn} title={editForm.edit?"Edit Facility":"Add Facility"}>
+          <FacilityForm
+            FormModal={editForm.edit?editForm.formData:FormModal}
+            close={dialogCloseFn}
+            companySubmit={createFacilities}
+          />
+        </Modal>
+      )}
+      {!!deleteIsopen && (
         <Modal
           show={isOpen}
           close={dialogCloseFn}
