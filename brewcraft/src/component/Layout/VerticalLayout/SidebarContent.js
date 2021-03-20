@@ -227,7 +227,7 @@ class SidebarContent extends Component {
                   <Link to="/contacts/companies">Companies</Link>
                 </li>
                 <li>
-                  <Link to="/purchase-invoices">Invoices</Link>
+                  <Link to="/purchases">Invoices</Link>
                 </li>
               </ul>
             </li>

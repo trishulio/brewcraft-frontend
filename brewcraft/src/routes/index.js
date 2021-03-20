@@ -91,9 +91,9 @@ const authProtectedRoutes = [
   { path: "/contacts/companies", component: CompaniesList },
 
   // Purchase Invoices
-  { path: "/purchase-invoices/create", component: PurchaseInvoicesCreate },
-  { path: "/purchase-invoices/:id", component: PurchaseInvoicesDetail },
-  { path: "/purchase-invoices", component: PurchaseInvoices },
+  { path: "/purchases/create", component: PurchaseInvoicesCreate },
+  { path: "/purchases/:id", component: PurchaseInvoicesDetail },
+  { path: "/purchases", component: PurchaseInvoices },
 
   // Default
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }

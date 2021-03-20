@@ -173,11 +173,11 @@ const InvoicesTable = () => {
   };
 
   const editInvoice = (invoice) => {
-    history.push(`/purchase-invoices/${get(invoice, 'id')}`);
+    history.push(`/purchases/${get(invoice, 'id')}`);
   }
 
   const createInvoice = () => {
-    history.push(`/purchase-invoices/create`);
+    history.push(`/purchases/create`);
   }
 
   return (
