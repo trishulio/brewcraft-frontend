@@ -3,26 +3,40 @@ import {
   FETCH_FACILITIES_REQUEST,
   FETCH_FACILITIES_SUCCESS,
   FETCH_FACILITIES_FAILURE,
+
+  CREATE_FACILITY_REQUEST,
+  CREATE_FACILITY_FAILURE,
+  CREATE_FACILITIY_SUCCESS,
+
+  DELETE_FACILITY_REQUEST,
+  DELETE_FACILITIY_SUCCESS,
+  DELETE_FACILITY_FAILURE,
+
+  UPDATE_FACILITY_REQUEST,
+  UPDATE_FACILITIY_SUCCESS,
+  UPDATE_FACILITY_FAILURE,
+
   FETCH_EQUIPMENT_REQUEST,
   FETCH_EQUIPMENT_SUCCESS,
   FETCH_EQUIPMENT_FAILURE,
-  CREATE_FACILITY_REQUEST,
-  DELETE_FACILITY_REQUEST,
-
+  
   FETCH_EQUIPMENT_ITEM_REQUEST,
   FETCH_EQUIPMENT_ITEM_SUCCESS,
   FETCH_EQUIPMENT_ITEM_FAILURE,
+  
   CREATE_EQUIPMENT_ITEM_REQUEST,
   CREATE_EQUIPMENT_ITEM_SUCCESS,
   CREATE_EQUIPMENT_ITEM_FAILURE,
+  
   UPDATE_EQUIPMENT_ITEM_REQUEST,
   UPDATE_EQUIPMENT_ITEM_SUCCESS,
   UPDATE_EQUIPMENT_ITEM_FAILURE,
+  
   DELETE_EQUIPMENT_ITEM_REQUEST,
   DELETE_EQUIPMENT_ITEM_SUCCESS,
-  DELETE_EQUIPMENT_ITEM_FAILURE,
-  CREATE_FACILITY_FAILURE,
-  CREATE_FACILITIY_SUCCESS
+  DELETE_EQUIPMENT_ITEM_FAILURE
+  
+
 } from "./actionTypes";
 import {
   TOGGLE_PRELOADER
@@ -88,6 +102,21 @@ function* addFacilities(action) {
   }
   catch (e) {
     yield put({ type: CREATE_FACILITY_FAILURE, payload: [] });
+  }
+}
+async function updateFacilitiesRequest(payload) {
+  return await AxiosInstance.patch(`/api/v1/facilities/${payload.id}`,omit(payload,'id'))
+}
+function* updateFacilities(action) {
+  
+  try {
+    
+    let response = yield call(updateFacilitiesRequest, get(action, "payload.formData"));
+    yield put({ type:  UPDATE_FACILITIY_SUCCESS, payload: response.data });
+    yield call(action.payload.success);
+  }
+  catch (e) {
+    yield put({ type: UPDATE_FACILITY_FAILURE, payload: [] });
   }
 }
 
@@ -159,11 +188,26 @@ function* deleteEquipmentItem(action) {
     yield put(snackFailure());
   }
 }
+async function deleteFacilityRequest(id) {
+  return await AxiosInstance.delete(`/api/v1/facilities/${id}`);
+}
+function* deleteFacilityItem(action) {
+  try {
+    yield call(deleteFacilityRequest, action.payload.id);
+    yield put({ type: DELETE_FACILITIY_SUCCESS, payload:get(action,"payload.id") });
+    action.payload.success && action.payload.success();
+  } catch (e) {
+    yield put({ type: DELETE_FACILITY_FAILURE });
+  }
+}
+
+
 
 export default function* Equipment() {
   yield takeLatest(FETCH_FACILITIES_REQUEST, fetchFacilities);
   yield takeLatest(CREATE_FACILITY_REQUEST, addFacilities);
-  // yield takeLatest(DELETE_FACILITY_REQUEST, deleteFacility);
+  yield takeLatest(UPDATE_FACILITY_REQUEST, updateFacilities);
+  yield takeLatest(DELETE_FACILITY_REQUEST, deleteFacilityItem);
   yield takeLatest(FETCH_EQUIPMENT_REQUEST, fetchEquipment);
   yield takeLatest(FETCH_EQUIPMENT_ITEM_REQUEST, fetchEquipmentItem);
   yield takeLatest(CREATE_EQUIPMENT_ITEM_REQUEST, createEquipmentItem);
