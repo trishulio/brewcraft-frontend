@@ -21,7 +21,6 @@ import {
 import classnames from "classnames";
 import { setBreadcrumbItems } from "../../store/actions";
 import BarChart from "./components/finished-goods-barchart";
-import PieChart from "./components/finished-goods-piechart";
 
 import user1 from "../../assets/images/users/user-4.jpg";
 import user2 from "../../assets/images/users/user-6.jpg";
@@ -115,10 +114,7 @@ export default function FinshedGoods() {
                 </Col>
             </Row>
             <Row>
-                <Col md="3">
-                    <PieChart />
-                </Col>
-                <Col md="9">
+                <Col xs="12">
                     <BarChart />
                 </Col>
                 <Col xs="12">

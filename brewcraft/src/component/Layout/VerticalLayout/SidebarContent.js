@@ -164,9 +164,10 @@ class SidebarContent extends Component {
               </ul>
             </li>
             <li>
-              <Link to="/#" className="has-arrow waves-effect">
+              <Link to="/#" className="waves-effect">
                 <i className="mdi mdi-flag"></i>
                 <span>Batches</span>
+                <span className="badge badge-pill badge-primary float-right">5</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
