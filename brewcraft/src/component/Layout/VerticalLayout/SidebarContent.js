@@ -176,7 +176,7 @@ class SidebarContent extends Component {
                 </li>
                 <li>
                   <Link to="/batches/fermentations">
-                    Fermentations
+                    Fermentation
                   </Link>
                 </li>
                 <li>

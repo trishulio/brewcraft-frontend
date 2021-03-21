@@ -24,7 +24,9 @@ import user2 from "../../assets/images/users/user-6.jpg";
 import noImage from "../../assets/images/no-image.jpg";
 
 import Calendar from "./components/calendar";
-import FermenationChart from "./components/fermentation-chart";
+import FermenationChart1 from "./components/fermentation-chart1";
+import FermenationChart2 from "./components/fermentation-chart2";
+import FermenationChart3 from "./components/fermentation-chart3";
 
 const orders = [
     { imgUrl : user1, id : "85214796", name : "Fantastic Lager", processor: "Martin", status : "Ferment", equipment: "FT-4", started : "5/12/2016 2:10 PM", updated : "5/12/2016 2:30 PM", color : "info" },
@@ -65,7 +67,10 @@ export default function Fermentation() {
     return (
         <React.Fragment>
             <UncontrolledAlert color="info">
-                <strong>Heads up!</strong> Batch <Link style={{color: "#156176"}} to="#">#85214796 Fantastic Lager</Link> is set to finish fermenting in 2 days.
+                <strong>Heads up!</strong> Batch <Link style={{color: "#156176"}} to="#">#85214796 Fantastic Lager</Link> will finish fermenting in 2 days.
+            </UncontrolledAlert >
+            <UncontrolledAlert color="warning">
+                <strong>Heads up!</strong> Batch <Link style={{color: "#156176"}} to="#">#52140300 Fantastic Lager</Link> requires your attention.
             </UncontrolledAlert >
             <Row>
                 <Col xl="3" md="6">
@@ -122,15 +127,16 @@ export default function Fermentation() {
                 </Col>
             </Row>
             <Row>
-                <Col xl="6">
-                    <Calendar />
+                <Col xl="4">
+                    <FermenationChart1 />
                 </Col>
-                <Col xl="5">
-                    <FermenationChart />
+                <Col xl="4">
+                    <FermenationChart2 />
                 </Col>
-            </Row>
-            <Row className="mb-4">
-                <Col>
+                <Col xl="4">
+                    <FermenationChart3 />
+                </Col>
+                <Col xs="12">
                     <Card>
                         <CardHeader>
                             <h4 className="card-title mb-1">Batches Table</h4>
