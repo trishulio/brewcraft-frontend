@@ -176,7 +176,7 @@ class SidebarContent extends Component {
                 </li>
                 <li>
                   <Link to="/batches/fermentations">
-                    Fermentation
+                    Fermentation{" "}<span className="badge badge-pill badge-warning float-right">1</span>
                   </Link>
                 </li>
                 <li>
