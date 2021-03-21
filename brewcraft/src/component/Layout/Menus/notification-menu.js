@@ -31,12 +31,11 @@ class NotificationMenu extends Component {
     render() {
         return (
             <React.Fragment>
-                    <Dropdown isOpen={this.state.menu} toggle={this.toggle} className="d-inline-block ml-1" disabled={true}>
+                    <Dropdown isOpen={this.state.menu} toggle={this.toggle} className="d-inline-block ml-1">
                         <DropdownToggle
                             className="btn header-item noti-icon waves-effect"
                             tag="button"
                             id="page-header-notifications-dropdown"
-                            disabled={true}
                         >
                             <i className="ti-bell"></i>
                             <span className="badge badge-danger badge-pill">3</span>
