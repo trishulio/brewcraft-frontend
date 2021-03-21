@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import Layout from "./layout/reducer";
+import Notifications from "./Notifications/reducer";
 import Breadcrumb from "./Breadcrumb/reducer";
 import Brewery from "./Brewery/reducer";
 import Companies from "./Companies/reducer";
@@ -18,6 +19,7 @@ import Snackbar from "./Snackbar/reducer";
 
 const rootReducer = combineReducers({
   Layout,
+  Notifications,
   Breadcrumb,
   Purchases,
   Brewery,
