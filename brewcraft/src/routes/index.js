@@ -10,7 +10,7 @@ import DeliveryDrivers from '../pages/Delivery/deliver-detail';
 
 // Brews
 import Brews from '../pages/Batches/brews';
-import Fermentations from '../pages/Batches/fermentations';
+import Fermentations from '../pages/Batches/fermenting';
 import FinishedGoods from '../pages/Batches/finished-goods';
 
 // Customers
@@ -25,9 +25,6 @@ import Equipment from '../pages/Equipment/equipment';
 // Facility
 import Facility from "../pages/Facility/facility";
 import Locations from '../pages/Locations';
-
-// Finished Goods
-import FinishedGoodsInventory from '../pages/FinishedGoods/inventory';
 
 // Materials
 import Material from '../pages/Materials/material';
@@ -52,8 +49,8 @@ const authProtectedRoutes = [
 
   // Batches
   { path: "/batches/brews", component: Brews },
-  { path: "/batches/fermentations", component: Fermentations },
-  { path: "/batches/finished-goods", component: Brews },
+  { path: "/batches/fermenting", component: Fermentations },
+  { path: "/batches/finished-goods", component: FinishedGoods },
 
   // Deliveries
   { path: "/deliveries", component: Deliveries },
@@ -67,7 +64,6 @@ const authProtectedRoutes = [
   { path: "/floor-view", component: Facility, exact:true },
 
   // Finished Goods
-  { path: "/finished-goods", component: FinishedGoodsInventory },
   { path: "/sales-invoices/new", component: CustomerNewInvoice },
   { path: "/sales-invoices/:id", component: CustomerViewInvoice },
   { path: "/sales-invoices", component: CustomerInvoices },
