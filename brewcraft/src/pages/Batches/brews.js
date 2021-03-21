@@ -116,6 +116,9 @@ export default function Brews() {
             <Row>
                 <Col sm="12">
                     <Card>
+                        <CardHeader>
+                            <h4 className="card-title mb-1">Brews Table</h4>
+                        </CardHeader>
                         <CardBody>
                             <Nav pills>
                                 <NavItem className="waves-effect waves-light">
