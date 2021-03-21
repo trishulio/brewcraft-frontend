@@ -15,7 +15,8 @@ import {
     TabPane,
     NavLink,
     NavItem,
-    Nav
+    Nav,
+    UncontrolledAlert
 } from "reactstrap";
 import classnames from "classnames";
 import { setBreadcrumbItems } from "../../store/actions";
@@ -59,6 +60,9 @@ export default function Brews() {
 
     return (
         <React.Fragment>
+            <UncontrolledAlert color="info">
+                <strong>Heads up!</strong> You have <strong>4 active</strong> brews.
+            </UncontrolledAlert >
             <Row>
                 <Col xl="3" md="6">
                     <Card className="mini-stat bg-primary">
