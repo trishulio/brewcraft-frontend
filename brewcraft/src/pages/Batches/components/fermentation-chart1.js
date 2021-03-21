@@ -83,7 +83,7 @@ class MonthlyEarnings extends Component {
             <React.Fragment>
                 <Card>
                     <CardHeader>
-                        <h4 className="card-title mb-1">Fermenter Capacites</h4>
+                        <h4 className="card-title mb-1">Fermenters</h4>
                     </CardHeader>
                     <CardBody>
                         <div id="morris-bar-stacked" className="morris-charts morris-charts-height" dir="ltr">

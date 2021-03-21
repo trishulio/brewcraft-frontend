@@ -127,13 +127,13 @@ export default function Fermentation() {
                 </Col>
             </Row>
             <Row>
-                <Col xl="4">
+                <Col xl="4" lg="6">
                     <FermenationChart1 />
                 </Col>
-                <Col xl="4">
+                <Col xl="4" lg="6">
                     <FermenationChart2 />
                 </Col>
-                <Col xl="4">
+                <Col xl="4" lg="6">
                     <FermenationChart3 />
                 </Col>
                 <Col xs="12">
@@ -335,7 +335,7 @@ export default function Fermentation() {
                                                                 {order.volume ? order.volume : "-"}
                                                             </td>
                                                             <td>
-                                                                <Button color="secondary" size="sm" className="waves-effect waves-light">View</Button>
+                                                                <Button color="secondary" size="sm" className="waves-effect waves-light">Restore</Button>
                                                             </td>
                                                         </tr>
                                                     )
