@@ -171,7 +171,7 @@ class SidebarContent extends Component {
               <ul className="sub-menu" aria-expanded="false">
                 <li>
                   <Link to="/batches/brews">
-                    Brews{" "}<span className="badge badge-pill badge-primary float-right">2</span>
+                    Brews{" "}<span className="badge badge-pill badge-primary float-right">4</span>
                   </Link>
                 </li>
                 <li>
