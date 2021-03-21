@@ -7,7 +7,6 @@ import {
     Card,
     CardBody,
     CardHeader,
-    CardFooter,
     Table,
     Badge,
     Button,
@@ -126,7 +125,7 @@ export default function Fermentation() {
                 <Col xl="6">
                     <Calendar />
                 </Col>
-                <Col xl="6">
+                <Col xl="5">
                     <FermenationChart />
                 </Col>
             </Row>
