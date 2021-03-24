@@ -1,5 +1,4 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import { get } from "lodash";
 import {
   FETCH_CONTACTS_REQUEST,
   FETCH_CONTACTS_SUCCESS,
@@ -17,7 +16,6 @@ import {
   FETCH_CONTACT_SUCCESS,
   DELETE_CONTACTS_FAILURE,
 } from "./actionTypes";
-
 import {
   fetchContactRequest,
   fetchContactsRequest,
@@ -26,8 +24,6 @@ import {
   deleteContactRequest
 } from "./api";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
-
-
 
 function* fetchContacts() {
     try {
@@ -39,10 +35,9 @@ function* fetchContacts() {
     }
 }
 
-
 function* fetchContact(action) {
   try {
-    const data = yield call(fetchContactRequest,get(action, "payload.id"));
+    const data = yield call(fetchContactRequest,action?.payload?.id);
     yield put({ type: FETCH_CONTACT_SUCCESS, payload: data.data });
     action.payload.success && action.payload.success(data.data);
   } catch (e) {
@@ -53,14 +48,7 @@ function* fetchContact(action) {
 
 function* addContact(action) {
   try {
-    const data = {
-      firstName: action.payload.firstName,
-      lastName: action.payload.lastName,
-      position: action.payload.position || "",
-      email: action.payload.email,
-      phoneNumber: action.payload.phoneNumber
-    };
-    yield call(createContactRequest, data);
+    yield call(createContactRequest, action.payload);
     yield put({ type: ADD_CONTACTS_SUCCESS });
     action.payload.success && action.payload.success();
     yield put(snackSuccess());
@@ -69,24 +57,9 @@ function* addContact(action) {
     yield put(snackFailure());
   }
 }
-
 function* editContact(action) {
-  const address = action.payload.address || {};
-  const data = {
-      address: {
-          addressLine1: address.addressLine1,
-          addressLine2: address.addressLine2,
-          country: address.country,
-          province: address.province,
-          city: address.city,
-          postalCode: address.postalCode
-      },
-      contacts: action.payload.contacts || [],
-      name: action.payload.name,
-      version: action.payload.version
-  };
   try {
-      yield call(updateContactRequest, action.payload.id, data);
+      yield call(updateContactRequest, action.payload.id, action.payload);
       yield put({ type: EDIT_CONTACTS_SUCCESS });
       action.payload.success && action.payload.success();
       yield put(snackSuccess());

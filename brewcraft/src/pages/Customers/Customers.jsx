@@ -3,12 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import {
   Row,
-  Button,
   Col,
   Card,
-  CardHeader,
   CardBody,
-  CardFooter
 } from "reactstrap";
 import {
   fetchContacts,
@@ -125,7 +122,6 @@ export default function Customers() {
         </Col>
       </Row>
       {isOpenCustomerDialog && (
-
         <Modal
         show={isOpenCustomerDialog}
         close={onCustomerDialogClose}
@@ -140,8 +136,6 @@ export default function Customers() {
         />
         </Modal>
       )}
-
-
     </React.Fragment>
   );
 }
