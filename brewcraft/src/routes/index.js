@@ -14,7 +14,7 @@ import Fermentations from '../pages/Batches/fermenting';
 import FinishedGoods from '../pages/Batches/finished-goods';
 
 // Customers
-import CustomerList from '../pages/Customers/list';
+import CustomerList from '../pages/Customers/Customers';
 import CustomerInvoices from '../pages/CustomerInvoices/invoices';
 import CustomerNewInvoice from '../pages/CustomerInvoices/create-invoice';
 import CustomerViewInvoice from '../pages/CustomerInvoices/view-invoice';

@@ -2,20 +2,24 @@ import React from "react";
 import { Col, Row, Card, CardBody } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Button, ModalFooter } from "reactstrap";
-import { get } from "lodash";
+// import { get } from "lodash";
 
 export default function Contact({
   submit,
   invalid,
-  close,
+  // close,
   forstatus,
-  predata,
+  customer,
 }) {
-  const { formData, type } = predata;
+  // const { formData, type } = predata;
+
+  const handleSubmit = (event, values) => {
+    submit(true, values);
+  };
   return (
     <Row>
       <Col lg="12">
-        <AvForm onValidSubmit={submit} onInvalidSubmit={invalid}>
+        <AvForm onValidSubmit={handleSubmit} onInvalidSubmit={invalid} model={customer}>
           <Card>
             <CardBody>
               <Row>
@@ -27,7 +31,6 @@ export default function Contact({
                     type="text"
                     errorMessage="Enter First name"
                     validate={{ required: { value: true } }}
-                    value={type == "edit" && get(formData, "username")}
                   />
 
                   <AvField
@@ -37,7 +40,6 @@ export default function Contact({
                     type="text"
                     errorMessage="Enter Last name"
                     validate={{ required: { value: true } }}
-                    value={type == "edit" && get(formData, "last_name")}
                   />
 
                   <AvField
@@ -46,7 +48,6 @@ export default function Contact({
                     placeholder="Enter phone number"
                     type="number"
                     errorMessage="Enter valid phone number"
-                    value={type == "edit" && get(formData, "phone_number")}
                     validate={{
                       required: { value: false },
                       pattern: {
@@ -62,9 +63,6 @@ export default function Contact({
                     placeholder="Enter Phone Number Extension"
                     type="number"
                     errorMessage="Enter valid Phone Number Extension"
-                    value={
-                      type == "edit" && get(formData, "phone_number_extension")
-                    }
                     validate={{
                       required: { value: false },
                       pattern: {
@@ -81,7 +79,6 @@ export default function Contact({
                     type="text"
                     errorMessage="Enter Industry"
                     validate={{ required: { value: false } }}
-                    value={type == "edit" && get(formData, "industry")}
                   />
 
                   <AvField
@@ -91,7 +88,6 @@ export default function Contact({
                     type="text"
                     errorMessage="Enter Street address"
                     validate={{ required: { value: false } }}
-                    value={type == "edit" && get(formData, "street_address")}
                   />
 
                   <AvField
@@ -101,7 +97,6 @@ export default function Contact({
                     type="text"
                     errorMessage="Enter Stat/Region"
                     validate={{ required: { value: false } }}
-                    value={type == "edit" && get(formData, "stat_region")}
                   />
                 </Col>
                 <Col lg="6">
@@ -115,7 +110,6 @@ export default function Contact({
                       required: { value: true },
                       email: { value: true },
                     }}
-                    value={type == "edit" && get(formData, "email")}
                   />
                   <AvField
                     name="Job_title"
@@ -124,7 +118,6 @@ export default function Contact({
                     type="text"
                     errorMessage="Enter Job title"
                     validate={{ required: { value: false } }}
-                    value={type == "edit" && get(formData, "Job_title")}
                   />
 
                   <AvField
@@ -133,9 +126,6 @@ export default function Contact({
                     placeholder="Enter Mobile phone number"
                     type="number"
                     errorMessage="Enter valid Mobile phone number"
-                    value={
-                      type == "edit" && get(formData, "mobile_phone_number")
-                    }
                     validate={{
                       required: { value: false },
                       pattern: {
@@ -152,7 +142,6 @@ export default function Contact({
                     type="text"
                     errorMessage="Enter Contact owner"
                     validate={{ required: { value: false } }}
-                    value={type == "edit" && get(formData, "Contact_owner")}
                   />
 
                   <AvField
@@ -162,7 +151,6 @@ export default function Contact({
                     type="text"
                     errorMessage="Enter City"
                     validate={{ required: { value: false } }}
-                    value={type == "edit" && get(formData, "city")}
                   />
 
                   <AvField
@@ -172,7 +160,6 @@ export default function Contact({
                     type="text"
                     errorMessage="Enter Origin of Lead"
                     validate={{ required: { value: false } }}
-                    value={type == "edit" && get(formData, "origin_of_lead")}
                   />
                 </Col>
               </Row>
@@ -181,7 +168,7 @@ export default function Contact({
                   type="reset"
                   color="secondary"
                   className="waves-effect"
-                  onClick={close}
+                  onClick={()=>submit(false)}
                 >
                   Close
                 </Button>
@@ -189,7 +176,7 @@ export default function Contact({
                   type="submit"
                   color="primary"
                   className="waves-effect waves-light"
-                  disabled={forstatus.loading}
+                  // disabled={forstatus.loading}
                 >
                   Save changes
                 </Button>

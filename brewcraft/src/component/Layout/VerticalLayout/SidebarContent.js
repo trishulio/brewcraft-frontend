@@ -239,7 +239,7 @@ class SidebarContent extends Component {
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/suppliers">Customers</Link>
+                  <Link to="/customers/list">Customers</Link>
                 </li>
                 <li>
                   <Link to="/sales-invoices">Receipts</Link>
