@@ -1,6 +1,10 @@
 import React, { useEffect, Fragment, useState, useCallback } from "react";
 import { get, map } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
+import {
+    fetchMaterialById
+} from "../../store/Materials/actions";
 import { setBreadcrumbItems } from "../../store/actions";
 import {
   Row,
@@ -8,143 +12,169 @@ import {
   Card,
   CardBody,
   CardHeader,
+  CardFooter,
   Button,
-  Table
+  Table,
+  Input,
+  Form,
+  FormGroup,
+  Label
 } from "reactstrap";
 import { MDBDataTable } from "mdbreact";
+import { AvForm, AvField } from "availity-reactstrap-validation";
+import noImage from "../../assets/images/no-image.jpg";
 
 export default function Material() {
-
+    const [material, setMaterial] = useState({});
+    const [editable, setEditable] = useState(false);
+    const [dirty, setDirty] = useState(false);
+    let { id } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     useEffect(() => {
         dispatch(
-            // TODO: Dynamically set Material Name
-            setBreadcrumbItems("Chocolate Hops", [
-                // TODO: Dynamically set breadcrumb based on material category (ingredient of packaging)
-                { title: "Ingredients", link: "/ingredients" },
-                { title: "Hops", link: "#" },
-                { title: "Chocolate Hops", link: "#" },
-                // { title: "Packaging", link: "/packaging" }
-            ])
-            );
+            fetchMaterialById({
+                id: id,
+                success: data => {
+                    setMaterial(data);
+                    dispatch(
+                        setBreadcrumbItems(data.name, [
+                            { title: "Main", link: "#" },
+                            { title: "Ingredients", link: "#" },
+                            { title: data.category.name, link: "/materials/categories/" + data.category.id },
+                        ])
+                    );
+                },
+                fail: () => {
+                    history.push("/materials/ingredients");
+                }
+            }));
         }, []);
 
-    const purchaseInvoicesColumns = [{
-        label: "Invoice Number",
-        field: "invoiceNumber",
-        sort: "asc",
-        width: 300
-    }, {
-        label: "Supplier",
-        field: "supplier",
-        sort: "asc",
-        width: 300
-    }, {
-        label: "Lot",
-        field: "lot",
-        sort: "asc",
-        width: 300
-    }, {
-        label: "Quantity",
-        field: "quantity",
-        sort: "asc",
-        width: 300
-    }, {
-        label: "Price",
-        field: "price",
-        sort: "asc",
-        width: 300
-    }, {
-        label: "Date Received",
-        field: "received",
-        sort: "asc",
-        width: 300
-    }];
+    const units = ["hl", "l", "ml", "kg", "g"];
+
+    const submitFn = () => {};
 
     return (
         <Fragment>
+            <Button type="button" color="primary" className="waves-effect mr-2 mb-3" disabled={() => !dirty}>Save</Button>
+            {editable && <Button type="button" color="secondary" className="waves-effect">Cancel</Button>}
             <Row>
-                <Col md="6">
+                <Col md="9">
                     <Card>
-                        <CardHeader>Material Details</CardHeader>
+                        <CardHeader>
+                            <h4 className="card-title mb-1">Details</h4>
+                        </CardHeader>
                         <CardBody>
-                            {/* <h4 className="mb-4 card-title">Material Details</h4> */}
-                            <div className="table-responsive">
-                                <Table className="table mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">Name</th>
-                                            <td>Chocolate Hops</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Description</th>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Category</th>
-                                            <td>Hops</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">UPC</th>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Unit of Measure</th>
-                                            <td>kg</td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </div>
-                            <Button
-                                type="submit"
-                                color="primary"
-                                className="waves-effect waves-light float-right"
-                            >
-                                Edit Details
-                            </Button>
+                            <Row>
+                                <Col sm="10">
+                                    <Row>
+                                        <Col sm="6">
+                                            <Row>
+                                                <Col xs="6">
+                                                    <h3 className="font-size-14 mb-4">Name</h3>
+                                                </Col>
+                                                <Col xs="6">
+                                                    {editable && <Input type="text" name="name"/>}
+                                                    {!editable && <span name="name">{material.name}</span>}
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col xs="6">
+                                                    <h3 className="font-size-14 mb-4">Category</h3>
+                                                </Col>
+                                                <Col xs="6">
+                                                    {editable && <Input type="text" name="name"/>}
+                                                    {!editable && <span name="name">{material.name}</span>}
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                        <Col sm="6">
+                                            <Row>
+                                                <Col xs="6">
+                                                    <h3 className="font-size-14 mb-4">Created</h3>
+                                                </Col>
+                                                <Col xs="6">
+                                                    {editable && <Input type="text" name="name"/>}
+                                                    {!editable && <span name="name">Jan 20, 2021</span>}
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col xs="6">
+                                                    <h3 className="font-size-14 mb-4">Updated</h3>
+                                                </Col>
+                                                <Col xs="6">
+                                                    {editable && <Input type="text" name="name"/>}
+                                                    {!editable && <span name="name">Feb 2, 2021</span>}
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col xs="6">
+                                                    <h3 className="font-size-14 mb-4">Created by</h3>
+                                                </Col>
+                                                <Col xs="6">
+                                                    {editable && <Input type="text" name="name"/>}
+                                                    {!editable && <span name="name">Martin Rodregez</span>}
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col sm="3">
+                                            <h3 className="font-size-14 mb-1">Description</h3>
+                                        </Col>
+                                        <Col sm="9">
+                                            <Input className="mb-3" type="textarea" name="text" id="exampleText" rows={3} disabled/>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <p>
+                                        <hr/>
+                                        </p>
+
+                                    </Row>
+                                    <Row>
+                                        <Col sm="6">
+                                            <Row>
+                                                <Col xs="6">
+                                                    <h3 className="font-size-14 mb-4">UPC</h3>
+                                                </Col>
+                                                <Col xs="6">
+                                                    {editable && <Input type="text" name="name"/>}
+                                                    {!editable && <span name="name">{material.name}</span>}
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                        <Col sm="6">
+                                            <Row>
+                                                <Col xs="6">
+                                                    <h3 className="font-size-14 mb-4">UOM</h3>
+                                                </Col>
+                                                <Col xs="6">
+                                                    {editable && <Input type="text" name="name"/>}
+                                                    {!editable && <span name="name">{material.name}</span>}
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                                <Col sm="2">
+                                    <Button type="button" color="secondary" size="sm" className="waves-effect mr-2 mb-4">Edit</Button>
+                                </Col>
+                            </Row>
                         </CardBody>
                     </Card>
                 </Col>
-                <Col md="6">
+                <Col md="4">
                     <Card>
-                        <CardHeader>Material Quantity</CardHeader>
+                        <CardHeader>
+                            <h4 className="card-title mb-1">Image</h4>
+                        </CardHeader>
                         <CardBody>
-                            <div className="table-responsive">
-                                <Table className="table mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">On Hand</th>
-                                            <td>0 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Reserved</th>
-                                            <td>0 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Available</th>
-                                            <td>0 kg</td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </div>
-                        </CardBody>
-                    </Card>
-                </Col>
-            </Row>
-            <Row>
-                <Col xs="12">
-                    <Card>
-                        <CardHeader>Purchase Invoices</CardHeader>
-                        <CardBody>
-                            <MDBDataTable
-                                responsive
-                                bordered
-                                data={{
-                                    columns: purchaseInvoicesColumns,
-                                    rows: [],
-                                }}
-                                />
+                            <img style={{width:"100%"}} src={noImage} alt="material" className="border d-block mr-2 mb-2 p-1" />
+                            <span className="d-block mb-2">No image found ..</span>
+                            <Button type="button" color="primary" size="sm" className="waves-effect mr-2">Upload</Button>
                         </CardBody>
                     </Card>
                 </Col>

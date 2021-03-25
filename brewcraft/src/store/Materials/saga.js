@@ -78,9 +78,13 @@ function* fetchMaterialsGenerator() {
 function* fetchMaterialByIdGenerator(action) {
   try {
     let response = yield call(api.fetchMaterialById,get(action,"payload.id"));
+    if (!response) {
+      throw new Error("Failded to fetch material");
+    }
     action.payload.success && action.payload.success(response.data);
   } catch (e) {
     yield put({ type: FETCH_MATERIAL_BY_ID_FAILURE , payload: []});
+    action.payload.fail && action.payload.fail();
   }
 }
 function* addMaterialGenerator(action) {
@@ -313,6 +317,6 @@ function* Materials() {
   yield takeEvery(DELETE_INGREDIENT_REQUEST, deleteIngredientGenerator);
   yield takeEvery(EDIT_PACKAGING_MATERIAL_REQUEST, editPackagingGenerator);
   yield takeEvery(DELETE_PACKAGING_MATERIAL_REQUEST, deletePackagingGenerator);
-  
+
 }
 export default Materials;

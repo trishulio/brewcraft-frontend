@@ -43,6 +43,8 @@ import PurchaseInvoices from '../pages/PurchaseInvoices/invoices';
 import PurchaseInvoicesDetail from '../pages/PurchaseInvoices/invoice';
 import PurchaseInvoicesCreate from '../pages/PurchaseInvoices/invoice-new';
 
+import notFound from "../pages/pages-404";
+
 const authProtectedRoutes = [
   // Dashboard
   { path: "/dashboard", component: Dashboard },
@@ -95,6 +97,8 @@ const authProtectedRoutes = [
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
 ];
 
-const publicRoutes = [];
+const publicRoutes = [
+  { path: "/404", component: notFound }
+];
 
 export { authProtectedRoutes, publicRoutes };

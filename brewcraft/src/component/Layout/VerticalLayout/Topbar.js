@@ -14,10 +14,9 @@ import ProfileMenu from "../Menus/profile-menu";
 import SettingsButton from "../Menus/settings-button";
 
 //Import Images
-import logosm from "../../../assets/images/logo-sm.png";
-import logodark from "../../../assets/images/logo-dark.png";
-// import logolight from "../../../assets/images/logo-light.png";
-import logoBrewcraft from "../../../assets/images/logo-brewcraft-light.png";
+import logodark from "../../../assets/images/brewcraft-logo.png";
+import logolight from "../../../assets/images/brewcraft-logo.png";
+import logosm from "../../../assets/images/brewcraft-logo-sm.png";
 
 class Topbar extends Component {
     constructor(props) {
@@ -54,10 +53,10 @@ class Topbar extends Component {
 
                                 <Link to="/dashboard" className="logo logo-light">
                                     <span className="logo-sm">
-                                        <img src={logoBrewcraft} alt="" height="50"/>
+                                        <img src={logosm} alt="" height="50"/>
                                     </span>
                                     <span className="logo-lg">
-                                        <img src={logoBrewcraft} alt="" height="64"/>
+                                        <img src={logolight} alt="" height="64"/>
                                     </span>
                                 </Link>
                             </div>

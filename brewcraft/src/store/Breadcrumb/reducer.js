@@ -3,12 +3,8 @@ import {
 } from './actionTypes';
 
 const initialState={
-    title : "Dashboard",
-    breadcrumbItems : [
-        { title : "Brewcraft", link : "#" },
-        { title : "Dashboard", link : "#" },
-        { title : "Dashboard", link : "#" },
-    ],
+    title : "",
+    breadcrumbItems : [],
 }
 
 const layout = (state=initialState, action) => {
