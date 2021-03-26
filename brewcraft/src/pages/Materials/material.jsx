@@ -45,12 +45,9 @@ export default function Material() {
                         setBreadcrumbItems(data.name, [
                             { title: "Main", link: "#" },
                             { title: "Raw Materials", link: "#" },
-                            { title: "Ingredients", link: "/materials/categories/" + data.category.id }
+                            { title: data.materialClass.name, link: "#" }
                         ])
                     );
-                },
-                fail: () => {
-                    history.push("/materials/ingredients");
                 }
             }));
         }, []);
@@ -88,7 +85,7 @@ export default function Material() {
                                             <h3 className="font-size-14 mb-4">Material</h3>
                                         </Col>
                                         <Col xs="3">
-                                            <span name="name">Ingredient</span>
+                                            <span name="name">{material.materialClass && material.materialClass.name}</span>
                                         </Col>
                                         <Col xs="3">
                                             <h3 className="font-size-14 mb-4">Category</h3>
