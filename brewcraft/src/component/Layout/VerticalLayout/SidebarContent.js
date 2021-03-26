@@ -166,18 +166,18 @@ class SidebarContent extends Component {
             <li>
               <Link to="/#" className="waves-effect">
                 <i className="mdi mdi-flag"></i>
-                <span>Batches</span>
+                <span>Brews</span>
                 <span className="badge badge-pill badge-primary float-right">5</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
                   <Link to="/batches/brews">
-                    Brews{" "}<span className="badge badge-pill badge-primary float-right">4</span>
+                    Wort{" "}<span className="badge badge-pill badge-primary float-right">4</span>
                   </Link>
                 </li>
                 <li>
                   <Link to="/batches/fermenting">
-                    Fermentation{" "}<span className="badge badge-pill badge-warning float-right">1</span>
+                    Batches{" "}<span className="badge badge-pill badge-warning float-right">1</span>
                   </Link>
                 </li>
                 <li>
@@ -239,7 +239,7 @@ class SidebarContent extends Component {
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/customers/list">Customers</Link>
+                  <Link to="/suppliers">Customers</Link>
                 </li>
                 <li>
                   <Link to="/sales-invoices">Receipts</Link>

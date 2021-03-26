@@ -44,16 +44,16 @@ class Topbar extends Component {
                             <div className="navbar-brand-box">
                                 <Link to="/dashboard" className="logo logo-dark">
                                     <span className="logo-sm">
-                                        <img src={logosm} alt="" height="22"/>
+                                        <img src={logosm} alt="" height="40"/>
                                     </span>
                                     <span className="logo-lg">
-                                        <img src={logodark} alt="" height="17"/>
+                                        <img src={logodark} alt="" height="64"/>
                                     </span>
                                 </Link>
 
                                 <Link to="/dashboard" className="logo logo-light">
                                     <span className="logo-sm">
-                                        <img src={logosm} alt="" height="50"/>
+                                        <img src={logosm} alt="" height="40"/>
                                     </span>
                                     <span className="logo-lg">
                                         <img src={logolight} alt="" height="64"/>
