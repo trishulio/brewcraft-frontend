@@ -61,8 +61,12 @@ export default function Material() {
 
     return (
         <Fragment>
+            <div className="mb-3">
+                <Button type="button" color="primary" className="waves-effect mr-2">Save</Button>
+                <Button type="button" color="secondary" className="waves-effect" onClick={() => setEditable(false)} disabled={!editable}>Cancel</Button>
+            </div>
             <Row>
-                <Col md="9">
+                <Col xl="9">
                     <Card>
                         <CardHeader>
                             <h4 className="card-title mb-1">Details</h4>
@@ -130,16 +134,32 @@ export default function Material() {
                                     {!editable && <Input className="mb-3" type="textarea" name="text" id="exampleText" rows={3} defaultValue={material.description} disabled/>}
                                 </Col>
                             </Row>
-                            <Button type="button" color="secondary" size="sm" className="waves-effect" onClick={() => setEditable(true)}>Edit</Button>
                         </CardBody>
+                        <CardFooter>
+                            <Button type="button" color="secondary" size="sm" className="waves-effect" onClick={() => setEditable(true)} disabled={editable}>Edit</Button>
+                        </CardFooter>
                     </Card>
                 </Col>
-                <Col lg="3">
+                <Col md="6" xl="3">
                     <Card>
                         <CardHeader>
                             <h4 className="card-title mb-1">Publish</h4>
                         </CardHeader>
                         <CardBody>
+                            <Row>
+                                <Col xs="6">
+                                    <h3 className="font-size-14 mb-4">Status</h3>
+                                </Col>
+                                <Col xs="6">
+                                    {editable &&
+                                        <select>
+                                            <option>Active</option>
+                                            <option>Deactive</option>
+                                        </select>
+                                    }
+                                    {!editable && <Badge color="info">Active</Badge>}
+                                </Col>
+                            </Row>
                             <Row>
                                 <Col xs="6">
                                     <h3 className="font-size-14 mb-4">Created</h3>
@@ -156,26 +176,7 @@ export default function Material() {
                                     <span name="name">Feb 2, 2021</span>
                                 </Col>
                             </Row>
-                            <Row>
-                                <Col xs="6">
-                                    <h3 className="font-size-14 mb-4">Status</h3>
-                                </Col>
-                                <Col xs="6">
-                                    {editable &&
-                                        <select>
-                                            <option>Active</option>
-                                            <option>Deactive</option>
-                                        </select>
-                                    }
-                                    {!editable && <Badge color="info">Active</Badge>}
-                                </Col>
-                            </Row>
                         </CardBody>
-                        <CardFooter>
-                            {!editable && <Button type="button" color="primary" className="waves-effect mr-2" disabled>Save</Button>}
-                            {editable && <Button type="button" color="primary" className="waves-effect mr-2">Save</Button>}
-                            {editable && <Button type="button" color="secondary" className="waves-effect" onClick={() => setEditable(false)}>Cancel</Button>}
-                        </CardFooter>
                     </Card>
                     <Card>
                         <CardHeader>
@@ -184,7 +185,7 @@ export default function Material() {
                         <CardBody>
                             <img style={{width:"100%"}} src={noImage} alt="material" className="border d-block mr-2 mb-2 p-1" />
                             <span className="d-block mb-2">No image found ..</span>
-                            <Button type="button" color="secondary" size="sm" className="waves-effect mr-2">Upload</Button>
+                            <Button type="button" color="primary" size="sm" className="waves-effect mr-2">Upload</Button>
                         </CardBody>
                     </Card>
                 </Col>
