@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBDataTable } from "mdbreact";
+import { MDBDataTableV5 } from "mdbreact";
 
 /**
  *
@@ -10,14 +10,17 @@ import { MDBDataTable } from "mdbreact";
 export default function FacilityTable({ facilities, editFn }) {
   return (
     <div>
-      <MDBDataTable
+      <MDBDataTableV5
         hover
         data={facilities}
         responsive
         striped
         scrollY
         maxHeight="500px"
-      />
+        materialSearch
+      >
+        <div>search anuj </div>
+        </MDBDataTableV5>
     </div>
   );
 }
