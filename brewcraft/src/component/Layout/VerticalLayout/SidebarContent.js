@@ -153,10 +153,10 @@ class SidebarContent extends Component {
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/materials/ingredients">Ingredients</Link>
+                  <Link to="/ingredients">Ingredients</Link>
                 </li>
                 <li>
-                  <Link to="/materials/packaging">Packaging</Link>
+                  <Link to="/packaging">Packaging</Link>
                 </li>
                 <li>
                   <Link to="/materials/categories">Categories</Link>
@@ -171,17 +171,17 @@ class SidebarContent extends Component {
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/batches/brews">
+                  <Link to="/brews">
                     Wort{" "}<span className="badge badge-pill badge-primary float-right">4</span>
                   </Link>
                 </li>
                 <li>
-                  <Link to="/batches/fermenting">
+                  <Link to="/batches">
                     Batches{" "}<span className="badge badge-pill badge-warning float-right">1</span>
                   </Link>
                 </li>
                 <li>
-                  <Link to="/batches/finished-goods" className="waves-effect">
+                  <Link to="/finished-goods" className="waves-effect">
                     <span>Finished Goods</span>
                   </Link>
                 </li>

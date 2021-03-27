@@ -28,6 +28,7 @@ import Locations from '../pages/Locations';
 
 // Materials
 import Material from '../pages/Materials/material';
+import Category from "../pages/Materials/category";
 import MaterialsIngredients from '../pages/Materials/ingredients';
 import MaterialsPackaging from '../pages/Materials/packaging';
 import MaterialCategories from '../pages/Materials/categories';
@@ -50,9 +51,9 @@ const authProtectedRoutes = [
   { path: "/dashboard", component: Dashboard },
 
   // Batches
-  { path: "/batches/brews", component: Brews },
-  { path: "/batches/fermenting", component: Fermentations },
-  { path: "/batches/finished-goods", component: FinishedGoods },
+  { path: "/brews", component: Brews },
+  { path: "/batches", component: Fermentations },
+  { path: "/finished-goods", component: FinishedGoods },
 
   // Deliveries
   { path: "/deliveries", component: Deliveries },
@@ -62,8 +63,8 @@ const authProtectedRoutes = [
   { path: "/equipment", component: Equipment },
 
   // Facility
-  { path: "/facilities", component: Facility, exact:true },
-  { path: "/floor-view", component: Facility, exact:true },
+  { path: "/facilities", component: Facility, exact: true },
+  { path: "/floor-view", component: Facility, exact: true },
 
   // Finished Goods
   { path: "/sales-invoices/new", component: CustomerNewInvoice },
@@ -74,8 +75,9 @@ const authProtectedRoutes = [
   { path: "/facilities/locations", component: Locations },
 
   // Materials
-  { path: "/materials/ingredients", component: MaterialsIngredients },
-  { path: "/materials/packaging", component: MaterialsPackaging },
+  { path: "/ingredients", component: MaterialsIngredients },
+  { path: "/packaging", component: MaterialsPackaging },
+  { path: "/materials/categories/:id", component: Category },
   { path: "/materials/categories", component: MaterialCategories },
   { path: "/materials/:id", component: Material },
 
