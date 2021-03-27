@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Row, Col } from "reactstrap";
+import { Row, Col, Button } from "reactstrap";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import C3Chart from "react-c3js";
@@ -58,16 +59,21 @@ class Breadcrumb extends Component {
         <Row>
           <Col sm="6">
             <div className="page-title-box">
-              <h4>{this.props.title}</h4>
-              <ol className="breadcrumb m-0">
+              {this.props.backButton && this.props.history.length &&
+                <Button className="waves-effect d-inline mr-3" size="sm" onClick={this.props.history.goBack}>
+                  <i className="mdi mdi-arrow-left"></i> Go back
+                </Button>
+              }
+              <h4 className="d-inline align-middle">{this.props.title}</h4>
+              <ol className="breadcrumb m-0 mt-2">
                 {this.props.breadcrumbItems.map((item, key) =>
-                  key + 1 === itemLength ? (
+                  !item.link || item.link === "#" ? (
                     <li key={key} className="breadcrumb-item active">
                       {item.title}
                     </li>
                   ) : (
                     <li key={key} className="breadcrumb-item">
-                      <Link to="#">{item.title}</Link>
+                      <Link to={item.link}>{item.title}</Link>
                     </li>
                   )
                 )}
@@ -119,7 +125,8 @@ const mapStatetoProps = (state) => {
     layoutType: Layout.layoutType,
     title: BreadcrumbData.title,
     breadcrumbItems: BreadcrumbData.breadcrumbItems,
+    backButton: BreadcrumbData.backButton
   };
 };
 
-export default connect(mapStatetoProps, {})(Breadcrumb);
+export default withRouter(connect(mapStatetoProps, {})(Breadcrumb));

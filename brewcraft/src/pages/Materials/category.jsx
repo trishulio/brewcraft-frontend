@@ -34,6 +34,7 @@ export default function Material() {
                     setCategory(data);
                     const items = [
                         { title: "Main", link: "#" },
+                        { title: "Raw Materials", link: "#"},
                         { title: "Categories", link: "#"}
                     ];
                     dispatch(setBreadcrumbItems(data.name, items));
@@ -44,7 +45,7 @@ export default function Material() {
     return (
         <Fragment>
             <div className="mb-3">
-                <Button type="button" color="primary" className="waves-effect mr-2">Save</Button>
+                <Button type="button" color="primary" className="waves-effect mr-2" disabled={!editable}>Save</Button>
                 <Button type="button" color="secondary" className="waves-effect" onClick={() => setEditable(false)} disabled={!editable}>Cancel</Button>
             </div>
             <Row>

@@ -13,7 +13,8 @@ const layout = (state=initialState, action) => {
             return {
               ...state,
               title: action.payload.title,
-              breadcrumbItems: action.payload.items
+              breadcrumbItems: action.payload.items,
+              backButton: action.payload.backButton
             };
 
         default:
