@@ -33,12 +33,26 @@ export default function Material() {
                 id: id,
                 success: data => {
                     setMaterial(data);
+                    let name, link;
+                    switch (data.materialClass.id) {
+                        case 1:
+                            name = "Ingredients";
+                            link = "/ingredients";
+                            break;
+                        case 2:
+                            name = "Packaging";
+                            link = "/packaging";
+                            break;
+                        default:
+                            link = "#";
+                            break
+                    }
                     dispatch(
                         setBreadcrumbItems(data.name, [
                             { title: "Main", link: "#" },
                             { title: "Raw Materials", link: "#" },
-                            { title: data.materialClass.name, link: "#" }
-                        ])
+                            { title: name, link: link }
+                        ]),
                     );
                 }
             }));
@@ -47,7 +61,7 @@ export default function Material() {
     return (
         <Fragment>
             <div className="mb-3">
-                <Button type="button" color="primary" className="waves-effect mr-2">Save</Button>
+                <Button type="button" color="primary" className="waves-effect mr-2" disabled={!editable}>Save</Button>
                 <Button type="button" color="secondary" className="waves-effect" onClick={() => setEditable(false)} disabled={!editable}>Cancel</Button>
             </div>
             <Row>

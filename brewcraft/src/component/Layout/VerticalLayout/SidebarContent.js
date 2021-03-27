@@ -141,7 +141,7 @@ class SidebarContent extends Component {
           <ul className="metismenu list-unstyled" id="side-menu">
             <li className="menu-title">Main</li>
             <li>
-              <Link to="/dashboard" className="waves-effect">
+              <Link to="/dashboard" replace={true} className="waves-effect">
                 <i className="mdi mdi-view-dashboard"></i>
                 <span>Dashboard</span>
               </Link>
