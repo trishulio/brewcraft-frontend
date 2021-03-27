@@ -6,9 +6,12 @@ import ToolkitProvider, {
   ColumnToggle,
   Search,
 } from "react-bootstrap-table2-toolkit";
-import { MDBBtn } from "mdbreact";
+import { ColToggle } from "./col-toggle";
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
+import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
+import { Button } from "reactstrap";
 import propTypes from "prop-types";
-
 const BootstrapTablec = ({
   column,
   data,
@@ -21,9 +24,9 @@ const BootstrapTablec = ({
   const { SearchBar } = Search;
   const [selectRows, setSelectRows] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setSelectRows([]);
-  },[data])
+  }, [data]);
 
   const handleOnSelect = (row, isSelect) => {
     if (isSelect) {
@@ -61,38 +64,45 @@ const BootstrapTablec = ({
       columns={column}
       columnToggle
       search
+      bootstrap4
     >
       {(props) => (
         <div>
           <div className="view view-cascade gradient-card-header blue-gradient d-flex justify-content-between align-items-center py-0 mt-2 pr-0 pt-1">
-            <ToggleList {...props.columnToggleProps} />
+            <div>
+              {addOnClick && (
+                <Button onClick={addOnClick} color="primary" className="mr-2">
+                  <i className="fas fa-plus mt-0 mr-1"></i>
+                  {`Add ${tableName}`}
+                </Button>
+              )}
+
+              {editOnClick && (
+                <Button
+                  disabled={selectRows.length == 0 || selectRows.length > 1}
+                  onClick={editOnClickL}
+                  color="primary"
+                  className="mr-2"
+                >
+                  <i className="fas fa-pencil-alt mt-0 mr-1"></i>
+                  {`Edit ${tableName}`}
+                </Button>
+              )}
+              {deletOnClick && (
+                <Button
+                  disabled={selectRows.length == 0 || selectRows.length > 1}
+                  onClick={deletOnClickL}
+                  color="primary"
+                  className="mr-2"
+                >
+                  <i className="fas fa-times mt-0 mr-1"></i>
+                  {`Delete ${tableName}`}
+                </Button>
+              )}
+              <ColToggle {...props.columnToggleProps} />
+            </div>
             <div>
               <div>
-                {addOnClick && (
-                  <MDBBtn onClick={addOnClick}>
-                    <i className="fas fa-plus mt-0 mr-1"></i>
-                    {`Add ${tableName}`}
-                  </MDBBtn>
-                )}
-
-                {editOnClick && (
-                  <MDBBtn
-                    disabled={selectRows.length == 0 || selectRows.length > 1}
-                    onClick={editOnClickL}
-                  >
-                    <i className="fas fa-pencil-alt mt-0 mr-1"></i>
-                    {`Edit ${tableName}`}
-                  </MDBBtn>
-                )}
-                {deletOnClick && (
-                  <MDBBtn
-                    disabled={selectRows.length == 0 || selectRows.length > 1}
-                    onClick={deletOnClickL}
-                  >
-                    <i className="fas fa-times mt-0 mr-1"></i>
-                    {`Delete ${tableName}`}
-                  </MDBBtn>
-                )}
                 <SearchBar {...props.searchProps} />
               </div>
             </div>

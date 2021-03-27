@@ -1,0 +1,26 @@
+.inline_align{
+    display: inline-block;
+}
+.select_checkbox{
+    &>button{
+
+        // background-color: transparent;
+        // border: none;
+        // color:#5b626b
+    }
+    
+    
+}
+.dropdown-menu.show {
+    background: #fff;
+    box-shadow: 0px 0 6px #4c4c4c61;
+    border: 1px solid rgba(76, 76 ,76, .35);
+    padding:10px
+}
+
+.dropdown-menu .form-check-input{
+    margin-left:0;
+    position:relative;
+    margin-right:3px;
+    verticle-align:middle
+}
