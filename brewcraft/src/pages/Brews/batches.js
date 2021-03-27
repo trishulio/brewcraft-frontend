@@ -24,9 +24,9 @@ import user2 from "../../assets/images/users/user-6.jpg";
 import noImage from "../../assets/images/no-image.jpg";
 
 import Calendar from "./components/calendar";
-import FermenationChart1 from "./components/fermentation-chart1";
-import FermenationChart2 from "./components/fermentation-chart2";
-import FermenationChart3 from "./components/fermentation-chart3";
+import FermenationChart1 from "./components/fermenters-chart1";
+import FermenationChart2 from "./components/conditioners-chart2";
+import FermenationChart3 from "./components/brite-tanks-chart3";
 
 const orders = [
     { imgUrl : user1, id : "85214796", name : "Fantastic Lager", processor: "Martin", status : "Ferment", equipment: "FT-4", started : "5/12/2016 2:10 PM", updated : "5/12/2016 2:30 PM", color : "info" },
