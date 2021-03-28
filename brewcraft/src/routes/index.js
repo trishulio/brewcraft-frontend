@@ -14,6 +14,7 @@ import Fermentations from '../pages/Brews/batches';
 import FinishedGoods from '../pages/Brews/finished-goods';
 
 import Products from "../pages/Products/products";
+import ProductItem from "../pages/Products/product";
 
 // Customers
 import CustomerList from '../pages/Customers/Customers';
@@ -65,6 +66,7 @@ const authProtectedRoutes = [
   { path: "/materials/:id", component: Material },
 
   // Products
+  { path: "/products/:id", component: ProductItem },
   { path: "/products", component: Products },
 
   // Facility

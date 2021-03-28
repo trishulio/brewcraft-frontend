@@ -3,6 +3,7 @@ import Layout from "./layout/reducer";
 import Notifications from "./Notifications/reducer";
 import Breadcrumb from "./Breadcrumb/reducer";
 import Brewery from "./Brewery/reducer";
+import Products from "./Products/reducer";
 import Companies from "./Companies/reducer";
 import Customers from './Customers/reducer';
 import Equipment from './Equipment/reducer';
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   Breadcrumb,
   Purchases,
   Brewery,
+  Products,
   Customers,
   Companies,
   Materials,

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { setBreadcrumbItems } from "../../store/actions";
 import {
   Row,
@@ -31,6 +31,7 @@ export default function Material() {
     const [activeTab, setActiveTab] = useState("1");
     let { id } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     useEffect(() => {
         dispatch(
@@ -167,7 +168,7 @@ export default function Material() {
                                                     <td>{product.type ? product.type : "-"}</td>
                                                     <td><Badge color={product.color} className="badge-pill">{product.status}</Badge></td>
                                                     <td>
-                                                        <Button color="secondary" size="sm" className="waves-effect waves-light">View</Button>
+                                                        <Button color="secondary" size="sm" className="waves-effect waves-light" onClick={() => history.push("/products/" + product.id)}>View</Button>
                                                     </td>
                                                 </tr>
                                             )
