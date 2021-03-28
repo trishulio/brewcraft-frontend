@@ -83,10 +83,9 @@ export default function Material() {
             <Row>
                 <Col md={9}>
                     <Card>
-                        {/* <CardHeader>
+                        <CardHeader>
                             <h4 className="card-title font-size-14 align-middle">Product Details</h4>
-                            <Button color="secondary" size="sm" className="waves-effect align-middle float-right">Edit</Button>
-                        </CardHeader> */}
+                        </CardHeader>
                         <CardBody>
                             <Row>
                                 <Col sm="6">
@@ -94,6 +93,7 @@ export default function Material() {
                                         <Col xs="6">
                                             <Label
                                                 for="name"
+                                                className="mb-3"
                                             >
                                                 Name
                                             </Label>
@@ -103,7 +103,7 @@ export default function Material() {
                                                 editable ?
                                                     <Input
                                                         type="text"
-                                                        className="waves-effect mb-2"
+                                                        className="waves-effect"
                                                         size="sm"
                                                         defaultValue={product.name}
                                                         name="name"
@@ -118,7 +118,36 @@ export default function Material() {
                                     <Row>
                                         <Col xs="6">
                                             <Label
+                                                for="status"
+                                                className="mb-3"
+                                            >
+                                                Status
+                                            </Label>
+                                        </Col>
+                                        <Col xs="6">
+                                            {
+                                                editable ?
+                                                    <Input
+                                                        type="select"
+                                                        className="waves-effect"
+                                                        size="sm"
+                                                        name="status"
+                                                    >
+                                                        <option>Active</option>
+                                                        <option>Not Active</option>
+                                                    </Input> : <Badge color="info">Active</Badge>
+                                            }
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col sm="6">
+                                    <Row>
+                                        <Col xs="6">
+                                            <Label
                                                 for="category.name"
+                                                className="mb-3"
                                             >
                                                 Category
                                             </Label>
@@ -128,7 +157,7 @@ export default function Material() {
                                                 editable ?
                                                     <Input
                                                         type="select"
-                                                        className="waves-effect mb-2"
+                                                        className="waves-effect"
                                                         size="sm"
                                                         name="category.name"
                                                     >
@@ -162,12 +191,20 @@ export default function Material() {
                                     />
                                 </Col>
                             </Row>
+                        </CardBody>
+                    </Card>
+                    <Card>
+                        <CardHeader>
+                            <h4 className="card-title font-size-12 align-middle">Brew Details</h4>
+                        </CardHeader>
+                        <CardBody>
                             <Row>
                                 <Col sm="6">
                                     <Row>
                                         <Col xs="6">
                                             <Label
                                                 for="abv"
+                                                className="mb-3"
                                             >
                                                 ABV.
                                             </Label>
@@ -186,36 +223,12 @@ export default function Material() {
                                         </Col>
                                     </Row>
                                 </Col>
-                            </Row>
-                            <Row>
-                                <Col sm="6">
-                                    <Row>
-                                        <Col xs="6">
-                                            <Label
-                                                for="ibu"
-                                            >
-                                                IBU
-                                            </Label>
-                                        </Col>
-                                        <Col xs="6">
-                                            {
-                                                editable ?
-                                                    <Input
-                                                        type="text"
-                                                        className="waves-effect mb-2"
-                                                        size="sm"
-                                                        defaultValue={product.ibu}
-                                                        name="ibu"
-                                                    /> : product.ibu
-                                            }
-                                        </Col>
-                                    </Row>
-                                </Col>
                                 <Col sm="6">
                                     <Row>
                                         <Col xs="6">
                                             <Label
                                                 for="ph"
+                                                className="mb-3"
                                             >
                                                 PH
                                             </Label>
@@ -240,9 +253,10 @@ export default function Material() {
                                     <Row>
                                         <Col xs="6">
                                             <Label
-                                                for="fermentationDays"
+                                                for="ibu"
+                                                className="mb-3"
                                             >
-                                                Fermentation Days
+                                                IBU
                                             </Label>
                                         </Col>
                                         <Col xs="6">
@@ -252,9 +266,9 @@ export default function Material() {
                                                         type="text"
                                                         className="waves-effect mb-2"
                                                         size="sm"
-                                                        defaultValue={product.fermentationDays}
-                                                        name="fermentationDays"
-                                                    /> : product.fermentationDays
+                                                        defaultValue={product.ibu}
+                                                        name="ibu"
+                                                    /> : product.ibu
                                             }
                                         </Col>
                                     </Row>
@@ -263,9 +277,10 @@ export default function Material() {
                                     <Row>
                                         <Col xs="6">
                                             <Label
-                                                for="conditioningDays"
+                                                for="yield"
+                                                className="mb-3"
                                             >
-                                                Conditioning Days
+                                                Yield
                                             </Label>
                                         </Col>
                                         <Col xs="6">
@@ -275,9 +290,9 @@ export default function Material() {
                                                         type="text"
                                                         className="waves-effect mb-2"
                                                         size="sm"
-                                                        defaultValue={product.conditioningDays}
-                                                        name="conditioningDays"
-                                                    /> : product.conditioningDays
+                                                        defaultValue={product.yield}
+                                                        name="yield"
+                                                    /> : product.yield
                                             }
                                         </Col>
                                     </Row>
@@ -289,6 +304,7 @@ export default function Material() {
                                         <Col xs="6">
                                             <Label
                                                 for="mashTemperature"
+                                                className="mb-3"
                                             >
                                                 Mash Temperature
                                             </Label>
@@ -312,6 +328,7 @@ export default function Material() {
                                         <Col xs="6">
                                             <Label
                                                 for="gravity"
+                                                className="mb-3"
                                             >
                                                 Gravity
                                             </Label>
@@ -336,9 +353,10 @@ export default function Material() {
                                     <Row>
                                         <Col xs="6">
                                             <Label
-                                                for="yield"
+                                                for="fermentationDays"
+                                                className="mb-3"
                                             >
-                                                Yield
+                                                Fermentation Days
                                             </Label>
                                         </Col>
                                         <Col xs="6">
@@ -348,9 +366,9 @@ export default function Material() {
                                                         type="text"
                                                         className="waves-effect mb-2"
                                                         size="sm"
-                                                        defaultValue={product.yield}
-                                                        name="yield"
-                                                    /> : product.yield
+                                                        defaultValue={product.fermentationDays}
+                                                        name="fermentationDays"
+                                                    /> : product.fermentationDays
                                             }
                                         </Col>
                                     </Row>
@@ -359,7 +377,34 @@ export default function Material() {
                                     <Row>
                                         <Col xs="6">
                                             <Label
+                                                for="conditioningDays"
+                                                className="mb-3"
+                                            >
+                                                Conditioning Days
+                                            </Label>
+                                        </Col>
+                                        <Col xs="6">
+                                            {
+                                                editable ?
+                                                    <Input
+                                                        type="text"
+                                                        className="waves-effect mb-2"
+                                                        size="sm"
+                                                        defaultValue={product.conditioningDays}
+                                                        name="conditioningDays"
+                                                    /> : product.conditioningDays
+                                            }
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col sm="6">
+                                    <Row>
+                                        <Col xs="6">
+                                            <Label
                                                 for="brewhouseDuration"
+                                                className="mb-3"
                                             >
                                                 Brewhouse Duration
                                             </Label>
@@ -384,10 +429,13 @@ export default function Material() {
                 </Col>
                 <Col md="3">
                     <Card>
+                        <CardHeader>
+                            <h4 className="card-title font-size-12 align-middle">Product Image</h4>
+                        </CardHeader>
                         <CardBody>
                             <img style={{ width: "100%" }} src={noImage} alt="material" className="border d-block mr-2 mb-2 p-1" />
                             <span className="d-block mb-2">No image found ..</span>
-                            <Button type="button" color="primary" size="sm" className="waves-effect mr-2">Upload</Button>
+                            <Button type="button" color="primary" size="sm" className="waves-effect mr-2" disabled={!editable}>Upload</Button>
                         </CardBody>
                     </Card>
                 </Col>
