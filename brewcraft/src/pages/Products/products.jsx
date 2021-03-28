@@ -47,48 +47,34 @@ export default function Material() {
         description: "In the moood for something satisfying? Grab a F. Lager.",
         status: "actve",
         color: "info",
-        abv: "5.0%",
-        ph: "7.8",
-        ferment: "3 days",
-        condition: "2 days"
+        type: "lager"
     }, {
         id: "2",
         name: "Special Ale",
         description: "Don't feel bad you're not as special.",
         status: "actve",
         color: "info",
-        abv: "5.5%",
-        ph: "7.8",
-        ferment: "7 days",
-        condition: "2 days"
+        type: "pale ale"
     }, {
         id: "3",
         name: "Warm Stout",
         status: "actve",
         color: "info",
-        abv: "5.0%",
-        ph: "7.2",
-        ferment: "7 days",
-        condition: "2 days"
+        type: "stout"
     }, {
         id: "4",
         name: "Delicious IPA",
         description: "The beer that eats like a meal.",
         status: "actve",
         color: "info",
-        abv: "6.5%",
-        ph: "7.9",
-        ferment: "7 days",
-        condition: "2 days"
+        type: "beer"
     }];
 
     return (
         <React.Fragment>
+            <Button color="primary" size="" className="waves-effect mb-3">New Product</Button>
             <Card>
-                <CardHeader>
-                    <Button color="primary" size="" className="waves-effect float-left mr-2">New Product</Button>
-                </CardHeader>
-                <CardBody className="pt-0 pb-2">
+                <CardBody className="py-2">
                     <Row className="mb-3">
                         <Col sm="6">
                             {/* <Nav>
@@ -165,9 +151,7 @@ export default function Material() {
                                             <th>Image</th>
                                             <th>Product Name</th>
                                             <th>Product Description</th>
-                                            <th>ABV.</th>
-                                            <th>Ferment.</th>
-                                            <th>Condition.</th>
+                                            <th>Product Type</th>
                                             <th>Status</th>
                                             <th></th>
                                         </tr>
@@ -179,12 +163,8 @@ export default function Material() {
                                                     <td>#{product.id}</td>
                                                     <td><img src={noImage} alt="user" className="avatar-xs mr-2 rounded-circle" /></td>
                                                     <td>{product.name && product.name}</td>
-                                                    <td>
-                                                        {product.description ? product.description: "-"}
-                                                    </td>
-                                                    <td>{product.abv ? product.abv: "-"}</td>
-                                                    <td>{product.abv ? product.ferment: "-"}</td>
-                                                    <td>{product.abv ? product.condition: "-"}</td>
+                                                    <td>{product.description ? product.description: "-"}</td>
+                                                    <td>{product.type ? product.type : "-"}</td>
                                                     <td><Badge color={product.color} className="badge-pill">{product.status}</Badge></td>
                                                     <td>
                                                         <Button color="secondary" size="sm" className="waves-effect waves-light">View</Button>
