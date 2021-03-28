@@ -188,7 +188,7 @@ class SidebarContent extends Component {
               </ul>
             </li>
             <li>
-              <Link to="/dashboard" className="waves-effect">
+              <Link to="/products" className="waves-effect">
                 <i className="mdi mdi-crown"></i>
                 <span>Products</span>
               </Link>

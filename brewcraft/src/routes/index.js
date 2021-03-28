@@ -13,6 +13,8 @@ import Brews from '../pages/Brews/wort';
 import Fermentations from '../pages/Brews/batches';
 import FinishedGoods from '../pages/Brews/finished-goods';
 
+import Products from "../pages/Products/products";
+
 // Customers
 import CustomerList from '../pages/Customers/Customers';
 import CustomerInvoices from '../pages/CustomerInvoices/invoices';
@@ -61,6 +63,9 @@ const authProtectedRoutes = [
   { path: "/materials/categories/:id", component: Category },
   { path: "/materials/categories", component: MaterialCategories },
   { path: "/materials/:id", component: Material },
+
+  // Products
+  { path: "/products", component: Products },
 
   // Facility
   { path: "/facilities/locations", component: Locations },
