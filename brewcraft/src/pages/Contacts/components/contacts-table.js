@@ -1,54 +1,55 @@
 import React, { useCallback } from "react";
 import {Button} from '@material-ui/core';
 import { map } from "lodash";
-import DataTable from '../../../component/Tables/tables-mui-datatable';
+import ReactBootstrapTable from '../../../component/Tables/tables-react-boostrap';
 
 export default function ContactsTable({data, editContact, deleteContact, addContact, refreshTable}) {
 
   const columns = [{
-    label: "First Name",
-    name: "contactName",
+    text: "First Name",
+    dataField: "contactName",
     options: {
       filter: true,
       sort: true
     }
   }, {
-    label: "Last Name",
-    name: "lastName",
+    text: "Last Name",
+    dataField: "lastName",
     options: {
       filter: true,
       sort: true
     }
   }, {
-    label: "Company",
-    name: "companyName",
+    text: "Company",
+    dataField: "companyName",
     options: {
       filter: true,
       sort: true
     }
   }, {
-    label: "Position",
-    name: "position",
+    text: "Position",
+    dataField: "position",
     options: {
       filter: true,
       sort: false,
       display: false
     }
   }, {
-    label: "Phone",
-    name: "phoneNumber",
+    text: "Phone",
+    dataField: "phoneNumber",
     options: {
       filter: false,
       sort: false
     }
   }, {
-    label: "Email",
-    name: "email",
+    text: "Email",
+    dataField: "email",
     options: {
       filter: false,
       sort: false
     }
   }];
+
 
   const onDelete=(rowsSelected)=>{
     const idsToDelete = rowsSelected.data.map(d => data[d.dataIndex].id); // array of all ids to to be deleted
@@ -78,7 +79,7 @@ export default function ContactsTable({data, editContact, deleteContact, addCont
   }, [data]);
 
   return(
-      <DataTable
+      <ReactBootstrapTable
         columns={columns}
         data={rowEvent()}
         tableName="Supplier"
