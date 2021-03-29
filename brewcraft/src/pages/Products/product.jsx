@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchProductById } from "../../store/Products/actions";
+import {
+    fetchProductById
+} from "../../store/Products/actions";
 import { setBreadcrumbItems } from "../../store/actions";
 import {
   Row,
@@ -9,20 +11,10 @@ import {
   Card,
   CardBody,
   CardHeader,
-  CardFooter,
   Button,
   Input,
   Label,
-  Table,
-  Badge,
-  Nav,
-  NavItem,
-  NavLink,
-  TabContent,
-  TabPane,
-  Pagination,
-  PaginationItem,
-  PaginationLink
+  Badge
 } from "reactstrap";
 import noImage from "../../assets/images/no-image.jpg";
 
@@ -78,8 +70,13 @@ export default function Material() {
 
     return (
         <React.Fragment>
-            {/* <Button type="button" color="primary" size="sm" className="waves-effect mr-2 mb-3" disabled={!editable}>Save</Button> */}
-            <Button type="button" color="secondary" size="sm" className="waves-effect mb-3" onClick={() => setEditable(true)} disabled={editable}>Edit</Button>
+            {editable ?
+                <React.Fragment>
+                    <Button type="button" color="primary" size="sm" className="waves-effect mr-2 mb-3" disabled={!editable}>Save</Button>
+                    <Button type="button" color="secondary" size="sm" className="waves-effect mb-3" onClick={() => setEditable(false)} disabled={!editable}>Cancel</Button>
+                </React.Fragment> :
+                <Button type="button" color="secondary" size="sm" className="waves-effect mb-3" onClick={() => setEditable(true)} disabled={editable}>Edit</Button>
+            }
             <Row>
                 <Col md={9}>
                     <Card>
@@ -440,8 +437,6 @@ export default function Material() {
                     </Card>
                 </Col>
             </Row>
-            <Button type="button" color="primary" size="sm" className="waves-effect mr-2 mb-3" disabled={!editable}>Save</Button>
-             <Button type="button" color="secondary" size="sm" className="waves-effect mb-3" onClick={() => setEditable(false)} disabled={!editable}>Cancel</Button>
         </React.Fragment>
     );
 }
