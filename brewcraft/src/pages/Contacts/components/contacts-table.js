@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import {Button} from '@material-ui/core';
 import { map } from "lodash";
-import ReactBootstrapTable from '../../../component/Tables/tables-react-boostrap';
+import ReactBootstrapTable from '../../../component/Tables/tables-react-bootstrap';
 
 export default function ContactsTable({data, editContact, deleteContact, addContact, refreshTable}) {
 
