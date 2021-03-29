@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import { createMuiTheme, MuiThemeProvider ,withStyles} from "@material-ui/core/styles";
 import {IconButton, Tooltip, TextField} from '@material-ui/core';
 import {Add, Edit, Delete, Refresh} from '@material-ui/icons';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
-export default function ReactBootstrapTable(props) {
+ function ReactBootstrapTable(props) {
 
   const { SearchBar } = Search;
 
   const {
+    classes,
     tableName,
     columns,
     data,
@@ -118,7 +119,7 @@ export default function ReactBootstrapTable(props) {
   }
 
   const customToolbarButton = (tableProps) => (
-    <>
+    <div className={classes.toolbar}>
       <Tooltip disableFocusListener title={`Add ${tableName}`}>
         <IconButton onClick={() =>addAction()}>
           <Add  />
@@ -140,7 +141,7 @@ export default function ReactBootstrapTable(props) {
        </IconButton>
        </Tooltip>
       <SearchBar { ...tableProps.searchProps } />
-      </>
+      </div>
   );
 
 const options = {
@@ -158,7 +159,10 @@ const options = {
 
 const selectRow = {
   mode: 'checkbox',
-  clickToSelect: true
+  clickToSelect: true,
+  onselect: (row, isSelect, rowIndex, e) => {
+    debugger
+  }
 };
 
   return(
@@ -184,5 +188,14 @@ const selectRow = {
     </MuiThemeProvider>
   )
 }
+
+const styles = () => ({
+  toolbar:{
+    textAlign:'right',
+    padding:'10px',
+  }
+});
+
+export default withStyles(styles)(ReactBootstrapTable);
 
 
