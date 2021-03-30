@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import filterFactory from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
@@ -103,7 +103,6 @@ const BootstrapTablec = ({
             selectRow={selectd}
             filter={filterFactory()}
             classes="remove_border"
-            filtersClasses="anuj"
           />
         </div>
       )}
@@ -116,8 +115,7 @@ BootstrapTablec.propTypes = {
   column: propTypes.arrayOf(propTypes.object).isRequired,
   data: propTypes.arrayOf(propTypes.object).isRequired,
   tableName: propTypes.string.isRequired,
-  addOnClick: propTypes.func.isRequired,
   editOnClick: propTypes.func,
   deletOnClick: propTypes.func,
 };
-export default BootstrapTablec;
+export default React.memo(BootstrapTablec);
