@@ -24,3 +24,40 @@
     margin-right:3px;
     verticle-align:middle
 }
+.remove_border{
+    margin-top: 10px;
+    &.table-bordered th, &.table-bordered td{
+        border: none;
+        border-top: 1px solid #e9ecef;
+    }
+    & tbody tr:nth-child(even){
+        background: #f2f2f2
+    }
+
+    // & .selection-input-4:checked~.custom-control-label::after{
+    //     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
+    //   }
+      
+    // & .selection-input-4:checked:checked ~ .custom-control-label::before{
+    // background-color: red;
+    // }
+}
+#pageDropDown{
+   border: 1px solid #6c757d;
+   background: transparent;
+   color: #6c757d;
+}
+#pageDropDown::after {
+    content: "\F140";
+    display: inline-block;
+    font: normal normal normal 24px/1 "Material Design Icons";
+    font-size: inherit;
+    text-rendering: auto;
+    line-height: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+      
+    	

@@ -2,7 +2,7 @@ import React, { useEffect, Fragment, useState } from "react";
 import { findIndex, map, omit, get } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
-import { Row, Col, Button } from "reactstrap";
+import { Row, Col, Button, Card, CardBody } from "reactstrap";
 import { Modal } from "../../component/Common/Modal";
 import FacilityForm from "./facility-form";
 import {
@@ -12,7 +12,6 @@ import {
   updateFacility,
 } from "../../store/Equipment/actions";
 import BootstrapTable from "../../component/Tables/bootstrap-table";
-import { MDBCard, MDBCardBody } from "mdbreact";
 
 export default function Facility() {
   const [isOpen, setIsOpen] = useState(false);
@@ -185,8 +184,11 @@ export default function Facility() {
     <Fragment>
       <Row>
         <Col xs="12">
-          <MDBCard narrow>
-            <MDBCardBody>
+          <Button onClick={dialogOpenFn} color="primary" className="mb-4">
+            Add Facility
+          </Button>
+          <Card>
+            <CardBody className="p-0 pl-2 pr-2">
               <BootstrapTable
                 column={tableColumn}
                 data={tableRows}
@@ -195,8 +197,8 @@ export default function Facility() {
                 editOnClick={dialogOpenEditFn}
                 deletOnClick={dialogOpenDeleteFn}
               />
-            </MDBCardBody>
-          </MDBCard>
+            </CardBody>
+          </Card>
         </Col>
       </Row>
       {!!isOpen && (
