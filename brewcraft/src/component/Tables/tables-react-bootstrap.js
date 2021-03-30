@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { createMuiTheme, MuiThemeProvider ,withStyles} from "@material-ui/core/styles";
-import {IconButton, Tooltip, TextField} from '@material-ui/core';
+import {IconButton, Tooltip} from '@material-ui/core';
 import {Add, Edit, Delete, Refresh} from '@material-ui/icons';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 
  function ReactBootstrapTable(props) {
 
@@ -21,112 +22,15 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
     refreshAction
   }=props;
 
-  const theme = () => {
-    return createMuiTheme({
-      overrides: {
-        MUIDataTable: {
-          paper: {
-            boxShadow: "none"
-          },
-        },
-        MUIDataTableToolbar: {
-          root: {
-            minHeight:'40px'
-          },
-          actions: {
-            display: "flex",
-            flex: "initial",
-            // move all icons to the right
-            "& > span, & > button, & input": {
-              order: 0
-            },
-            // // target the custom toolbar icon
-            "& > span:last-child, & > button:last-child": {
-              order: 99
-            },
-            // // target any icon
-            "& > button:nth-child(5), & > button:nth-child(5)": {
-              order: -1
-            }
-          },
-          icon: {
-            '&:hover': {
-                 color: "#7a6fbe"
-             }
-         },
-        },
-        MUIDataTableFooter:{
-          root:{
-            marginTop:'25px'
-          },
-        },
-        MuiTableRow: {
-          root: {
-              "&:last-child td": {
-                  borderBottom: 0,
-              },
-          }
-        },
-        MuiIconButton: {
-          root: {
-            '&:hover': {
-              color: "#7a6fbe"
-          },
-          borderRadius:'0%'
-          }
-        },
-        MuiCheckbox: {
-          root: {
-            "&$checked$checked": {
-                color:"#7a6fbe"
-            }
-          }
-        },
-        MuiOutlinedInput: {
-          root: {
-            "&:hover $notchedOutline": {
-              borderColor: "#7a6fbe"
-            },
-            "&$focused $notchedOutline": {
-              borderColor: "#7a6fbe"
-            },
-            "&&& $input": {
-              padding: "6px"
-            }
-          }
-        },
-        MuiFormControl:{
-          root:{
-            padding:8
-          }
-        },
-        MuiInputBase: {
-          input: {
-            height:'1.3em',
-            fontSize: '0.71094rem',
-          },
-        }
-      },
-      typography: {
-        "fontFamily": 'Poppins',
-      },
-    }
-    );
-  };
-
-  const refreshButtonOnClick=()=>{
-   refreshAction();
-  }
-
   const customToolbarButton = (tableProps) => (
     <div className={classes.toolbar}>
       <Tooltip disableFocusListener title={`Add ${tableName}`}>
         <IconButton onClick={() =>addAction()}>
           <Add  />
-      </IconButton>
+        </IconButton>
       </Tooltip>
       <Tooltip disableFocusListener title="Refresh">
-        <IconButton onClick={() =>refreshButtonOnClick()}>
+        <IconButton onClick={() =>refreshAction()}>
           <Refresh  />
         </IconButton>
       </Tooltip>
@@ -134,35 +38,55 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
        <IconButton onClick={() =>editAction()}>
          <Edit  />
        </IconButton>
-     </Tooltip>
-         <Tooltip disableFocusListener title={`Delete ${tableName}`}>
-         <IconButton onClick={() =>deleteAction()}>
-           <Delete  />
+      </Tooltip>
+      <Tooltip disableFocusListener title={`Delete ${tableName}`}>
+        <IconButton onClick={() =>deleteAction()}>
+          <Delete  />
        </IconButton>
        </Tooltip>
       <SearchBar { ...tableProps.searchProps } />
-      </div>
+    </div>
   );
 
-const options = {
-  onSizePerPageChange: (sizePerPage, page) => {
-    console.log('Size per page change!!!');
-    console.log('Newest size per page:' + sizePerPage);
-    console.log('Newest page:' + page);
-  },
-  onPageChange: (page, sizePerPage) => {
-    console.log('Page change!!!');
-    console.log('Newest size per page:' + sizePerPage);
-    console.log('Newest page:' + page);
-  }
-};
+  const customTotal = (from, to, size) => (
+    <span className={classes.customTotal}>
+      Showing { from } to { to } of { size } entries
+    </span>
+  );
+
+  const options = {
+    paginationSize: 4,
+    pageStartIndex: 0,
+    alwaysShowAllBtns: true, // Always show next and previous button
+    withFirstAndLast: true, // Hide the going to First and Last page button
+    // hideSizePerPage: true, // Hide the sizePerPage dropdown always
+    // hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
+    firstPageText: 'First',
+    prePageText: 'Previous',
+    nextPageText: 'Next',
+    lastPageText: 'Last',
+    nextPageTitle: 'First page',
+    prePageTitle: 'Pre page',
+    firstPageTitle: 'Next page',
+    lastPageTitle: 'Last page',
+    showTotal: true,
+    paginationTotalRenderer: customTotal,
+    disablePageTitle: true,
+    sizePerPageList: [{
+      text: '5', value: 5
+    }, {
+      text: '10', value: 10
+    }, {
+      text: 'All', value: data.length
+    }]
+  };
 
 const selectRow = {
   mode: 'checkbox',
   clickToSelect: true,
-  onselect: (row, isSelect, rowIndex, e) => {
-    debugger
-  }
+  // onselect: (row, isSelect, rowIndex, e) => {
+
+  // }
 };
 
   return(
@@ -193,8 +117,37 @@ const styles = () => ({
   toolbar:{
     textAlign:'right',
     padding:'10px',
+  },
+  customTotal:{
+    padding: '10px'
   }
 });
+
+const theme = () => {
+  return createMuiTheme({
+    overrides: {
+      MuiIconButton: {
+        root: {
+          '&:hover': {
+            color: "#7a6fbe"
+        },
+        borderRadius:'0%'
+        }
+      },
+      MuiCheckbox: {
+        root: {
+          "&$checked$checked": {
+              color:"#7a6fbe"
+          }
+        }
+      },
+    },
+    typography: {
+      "fontFamily": 'Poppins',
+    },
+  }
+  );
+};
 
 export default withStyles(styles)(ReactBootstrapTable);
 
