@@ -7,14 +7,16 @@ const ColToggle = ({ columns, onColumnToggle, toggles }) => {
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   return (
-    <div className="inline_align">
+    <div className="inline_align mr-2">
       <Dropdown
         isOpen={dropdownOpen}
         toggle={toggle}
         className="select_checkbox"
+        size="sm"
+       
         
       >
-        <DropdownToggle color="primary">Dropdown <i className="mdi mdi-chevron-down"></i></DropdownToggle>
+        <DropdownToggle  color="primary">Columns <i className="mdi mdi-chevron-down"></i></DropdownToggle>
         
         <DropdownMenu>
           {columns
@@ -31,7 +33,7 @@ const ColToggle = ({ columns, onColumnToggle, toggles }) => {
                 aria-pressed={column.toggle ? "true" : "false"}
                 onClick={() => onColumnToggle(column.dataField)}
               >
-                <Input type="checkbox" checked={column.toggle} />
+                <Input type="checkbox" checked={column.toggle} readOnly/>
                 {column.text}
               </div>
             ))}
@@ -41,4 +43,22 @@ const ColToggle = ({ columns, onColumnToggle, toggles }) => {
   );
 };
 
-export { ColToggle };
+const TableSearch = (props) => {
+  const handleClick = (e) => {
+    props.onSearch(e.target.value);
+  };
+  return (
+    <div
+    style={{display:"inline-block"}}
+    >
+      <Input
+        type="text"
+        bsSize="sm"
+        onKeyUp={ handleClick }
+        placeholder="Search"
+      />
+      </div>
+    
+  );
+};
+export { ColToggle, TableSearch };

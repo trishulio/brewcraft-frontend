@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import filterFactory from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import ToolkitProvider, {
-  ColumnToggle,
-  Search,
-} from "react-bootstrap-table2-toolkit";
-import { ColToggle } from "./col-toggle";
+import ToolkitProvider from "react-bootstrap-table2-toolkit";
+import { ColToggle, TableSearch } from "./col-toggle";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
@@ -20,8 +17,7 @@ const BootstrapTablec = ({
   editOnClick,
   deletOnClick,
 }) => {
-  const { ToggleList } = ColumnToggle;
-  const { SearchBar } = Search;
+
   const [selectRows, setSelectRows] = useState([]);
 
   useEffect(() => {
@@ -31,7 +27,6 @@ const BootstrapTablec = ({
   const handleOnSelect = (row, isSelect) => {
     if (isSelect) {
       const current = [...selectRows];
-      console.log(row);
       current.push(row.id);
       setSelectRows(current);
     } else {
@@ -58,6 +53,7 @@ const BootstrapTablec = ({
   const editOnClickL = () => editOnClick(selectRows);
 
   return (
+    <>
     <ToolkitProvider
       keyField="id"
       data={data}
@@ -70,21 +66,14 @@ const BootstrapTablec = ({
         <div>
           <div className="view view-cascade gradient-card-header blue-gradient d-flex justify-content-between align-items-center py-0 mt-2 pr-0 pt-1">
             <div>
-              {addOnClick && (
-                <Button onClick={addOnClick} color="primary" className="mr-2">
-                  <i className="fas fa-plus mt-0 mr-1"></i>
-                  {`Add ${tableName}`}
-                </Button>
-              )}
-
               {editOnClick && (
                 <Button
                   disabled={selectRows.length == 0 || selectRows.length > 1}
                   onClick={editOnClickL}
                   color="primary"
                   className="mr-2"
+                  size="sm"
                 >
-                  <i className="fas fa-pencil-alt mt-0 mr-1"></i>
                   {`Edit ${tableName}`}
                 </Button>
               )}
@@ -94,16 +83,17 @@ const BootstrapTablec = ({
                   onClick={deletOnClickL}
                   color="primary"
                   className="mr-2"
+                  size="sm"
                 >
-                  <i className="fas fa-times mt-0 mr-1"></i>
                   {`Delete ${tableName}`}
                 </Button>
               )}
-              <ColToggle {...props.columnToggleProps} />
+              
             </div>
             <div>
               <div>
-                <SearchBar {...props.searchProps} />
+                <ColToggle {...props.columnToggleProps} />
+                <TableSearch {...props.searchProps}  />
               </div>
             </div>
           </div>
@@ -112,10 +102,13 @@ const BootstrapTablec = ({
             pagination={paginationFactory()}
             selectRow={selectd}
             filter={filterFactory()}
+            classes="remove_border"
+            filtersClasses="anuj"
           />
         </div>
       )}
     </ToolkitProvider>
+    </>
   );
 };
 
