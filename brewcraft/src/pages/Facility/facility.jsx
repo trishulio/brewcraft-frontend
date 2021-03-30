@@ -80,7 +80,8 @@ export default function Facility() {
   /**
    * @description row iteration
    */
-  const tableRows = map(facilities, (currentList) => {
+  const tableRows = React.useMemo(()=>{
+   return map(facilities, (currentList) => {
     return {
       ...omit({ ...currentList, ...omit(currentList.address, "id") }, [
         "address",
@@ -88,7 +89,8 @@ export default function Facility() {
         "storages",
       ]),
     };
-  });
+    }
+)},[facilities]);
 
   const dialogCloseFn = () => {
     setIsOpen(false);
@@ -193,7 +195,6 @@ export default function Facility() {
                 column={tableColumn}
                 data={tableRows}
                 tableName="Facility"
-                addOnClick={dialogOpenFn}
                 editOnClick={dialogOpenEditFn}
                 deletOnClick={dialogOpenDeleteFn}
               />
