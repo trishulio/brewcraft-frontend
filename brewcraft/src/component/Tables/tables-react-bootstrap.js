@@ -56,19 +56,13 @@ import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.m
 
   const options = {
     paginationSize: 4,
-    pageStartIndex: 0,
+    pageStartIndex: 1,
     alwaysShowAllBtns: true, // Always show next and previous button
-    withFirstAndLast: true, // Hide the going to First and Last page button
-    // hideSizePerPage: true, // Hide the sizePerPage dropdown always
+     withFirstAndLast: false, // Hide the going to First and Last page button
+    // hideSizePerPage: false, // Hide the sizePerPage dropdown always
     // hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
-    firstPageText: 'First',
     prePageText: 'Previous',
     nextPageText: 'Next',
-    lastPageText: 'Last',
-    nextPageTitle: 'First page',
-    prePageTitle: 'Pre page',
-    firstPageTitle: 'Next page',
-    lastPageTitle: 'Last page',
     showTotal: true,
     paginationTotalRenderer: customTotal,
     disablePageTitle: true,
