@@ -1,13 +1,15 @@
-import React from "react";
-import { createMuiTheme, MuiThemeProvider ,withStyles} from "@material-ui/core/styles";
-import {IconButton, Tooltip} from '@material-ui/core';
-import {Add, Edit, Delete, Refresh} from '@material-ui/icons';
+import React, { useState } from "react";
+import { createMuiTheme, MuiThemeProvider, withStyles } from "@material-ui/core/styles";
+import { IconButton, Tooltip } from '@material-ui/core';
+import { Add, Edit, Delete, Refresh } from '@material-ui/icons';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 
- function ReactBootstrapTable(props) {
+function ReactBootstrapTable(props) {
+
+  const [selectedRows, setSelectedRows] = useState({});
 
   const { SearchBar } = Search;
 
@@ -20,37 +22,53 @@ import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.m
     deleteAction,
     addAction,
     refreshAction
-  }=props;
+  } = props;
 
-  const customToolbarButton = (tableProps) => (
-    <div className={classes.toolbar}>
-      <Tooltip disableFocusListener title={`Add ${tableName}`}>
-        <IconButton onClick={() =>addAction()}>
-          <Add  />
-        </IconButton>
-      </Tooltip>
-      <Tooltip disableFocusListener title="Refresh">
-        <IconButton onClick={() =>refreshAction()}>
-          <Refresh  />
-        </IconButton>
-      </Tooltip>
-      <Tooltip disableFocusListener title={`Edit ${tableName}`}>
-       <IconButton onClick={() =>editAction()}>
-         <Edit  />
-       </IconButton>
-      </Tooltip>
-      <Tooltip disableFocusListener title={`Delete ${tableName}`}>
-        <IconButton onClick={() =>deleteAction()}>
-          <Delete  />
-       </IconButton>
-       </Tooltip>
-      <SearchBar { ...tableProps.searchProps } />
-    </div>
-  );
+  const editButtonOnClick = async (checkedRows) => {
+    await editAction(checkedRows);
+    setSelectedRows({});
+  }
+
+  const deleteButtonOnClick = async (checkedRows) => {
+    await deleteAction(checkedRows);
+    setSelectedRows({});
+  }
+
+  const customToolbarButton = (tableProps) => {
+    const checkedRows = Object.keys(selectedRows).filter((s) => selectedRows[s]);
+
+    const isDeleteButtonEnable = checkedRows?.length > 0 || false;
+    const isEditButtonEnable = checkedRows?.length === 1 || false;
+    return (
+      <div className={classes.toolbar}>
+        <Tooltip disableFocusListener title={`Add ${tableName}`}>
+          <IconButton onClick={() => addAction()}>
+            <Add />
+          </IconButton>
+        </Tooltip>
+        <Tooltip disableFocusListener title="Refresh">
+          <IconButton onClick={() => refreshAction()}>
+            <Refresh />
+          </IconButton>
+        </Tooltip>
+        <Tooltip disableFocusListener title={`Edit ${tableName}`}>
+          <IconButton disabled={!isEditButtonEnable} onClick={() => editButtonOnClick(checkedRows)}>
+            <Edit />
+          </IconButton>
+        </Tooltip>
+        <Tooltip disableFocusListener title={`Delete ${tableName}`}>
+          <IconButton disabled={!isDeleteButtonEnable} onClick={() => deleteButtonOnClick(checkedRows)}>
+            <Delete />
+          </IconButton>
+        </Tooltip>
+        <SearchBar {...tableProps.searchProps} />
+      </div>
+    );
+  }
 
   const customTotal = (from, to, size) => (
     <span className={classes.customTotal}>
-      Showing { from } to { to } of { size } entries
+      Showing { from} to { to} of { size} entries
     </span>
   );
 
@@ -58,7 +76,7 @@ import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.m
     paginationSize: 4,
     pageStartIndex: 1,
     alwaysShowAllBtns: true, // Always show next and previous button
-     withFirstAndLast: false, // Hide the going to First and Last page button
+    withFirstAndLast: false, // Hide the going to First and Last page button
     // hideSizePerPage: false, // Hide the sizePerPage dropdown always
     // hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
     prePageText: 'Previous',
@@ -75,32 +93,43 @@ import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.m
     }]
   };
 
-const selectRow = {
-  mode: 'checkbox',
-  clickToSelect: true,
-  // onselect: (row, isSelect, rowIndex, e) => {
+  const selectRow = {
+    mode: 'checkbox',
+    clickToSelect: true,
+    onSelect: (row, isSelect, rowIndex, e) => {
+      setSelectedRows({ ...selectedRows, [rowIndex]: isSelect })
+    },
+    onSelectAll: (isSelect, rows, e) => {
+      if (isSelect) {
+        let rowIndexes = {};
+        rows?.map((i, index) => (
+          rowIndexes = { ...rowIndexes, [index]: isSelect }
+        ));
+        setSelectedRows(rowIndexes);
+      } else {
+        setSelectedRows({})
+      }
+    }
 
-  // }
-};
-
-  return(
+  };
+  return (
     <MuiThemeProvider theme={theme()}>
       <ToolkitProvider
         keyField="id"
-        data={ data }
-        columns={ columns }
+        data={data}
+        columns={columns}
         search>
         {
           tableProps => (
             <div>
               {customToolbarButton(tableProps)}
               <BootstrapTable
-                { ...tableProps.baseProps }
-                selectRow={ selectRow }
-                pagination={ paginationFactory(options) }
+                {...tableProps.baseProps}
+                selectRow={selectRow}
+                pagination={paginationFactory(options)}
               />
             </div>
-            )
+          )
         }
       </ToolkitProvider>
     </MuiThemeProvider>
@@ -108,12 +137,17 @@ const selectRow = {
 }
 
 const styles = () => ({
-  toolbar:{
-    textAlign:'right',
-    padding:'10px',
+  toolbar: {
+    textAlign: 'right',
+    padding: '10px',
   },
-  customTotal:{
+  customTotal: {
     padding: '10px'
+  },
+  checkbox: {
+    "&$checked$checked": {
+      color: "#7a6fbe"
+    }
   }
 });
 
@@ -124,14 +158,14 @@ const theme = () => {
         root: {
           '&:hover': {
             color: "#7a6fbe"
-        },
-        borderRadius:'0%'
+          },
+          borderRadius: '0%'
         }
       },
       MuiCheckbox: {
         root: {
           "&$checked$checked": {
-              color:"#7a6fbe"
+            color: "#7a6fbe"
           }
         }
       },

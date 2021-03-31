@@ -1,9 +1,9 @@
 import React, { useCallback } from "react";
-import {Button} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { map } from "lodash";
 import ReactBootstrapTable from '../../../component/Tables/tables-react-bootstrap';
 
-export default function ContactsTable({data, editContact, deleteContact, addContact, refreshTable}) {
+export default function ContactsTable({ data, editContact, deleteContact, addContact, refreshTable }) {
 
   const columns = [{
     text: "First Name",
@@ -51,13 +51,13 @@ export default function ContactsTable({data, editContact, deleteContact, addCont
   }];
 
 
-  const onDelete=(rowsSelected)=>{
-    const idsToDelete = rowsSelected.data.map(d => data[d.dataIndex].id); // array of all ids to to be deleted
-    idsToDelete.map((id)=>deleteContact(id));
+  const onDelete = (rowsSelected) => {
+    const idsToDelete = rowsSelected?.map(d => data[d].id); // array of all ids to to be deleted
+    idsToDelete.map((id) => deleteContact(id));
   }
 
-  const onEdit=(rowsSelected)=>{
-    const idToEdit = data[rowsSelected?.data[0].dataIndex].id;
+  const onEdit = (rowsSelected) => {
+    const idToEdit = data[rowsSelected[0]].id;
     editContact(idToEdit);
   }
 
@@ -78,15 +78,15 @@ export default function ContactsTable({data, editContact, deleteContact, addCont
 
   }, [data]);
 
-  return(
-      <ReactBootstrapTable
-        columns={columns}
-        data={rowEvent()}
-        tableName="Supplier"
-        editAction={onEdit}
-        deleteAction={onDelete}
-        addAction={addContact}
-        refreshAction={refreshTable}
-      />
+  return (
+    <ReactBootstrapTable
+      columns={columns}
+      data={rowEvent()}
+      tableName="Supplier"
+      editAction={onEdit}
+      deleteAction={onDelete}
+      addAction={addContact}
+      refreshAction={refreshTable}
+    />
   )
 }
