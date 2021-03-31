@@ -8,46 +8,27 @@ export default function ContactsTable({ data, editContact, deleteContact, addCon
   const columns = [{
     text: "First Name",
     dataField: "contactName",
-    options: {
-      filter: true,
-      sort: true
-    }
+    sort: true
   }, {
     text: "Last Name",
     dataField: "lastName",
-    options: {
-      filter: true,
-      sort: true
-    }
+    sort: true
   }, {
     text: "Company",
     dataField: "companyName",
-    options: {
-      filter: true,
-      sort: true
-    }
+    sort: true
   }, {
     text: "Position",
     dataField: "position",
-    options: {
-      filter: true,
-      sort: false,
-      display: false
-    }
+    sort: false,
   }, {
     text: "Phone",
     dataField: "phoneNumber",
-    options: {
-      filter: false,
-      sort: false
-    }
+    sort: false
   }, {
     text: "Email",
     dataField: "email",
-    options: {
-      filter: false,
-      sort: false
-    }
+    sort: false
   }];
 
 
