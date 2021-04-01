@@ -15,12 +15,41 @@ import {
 } from "../../store/Equipment/actions";
 import { togglePreloader } from "../../store/layout/actions";
 import EquipmentForm from "./component/form";
+import BootstrapTable from "../../component/Tables/bootstrap-table";
 
 export default function Storage() {
   const [isOpen, setIsOpen] = useState(false);
   const [equipmentItem, setEquipmentItem] = useState(null);
   const dispatch = useDispatch();
   const { equipment, facilities } = useSelector((state) => state.Equipment);
+  const [tableColumn, setTableColumn] = useState([
+    {
+      text: "Name",
+      dataField: "name",
+      sort: true,
+    },
+    {
+      text: "Type",
+      dataField: "type",
+      sort: true,
+    },
+    {
+      text: "Facility",
+      dataField: "facility",
+      sort: true,
+    },
+    {
+      text: "Max Capacity",
+      dataField: "maxCapacity",
+      sort: true,
+    },
+    {
+      text: "Status",
+      dataField: "status",
+      sort: true,
+    },
+
+  ]);
 
   const typeSelection = [
     "Barrel",
@@ -31,6 +60,9 @@ export default function Storage() {
     "Serving Tank",
     "Tote",
     "Whirl Pool",
+    "Masher", 
+    "Lauter Tun",
+    "Conditioner"
   ];
 
   useEffect(() => {
@@ -99,23 +131,19 @@ export default function Storage() {
     <Fragment>
       <Row>
         <Col xs="12">
+          <Button onClick={onAddEquipment} color="primary" className="mb-4">
+            Add Storage
+          </Button>
           <Card>
-            <CardBody>
-              {/* <EquipmentTable
-                equipment={equipment}
-                editEquipmentItem={onEditEquipment}
-                deleteEquipmentItem={onDeleteEquipment}
-              /> */}
+            <CardBody className="p-0 pl-2 pr-2">
+              <BootstrapTable
+                column={tableColumn}
+                data={equipment}
+                tableName="Storage"
+                editOnClick={onEditEquipment}
+                deletOnClick={onDeleteEquipment}
+              />
             </CardBody>
-            <CardFooter>
-              <Row>
-                <Col xs="12">
-                  <div className="float-left mt-1">
-                      <Button color="secondary" className="waves-effect" onClick={onAddEquipment}>Add Equipment</Button>
-                  </div>
-                </Col>
-              </Row>
-            </CardFooter>
           </Card>
         </Col>
       </Row>

@@ -204,7 +204,7 @@ class SidebarContent extends Component {
                   <Link to="/facilities">Facilities</Link>
                 </li>
                 <li>
-                  <Link to="/facilities/locations">Storages</Link>
+                  <Link to="/facilities/storage">Storages</Link>
                 </li>
               </ul>
             </li>

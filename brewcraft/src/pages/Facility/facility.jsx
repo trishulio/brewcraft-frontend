@@ -62,7 +62,7 @@ export default function Facility() {
     facilities && dispatch(fetchFacilities());
   }, []);
 
-  const FormModal = {
+  const formModel = {
     name: "",
     address: {
       addressLine1: "",
@@ -112,7 +112,7 @@ export default function Facility() {
       );
     } else {
       //
-      const Model = { ...FormModal, ...model };
+      const Model = { ...formModel, ...model };
       dispatch(
         createFacility({
           formData: Model,
@@ -190,7 +190,7 @@ export default function Facility() {
             Add Facility
           </Button>
           <Card>
-            <CardBody className="p-0 pl-2 pr-2">
+            <CardBody className="py-0 px-2">
               <BootstrapTable
                 column={tableColumn}
                 data={tableRows}
@@ -209,7 +209,7 @@ export default function Facility() {
           title={editForm.edit ? "Edit Facility" : "Add Facility"}
         >
           <FacilityForm
-            FormModal={editForm.edit ? editForm.formData : FormModal}
+            formModel={editForm.edit ? editForm.formData : formModel}
             close={dialogCloseFn}
             companySubmit={createFacilities}
           />

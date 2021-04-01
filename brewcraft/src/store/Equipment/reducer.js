@@ -78,9 +78,9 @@ const Equipment = (state = initialState, { type, payload }) => {
       {
         const indexFacilite = findIndex(state.facilities, (value)=>value.id === payload.id) 
           if(indexFacilite != -1){
-            const faciliteiChanged = {...state.facilities[indexFacilite], ...payload} 
+            const facilitiesChanged = {...state.facilities[indexFacilite], ...payload} 
             const allFacilities = cloneDeep(state.facilities)
-            allFacilities[indexFacilite] = faciliteiChanged;
+            allFacilities[indexFacilite] = facilitiesChanged;
             return {
               ...state,
               facilities:[...allFacilities]
