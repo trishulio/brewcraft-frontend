@@ -8,16 +8,16 @@ import { Row, Col, Card, CardBody, Button, ModalFooter } from "reactstrap";
  * @param {Object} FormModal Mandatory
  * 
  */
-export default function FacilityForm({ companySubmit, close, FormModal }) {
+export default function FacilityForm({ companySubmit, close, formModel }) {
   return (
-    <AvForm onValidSubmit={companySubmit} model={FormModal}>
+    <AvForm onValidSubmit={companySubmit} model={formModel}>
       <Card>
         <CardBody>
           <Row>
             <Col lg="6">
               <AvField
                 name="name"
-                label="Name*"
+                label="Name"
                 placeholder="Name"
                 type="text"
                 errorMessage="Enter Name"
@@ -27,7 +27,7 @@ export default function FacilityForm({ companySubmit, close, FormModal }) {
             <Col lg="6">
               <AvField
                 name="phoneNumber"
-                label="Phone Number*"
+                label="Phone Number"
                 placeholder="Phone Number"
                 type="text"
                 errorMessage="Please Insert a valid Phone Number."
@@ -37,7 +37,7 @@ export default function FacilityForm({ companySubmit, close, FormModal }) {
             <Col lg="6">
               <AvField
                 name="address.addressLine1"
-                label="Address Line1*"
+                label="Address Line1"
                 placeholder="Address Line1"
                 type="text"
                 validate={{ required: { value: true } }}
@@ -46,7 +46,7 @@ export default function FacilityForm({ companySubmit, close, FormModal }) {
             <Col lg="6">
               <AvField
                 name="address.addressLine2"
-                label="Address Line2*"
+                label="Address Line2"
                 placeholder="Address Line2"
                 type="text"
                 validate={{ required: { value: true } }}
@@ -55,7 +55,7 @@ export default function FacilityForm({ companySubmit, close, FormModal }) {
             <Col lg="6">
               <AvField
                 name="address.country"
-                label="Country*"
+                label="Country"
                 placeholder="Country"
                 type="text"
                 validate={{ required: { value: true } }}
@@ -64,7 +64,7 @@ export default function FacilityForm({ companySubmit, close, FormModal }) {
             <Col lg="6">
               <AvField
                 name="address.province"
-                label="Province*"
+                label="Province"
                 placeholder="Province"
                 type="text"
                 validate={{ required: { value: true } }}
@@ -73,7 +73,7 @@ export default function FacilityForm({ companySubmit, close, FormModal }) {
             <Col lg="6">
               <AvField
                 name="address.city"
-                label="City*"
+                label="City"
                 placeholder="City"
                 type="text"
                 errorMessage="Please insert a valid City"
@@ -83,7 +83,7 @@ export default function FacilityForm({ companySubmit, close, FormModal }) {
             <Col lg="6">
               <AvField
                 name="address.postalCode"
-                label="Postal Code*"
+                label="Postal Code"
                 placeholder="Postal Code"
                 type="text"
                 errorMessage="Please insert a valid Postal Code"
