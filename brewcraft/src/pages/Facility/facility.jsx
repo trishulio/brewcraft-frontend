@@ -135,13 +135,12 @@ export default function Facility() {
     }
     setSelectRows(selectRows);
   };
-    /**
+  /**
    * @delete Fun
    */
-  const dialogOpenDeleteFn = () => {
-    if (selectRows.length) {
-      setDeleteIsopen(true);
-    }
+  const dialogOpenDeleteFn = (rows) => {
+    setSelectRows(rows);
+    setDeleteIsopen(true);
   };
   const dialogOpenDeleteCloseFn = () => setDeleteIsopen(false);
   const deleteConfirmFn = () => {
@@ -154,32 +153,6 @@ export default function Facility() {
         },
       })
     );
-  };
-  const handleOnSelect = (row, isSelect) => {
-    if (isSelect) {
-      const current = [...selectRows];
-      console.log(row);
-      current.push(row.id);
-      setSelectRows(current);
-    } else {
-      const current = selectRows.filter((rowValue) => rowValue != row.id);
-      setSelectRows(current);
-    }
-  };
- const handleOnSelectAll = (isSelect, rows) => {
-    const ids = rows.map((r) => r.id);
-    if (isSelect) {
-      setSelectRows(ids);
-    } else {
-      setSelectRows([]);
-    }
-  };
-  const selectRow = {
-    mode: "checkbox",
-    clickToSelect: true,
-    selected: selectRows,
-    onSelect: handleOnSelect,
-    onSelectAll: handleOnSelectAll,
   };
 
   return (
@@ -210,19 +183,6 @@ export default function Facility() {
         >
           <FacilityForm
             formModel={editForm.edit ? editForm.formData : formModel}
-            close={dialogCloseFn}
-            companySubmit={createFacilities}
-          />
-        </Modal>
-      )}
-      {!!deleteIsopen && (
-        <Modal
-          show={isOpen}
-          close={dialogCloseFn}
-          title={editForm.edit ? "Edit Facility" : "Add Facility"}
-        >
-          <FacilityForm
-            FormModal={editForm.edit ? editForm.formData : FormModal}
             close={dialogCloseFn}
             companySubmit={createFacilities}
           />
