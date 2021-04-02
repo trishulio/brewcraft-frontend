@@ -71,11 +71,11 @@ function ReactBootstrapTable(props) {
     currSizePerPage,
     onSizePerPageChange
   }) => {
-    return (<FormControl variant="outlined" className={classes.formControl}>
+    return (<FormControl variant="outlined" >
       <Select
-        labelId="demo-simple-select-outlined-label"
-        id="demo-simple-select-outlined"
+        id="sizePerPage"
         onChange={(e) => onSizePerPageChange(e.target.value)}
+        value={currSizePerPage}
       >
         {options.map((option) => (
           <MenuItem value={option.page}>
