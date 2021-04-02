@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { createMuiTheme, MuiThemeProvider, withStyles } from "@material-ui/core/styles";
-import { IconButton, Tooltip } from '@material-ui/core';
+import { IconButton, Tooltip, Select, MenuItem, FormControl } from '@material-ui/core';
 import { Add, Edit, Delete, Refresh } from '@material-ui/icons';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -66,6 +66,26 @@ function ReactBootstrapTable(props) {
     );
   }
 
+  const sizePerPageRenderer = ({
+    options,
+    currSizePerPage,
+    onSizePerPageChange
+  }) => {
+    return (<FormControl variant="outlined" className={classes.formControl}>
+      <Select
+        labelId="demo-simple-select-outlined-label"
+        id="demo-simple-select-outlined"
+        onChange={(e) => onSizePerPageChange(e.target.value)}
+      >
+        {options.map((option) => (
+          <MenuItem value={option.page}>
+            {option.text}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+    )
+  }
   const customTotal = (from, to, size) => (
     <span className={classes.customTotal}>
       Showing { from} to { to} of { size} entries
@@ -83,6 +103,7 @@ function ReactBootstrapTable(props) {
     nextPageText: 'Next',
     showTotal: true,
     paginationTotalRenderer: customTotal,
+    sizePerPageRenderer,
     disablePageTitle: true,
     sizePerPageList: [{
       text: '5', value: 5
@@ -169,6 +190,24 @@ const theme = () => {
           }
         }
       },
+      MuiOutlinedInput: {
+        root: {
+          "&:hover $notchedOutline": {
+            borderColor: "#7a6fbe"
+          },
+          "&$focused $notchedOutline": {
+            borderColor: "#7a6fbe"
+          },
+        },
+        input:{
+          padding: "7.5px ​14px"
+        }
+      },
+      MuiSelect:{
+        outlined:{
+          paddingLeft:10
+        }
+      }
     },
     typography: {
       "fontFamily": 'Poppins',
