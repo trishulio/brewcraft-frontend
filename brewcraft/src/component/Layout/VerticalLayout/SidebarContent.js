@@ -141,7 +141,7 @@ class SidebarContent extends Component {
           <ul className="metismenu list-unstyled" id="side-menu">
             <li className="menu-title">Main</li>
             <li>
-              <Link to="/dashboard" className="waves-effect">
+              <Link to="/dashboard" replace={true} className="waves-effect">
                 <i className="mdi mdi-view-dashboard"></i>
                 <span>Dashboard</span>
               </Link>
@@ -153,10 +153,10 @@ class SidebarContent extends Component {
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/materials/ingredients">Ingredients</Link>
+                  <Link to="/ingredients">Ingredients</Link>
                 </li>
                 <li>
-                  <Link to="/materials/packaging">Packaging</Link>
+                  <Link to="/packaging">Packaging</Link>
                 </li>
                 <li>
                   <Link to="/materials/categories">Categories</Link>
@@ -164,30 +164,31 @@ class SidebarContent extends Component {
               </ul>
             </li>
             <li>
-              <Link to="/#" className="has-arrow waves-effect">
+              <Link to="/#" className="waves-effect">
                 <i className="mdi mdi-flag"></i>
-                <span>Batches</span>
+                <span>Brews</span>
+                <span className="badge badge-pill badge-primary float-right">5</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/brews/overview">
-                    Brews{" "}<span className="badge badge-pill badge-primary float-right">2</span>
+                  <Link to="/wort">
+                    Wort{" "}<span className="badge badge-pill badge-primary float-right">4</span>
                   </Link>
                 </li>
                 <li>
-                  <Link to="/brews">
-                    Fermentations
+                  <Link to="/batches">
+                    Batches{" "}<span className="badge badge-pill badge-warning float-right">1</span>
                   </Link>
                 </li>
                 <li>
-                  <Link to="/#" className="waves-effect">
+                  <Link to="/finished-goods" className="waves-effect">
                     <span>Finished Goods</span>
                   </Link>
                 </li>
               </ul>
             </li>
             <li>
-              <Link to="/dashboard" className="waves-effect">
+              <Link to="/products" className="waves-effect">
                 <i className="mdi mdi-crown"></i>
                 <span>Products</span>
               </Link>
@@ -227,7 +228,7 @@ class SidebarContent extends Component {
                   <Link to="/contacts/companies">Companies</Link>
                 </li>
                 <li>
-                  <Link to="/purchase-invoices">Invoices</Link>
+                  <Link to="/purchases">Invoices</Link>
                 </li>
               </ul>
             </li>

@@ -1,9 +1,9 @@
 import React, { useEffect, Fragment, useState } from "react";
 import { map } from "lodash";
 import { useDispatch } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
-    fetchMaterialById
+    fetchMaterialCategoryById
 } from "../../store/Materials/actions";
 import { setBreadcrumbItems } from "../../store/actions";
 import {
@@ -17,43 +17,27 @@ import {
   Button,
   Input
 } from "reactstrap";
-import noImage from "../../assets/images/no-image.jpg";
 
 const units = ["hl", "l", "ml", "kg", "g"];
 
 export default function Material() {
-    const [material, setMaterial] = useState({});
+    const [category, setCategory] = useState({});
     const [editable, setEditable] = useState(false);
     let { id } = useParams();
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(
-            fetchMaterialById({
+            fetchMaterialCategoryById({
                 id: id,
                 success: data => {
-                    setMaterial(data);
-                    let name, link;
-                    switch (data.materialClass.id) {
-                        case 1:
-                            name = "Ingredients";
-                            link = "/ingredients";
-                            break;
-                        case 2:
-                            name = "Packaging";
-                            link = "/packaging";
-                            break;
-                        default:
-                            link = "#";
-                            break
-                    }
-                    dispatch(
-                        setBreadcrumbItems(data.name, [
-                            { title: "Main", link: "#" },
-                            { title: "Raw Materials", link: "#" },
-                            { title: name, link: link }
-                        ]),
-                    );
+                    setCategory(data);
+                    const items = [
+                        { title: "Main", link: "#" },
+                        { title: "Raw Materials", link: "#"},
+                        { title: "Categories", link: "#"}
+                    ];
+                    dispatch(setBreadcrumbItems(data.name, items));
                 }
             }));
         }, []);
@@ -78,59 +62,27 @@ export default function Material() {
                                             <h3 className="font-size-14 mb-4">Name</h3>
                                         </Col>
                                         <Col xs="3">
-                                            {editable && <Input type="text" name="name"/>}
-                                            {!editable && <span name="name">{material.name}</span>}
+                                            {editable && <Input type="text" name="name" defaultValue={category.name} />}
+                                            {!editable && <span name="name">{category.name}</span>}
                                         </Col>
                                     </Row>
                                     <Row>
                                         <Col xs="3">
-                                            <h3 className="font-size-14 mb-4">Material</h3>
+                                            <h3 className="font-size-14 mb-4">Parent</h3>
                                         </Col>
                                         <Col xs="3">
-                                            <span name="name">{material.materialClass && material.materialClass.name}</span>
-                                        </Col>
-                                        <Col xs="3">
-                                            <h3 className="font-size-14 mb-4">Category</h3>
-                                        </Col>
-                                        <Col xs="3">
-                                            {editable && <Input type="text" name="category"/>}
-                                            {!editable && <span name="name">{material.category && material.category.name }</span>}
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col xs="3">
-                                            <h3 className="font-size-14 mb-4">UPC</h3>
-                                        </Col>
-                                        <Col xs="3">
-                                            {editable && <Input type="text" name="upc"/>}
-                                            {!editable && <span name="name">{material.upc || "-"}</span>}
-                                        </Col>
-                                        <Col xs="3">
-                                            <h3 className="font-size-14 mb-4">Unit Of Measure</h3>
-                                        </Col>
-                                        <Col xs="3">
-                                            {/* {editable && <Input type="text" name="baseQuantityUnit"/>} */}
                                             {editable && <select>
                                                 {editable &&
-                                                    map(units, (value, index) => (
+                                                    map([category.parentCategoryId], (value, index) => (
                                                         <option value={value} key={value}>
                                                         {value}
                                                         </option>
                                                     ))
                                                 }
                                             </select>}
-                                            {!editable && <span name="name">{material.baseQuantityUnit}</span>}
+                                            {!editable && <span name="name">{category.parentCategoryId}</span>}
                                         </Col>
                                     </Row>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col sm="3">
-                                    <h3 className="font-size-14 mb-1">Description</h3>
-                                </Col>
-                                <Col sm="9">
-                                    {editable && <Input className="mb-3" type="textarea" name="text" id="exampleText" rows={3} defaultValue={material.description}/>}
-                                    {!editable && <Input className="mb-3" type="textarea" name="text" id="exampleText" rows={3} defaultValue={material.description} disabled/>}
                                 </Col>
                             </Row>
                         </CardBody>
@@ -175,16 +127,6 @@ export default function Material() {
                                     <span name="name">Feb 2, 2021</span>
                                 </Col>
                             </Row>
-                        </CardBody>
-                    </Card>
-                    <Card>
-                        <CardHeader>
-                            <h4 className="card-title mb-1">Image</h4>
-                        </CardHeader>
-                        <CardBody>
-                            <img style={{width:"100%"}} src={noImage} alt="material" className="border d-block mr-2 mb-2 p-1" />
-                            <span className="d-block mb-2">No image found ..</span>
-                            <Button type="button" color="primary" size="sm" className="waves-effect mr-2">Upload</Button>
                         </CardBody>
                     </Card>
                 </Col>

@@ -16,13 +16,15 @@ import WidgetUser from "./widget-user";
 import YearlySales from "./yearly-sales";
 import LatestTransactions from "./latest-transactions";
 import LatestOrders from "./latest-orders";
+import PieCart from "./finished-goods-piechart";
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
             breadcrumbItems : [
-                { title : "Brewcraft", link : "#" }
+                { title : "Main", link : "#" },
+                { title : "Dashboard", link : "#" }
             ],
             reports : [
                 { title : "Orders", icon : "mdi-cube-outline", result : "+11%", value : "1,587", desc : "From previous period", color : "info" },
@@ -47,8 +49,7 @@ class Dashboard extends Component {
 
                     <Row>
                         <Col xl="3">
-                            {/* Monthly Earnings */}
-                            <MonthlyEarnings/>
+                            <PieCart />
                         </Col>
 
                         <Col xl="6">

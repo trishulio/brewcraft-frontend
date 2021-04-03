@@ -1,10 +1,10 @@
-import React,{useCallback,useEffect} from "react";
-import { MDBDataTable , MDBBtn } from "mdbreact";
+import React, { useCallback } from "react";
+import { MDBDataTable, MDBBtn } from "mdbreact";
 import {map} from "lodash"
-import { useDispatch, useSelector } from "react-redux";
-import { fetchMaterialCategories  } from "../../../store/Materials/actions";
-export default function MaterialsTable({editFn,deleteFn, data}) {
+import { useHistory } from 'react-router-dom';
 
+export default function MaterialsTable({editFn, data}) {
+  const history = useHistory();
   const tabledata = [
     {
       label: "Name",
@@ -33,11 +33,8 @@ export default function MaterialsTable({editFn,deleteFn, data}) {
       sort: "asc"
     },
     {
-      field: "edit"
-    },
-    {
-      field: "delete"
-    } 
+      field: "view"
+    }
   ];
   const rowEvent = useCallback(() => {
     return map(data, (row) => {
@@ -46,15 +43,12 @@ export default function MaterialsTable({editFn,deleteFn, data}) {
       return {
         ...row,
         cName: (
-          <span onClick={() => editFn(row.id)} className="btnParent">
+          <span>
               {row.cName}
          </span>
         ),
-        edit: (
-          <MDBBtn color="dark" onClick={() => editFn(row.id)}>Edit</MDBBtn>
-        ),
-        delete: (
-          <MDBBtn color="danger" onClick={() => deleteFn(row.id)}>Delete</MDBBtn>
+        view: (
+          <MDBBtn color="secondary" size="sm" onClick={() => history.push("/materials/" + row.id)}>View</MDBBtn>
         )
       };
     });

@@ -71,8 +71,8 @@ export default function Facilities(props) {
   useEffect(() => {
     dispatch(
       setBreadcrumbItems("Ingredients", [
-        { title: "Dashboard", link: "/dashboard" },
-        { title: "Materials", link: "#" },
+        { title: "Main", link: "#" },
+        { title: "Raw Materials", link: "#" },
       ])
     );
     dispatch(fetchIngredients());

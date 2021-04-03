@@ -3,12 +3,8 @@ import {
 } from './actionTypes';
 
 const initialState={
-    title : "Dashboard",
-    breadcrumbItems : [
-        { title : "Brewcraft", link : "#" },
-        { title : "Dashboard", link : "#" },
-        { title : "Dashboard", link : "#" },
-    ],
+    title : "",
+    breadcrumbItems : [],
 }
 
 const layout = (state=initialState, action) => {
@@ -17,7 +13,8 @@ const layout = (state=initialState, action) => {
             return {
               ...state,
               title: action.payload.title,
-              breadcrumbItems: action.payload.items
+              breadcrumbItems: action.payload.items,
+              backButton: action.payload.backButton
             };
 
         default:

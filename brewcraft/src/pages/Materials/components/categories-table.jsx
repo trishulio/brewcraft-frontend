@@ -1,7 +1,10 @@
-import React,{useCallback} from "react";
-import { MDBDataTable ,MDBBtn} from "mdbreact";
-import {map} from "lodash"
-export default function MaterialsTable({data, editFn,deleteFn}) {
+import React, { useCallback } from "react";
+import { MDBDataTable, MDBBtn } from "mdbreact";
+import { map } from "lodash"
+import { useHistory } from 'react-router-dom';
+
+export default function MaterialsTable({ data, viewFn }) {
+  const history = useHistory();
   const tabledata = [
     {
       label: "Category",
@@ -22,10 +25,7 @@ export default function MaterialsTable({data, editFn,deleteFn}) {
       width: 50
     },
     {
-      field: "edit"
-    },
-    {
-      field: "delete"
+      field: "view"
     }
   ];
   const rowEvent = useCallback(() => {
@@ -36,21 +36,13 @@ export default function MaterialsTable({data, editFn,deleteFn}) {
 
       return {
         ...row,
-        cName: (
-          <span onClick={() => editFn(row.id)} className="btnParent">
-              {row.cName}
-         </span>
-        ),
-        edit: (
-          <MDBBtn color="dark" onClick={() => editFn(row.id)}>Edit</MDBBtn>
-        ),
-        delete: (
-          <MDBBtn color="danger" onClick={() => deleteFn(row.id)}>Delete</MDBBtn>
+        view: (
+          <MDBBtn color="secondary" size="sm" onClick={() => history.push("/materials/categories/" + row.id)}>View</MDBBtn>
         )
       };
     });
   }, [data]);
- 
+
   return (
     <MDBDataTable
       responsive

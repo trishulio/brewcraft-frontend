@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment, useState, useCallback } from "react";
-import { get, map } from "lodash";
+import { map } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAllCategories,
@@ -14,7 +14,6 @@ import { Modal } from "../../component/Common/Modal";
 import CategoriesTable from "./components/categories-table";
 import MaterialCategoryDialog from "./components/material-category-dialog";
 import { ToastContainer } from "react-toastify";
-import { ALL } from "../../helpers/constants";
 export default function Facilities() {
   const [isOpen, setIsOpen] = useState(false);
   const [isEdit, setEdit] = useState(false);
@@ -32,8 +31,8 @@ export default function Facilities() {
   useEffect(() => {
     dispatch(
       setBreadcrumbItems("Categories", [
-        { title: "Dashboard", link: "/dashboard" },
-        { title: "Materials", link: "#" },
+        { title: "Main", link: "#" },
+        { title: "Raw Materials", link: "#" },
       ])
     );
     dispatch(fetchAllCategories());

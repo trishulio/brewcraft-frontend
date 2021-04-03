@@ -9,12 +9,15 @@ import Deliveries from '../pages/Delivery/delivery';
 import DeliveryDrivers from '../pages/Delivery/deliver-detail';
 
 // Brews
-import BrewsDashboard from '../pages/Brews/dashboard';
-import BrewsActive from '../pages/Brews/active';
-import Brews from '../pages/Brews/brews';
+import Brews from '../pages/Brews/wort';
+import Fermentations from '../pages/Brews/batches';
+import FinishedGoods from '../pages/Brews/finished-goods';
+
+import Products from "../pages/Products/products";
+import ProductItem from "../pages/Products/product";
 
 // Customers
-import CustomerList from '../pages/Customers/list';
+import CustomerList from '../pages/Customers/Customers';
 import CustomerInvoices from '../pages/CustomerInvoices/invoices';
 import CustomerNewInvoice from '../pages/CustomerInvoices/create-invoice';
 import CustomerViewInvoice from '../pages/CustomerInvoices/view-invoice';
@@ -26,11 +29,9 @@ import Equipment from '../pages/Equipment/equipment';
 import Facility from "../pages/Facility/facility";
 import Locations from '../pages/Locations';
 
-// Finished Goods
-import FinishedGoodsInventory from '../pages/FinishedGoods/inventory';
-
 // Materials
 import Material from '../pages/Materials/material';
+import Category from "../pages/Materials/category";
 import MaterialsIngredients from '../pages/Materials/ingredients';
 import MaterialsPackaging from '../pages/Materials/packaging';
 import MaterialCategories from '../pages/Materials/categories';
@@ -42,44 +43,51 @@ import ReportsN10 from '../pages/Reports/n10';
 // Contacts
 import SuppliersList from '../pages/Contacts/suppliers';
 import CompaniesList from '../pages/Contacts/companies';
-import PurchaseInvoices from '../pages/PurchaseInvoices/invoices';
-import PurchaseInvoicesDetail from '../pages/PurchaseInvoices/invoice';
-import PurchaseInvoicesCreate from '../pages/PurchaseInvoices/invoice-new';
+import PurchaseInvoices from '../pages/Purchases/invoices';
+import PurchaseInvoicesDetail from '../pages/Purchases/invoice';
+import PurchaseInvoicesCreate from '../pages/Purchases/invoice-new';
+
+import notFound from "../pages/pages-404";
 
 const authProtectedRoutes = [
   // Dashboard
   { path: "/dashboard", component: Dashboard },
 
   // Brews
-  { path: "/brews/active-brews", component: BrewsActive },
-  { path: "/brews/dashboard", component: BrewsDashboard },
-  { path: "/brews", component: Brews },
+  { path: "/wort", component: Brews },
+  { path: "/batches", component: Fermentations },
+  { path: "/finished-goods", component: FinishedGoods },
 
-  // Deliveries
-  { path: "/deliveries", component: Deliveries },
-  { path: "/delivery-drivers", component: DeliveryDrivers },
+  // Materials
+  { path: "/ingredients", component: MaterialsIngredients },
+  { path: "/packaging", component: MaterialsPackaging },
+  { path: "/materials/categories/:id", component: Category },
+  { path: "/materials/categories", component: MaterialCategories },
+  { path: "/materials/:id", component: Material },
 
-  // Equipment
-  { path: "/equipment", component: Equipment },
+  // Products
+  { path: "/products/:id", component: ProductItem },
+  { path: "/products", component: Products },
 
   // Facility
-  { path: "/facilities", component: Facility, exact:true },
-  { path: "/floor-view", component: Facility, exact:true },
+  { path: "/facilities/locations", component: Locations },
+  { path: "/facilities", component: Facility, exact: true },
+  { path: "/floor-view", component: Facility, exact: true },
+  { path: "/equipment", component: Equipment },
 
-  // Finished Goods
-  { path: "/finished-goods", component: FinishedGoodsInventory },
+  // Purchases
+  { path: "/purchases/create", component: PurchaseInvoicesCreate },
+  { path: "/purchases/:id", component: PurchaseInvoicesDetail },
+  { path: "/purchases", component: PurchaseInvoices },
+
+  // Sales
   { path: "/sales-invoices/new", component: CustomerNewInvoice },
   { path: "/sales-invoices/:id", component: CustomerViewInvoice },
   { path: "/sales-invoices", component: CustomerInvoices },
 
-  // Locations
-  { path: "/facilities/locations", component: Locations },
-
-  // Materials
-  { path: "/materials/ingredients", component: MaterialsIngredients },
-  { path: "/materials/packaging", component: MaterialsPackaging },
-  { path: "/materials/categories", component: MaterialCategories },
-  { path: "/materials/:id", component: Material },
+  // Deliveries
+  { path: "/deliveries", component: Deliveries },
+  { path: "/delivery-drivers", component: DeliveryDrivers },
 
   // Reports
   { path: "/reports/k50b", component: ReportsK50B },
@@ -90,15 +98,12 @@ const authProtectedRoutes = [
   { path: "/suppliers", component: SuppliersList },
   { path: "/contacts/companies", component: CompaniesList },
 
-  // Purchase Invoices
-  { path: "/purchase-invoices/create", component: PurchaseInvoicesCreate },
-  { path: "/purchase-invoices/:id", component: PurchaseInvoicesDetail },
-  { path: "/purchase-invoices", component: PurchaseInvoices },
-
   // Default
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
 ];
 
-const publicRoutes = [];
+const publicRoutes = [
+  { path: "/404", component: notFound }
+];
 
 export { authProtectedRoutes, publicRoutes };

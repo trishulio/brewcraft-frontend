@@ -11,97 +11,80 @@ import {
   EDIT_CONTACTS_FAILURE,
   DELETE_CONTACTS_REQUEST,
   DELETE_CONTACTS_SUCCESS,
+  FETCH_CONTACT_REQUEST,
+  FETCH_CONTACT_FAILURE,
+  FETCH_CONTACT_SUCCESS,
+  DELETE_CONTACTS_FAILURE,
 } from "./actionTypes";
-import Axios from "axios";
+import {
+  fetchContactRequest,
+  fetchContactsRequest,
+  createContactRequest,
+  updateContactRequest,
+  deleteContactRequest
+} from "./api";
+import { snackFailure, snackSuccess } from "../Snackbar/actions";
 
-const fetchrequest = function () {
-  // return Axios.get('enter your server url')
-  return true;
-};
-
-function* fetchCustomers() {
-  const result = yield call(fetchrequest);
+function* fetchContacts() {
+    try {
+      const data = yield call(fetchContactsRequest);
+      yield put({ type: FETCH_CONTACTS_SUCCESS, payload: data.data });
+    } catch (e) {
+      yield put ({ type: FETCH_CONTACTS_FAILURE, payload: null });
+      yield put(snackFailure());
+    }
 }
 
-//
-function postContact(formData) {
-  // dummy api calling remove this functiona, run Ajax/Axios call, return result
-  // return { Data:formData, Message:"successfull", Error:null }
+function* fetchContact(action) {
+  try {
+    const data = yield call(fetchContactRequest,action?.payload?.id);
+    yield put({ type: FETCH_CONTACT_SUCCESS, payload: data.data });
+    action.payload.success && action.payload.success(data.data);
+  } catch (e) {
+    yield put ({ type: FETCH_CONTACT_FAILURE, payload: null });
+    yield put(snackFailure());
+  }
 }
 
 function* addContact(action) {
-  // uncomment when put axios request
-
-  // let { Data, Message, Error} = yield call(postContact(action.payload));
-
-  // if(Error){
-
-  //     yield put({type:ADD_CONTACTS_FAILURE, payload:Message})
-
-  // }else{
-
-  //     yield put({type: ADD_CONTACTS_SUCCESS, payload:Data})
-
-  // }
-  // console.log({...action.payload, id:Math.random()});
-
-  yield put({
-    type: ADD_CONTACTS_SUCCESS,
-    payload: { ...action.payload, id: Math.random() },
-  });
+  try {
+    yield call(createContactRequest, action.payload);
+    yield put({ type: ADD_CONTACTS_SUCCESS });
+    action.payload.success && action.payload.success();
+    yield put(snackSuccess());
+  } catch (e) {
+    yield put ({ type: ADD_CONTACTS_FAILURE });
+    yield put(snackFailure());
+  }
 }
-//
-function putContact(formData) {
-  // dummy api calling remove this functiona, run Ajax/Axios call, return result
-  // return { Data:formData, Message:"successfull", Error:null }
-}
-
 function* editContact(action) {
-  // uncomment when put axios request
-
-  // let { Data, Message, Error} = yield call(putContact(action.payload));
-
-  // if(Error){
-
-  //     yield put({type:ADD_CONTACTS_FAILURE, payload:Message})
-
-  // }else{
-
-  //     yield put({type: ADD_CONTACTS_SUCCESS, payload:Data})
-
-  // }
-  // console.log({...action.payload, id:Math.random()});
-
-  yield put({ type: EDIT_CONTACTS_SUCCESS, payload: { ...action.payload } });
-}
-//
-function delContact(formData) {
-  // dummy api calling remove this functiona, run Ajax/Axios call, return result
-  // return { Data:formData, Message:"successfull", Error:null }
+  try {
+      yield call(updateContactRequest, action.payload.id, action.payload);
+      yield put({ type: EDIT_CONTACTS_SUCCESS });
+      action.payload.success && action.payload.success();
+      yield put(snackSuccess());
+  } catch (e) {
+      yield put ({ type: EDIT_CONTACTS_FAILURE });
+      yield put(snackFailure());
+  }
 }
 
 function* deleteContact(action) {
-  // uncomment when put axios request
-
-  // let { Data, Message, Error} = yield call(putContact(action.payload));
-
-  // if(Error){
-
-  //     yield put({type:ADD_CONTACTS_FAILURE, payload:Message})
-
-  // }else{
-
-  //     yield put({type: ADD_CONTACTS_SUCCESS, payload:Data})
-
-  // }
-  // console.log({...action.payload, id:Math.random()});
-
-  yield put({ type: DELETE_CONTACTS_SUCCESS, payload: { ...action.payload } });
+  try {
+    yield call(deleteContactRequest, action.payload.id);
+    yield put({ type: DELETE_CONTACTS_SUCCESS });
+    action.payload.success && action.payload.success();
+    yield put(snackSuccess());
+} catch (e) {
+    yield put ({ type: DELETE_CONTACTS_FAILURE });
+    yield put(snackFailure());
+}
 
 }
 
 export default function* Customers() {
-  yield takeLatest(FETCH_CONTACTS_REQUEST, fetchCustomers);
+  yield takeLatest(FETCH_CONTACTS_REQUEST, fetchContacts);
+  yield takeLatest(FETCH_CONTACT_REQUEST, fetchContact);
   yield takeLatest(ADD_CONTACTS_REQUEST, addContact);
   yield takeLatest(EDIT_CONTACTS_REQUEST, editContact);
   yield takeLatest(DELETE_CONTACTS_REQUEST, deleteContact);
