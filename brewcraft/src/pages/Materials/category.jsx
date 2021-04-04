@@ -64,6 +64,7 @@ export default function Material({history}) {
         },
       })
     );
+    setEditable(false)
   };
   const deleteCategoryAction = () => {
     dispatch(deleteMaterialCategory({ id: category.id }));
