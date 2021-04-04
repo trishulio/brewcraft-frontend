@@ -44,6 +44,7 @@
     "react-bootstrap-sweetalert": "^5.1.9",
     "react-bootstrap-table-next": "^4.0.1",
     "react-bootstrap-table2-editor": "^1.4.0",
+    "react-bootstrap-table2-paginator": "^2.1.2",
     "react-bootstrap-table2-toolkit": "^2.1.2",
     "react-c3js": "^0.1.20",
     "react-chartist": "^0.14.3",
