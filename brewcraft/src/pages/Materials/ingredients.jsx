@@ -24,7 +24,6 @@ export default function Facilities(props) {
     false
   );
   const [isOpen, setIsOpen] = useState(false);
-  const [isEdit, setEdit] = useState(false);
   const dispatch = useDispatch();
   const { data, error, loading, formLoading } = useSelector((state) => {
     return state.Materials.Ingredients;
@@ -35,7 +34,7 @@ export default function Facilities(props) {
   const nullParentCategories = useSelector((state) => {
     return state.Materials.Categories;
   });
-  const [ingredient, setIngredient] = useState(null);
+
   const MaterialModel = {
     locationType: "work",
     name: "Availity",
@@ -95,14 +94,14 @@ export default function Facilities(props) {
 
   const newMaterialClose = () => {
     setIsOpen(false);
-    setEdit(false);
+    
   };
   const newMaterialCategoryOpen = () => {
     setIsNewMaterialCategoryOpen(true);
   };
   const newMaterialCategoryClose = () => {
     setIsNewMaterialCategoryOpen(false);
-    setEdit(false);
+    
   };
   const newMaterialSubmit = (e, values) => {
     const {
@@ -111,24 +110,8 @@ export default function Facilities(props) {
       materialBaseQuantityUnit,
       materialDescription,
     } = values;
-    if(isEdit)
-    {
 
-      const res = dispatch(
-        editIngredient({
-          id : ingredient.id,
-          form : {
-            name: materialName,
-            categoryId: materialCategoryId,
-            baseQuantityUnit: materialBaseQuantityUnit,
-            description: materialDescription,
-            upc: "",
-          }
-        })
-      );
-      setEdit(false);
-    }
-    else{
+    
 
       const res = dispatch(
         saveIngredient({
@@ -139,7 +122,7 @@ export default function Facilities(props) {
           upc: "",
         })
       );
-    }
+    
 
     newMaterialClose();
   };
@@ -151,27 +134,8 @@ export default function Facilities(props) {
 
     newMaterialCategoryClose();
   };
-  const editIngredientAction = (id) => {
-    dispatch(
-      fetchMaterialById({
-        id: id,
-        success: (data) => {
-          setIngredient({
-            ...data,
-            materialCategoryId: data.category.id,
-            materialName: data.name,
-            materialDescription: data.description,
-            materialBaseQuantityUnit: data.baseQuantityUnit
-          });
-          setEdit(true);
-          setIsOpen(true);
-        },
-      })
-    );
-  };
-  const deleteIngredientAction = (id) => {
-    dispatch(deleteIngredient({ id }));
-  };
+
+
   return (
     <Fragment>
       <Row>
@@ -188,9 +152,8 @@ export default function Facilities(props) {
           <Card>
             <CardBody>
               <RawMaterials
-                editFn={editIngredientAction}
-                deleteFn={deleteIngredientAction}
                 data={data}
+                category={INGREDIENTS}
               />
             </CardBody>
           </Card>
@@ -203,7 +166,7 @@ export default function Facilities(props) {
             categoryModelOpen={newMaterialCategoryOpen}
             submitFn={newMaterialSubmit}
             close={newMaterialClose}
-            model={isEdit ? ingredient : MaterialModel}
+            model={ MaterialModel}
             optionsList={TypeOption(
               categories.data.filter(
                 (item) => item.parentCategoryId === INGREDIENTS

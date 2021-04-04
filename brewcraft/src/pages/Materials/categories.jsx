@@ -16,8 +16,6 @@ import MaterialCategoryDialog from "./components/material-category-dialog";
 import { ToastContainer } from "react-toastify";
 export default function Facilities() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isEdit, setEdit] = useState(false);
-  const [category, setCategory] = useState(null);
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector(
     (state) => state.Materials.AllCategories
@@ -64,45 +62,18 @@ export default function Facilities() {
   };
   const newMaterialCategoryClose = () => {
     setIsOpen(false);
-    setEdit(false);
   };
   const newMaterialCategorySubmit = (e, values) => {
     const { categoryName, materialCategory } = values;
-    if (isEdit) {
-      dispatch(
-        editMaterialCategory({
-          id: category.id,
-          form: { name: categoryName, parentCategoryId: materialCategory },
-        })
-      );
-      setEdit(false);
-    } else {
+
       dispatch(
         saveCategory({ name: categoryName, parentCategoryId: materialCategory })
       );
-    }
+    
 
     newMaterialCategoryClose();
   };
-  const editCategoryAction = (id) => {
-    dispatch(
-      fetchMaterialCategoryById({
-        id: id,
-        success: (data) => {
-          setCategory({
-            ...data,
-            categoryName: data.name,
-            materialCategory: data.parentCategoryId,
-          });
-          setEdit(true);
-          setIsOpen(true);
-        },
-      })
-    );
-  };
-  const deleteCategoryAction = (id) => {
-    dispatch(deleteMaterialCategory({ id }));
-  };
+
   return (
     <Fragment>
       <Row>
@@ -119,8 +90,6 @@ export default function Facilities() {
           <Card>
             <CardBody>
               <CategoriesTable
-                editFn={editCategoryAction}
-                deleteFn={deleteCategoryAction}
                 data={data}
               />
             </CardBody>
@@ -136,7 +105,7 @@ export default function Facilities() {
           <MaterialCategoryDialog
             submitFn={newMaterialCategorySubmit}
             close={newMaterialCategoryClose}
-            model={isEdit ? category : MaterialModel}
+            model={ MaterialModel}
             optionsList={TypeOption(data)}
           />
         </Modal>
