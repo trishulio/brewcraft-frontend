@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createMuiTheme, MuiThemeProvider, withStyles } from "@material-ui/core/styles";
-import { IconButton, Tooltip, Select, MenuItem, FormControl } from '@material-ui/core';
-import { Add, Edit, Delete, Refresh } from '@material-ui/icons';
+import { IconButton, Tooltip, Select, MenuItem, FormControl, Menu, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Add, Edit, Delete, Refresh,ViewColumn } from '@material-ui/icons';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
@@ -10,6 +10,15 @@ import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.m
 function ReactBootstrapTable(props) {
 
   const [selectedRows, setSelectedRows] = useState({});
+  const [columnAnchorEl, setColumnAnchorEl] = useState(null);
+
+  const handleViewColumnClick = (event) => {
+    setColumnAnchorEl(event.currentTarget);
+  };
+
+  const handleViewColumnClose = () => {
+    setColumnAnchorEl(null);
+  };
 
   const { SearchBar } = Search;
 
@@ -33,6 +42,40 @@ function ReactBootstrapTable(props) {
     await deleteAction(checkedRows);
     setSelectedRows({});
   }
+
+  const CustomToggleList = ({
+    columns,
+    onColumnToggle,
+    toggles
+  }) => (
+    <Menu
+      anchorEl={columnAnchorEl}
+      keepMounted
+      open={Boolean(columnAnchorEl)}
+      onClose={handleViewColumnClose}
+    >
+      <FormGroup>
+        {columns
+          .map(column => ({
+            ...column,
+            toggle: toggles[column.dataField]
+          }))
+          .map(column => (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={column.toggle ? true : false}
+                  key={column.dataField}
+                  onChange={() => onColumnToggle(column.dataField)}
+                 />}
+              label={column.text}
+            />
+          ))
+        }
+      </FormGroup>
+    </Menu>
+  );
+
 
   const customToolbarButton = (tableProps) => {
     const checkedRows = Object.keys(selectedRows).filter((s) => selectedRows[s]);
@@ -61,6 +104,12 @@ function ReactBootstrapTable(props) {
             <Delete />
           </IconButton>
         </Tooltip>
+        <Tooltip disableFocusListener title={`View column`}>
+          <IconButton onClick={(e) => handleViewColumnClick(e)}>
+            <ViewColumn />
+          </IconButton>
+        </Tooltip>
+        {CustomToggleList(tableProps.columnToggleProps)}
         <SearchBar {...tableProps.searchProps} />
       </div>
     );
@@ -139,6 +188,7 @@ function ReactBootstrapTable(props) {
         keyField="id"
         data={data}
         columns={columns}
+        columnToggle
         search>
         {
           tableProps => (
@@ -165,11 +215,6 @@ const styles = () => ({
   customTotal: {
     padding: '10px'
   },
-  checkbox: {
-    "&$checked$checked": {
-      color: "#7a6fbe"
-    }
-  }
 });
 
 const theme = () => {
@@ -199,13 +244,18 @@ const theme = () => {
             borderColor: "#7a6fbe"
           },
         },
-        input:{
+        input: {
           padding: "7.5px ​14px"
         }
       },
-      MuiSelect:{
-        outlined:{
-          paddingLeft:10
+      MuiSelect: {
+        outlined: {
+          paddingLeft: 10
+        }
+      },
+      MuiFormControlLabel:{
+        root:{
+          marginLeft:0
         }
       }
     },
