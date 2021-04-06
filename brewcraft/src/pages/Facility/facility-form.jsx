@@ -105,7 +105,6 @@ export default function FacilityForm({ companySubmit, close, formModel }) {
             type="submit"
             color="primary"
             className="waves-effect waves-light"
-            // disabled={forstatus.loading}
           >
             Save changes
           </Button>
