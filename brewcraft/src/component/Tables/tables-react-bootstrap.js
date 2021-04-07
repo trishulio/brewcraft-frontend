@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createMuiTheme, MuiThemeProvider, withStyles } from "@material-ui/core/styles";
 import { IconButton, Tooltip, Select, MenuItem, FormControl, Menu, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
-import { Add, Edit, Delete, Refresh,ViewColumn } from '@material-ui/icons';
+import { Add, Edit, Delete, Refresh, ViewColumn } from '@material-ui/icons';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
@@ -11,7 +11,7 @@ function ReactBootstrapTable(props) {
 
   const [selectedRows, setSelectedRows] = useState({});
   const [columnAnchorEl, setColumnAnchorEl] = useState(null);
-
+  const [colToggles, setColToggles] = useState(null);
   const handleViewColumnClick = (event) => {
     setColumnAnchorEl(event.currentTarget);
   };
@@ -47,34 +47,45 @@ function ReactBootstrapTable(props) {
     columns,
     onColumnToggle,
     toggles
-  }) => (
-    <Menu
-      anchorEl={columnAnchorEl}
-      keepMounted
-      open={Boolean(columnAnchorEl)}
-      onClose={handleViewColumnClose}
-    >
-      <FormGroup>
-        {columns
-          .map(column => ({
-            ...column,
-            toggle: toggles[column.dataField]
-          }))
-          .map(column => (
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={column.toggle ? true : false}
-                  key={column.dataField}
-                  onChange={() => onColumnToggle(column.dataField)}
-                 />}
-              label={column.text}
-            />
-          ))
-        }
-      </FormGroup>
-    </Menu>
-  );
+  }) => {
+    const onCheckBoxChange = (dataField) => {
+      onColumnToggle(dataField);
+      if(colToggles){
+        setColToggles({ ...colToggles, [dataField]:!colToggles[dataField]});
+      }else{
+        setColToggles({ ...toggles, [dataField]:!toggles[dataField]});
+      }
+    }
+    console.log(colToggles);
+    return (
+      <Menu
+        anchorEl={columnAnchorEl}
+        keepMounted
+        open={Boolean(columnAnchorEl)}
+        onClose={handleViewColumnClose}
+      >
+        <FormGroup>
+          {columns
+            .map(column => ({
+              ...column,
+              toggle: colToggles ? colToggles[column.dataField] : toggles[column.dataField]
+            }))
+            .map(column => (
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={column.toggle ? true : false}
+                    key={column.dataField}
+                    onChange={() => onCheckBoxChange(column.dataField)}
+                  />}
+                label={column.text}
+              />
+            ))
+          }
+        </FormGroup>
+      </Menu>
+    );
+  }
 
 
   const customToolbarButton = (tableProps) => {
@@ -253,9 +264,9 @@ const theme = () => {
           paddingLeft: 10
         }
       },
-      MuiFormControlLabel:{
-        root:{
-          marginLeft:0
+      MuiFormControlLabel: {
+        root: {
+          marginLeft: 0
         }
       }
     },
