@@ -71,7 +71,12 @@ export default function Material({ history }) {
     const { value, name } = e.target;
     const mat = { ...material };
     if (name==='category'){
-      mat[name].id = value;
+      const category=categories.data.find(item=>{
+        
+        return item.id==value
+      })
+      console.log(category)
+      mat[name]=category;
       setMaterial(mat);
       return
     }
@@ -90,6 +95,7 @@ export default function Material({ history }) {
             baseQuantityUnit: material.baseQuantityUnit,
             description: material.description,
             upc: material.upc,
+            version : material.version+1
           },
         })
       );
@@ -103,6 +109,7 @@ export default function Material({ history }) {
             baseQuantityUnit: material.baseQuantityUnit,
             description: material.description,
             upc: material.upc,
+            version : material.version+1
           },
         })
       );
@@ -282,7 +289,7 @@ export default function Material({ history }) {
                   size="sm"
                   className="waves-effect btn-danger"
                   onClick={() => deleteAction()}
-                  disabled={editable}
+                  disabled={!editable}
                 >
                   Delete
                 </Button>

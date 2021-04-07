@@ -61,6 +61,7 @@ export default function Material({history}) {
         form: {
           name: category.name,
           parentCategoryId: category.parentCategoryId,
+          version : category.version+1
         },
       })
     );
