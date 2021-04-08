@@ -11,7 +11,7 @@ function ReactBootstrapTable(props) {
 
   const [selectedRows, setSelectedRows] = useState({});
   const [columnAnchorEl, setColumnAnchorEl] = useState(null);
-  const [colToggles, setColToggles] = useState(null);
+  // const [colToggles, setColToggles] = useState(null);
   const handleViewColumnClick = (event) => {
     setColumnAnchorEl(event.currentTarget);
   };
@@ -50,25 +50,25 @@ function ReactBootstrapTable(props) {
   }) => {
     const onCheckBoxChange = (dataField) => {
       onColumnToggle(dataField);
-      if(colToggles){
-        setColToggles({ ...colToggles, [dataField]:!colToggles[dataField]});
-      }else{
-        setColToggles({ ...toggles, [dataField]:!toggles[dataField]});
-      }
+      // if(colToggles){
+      //   setColToggles({ ...colToggles, [dataField]:!colToggles[dataField]});
+      // }else{
+      //   setColToggles({ ...toggles, [dataField]:!toggles[dataField]});
+      // }
     }
-    console.log(colToggles);
+    // console.log(colToggles);
     return (
       <Menu
         anchorEl={columnAnchorEl}
         keepMounted
         open={Boolean(columnAnchorEl)}
-        onClose={handleViewColumnClose}
+        onClose={() => handleViewColumnClose(toggles)}
       >
         <FormGroup>
           {columns
             .map(column => ({
               ...column,
-              toggle: colToggles ? colToggles[column.dataField] : toggles[column.dataField]
+              toggle: toggles[column.dataField]
             }))
             .map(column => (
               <FormControlLabel
@@ -86,7 +86,6 @@ function ReactBootstrapTable(props) {
       </Menu>
     );
   }
-
 
   const customToolbarButton = (tableProps) => {
     const checkedRows = Object.keys(selectedRows).filter((s) => selectedRows[s]);
@@ -120,7 +119,7 @@ function ReactBootstrapTable(props) {
             <ViewColumn />
           </IconButton>
         </Tooltip>
-        {CustomToggleList(tableProps.columnToggleProps)}
+        {Boolean(columnAnchorEl) && CustomToggleList(tableProps.columnToggleProps)}
         <SearchBar {...tableProps.searchProps} />
       </div>
     );
@@ -191,7 +190,6 @@ function ReactBootstrapTable(props) {
         setSelectedRows({})
       }
     }
-
   };
   return (
     <MuiThemeProvider theme={theme()}>
