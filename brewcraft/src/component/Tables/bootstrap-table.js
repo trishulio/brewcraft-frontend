@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import filterFactory from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
@@ -17,7 +17,6 @@ const BootstrapTablec = ({
   editOnClick,
   deletOnClick,
 }) => {
-
   const [selectRows, setSelectRows] = useState([]);
 
   useEffect(() => {
@@ -54,59 +53,58 @@ const BootstrapTablec = ({
 
   return (
     <>
-    <ToolkitProvider
-      keyField="id"
-      data={data}
-      columns={column}
-      columnToggle
-      search
-      bootstrap4
-    >
-      {(props) => (
-        <div>
-          <div className="view view-cascade gradient-card-header blue-gradient d-flex justify-content-between align-items-center py-0 mt-2 pr-0 pt-1">
-            <div>
-              {editOnClick && (
-                <Button
-                  disabled={selectRows.length == 0 || selectRows.length > 1}
-                  onClick={editOnClickL}
-                  color="primary"
-                  className="mr-2"
-                  size="sm"
-                >
-                  {`Edit ${tableName}`}
-                </Button>
-              )}
-              {deletOnClick && (
-                <Button
-                  disabled={selectRows.length == 0 || selectRows.length > 1}
-                  onClick={deletOnClickL}
-                  color="primary"
-                  className="mr-2"
-                  size="sm"
-                >
-                  {`Delete ${tableName}`}
-                </Button>
-              )}
-              
-            </div>
-            <div>
+      <ToolkitProvider
+        keyField="id"
+        data={data}
+        columns={column}
+        columnToggle
+        search
+        bootstrap4
+      >
+        {(props) => (
+          <div>
+            <div className="view view-cascade gradient-card-header blue-gradient d-flex justify-content-between align-items-center py-0 mt-2 pr-0 pt-1">
               <div>
-                <ColToggle {...props.columnToggleProps} />
-                <TableSearch {...props.searchProps}  />
+                {editOnClick && (
+                  <Button
+                    disabled={selectRows.length == 0 || selectRows.length > 1}
+                    onClick={editOnClickL}
+                    color="primary"
+                    className="mr-2"
+                    size="sm"
+                  >
+                    {`Edit ${tableName}`}
+                  </Button>
+                )}
+                {deletOnClick && (
+                  <Button
+                    disabled={selectRows.length == 0 || selectRows.length > 1}
+                    onClick={deletOnClickL}
+                    color="primary"
+                    className="mr-2"
+                    size="sm"
+                  >
+                    {`Delete ${tableName}`}
+                  </Button>
+                )}
+              </div>
+              <div>
+                <div className="d-inline-flex">
+                  <ColToggle {...props.columnToggleProps} />
+                  <TableSearch {...props.searchProps} />
+                </div>
               </div>
             </div>
+            <BootstrapTable
+              {...props.baseProps}
+              pagination={paginationFactory()}
+              selectRow={selectd}
+              filter={filterFactory()}
+              classes="remove_border"
+            />
           </div>
-          <BootstrapTable
-            {...props.baseProps}
-            pagination={paginationFactory()}
-            selectRow={selectd}
-            filter={filterFactory()}
-            classes="remove_border"
-          />
-        </div>
-      )}
-    </ToolkitProvider>
+        )}
+      </ToolkitProvider>
     </>
   );
 };

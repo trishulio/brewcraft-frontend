@@ -1,69 +1,52 @@
-import React, { useEffect, Fragment, useState, useCallback } from "react";
-import { get, isArray, map, findIndex, filter, set } from "lodash";
+import React, { useEffect, Fragment, useState, useMemo } from "react";
+import { get, map, findIndex, omit } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
-import { Row, Col, Card, CardBody, CardFooter, Button } from "reactstrap";
+import { Row, Col, Card, CardBody, Button } from "reactstrap";
 import { Modal } from "../../component/Common/Modal";
-import EquipmentTable from "./component/table";
 import {
-  fetchFacilities,
-  fetchEquipment,
-  fetchEquipmentItem,
-  createEquipmentItem,
-  updateEquipmentItem,
-  deleteEquipmentItem
-} from "../../store/Equipment/actions";
-import { togglePreloader } from "../../store/layout/actions";
-import EquipmentForm from "./component/form";
+  fetchStorages,
+  createStorage,
+  updateStorage,
+  deleteStorage,
+} from "../../store/Storages/actions";
 import BootstrapTable from "../../component/Tables/bootstrap-table";
+import StorageForm from "./storage-form";
 
 export default function Storage() {
   const [isOpen, setIsOpen] = useState(false);
-  const [equipmentItem, setEquipmentItem] = useState(null);
+  const [selectRows, setSelectRows] = useState([]);
+  const [deleteIsopen, setDeleteIsopen] = useState(false);
+  const [editForm, setEditForm] = useState({ edit: false, formData: null });
   const dispatch = useDispatch();
-  const { equipment, facilities } = useSelector((state) => state.Equipment);
+  const { data } = useSelector((state) => state.Storages);
   const [tableColumn, setTableColumn] = useState([
     {
-      text: "Name",
+      text: "Storage Name",
       dataField: "name",
       sort: true,
     },
     {
-      text: "Type",
+      text: "Storage Type",
       dataField: "type",
       sort: true,
     },
     {
-      text: "Facility",
-      dataField: "facility",
+      text: "Facility Name",
+      dataField: "facility_name",
       sort: true,
     },
     {
-      text: "Max Capacity",
-      dataField: "maxCapacity",
+      text: "Facility AddressLine1",
+      dataField: "addressLine1",
       sort: true,
     },
     {
-      text: "Status",
-      dataField: "status",
+      text: "Facility Country",
+      dataField: "country",
       sort: true,
     },
-
   ]);
-
-  const typeSelection = [
-    "Barrel",
-    "Boil Kettle",
-    "Brite Tank",
-    "Fermenter",
-    "Mix Tank",
-    "Serving Tank",
-    "Tote",
-    "Whirl Pool",
-    "Masher", 
-    "Lauter Tun",
-    "Conditioner"
-  ];
 
   useEffect(() => {
     dispatch(
@@ -71,77 +54,99 @@ export default function Storage() {
         { title: "Dashboard", link: "/dashboard" },
       ])
     );
-    dispatch(fetchEquipment());
-    dispatch(fetchFacilities());
+    dispatch(fetchStorages());
   }, []);
 
-  const onAddEquipment = () => {
-    setEquipmentItem(null);
+  const onAdd = () => {
     setIsOpen(true);
+    setEditForm({ edit: false, formData: null });
+  };
+  const dialogOpenEditFn = (selectRows) => {
+    // selectRows
+    const IndexVlaue = findIndex(
+      data,
+      (storage) => storage.id === selectRows[0]
+    );
+    if (IndexVlaue != -1) {
+      setEditForm({ edit: true, formData: { ...data[IndexVlaue] } });
+      setIsOpen(true);
+    }
+    setSelectRows(selectRows);
   };
 
-  const onEditEquipment = equipmentId => {
-    dispatch(
-      fetchEquipmentItem({
-        id: equipmentId,
-        success: (data) => {
-          setEquipmentItem(data);
-          setIsOpen(true);
-        }
-      }));
+  //delete
+  const dialogOpenDeleteFn = (rows) => {
+    setSelectRows(rows);
+    setDeleteIsopen(true);
   };
-
-  const onDeleteEquipment = equipmentId => {
+  const dialogOpenDeleteCloseFn = () => setDeleteIsopen(false);
+  const deleteConfirmFn = () => {
     dispatch(
-      deleteEquipmentItem({
-        id: equipmentId,
+      deleteStorage({
+        id: selectRows[0],
         success: () => {
-          dispatch(fetchEquipment());
-        }
-      }));
+          setSelectRows([]);
+          dialogOpenDeleteCloseFn();
+        },
+      })
+    );
   };
 
-  const onDialogClose = (isSave, data) => {
+  const onDialogClose = (isSave, formFields) => {
     if (isSave) {
-      if (equipmentItem) {
+      if (editForm.edit) {
         dispatch(
-          updateEquipmentItem({
-            ...equipmentItem,
-            ...data,
+          updateStorage({
+            formData: { id: editForm.formData.id, ...formFields },
             success: () => {
-              dispatch(fetchEquipment());
               setIsOpen(false);
-            }
-          }));
+            },
+          })
+        );
       } else {
         dispatch(
-          createEquipmentItem({
-            ...data,
+          createStorage({
+            formData: { ...formFields },
             success: () => {
-              dispatch(fetchEquipment());
               setIsOpen(false);
-            }
-          }));
+            },
+          })
+        );
       }
     }
     setIsOpen(false);
   };
 
+  const TableData = useMemo(() => {
+    return map(data, (storage) =>
+      omit(
+        {
+          ...storage.facility.address,
+          ...storage.facility,
+          ...storage,
+          facility_name: get(storage, "facility.name"),
+          facility_id: get(storage, "facility.id"),
+        },
+        ["facility", "address"]
+      )
+    );
+  }, [data]);
+
   return (
     <Fragment>
       <Row>
         <Col xs="12">
-          <Button onClick={onAddEquipment} color="primary" className="mb-4">
+          <Button onClick={onAdd} color="primary" className="mb-4">
             Add Storage
           </Button>
           <Card>
             <CardBody className="p-0 pl-2 pr-2">
               <BootstrapTable
                 column={tableColumn}
-                data={equipment}
+                data={TableData}
                 tableName="Storage"
-                editOnClick={onEditEquipment}
-                deletOnClick={onDeleteEquipment}
+                editOnClick={dialogOpenEditFn}
+                deletOnClick={dialogOpenDeleteFn}
               />
             </CardBody>
           </Card>
@@ -151,14 +156,24 @@ export default function Storage() {
         <Modal
           show={isOpen}
           close={onDialogClose}
-          title={equipmentItem ? "Edit Equipment" : "Add Equipment"}
+          title={editForm.edit ? "Edit Storage" : "Add Storage"}
         >
-          <EquipmentForm
+          <StorageForm
             close={onDialogClose}
-            equipmentTypes={typeSelection}
-            facilities={facilities}
-            formModal={equipmentItem}
+            formModal={editForm.edit ? editForm.formData : []}
           />
+        </Modal>
+      )}
+      {!!deleteIsopen && (
+        <Modal
+          show={deleteIsopen}
+          close={dialogOpenDeleteCloseFn}
+          title="Delete Storage"
+        >
+          are you sure, to delete?
+          <Button color="danger" onClick={deleteConfirmFn}>
+            Delete
+          </Button>
         </Modal>
       )}
     </Fragment>
