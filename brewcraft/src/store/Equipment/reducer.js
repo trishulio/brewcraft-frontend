@@ -1,3 +1,4 @@
+import { filter, findIndex, cloneDeep } from "lodash";
 import {
   FETCH_FACILITY_REQUEST,
   FETCH_FACILITIES_REQUEST,
@@ -5,8 +6,10 @@ import {
   FETCH_FACILITIES_FAILURE,
   CREATE_FACILITY_REQUEST,
   UPDATE_FACILITY_REQUEST,
+  UPDATE_FACILITIY_SUCCESS,
+  UPDATE_FACILITY_FAILURE,
   DELETE_FACILITY_REQUEST,
-
+  CREATE_FACILITIY_SUCCESS,
   FETCH_EQUIPMENT_REQUEST,
   FETCH_EQUIPMENT_SUCCESS,
   FETCH_EQUIPMENT_FAILURE,
@@ -16,6 +19,7 @@ import {
   CREATE_EQUIPMENT_ITEM_REQUEST,
   UPDATE_EQUIPMENT_ITEM_REQUEST,
   DELETE_EQUIPMENT_ITEM_REQUEST,
+  DELETE_FACILITIY_SUCCESS
 } from "./actionTypes";
 
 const initialState = {
@@ -53,6 +57,41 @@ const Equipment = (state = initialState, { type, payload }) => {
         equipment: payload,
         loading: false
       };
+    case CREATE_FACILITIY_SUCCESS:
+      return {
+        ...state,
+        facilities:[...state.facilities, payload]
+      }
+    case DELETE_FACILITIY_SUCCESS:
+      {
+        const allFacilities = filter(state.facilities, (value)=>{
+          if(value.id !== payload ){
+            return value
+          }
+        }) 
+        return {
+          ...state,
+          facilities:[...allFacilities]
+        }
+      }
+    case UPDATE_FACILITIY_SUCCESS:
+      {
+        const indexFacilite = findIndex(state.facilities, (value)=>value.id === payload.id) 
+          if(indexFacilite != -1){
+            const facilitiesChanged = {...state.facilities[indexFacilite], ...payload} 
+            const allFacilities = cloneDeep(state.facilities)
+            allFacilities[indexFacilite] = facilitiesChanged;
+            return {
+              ...state,
+              facilities:[...allFacilities]
+            }
+          }else{
+            return {
+              ...state
+            }
+          }
+        
+      }
     default:
       state = { ...state };
       break;

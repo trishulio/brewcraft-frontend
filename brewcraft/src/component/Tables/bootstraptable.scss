@@ -1,0 +1,42 @@
+.dropdown-menu.show {
+    background: #fff;
+    box-shadow: 0px 0 6px #4c4c4c61;
+    border: 1px solid rgba(76, 76 ,76, .35);
+    padding:10px
+}
+
+.dropdown-menu .form-check-input{
+    margin-left:0;
+    position:relative;
+    margin-right:3px;
+    verticle-align:middle
+}
+.remove_border{
+    margin-top: 10px;
+    &.table-bordered th, &.table-bordered td{
+        border: none;
+        border-top: 1px solid #e9ecef;
+    }
+    & tbody tr:nth-child(even){
+        background: #f2f2f2
+    }
+}
+#pageDropDown{
+   border: 1px solid #6c757d;
+   background: transparent;
+   color: #6c757d;
+}
+#pageDropDown::after {
+    content: "\F140";
+    display: inline-block;
+    font: normal normal normal 24px/1 "Material Design Icons";
+    font-size: inherit;
+    text-rendering: auto;
+    line-height: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+      
+    	
