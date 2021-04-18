@@ -123,9 +123,11 @@ function ReactBootstrapTable(props) {
     onSelectAll: (isSelect, rows, e) => {
       if (isSelect) {
         let rowIndexes = {};
-        rows?.map((i, index) => (
-          rowIndexes = { ...rowIndexes, [index]: isSelect }
-        ));
+        if (rows) {
+          rows.map((i, index) => (
+            rowIndexes = { ...rowIndexes, [index]: isSelect }
+          ));
+        }
         setSelectedRows(rowIndexes);
       } else {
         setSelectedRows({})
