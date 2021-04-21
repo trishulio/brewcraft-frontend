@@ -105,6 +105,7 @@ const BootstrapTablec = ({
           </div>
         )}
       </ToolkitProvider>
+
     </>
   );
 };

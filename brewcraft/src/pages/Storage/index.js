@@ -112,6 +112,7 @@ export default function Storage() {
             },
           })
         );
+
       }
     }
     setIsOpen(false);
@@ -147,6 +148,7 @@ export default function Storage() {
                 tableName="Storage"
                 editOnClick={dialogOpenEditFn}
                 deletOnClick={dialogOpenDeleteFn}
+
               />
             </CardBody>
           </Card>
