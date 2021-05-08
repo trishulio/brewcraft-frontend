@@ -10,6 +10,7 @@ import Purchases from './Invoice/saga';
 import Suppliers from './Suppliers/saga';
 import Equipment from './Equipment/saga';
 import Materials from './Materials/saga';
+import Storages from './Storages/saga';
 
 export default function* rootSaga() {
     yield all([
@@ -22,6 +23,7 @@ export default function* rootSaga() {
         Purchases(),
         Suppliers(),
         Equipment(),
-        Materials()
+        Materials(),
+        Storages()
     ])
 }
