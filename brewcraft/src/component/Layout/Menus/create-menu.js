@@ -24,11 +24,11 @@ class CreateMenu extends Component {
                             </DropdownToggle>
 
                             <DropdownMenu right>
-                                <DropdownItem tag="a" href="#">Action</DropdownItem>
-                                <DropdownItem tag="a" href="#">Another action</DropdownItem>
-                                <DropdownItem tag="a" href="#">Something else here</DropdownItem>
+                                <DropdownItem tag="a" href="#">New Brew</DropdownItem>
+                                <DropdownItem tag="a" href="#">Bottle Beer</DropdownItem>
+                                <DropdownItem tag="a" href="#">Repackage</DropdownItem>
                                 <DropdownItem divider></DropdownItem>
-                                <DropdownItem tag="a" href="#">Separated link</DropdownItem>
+                                <DropdownItem tag="a" href="#">Report</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
             </React.Fragment>
