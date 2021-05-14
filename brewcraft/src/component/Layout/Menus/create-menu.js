@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 class CreateMenu extends Component {
@@ -24,7 +25,7 @@ class CreateMenu extends Component {
                             </DropdownToggle>
 
                             <DropdownMenu right>
-                                <DropdownItem tag="a" href="#">New Brew</DropdownItem>
+                                <DropdownItem tag={Link} to="/batch/new">New Brew</DropdownItem>
                                 <DropdownItem tag="a" href="#">Bottle Beer</DropdownItem>
                                 <DropdownItem tag="a" href="#">Repackage</DropdownItem>
                                 <DropdownItem divider></DropdownItem>

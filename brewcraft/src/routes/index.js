@@ -7,6 +7,7 @@ import Deliveries from '../pages/Delivery/delivery';
 import DeliveryDrivers from '../pages/Delivery/deliver-detail';
 // Brews
 import Brews from '../pages/Brews/wort';
+import Batch from '../pages/Batch/batch';
 import Fermentations from '../pages/Brews/batches';
 import FinishedGoods from '../pages/Brews/finished-goods';
 import Products from "../pages/Products/products";
@@ -44,6 +45,7 @@ const authProtectedRoutes = [
   { path: "/dashboard", component: Dashboard },
   // Brews
   { path: "/wort", component: Brews },
+  { path: "/batch/new", component: Batch, exact: true },
   { path: "/batches", component: Fermentations },
   { path: "/finished-goods", component: FinishedGoods },
   // Materials
