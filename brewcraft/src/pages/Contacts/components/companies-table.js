@@ -1,58 +1,40 @@
 import React, { useCallback } from "react";
-import {Button} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { map } from "lodash";
-import DataTable from '../../../component/Tables/tables-mui-datatable';
+import ReactBootstrapTable from '../../../component/Tables/tables-react-bootstrap';
 
-export default function CompaniesTable({data, editCompany, deleteCompany, addCompany, refreshTable}) {
+export default function CompaniesTable({ data, editCompany, deleteCompany, addCompany, refreshTable }) {
 
   const columns = [{
-      label: "Name",
-      name: "name",
-      options: {
-        filter: true,
-        sort: true
-      }
-    },
-    {
-      label: "Address",
-      name: "address",
-      options: {
-        filter: true,
-        sort: true
-      }
-    },
-    {
-      label: "Country",
-      name: "country",
-      options: {
-        filter: true,
-        sort: true
-      }
-    },
-    {
-      label: "Province",
-      name: "province",
-      options: {
-        filter: true,
-        sort: true
-      }
-    },
-    {
-      label: "City",
-      name: "city",
-      options: {
-        filter: true,
-        sort: true
-      }
-    },
-    {
-      label: "Postal Code",
-      name: "postalCode",
-      options: {
-        filter: true,
-        sort: true
-      }
-    }
+    text: "Name",
+    dataField: "name",
+    sort: false
+  },
+  {
+    text: "Address",
+    dataField: "address",
+    sort: false
+  },
+  {
+    text: "Country",
+    dataField: "country",
+    sort: false
+  },
+  {
+    text: "Province",
+    dataField: "province",
+    sort: false
+  },
+  {
+    text: "City",
+    dataField: "city",
+    sort: false
+  },
+  {
+    text: "Postal Code",
+    dataField: "postalCode",
+    sort: false
+  }
   ];
 
   const rowEvent = useCallback(() => {
@@ -75,25 +57,25 @@ export default function CompaniesTable({data, editCompany, deleteCompany, addCom
     });
   }, [data]);
 
-  const onDelete=(rowsSelected)=>{
-    const idsToDelete = rowsSelected.data.map(d => data[d.dataIndex].id); // array of all ids to to be deleted
-    idsToDelete.map((id)=>deleteCompany(id));
+  const onDelete = (rowsSelected) => {
+    const idsToDelete = rowsSelected?.map(d => data[d].id); // array of all ids to to be deleted
+    idsToDelete.map((id) => deleteCompany(id));
   }
 
-  const onEdit=(rowsSelected)=>{
-    const idToEdit = data[rowsSelected?.data[0].dataIndex].id;
+  const onEdit = (rowsSelected) => {
+    const idToEdit = data[rowsSelected[0]].id;
     editCompany(idToEdit);
   }
 
-return(
-  <DataTable
-    columns={columns}
-    data={rowEvent()}
-    tableName="Company"
-    editAction={onEdit}
-    deleteAction={onDelete}
-    addAction={addCompany}
-    refreshAction={refreshTable}
-  />
-)
+  return (
+    <ReactBootstrapTable
+      columns={columns}
+      data={rowEvent()}
+      tableName="Company"
+      editAction={onEdit}
+      deleteAction={onDelete}
+      addAction={addCompany}
+      refreshAction={refreshTable}
+    />
+  )
 }
