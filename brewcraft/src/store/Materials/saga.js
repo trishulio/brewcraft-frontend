@@ -101,7 +101,7 @@ function* addMaterialGenerator(action) {
 function* editMaterialGenerator(action) {
   try {
     let res = yield call(
-      api.updateMaterial,
+      api.patchMaterial,
       get(action, "payload.id"),
       get(action, "payload.form")
     );
@@ -125,7 +125,7 @@ function* deleteMaterialGenerator(action) {
 function* editIngredientGenerator(action) {
   try {
     let res = yield call(
-      api.updateMaterial,
+      api.patchMaterial,
       get(action, "payload.id"),
       get(action, "payload.form")
     );
@@ -149,7 +149,7 @@ function* deleteIngredientGenerator(action) {
 function* editPackagingGenerator(action) {
   try {
     let res = yield call(
-      api.updateMaterial,
+      api.patchMaterial,
       get(action, "payload.id"),
       get(action, "payload.form")
     );
@@ -254,9 +254,10 @@ function* addPackagingMaterialGenerator(action) {
 }
 
 function* editMaterialCategoryGenerator(action) {
+  console.log(action)
   try {
     let res = yield call(
-      api.updateMaterialCategory,
+      api.patchMaterialCategory,
       get(action, "payload.id"),
       get(action, "payload.form")
     );
@@ -317,6 +318,5 @@ function* Materials() {
   yield takeEvery(DELETE_INGREDIENT_REQUEST, deleteIngredientGenerator);
   yield takeEvery(EDIT_PACKAGING_MATERIAL_REQUEST, editPackagingGenerator);
   yield takeEvery(DELETE_PACKAGING_MATERIAL_REQUEST, deletePackagingGenerator);
-
 }
 export default Materials;

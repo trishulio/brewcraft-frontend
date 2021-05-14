@@ -53,7 +53,9 @@ const authProtectedRoutes = [
   { path: "/packaging", component: MaterialsPackaging },
   { path: "/materials/categories/:id", component: Category },
   { path: "/materials/categories", component: MaterialCategories },
-  { path: "/materials/:id", component: Material },
+  // { path: "/materials/:id", component: Material },
+  { path: "/materials/:id/:category", component: Material },
+
   // Products
   { path: "/products/:id", component: ProductItem },
   { path: "/products", component: Products },

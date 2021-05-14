@@ -24,7 +24,6 @@ export default function Facilities(props) {
     false
   );
   const [isOpen, setIsOpen] = useState(false);
-  const [isEdit, setEdit] = useState(false);
   const [packaging, setPackaging] = useState(null);
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector(
@@ -94,7 +93,6 @@ export default function Facilities(props) {
 
   const newMaterialClose = () => {
     setIsOpen(false);
-    setEdit(false);
   };
   const newMaterialCategoryOpen = () => {
     setIsNewMaterialCategoryOpen(true);
@@ -109,24 +107,7 @@ export default function Facilities(props) {
       materialBaseQuantityUnit,
       materialDescription,
     } = values;
-    if(isEdit)
-    {
 
-      const res = dispatch(
-        editPackagingMaterial({
-          id : packaging.id,
-          form : {
-            name: materialName,
-            categoryId: materialCategoryId,
-            baseQuantityUnit: materialBaseQuantityUnit,
-            description: materialDescription,
-            upc: "",
-          }
-        })
-      );
-      setEdit(false);
-    }
-    else{
 
       dispatch(
         savePackagingMaterial({
@@ -137,7 +118,7 @@ export default function Facilities(props) {
           upc: "",
         })
       );
-    }
+    
     newMaterialClose();
   };
   const newMaterialCategorySubmit = (e, values) => {
@@ -160,14 +141,11 @@ export default function Facilities(props) {
             materialDescription: data.description,
             materialBaseQuantityUnit: data.baseQuantityUnit,
           });
-          setEdit(true);
+          
           setIsOpen(true);
         },
       })
     );
-  };
-  const deletePackagingAction = (id) => {
-    dispatch(deletePackagingMaterial({ id }));
   };
   return (
     <Fragment>
@@ -185,9 +163,8 @@ export default function Facilities(props) {
           <Card>
             <CardBody>
               <MaterialsTable
-                editFn={editPackagingAction}
-                deleteFn={deletePackagingAction}
                 data={data}
+                category={PACKAGING}
               />
             </CardBody>
           </Card>
@@ -200,7 +177,7 @@ export default function Facilities(props) {
             categoryModelOpen={newMaterialCategoryOpen}
             submitFn={newMaterialSubmit}
             close={newMaterialClose}
-            model={isEdit ? packaging : MaterialModel}
+            model={ MaterialModel}
             optionsList={TypeOption(
               categories.data.filter(
                 (item) => item.parentCategoryId === PACKAGING

@@ -7,7 +7,6 @@ import { map } from "lodash";
 export default function MaterialDialog({to, submitFn, close, optionsList, model , categoryModelOpen }) {
 
   const units = ["hl", "l", "ml", "kg", "g"];
-
   return (
     <AvForm onValidSubmit={submitFn} model={model}>
       <Card>

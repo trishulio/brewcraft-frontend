@@ -3,7 +3,7 @@ import { MDBDataTable, MDBBtn } from "mdbreact";
 import {map} from "lodash"
 import { useHistory } from 'react-router-dom';
 
-export default function MaterialsTable({editFn, data}) {
+export default function MaterialsTable({category, data}) {
   const history = useHistory();
   const tabledata = [
     {
@@ -48,7 +48,7 @@ export default function MaterialsTable({editFn, data}) {
          </span>
         ),
         view: (
-          <MDBBtn color="secondary" size="sm" onClick={() => history.push("/materials/" + row.id)}>View</MDBBtn>
+          <MDBBtn color="secondary" size="sm" onClick={() => history.push(`/materials/${row.id}/${category}`)}>View</MDBBtn>
         )
       };
     });
