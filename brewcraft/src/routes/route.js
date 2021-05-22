@@ -1,37 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { Fragment } from "react";
 import { Route } from "react-router-dom";
-import { ToastContainer } from 'react-toastify';
-import { togglePreloader } from "../store/layout/actions";
-import { authenticateUser } from '../helpers/authUtils';
+import { ToastContainer } from "react-toastify";
 
-const AppRoute = function({
+const AppRoute = function ({
   component: Component,
   isAuthProtected,
-  layout : Layout,
+  layout: Layout,
   ...rest
 }) {
-  const dispatch = useDispatch();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  useEffect(() => {
-    (async() => {
-      const isAuth = await authenticateUser();
-      dispatch(togglePreloader(!isAuth));
-      setIsLoggedIn(isAuth);
-    })();
-  }, []);
   return (
     <Route
       {...rest}
-      render={props => {
-        return isLoggedIn &&
-          <Layout>
-             <ToastContainer />
+      render={(props) => {
+        return (
+          <Fragment>
+            <ToastContainer />
             <Component {...props} />
-          </Layout>
+          </Fragment>
+        );
       }}
     />
   );
-}
+};
 
 export default AppRoute;
