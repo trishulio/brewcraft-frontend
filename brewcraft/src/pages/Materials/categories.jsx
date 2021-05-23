@@ -14,6 +14,7 @@ import { Modal } from "../../component/Common/Modal";
 import CategoriesTable from "./components/categories-table";
 import MaterialCategoryDialog from "./components/material-category-dialog";
 import { ToastContainer } from "react-toastify";
+import Loading from "../../component/Common/Loading";
 export default function Facilities() {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
@@ -52,6 +53,9 @@ export default function Facilities() {
   }, [data]);
   if (error) {
     return <div>Error</div>;
+  }
+  if(loading){
+    return <Loading />
   }
   if (!data.length) {
     return null;
