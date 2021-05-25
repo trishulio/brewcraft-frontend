@@ -54,6 +54,7 @@ export default function Facilities() {
   if (error) {
     return <div>Error</div>;
   }
+
   if(loading){
     return <Loading />
   }
