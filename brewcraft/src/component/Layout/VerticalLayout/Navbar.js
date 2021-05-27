@@ -21,7 +21,7 @@ class Navbar extends Component {
         return (
             <React.Fragment>
             <div className="vertical-menu">
-                <div data-simplebar className="h-100">
+                <div data-simplebar className="h-100 mobileMenuScroll">
                 {this.props.leftSideBarType !== "condensed" ? 
                     this.props.leftSideBarType !== "icon" ?
                     <PerfectScrollbar>
