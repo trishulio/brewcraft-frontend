@@ -1,29 +1,38 @@
-import React, { Component } from 'react';
-import { Switch, BrowserRouter as Router } from 'react-router-dom';
-import { connect } from "react-redux";
+import React, { Component, useMemo, useState, useEffect } from "react";
+import { Switch, BrowserRouter as Router } from "react-router-dom";
+import { connect, useSelector, useDispatch } from "react-redux";
 import { authProtectedRoutes, publicRoutes } from "./routes/";
 import AppRoute from "./routes/route";
 import VerticalLayout from "./component/Layout/VerticalLayout";
 import HorizontalLayout from "./component/Layout/HorizontalLayout/";
 import NonAuthLayout from "./component/NonAuthLayout/NonAuthLayout";
-import { listenAuthEvents } from "./helpers/authUtils";
-import 'react-toastify/dist/ReactToastify.css';
+import { listenAuthEvents, authenticateUser } from "./helpers/authUtils";
+import { togglePreloader } from "./store/layout/actions";
+import "react-toastify/dist/ReactToastify.css";
 // Import scss
 import "./theme.scss";
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   // write authentication events to console log
   listenAuthEvents();
 }
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {}
-  }
 
-  getLayout = () => {
+const App = () => {
+  const layout = useSelector((state) => state.Layout);
+  const dispatch = useDispatch();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const isAuth = await authenticateUser();
+      dispatch(togglePreloader(!isAuth));
+      setIsLoggedIn(isAuth);
+    })();
+  }, []);
+
+  const GetLayout = useMemo(() => {
     let layoutCls = VerticalLayout;
-    switch (this.props.layout.layoutType) {
+    switch (layout.layoutType) {
       case "horizontal":
         layoutCls = HorizontalLayout;
         break;
@@ -32,45 +41,41 @@ class App extends Component {
         break;
     }
     return layoutCls;
-  };
+  }, [layout]);
 
-  render() {
-    const Layout = this.getLayout();
-    return (
-      <React.Fragment>
-        <Router>
+  return (
+    <React.Fragment>
+      {!isLoggedIn && (
+        <NonAuthLayout>
           <Switch>
             {publicRoutes.map((route, idx) => (
               <AppRoute
                 path={route.path}
                 component={route.component}
-                layout={NonAuthLayout}
                 key={idx}
                 isAuthProtected={false}
               />
             ))}
+          </Switch>
+        </NonAuthLayout>
+      )}
+
+      {isLoggedIn && (
+        <GetLayout>
+          <Switch>
             {authProtectedRoutes.map((route, idx) => (
               <AppRoute
                 path={route.path}
                 component={route.component}
-                layout={Layout}
                 key={idx}
                 isAuthProtected={true}
                 {...route}
               />
             ))}
-
           </Switch>
-        </Router>
-      </React.Fragment>
-    );
-  }
-}
-
-const mapStateToProps = state => {
-  return {
-    layout: state.Layout
-  };
+        </GetLayout>
+      )}
+    </React.Fragment>
+  );
 };
-
-export default connect(mapStateToProps, null)(App);
+export default App;

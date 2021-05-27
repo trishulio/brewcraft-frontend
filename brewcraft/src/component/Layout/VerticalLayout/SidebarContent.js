@@ -39,6 +39,7 @@ class SidebarContent extends Component {
     document.body.setAttribute("data-sidebar", "dark");
     document.body.setAttribute("data-topbar", "dark");
     this.initMenu();
+    new MetisMenu("#side-menu");
   }
 
   //update local state after changing layout
@@ -54,16 +55,24 @@ class SidebarContent extends Component {
       });
     }
 
-    if (this.props.leftSideBarType !== prevProps.leftSideBarType) {
-      this.initMenu();
-    }
+        this.initMenu();
+    // if (this.props.leftSideBarType !== prevProps.leftSideBarType) {
+    //     // new MetisMenu("#side-menu");
+    // }
+
   }
 
   initMenu() {
-    new MetisMenu("#side-menu");
-
     var matchingMenuItem = null;
     var ul = document.getElementById("side-menu");
+    var elems = document.querySelectorAll("#side-menu .mm-active");
+    [].forEach.call(elems, function(el) {
+        el.className = el.className.replace(/\bmm-active\b/, "");
+    });
+    var elems2 = document.querySelectorAll("#side-menu .mm-show");
+    [].forEach.call(elems2, function(el) {
+        el.className = el.className.replace(/\bmm-show\b/, "");
+    });
     var items = ul.getElementsByTagName("a");
     for (var i = 0; i < items.length; ++i) {
       if (this.props.location.pathname === items[i].pathname) {

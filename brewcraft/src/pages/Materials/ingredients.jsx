@@ -19,6 +19,7 @@ import MaterialCategoryDialog from "./components/material-category-dialog";
 import MaterialDialog from "./components/material-dialog";
 import { INGREDIENTS } from "../../helpers/constants";
 import { ToastContainer } from "react-toastify";
+import Loading from "../../component/Common/Loading";
 export default function Facilities(props) {
   const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] = useState(
     false
@@ -82,7 +83,7 @@ export default function Facilities(props) {
     return <div>error</div>;
   }
   if (categories.loading) {
-    return null;
+    return <Loading />
   }
   if (!data) {
     return null;
