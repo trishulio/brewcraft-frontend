@@ -55,10 +55,10 @@ class SidebarContent extends Component {
       });
     }
 
-        this.initMenu();
-    // if (this.props.leftSideBarType !== prevProps.leftSideBarType) {
-    //     // new MetisMenu("#side-menu");
-    // }
+    if (this.props.leftSideBarType !== prevProps.leftSideBarType) {
+      new MetisMenu("#side-menu");
+      this.initMenu();
+    }
 
   }
 
