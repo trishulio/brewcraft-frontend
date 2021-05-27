@@ -40,6 +40,9 @@
     cursor: pointer;
   
   }
-  .mobileMenuScroll{
-      overflow-y: scroll;
+  @media screen and (max-width: 768px) {
+
+    .mobileMenuScroll{
+            overflow-y: scroll;
+        }
   }
