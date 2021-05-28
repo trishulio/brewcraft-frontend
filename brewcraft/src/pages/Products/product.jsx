@@ -5,6 +5,7 @@ import {
     fetchProductById
 } from "../../store/Products/actions";
 import { setBreadcrumbItems } from "../../store/actions";
+import fantasticLager from "../../assets/images/products/fantastic-lager.jpg";
 import {
   Row,
   Col,
@@ -59,7 +60,7 @@ export default function Material() {
             brewhouseDuration: "1.0",
             fermentationDays: "5",
             conditioningDays: "10",
-            image: noImage
+            image: fantasticLager
         };
         setProduct(product);
         dispatch(setBreadcrumbItems(product.name, [
@@ -430,7 +431,7 @@ export default function Material() {
                             <h4 className="card-title font-size-12 align-middle">Product Image</h4>
                         </CardHeader>
                         <CardBody>
-                            <img style={{ width: "100%" }} src={noImage} alt="material" className="border d-block mr-2 mb-2 p-1" />
+                            <img style={{ width: "100%" }} src={fantasticLager} alt="material" className="border d-block mr-2 mb-2 p-1" />
                             <span className="d-block mb-2">No image found ..</span>
                             <Button type="button" color="primary" size="sm" className="waves-effect mr-2" disabled={!editable}>Upload</Button>
                         </CardBody>
