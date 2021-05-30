@@ -16,7 +16,9 @@
 
 //Import Custome scss
 @import "./assets/scss/custom-style.scss";
-
+html,body{
+    -webkit-font-smoothing: antialiased;
+}
 .DragHandler{
 
     cursor:move;
@@ -46,3 +48,31 @@
             overflow-y: scroll;
         }
   }
+  .order-4,
+  .caret-4-asc,
+  .caret-4-desc {
+    text-align: right;
+    float: right;
+    font-size: 0.9375rem;
+    color: #2b3a4b;
+}
+.table-bordered {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+.headingName{
+    font-size: 1rem;
+}
+.react-bootstrap-table th .caret-4-desc::before,
+.react-bootstrap-table th .order-4::before,
+.react-bootstrap-table th .caret-4-asc::after,
+.react-bootstrap-table th .order-4::after{
+    opacity: .75;
+}
+.react-bootstrap-table th .caret-4-desc::before,
+.react-bootstrap-table th .caret-4-asc::after
+{
+    color: var(--primary);
+
+}

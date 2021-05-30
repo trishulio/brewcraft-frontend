@@ -10,7 +10,7 @@ import {
   saveCategory,
   fetchAllCategories,
   fetchMaterialById,
-  editIngredient
+  editIngredient,
 } from "../../store/actions";
 import { Row, Col, Card, CardBody, Button } from "reactstrap";
 import { Modal } from "../../component/Common/Modal";
@@ -20,12 +20,46 @@ import MaterialDialog from "./components/material-dialog";
 import { INGREDIENTS } from "../../helpers/constants";
 import { ToastContainer } from "react-toastify";
 import Loading from "../../component/Common/Loading";
+import BootstrapTable from "../../component/Tables/bootstrap-table";
+import { ColToggle, TableSearch } from "../../component/Tables/col-toggle";
+import { TableProvider } from "../../component/Tables/table-context";
+
 export default function Facilities(props) {
-  const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] = useState(
-    false
-  );
+  const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] =
+    useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
   const dispatch = useDispatch();
+  const ingrediantsColumn = [
+    {
+      text: "Name",
+      dataField: "name",
+      sort: true,
+    },
+    {
+      text: "Category",
+      dataField: "category.name",
+      sort: true,
+    },
+    {
+      text: "Description",
+      dataField: "description",
+      sort: true,
+    },
+    {
+      text: "Unit",
+      dataField: "baseQuantityUnit",
+      sort: true,
+    },
+    {
+      text: "Available",
+      dataField: "quantity",
+      sort: true,
+    },
+    {
+      field: "view",
+    },
+  ];
   const { data, error, loading, formLoading } = useSelector((state) => {
     return state.Materials.Ingredients;
   });
@@ -83,7 +117,7 @@ export default function Facilities(props) {
     return <div>error</div>;
   }
   if (categories.loading) {
-    return <Loading />
+    return <Loading />;
   }
   if (!data) {
     return null;
@@ -95,14 +129,12 @@ export default function Facilities(props) {
 
   const newMaterialClose = () => {
     setIsOpen(false);
-    
   };
   const newMaterialCategoryOpen = () => {
     setIsNewMaterialCategoryOpen(true);
   };
   const newMaterialCategoryClose = () => {
     setIsNewMaterialCategoryOpen(false);
-    
   };
   const newMaterialSubmit = (e, values) => {
     const {
@@ -111,19 +143,15 @@ export default function Facilities(props) {
       materialBaseQuantityUnit,
       materialDescription,
     } = values;
-
-    
-
-      const res = dispatch(
-        saveIngredient({
-          name: materialName,
-          categoryId: materialCategoryId,
-          baseQuantityUnit: materialBaseQuantityUnit,
-          description: materialDescription,
-          upc: "",
-        })
-      );
-    
+    const res = dispatch(
+      saveIngredient({
+        name: materialName,
+        categoryId: materialCategoryId,
+        baseQuantityUnit: materialBaseQuantityUnit,
+        description: materialDescription,
+        upc: "",
+      })
+    );
 
     newMaterialClose();
   };
@@ -135,31 +163,192 @@ export default function Facilities(props) {
 
     newMaterialCategoryClose();
   };
-
+  const Table_props = {
+    newMaterialOpen,
+    tableName: "Ingredients Table",
+    column: ingrediantsColumn,
+    // data
+    data: [
+      {
+        id: 1,
+        name: "Chocolate Malt",
+        description: "",
+        materialClass: {
+          id: 1,
+          parentCategoryId: null,
+          name: "Ingredient",
+          version: 0,
+        },
+        category: { id: 4, parentCategoryId: 1, name: "Hop", version: 0 },
+        upc: "",
+        baseQuantityUnit: "kg",
+        version: 0,
+      },
+      {
+        id: 2,
+        name: "Chocolate Malt",
+        description: "",
+        materialClass: {
+          id: 1,
+          parentCategoryId: null,
+          name: "Ingredient",
+          version: 0,
+        },
+        category: { id: 4, parentCategoryId: 1, name: "Hop", version: 0 },
+        upc: "",
+        baseQuantityUnit: "kg",
+        version: 0,
+      },
+      {
+        id: 3,
+        name: "Chocolate Malt",
+        description: "",
+        materialClass: {
+          id: 1,
+          parentCategoryId: null,
+          name: "Ingredient",
+          version: 0,
+        },
+        category: { id: 4, parentCategoryId: 1, name: "Hop", version: 0 },
+        upc: "",
+        baseQuantityUnit: "kg",
+        version: 0,
+      },
+      {
+        id: 4,
+        name: "Chocolate Malt",
+        description: "",
+        materialClass: {
+          id: 1,
+          parentCategoryId: null,
+          name: "Ingredient",
+          version: 0,
+        },
+        category: { id: 4, parentCategoryId: 1, name: "Hop", version: 0 },
+        upc: "",
+        baseQuantityUnit: "kg",
+        version: 0,
+      },
+      {
+        id: 5,
+        name: "Chocolate Malt",
+        description: "",
+        materialClass: {
+          id: 1,
+          parentCategoryId: null,
+          name: "Ingredient",
+          version: 0,
+        },
+        category: { id: 4, parentCategoryId: 1, name: "Hop", version: 0 },
+        upc: "",
+        baseQuantityUnit: "kg",
+        version: 0,
+      },
+      {
+        id: 6,
+        name: "Chocolate Malt",
+        description: "",
+        materialClass: {
+          id: 1,
+          parentCategoryId: null,
+          name: "Ingredient",
+          version: 0,
+        },
+        category: { id: 4, parentCategoryId: 1, name: "Hop", version: 0 },
+        upc: "",
+        baseQuantityUnit: "kg",
+        version: 0,
+      },
+      {
+        id: 7,
+        name: "Chocolate Malt",
+        description: "",
+        materialClass: {
+          id: 1,
+          parentCategoryId: null,
+          name: "Ingredient",
+          version: 0,
+        },
+        category: { id: 4, parentCategoryId: 1, name: "Hop", version: 0 },
+        upc: "",
+        baseQuantityUnit: "kg",
+        version: 0,
+      },
+      {
+        id: 8,
+        name: "Chocolate Malt",
+        description: "",
+        materialClass: {
+          id: 1,
+          parentCategoryId: null,
+          name: "Ingredient",
+          version: 0,
+        },
+        category: { id: 4, parentCategoryId: 1, name: "Hop", version: 0 },
+        upc: "",
+        baseQuantityUnit: "kg",
+        version: 0,
+      },
+      {
+        id: 9,
+        name: "Chocolate Malt",
+        description: "",
+        materialClass: {
+          id: 1,
+          parentCategoryId: null,
+          name: "Ingredient",
+          version: 0,
+        },
+        category: { id: 4, parentCategoryId: 1, name: "Hop", version: 0 },
+        upc: "",
+        baseQuantityUnit: "kg",
+        version: 0,
+      },
+      {
+        id: 10,
+        name: "Chocolate Malt",
+        description: "",
+        materialClass: {
+          id: 1,
+          parentCategoryId: null,
+          name: "Ingredient",
+          version: 0,
+        },
+        category: { id: 4, parentCategoryId: 1, name: "Hop", version: 0 },
+        upc: "",
+        baseQuantityUnit: "kg",
+        version: 0,
+      },
+      {
+        id: 11,
+        name: "Chocolate Malt",
+        description: "",
+        materialClass: {
+          id: 1,
+          parentCategoryId: null,
+          name: "Ingredient",
+          version: 0,
+        },
+        category: { id: 4, parentCategoryId: 1, name: "Hop", version: 0 },
+        upc: "",
+        baseQuantityUnit: "kg",
+        version: 0,
+      },
+    ],
+  };
 
   return (
     <Fragment>
-      <Row>
-        <Col xs="12">
-          <div className="float-right mb-3">
-            <Button color="link" onClick={newMaterialOpen}>
-              Add Ingredient
-            </Button>
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col md="12">
-          <Card>
-            <CardBody>
-              <RawMaterials
-                data={data}
-                category={INGREDIENTS}
-              />
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
+      <TableProvider value={Table_props}>
+        <BootstrapTable
+        // column={ingrediantsColumn}
+        // data={[]}
+        // tableName="Ingredient"
+        // searchProp={setSearchProps}
+        // editOnClick={dialogOpenEditFn}
+        // deletOnClick={dialogOpenDeleteFn}
+        />
+      </TableProvider>
       {!!isOpen && (
         <Modal show={isOpen} close={newMaterialClose} title="New Ingredient">
           <MaterialDialog
@@ -167,7 +356,7 @@ export default function Facilities(props) {
             categoryModelOpen={newMaterialCategoryOpen}
             submitFn={newMaterialSubmit}
             close={newMaterialClose}
-            model={ MaterialModel}
+            model={MaterialModel}
             optionsList={TypeOption(
               categories.data.filter(
                 (item) => item.parentCategoryId === INGREDIENTS
