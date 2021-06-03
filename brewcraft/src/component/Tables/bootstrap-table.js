@@ -9,43 +9,43 @@ import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.m
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
 import propTypes from "prop-types";
 import { Row, Col, Card, CardBody, Button } from "reactstrap";
-
 import { TableContext } from "./table-context";
-const BootstrapTablec = ({ addOnClick, editOnClick, deletOnClick }) => {
-  const [selectRows, setSelectRows] = useState([]);
+
+const BootstrapTablec = () => {
+  // const [selectRows, setSelectRows] = useState([]);
   const { newMaterialOpen, column, data, tableName } = useContext(TableContext);
 
-  useEffect(() => {
-    setSelectRows([]);
-  }, [data]);
+  // useEffect(() => {
+  //   setSelectRows([]);
+  // }, [data]);
 
-  const handleOnSelect = (row, isSelect) => {
-    if (isSelect) {
-      const current = [...selectRows];
-      current.push(row.id);
-      setSelectRows(current);
-    } else {
-      const current = selectRows.filter((rowValue) => rowValue != row.id);
-      setSelectRows(current);
-    }
-  };
-  const handleOnSelectAll = (isSelect, rows) => {
-    const ids = rows.map((r) => r.id);
-    if (isSelect) {
-      setSelectRows(ids);
-    } else {
-      setSelectRows([]);
-    }
-  };
-  const selectd = {
-    mode: "checkbox",
-    clickToSelect: true,
-    selected: selectRows,
-    onSelect: handleOnSelect,
-    onSelectAll: handleOnSelectAll,
-  };
-  const deletOnClickL = () => deletOnClick(selectRows);
-  const editOnClickL = () => editOnClick(selectRows);
+  // const handleOnSelect = (row, isSelect) => {
+  //   if (isSelect) {
+  //     const current = [...selectRows];
+  //     current.push(row.id);
+  //     setSelectRows(current);
+  //   } else {
+  //     const current = selectRows.filter((rowValue) => rowValue != row.id);
+  //     setSelectRows(current);
+  //   }
+  // };
+  // const handleOnSelectAll = (isSelect, rows) => {
+  //   const ids = rows.map((r) => r.id);
+  //   if (isSelect) {
+  //     setSelectRows(ids);
+  //   } else {
+  //     setSelectRows([]);
+  //   }
+  // };
+  // const selectd = {
+  //   mode: "checkbox",
+  //   clickToSelect: true,
+  //   selected: selectRows,
+  //   onSelect: handleOnSelect,
+  //   onSelectAll: handleOnSelectAll,
+  // };
+  // const deletOnClickL = () => deletOnClick(selectRows);
+  // const editOnClickL = () => editOnClick(selectRows);
   if (!Array.isArray(data)) {
     return <div>please give only List</div>;
   }
@@ -80,7 +80,7 @@ const BootstrapTablec = ({ addOnClick, editOnClick, deletOnClick }) => {
                 </Col>
                 <Col md="12">
                   <div>
-                    <div className="view view-cascade gradient-card-header blue-gradient d-flex justify-content-between align-items-center py-0 mt-2 pr-0 pt-1">
+                    {/* <div className="view view-cascade gradient-card-header blue-gradient d-flex justify-content-between align-items-center py-0 mt-2 pr-0 pt-1">
                       <div>
                         {editOnClick && (
                           <Button
@@ -109,13 +109,7 @@ const BootstrapTablec = ({ addOnClick, editOnClick, deletOnClick }) => {
                           </Button>
                         )}
                       </div>
-                      {/* <div>
-                            <div className="d-inline-flex">
-                              <ColToggle {...props.columnToggleProps} />
-                              <TableSearch {...props.searchProps} />
-                            </div>
-                          </div> */}
-                    </div>
+                    </div> */}
                     <BootstrapTable
                       {...props.baseProps}
                       pagination={paginationFactory({
@@ -152,11 +146,4 @@ const BootstrapTablec = ({ addOnClick, editOnClick, deletOnClick }) => {
   );
 };
 
-// BootstrapTablec.propTypes = {
-//   column: propTypes.arrayOf(propTypes.object).isRequired,
-//   data: propTypes.arrayOf(propTypes.object).isRequired,
-//   tableName: propTypes.string.isRequired,
-//   editOnClick: propTypes.func,
-//   deletOnClick: propTypes.func,
-// };
 export default React.memo(BootstrapTablec);
