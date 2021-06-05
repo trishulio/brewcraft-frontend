@@ -56,7 +56,7 @@ class YearlySales extends Component {
                 },
             },
             series: [{
-                name: 'Series A',
+                name: 'month / period',
                 data: [8, 6, 4, 7, 10, 12, 7, 4, 9, 12, 13, 11, 12]
             },],
         }
@@ -64,25 +64,25 @@ class YearlySales extends Component {
     render() {
         return (
             <React.Fragment>
-                            <Card>
-                                <CardBody>
-                                    <h4 className="card-title mb-4">Yearly Sales</h4>
-                                    <Row>
-                                        <Col md="4">
-                                            <div>
-                                                <h3>52,345</h3>
-                                                <p className="text-muted">The languages only differ grammar</p>
-                                                <Link to="#" className="text-primary">Learn more <i className="mdi mdi-chevron-double-right"></i></Link>
-                                            </div>
-                                        </Col>
-                                        <Col md="8" className="text-right">
-                                            <div id="sparkline">
-                                            <ReactApexChart options={this.state.options} series={this.state.series} type="bar" height="130" />
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </CardBody>
-                            </Card>
+                <Card>
+                    <CardBody>
+                        <h4 className="card-title mb-4">Yearly Sales</h4>
+                        <Row>
+                            <Col md="4">
+                                <div>
+                                    <h3 className="text-nowrap">$52,345</h3>
+                                    <p className="text-muted">YTD Revenue</p>
+                                    <Link to="#" className="text-primary">Learn more <i className="mdi mdi-chevron-double-right"></i></Link>
+                                </div>
+                            </Col>
+                            <Col md="8">
+                                <div id="sparkline">
+                                    <ReactApexChart options={this.state.options} series={this.state.series} type="bar" height="130" />
+                                </div>
+                            </Col>
+                        </Row>
+                    </CardBody>
+                </Card>
             </React.Fragment>
         );
     }

@@ -9,30 +9,30 @@ class RecentActivity extends Component {
             <React.Fragment>
                 <Card>
                     <CardBody>
-                        <h4 className="card-title mb-4">Recent Activity Feed</h4>
+                        <h4 className="card-title mb-4">Recent Activity</h4>
                         <ol className="activity-feed mb-0">
                             <li className="feed-item">
                                 <div className="feed-item-list">
                                     <span className="date">Jun 25</span>
-                                    <span className="activity-text">Responded to need “Volunteer Activities”</span>
+                                    <span className="activity-text">Upated brew "Fantastic Lager #138”</span>
                                 </div>
                             </li>
                             <li className="feed-item">
                                 <div className="feed-item-list">
                                     <span className="date">Jun 24</span>
-                                    <span className="activity-text">Added an interest “Volunteer Activities”</span>
+                                    <span className="activity-text">Created brew “Test Batch no. 97"</span>
                                 </div>
                             </li>
                             <li className="feed-item">
                                 <div className="feed-item-list">
                                     <span className="date">Jun 23</span>
-                                    <span className="activity-text">Joined the group “Boardsmanship Forum”</span>
+                                    <span className="activity-text">Created brew “Fantastic Lager #138"</span>
                                 </div>
                             </li>
                             <li className="feed-item">
                                 <div className="feed-item-list">
                                     <span className="date">Jun 21</span>
-                                    <span className="activity-text">Responded to need “In-Kind Opportunity”</span>
+                                    <span className="activity-text">Created brew “Special Ale #69"</span>
                                 </div>
                             </li>
                         </ol>
