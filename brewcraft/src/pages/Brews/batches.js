@@ -287,7 +287,7 @@ export default function Fermentation() {
                                     </Col>
                                     <Col xs="1">
                                         <AvField type="select" name="product" label="Product">
-                                            <option disabled value="">Select Company</option>
+                                            <option disabled value="">Select product</option>
                                             {
                                                 map(products, (value, index) => (
                                                 <option value={value.id} key={index}>
