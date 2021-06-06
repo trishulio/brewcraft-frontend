@@ -88,3 +88,18 @@ html,body{
     top: 0;
     color: #5b626b;
 }
+.table_wrappwe{
+    position: relative;
+    margin-top: 87px;
+}
+.table_wrappwe .row.react-bootstrap-table-pagination>div:first-child {
+    position    :initial
+}
+.table_wrappwe .row.react-bootstrap-table-pagination>div:first-child .react-bs-table-sizePerPage-dropdown.dropdown{
+    position: absolute;
+    top:-38px;
+    display: block;
+}
+.react-bootstrap-table-pagination{
+    margin-top: 25px;
+}

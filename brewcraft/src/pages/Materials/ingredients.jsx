@@ -141,7 +141,7 @@ export default function Facilities(props) {
 
   }
   const ButtonFormatter = (cell, row, rowIndex, formatExtraData) => {
-    return <Button size="sm" onClick={() =>openTableData(row)}>Open</Button>
+    return <div className="text-center"><Button size="sm" onClick={() =>openTableData(row)}>Open</Button></div>
   };
   const ingrediantsColumn = [
     {
@@ -172,6 +172,7 @@ export default function Facilities(props) {
     {
       dataField: "view",
       text: "view",
+      headerAlign:"center",
       formatter: ButtonFormatter,
     }
   ];
