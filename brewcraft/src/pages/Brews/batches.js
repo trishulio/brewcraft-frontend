@@ -15,6 +15,7 @@ import {
     Nav
 } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
+import { map } from "lodash";
 import classnames from "classnames";
 import { setBreadcrumbItems } from "../../store/actions";
 
@@ -49,6 +50,22 @@ const customBatches = [
 export default function Fermentation() {
     const [activeTab, setActiveTab] = useState("1");
     const dispatch = useDispatch();
+    const now = new Date().toJSON().split('T')[0];
+    let thirtyDaysAgo = new Date(Date.now() - 1000 * 60 * 60 * 24 * 30);
+    thirtyDaysAgo = thirtyDaysAgo.toJSON().split('T')[0];
+    const products = [{
+        id: "1",
+        name: "Fantastic Lager"
+    }, {
+        id: "2",
+        name: "Special Ale"
+    }, {
+        id: "3",
+        name: "Delicious IPA"
+    }, {
+        id: "4",
+        name: "Warm Stout"
+    }];
 
     // component did mount alternative for functional component
     useEffect(() => {
@@ -249,13 +266,14 @@ export default function Fermentation() {
                         </TabPane>
                         <TabPane tabId="3" className="p-3">
                             <AvForm>
-                                <Row>
+                                <Row className="align-items-center">
                                     <Col xs="2">
                                         <AvField
                                             name="startDate"
                                             label="Begin date"
                                             type="date"
                                             errorMessage="Enter valid start date."
+                                            value={thirtyDaysAgo}
                                         />
                                     </Col>
                                     <Col xs="2">
@@ -264,10 +282,24 @@ export default function Fermentation() {
                                             label="End date"
                                             type="date"
                                             errorMessage="Enter valid end date."
+                                            value={now}
                                         />
                                     </Col>
                                     <Col xs="1">
+                                        <AvField type="select" name="product" label="Product">
+                                            <option disabled value="">Select Company</option>
+                                            {
+                                                map(products, (value, index) => (
+                                                <option value={value.id} key={index}>
+                                                    {value.name}
+                                                </option>
+                                                ))
+                                            }
+                                        </AvField>
+                                    </Col>
+                                    <Col xs="1">
                                         <AvField
+                                            className="align-text-bottom"
                                             name="completed"
                                             label="Completed"
                                             type="checkbox"
@@ -278,6 +310,7 @@ export default function Fermentation() {
                                             name="failed"
                                             label="Failed"
                                             type="checkbox"
+                                            checked="true"
                                         />
                                     </Col>
                                 </Row>
@@ -314,7 +347,7 @@ export default function Fermentation() {
                                                         {order.volume ? order.volume : "-"}
                                                     </td>
                                                     <td>
-                                                        <Button color="secondary" size="sm" className="waves-effect waves-light">Restore</Button>
+                                                        <Button color="secondary" size="sm" className="waves-effect waves-light">View</Button>
                                                     </td>
                                                 </tr>
                                             )
