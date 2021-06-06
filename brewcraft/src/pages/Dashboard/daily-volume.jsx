@@ -38,7 +38,7 @@ class DailyVolume extends Component {
                     }
                 },
                 legend: {
-                    show: false
+                    show: true
                 },
             },
             series: [

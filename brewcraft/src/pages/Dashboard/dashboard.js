@@ -10,14 +10,9 @@ import MiniCard from "./mini-card";
 import MaltUsage from "./malt-usage";
 import DailyVolume from "./daily-volume";
 import DailyRoundDown from "./daily-round-down";
-import Products from "./products";
-import Inbox from "./inbox";
 import RecentActivity from "./recent-activity";
-import WidgetUser from "./widget-user";
 import YearlySales from "./yearly-sales";
-import LatestTransactions from "./latest-transactions";
 import LatestOrders from "./latest-orders";
-import PieCart from "./finished-goods-piechart";
 
 class Dashboard extends Component {
     constructor(props) {
