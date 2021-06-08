@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState } from "react";
+import React, { useEffect, Fragment, useState, useMemo } from "react";
 import { findIndex, map, omit, get } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
@@ -12,42 +12,12 @@ import {
   updateFacility,
 } from "../../store/Equipment/actions";
 import BootstrapTable from "../../component/Tables/bootstrap-table";
+import { TableProvider } from "../../component/Tables/table-context";
 
 export default function Facility() {
   const [isOpen, setIsOpen] = useState(false);
   const [editForm, setEditForm] = useState({ edit: false, formData: null });
-  const [tableColumn, setTableColumn] = useState([
-    {
-      text: "Name",
-      dataField: "name",
-      sort: true,
-    },
-    {
-      text: "Phone Number",
-      dataField: "phoneNumber",
-      sort: true,
-    },
-    {
-      text: "Address Line 1",
-      dataField: "addressLine1",
-      sort: true,
-    },
-    {
-      text: "Address Line 2",
-      dataField: "addressLine2",
-      sort: true,
-    },
-    {
-      text: "City",
-      dataField: "city",
-      sort: true,
-    },
-    {
-      text: "Country",
-      dataField: "country",
-      sort: true,
-    },
-  ]);
+
   const [deleteIsopen, setDeleteIsopen] = useState(false);
   const dispatch = useDispatch();
   const { facilities } = useSelector((state) => state.Equipment);
@@ -154,14 +124,77 @@ export default function Facility() {
       })
     );
   };
+  const ButtonFormatter = (cell, row, rowIndex, formatExtraData) => {
+    return (
+      <div className="text-center">
+        <Button size="sm" onClick={() => dialogOpenEditFn(row)} className="mr-2">
+          Edit
+        </Button>
+        <Button size="sm" color="warning" onClick={() => dialogOpenDeleteFn(row)}>
+          Delete
+        </Button>
+      </div>
+    );
+  };
+  const tableColumn = [
+    {
+      text: "Name",
+      dataField: "name",
+      sort: true,
+    },
+    {
+      text: "Phone Number",
+      dataField: "phoneNumber",
+      sort: true,
+    },
+    {
+      text: "Address Line 1",
+      dataField: "addressLine1",
+      sort: true,
+    },
+    {
+      text: "Address Line 2",
+      dataField: "addressLine2",
+      sort: true,
+    },
+    {
+      text: "City",
+      dataField: "city",
+      sort: true,
+    },
+    {
+      text: "Country",
+      dataField: "country",
+      sort: true,
+    },
+    {
+      dataField: "view",
+      text: "view",
+      headerAlign: "center",
+      formatter: ButtonFormatter,
+    },
+  ];
+  const Table_props = useMemo(
+    () => ({
+      column: tableColumn,
+      data:tableRows,
+      headerComponent: (
+        <Button onClick={dialogOpenFn} color="primary mr-4" >
+          Add Facility
+      </Button>
+      ),
+    }),
+    [tableRows]
+  );
 
   return (
     <Fragment>
-      <Row>
+        <TableProvider value={Table_props}>
+          <BootstrapTable />
+        </TableProvider>
+      {/* <Row>
         <Col xs="12">
-          <Button onClick={dialogOpenFn} color="primary" className="mb-4">
-            Add Facility
-          </Button>
+          
           <Card>
             <CardBody className="py-0 px-2">
               <BootstrapTable
@@ -174,7 +207,7 @@ export default function Facility() {
             </CardBody>
           </Card>
         </Col>
-      </Row>
+      </Row> */}
       {!!isOpen && (
         <Modal
           show={isOpen}
