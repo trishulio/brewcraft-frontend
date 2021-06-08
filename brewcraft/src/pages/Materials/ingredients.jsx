@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState, useCallback } from "react";
+import React, { useEffect, Fragment, useState, useCallback, useMemo } from "react";
 import { get, map } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -23,7 +23,7 @@ import Loading from "../../component/Common/Loading";
 import BootstrapTable from "../../component/Tables/bootstrap-table";
 import { ColToggle, TableSearch } from "../../component/Tables/col-toggle";
 import { TableProvider } from "../../component/Tables/table-context";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 export default function Facilities(props) {
   const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] =
@@ -85,17 +85,7 @@ export default function Facilities(props) {
     dispatch(fetchAllCategories());
     dispatch(fetchCategories());
   }, []);
-  if (error) {
-    return <div>error</div>;
-  }
-  if (categories.loading) {
-    return <Loading />;
-  }
-  if (!data) {
-    return null;
-  }
-
-  const newMaterialOpen = () => {
+   const newMaterialOpen = () => {
     setIsOpen(true);
   };
 
@@ -135,13 +125,18 @@ export default function Facilities(props) {
 
     newMaterialCategoryClose();
   };
-  const openTableData = (row) =>{
+  const openTableData = (row) => {
     const category = row.category.name;
-    history.push(`/materials/${row.id}/${category}`)
-
-  }
+    history.push(`/materials/${row.id}/${category}`);
+  };
   const ButtonFormatter = (cell, row, rowIndex, formatExtraData) => {
-    return <div className="text-center"><Button size="sm" onClick={() =>openTableData(row)}>Open</Button></div>
+    return (
+      <div className="text-center">
+        <Button size="sm" onClick={() => openTableData(row)}>
+          Open
+        </Button>
+      </div>
+    );
   };
   const ingrediantsColumn = [
     {
@@ -172,16 +167,31 @@ export default function Facilities(props) {
     {
       dataField: "view",
       text: "view",
-      headerAlign:"center",
+      headerAlign: "center",
       formatter: ButtonFormatter,
-    }
+    },
   ];
-  const Table_props = {
-    newMaterialOpen,
-    tableName: "Ingredients Table",
-    column: ingrediantsColumn,
-    data
-  };
+  const Table_props = useMemo(
+    () => ({
+      column: ingrediantsColumn,
+      data,
+      headerComponent: (
+        <Button color="primary mr-4" onClick={newMaterialOpen}>
+          Add Ingredient
+        </Button>
+      ),
+    }),
+    [data]
+  );
+  if (error) {
+    return <div>error</div>;
+  }
+  if (categories.loading) {
+    return <Loading />;
+  }
+  if (!data) {
+    return null;
+  }
 
   return (
     <Fragment>

@@ -1,30 +1,25 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import filterFactory from "react-bootstrap-table2-filter";
-import paginationFactory, {
-  PaginationProvider,
-} from "react-bootstrap-table2-paginator";
+import paginationFactory from "react-bootstrap-table2-paginator";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 import { ColToggle, TableSearch } from "./col-toggle";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
-import propTypes from "prop-types";
-import { Row, Col, Card, CardBody, Button } from "reactstrap";
+import { Row, Col } from "reactstrap";
 import { TableContext } from "./table-context";
 
-const BootstrapTablec = () => {
-  const { newMaterialOpen, column, data, tableName } = useContext(TableContext);
-
+const BootstrapTableCommon = () => {
+  const { column, data, headerComponent } = useContext(TableContext);
   if (!Array.isArray(data)) {
     return <div>please give only List</div>;
   }
-
-  return (
+ return (
     <>
       <ToolkitProvider
         keyField="id"
-        data={data.flat()}
+        data={data}
         columns={column}
         columnToggle
         search
@@ -36,9 +31,7 @@ const BootstrapTablec = () => {
               <Row>
                 <Col xs="12">
                   <div className="mb-0">
-                    <Button color="primary mr-4" onClick={newMaterialOpen}>
-                      Add Ingredient
-                    </Button>
+                    {headerComponent}
                     <TableSearch {...props.searchProps} />
                   </div>
 
@@ -74,4 +67,4 @@ const BootstrapTablec = () => {
   );
 };
 
-export default React.memo(BootstrapTablec);
+export default React.memo(BootstrapTableCommon);
