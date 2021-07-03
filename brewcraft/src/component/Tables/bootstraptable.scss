@@ -34,6 +34,89 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-
+.page-title-box {
+    // padding-bottom: $grid-gutter-width;
+}
+.table-responsive > .table-bordered{
+    background: #fff;
+}
       
-    	
+.pointer{
+
+    cursor: pointer;
+    
+}
+.iconhover{
+    opacity: .75;
+}
+.iconhover:hover{
+    opacity: 1;
+}
+.iconfont{
+    font-size: 1rem,
+}
+.btnParent{
+    cursor: pointer;
+  
+  }
+  @media screen and (max-width: 768px) {
+
+    .mobileMenuScroll{
+            overflow-y: scroll;
+        }
+  }
+  .order-4,
+  .caret-4-asc,
+  .caret-4-desc {
+    text-align: right;
+    float: right;
+    font-size: 0.9375rem;
+    color: #2b3a4b;
+}
+.table-bordered {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+.headingName{
+    font-size: 1rem;
+}
+.react-bootstrap-table th .caret-4-desc::before,
+.react-bootstrap-table th .order-4::before,
+.react-bootstrap-table th .caret-4-asc::after,
+.react-bootstrap-table th .order-4::after{
+    opacity: .75;
+}
+.react-bootstrap-table th .caret-4-desc::before,
+.react-bootstrap-table th .caret-4-asc::after
+{
+    color: var(--primary);
+
+}
+.page-title-box{
+    color:#212930
+}
+.table-search{
+    position: absolute;
+    z-index: 10;
+    font-size: 13px;
+    line-height: 38px;
+    right: 16px;
+    top: 0;
+    color: #5b626b;
+}
+.table_wrappwe{
+    position: relative;
+    margin-top: 87px;
+}
+.table_wrappwe .row.react-bootstrap-table-pagination>div:first-child {
+    position    :initial
+}
+.table_wrappwe .row.react-bootstrap-table-pagination>div:first-child .react-bs-table-sizePerPage-dropdown.dropdown{
+    position: absolute;
+    top:-38px;
+    display: block;
+}
+.react-bootstrap-table-pagination{
+    margin-top: 25px;
+}
