@@ -49,14 +49,15 @@ const TableSearch = (props) => {
   };
   return (
     <div
-    style={{display:"inline-block"}}
+       style={{display:"inline-block", width:"204px",position:'relative'}}
     >
       <Input
         type="text"
-        bsSize="sm"
+        bsSize="md"
         onKeyUp={ handleClick }
         placeholder="Search"
       />
+      <span class="fa fa-search table-search"></span>
       </div>
     
   );

@@ -57,8 +57,8 @@ class SidebarContent extends Component {
 
     if (this.props.leftSideBarType !== prevProps.leftSideBarType) {
       new MetisMenu("#side-menu");
-      this.initMenu();
     }
+    this.initMenu();
 
   }
 

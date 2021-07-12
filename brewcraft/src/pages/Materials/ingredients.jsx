@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState, useCallback } from "react";
+import React, { useEffect, Fragment, useState, useCallback, useMemo } from "react";
 import { get, map } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,7 +10,7 @@ import {
   saveCategory,
   fetchAllCategories,
   fetchMaterialById,
-  editIngredient
+  editIngredient,
 } from "../../store/actions";
 import { Row, Col, Card, CardBody, Button } from "reactstrap";
 import { Modal } from "../../component/Common/Modal";
@@ -20,11 +20,16 @@ import MaterialDialog from "./components/material-dialog";
 import { INGREDIENTS } from "../../helpers/constants";
 import { ToastContainer } from "react-toastify";
 import Loading from "../../component/Common/Loading";
+import BootstrapTable from "../../component/Tables/bootstrap-table";
+import { ColToggle, TableSearch } from "../../component/Tables/col-toggle";
+import { TableProvider } from "../../component/Tables/table-context";
+import { useHistory } from "react-router-dom";
+
 export default function Facilities(props) {
-  const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] = useState(
-    false
-  );
+  const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] =
+    useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
   const dispatch = useDispatch();
   const { data, error, loading, formLoading } = useSelector((state) => {
     return state.Materials.Ingredients;
@@ -36,6 +41,7 @@ export default function Facilities(props) {
     return state.Materials.Categories;
   });
 
+  const history = useHistory();
   const MaterialModel = {
     locationType: "work",
     name: "Availity",
@@ -79,30 +85,18 @@ export default function Facilities(props) {
     dispatch(fetchAllCategories());
     dispatch(fetchCategories());
   }, []);
-  if (error) {
-    return <div>error</div>;
-  }
-  if (categories.loading) {
-    return <Loading />
-  }
-  if (!data) {
-    return null;
-  }
-
-  const newMaterialOpen = () => {
+   const newMaterialOpen = () => {
     setIsOpen(true);
   };
 
   const newMaterialClose = () => {
     setIsOpen(false);
-    
   };
   const newMaterialCategoryOpen = () => {
     setIsNewMaterialCategoryOpen(true);
   };
   const newMaterialCategoryClose = () => {
     setIsNewMaterialCategoryOpen(false);
-    
   };
   const newMaterialSubmit = (e, values) => {
     const {
@@ -111,19 +105,15 @@ export default function Facilities(props) {
       materialBaseQuantityUnit,
       materialDescription,
     } = values;
-
-    
-
-      const res = dispatch(
-        saveIngredient({
-          name: materialName,
-          categoryId: materialCategoryId,
-          baseQuantityUnit: materialBaseQuantityUnit,
-          description: materialDescription,
-          upc: "",
-        })
-      );
-    
+    const res = dispatch(
+      saveIngredient({
+        name: materialName,
+        categoryId: materialCategoryId,
+        baseQuantityUnit: materialBaseQuantityUnit,
+        description: materialDescription,
+        upc: "",
+      })
+    );
 
     newMaterialClose();
   };
@@ -135,31 +125,79 @@ export default function Facilities(props) {
 
     newMaterialCategoryClose();
   };
-
+  const openTableData = (row) => {
+    const category = row.category.name;
+    history.push(`/materials/${row.id}/${category}`);
+  };
+  const ButtonFormatter = (cell, row, rowIndex, formatExtraData) => {
+    return (
+      <div className="text-center">
+        <Button size="sm" onClick={() => openTableData(row)}>
+          Open
+        </Button>
+      </div>
+    );
+  };
+  const ingrediantsColumn = [
+    {
+      text: "Name",
+      dataField: "name",
+      sort: true,
+    },
+    {
+      text: "Category",
+      dataField: "category.name",
+      sort: true,
+    },
+    {
+      text: "Description",
+      dataField: "description",
+      sort: true,
+    },
+    {
+      text: "Unit",
+      dataField: "baseQuantityUnit",
+      sort: true,
+    },
+    {
+      text: "Available",
+      dataField: "quantity",
+      sort: true,
+    },
+    {
+      dataField: "view",
+      text: "view",
+      headerAlign: "center",
+      formatter: ButtonFormatter,
+    },
+  ];
+  const Table_props = useMemo(
+    () => ({
+      column: ingrediantsColumn,
+      data,
+      headerComponent: (
+        <Button color="primary mr-4" onClick={newMaterialOpen}>
+          Add Ingredient
+        </Button>
+      ),
+    }),
+    [data]
+  );
+  if (error) {
+    return <div>error</div>;
+  }
+  if (categories.loading) {
+    return <Loading />;
+  }
+  if (!data) {
+    return null;
+  }
 
   return (
     <Fragment>
-      <Row>
-        <Col xs="12">
-          <div className="float-right mb-3">
-            <Button color="link" onClick={newMaterialOpen}>
-              Add Ingredient
-            </Button>
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col md="12">
-          <Card>
-            <CardBody>
-              <RawMaterials
-                data={data}
-                category={INGREDIENTS}
-              />
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
+      <TableProvider value={Table_props}>
+        <BootstrapTable />
+      </TableProvider>
       {!!isOpen && (
         <Modal show={isOpen} close={newMaterialClose} title="New Ingredient">
           <MaterialDialog
@@ -167,7 +205,7 @@ export default function Facilities(props) {
             categoryModelOpen={newMaterialCategoryOpen}
             submitFn={newMaterialSubmit}
             close={newMaterialClose}
-            model={ MaterialModel}
+            model={MaterialModel}
             optionsList={TypeOption(
               categories.data.filter(
                 (item) => item.parentCategoryId === INGREDIENTS
