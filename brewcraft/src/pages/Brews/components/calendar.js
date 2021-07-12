@@ -67,7 +67,7 @@ export default function Calendar({calendarWeekends, calendarEvents, handleDateCl
     handleDateClick = (arg) => {
         var title = prompt('Event Title:');
         setSelectedDay(arg);
-        if(title == null) {  }
+        if(title === null) {  }
         else
         {
             var newEvent = {};

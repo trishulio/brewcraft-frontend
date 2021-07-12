@@ -3,7 +3,7 @@ import { Container } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { MDBContainer } from "mdbreact";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 //Import Components
 import Topbar from "./Topbar";
 import Breadcrumb from "../../Common/breadcrumb";

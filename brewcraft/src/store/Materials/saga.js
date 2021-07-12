@@ -12,7 +12,6 @@ import {
   DELETE_MATERIAL_SUCCESS,
   DELETE_MATERIAL_FAILURE,
   FETCH_MATERIAL_BY_ID_REQUEST,
-  FETCH_MATERIAL_BY_ID_SUCCESS,
   FETCH_MATERIAL_BY_ID_FAILURE,
   FETCH_MATERIAL_CATEGORIES_REQUEST,
   FETCH_MATERIAL_CATEGORIES_SUCCESS,
@@ -30,7 +29,6 @@ import {
   DELETE_MATERIAL_CATEGORY_SUCCESS,
   DELETE_MATERIAL_CATEGORY_FAILURE,
   FETCH_MATERIAL_CATEGORY_BY_ID_REQUEST,
-  FETCH_MATERIAL_CATEGORY_BY_ID_SUCCESS,
   FETCH_MATERIAL_CATEGORY_BY_ID_FAILURE,
   FETCH_INGREDIENTS_SUCCESS,
   FETCH_INGREDIENTS_FAILURE,
@@ -114,7 +112,7 @@ function* editMaterialGenerator(action) {
 }
 function* deleteMaterialGenerator(action) {
   try {
-    let res = yield call(api.deleteMaterial, get(action, "payload.id"));
+    yield call(api.deleteMaterial, get(action, "payload.id"));
     yield put({ type: DELETE_MATERIAL_SUCCESS });
     yield put(snackSuccess());
   } catch (e) {
@@ -138,7 +136,7 @@ function* editIngredientGenerator(action) {
 }
 function* deleteIngredientGenerator(action) {
   try {
-    let res = yield call(api.deleteMaterial, get(action, "payload.id"));
+    yield call(api.deleteMaterial, get(action, "payload.id"));
     yield put({ type: DELETE_INGREDIENT_SUCCESS , payload : get(action, "payload") });
     yield put(snackSuccess());
   } catch (e) {
@@ -162,7 +160,7 @@ function* editPackagingGenerator(action) {
 }
 function* deletePackagingGenerator(action) {
   try {
-    let res = yield call(api.deleteMaterial, get(action, "payload.id"));
+    yield call(api.deleteMaterial, get(action, "payload.id"));
     yield put({ type: DELETE_PACKAGING_MATERIAL_SUCCESS, payload : get(action, "payload") });
     yield put(snackSuccess());
   } catch (e) {
@@ -197,7 +195,7 @@ function* fetchCategoriesGenerator() {
 }
 function* fetchAllCategoriesGenerator() {
   try {
-    let data = yield call(api.fetchMaterialCategories,ALL);
+    let data = yield call(api.fetchMaterialCategories, ALL);
     yield put({ type: FETCH_ALL_CATEGORIES_SUCCESS, data: data });
   } catch (e) {
     yield put({ type: FETCH_ALL_CATEGORIES_FAILURE });
@@ -254,7 +252,6 @@ function* addPackagingMaterialGenerator(action) {
 }
 
 function* editMaterialCategoryGenerator(action) {
-  console.log(action)
   try {
     let res = yield call(
       api.patchMaterialCategory,
@@ -270,7 +267,7 @@ function* editMaterialCategoryGenerator(action) {
 }
 function* deleteMaterialCategoryGenerator(action) {
   try {
-    let res = yield call(api.deleteMaterialCategory, get(action, "payload.id"));
+    yield call(api.deleteMaterialCategory, get(action, "payload.id"));
     yield put({ type: DELETE_MATERIAL_CATEGORY_SUCCESS  , payload : get(action, "payload")});
     yield put(snackSuccess());
   } catch (e) {

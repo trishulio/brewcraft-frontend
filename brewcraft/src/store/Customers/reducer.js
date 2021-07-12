@@ -152,7 +152,7 @@ const Customers = (state = initialState, { type, payload }) => {
       };
     case EDIT_CONTACTS_SUCCESS:
       let editIndex = findIndex([...state.data], function (o) {
-        return o.id == get(payload, "id");
+        return o.id === get(payload, "id");
       });
       return {
         ...state,
@@ -171,7 +171,7 @@ const Customers = (state = initialState, { type, payload }) => {
       case DELETE_CONTACTS_SUCCESS:
           var pyaloadar = values(payload);
            var filterData =  filter([...state.data], (value)=>{
-                if( indexOf(pyaloadar, get(value,'id')) == -1){
+                if( indexOf(pyaloadar, get(value,'id')) === -1){
                     return values;
                 }
             })

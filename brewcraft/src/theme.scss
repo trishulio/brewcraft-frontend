@@ -16,9 +16,33 @@
 
 //Import Custome scss
 @import "./assets/scss/custom-style.scss";
+
 .DragHandler{
+
     cursor:move;
+    
+}
+.pointer{
+
+    cursor: pointer;
+    
+}
+.iconhover{
+    opacity: .75;
+}
+.iconhover:hover{
+    opacity: 1;
+}
+.iconfont{
+    font-size: 1rem,
+}
+.btnParent{
+    cursor: pointer;
+  
+  }
+  @media screen and (max-width: 768px) {
+
     .mobileMenuScroll{
             overflow-y: scroll;
         }
-  } 
+  }

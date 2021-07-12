@@ -8,8 +8,7 @@ import {
   EDIT_DELIVERY_REQUEST,
   EDIT_DELIVERY_SUCCESS,
   DELETE_DELIVERY_REQUEST,
-  DELETE_DELIVERY_SUCCESS,
-  OPEN_DELIVERY_REQUEST
+  DELETE_DELIVERY_SUCCESS
 } from "./actionTypes";
 import { findIndex, get, filter,indexOf, values } from "lodash";
 const initialState = {
@@ -66,7 +65,7 @@ const initialState = {
       email:"Clare@yahoo.com",
       last_location:"faridabad",
     }
-   
+
   ],
   loading: false,
   error: null,
@@ -126,7 +125,7 @@ const Driver = (state = initialState, { type, payload }) => {
       };
     case EDIT_DELIVERY_SUCCESS:
       let editIndex = findIndex([...state.data], function (o) {
-        return o.id == get(payload, "id");
+        return o.id === get(payload, "id");
       });
       return {
         ...state,
@@ -144,8 +143,8 @@ const Driver = (state = initialState, { type, payload }) => {
         };
       case DELETE_DELIVERY_SUCCESS:
           var pyaloadar = values(payload);
-           var filterData =  filter([...state.data], (value)=>{
-                if( indexOf(pyaloadar, get(value,'id')) == -1){
+           var filterData = filter([...state.data], (value)=>{
+                if( indexOf(pyaloadar, get(value,'id')) === -1){
                     return values;
                 }
             })

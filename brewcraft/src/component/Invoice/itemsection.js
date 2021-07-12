@@ -3,8 +3,7 @@ import React, { Fragment, useContext } from "react";
 import { Col, Row, ListGroupItem, ListGroup } from "reactstrap";
 import {
   Notzero,
-  formatCurrency,
-  formatPercent,
+  formatCurrency
 } from "../../helpers/textUtils";
 import ItemExpenseContext from "./item-expense-context";
 import Item from "./item";

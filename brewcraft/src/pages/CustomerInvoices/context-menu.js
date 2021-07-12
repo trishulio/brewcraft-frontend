@@ -4,7 +4,7 @@ import { get, attempt, map } from "lodash";
 
 export default function ContextMenu({ row, fnlist }) {
   const sendB = () => attempt(get(fnlist, "send"), row);
-  const sendReminderB = () => attempt(get(fnlist, "sendReminder"), row);
+  // const sendReminderB = () => attempt(get(fnlist, "sendReminder"), row);
   const recordPaymentB = () => attempt(get(fnlist, "recordPayment"), row);
   const viewInvoiceB = () => attempt(get(fnlist, "viewInvoice"), row);
   const btnList = [

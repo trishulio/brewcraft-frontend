@@ -14,7 +14,7 @@ import { parseInt, map, findIndex, get, set } from "lodash";
 import { useSelector, useDispatch } from "react-redux";
 import { AvForm } from "availity-reactstrap-validation";
 import InvoiceDate from "./invoice-date";
-import { Modal } from "../../component/Common/Modal";
+import { Modal } from "../../component/Common/modal";
 import { ItemSelect } from "../../component/Invoice/item-select"
 import { saveInvoice } from "../../store/Invoice/actions";
 import { useHistory } from "react-router-dom";
@@ -125,7 +125,7 @@ export default function CreateInvoice(props) {
 
         const valueCasted = parseInt(value);
 
-        if (isNaN(valueCasted) || Math.abs(valueCasted) == 0) {
+        if (isNaN(valueCasted) || Math.abs(valueCasted) === 0) {
 
           valueSOrted[rowId][name] = 1;
 
@@ -141,7 +141,7 @@ export default function CreateInvoice(props) {
   const selectHandler = (rowId, value) => {
     const valueSOrted = stateData.slice();
     const indexStore = findIndex(inventoryData, (o) => {
-      return o.id == value;
+      return o.id === value;
     });
     const inventoryObject = get(inventoryData, indexStore);
     set(valueSOrted, `${rowId}.item`, value);
@@ -158,7 +158,7 @@ export default function CreateInvoice(props) {
   const taxHandler = (rowId, value) => {
     const valueSOrted = stateData.slice();
     const indexStore = findIndex(taxData, (o) => {
-      return o.id == value;
+      return o.id === value;
     });
     const taxDataObject = get(taxData, indexStore);
     console.log(taxDataObject);
@@ -193,7 +193,7 @@ export default function CreateInvoice(props) {
 
     let valid = 0;
     map(stateData, (value, index) => {
-      if (get(value, "item") == "") {
+      if (get(value, "item") === "") {
         valid += 1;
       }
     });
@@ -201,7 +201,7 @@ export default function CreateInvoice(props) {
       setErrorMessage("Please select customer.");
       return;
     }
-    if (valid == 0) {
+    if (valid === 0) {
       dispatch(
         saveInvoice({
           user: customer,

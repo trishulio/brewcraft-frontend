@@ -72,10 +72,9 @@ export default function Material({ history }) {
     const mat = { ...material };
     if (name==='category'){
       const category=categories.data.find(item=>{
-        
+
         return item.id==value
       })
-      console.log(category)
       mat[name]=category;
       setMaterial(mat);
       return
@@ -189,7 +188,7 @@ export default function Material({ history }) {
                           {editable &&
                             map(
                               categories.data.filter(
-                                (item) => item.parentCategoryId == category
+                                (item) => item.parentCategoryId === category
                               ),
                               (value, index) => (
                                 <option value={value.id} key={value.id}>

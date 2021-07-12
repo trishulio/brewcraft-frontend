@@ -10,7 +10,7 @@ export default function DeliverDetail() {
   let { id } = useParams();
   const [userData, setUserData] = useState();
   const dispatch = useDispatch();
-  const { data, loading, error, formLoading } = useSelector(
+  const { data, loading, error } = useSelector(
     (state) => state.Driver
   );
   // component did mount alternative for functional component
@@ -24,7 +24,7 @@ export default function DeliverDetail() {
     );
     setUserData(
       findIndex(data, function (o) {
-        return o.id == id;
+        return o.id === id;
       })
     );
   }, []);
@@ -42,11 +42,11 @@ export default function DeliverDetail() {
   }
   return (
     <Fragment>
-    {userData == -1 ? (
+    {userData === -1 ? (
       <div>not found</div>
     ) : <Detail detail={get(data, userData)} />}
     </Fragment>
-    
+
   );
 }
 

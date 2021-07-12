@@ -8,8 +8,7 @@ import {
   EDIT_INVOICE_REQUEST,
   EDIT_INVOICE_SUCCESS,
   DELETE_INVOICE_REQUEST,
-  DELETE_INVOICE_SUCCESS,
-  OPEN_INVOICE_REQUEST
+  DELETE_INVOICE_SUCCESS
 } from "./actionTypes";
 import { findIndex, get, filter,indexOf, values } from "lodash";
 const initialState = {
@@ -73,7 +72,7 @@ const Invoice = (state = initialState, { type, payload ,data}) => {
       };
     case EDIT_INVOICE_SUCCESS:
       let editIndex = findIndex([...state.data], function (o) {
-        return o.id == get(payload, "id");
+        return o.id === get(payload, "id");
       });
       return {
         ...state,
@@ -92,7 +91,7 @@ const Invoice = (state = initialState, { type, payload ,data}) => {
       case DELETE_INVOICE_SUCCESS:
           var pyaloadar = values(payload);
            var filterData =  filter([...state.data], (value)=>{
-                if( indexOf(pyaloadar, get(value,'id')) == -1){
+                if( indexOf(pyaloadar, get(value,'id')) === -1){
                     return values;
                 }
             })

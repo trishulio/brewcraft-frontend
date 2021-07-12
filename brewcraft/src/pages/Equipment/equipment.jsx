@@ -3,7 +3,7 @@ import { get, isArray, map, findIndex, filter, set } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import { Row, Col, Card, CardBody, CardFooter, Button } from "reactstrap";
-import { Modal } from "../../component/Common/Modal";
+import { Modal } from "../../component/Common/modal";
 import EquipmentTable from "./component/table";
 import {
   fetchFacilities,

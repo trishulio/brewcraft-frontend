@@ -227,7 +227,7 @@ const Ingredients = (state = initialState, { type, payload, data }) => {
       };
     case EDIT_INGREDIENT_SUCCESS:
       const editIndex = findIndex([...state.data], function (o) {
-        return o.id == get(payload, "id");
+        return o.id === get(payload, "id");
       });
       const storeData = state.data.slice();
       storeData[editIndex] = { ...state.data[editIndex], ...data.data };
@@ -308,7 +308,7 @@ const PackagingMaterial = (state = initialState, { type, payload, data }) => {
       };
     case EDIT_PACKAGING_MATERIAL_SUCCESS:
       const editIndex = findIndex([...state.data], function (o) {
-        return o.id == get(payload, "id");
+        return o.id === get(payload, "id");
       });
       const storeData = state.data.slice();
       storeData[editIndex] = { ...state.data[editIndex], ...data.data };
@@ -418,7 +418,7 @@ const AllCategories = (state = initialState, { type, payload, data }) => {
         };
       case EDIT_MATERIAL_CATEGORY_SUCCESS:
         const editIndex = findIndex([...state.data], function (o) {
-          return o.id == get(payload, "id");
+          return o.id === get(payload, "id");
         });
         const storeData = state.data.slice();
         storeData[editIndex] = { ...state.data[editIndex], ...data.data };

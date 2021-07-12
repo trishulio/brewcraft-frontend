@@ -4,17 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAllCategories,
   saveCategory,
-  setBreadcrumbItems,
-  fetchMaterialCategoryById,
-  deleteMaterialCategory,
-  editMaterialCategory,
+  setBreadcrumbItems
 } from "../../store/actions";
 import { Row, Col, Card, CardBody, Button } from "reactstrap";
-import { Modal } from "../../component/Common/Modal";
+import { Modal } from "../../component/Common/modal";
 import CategoriesTable from "./components/categories-table";
 import MaterialCategoryDialog from "./components/material-category-dialog";
 import { ToastContainer } from "react-toastify";
-import Loading from "../../component/Common/Loading";
+import Loading from "../../component/Common/loading";
 export default function Facilities() {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
@@ -74,7 +71,7 @@ export default function Facilities() {
       dispatch(
         saveCategory({ name: categoryName, parentCategoryId: materialCategory })
       );
-    
+
 
     newMaterialCategoryClose();
   };

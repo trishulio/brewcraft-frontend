@@ -8,10 +8,9 @@ import {
   EDIT_VECHICLE_REQUEST,
   EDIT_VECHICLE_SUCCESS,
   DELETE_VECHICLE_REQUEST,
-  DELETE_VECHICLE_SUCCESS,
-  OPEN_VECHICLE_REQUEST,
+  DELETE_VECHICLE_SUCCESS
 } from "./actionTypes";
-import { findIndex, get, filter, indexOf, values, map, remove } from "lodash";
+import { findIndex, get, filter, values } from "lodash";
 const initialState = {
   data: [
     {
@@ -117,9 +116,9 @@ const Vechicles = (state = initialState, { type, payload }) => {
         formLoading: { ...state.formLoading, loading: true },
       };
     case EDIT_VECHICLE_SUCCESS:
-      
+
      const editIndex = findIndex([...state.data], function (o) {
-        return o.id == get(payload, "id");
+        return o.id === get(payload, "id");
       });
       const storeData =  state.data.slice();
       storeData[editIndex] = {...state.data[editIndex], ...payload };
@@ -140,8 +139,8 @@ const Vechicles = (state = initialState, { type, payload }) => {
         data: filter([...state.data], (instanceData) => {
           return (
             findIndex(pyaloadar, (i) => {
-              return i.id == instanceData.id;
-            }) == -1
+              return i.id === instanceData.id;
+            }) === -1
           );
         }),
         formLoading: { ...state.formLoading, loading: false },

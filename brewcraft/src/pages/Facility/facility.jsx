@@ -3,7 +3,7 @@ import { findIndex, map, omit, get } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import { Row, Col, Button, Card, CardBody } from "reactstrap";
-import { Modal } from "../../component/Common/Modal";
+import { Modal } from "../../component/Common/modal";
 import FacilityForm from "./facility-form";
 import {
   fetchFacilities,
@@ -194,7 +194,7 @@ export default function Facility() {
         </TableProvider>
       {/* <Row>
         <Col xs="12">
-          
+
           <Card>
             <CardBody className="py-0 px-2">
               <BootstrapTable

@@ -48,7 +48,7 @@ export default function Invoices() {
   const dispatch = useDispatch();
 
   // fetch redux data from store
-  const { data, loading, error, formLoading } = useSelector(
+  const { data, loading, error } = useSelector(
     (state) => state.Invoice
   );
 

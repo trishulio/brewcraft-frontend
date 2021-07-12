@@ -156,18 +156,6 @@ class SidebarContent extends Component {
               </Link>
             </li>
             <li>
-              <Link to="/ingredients" replace={true} className="waves-effect">
-                <i className="mdi mdi-hops"></i>
-                <span>Raw Materials</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/packaging" replace={true} className="waves-effect">
-                <i className="mdi mdi-package-variant"></i>
-                <span>Packaging</span>
-              </Link>
-            </li>
-            <li>
               <Link to="/batches" replace={true} className="waves-effect">
                 <i className="mdi mdi-flag"></i>
                 <span>Brews</span>
@@ -179,54 +167,33 @@ class SidebarContent extends Component {
                 <span>Finished Goods</span>
               </Link>
             </li>
-            {/* <li>
-              <Link to="/#" className="has-arrow waves-effect">
-                <i className="mdi mdi-hops"></i>
-                <span>Raw Materials</span>
-              </Link>
-              <ul className="sub-menu" aria-expanded="false">
-                <li>
-                  <Link to="/ingredients">Ingredients</Link>
-                </li>
-                <li>
-                  <Link to="/packaging">Packaging</Link>
-                </li>
-                <li>
-                  <Link to="/materials/categories">Categories</Link>
-                </li>
-              </ul>
-            </li> */}
-            {/* <li>
-              <Link to="/#" className="waves-effect">
-                <i className="mdi mdi-flag"></i>
-                <span>Brews</span>
-                <span className="badge badge-pill badge-primary float-right">5</span>
-              </Link>
-              <ul className="sub-menu" aria-expanded="false">
-                <li>
-                  <Link to="/wort">
-                    Wort{" "}<span className="badge badge-pill badge-primary float-right">4</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/batches">
-                    Batches{" "}<span className="badge badge-pill badge-warning float-right">1</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/finished-goods" className="waves-effect">
-                    <span>Finished Goods</span>
-                  </Link>
-                </li>
-              </ul>
-            </li> */}
             <li>
-              <Link to="/products" className="waves-effect">
+              <Link to="/#" className="has-arrow waves-effect">
                 <i className="mdi mdi-crown"></i>
                 <span>Products</span>
               </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/products">Products</Link>
+                </li>
+                <li>
+                  <Link to="/products/categories">Categories</Link>
+                </li>
+              </ul>
             </li>
-            <li className="menu-title">Facility</li>
+            <li>
+              <Link to="/ingredients" replace={true} className="waves-effect">
+                <i className="mdi mdi-hops"></i>
+                <span>Raw Materials</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/packaging" replace={true} className="waves-effect">
+                <i className="mdi mdi-package-variant"></i>
+                <span>Packaging</span>
+              </Link>
+            </li>
+            {/* <li className="menu-title">Facility</li>
             <li>
               <Link to="/#" className="has-arrow waves-effect">
                 <i className="mdi mdi-map-marker"></i>
@@ -246,25 +213,8 @@ class SidebarContent extends Component {
                 <i className="mdi mdi-pencil"></i>
                 <span>Equipment</span>
               </Link>
-            </li>
-            <li className="menu-title">Account</li>
-            {/* <li>
-              <Link to="/#" className="has-arrow waves-effect">
-                <i className="mdi mdi-cash"></i>
-                <span>Purchases</span>
-              </Link>
-              <ul className="sub-menu" aria-expanded="false">
-                <li>
-                  <Link to="/suppliers">Supplier Contacts</Link>
-                </li>
-                <li>
-                  <Link to="/facilities/storage">Storage</Link>
-                </li>
-                <li>
-                  <Link to="/purchases">Invoices</Link>
-                </li>
-              </ul>
             </li> */}
+            <li className="menu-title">Account</li>
             <li>
               <Link to="/#" className="has-arrow waves-effect">
               <i className="mdi mdi-currency-usd"></i>

@@ -11,7 +11,7 @@ import {
 import BootstrapTable from "react-bootstrap-table-next";
 import Imagefortable from "../../component/Imagefortable";
 import VechicleForm from "./vechicle-form";
-import { Modal } from "../../component/Common/Modal";
+import { Modal } from "../../component/Common/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { get, filter } from "lodash";
 import {
@@ -104,7 +104,7 @@ export default function Vechicles({ driverid }) {
   // form submit
   const handleValidSubmit = (event, values) => {
     const { type, formData } = modaldata;
-    if (type == "edit") {
+    if (type === "edit") {
       // edit contact data send to redux
       dispatch(
         editVechicle({
@@ -177,7 +177,7 @@ export default function Vechicles({ driverid }) {
               </DropdownItem>
               <DropdownItem
                 onClick={deleteDialogopen}
-                disabled={rowSelection.length == 0}
+                disabled={rowSelection.length === 0}
               >
                 Delete
               </DropdownItem>
@@ -195,7 +195,7 @@ export default function Vechicles({ driverid }) {
               <BootstrapTable
                 keyField="id"
                 data={filter(data, (o) => {
-                  return get(o, "driver_id") == driverid;
+                  return get(o, "driver_id") === driverid;
                 })}
                 columns={columns}
                 // rowEvents={rowEvents}

@@ -14,7 +14,7 @@ import {
   editContact,
   deleteContact
 } from "../../store/Customers/actions";
-import { Modal } from "../../component/Common/Modal";
+import { Modal } from "../../component/Common/modal";
 import CustomersTable from "./components/customers-table";
 import ContactModal from "./components/Contact";
 

@@ -28,7 +28,7 @@ export default function VechicleForm({
                     type="text"
                     errorMessage="Enter the vechicle Model"
                     validate={{ required: { value: true } }}
-                    value={type == "edit" && get(formData, "[0]Model")}
+                    value={type === "edit" && get(formData, "[0]Model")}
                   />
                   <AvField
                     name="Make"
@@ -36,7 +36,7 @@ export default function VechicleForm({
                     placeholder="Enter vechicle Make"
                     type="text"
                     errorMessage="Enter vechicle Make"
-                    value={type == "edit" && get(formData, "[0]Make")}
+                    value={type === "edit" && get(formData, "[0]Make")}
                     validate={{
                       required: { value: true },
                     }}
@@ -49,7 +49,7 @@ export default function VechicleForm({
                     placeholder="Pleas enter License no"
                     type="text"
                     errorMessage="Pleas enter License no"
-                    value={type == "edit" && get(formData, "[0]license_plate")}
+                    value={type === "edit" && get(formData, "[0]license_plate")}
                     validate={{ required: { formData: true } }}
                   />
                   <FormGroup>

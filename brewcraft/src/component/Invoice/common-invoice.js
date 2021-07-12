@@ -4,7 +4,7 @@ import InvoicesForm from "./invoice-form";
 import { get } from "lodash";
 import { AvForm } from "availity-reactstrap-validation";
 import { ItemExpenseProvider } from "./item-expense-context";
-import { Modal } from "../Common/Modal";
+import { Modal } from "../Common/modal";
 import { Button } from "reactstrap";
 import {deleteInvoice, saveInvoice, editInvoice} from '../../store/Invoice/actions'
 import {useHistory} from 'react-router-dom';

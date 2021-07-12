@@ -1,6 +1,6 @@
-import React, { Component, useMemo, useState, useEffect } from "react";
-import { Switch, BrowserRouter as Router } from "react-router-dom";
-import { connect, useSelector, useDispatch } from "react-redux";
+import React, { useMemo, useState, useEffect } from "react";
+import { Switch } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { authProtectedRoutes, publicRoutes } from "./routes/";
 import AppRoute from "./routes/route";
 import VerticalLayout from "./component/Layout/VerticalLayout";

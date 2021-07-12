@@ -17,10 +17,10 @@ export default function InvoiceForm({ detail, removebill, type }) {
           <CardBody>
             <Row>
               <Col>
-                <h5>{type == "edit" ? "Edit" : "Create"} bill</h5>
+                <h5>{type === "edit" ? "Edit" : "Create"} bill</h5>
               </Col>
               <Col>
-                {type == "edit" && (
+                {type === "edit" && (
                   <span className="float-right mt-3">
                     <i
                       className="mdi mdi-delete-forever pointer iconhover iconfont"

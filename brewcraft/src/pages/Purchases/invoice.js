@@ -60,7 +60,7 @@ export default function InvoicesDetail() {
 
     /*   find invoices from redux store  */
     const invoiceData = findIndex(get(invoices, "invoices"), function (o) {
-      return o.id == id;
+      return o.id === id;
     });
     setHasInvoice(invoiceData);
     setDataInvoice(dummyInvoice);

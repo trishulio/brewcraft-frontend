@@ -1,25 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { setBreadcrumbItems } from "../../store/actions";
+import React from "react";
 import {
-    Row,
-    Col,
     Card,
     CardBody,
-    CardHeader,
-    Button,
-    Input,
-    Label,
-    Badge
+    CardHeader
 } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
-import noImage from "../../assets/images/no-image.jpg";
 
-const units = ["hl", "l", "ml", "kg", "g"];
 
 export default function DetailsForm({item}) {
-
     return (
         <Card>
             <CardHeader>

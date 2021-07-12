@@ -8,7 +8,7 @@ import {
   Card,
   CardBody
    } from "reactstrap";
-import { Modal } from "../../component/Common/Modal";
+import { Modal } from "../../component/Common/modal";
 import {
   fetchSupplier,
   fetchSuppliers,

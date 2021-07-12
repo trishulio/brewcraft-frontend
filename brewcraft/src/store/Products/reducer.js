@@ -1,19 +1,44 @@
-import { combineReducers } from "redux";
 import {
-  FETCH_PRODUCT_REQUEST
+  SET_PRODUCTS,
+  SET_PRODUCTS_PAGE_INDEX,
+  SET_PRODUCTS_PAGE_SIZE,
+  SET_PRODUCTS_CLASS,
+  SET_PRODUCTS_TYPE,
+  SET_PRODUCTS_STYLE
 } from "./actionTypes";
 
 const initialState = {
-    id: "1",
-    name: "Fantastic Lager",
-    description: "In the moood for something satisfying? Grab a F. Lager.",
-    status: "actve",
-    color: "info",
-    type: "lager"
+  content: [],
+  all: [],
+  totalElements: 0,
+  totalPages: 0,
+  pageIndex: 0,
+  pageSize: 10,
+  selectedClass: "",
+  selectedType: "",
+  selectedStyle: ""
 };
 
-const Product = (state = initialState, { type, payload }) => {
+const Products = (state = initialState, { type, payload }) => {
     switch (type) {
+      case SET_PRODUCTS:
+        return {
+          ...state,
+          ...payload,
+          loading: false,
+          error: null,
+        };
+      case SET_PRODUCTS_CLASS:
+      case SET_PRODUCTS_TYPE:
+      case SET_PRODUCTS_STYLE:
+      case SET_PRODUCTS_PAGE_INDEX:
+      case SET_PRODUCTS_PAGE_SIZE:
+        return {
+          ...state,
+          ...payload,
+          loading: false,
+          error: null,
+        };
       default:
         return {
           ...state,
@@ -23,18 +48,4 @@ const Product = (state = initialState, { type, payload }) => {
     }
 };
 
-const Products = (state = [], { type, payload }) => {
-    switch (type) {
-      default:
-        return {
-          ...state,
-          loading: true,
-          error: null,
-        };
-    }
-};
-
-export default combineReducers({
-    Product,
-    Products
-});
+export default Products;

@@ -21,15 +21,17 @@ class CreateMenu extends Component {
             <React.Fragment>
                         <Dropdown isOpen={this.state.menu} toggle={this.toggle} className="dropdown-topbar pt-3 mt-1 d-inline-block">
                             <DropdownToggle className="btn btn-light dropdown-toggle" role="button" id="dropdownMenuLink" tag="a">
-                                    Create <i className="mdi mdi-chevron-down"></i>
+                                    New <i className="mdi mdi-chevron-down"></i>
                             </DropdownToggle>
 
                             <DropdownMenu right>
-                                <DropdownItem tag={Link} to="/batch/new">New Brew</DropdownItem>
-                                <DropdownItem tag="a" href="#">Bottle Beer</DropdownItem>
-                                <DropdownItem tag="a" href="#">Repackage</DropdownItem>
+                                <DropdownItem tag={Link} to="/batches/new">Batch</DropdownItem>
+                                <DropdownItem tag={Link} to="/finished-goods/new">Finished Good</DropdownItem>
+                                <DropdownItem tag={Link} to="/products/new">Product</DropdownItem>
+                                <DropdownItem tag={Link} to="/raw-materials/new">Raw Material</DropdownItem>
+                                <DropdownItem tag={Link} to="/packaging/new">Packaging</DropdownItem>
                                 <DropdownItem divider></DropdownItem>
-                                <DropdownItem tag="a" href="#">Report</DropdownItem>
+                                <DropdownItem tag={Link} to="/dashboard">Report</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
             </React.Fragment>

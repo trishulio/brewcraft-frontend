@@ -7,15 +7,12 @@ import {
   CREATE_FACILITY_REQUEST,
   UPDATE_FACILITY_REQUEST,
   UPDATE_FACILITIY_SUCCESS,
-  UPDATE_FACILITY_FAILURE,
   DELETE_FACILITY_REQUEST,
   CREATE_FACILITIY_SUCCESS,
   FETCH_EQUIPMENT_REQUEST,
   FETCH_EQUIPMENT_SUCCESS,
   FETCH_EQUIPMENT_FAILURE,
   FETCH_EQUIPMENT_ITEM_REQUEST,
-  FETCH_EQUIPMENT_ITEM_SUCCESS,
-  FETCH_EQUIPMENT_ITEM_FAILURE,
   CREATE_EQUIPMENT_ITEM_REQUEST,
   UPDATE_EQUIPMENT_ITEM_REQUEST,
   DELETE_EQUIPMENT_ITEM_REQUEST,
@@ -68,7 +65,7 @@ const Equipment = (state = initialState, { type, payload }) => {
           if(value.id !== payload ){
             return value
           }
-        }) 
+        })
         return {
           ...state,
           facilities:[...allFacilities]
@@ -76,9 +73,9 @@ const Equipment = (state = initialState, { type, payload }) => {
       }
     case UPDATE_FACILITIY_SUCCESS:
       {
-        const indexFacilite = findIndex(state.facilities, (value)=>value.id === payload.id) 
-          if(indexFacilite != -1){
-            const facilitiesChanged = {...state.facilities[indexFacilite], ...payload} 
+        const indexFacilite = findIndex(state.facilities, (value)=>value.id === payload.id)
+          if(indexFacilite !== -1){
+            const facilitiesChanged = {...state.facilities[indexFacilite], ...payload}
             const allFacilities = cloneDeep(state.facilities)
             allFacilities[indexFacilite] = facilitiesChanged;
             return {
@@ -90,7 +87,7 @@ const Equipment = (state = initialState, { type, payload }) => {
               ...state
             }
           }
-        
+
       }
     default:
       state = { ...state };

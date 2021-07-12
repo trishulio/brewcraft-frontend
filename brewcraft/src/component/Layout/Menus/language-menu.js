@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-//Import Images
+// Import Images
+// import usFlag from '../../../assets/images/flags/us_flag.jpg';
+// import germanyFlag from '../../../assets/images/flags/germany_flag.jpg';
+// import italyFlag from '../../../assets/images/flags/italy_flag.jpg';
+// import frenchFlag from '../../../assets/images/flags/french_flag.jpg';
+// import spainFlag from '../../../assets/images/flags/spain_flag.jpg';
+// import russiaFlag from '../../../assets/images/flags/russia_flag.jpg';
 import canFlag from '../../../assets/images/flags/can_flag.jpg';
-import usFlag from '../../../assets/images/flags/us_flag.jpg';
-import germanyFlag from '../../../assets/images/flags/germany_flag.jpg';
-import italyFlag from '../../../assets/images/flags/italy_flag.jpg';
-import frenchFlag from '../../../assets/images/flags/french_flag.jpg';
-import spainFlag from '../../../assets/images/flags/spain_flag.jpg';
-import russiaFlag from '../../../assets/images/flags/russia_flag.jpg';
 
 class LanguageMenu extends Component {
     constructor(props) {

@@ -13,13 +13,13 @@ import {
   editIngredient,
 } from "../../store/actions";
 import { Row, Col, Card, CardBody, Button } from "reactstrap";
-import { Modal } from "../../component/Common/Modal";
+import { Modal } from "../../component/Common/modal";
 import RawMaterials from "./components/materials-table";
 import MaterialCategoryDialog from "./components/material-category-dialog";
 import MaterialDialog from "./components/material-dialog";
 import { INGREDIENTS } from "../../helpers/constants";
 import { ToastContainer } from "react-toastify";
-import Loading from "../../component/Common/Loading";
+import Loading from "../../component/Common/loading";
 import BootstrapTable from "../../component/Tables/bootstrap-table";
 import { ColToggle, TableSearch } from "../../component/Tables/col-toggle";
 import { TableProvider } from "../../component/Tables/table-context";

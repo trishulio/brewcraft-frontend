@@ -63,7 +63,7 @@ export default function Detail({ detail }) {
     },
   ];
 
- 
+
   return (
     <Fragment>
       <Row>
@@ -75,6 +75,7 @@ export default function Detail({ detail }) {
                 <img
                   className="d-flex mr-3 rounded-circle avatar-sm"
                   src={get(detail, "image")}
+                  alt=""
                 />
                 <Media className="align-self-center" body>
                   <h4 className="font-size-14 m-0">{get(detail, "name")}</h4>
@@ -86,7 +87,7 @@ export default function Detail({ detail }) {
                   <p><b>Last Location</b>: {get(detail, "last_location")}</p>
                 </Media>
               </Media>
-             
+
             </CardBody>
           </Card>
         </Col>

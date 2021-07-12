@@ -3,12 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import {
   Row,
-  Button,
   Col,
   Card,
-  CardHeader,
-  CardBody,
-  CardFooter
+  CardBody
 } from "reactstrap";
 import {
   fetchCompanies,
@@ -17,7 +14,7 @@ import {
   updateCompany,
   deleteCompany
 } from "../../store/Companies/actions";
-import { Modal } from "../../component/Common/Modal";
+import { Modal } from "../../component/Common/modal";
 import CompanyModal from "./components/company-modal";
 import CompaniesTable from "./components/companies-table";
 

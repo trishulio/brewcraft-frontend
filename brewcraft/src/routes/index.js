@@ -7,11 +7,14 @@ import Deliveries from '../pages/Delivery/delivery';
 import DeliveryDrivers from '../pages/Delivery/deliver-detail';
 // Brews
 import Brews from '../pages/Brews/wort';
-import Batch from '../pages/Batch/batch';
-import Fermentations from '../pages/Brews/batches';
-import FinishedGoods from '../pages/Brews/finished-goods';
-import Products from "../pages/Products/products";
-import ProductItem from "../pages/Products/product";
+import Batch from '../pages/Batch';
+import Batches from '../pages/Batches';
+import FinishedGood from '../pages/FinishedGood';
+import FinishedGoods from '../pages/FinishedGoods';
+import Products from "../pages/Products";
+import ProductItem from "../pages/Product";
+import ProductCategories from "../pages/ProductCategories";
+import ProductCategory from "../pages/ProductCategory";
 // Customers
 import CustomerList from '../pages/Customers/Customers';
 import CustomerInvoices from '../pages/CustomerInvoices/invoices';
@@ -22,13 +25,11 @@ import Equipment from '../pages/Equipment/equipment';
 // Facility
 import Facility from "../pages/Facility/facility";
 import Storage from '../pages/Storage';
-// Finished Goods
-import FinishedGoodsInventory from '../pages/FinishedGoods/inventory';
 // Materials
 import Material from '../pages/Materials/material';
 import Category from "../pages/Materials/category";
 import MaterialsIngredients from '../pages/Materials/ingredients';
-import MaterialsPackaging from '../pages/Materials/packaging';
+import Packaging from '../pages/Packaging';
 import MaterialCategories from '../pages/Materials/categories';
 // Reports
 import ReportsK50B from '../pages/Reports/k50b';
@@ -41,24 +42,33 @@ import PurchaseInvoicesDetail from '../pages/Purchases/invoice';
 import PurchaseInvoicesCreate from '../pages/Purchases/invoice-new';
 import notFound from "../pages/pages-404";
 const authProtectedRoutes = [
+  // Brews (Depricated)
+  { path: "/brews", component: Brews },
+
   // Dashboard
   { path: "/dashboard", component: Dashboard },
-  // Brews
-  { path: "/wort", component: Brews },
-  { path: "/batch/new", component: Batch, exact: true },
-  { path: "/batches", component: Fermentations },
+
+  // Batches
+  { path: "/batches/:id", component: Batch },
+  { path: "/batches", component: Batches },
+
+  { path: "/finished-goods/:id", component: FinishedGood },
   { path: "/finished-goods", component: FinishedGoods },
+
   // Materials
   { path: "/ingredients", component: MaterialsIngredients },
-  { path: "/packaging", component: MaterialsPackaging },
+  { path: "/packaging", component: Packaging },
   { path: "/materials/categories/:id", component: Category },
   { path: "/materials/categories", component: MaterialCategories },
   // { path: "/materials/:id", component: Material },
   { path: "/materials/:id/:category", component: Material },
 
   // Products
+  { path: "/products/categories/:id", component: ProductCategory },
+  { path: "/products/categories", component: ProductCategories },
   { path: "/products/:id", component: ProductItem },
   { path: "/products", component: Products },
+
   // Facility
   { path: "/facilities", component: Facility, exact: true },
   { path: "/floor-view", component: Facility, exact: true },
@@ -78,7 +88,6 @@ const authProtectedRoutes = [
   { path: "/facilities/storage", component: Storage },
   // Materials
   { path: "/materials/ingredients", component: MaterialsIngredients },
-  { path: "/materials/packaging", component: MaterialsPackaging },
   { path: "/materials/categories", component: MaterialCategories },
   { path: "/materials/:id", component: Material },
   // Reports

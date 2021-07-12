@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import Imagefortable from '../../component/Imagefortable';
-import { Modal } from "../../component/Common/Modal";
+import { Modal } from "../../component/Common/modal";
 import DriverForm from './driver-form';
 import { get } from "lodash";
 import {saveDelivery, editDelivery,deleteDelivery} from '../../store/Driver/actions';

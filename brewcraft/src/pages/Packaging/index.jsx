@@ -8,22 +8,13 @@ import {
   setBreadcrumbItems,
   fetchCategories,
   saveCategory,
-  editPackagingMaterial,
-  deletePackagingMaterial,
   fetchMaterialById
 } from "../../store/actions";
-import { Row, Col, Card, CardBody, Button } from "reactstrap";
-import { Modal } from "../../component/Common/Modal";
-import MaterialsTable from "./components/materials-table";
-import MaterialCategoryDialog from "./components/material-category-dialog";
-import MaterialDialog from "./components/material-dialog";
-import { PACKAGING } from "../../helpers/constants";
-import { ToastContainer } from "react-toastify";
-import Loading from "../../component/Common/Loading";
-export default function Facilities(props) {
-  const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] = useState(
-    false
-  );
+import Loading from "../../component/Common/loading";
+import PackagingInner from "./packaging";
+
+export default function Packaging() {
+  const [isNewMaterialCategoryOpen, setIsNewMaterialCategoryOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [packaging, setPackaging] = useState(null);
   const dispatch = useDispatch();
@@ -119,7 +110,7 @@ export default function Facilities(props) {
           upc: "",
         })
       );
-    
+
     newMaterialClose();
   };
   const newMaterialCategorySubmit = (e, values) => {
@@ -142,66 +133,13 @@ export default function Facilities(props) {
             materialDescription: data.description,
             materialBaseQuantityUnit: data.baseQuantityUnit,
           });
-          
+
           setIsOpen(true);
         },
       })
     );
   };
   return (
-    <Fragment>
-      <Row>
-        <Col xs="12">
-          <div className="float-right mb-3">
-            <Button color="link" onClick={newMaterialOpen}>
-              Add Packaging
-            </Button>
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col md="12">
-          <Card>
-            <CardBody>
-              <MaterialsTable
-                data={data}
-                category={PACKAGING}
-              />
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-      {!!isOpen && (
-        <Modal show={isOpen} close={newMaterialClose} title="New Packaging">
-          <MaterialDialog
-            to={props.match.url}
-            categoryModelOpen={newMaterialCategoryOpen}
-            submitFn={newMaterialSubmit}
-            close={newMaterialClose}
-            model={ MaterialModel}
-            optionsList={TypeOption(
-              categories.data.filter(
-                (item) => item.parentCategoryId === PACKAGING
-              )
-            )}
-          />
-        </Modal>
-      )}
-      {!!isNewMaterialCategoryOpen && (
-        <Modal
-          show={isNewMaterialCategoryOpen}
-          close={newMaterialCategoryClose}
-          title="New Material Category"
-        >
-          <MaterialCategoryDialog
-            submitFn={newMaterialCategorySubmit}
-            close={newMaterialCategoryClose}
-            model={MaterialModel}
-            optionsList={TypeOption(nullParentCategories.data)}
-          />
-        </Modal>
-      )}
-      <ToastContainer />
-    </Fragment>
+      <PackagingInner />
   );
 }

@@ -13,7 +13,7 @@ import {
   DropdownItem,
   DropdownMenu,
 } from "reactstrap";
-import { Modal } from "../../component/Common/Modal";
+import { Modal } from "../../component/Common/modal";
 import Contact from "./components/Contact";
 import {
   saveContact,
@@ -153,7 +153,7 @@ export default function Customers() {
   // form submit function edit, new
   const handleValidSubmit = (event, values) => {
     const { type, formData } = modaldata;
-    if (type == "edit") {
+    if (type === "edit") {
       // edit customer data send to redux
       dispatch(editContact({ ...values, id: get(formData, "id") }));
     } else {
@@ -220,7 +220,7 @@ export default function Customers() {
                   <DropdownItem
                     href="#"
                     onClick={deleteDialogopen}
-                    disabled={rowSelection.length == 0}
+                    disabled={rowSelection.length === 0}
                   >
                     Delete
                   </DropdownItem>
