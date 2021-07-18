@@ -22,6 +22,7 @@
    border: 1px solid #6c757d;
    background: transparent;
    color: #6c757d;
+   padding: 4px 12px;
 }
 #pageDropDown::after {
     content: "\F140";
@@ -107,7 +108,7 @@
 }
 .table_wrappwe{
     position: relative;
-    margin-top: 87px;
+    // margin-top: 87px;
 }
 .table_wrappwe .row.react-bootstrap-table-pagination>div:first-child {
     position    :initial
@@ -119,4 +120,15 @@
 }
 .react-bootstrap-table-pagination{
     margin-top: 25px;
+}
+.table_row{
+    padding: 8px;
+    background: #fff;
+    margin-top: 30px;
+    padding-top: 60px;
+}
+.table-search{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }

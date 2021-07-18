@@ -11,8 +11,8 @@ export default function NewMaterialType({submitFn,model, companyContact,close, o
   // }
   return (
     <AvForm onValidSubmit={submitFn} model={model}>
-      <Card>
-        <CardBody>
+      <Card className="noshadow">
+        <CardBody className="noshadow">
           <Row>
             <Col lg="6">
               <AvField

@@ -28,14 +28,14 @@ const BootstrapTableCommon = () => {
         {(props) => {
           return (
             <>
-              <Row>
+              <Row >
                 <Col xs="12">
                   <div className="mb-0">
                     {headerComponent}
                     <TableSearch {...props.searchProps} />
                   </div>
 
-                  <Col>
+                  <Col className="table_row">
                     <Col md="12">
                       <div class="table_wrappwe">
                         <BootstrapTable

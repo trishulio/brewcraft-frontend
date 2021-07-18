@@ -12,3 +12,6 @@ code {
     monospace;
 }
 
+.noshadow{
+  box-shadow:none !important
+}
