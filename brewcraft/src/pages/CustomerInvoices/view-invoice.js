@@ -19,7 +19,7 @@ export default function Viewinvoice() {
   const dispatch = useDispatch();
   // fetch redux data from store
   const { data, loading, error, formLoading } = useSelector(
-    (state) => state.Driver
+    (state) => {} //state.Driver
   );
 
   // component did mount alternative for functional component

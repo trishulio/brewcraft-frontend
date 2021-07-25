@@ -75,10 +75,14 @@ export default function ProductDetails({ product, editable }) {
                     }));
                 }
                 break;
+            case "productDescription":
+                if (product.productStyle?.id !== e.target.value) {
+                    dispatch(setProductDetails({
+                        description: e.target.value
+                    }));
+                }
+                break;
             default:
-                dispatch(setProductDetails({
-                    [e.target.name]: e.target.value
-                }));
                 break;
         }
     }
@@ -287,7 +291,9 @@ export default function ProductDetails({ product, editable }) {
                                 rows={4}
                                 name="productDescription"
                                 disabled={!editable}
-                                onChange={onFormInputChange}
+                                onChange={e => {
+                                    onFormInputChange(e);
+                                }}
                                 autoComplete="false"
                             />
                         </Col>

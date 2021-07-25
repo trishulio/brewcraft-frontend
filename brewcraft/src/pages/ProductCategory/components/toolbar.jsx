@@ -13,7 +13,7 @@ export default function ProductCategoryToolbar({ category, editable, changed, on
             <Toolbar>
                 <Button
                     type="button"
-                    color="primary"
+                    color="secondary"
                     size="sm"
                     className="waves-effect mr-2 mb-3"
                     onClick={onSave}
@@ -50,16 +50,6 @@ export default function ProductCategoryToolbar({ category, editable, changed, on
                     color="secondary"
                     size="sm"
                     className="waves-effect mr-2 mb-3"
-                    onClick={onDelete}
-                    hidden={!category.id || !editable}
-                >
-                    Delete Category
-                </Button>
-                <Button
-                    type="button"
-                    color="secondary"
-                    size="sm"
-                    className="waves-effect mr-2 mb-3"
                     hidden={!category.id || editable}
                     onClick={() => {
                         history.push({
@@ -72,10 +62,21 @@ export default function ProductCategoryToolbar({ category, editable, changed, on
                 </Button>
                 <Button
                     type="button"
+                    color="danger"
+                    size="sm"
+                    className="waves-effect mr-2 mb-3"
+                    onClick={onDelete}
+                    hidden={!category.id || !editable}
+                >
+                    Delete Category
+                </Button>
+                <Button
+                    type="button"
                     color="secondary"
                     size="sm"
                     className="waves-effect mr-2 mb-3"
                     hidden={!category.id || editable}
+                    outline={true}
                     onClick={() => {
                         history.push("/products/categories");
                     }}

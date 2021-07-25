@@ -17,28 +17,28 @@
 //Import Custome scss
 @import "./assets/scss/custom-style.scss";
 
-.DragHandler{
+.DragHandler {
 
     cursor:move;
-    
+
 }
-.pointer{
+.pointer {
 
     cursor: pointer;
-    
+
 }
-.iconhover{
+.iconhover {
     opacity: .75;
 }
-.iconhover:hover{
+.iconhover:hover {
     opacity: 1;
 }
-.iconfont{
+.iconfont {
     font-size: 1rem,
 }
-.btnParent{
+.btnParent {
     cursor: pointer;
-  
+
   }
   @media screen and (max-width: 768px) {
 

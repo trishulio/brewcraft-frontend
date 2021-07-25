@@ -1,60 +1,29 @@
 import React from "react";
-import { Row, Col, Card, CardBody } from "reactstrap";
-import { Modal } from "../../component/Common/modal";
-import MaterialsTable from "../Materials/components/materials-table";
-import MaterialCategoryDialog from "../Materials/components/material-category-dialog";
-import MaterialDialog from "../Materials/components/material-dialog";
-import { PACKAGING } from "../../helpers/constants";
-import { ToastContainer } from "react-toastify";
+import {
+    Card,
+    CardBody,
+    Row,
+    Col
+} from "reactstrap";
+import Table from "./components/table";
 import Toolbar from "./components/toolbar";
+import Pagination from "./components/pagination";
 
-export default function Packaging(props={}, { data, categories, isOpen, isNewMaterialCategoryOpen, newMaterialClose, newMaterialSubmit, newMaterialCategoryClose, newMaterialCategoryOpen, newMaterialCategorySubmit, MaterialModel, TypeOption, nullParentCategories }) {
-  return (
-    <React.Fragment>
-      <Toolbar />
-      <Row>
-        <Col md="12">
-          <Card>
-            <CardBody>
-              <MaterialsTable
-                data={data}
-                category={PACKAGING}
-              />
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-      {!!isOpen && (
-        <Modal show={isOpen} close={newMaterialClose} title="New Packaging">
-          <MaterialDialog
-            to={props.match.url}
-            categoryModelOpen={newMaterialCategoryOpen}
-            submitFn={newMaterialSubmit}
-            close={newMaterialClose}
-            model={ MaterialModel}
-            optionsList={TypeOption(
-              categories.data.filter(
-                (item) => item.parentCategoryId === PACKAGING
-              )
-            )}
-          />
-        </Modal>
-      )}
-      {!!isNewMaterialCategoryOpen && (
-        <Modal
-          show={isNewMaterialCategoryOpen}
-          close={newMaterialCategoryClose}
-          title="New Material Category"
-        >
-          <MaterialCategoryDialog
-            submitFn={newMaterialCategorySubmit}
-            close={newMaterialCategoryClose}
-            model={MaterialModel}
-            optionsList={TypeOption(nullParentCategories.data)}
-          />
-        </Modal>
-      )}
-      <ToastContainer />
-    </React.Fragment>
-  );
+export default function Packaging({ fetchPage }) {
+    return (
+        <React.Fragment>
+            <Row>
+                <Col xl="10">
+                    <Toolbar/>
+                    <Card>
+                        <CardBody className="py-2">
+                            <Pagination fetchPage={fetchPage}>
+                                <Table/>
+                            </Pagination>
+                        </CardBody>
+                    </Card>
+                </Col>
+            </Row>
+        </React.Fragment>
+    );
 }

@@ -11,6 +11,7 @@ import { togglePreloader } from "./store/layout/actions";
 import "react-toastify/dist/ReactToastify.css";
 // Import scss
 import "./theme.scss";
+import "./jadc.scss";
 
 if (process.env.NODE_ENV !== "production") {
   // write authentication events to console log

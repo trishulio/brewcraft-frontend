@@ -1,67 +1,74 @@
 import {
-  FETCH_SUPPLIER_REQUEST,
-  FETCH_SUPPLIER_SUCCESS,
-  FETCH_SUPPLIER_FAILURE,
-  FETCH_SUPPLIERS_REQUEST,
-  FETCH_SUPPLIERS_SUCCESS,
-  FETCH_SUPPLIERS_FAILURE,
-  UPDATE_SUPPLIER_REQUEST,
-  UPDATE_SUPPLIER_SUCCESS,
-  UPDATE_SUPPLIER_FAILURE,
-  DELETE_SUPPLIER_REQUEST,
-  DELETE_SUPPLIER_SUCCESS,
-  DELETE_SUPPLIER_FAILURE
+    FETCH_SUPPLIERS_REQUEST,
+    FETCH_SUPPLIERS_SUCCESS,
+    FETCH_SUPPLIERS_FAILURE,
+    FETCH_ALL_SUPPLIERS_SUCCESS,
+    FETCH_ALL_SUPPLIERS_FAILURE,
+    FETCH_ALL_SUPPLIERS_REQUEST,
+    SET_SUPPLIERS_DETAILS
 } from "./actionTypes";
 
 const initialState = {
-  suppliers: [],
-  supplier: null,
-  companies: [],
-  loading: false
+    content: [],
+    all: [],
+    loading: false,
+    error: null,
+    selectedCompany: "",
+    totalElements: 0,
+    totalItems: 0,
+    pageIndex: 0,
+    pageSize: 10
 };
 
-const Supplier = (state = initialState, { type, payload }) => {
-  switch (type) {
-    case FETCH_SUPPLIER_REQUEST:
-    case FETCH_SUPPLIERS_REQUEST:
-    case UPDATE_SUPPLIER_REQUEST:
-    case DELETE_SUPPLIER_REQUEST:
+const Suppliers = (state = initialState, { type, payload, data }) => {
+    switch (type) {
+      case FETCH_SUPPLIERS_REQUEST:
+        return {
+          ...state,
+          data: null,
+          loading: true,
+          error: null,
+        };
+      case FETCH_ALL_SUPPLIERS_SUCCESS:
+      case FETCH_SUPPLIERS_SUCCESS:
+        return {
+          ...state,
+          ...data.data,
+          loading: false,
+          error: null,
+        };
+      case FETCH_SUPPLIERS_FAILURE:
+        return {
+          ...state,
+          loading: false,
+          error: payload,
+        };
+    case FETCH_ALL_SUPPLIERS_REQUEST:
+        return {
+            ...state,
+            loading: true,
+            error: null,
+        };
+    case FETCH_ALL_SUPPLIERS_FAILURE:
+        return {
+            ...state,
+            loading: false,
+            error: payload,
+        };
+    case SET_SUPPLIERS_DETAILS:
       return {
         ...state,
-        loading: true
-      }
-    case FETCH_SUPPLIER_SUCCESS:
-    case FETCH_SUPPLIER_FAILURE:
-      return {
-        ...state,
-        supplier: { ...payload },
-        loading: false
-      };
-    case FETCH_SUPPLIERS_SUCCESS:
-    case FETCH_SUPPLIERS_FAILURE:
-      return {
-        ...state,
-        suppliers: { ...payload },
-        loading: false
-      };
-    case UPDATE_SUPPLIER_SUCCESS:
-    case UPDATE_SUPPLIER_FAILURE:
-      return {
-        ...state,
-        supplier: { ...payload },
-        loading: false
-      };
-    case DELETE_SUPPLIER_SUCCESS:
-    case DELETE_SUPPLIER_FAILURE:
-      return {
-        ...state,
-        loading: false
+        ...payload,
+        loading: false,
+        error: null
       };
     default:
-      state = { ...state };
-      break;
-  }
-  return state;
-};
+        return {
+            ...state,
+            loading: true,
+            error: null
+        }
+    }
+}
 
-export default Supplier;
+export default Suppliers;

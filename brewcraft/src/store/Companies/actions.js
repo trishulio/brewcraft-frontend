@@ -1,31 +1,37 @@
 import {
     FETCH_COMPANIES_REQUEST,
-    FETCH_COMPANY_REQUEST,
-    CREATE_COMPANY_REQUEST,
-    UPDATE_COMPANY_REQUEST,
-    DELETE_COMPANY_REQUEST
+    FETCH_ALL_COMPANIES_REQUEST,
+    SET_COMPANIES_DETAILS,
+    SET_COMPANIES_PAGE_INDEX,
+    SET_COMPANIES_PAGE_SIZE
 } from "./actionTypes";
 
-export const fetchCompanies = () => ({
-    type: FETCH_COMPANIES_REQUEST
+export const fetchCompanies = params => ({
+    type: FETCH_COMPANIES_REQUEST,
+    payload: params,
 });
 
-export const fetchCompany = payload => ({
-    type: FETCH_COMPANY_REQUEST,
-    payload: payload
+export const fetchAllCompanies = () => ({
+    type: FETCH_ALL_COMPANIES_REQUEST,
 });
 
-export const createCompany = payload => ({
-    type: CREATE_COMPANY_REQUEST,
-    payload: payload
+export const setCompaniesSelectedCategory = category => ({
+    type: SET_COMPANIES_DETAILS,
+    payload: {
+        selectedCategory: category
+    }
 });
 
-export const updateCompany = payload => ({
-    type: UPDATE_COMPANY_REQUEST,
-    payload: payload
+export const setCompaniesPageIndex = index => ({
+    type: SET_COMPANIES_PAGE_INDEX,
+    payload: {
+        pageIndex: index
+    }
 });
 
-export const deleteCompany = payload => ({
-    type: DELETE_COMPANY_REQUEST,
-    payload: payload
+export const setCompaniesPageSize = size => ({
+    type: SET_COMPANIES_PAGE_SIZE,
+    payload: {
+        pageSize: size
+    }
 });

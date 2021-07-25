@@ -52,40 +52,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                     });
                 }}
             >
-                Edit Finished Good
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2 mb-3"
-                onClick={onDelete}
-                hidden={!finishedGood.id || !editable}
-                disabled={true}
-            >
-                Delete Finished Good
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2 mb-3"
-                disabled={editable}
-                hidden={!finishedGood.id || editable}
-            >
-                Batches
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2 mb-3"
-                hidden={!finishedGood.id || editable}
-                onClick={() => {
-                    history.push("/finished-goods");
-                }}
-            >
-                Finished Goods
+                Edit Good
             </Button>
             <Button
                 type="button"
@@ -100,7 +67,31 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                     });
                 }}
             >
-                New Finished Good
+                New Good
+            </Button>
+            <Button
+                type="button"
+                color="danger"
+                size="sm"
+                className="waves-effect mr-2 mb-3"
+                onClick={onDelete}
+                hidden={!finishedGood.id || !editable}
+                disabled={true}
+            >
+                Delete Good
+            </Button>
+            <Button
+                type="button"
+                color="secondary"
+                size="sm"
+                className="waves-effect mr-2 mb-3"
+                hidden={!finishedGood.id || editable}
+                outline={true}
+                onClick={() => {
+                    history.push("/finished-goods");
+                }}
+            >
+                Finished Goods
             </Button>
         </React.Fragment>
     );

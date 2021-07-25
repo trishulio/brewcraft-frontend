@@ -38,8 +38,8 @@ class SidebarContent extends Component {
   componentDidMount() {
     document.body.setAttribute("data-sidebar", "dark");
     document.body.setAttribute("data-topbar", "dark");
-    this.initMenu();
     new MetisMenu("#side-menu");
+    this.initMenu();
   }
 
   //update local state after changing layout
@@ -55,11 +55,7 @@ class SidebarContent extends Component {
       });
     }
 
-    if (this.props.leftSideBarType !== prevProps.leftSideBarType) {
-      new MetisMenu("#side-menu");
-    }
     this.initMenu();
-
   }
 
   initMenu() {
@@ -74,12 +70,26 @@ class SidebarContent extends Component {
         el.className = el.className.replace(/\bmm-show\b/, "");
     });
     var items = ul.getElementsByTagName("a");
-    for (var i = 0; i < items.length; ++i) {
-      if (this.props.location.pathname === items[i].pathname) {
-        matchingMenuItem = items[i];
-        break;
-      }
+    var array = [];
+    for (var i = 0; i < items.length; i++) {
+        array.push(items[i]);
     }
+    array = array.sort((e1, e2) => {
+        if (e1.pathname.startsWith(e2.pathname)) {
+            return -1;
+        } else if (e2.pathname.startsWith(e1.pathname)) {
+            return +1;
+        }
+        return e1.pathname.localeCompare(e2.pathname);
+    });
+
+    for (var i = 0; i < array.length; ++i) {
+        if (this.props.location.pathname.startsWith(array[i].pathname)) {
+            matchingMenuItem = array[i];
+            break;
+        }
+    }
+
     if (matchingMenuItem) {
       this.activateParentDropdown(matchingMenuItem);
     }
@@ -150,25 +160,25 @@ class SidebarContent extends Component {
           <ul className="metismenu list-unstyled" id="side-menu">
             <li className="menu-title">Main</li>
             <li>
-              <Link to="/dashboard" replace={true} className="waves-effect">
+              <Link to="/dashboard" className="waves-effect">
                 <i className="mdi mdi-view-dashboard"></i>
                 <span>Dashboard</span>
               </Link>
             </li>
             <li>
-              <Link to="/batches" replace={true} className="waves-effect">
-                <i className="mdi mdi-flag"></i>
-                <span>Brews</span>
+              <Link to="/batches" className="waves-effect">
+                  <i className="mdi mdi-beer"></i>
+                  <span>Batches</span>
               </Link>
             </li>
             <li>
-              <Link to="/finished-goods" replace={true} className="waves-effect">
-                <i className="mdi mdi-beer"></i>
+              <Link to="/finished-goods" className="waves-effect">
+                <i className="mdi mdi-flag"></i>
                 <span>Finished Goods</span>
               </Link>
             </li>
             <li>
-              <Link to="/#" className="has-arrow waves-effect">
+              <Link to="/products" className="has-arrow waves-effect">
                 <i className="mdi mdi-crown"></i>
                 <span>Products</span>
               </Link>
@@ -177,57 +187,73 @@ class SidebarContent extends Component {
                   <Link to="/products">Products</Link>
                 </li>
                 <li>
-                  <Link to="/products/categories">Categories</Link>
+                  <Link to="/products/categories">Product Categories</Link>
                 </li>
               </ul>
             </li>
             <li>
-              <Link to="/ingredients" replace={true} className="waves-effect">
+              <Link to="/materials/ingredients" className="has-arrow waves-effect">
                 <i className="mdi mdi-hops"></i>
-                <span>Raw Materials</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/packaging" replace={true} className="waves-effect">
-                <i className="mdi mdi-package-variant"></i>
-                <span>Packaging</span>
-              </Link>
-            </li>
-            {/* <li className="menu-title">Facility</li>
-            <li>
-              <Link to="/#" className="has-arrow waves-effect">
-                <i className="mdi mdi-map-marker"></i>
-                <span>Locations</span>
+                <span>Materials</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/facilities">Facilities</Link>
+                <Link to="/materials/ingredients">Ingredients</Link>
                 </li>
                 <li>
-                  <Link to="/facilities/storage">Storages</Link>
+                  <Link to="/materials/packaging">Packaging</Link>
+                </li>
+                <li>
+                  <Link to="/materials/categories">Material Categories</Link>
                 </li>
               </ul>
             </li>
             <li>
-              <Link to="/equipment" className="waves-effect">
-                <i className="mdi mdi-pencil"></i>
-                <span>Equipment</span>
+              <Link to="/purchases/invoices" className="has-arrow waves-effect">
+              <i className="mdi mdi-currency-usd"></i>
+                <span>Purchases</span>
               </Link>
-            </li> */}
-            <li className="menu-title">Account</li>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/purchases/invoices">Purchase Invoices</Link>
+                </li>
+                <li>
+                  <Link to="/suppliers">Suppliers</Link>
+                </li>
+              </ul>
+            </li>
             <li>
-              <Link to="/#" className="has-arrow waves-effect">
+              <Link to="/sales/receipts" className="has-arrow waves-effect">
               <i className="mdi mdi-currency-usd"></i>
                 <span>Sales</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/suppliers">Customers</Link>
+                  <Link to="/sales/receipts">Sales Receipts</Link>
                 </li>
                 <li>
-                  <Link to="/sales-invoices">Receipts</Link>
+                  <Link to="/sales/customers">Customers</Link>
                 </li>
               </ul>
+            </li>
+            <li>
+              <Link to="/reports" className="waves-effect">
+                <i className="mdi mdi-chart-pie"></i>
+                <span>Reports</span>
+              </Link>
+            </li>
+            <li className="menu-title">Admin</li>
+            <li>
+              <Link to="/users" className="waves-effect">
+                <i className="mdi mdi-account-multiple"></i>
+                <span>Users</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/settings" className="waves-effect">
+                <i className="mdi mdi-settings"></i>
+                <span>Settings</span>
+              </Link>
             </li>
           </ul>
         </div>
@@ -237,35 +263,35 @@ class SidebarContent extends Component {
 }
 
 const mapStatetoProps = (state) => {
-  const {
-    is_toggle,
-    leftSideBarType,
-    layoutType,
-    leftSideBarTheme,
-    layoutWidth,
-    topbarTheme,
-    isPreloader,
-  } = state.Layout;
-  return {
-    is_toggle,
-    leftSideBarType,
-    layoutType,
-    leftSideBarTheme,
-    layoutWidth,
-    topbarTheme,
-    isPreloader,
-  };
+    const {
+        is_toggle,
+        leftSideBarType,
+        layoutType,
+        leftSideBarTheme,
+        layoutWidth,
+        topbarTheme,
+        isPreloader,
+    } = state.Layout;
+    return {
+        is_toggle,
+        leftSideBarType,
+        layoutType,
+        leftSideBarTheme,
+        layoutWidth,
+        topbarTheme,
+        isPreloader,
+    };
 };
 
 export default withRouter(
-  connect(mapStatetoProps, {
-    toggleSidebar,
-    hideRightSidebar,
-    changeLayout,
-    changeTopbarTheme,
-    changeSidebarTheme,
-    changeLayoutWidth,
-    changeSidebarType,
-    changePreloader,
-  })(SidebarContent)
-);
+    connect(mapStatetoProps, {
+        toggleSidebar,
+        hideRightSidebar,
+        changeLayout,
+        changeTopbarTheme,
+        changeSidebarTheme,
+        changeLayoutWidth,
+        changeSidebarType,
+        changePreloader,
+    })(SidebarContent)
+    );

@@ -41,7 +41,7 @@ export default function ProductCategory() {
 
     useEffect(() => {
         if (!id || id === "new") {
-            history.replace("/products/new?edit=true");
+            history.replace("/products/categories/new?edit=true");
             dispatch(resetProductCategoryDetails({
                 success: () => {
                     setEditMode(true);

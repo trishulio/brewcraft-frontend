@@ -34,10 +34,7 @@ export default function ProductToolbar() {
                 size="sm"
                 className="waves-effect mr-2 mb-3"
                 onClick={() => {
-                    history.push({
-                        pathname: "/products/new",
-                        search: "?edit=true"
-                    });
+                    history.push("/products/new");
                 }}
             >
                     New Product
@@ -47,6 +44,7 @@ export default function ProductToolbar() {
                 color="secondary"
                 size="sm"
                 className="waves-effect mr-2 mb-3"
+                outline={true}
                 onClick={() => {
                     history.push("/products/categories");
                 }}
@@ -133,7 +131,7 @@ export default function ProductToolbar() {
                 size="sm"
                 type="search"
                 name="search"
-                id="exampleSearch"
+                id="productsSearch"
                 placeholder="Name"
                 className="waves-effect float-right mb-3 ml-2"
                 style={{ width: 170 }}

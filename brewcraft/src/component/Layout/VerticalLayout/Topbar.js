@@ -26,6 +26,15 @@ class Topbar extends Component {
         };
     }
 
+    componentDidMount() {
+        if (this.state.isMobile) {
+            this.props.changeSidebarType("default", true);
+        }
+        // else {
+        //     this.props.changeSidebarType("condensed", false);
+        // }
+    }
+
     sidebarToggle = () => {
         if (this.props.leftSideBarType === "default") {
             this.props.changeSidebarType("condensed", this.state.isMobile);

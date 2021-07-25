@@ -17,9 +17,10 @@ const initialState={
     topbarTheme: "dark",
     leftSideBarTheme: "dark",
     layoutWidth: "fluid",
-    leftSideBarType: "default",
+    leftSideBarType: "condensed",
+    // leftSideBarType: "default",
     isPreloader : true,
-    is_toggle : true,
+    is_toggle : false,
     show_rightsidebar : false,
     isMobile: false
 }

@@ -23,19 +23,17 @@ export default function FinishedGoodsToolbar() {
                 size="sm"
                 className="waves-effect mr-2 mb-3"
                 onClick={() => {
-                    history.push({
-                        pathname: "/finished-goods/new",
-                        search: "?edit=true"
-                    });
+                    history.push("/finished-goods/new");
                 }}
             >
-                    New Finished Good
+                    New Good
             </Button>
             <Button
                 type="button"
                 color="secondary"
                 size="sm"
                 className="waves-effect mr-2 mb-3"
+                disabled={true}
             >
                     Repackage
             </Button>
@@ -44,6 +42,7 @@ export default function FinishedGoodsToolbar() {
                 color="secondary"
                 size="sm"
                 className="waves-effect mr-2 mb-3"
+                outline={true}
                 onClick={() => {
                     history.push("/batches");
                 }}
@@ -69,7 +68,7 @@ export default function FinishedGoodsToolbar() {
                 size="sm"
                 type="search"
                 name="search"
-                id="exampleSearch"
+                id="finishedGoodsSearch"
                 placeholder="Name"
                 className="waves-effect float-right mb-3 ml-2"
                 style={{ width: 170 }}

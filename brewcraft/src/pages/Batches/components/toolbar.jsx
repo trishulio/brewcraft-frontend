@@ -30,6 +30,7 @@ export default function BatchesToolbar() {
                 color="secondary"
                 size="sm"
                 className="waves-effect mr-2 mb-3"
+                outline={true}
                 onClick={() => {
                     history.push("/finished-goods");
                 }}

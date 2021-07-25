@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
     Button
   } from "reactstrap";
@@ -79,20 +79,16 @@ export default function ProductCategoriesTable() {
                         <th>Name</th>
                         <th>Category Type</th>
                         <th>Category Parent</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         tableData.map((category, key) =>
                             <tr key={key}>
-                                <td>#{category.id}</td>
-                                <td>{category.name}</td>
+                                <td><Link to={"/products/categories/" + category.id}>#{category.id}</Link></td>
+                                <td><Link to={"/products/categories/" + category.id}>{category.name}</Link></td>
                                 <td>{category.type}</td>
                                 <td>{category.parent}</td>
-                                <td>
-                                    <Button color="secondary" size="sm" className="waves-effect waves-light" onClick={() => onView(category.id)}>View</Button>
-                                </td>
                             </tr>
                         )
                     }

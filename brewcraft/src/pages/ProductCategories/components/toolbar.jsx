@@ -33,10 +33,7 @@ export default function ProductCategoriesToolbar() {
                 size="sm"
                 className="waves-effect mr-2 mb-3"
                 onClick={() => {
-                    history.push({
-                        pathname: "/products/categories/new",
-                        search: "?edit=true"
-                    });
+                    history.push("/products/categories/new");
                 }}
             >
                     New Category
@@ -46,38 +43,13 @@ export default function ProductCategoriesToolbar() {
                 color="secondary"
                 size="sm"
                 className="waves-effect mr-2 mb-3"
+                outline={true}
                 onClick={() => {
                     history.push("/products");
                 }}
             >
                     Products
             </Button>
-            {/* <Input
-                type="select"
-                size="sm"
-                className="waves-effect float-right mb-3 ml-2"
-                style={{ width: 100 }}
-                value={selectedStyle ? selectedStyle.id : ""}
-                onChange={e => {
-                    if (e.target.value) {
-                        const category = allCategories.find(c => c.id === parseInt(e.target.value));
-                        dispatch(setProductCategoriesSelectedStyle(category));
-                    } else {
-                        dispatch(setProductCategoriesSelectedStyle(""));
-                    }
-                }}
-                disabled={!selectedType}
-            >
-                <option value="">Style</option>
-                {
-                    selectedType &&
-                    map(filter(allCategories, c => c.parentCategoryId === selectedType.id), (value, index) => (
-                        <option value={value.id} key={index}>
-                            {value.name}
-                        </option>
-                    ))
-                }
-            </Input> */}
             <Input
                 type="select"
                 size="sm"
@@ -132,7 +104,7 @@ export default function ProductCategoriesToolbar() {
                 size="sm"
                 type="search"
                 name="search"
-                id="exampleSearch"
+                id="productCategoriesSearch"
                 placeholder="Name"
                 className="waves-effect float-right mb-3 ml-2"
                 style={{ width: 170 }}

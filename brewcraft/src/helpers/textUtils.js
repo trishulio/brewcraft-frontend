@@ -81,39 +81,42 @@ export function formatKeyAsLabel(name) {
     return name.charAt(0).toUpperCase() + name.slice(1)
 }
 /**
- * 
+ *
  * @author Anuj Gupta
  * @param {number} value is required  number
  * @param {any} children is required any
  */
 export function Notzero (props) {
-    
+
     if (props.value !== 0) {
-    
+
         return props.children;
-   
+
     } else {
-     
+
         return null;
-        
+
     }
 };
 /**
- * 
+ *
  * @author Anuj Gupta
  * @param {number} value is required  number
  * @param {any} children is required any
  */
 export function NotMinusoneNun (props) {
-    
+
     if (props.value != null && props.value !== -1) {
-    
+
         return props.children;
-   
+
     } else {
-     
+
         return  <div>not found</div>;
-        
+
     }
 };
-  
+
+export function isFloat(n){
+    return Number(n) === n && n % 1 !== 0;
+}

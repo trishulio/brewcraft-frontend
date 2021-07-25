@@ -1,118 +1,41 @@
-import { call, put, takeLatest } from "redux-saga/effects";
 import {
     FETCH_COMPANIES_REQUEST,
     FETCH_COMPANIES_SUCCESS,
     FETCH_COMPANIES_FAILURE,
-    FETCH_COMPANY_REQUEST,
-    FETCH_COMPANY_SUCCESS,
-    FETCH_COMPANY_FAILURE,
-    CREATE_COMPANY_REQUEST,
-    CREATE_COMPANY_SUCCESS,
-    CREATE_COMPANY_FAILURE,
-    UPDATE_COMPANY_REQUEST,
-    UPDATE_COMPANY_SUCCESS,
-    UPDATE_COMPANY_FAILURE,
-    DELETE_COMPANY_REQUEST,
-    DELETE_COMPANY_SUCCESS,
-    DELETE_COMPANY_FAILURE
+    FETCH_ALL_COMPANIES_REQUEST,
+    FETCH_ALL_COMPANIES_SUCCESS,
+    FETCH_ALL_COMPANIES_FAILURE,
 } from "./actionTypes";
-import {
-    fetchCompaniesRequest,
-    fetchCompanyRequest,
-    createCompanyRequest,
-    updateCompanyRequest,
-    deleteCompanyRequest
-} from "./api.js";
-import { snackFailure, snackSuccess } from "../Snackbar/actions";
+import { call, put, takeEvery } from "redux-saga/effects";
+import { api } from "./api";
+import { get } from "lodash";
+import { ALL } from "../../helpers/constants";
+import { snackFailure } from "../Snackbar/actions";
 
-function* fetchCompanies() {
+function* fetchAllCompaniesGenerator() {
     try {
-        const response = yield call(fetchCompaniesRequest);
-        yield put({ type: FETCH_COMPANIES_SUCCESS, payload: response.data.suppliers });
+        const res = yield call(api.fetchCompanies, ALL);
+        yield put({ type: FETCH_ALL_COMPANIES_SUCCESS, data: res.data.suppliers });
     } catch (e) {
-        yield put ({ type: FETCH_COMPANIES_FAILURE, payload: [] });
-        yield put(snackFailure());
+        yield put({ type: FETCH_ALL_COMPANIES_FAILURE });
+        yield put(snackFailure("Something went wrong please try again."));
     }
 }
 
-function* fetchCompany(action) {
+function* fetchCompaniesGenerator(action) {
     try {
-        const response = yield call(fetchCompanyRequest, action.payload.id);
-        yield put({ type: FETCH_COMPANY_SUCCESS, payload: response.data });
-        action.payload.success && action.payload.success(response.data);
+      const res = yield call(api.fetchCompanies,get(action, "payload.params"));
+      delete Object.assign(res.data, {["content"]: res.data["suppliers"] })["suppliers"];
+      yield put({ type: FETCH_COMPANIES_SUCCESS, data: { data: res.data }});
     } catch (e) {
-        yield put ({ type: FETCH_COMPANY_FAILURE, payload: [] });
-        yield put(snackFailure());
+      yield put({ type: FETCH_COMPANIES_FAILURE });
+      yield put(snackFailure("Something went wrong please try again."));
     }
+  }
+
+function* Companies() {
+    yield takeEvery(FETCH_COMPANIES_REQUEST, fetchCompaniesGenerator);
+    yield takeEvery(FETCH_ALL_COMPANIES_REQUEST, fetchAllCompaniesGenerator);
 }
 
-function* createCompany(action) {
-    const address = action.payload.address || {};
-    const data = {
-        address: {
-            addressLine1: address.addressLine1,
-            addressLine2: address.addressLine2,
-            country: address.country,
-            province: address.province,
-            city: address.city,
-            postalCode: address.postalCode
-        },
-        contacts: [],
-        name: action.payload.name
-    };
-    try {
-        yield call(createCompanyRequest, data);
-        yield put({ type: CREATE_COMPANY_SUCCESS });
-        action.payload.success && action.payload.success();
-        yield put(snackSuccess());
-    } catch (e) {
-        yield put ({ type: CREATE_COMPANY_FAILURE });
-        yield put(snackFailure());
-    }
-}
-
-function* updateCompany(action) {
-    const address = action.payload.address || {};
-    const data = {
-        address: {
-            addressLine1: address.addressLine1,
-            addressLine2: address.addressLine2,
-            country: address.country,
-            province: address.province,
-            city: address.city,
-            postalCode: address.postalCode
-        },
-        contacts: action.payload.contacts || [],
-        name: action.payload.name,
-        version: action.payload.version
-    };
-    try {
-        yield call(updateCompanyRequest, action.payload.id, data);
-        yield put({ type: UPDATE_COMPANY_SUCCESS });
-        action.payload.success && action.payload.success();
-        yield put(snackSuccess());
-    } catch (e) {
-        yield put ({ type: UPDATE_COMPANY_FAILURE });
-        yield put(snackFailure());
-    }
-}
-
-function* deleteCompany(action) {
-    try {
-        yield call(deleteCompanyRequest, action.payload.id);
-        yield put({ type: DELETE_COMPANY_SUCCESS });
-        action.payload.success && action.payload.success();
-        yield put(snackSuccess());
-    } catch (e) {
-        yield put ({ type: DELETE_COMPANY_FAILURE });
-        yield put(snackFailure());
-    }
-}
-
-export default function* Companies() {
-    yield takeLatest(FETCH_COMPANIES_REQUEST, fetchCompanies);
-    yield takeLatest(FETCH_COMPANY_REQUEST, fetchCompany);
-    yield takeLatest(CREATE_COMPANY_REQUEST, createCompany);
-    yield takeLatest(UPDATE_COMPANY_REQUEST, updateCompany);
-    yield takeLatest(DELETE_COMPANY_REQUEST, deleteCompany);
-}
+export default Companies;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
     Button,
     Input
@@ -38,7 +38,7 @@ export default function FinishedGoodsTable() {
             </thead>
             <tbody>
                 {
-                    finishedGoods.map((order, key) =>
+                    finishedGoods.map((finishedGood, key) =>
                         <tr key={key}>
                             <td>
                                 <div className="d-flex align-items-center vertical-center">
@@ -47,22 +47,19 @@ export default function FinishedGoodsTable() {
                                 {/* <Input className="waves-effect" type="checkbox" /> */}
                             </td>
                             <td>
-                                <img src={noImage} alt="user" className="avatar-xs ml-4 mr-3 rounded-circle" /> {order.name && order.name}
+                                <div className="pl-4"><Link to="/finished-goods/1">{finishedGood.name}</Link></div>
                             </td>
                             <td>
-                                {order.package}
+                                {finishedGood.package}
                             </td>
                             <td>
-                                {order.available ? order.available : "-"}
+                                {finishedGood.available ? finishedGood.available : "-"}
                             </td>
                             <td>
-                                {order.reserved ? order.reserved : "-"}
+                                {finishedGood.reserved ? finishedGood.reserved : "-"}
                             </td>
-                            <td>#{order.id}</td>
-                            <td>{order.processor}</td>
-                            <td>
-                                <Button color="secondary" size="sm" className="waves-effect waves-light" onClick={() => onView(order.id)}>View</Button>
-                            </td>
+                            <td><Link to={"/batches/" + finishedGood.id}>#{finishedGood.id}</Link></td>
+                            <td>{finishedGood.processor}</td>
                         </tr>
                     )
                 }
