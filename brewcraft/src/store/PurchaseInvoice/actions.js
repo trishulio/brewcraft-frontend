@@ -29,7 +29,7 @@ export const setPurchaseInvoiceDetails = product => ({
 
 export const fetchPurchaseInvoiceById = (id) => ({
     type: FETCH_PURCHASE_INVOICE,
-    payload: { id }
+    payload: id
 });
 
 export const createPurchaseInvoice = payload => ({
@@ -53,8 +53,6 @@ export const deletePurchaseInvoice = ({id, success}) => ({
     }
 });
 
-
-
 export const setInvalidName = enabled => ({
     type: INVALID_NAME,
     payload: {
@@ -76,9 +74,7 @@ export const resetPurchaseInvoiceDetails = success => ({
 
 export const setPurchaseInvoiceSupplier = supplier => ({
     type: SET_PURCHASE_INVOICE_SUPPLIER,
-    payload: {
-        selectedSupplier: supplier
-    }
+    payload: { supplier }
 });
 
 export const setPurchaseInvoiceInvoiceDate = generatedOn => ({
@@ -102,11 +98,9 @@ export const setPurchaseInvoiceDueDate = paymentDueDate => ({
     }
 });
 
-export const setPurchaseInvoicePurchaseOrder = purchaseOrder => ({
+export const setPurchaseInvoicePurchaseOrder = orderNumber => ({
     type: SET_PURCHASE_INVOICE_PURCHASE_ORDER,
-    payload: {
-        purchaseOrder: purchaseOrder
-    }
+    payload:{ orderNumber }
 });
 
 export const setPurchaseInvoiceItems = items => ({
@@ -147,6 +141,6 @@ export const setInvalidDueDate = enabled => ({
 export const setInvalidPurchaseOrder = enabled => ({
     type: INVALID_PURCHASE_INVOICE_PURCHASE_ORDER,
     payload: {
-        purchaseOrder: enabled
+        invalidPurchaseOrder: enabled
     }
 });

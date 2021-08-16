@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { setBreadcrumbItems } from "../../store/actions";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -13,10 +13,11 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 import { get,filter } from "lodash";
 import Tabs from "./tabs";
 import ExpanTable from "./expand-table";
-import {formatCurrency,formatPercent} from '../../helpers/textUtils';
+import {formatCurrency, formatPercent} from '../../helpers/textUtils';
 import { fetchInvoices } from "../../store/Invoice/actions";
+
 export default function Invoices() {
-  const [cardData, setCardData] = useState([
+  const cardData = [
     {
       title: "Overdue",
       icon: "mdi-chart-arc",
@@ -41,7 +42,7 @@ export default function Invoices() {
       desc: "",
       color: "warning",
     },
-  ]);
+  ];
   // history for push user
   const history = useHistory();
   const {path} = useRouteMatch();
@@ -60,7 +61,8 @@ export default function Invoices() {
         { title: "Invoices", link: "/invoices" },
       ])
     );
-    dispatch(fetchInvoices())
+    dispatch(fetchInvoices());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // if contacts is fatching first time

@@ -13,10 +13,7 @@ const initialState = {
   totalElements: 0,
   totalPages: 0,
   pageIndex: 0,
-  pageSize: 10,
-  selectedClass: "",
-  selectedType: "",
-  selectedStyle: ""
+  pageSize: 20
 };
 
 const Products = (state = initialState, { type, payload }) => {

@@ -5,11 +5,6 @@ async function fetchPurchaseInvoiceById(id) {
     .then((r) => r)
 }
 
-// async function postPurchaseInvoice(data) {
-//   return await AxiosInstance.post("/api/v1/purchases/invoices", data)
-//     .then((r) => r);
-// }
-
 async function postPurchaseInvoice(data) {
   return await AxiosInstance.post("/api/v1/procurements/", data)
     .then((r) => r);

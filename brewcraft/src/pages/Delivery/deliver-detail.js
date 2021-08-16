@@ -27,6 +27,7 @@ export default function DeliverDetail() {
         return o.id === id;
       })
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // if contacts is fatching first time
   if (loading) {

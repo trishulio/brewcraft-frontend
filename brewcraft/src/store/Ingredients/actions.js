@@ -1,7 +1,6 @@
 import {
     FETCH_INGREDIENTS_REQUEST,
     FETCH_ALL_INGREDIENTS_REQUEST,
-    SET_INGREDIENTS_DETAILS,
     SET_INGREDIENTS_PAGE_INDEX,
     SET_INGREDIENTS_PAGE_SIZE
 } from "./actionTypes";
@@ -13,13 +12,6 @@ export const fetchIngredients = params => ({
 
 export const fetchAllIngredients = () => ({
     type: FETCH_ALL_INGREDIENTS_REQUEST,
-});
-
-export const setIngredientsSelectedCategory = category => ({
-    type: SET_INGREDIENTS_DETAILS,
-    payload: {
-        selectedCategory: category
-    }
 });
 
 export const setIngredientsPageIndex = index => ({

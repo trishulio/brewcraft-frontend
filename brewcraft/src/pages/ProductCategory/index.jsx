@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import {
     setBreadcrumbItems,
     fetchProductCategoryById,
@@ -8,21 +8,15 @@ import {
     updateProductCategory,
     deleteProductCategory,
     fetchAllProductCategories,
-    setProductCategoryDetails,
-    setInvalidName,
-    setInvalidClass,
-    setInvalidType,
-    resetProductCategoryDetails
+    setProductCategoryDetails
 } from "../../store/actions";
+import {
+    useQuery
+} from "../../helpers/utils";
 import ProductCategoryInner from "./category";
-
-function useQuery() {
-    return new URLSearchParams(useLocation().search);
-}
 
 export default function ProductCategory() {
     const [editable, setEditable] = useState(false);
-    const [initialProductCategory, setInitialProductCategory] = useState(null);
     const [changed, setChanged] = useState(false);
 
     const { id } = useParams();
@@ -35,6 +29,11 @@ export default function ProductCategory() {
     const category = useSelector(state => {
         return state.ProductCategory.data;
     });
+
+    const initialProductCategory = useSelector(state => {
+        return state.ProductCategory.initial;
+    });
+
     const { invalidName, invalidClass, invalidType } = useSelector(state => {
         return state.ProductCategory
     });
@@ -42,52 +41,35 @@ export default function ProductCategory() {
     useEffect(() => {
         if (!id || id === "new") {
             history.replace("/products/categories/new?edit=true");
-            dispatch(resetProductCategoryDetails({
-                success: () => {
-                    setEditMode(true);
-                }
-            }));
-            dispatch(setBreadcrumbItems("New Product Category", [
+        } else {
+            dispatch(fetchProductCategoryById({ id }));
+        }
+        if (editMode) {
+            dispatch(fetchAllProductCategories());
+        }
+        setEditable(editMode && editMode !== "false");
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id, editMode]);
+
+    useEffect(() => {
+        if (category.id) {
+            dispatch(setBreadcrumbItems(category.name, [
                 { title: "Main", link: "#" },
                 { title: "Products", link: "#" },
                 { title: "Product Categories", link: "#" }]
             ));
         } else {
-            dispatch(fetchProductCategoryById({
-                id: id,
-                success: category => {
-                    dispatch(setBreadcrumbItems(category.name, [
-                        { title: "Main", link: "#" },
-                        { title: "Products", link: "#" },
-                        { title: "Product Categories", link: "#" }]
-                    ));
-                    setInitialProductCategory(category);
-                    setChanged(false);
-                }
-            }));
+            dispatch(setBreadcrumbItems("New Category", [
+                { title: "Main", link: "#" },
+                { title: "Products", link: "#" },
+                { title: "Product Categories", link: "#" }]
+            ));
         }
-
-        dispatch(fetchAllProductCategories());
-
-    }, [id]);
-
-    useEffect(() => {
-        setChanged(false);
-        setEditMode(editMode && editMode !== "false");
-    }, [editMode]);
-
-    useEffect(() => {
         setChanged(isChanged());
-    }, [category]);
 
-    function setEditMode(editable) {
-        if (editable) {
-            setInitialProductCategory({
-                ...category
-            });
-        }
-        setEditable(editable);
-    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [category]);
 
     function isChanged() {
         return initialProductCategory
@@ -105,38 +87,12 @@ export default function ProductCategory() {
         );
     }
 
-    function onCancel() {
-        _clear();
-        setEditMode(false);
-    }
-
-    function _clear() {
-        dispatch(setProductCategoryDetails(initialProductCategory));
-        dispatch(setInvalidName(false));
-        dispatch(setInvalidClass(false));
-        dispatch(setInvalidType(false));
-        setChanged(false);
-    }
-
-    function getCategoryId() {
-        if (category.style) {
-            return category.style.id;
-        }
-        if (category.type) {
-            return category.type.id;
-        }
-        if (category.class) {
-            return category.class.id;
-        }
-        return null;
-    }
-
     function onSave() {
         if (invalidName || invalidClass || invalidType) {
             return;
         }
         if (!isChanged()) {
-            setEditMode(false);
+            history.push("/products/categories/" + id);
 
         } else if (category.id) {
             dispatch(
@@ -173,17 +129,13 @@ export default function ProductCategory() {
             dispatch(deleteProductCategory({
                 id: category.id,
                 success: () => {
-                    dispatch(resetProductCategoryDetails({
-                        success: () => {
-                            history.push("/products/categories");
-                        }
-                    }));
+                    history.push("/products/categories");
                 }
             }));
         }
     }
 
     return (
-        <ProductCategoryInner {...{category, editable, changed, onChange, onCancel, onSave, onEdit, onDelete}} />
+        <ProductCategoryInner {...{category, editable, changed, onChange, onSave, onEdit, onDelete}} />
     );
 }

@@ -5,7 +5,9 @@ import {
     FETCH_ALL_SUPPLIERS_SUCCESS,
     FETCH_ALL_SUPPLIERS_FAILURE,
     FETCH_ALL_SUPPLIERS_REQUEST,
-    SET_SUPPLIERS_DETAILS
+    SET_SUPPLIERS_DETAILS,
+    SET_SUPPLIERS_PAGE_INDEX,
+    SET_SUPPLIERS_PAGE_SIZE
 } from "./actionTypes";
 
 const initialState = {
@@ -13,11 +15,10 @@ const initialState = {
     all: [],
     loading: false,
     error: null,
-    selectedCompany: "",
-    totalElements: 0,
     totalItems: 0,
+    totalPages: 0,
     pageIndex: 0,
-    pageSize: 10
+    pageSize: 20
 };
 
 const Suppliers = (state = initialState, { type, payload, data }) => {
@@ -29,7 +30,6 @@ const Suppliers = (state = initialState, { type, payload, data }) => {
           loading: true,
           error: null,
         };
-      case FETCH_ALL_SUPPLIERS_SUCCESS:
       case FETCH_SUPPLIERS_SUCCESS:
         return {
           ...state,
@@ -49,6 +49,13 @@ const Suppliers = (state = initialState, { type, payload, data }) => {
             loading: true,
             error: null,
         };
+    case FETCH_ALL_SUPPLIERS_SUCCESS:
+        return {
+            ...state,
+            all: data,
+            loading: false,
+            error: null,
+        };
     case FETCH_ALL_SUPPLIERS_FAILURE:
         return {
             ...state,
@@ -56,6 +63,8 @@ const Suppliers = (state = initialState, { type, payload, data }) => {
             error: payload,
         };
     case SET_SUPPLIERS_DETAILS:
+    case SET_SUPPLIERS_PAGE_INDEX:
+    case SET_SUPPLIERS_PAGE_SIZE:
       return {
         ...state,
         ...payload,

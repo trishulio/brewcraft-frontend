@@ -1,30 +1,28 @@
 import AxiosInstance from "../../helpers/axiosInstance";
-import { MATERIALS } from "../../helpers/url";
 
 async function fetchMaterialCategoryById(id) {
-    return await AxiosInstance.get(`${MATERIALS}/categories/${id}`)
+    return await AxiosInstance.get(`/api/v1/materials/categories/${id}`)
     .then((r) => r)
     .catch((error) => console.log(error));
 }
 async function patchMaterialCategory(id, payload) {
-    return await AxiosInstance.patch(`${MATERIALS}/categories/${id}`, payload)
+    return await AxiosInstance.patch(`/api/v1/materials/categories/${id}`, payload)
     .then((r) => r)
     .catch((error) => console.log(error));
 }
 async function updateMaterialCategory(id, payload) {
-    return await AxiosInstance.put(`${MATERIALS}/categories/${id}`, payload)
+    return await AxiosInstance.put(`/api/v1/materials/categories/${id}`, payload)
     .then((r) => r)
     .catch((error) => console.log(error));
 }
 async function deleteMaterialCategory(id) {
-    return await AxiosInstance.delete(`${MATERIALS}/categories/${id}`)
+    return await AxiosInstance.delete(`/api/v1/materials/categories/${id}`)
     .then((r) => r)
     .catch((error) => console.log(error));
 }
 
 async function addMaterialCategory(payload) {
-    debugger;
-    return await AxiosInstance.post(`${MATERIALS}/categories`, payload)
+    return await AxiosInstance.post("/api/v1/materials/categories", payload)
     .then((r) => r)
 }
 

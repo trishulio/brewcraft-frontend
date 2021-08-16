@@ -6,7 +6,7 @@ import {
 } from "../../../store/actions";
 import Pagination from "../../../component/Common/pagination";
 
-export default function ProductCategoriesPagination({ fetchPage, children }) {
+export default function ProductCategoriesPagination({ children }) {
 
     const dispatch = useDispatch();
 
@@ -20,7 +20,6 @@ export default function ProductCategoriesPagination({ fetchPage, children }) {
         totalPages,
         pageIndex,
         pageSize,
-        fetchItems: fetchPage,
         setPageIndex: index => {
             dispatch(setProductCategoriesPageIndex(index));
         },

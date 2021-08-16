@@ -1,20 +1,21 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    fetchAllCompanies,
     fetchSuppliers,
     setBreadcrumbItems
 } from "../../store/actions";
+import {
+    useQuery
+} from "../../helpers/utils";
 import SuppliersInner from "./suppliers";
 
 export default function Suppliers() {
     const dispatch = useDispatch();
+    const query = useQuery();
+    const sort = query.get("sort");
+    const order = query.get("order");
 
-    const suppliers = useSelector(state => {
-        return state.Suppliers.content;
-    });
-
-    const { pageIndex, pageSize, selectedCompany } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector(state => {
         return state.Suppliers;
     });
 
@@ -22,32 +23,21 @@ export default function Suppliers() {
         dispatch(
             setBreadcrumbItems("Suppliers", [
                 { title: "Main", link: "#" },
-                { title: "Purchases", link: "#" }
+                { title: "Suppliers", link: "#" }
             ])
-        )
-        fetchPage();
+        );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        fetchPage();
-
-    }, [selectedCompany]);
-
-    useEffect(() => {
-        dispatch(fetchAllCompanies());
-
-    }, [suppliers]);
-
-    function fetchPage() {
         const props = {
-            pageIndex, pageSize
+            pageIndex, pageSize, sort, order
         };
-        dispatch(fetchSuppliers({ ...props }))
-    }
+        dispatch(fetchSuppliers({ ...props }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageIndex, pageSize, sort, order]);
 
     return (
-        <SuppliersInner
-            suppliers={suppliers} fetchPage={fetchPage}
-        />
+        <SuppliersInner />
     );
 }

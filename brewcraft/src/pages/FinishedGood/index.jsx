@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import {
     setBreadcrumbItems,
     fetchFinishedGoodById,
@@ -10,12 +10,10 @@ import {
     fetchAllProductCategories,
     resetFinishedGoodDetails
 } from "../../store/actions";
+import {
+    useQuery
+} from "../../helpers/utils";
 import FinishedGoodInner from "./finished-good";
-
-
-function useQuery() {
-    return new URLSearchParams(useLocation().search);
-}
 
 export default function FinishedGood() {
     const [editable, setEditable] = useState(false);
@@ -44,17 +42,15 @@ export default function FinishedGood() {
             dispatch(resetFinishedGoodDetails());
             history.replace("/finished-goods/new?edit=true");
         } else {
-            fetch(id);
+            dispatch(fetchFinishedGoodById(id));
         }
-    }, [id]);
-
-    useEffect(() => {
+        if (editMode) {
+            dispatch(fetchAllProductCategories());
+        }
         setEditable(editMode && editMode !== "false");
-    }, [editMode]);
 
-    useEffect(() => {
-        dispatch(fetchAllProductCategories());
-    }, [finishedGood]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id, editMode]);
 
     useEffect(() => {
         if (finishedGood.id) {
@@ -69,6 +65,8 @@ export default function FinishedGood() {
             ));
         }
         setChanged(isChanged());
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [finishedGood]);
 
     function isChanged() {
@@ -110,10 +108,6 @@ export default function FinishedGood() {
         if (finishedGood.id) {
             dispatch(deleteFinishedGood(id));
         }
-    }
-
-    function fetch(id) {
-        dispatch(fetchFinishedGoodById(id));
     }
 
     return (

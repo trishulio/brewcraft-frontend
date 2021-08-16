@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import {
     setBreadcrumbItems,
     fetchProductById,
@@ -10,12 +10,10 @@ import {
     fetchAllProductCategories,
     resetProductDetails
 } from "../../store/actions";
+import {
+    useQuery
+} from "../../helpers/utils";
 import ProductInner from "./product";
-
-
-function useQuery() {
-    return new URLSearchParams(useLocation().search);
-}
 
 export default function Product() {
     const [editable, setEditable] = useState(false);
@@ -35,7 +33,7 @@ export default function Product() {
         return state.Product.initialProduct;
     });
 
-    const { invalidName, invalidClass, invalidType, redirect } = useSelector(state => {
+    const { invalidName, invalidClass, invalidType } = useSelector(state => {
         return state.Product
     });
 
@@ -46,13 +44,13 @@ export default function Product() {
         } else {
             dispatch(fetchProductById(id));
         }
-        dispatch(fetchAllProductCategories());
-
-    }, [id]);
-
-    useEffect(() => {
+        if (editMode) {
+            dispatch(fetchAllProductCategories());
+        }
         setEditable(editMode && editMode !== "false");
-    }, [editMode]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id, editMode]);
 
     useEffect(() => {
         if (product.id) {
@@ -67,6 +65,8 @@ export default function Product() {
             ));
         }
         setChanged(isChanged());
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [product]);
 
     function isChanged() {

@@ -10,13 +10,21 @@ import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
 
+function formatResponse(res) {
+    res.data = {
+        ...res.data.invoice,
+        purchaseOrder: {
+            ...res.data.purchaseOrder
+        }
+    };
+    res.data.initial = JSON.parse(JSON.stringify(res.data));
+}
+
 function* fetchPurchaseInvoiceByIdGenerator(action) {
     try {
-        const res = yield call(api.fetchPurchaseInvoiceById, get(action, "payload.id"));
-        // bug
-        res.data.selectedSupplier = "";
-        res.data.generatedOn = res.data.generatedOn.split("T")[0];
-        res.data.paymentDueDate = res.data.paymentDueDate.split("T")[0];
+        const res = yield call(api.fetchPurchaseInvoiceById, get(action, "payload"));
+        res.data.generatedOn = res.data.generatedOn?.split("T")[0];
+        res.data.paymentDueDate = res.data.paymentDueDate?.split("T")[0];
         res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: SET_PURCHASE_INVOICE_DETAILS, payload: { ...res } });
     } catch (e) {
@@ -27,7 +35,7 @@ function* fetchPurchaseInvoiceByIdGenerator(action) {
 function* createPurchaseInvoiceGenerator(action) {
     try {
         const res = yield call(api.postPurchaseInvoice, get(action, "payload.form"));
-        res.initial = JSON.parse(JSON.stringify(res.data));
+        formatResponse(res);
         yield put({ type: SET_PURCHASE_INVOICE_DETAILS, payload: { ...res } });
         if (action.payload.success) {
             yield call(action.payload.success, res.data);
@@ -41,8 +49,7 @@ function* createPurchaseInvoiceGenerator(action) {
 function* udpatePurchaseInvoiceGenerator(action) {
     try {
         const res = yield call(api.putPurchaseInvoice, get(action, "payload.id"), get(action, "payload.form"));
-        res.initial = JSON.parse(JSON.stringify(res.data));
-        debugger;
+        formatResponse(res);
         yield put({ type: SET_PURCHASE_INVOICE_DETAILS, payload: { ...res } });
         if (action.payload.success) {
             yield call(action.payload.success, res.data);

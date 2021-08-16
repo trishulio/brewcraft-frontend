@@ -9,10 +9,12 @@ import Products from "../pages/Products";
 import Product from "../pages/Product";
 import ProductCategories from "../pages/ProductCategories";
 import ProductCategory from "../pages/ProductCategory";
+import RawMaterials from "../pages/RawMaterials";
 import SalesCustomer from "../pages/Customers/Customers";
 import SalesCustomers from "../pages/Customers/Customers";
 import SalesReceipts from "../pages/CustomerInvoices/invoices";
 import SalesReceipt from "../pages/CustomerInvoices/view-invoice";
+import Sku from "../pages/Sku";
 import Ingredient from "../pages/Ingredient";
 import Ingredients from "../pages/Ingredients";
 import MaterialCategory from "../pages/MaterialCategory";
@@ -21,17 +23,16 @@ import Packaging from "../pages/Packaging";
 import MaterialCategories from "../pages/MaterialCategories";
 import Supplier from "../pages/Supplier";
 import Suppliers from "../pages/Suppliers";
-import Company from "../pages/Company";
-import Companies from "../pages/Companies";
+import SupplierContact from "../pages/SupplierContact";
+import SupplierContacts from "../pages/SupplierContacts";
 import PurchaseInvoice from "../pages/PurchaseInvoice";
 import PurchaseInvoices from "../pages/PurchaseInvoices";
 import notFound from "../pages/pages-404";
 import Reports from "../pages/Reports/k50b";
-import Facility from "../pages/Facility/facility";
-import Equipment from "../pages/Equipment/equipment";
-import Storage from "../pages/Storage";
-import Deliveries from "../pages/Delivery/delivery";
-import DeliveryDrivers from "../pages/Delivery/deliver-detail";
+
+const publicRoutes = [
+  { path: "/404", component: notFound }
+];
 
 const authProtectedRoutes = [
   // Dashboard
@@ -40,6 +41,9 @@ const authProtectedRoutes = [
   // Batches
   { path: "/batches/:id", component: Batch },
   { path: "/batches", component: Batches },
+
+  // Inventory
+  { path: "/inventory/raw-materials", component: RawMaterials },
 
   // Finished Goods
   { path: "/finished-goods/:id", component: FinishedGood },
@@ -51,6 +55,7 @@ const authProtectedRoutes = [
 
   // Products
   { path: "/products/:id", component: Product },
+  { path: "/sku", component: Sku },
   { path: "/products", component: Products },
 
   // Ingredients
@@ -70,12 +75,10 @@ const authProtectedRoutes = [
   { path: "/purchases/invoices", component: PurchaseInvoices },
 
   // Suppliers
+  { path: "/suppliers/contacts/:id", component: SupplierContact },
+  { path: "/suppliers/contacts", component: SupplierContacts },
   { path: "/suppliers/:id", component: Supplier },
   { path: "/suppliers", component: Suppliers },
-
-  // Companies
-  { path: "/companies/:id", component: Company },
-  { path: "/companies/", component: Companies },
 
   // Sales Receipts
   { path: "/sales/receipts/:id", component: SalesReceipt },
@@ -88,22 +91,8 @@ const authProtectedRoutes = [
   // Reports
   { path: "/reports", component: Reports },
 
-  // Facility
-  // { path: "/facilities", component: Facility, exact: true },
-  // { path: "/floor-view", component: Facility, exact: true },
-  // { path: "/equipment", component: Equipment },
-
-  // Locations
-  // { path: "/facilities/storage", component: Storage },
-
-  // Deliveries
-  // { path: "/deliveries", component: Deliveries },
-  // { path: "/delivery-drivers", component: DeliveryDrivers },
-
   // Default
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
 ];
-const publicRoutes = [
-  { path: "/404", component: notFound }
-];
+
 export { authProtectedRoutes, publicRoutes };

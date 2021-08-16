@@ -56,6 +56,7 @@ export default function Customers() {
         { title: "Customers", link: "#" },
       ])
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // if customers is fatching first time

@@ -1,17 +1,17 @@
 import AxiosInstance from "../../helpers/axiosInstance";
-import { MATERIALS } from "../../helpers/url";
+
 
 async function fetchMaterialCategories(params = {}) {
     const data = {
         params: {
             page: params.pageIndex || 0,
             size: params.pageSize || 500,
+            parentCategoryIds: params.parentCategoryId,
+            sort: params.sort || "name",
+            order_asc: !params.order || params.order === "asc"
         }
     };
-    if (params.parentCategoryId) {
-        data.params.parentCategoryIds = params.parentCategoryId
-    }
-    return await AxiosInstance.get(`${MATERIALS}/categories`, data)
+    return await AxiosInstance.get("/api/v1/materials/categories", data)
         .then((r) => r)
         .catch((error) => console.log(error));
 }

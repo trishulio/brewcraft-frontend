@@ -30,6 +30,7 @@ export default function Facility() {
       ])
     );
     facilities && dispatch(fetchFacilities());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const formModel = {

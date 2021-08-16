@@ -17,7 +17,7 @@ export default function Packaging({ fetchPage }) {
                     <Toolbar/>
                     <Card>
                         <CardBody className="py-2">
-                            <Pagination fetchPage={fetchPage}>
+                            <Pagination>
                                 <Table/>
                             </Pagination>
                         </CardBody>

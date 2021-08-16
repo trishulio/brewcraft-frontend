@@ -1,12 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import {
     Button
 } from "reactstrap";
 
-export default function Toolbar({ batch, editable, changed, onCancel, onSave, onEdit, onDelete }) {
-
+export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, onDelete }) {
     const history = useHistory();
+    const batch = useSelector(state => {
+        return state.Batch.data;
+    });
 
     return (
         <React.Fragment>
@@ -56,7 +59,7 @@ export default function Toolbar({ batch, editable, changed, onCancel, onSave, on
                 className="waves-effect mr-2 mb-3"
                 hidden={!batch.id || editable}
                 onClick={() => {
-                    history.push("/batch/new");
+                    history.push("/batches/new");
                 }}
             >
                 New Batch
@@ -84,19 +87,6 @@ export default function Toolbar({ batch, editable, changed, onCancel, onSave, on
                 }}
             >
                 Batches
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2 mb-3"
-                hidden={!batch.id || editable}
-                outline={true}
-                onClick={() => {
-                    history.push("/products");
-                }}
-            >
-                Products
             </Button>
         </React.Fragment>
     );

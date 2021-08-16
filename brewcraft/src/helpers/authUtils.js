@@ -61,6 +61,8 @@ const listenAuthEvents = () => {
             case 'configured':
                 console.info('the Auth module is configured');
                 break;
+            default:
+                break;
         }
     });
 }

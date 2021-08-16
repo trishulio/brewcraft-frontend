@@ -40,6 +40,7 @@ export default function Delivery() {
         { title: "Delivery", link: "/delivery" },
       ])
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // if contacts is fatching first time

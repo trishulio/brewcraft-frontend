@@ -2,58 +2,42 @@ import React from "react";
 import {
     Card,
     CardBody,
-    CardHeader
+    CardHeader,
+    // Input
 } from "reactstrap";
-import { AvForm, AvField } from "availity-reactstrap-validation";
-
 
 export default function DetailsForm({item}) {
     return (
         <Card>
             <CardHeader>
-                <h4 className="card-title font-size-12 align-middle">Details</h4>
+                <h4 className="card-title font-size-12 align-middle">Batch Owner</h4>
             </CardHeader>
             <CardBody>
-                <AvForm className="custom-validation" model={item}>
-                    <AvField
-                        name="assignee"
-                        label="Assignee"
-                        placeholder="Select"
-                        type="text"
-                        errorMessage="You must select an assignee"
-                        validate={{
-                            // required: { value: true }
-                        }}
-                    />
-                    <AvField
-                        name="owner"
-                        label="Owner"
-                        placeholder="Select"
-                        type="text"
-                        errorMessage="You must select a creator"
-                        validate={{
-                            // required: { value: true }
-                        }}
-                    />
-                    <AvField
-                        name="tags"
-                        label="Tags"
-                        placeholder="Select"
-                        type="text"
-                    />
-                    <AvField
-                        name="priority"
-                        label="Priority"
-                        placeholder="Select"
-                        type="text"
-                    />
-                    <hr
-                        style={{
-                            color: "#000000",
-                            height: 50
-                        }}
-                    />
-                </AvForm>
+                {/* <Input
+                    name="batchAssignee"
+                    type="text"
+                />
+                <Input
+                    name="batchOwner"
+                    label="Owner"
+                    type="text"
+                />
+                <Input
+                    name="batchTags"
+                    label="Tags"
+                    placeholder="Select"
+                    type="text"
+                />
+                <Input
+                    name="batchPriority"
+                    type="text"
+                />
+                <hr
+                    style={{
+                        color: "#000000",
+                        height: 50
+                    }}
+                /> */}
             </CardBody>
         </Card>
     );

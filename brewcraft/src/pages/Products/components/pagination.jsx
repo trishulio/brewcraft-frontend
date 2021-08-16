@@ -6,7 +6,7 @@ import {
     setProductsPageSize
 } from "../../../store/actions";
 
-export default function ProductsPagination({ children, fetchProducts }) {
+export default function ProductsPagination({ children }) {
 
     const dispatch = useDispatch();
 
@@ -24,7 +24,6 @@ export default function ProductsPagination({ children, fetchProducts }) {
         totalPages,
         pageIndex,
         pageSize,
-        fetchItems: fetchProducts,
         setPageIndex: index => {
             dispatch(setProductsPageIndex(index));
         },

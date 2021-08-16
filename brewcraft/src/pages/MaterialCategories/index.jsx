@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useQuery } from "../../helpers/utils";
 import {
     fetchMaterialCategories,
     fetchAllMaterialCategories,
@@ -9,12 +10,16 @@ import MaterialCategoriesInner from "./categories";
 
 export default function MaterialCategories() {
     const dispatch = useDispatch();
+    const query = useQuery();
+    const parentCategoryId = query.get("category");
+    const sort = query.get("sort");
+    const order = query.get("order");
 
     const categories = useSelector(state => {
         return state.MaterialCategories.content;
     });
 
-    const { pageIndex, pageSize, selectedCategory } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector(state => {
         return state.MaterialCategories;
     });
 
@@ -25,29 +30,21 @@ export default function MaterialCategories() {
                 { title: "Materials", link: "#" }
             ])
         );
-        fetchPage();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        dispatch(fetchAllMaterialCategories());
-
-    }, [categories]);
-
-    useEffect(() => {
-        fetchPage();
-
-    }, [selectedCategory]);
-
-    function fetchPage() {
         const props = {
-            pageIndex, pageSize, parentCategoryId: selectedCategory.id
+            pageIndex, pageSize, parentCategoryId, sort, order
         };
         dispatch(fetchMaterialCategories({ ...props }))
-    }
+        dispatch(fetchAllMaterialCategories());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageIndex, pageSize, parentCategoryId, sort, order]);
 
     return (
         <MaterialCategoriesInner
-            categories={categories} fetchPage={fetchPage}
+            categories={categories}
         />
     );
 }

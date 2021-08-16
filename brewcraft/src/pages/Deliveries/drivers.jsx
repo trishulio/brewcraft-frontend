@@ -14,6 +14,7 @@ export default function DeliveryDrivers() {
                 { title: "Deliveries", link: "/deliveries" },
             ])
         );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return <h1>Hello Delivery Drivers!</h1>;

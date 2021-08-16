@@ -1,12 +1,17 @@
 import {
-    SET_BATCHES,
+    FETCH_BATCHES_REQUEST,
+    FETCH_ALL_BATCHES_REQUEST,
     SET_BATCHES_PAGE_INDEX,
     SET_BATCHES_PAGE_SIZE
 } from "./actionTypes";
 
-export const setBatchesDetails = (payload) => ({
-    type: SET_BATCHES,
-    payload: { ...payload }
+export const fetchBatches = params => ({
+    type: FETCH_BATCHES_REQUEST,
+    payload: { params },
+});
+
+export const fetchAllBatches = () => ({
+    type: FETCH_ALL_BATCHES_REQUEST,
 });
 
 export const setBatchesPageIndex = index => ({

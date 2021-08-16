@@ -14,16 +14,12 @@ import {
 import {
     fetchAllProductCategories,
     setProductCategoryDetails,
-    setInvalidName,
-    setInvalidClass,
-    setInvalidType,
-    setInvalidStyle
+    setInvalidName
 } from "../../../store/actions";
 import CategoriesModal from "../../../component/ProductCategories/modal";
 
 const ADD_NEW = "ADD_NEW";
 const PRODUCT_CATEGORY_CLASS = "class";
-const PRODUCT_CATEGORY_STYLE = "style";
 const PRODUCT_CATEGORY_TYPE = "type";
 
 export default function ProductCategoryDetails({ editable }) {
@@ -62,19 +58,21 @@ export default function ProductCategoryDetails({ editable }) {
         }
         setParentType(parentType);
         setParentClass(parentClass);
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loading]);
 
     useEffect(() => {
         dispatch(setProductCategoryDetails({
             parentCategoryId: parentClass ? parentClass.id : null
         }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parentClass]);
 
     useEffect(() => {
         dispatch(setProductCategoryDetails({
             parentCategoryId: parentType ? parentType.id : null
         }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parentType]);
 
     function onFormInputChange(e) {
@@ -130,7 +128,7 @@ export default function ProductCategoryDetails({ editable }) {
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    size="sm"
+                                    bsSize="sm"
                                     value={category.name}
                                     placeholder="Enter"
                                     name="productCategoryName"
@@ -161,7 +159,7 @@ export default function ProductCategoryDetails({ editable }) {
                                 <Input
                                     type="select"
                                     className="waves-effect"
-                                    size="sm"
+                                    bsSize="sm"
                                     name="productCategoryClass"
                                     style={{ width: "8rem" }}
                                     disabled={!editable}
@@ -217,7 +215,7 @@ export default function ProductCategoryDetails({ editable }) {
                                 <Input
                                     type="select"
                                     className="waves-effect"
-                                    size="sm"
+                                    bsSize="sm"
                                     style={{ width: "8rem" }}
                                     name="productCategoryType"
                                     disabled={!editable}

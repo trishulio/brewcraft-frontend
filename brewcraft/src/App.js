@@ -29,6 +29,7 @@ const App = () => {
       dispatch(togglePreloader(!isAuth));
       setIsLoggedIn(isAuth);
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const GetLayout = useMemo(() => {

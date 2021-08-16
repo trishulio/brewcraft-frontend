@@ -14,9 +14,7 @@ import {
 import {
     setProductDetails,
     setInvalidName,
-    setInvalidClass,
-    setInvalidType,
-    setInvalidStyle
+    setInvalidClass
 } from "../../../store/actions";
 import CategoriesModal from "../../../component/ProductCategories/modal";
 
@@ -108,7 +106,7 @@ export default function ProductDetails({ product, editable }) {
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    size="sm"
+                                    bsSize="sm"
                                     value={product.name}
                                     placeholder="Enter"
                                     name="productName"
@@ -139,7 +137,7 @@ export default function ProductDetails({ product, editable }) {
                                 <Input
                                     type="select"
                                     className="waves-effect"
-                                    size="sm"
+                                    bsSize="sm"
                                     name="productClass"
                                     style={{ width: "8rem" }}
                                     disabled={!editable}
@@ -188,7 +186,7 @@ export default function ProductDetails({ product, editable }) {
                                 <Input
                                     type="select"
                                     className="waves-effect"
-                                    size="sm"
+                                    bsSize="sm"
                                     style={{ width: "8rem" }}
                                     name="productType"
                                     disabled={!editable}
@@ -240,7 +238,7 @@ export default function ProductDetails({ product, editable }) {
                                 <Input
                                     type="select"
                                     className="waves-effect"
-                                    size="sm"
+                                    bsSize="sm"
                                     style={{ width: "8rem" }}
                                     name="productStyle"
                                     disabled={!editable}

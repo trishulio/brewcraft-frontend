@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
     Button
 } from "reactstrap";
@@ -14,10 +14,6 @@ import {
 
 export default function ProductCategoriesModal({ show, setShow, type, parentCategoryId }) {
     const dispatch = useDispatch();
-
-    const categories = useSelector(state => {
-        return state.ProductCategories.data;
-    });
 
     function close() {
         setShow(false);
@@ -59,17 +55,26 @@ export default function ProductCategoriesModal({ show, setShow, type, parentCate
         );
     }
 
+    function formatTitle(type) {
+        switch(type) {
+            case "class":
+                return "Product Class";
+            case "type":
+                return "Product Type";
+            case "style":
+                return "Product Style";
+            default:
+                break
+        }
+    }
+
     return (
         <Modal
             size="sm"
             show={show}
             onValidSubmit={onFormSubmit}
             close={close}
-            title={
-                type === "type" && "Product Type"
-                || type === "style" && "Product Style"
-                || type === "class" && "Product Class"
-            }
+            title={formatTitle(type)}
             footer={(
                 <Button color="primary" type="submit">Save</Button>
             )}

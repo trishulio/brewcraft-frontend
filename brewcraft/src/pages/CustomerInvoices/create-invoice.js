@@ -95,6 +95,7 @@ export default function CreateInvoice(props) {
         { title: "Invoices", link: "/invoices" },
       ])
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // if contacts is fatching first time
   if (loading) {

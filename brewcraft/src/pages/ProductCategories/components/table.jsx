@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-import {
-    Button
-  } from "reactstrap";
+import { Link } from "react-router-dom";
 import Table from "../../../component/Common/table";
 
 export default function ProductCategoriesTable() {
     const [tableData, setTableData] = useState([]);
-
-    const history = useHistory();
 
     const categories = useSelector(state => {
         return state.ProductCategories.content;
@@ -21,11 +16,12 @@ export default function ProductCategoriesTable() {
 
     useEffect(() => {
         setTableData(categories.map(category => {
-            let c = category;
+            let next = category;
             const parents = [];
-            while (c) {
-                parents.push(c);
-                c = c.parentCategoryId ? allCategories.find(category => category.id === c.parentCategoryId) : null;
+            while (next) {
+                parents.push(next);
+                // eslint-disable-next-line no-loop-func
+                next = allCategories.find(c => c.id === next.parentCategoryId);
             }
             switch(parents.length) {
                 case 1:
@@ -58,36 +54,22 @@ export default function ProductCategoriesTable() {
                     };
             }
         }));
-    }, [categories]);
-
-    function onSort(e) {
-        // TODO
-        // add some sorting here ..
-        console.log(e);
-    }
-
-    function onView(id) {
-        history.push("/products/categories/" + id);
-    }
+    }, [categories, allCategories]);
 
     return (
         <React.Fragment>
             <Table>
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Name</th>
-                        <th>Category Type</th>
-                        <th>Category Parent</th>
+                        <th>Parent</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         tableData.map((category, key) =>
                             <tr key={key}>
-                                <td><Link to={"/products/categories/" + category.id}>#{category.id}</Link></td>
                                 <td><Link to={"/products/categories/" + category.id}>{category.name}</Link></td>
-                                <td>{category.type}</td>
                                 <td>{category.parent}</td>
                             </tr>
                         )

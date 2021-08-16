@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useQuery } from "../../helpers/utils";
 import {
     fetchIngredients,
     setBreadcrumbItems,
@@ -9,12 +10,16 @@ import IngredientsInner from "./ingredients";
 
 export default function Ingredients() {
     const dispatch = useDispatch();
+    const query = useQuery();
+    const parentCategoryId = query.get("category");
+    const sort = query.get("sort");
+    const order = query.get("order");
 
     const ingredients = useSelector(state => {
         return state.Ingredients.content;
     });
 
-    const { pageIndex, pageSize, selectedCategory } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector(state => {
         return state.Ingredients;
     });
 
@@ -25,29 +30,21 @@ export default function Ingredients() {
                 { title: "Materials", link: "#" }
             ])
         );
-        fetchPage();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        dispatch(fetchAllMaterialCategories());
-
-    }, [ingredients]);
-
-    useEffect(() => {
-        fetchPage();
-
-    }, [selectedCategory]);
-
-    function fetchPage() {
         const props = {
-            pageIndex, pageSize, parentCategoryId: selectedCategory.id
+            pageIndex, pageSize, parentCategoryId, sort, order
         };
         dispatch(fetchIngredients({ ...props }));
-    }
+        dispatch(fetchAllMaterialCategories());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageIndex, pageSize, parentCategoryId, sort, order]);
 
     return (
         <IngredientsInner
-            ingredients={ingredients} fetchPage={fetchPage}
+            ingredients={ingredients}
         />
     );
 }

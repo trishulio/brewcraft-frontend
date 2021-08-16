@@ -48,7 +48,6 @@ function* editIngredientGenerator(action) {
     try {
         const res = yield call(api.updateIngredient, get(action, "payload.id"), get(action, "payload.form"));
         res.initial = JSON.parse(JSON.stringify(res.data));
-        debugger;
         yield put({ type: EDIT_INGREDIENT_SUCCESS, payload: { data: res.data, initial: res.data }});
         if (action.payload.success) {
             yield call(action.payload.success, res.data);

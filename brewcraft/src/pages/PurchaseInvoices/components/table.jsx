@@ -2,17 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Table from "../../../component/Common/table";
+import { formatCurrency, formatDate } from "../../../helpers/textUtils";
 
 export default function PurchaseInvoicesTable() {
 
     const invoices = useSelector(state => {
         return state.PurchaseInvoices.content;
     });
-
-    function formatDate(date) {
-        const d = new Date(date);
-        return d.toDateString();
-    }
 
     return (
         <React.Fragment>
@@ -32,10 +28,10 @@ export default function PurchaseInvoicesTable() {
                         invoices.map((invoice, key) =>
                             <tr key={key}>
                                 <td><Link to={"/purchases/invoices/" + invoice.id}>{invoice.invoiceNumber}</Link></td>
-                                <td>-</td>
+                                <td>{invoice.purchaseOrder?.supplier.name || "-" /* bug */}</td>
                                 <td>{formatDate(invoice.generatedOn)}</td>
-                                <td>{formatDate(invoice.paymentDue)}</td>
-                                <td>{invoice.amount.amount}</td>
+                                <td>{formatDate(invoice.paymentDueDate)}</td>
+                                <td>{formatCurrency(invoice.amount.amount)}</td>
                                 <td>{invoice.status.id}</td>
                             </tr>
                         )

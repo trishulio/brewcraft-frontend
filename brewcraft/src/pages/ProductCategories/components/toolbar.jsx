@@ -1,27 +1,19 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { filter, map } from "lodash";
 import {
     Button,
     Input
 } from "reactstrap";
-import {
-    setProductCategoriesSelectedClass,
-    setProductCategoriesSelectedType,
-} from "../../../store/actions";
 import Toolbar from "../../../component/Common/toolbar";
+import { useQuery } from "../../../helpers/utils";
 
 export default function ProductCategoriesToolbar() {
-
-    const dispatch = useDispatch();
     const history = useHistory();
+    const query = useQuery();
+    const parentCategoryId = query.get("parent");
 
-    const { selectedClass, selectedType } = useSelector(state => {
-        return state.ProductCategories;
-    });
-
-    const allCategories = useSelector(state => {
+    const categories = useSelector(state => {
         return state.ProductCategories.data;
     });
 
@@ -52,24 +44,21 @@ export default function ProductCategoriesToolbar() {
             </Button>
             <Input
                 type="select"
-                size="sm"
+                bsSize="sm"
                 className="waves-effect float-right mb-3 ml-2"
                 style={{ width: 100 }}
-                value={selectedType ? selectedType.id : ""}
+                value={parentCategoryId || ""}
                 onChange={e => {
+                    query.delete("parent");
                     if (e.target.value) {
-                        const category = allCategories.find(c => c.id === parseInt(e.target.value));
-                        dispatch(setProductCategoriesSelectedType(category));
-                    } else {
-                        dispatch(setProductCategoriesSelectedType(""));
+                        query.append("parent", e.target.value);
                     }
+                    history.push({search: query.toString()});
                 }}
-                disabled={!selectedClass}
             >
-                <option value="">Type</option>
+                <option value="">Parent Category</option>
                 {
-                    selectedClass &&
-                    map(filter(allCategories, c => c.parentCategoryId === selectedClass.id), (value, index) => (
+                    categories.map((value, index) => (
                         <option value={value.id} key={index}>
                             {value.name}
                         </option>
@@ -77,31 +66,7 @@ export default function ProductCategoriesToolbar() {
                 }
             </Input>
             <Input
-                type="select"
-                size="sm"
-                className="waves-effect float-right mb-3 ml-2"
-                style={{ width: 100 }}
-                value={selectedClass ? selectedClass.id : ""}
-                onChange={e => {
-                    if (e.target.value) {
-                        const category = allCategories.find(c => c.id === parseInt(e.target.value));
-                        dispatch(setProductCategoriesSelectedClass(category));
-                    } else {
-                        dispatch(setProductCategoriesSelectedClass(""));
-                    }
-                }}
-            >
-                <option value="">Class</option>
-                {
-                    map(filter(allCategories, c => c.parentCategoryId === null), (value, index) => (
-                        <option value={value.id} key={index}>
-                            {value.name}
-                        </option>
-                    ))
-                }
-            </Input>
-            <Input
-                size="sm"
+                bsSize="sm"
                 type="search"
                 name="search"
                 id="productCategoriesSearch"

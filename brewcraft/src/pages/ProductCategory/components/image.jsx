@@ -19,7 +19,6 @@ export default function ProductCategoryImage({ editable }) {
                     color="primary"
                     size="sm"
                     className="waves-effect mr-2"
-                    disabled={true}
                     disabled={!editable}
                 >
                     Upload

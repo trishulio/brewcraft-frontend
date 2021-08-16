@@ -6,11 +6,11 @@ import {
 } from "../../../store/actions";
 import Pagination from "../../../component/Common/pagination";
 
-export default function BatchesPagination({ fetchPage, children }) {
+export default function BatchesPagination({ children }) {
 
     const dispatch = useDispatch();
 
-    const { totalElements, totalPages, pageIndex, pageSize, content } = useSelector(state => {
+    const { totalElements, totalPages, pageIndex, pageSize , content } = useSelector(state => {
         return state.Batches;
     });
 
@@ -20,7 +20,6 @@ export default function BatchesPagination({ fetchPage, children }) {
         totalPages,
         pageIndex,
         pageSize,
-        fetchItems: fetchPage,
         setPageIndex: index => {
             dispatch(setBatchesPageIndex(index));
         },

@@ -14,6 +14,7 @@ export default function DelieriesDashboard() {
                 { title: "Customers", link: "#" },
             ])
         );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return <h1>Hello Deliveries!</h1>;

@@ -7,16 +7,23 @@ async function fetchPurchaseInvoices(params = {}) {
             size: params.pageSize || 500
         }
     };
+    if (params.supplierId) {
+        data.params.supplier_ids = params.supplierId;
+    }
+    if (params.invoiceFrom) {
+        data.params.generated_on_from = new Date(params.invoiceFrom).toISOString();
+    }
+    if (params.invoiceTo) {
+        data.params.generated_on_to = new Date(params.invoiceTo).toISOString();
+    }
+    if (params.status) {
+        data.params.status_ids = params.status;
+    }
     return await AxiosInstance.get("/api/v1/purchases/invoices", data)
         .then((r) => r)
         .catch((error) => console.log(error));
 }
 
-async function fetchAllPurchaseInvoices() {
-    return (await fetchPurchaseInvoices(null))
-}
-
 export const api = {
-    fetchPurchaseInvoices,
-    fetchAllPurchaseInvoices
+    fetchPurchaseInvoices
 }

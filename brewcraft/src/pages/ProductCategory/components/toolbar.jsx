@@ -5,7 +5,7 @@ import {
 } from "reactstrap";
 import Toolbar from "../../../component/Common/toolbar";
 
-export default function ProductCategoryToolbar({ category, editable, changed, onCancel, onSave, onEdit, onDelete }) {
+export default function ProductCategoryToolbar({ category, editable, changed, onSave, onEdit, onDelete }) {
     const history = useHistory();
 
     return (

@@ -71,7 +71,7 @@ class SidebarContent extends Component {
     });
     var items = ul.getElementsByTagName("a");
     var array = [];
-    for (var i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i++) {
         array.push(items[i]);
     }
     array = array.sort((e1, e2) => {
@@ -83,7 +83,7 @@ class SidebarContent extends Component {
         return e1.pathname.localeCompare(e2.pathname);
     });
 
-    for (var i = 0; i < array.length; ++i) {
+    for (let i = 0; i < array.length; ++i) {
         if (this.props.location.pathname.startsWith(array[i].pathname)) {
             matchingMenuItem = array[i];
             break;
@@ -172,10 +172,18 @@ class SidebarContent extends Component {
               </Link>
             </li>
             <li>
-              <Link to="/finished-goods" className="waves-effect">
-                <i className="mdi mdi-flag"></i>
-                <span>Finished Goods</span>
+              <Link to="/inventory/raw-materials" className="has-arrow waves-effect">
+                <i className="mdi mdi-format-list-numbered"></i>
+                <span>Inventory</span>
               </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/inventory/raw-materials">Raw Materials</Link>
+                </li>
+                <li>
+                  <Link to="/inventory/finished-goods">Finished Goods</Link>
+                </li>
+              </ul>
             </li>
             <li>
               <Link to="/products" className="has-arrow waves-effect">
@@ -185,6 +193,9 @@ class SidebarContent extends Component {
               <ul className="sub-menu" aria-expanded="false">
                 <li>
                   <Link to="/products">Products</Link>
+                </li>
+                <li>
+                  <Link to="/sku">SKU</Link>
                 </li>
                 <li>
                   <Link to="/products/categories">Product Categories</Link>

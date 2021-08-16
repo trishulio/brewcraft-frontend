@@ -1,6 +1,6 @@
-import { filter, map } from "lodash";
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { map } from "lodash";
 import {
     Row,
     Col,
@@ -123,7 +123,7 @@ export default function PackagingItemDetails({ editable }) {
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    size="sm"
+                                    bsSize="sm"
                                     value={packagingItem.name}
                                     placeholder="Enter"
                                     name="packagingItemName"
@@ -154,7 +154,7 @@ export default function PackagingItemDetails({ editable }) {
                                 <Input
                                     type="select"
                                     className="waves-effect"
-                                    size="sm"
+                                    bsSize="sm"
                                     name="packagingItemCategory"
                                     style={{ width: "8rem" }}
                                     disabled={!editable}
@@ -197,7 +197,7 @@ export default function PackagingItemDetails({ editable }) {
                                 <Input
                                     type="select"
                                     className="waves-effect"
-                                    size="sm"
+                                    bsSize="sm"
                                     name="packagingItemBaseQuantityUnit"
                                     style={{ width: "8rem" }}
                                     disabled={!editable}
@@ -238,7 +238,7 @@ export default function PackagingItemDetails({ editable }) {
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    size="sm"
+                                    bsSize="sm"
                                     value={packagingItem.upc}
                                     placeholder="Enter"
                                     name="packagingItemUpc"

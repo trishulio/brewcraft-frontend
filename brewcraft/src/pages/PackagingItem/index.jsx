@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import {
     setBreadcrumbItems,
     fetchPackagingItemById,
@@ -10,11 +10,10 @@ import {
     fetchAllMaterialCategories,
     resetPackagingItemDetails
 } from "../../store/actions";
+import {
+    useQuery
+} from "../../helpers/utils";
 import PackagingItemInner from "./packaging-item";
-
-function useQuery() {
-    return new URLSearchParams(useLocation().search);
-}
 
 export default function PackagingItem() {
     const [editable, setEditable] = useState(false);
@@ -43,14 +42,15 @@ export default function PackagingItem() {
             dispatch(resetPackagingItemDetails());
             history.replace("/materials/packaging/new?edit=true");
         } else {
-            fetch(id);
+            dispatch(fetchPackagingItemById({ id }));
+        }
+        if (editMode) {
+            dispatch(fetchAllMaterialCategories());
         }
         setEditable(editMode && editMode !== "false");
-    }, [id, editMode]);
 
-    useEffect(() => {
-        dispatch(fetchAllMaterialCategories());
-    }, [packagingItem]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id, editMode]);
 
     useEffect(() => {
         if (packagingItem.id) {
@@ -65,6 +65,8 @@ export default function PackagingItem() {
             ));
         }
         setChanged(isChanged());
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [packagingItem]);
 
     function isChanged() {
@@ -120,10 +122,6 @@ export default function PackagingItem() {
         if (packagingItem.id) {
             dispatch(deletePackagingItem(id));
         }
-    }
-
-    function fetch(id) {
-        dispatch(fetchPackagingItemById({ id } ));
     }
 
     return (

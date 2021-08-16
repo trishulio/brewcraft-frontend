@@ -8,7 +8,6 @@ import {
     INVALID_TYPE,
     INVALID_STYLE,
     INVALID_DESCRIPTION,
-    RESET_PRODUCT_CATEGORY_DETAILS,
     DELETE_PRODUCT_CATEGORY
 } from "./actionTypes";
 
@@ -81,7 +80,9 @@ export const setInvalidStyle = enabled => ({
     }
 });
 
-export const resetProductCategoryDetails = success => ({
-    type: RESET_PRODUCT_CATEGORY_DETAILS,
-    payload: success
+export const setInvalidDescription = enabled => ({
+    type: INVALID_DESCRIPTION,
+    payload: {
+        invalidDescription: enabled
+    }
 });

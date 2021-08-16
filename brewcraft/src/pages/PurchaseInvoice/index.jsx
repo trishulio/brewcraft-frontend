@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+import {
+    useQuery
+} from "../../helpers/utils";
 import {
     setBreadcrumbItems,
     fetchPurchaseInvoiceById,
@@ -14,10 +17,6 @@ import {
     fetchAllPackaging
 } from "../../store/actions";
 import PurchaseInvoiceInner from "./purchase-invoice";
-
-function useQuery() {
-    return new URLSearchParams(useLocation().search);
-}
 
 export default function PurchaseInvoice() {
     const [editable, setEditable] = useState(false);
@@ -46,17 +45,18 @@ export default function PurchaseInvoice() {
             dispatch(resetPurchaseInvoiceDetails());
             history.replace("/purchases/invoices/new?edit=true");
         } else {
-            fetch(id);
+            dispatch(fetchPurchaseInvoiceById(id));
+        }
+        if (editMode) {
+            dispatch(fetchAllMaterialCategories());
+            dispatch(fetchAllSuppliers());
+            dispatch(fetchAllIngredients());
+            dispatch(fetchAllPackaging());
         }
         setEditable(editMode && editMode !== "false");
-    }, [id, editMode]);
 
-    useEffect(() => {
-        dispatch(fetchAllMaterialCategories());
-        dispatch(fetchAllSuppliers());
-        dispatch(fetchAllIngredients());
-        dispatch(fetchAllPackaging());
-    }, [invoice]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id, editMode]);
 
     useEffect(() => {
         if (invoice.id) {
@@ -71,6 +71,8 @@ export default function PurchaseInvoice() {
             ));
         }
         setChanged(isChanged());
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [invoice]);
 
     function isChanged() {
@@ -173,8 +175,8 @@ export default function PurchaseInvoice() {
                             })
                         },
                         purchaseOrder: {
-                            orderNumber: "1",
-                            supplierId: invoice.selectedSupplier.id
+                            orderNumber: invoice.purchaseOrder.orderNumber,
+                            supplierId: invoice.purchaseOrder.supplier.id
                         }
                     },
                     success: invoice => {
@@ -194,10 +196,6 @@ export default function PurchaseInvoice() {
                 }
             }));
         }
-    }
-
-    function fetch(id) {
-        dispatch(fetchPurchaseInvoiceById(id));
     }
 
     return (

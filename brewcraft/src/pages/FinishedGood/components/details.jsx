@@ -15,8 +15,6 @@ import {
     setInvalidName
 } from "../../../store/actions";
 
-const ADD_NEW = "ADD_NEW";
-
 export default function FinishedGoodDetails({ editable }) {
 
     const { invalidName } = useSelector(state => {
@@ -68,7 +66,7 @@ export default function FinishedGoodDetails({ editable }) {
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    size="sm"
+                                    bsSize="sm"
                                     value={finishedGood.name}
                                     placeholder="Enter"
                                     name="finishedGoodName"

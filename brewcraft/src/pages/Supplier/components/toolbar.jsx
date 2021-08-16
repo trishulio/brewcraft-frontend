@@ -23,7 +23,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 disabled={!changed}
                 hidden={!editable}
             >
-                    Save
+                Save
             </Button>
             <Button
                 type="button"

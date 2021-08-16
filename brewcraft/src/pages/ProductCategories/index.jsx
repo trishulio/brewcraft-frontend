@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useQuery } from "../../helpers/utils";
 import {
     fetchProductCategories,
     fetchAllProductCategories,
@@ -9,16 +10,12 @@ import ProductCategoriesInner from "./categories";
 
 export default function ProductCategories() {
     const dispatch = useDispatch();
-
-    const categories = useSelector(state => {
-        return state.ProductCategories.content;
-    });
+    const query = useQuery();
+    const parentCategoryId = query.get("parent");
+    const sort = query.get("sort");
+    const order = query.get("order");
 
     const { pageIndex, pageSize } = useSelector(state => {
-        return state.ProductCategories;
-    });
-
-    const { selectedClass, selectedType, selectedStyle } = useSelector(state => {
         return state.ProductCategories;
     });
 
@@ -26,39 +23,22 @@ export default function ProductCategories() {
         dispatch(
             setBreadcrumbItems("Product Categories", [
                 { title: "Main", link: "#" },
-                { title: "Products", link: "#" }
+                { title: "Products", link: "/products" }
             ])
         );
-        fetchPage();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        dispatch(fetchAllProductCategories());
-    }, [categories]);
-
-    useEffect(() => {
-        fetchPage();
-    }, [selectedClass, selectedType, selectedStyle]);
-
-    function fetchPage() {
         const props = {
-            pageIndex, pageSize
+            pageIndex, pageSize, parentCategoryId, sort, order
         };
-
-        if (selectedStyle) {
-            props.parentCategoryId = selectedStyle.id;
-        } else if (selectedType) {
-            props.parentCategoryId = selectedType.id;
-        } else if (selectedClass) {
-            props.parentCategoryId = selectedClass.id;
-        }
-
-        dispatch(fetchProductCategories({ ...props }))
-    }
+        dispatch(fetchProductCategories({ ...props }));
+        dispatch(fetchAllProductCategories());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageIndex, pageSize, parentCategoryId, sort, order]);
 
     return (
-        <ProductCategoriesInner
-            categories={categories} fetchPage={fetchPage}
-        />
+        <ProductCategoriesInner />
     );
 }

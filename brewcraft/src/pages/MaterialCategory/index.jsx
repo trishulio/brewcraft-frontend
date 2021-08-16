@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import {
     setBreadcrumbItems,
     fetchMaterialCategoryById,
@@ -10,11 +10,10 @@ import {
     fetchAllMaterialCategories,
     resetMaterialCategoryDetails
 } from "../../store/actions";
+import {
+    useQuery
+} from "../../helpers/utils";
 import MaterialCategoryInner from "./material-category";
-
-function useQuery() {
-    return new URLSearchParams(useLocation().search);
-}
 
 export default function MaterialCategory() {
     const [editable, setEditable] = useState(false);
@@ -43,14 +42,13 @@ export default function MaterialCategory() {
             dispatch(resetMaterialCategoryDetails());
             history.replace("/materials/categories/new?edit=true");
         } else {
-            fetch(id);
+            dispatch(fetchMaterialCategoryById({ id }));
         }
         setEditable(editMode && editMode !== "false");
-    }, [id, editMode]);
-
-    useEffect(() => {
         dispatch(fetchAllMaterialCategories());
-    }, [materialCategory]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id, editMode]);
 
     useEffect(() => {
         if (materialCategory.id) {
@@ -65,6 +63,8 @@ export default function MaterialCategory() {
             ));
         }
         setChanged(isChanged());
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [materialCategory]);
 
     function isChanged() {
@@ -119,10 +119,6 @@ export default function MaterialCategory() {
                 }
             }));
         }
-    }
-
-    function fetch(id) {
-        dispatch(fetchMaterialCategoryById({ id } ));
     }
 
     return (

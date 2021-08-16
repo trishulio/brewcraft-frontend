@@ -4,12 +4,17 @@ import {
   INVALID_TYPE,
   INVALID_STYLE,
   INVALID_DESCRIPTION,
-  SET_PRODUCT_CATEGORY_DETAILS,
-  RESET_PRODUCT_CATEGORY_DETAILS
+  SET_PRODUCT_CATEGORY_DETAILS
 } from "./actionTypes";
 
 const initialState = {
   data: {
+    id: null,
+    name: "",
+    parentCategoryId: null,
+    version: null
+  },
+  initial: {
     id: null,
     name: "",
     parentCategoryId: null,
@@ -21,6 +26,7 @@ const initialState = {
   invalidName: false,
   invalidClass: false,
   invalidType: false,
+  invalidDescription: false,
   loading: true,
   error: null
 };
@@ -42,13 +48,6 @@ const Product = (state = initialState, { type, payload }) => {
         },
         loading: false,
         error: null,
-      };
-    case RESET_PRODUCT_CATEGORY_DETAILS:
-      return {
-        ...initialState,
-        data: { ...initialState.data },
-        loading: false,
-        error: null
       };
     default:
       return {

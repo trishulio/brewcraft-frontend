@@ -33,7 +33,7 @@ export default function BrewDetails(brew, editable) {
                                         <Input
                                             type="text"
                                             className="waves-effect mb-2"
-                                            size="sm"
+                                            bsSize="sm"
                                             defaultValue={brew.abv}
                                             name="abv"
                                         /> : brew.abv
@@ -57,7 +57,7 @@ export default function BrewDetails(brew, editable) {
                                         <Input
                                             type="text"
                                             className="waves-effect mb-2"
-                                            size="sm"
+                                            bsSize="sm"
                                             defaultValue={brew.ph}
                                             name="ph"
                                         /> : brew.ph
@@ -83,7 +83,7 @@ export default function BrewDetails(brew, editable) {
                                         <Input
                                             type="text"
                                             className="waves-effect mb-2"
-                                            size="sm"
+                                            bsSize="sm"
                                             defaultValue={brew.ibu}
                                             name="ibu"
                                         /> : brew.ibu
@@ -107,7 +107,7 @@ export default function BrewDetails(brew, editable) {
                                         <Input
                                             type="text"
                                             className="waves-effect mb-2"
-                                            size="sm"
+                                            bsSize="sm"
                                             defaultValue={brew.yield}
                                             name="yield"
                                         /> : brew.yield
@@ -133,7 +133,7 @@ export default function BrewDetails(brew, editable) {
                                         <Input
                                             type="text"
                                             className="waves-effect mb-2"
-                                            size="sm"
+                                            bsSize="sm"
                                             defaultValue={brew.mashTemperature}
                                             name="mashTemperature"
                                         /> : brew.mashTemperature
@@ -157,7 +157,7 @@ export default function BrewDetails(brew, editable) {
                                         <Input
                                             type="text"
                                             className="waves-effect mb-2"
-                                            size="sm"
+                                            bsSize="sm"
                                             defaultValue={brew.gravity}
                                             name="gravity"
                                         /> : brew.gravity
@@ -183,7 +183,7 @@ export default function BrewDetails(brew, editable) {
                                         <Input
                                             type="text"
                                             className="waves-effect mb-2"
-                                            size="sm"
+                                            bsSize="sm"
                                             defaultValue={brew.fermentationDays}
                                             name="fermentationDays"
                                         /> : brew.fermentationDays
@@ -207,7 +207,7 @@ export default function BrewDetails(brew, editable) {
                                         <Input
                                             type="text"
                                             className="waves-effect mb-2"
-                                            size="sm"
+                                            bsSize="sm"
                                             defaultValue={brew.conditioningDays}
                                             name="conditioningDays"
                                         /> : brew.conditioningDays
@@ -233,7 +233,7 @@ export default function BrewDetails(brew, editable) {
                                         <Input
                                             type="text"
                                             className="waves-effect mb-2"
-                                            size="sm"
+                                            bsSize="sm"
                                             defaultValue={brew.brewhouseDuration}
                                             name="brewhouseDuration"
                                         /> : brew.brewhouseDuration

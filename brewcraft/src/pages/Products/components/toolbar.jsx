@@ -1,29 +1,23 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { filter, map } from "lodash";
 import {
     Button,
     Input
 } from "reactstrap";
-import {
-    setProductsSelectedClass,
-    setProductsSelectedType,
-    setProductsSelectedStyle
-} from "../../../store/actions";
 import Toolbar from "../../../component/Common/toolbar";
+import { useQuery } from "../../../helpers/utils";
 
 export default function ProductToolbar() {
-
-    const dispatch = useDispatch();
     const history = useHistory();
+    const query = useQuery();
+    const productClass = query.get("class");
+    const type = query.get("type");
+    const style = query.get("style");
 
-    const allCategories = useSelector(state => {
+    const categories = useSelector(state => {
         return state.ProductCategories.data;
-    });
-
-    const { selectedClass, selectedType, selectedStyle } = useSelector(state => {
-        return state.Products;
     });
 
     return (
@@ -49,28 +43,26 @@ export default function ProductToolbar() {
                     history.push("/products/categories");
                 }}
             >
-                    Product Categories
+                    Categories
             </Button>
             <Input
                 type="select"
-                size="sm"
+                bsSize="sm"
                 className="waves-effect float-right mb-3 ml-2"
                 style={{ width: 100 }}
-                value={selectedStyle ? selectedStyle.id : ""}
+                value={style || ""}
                 onChange={e => {
+                    query.delete("style");
                     if (e.target.value) {
-                        const category = allCategories.find(c => c.id === parseInt(e.target.value));
-                        dispatch(setProductsSelectedStyle(category));
-                    } else {
-                        dispatch(setProductsSelectedStyle(""));
+                        query.append("style", e.target.value);
                     }
+                    history.push({search: query.toString()});
                 }}
-                disabled={!selectedType}
             >
                 <option value="">Style</option>
                 {
-                    selectedType &&
-                    map(filter(allCategories, c => c.parentCategoryId === selectedType.id), (value, index) => (
+                    type &&
+                    map(filter(categories, c => c.parentCategoryId === parseInt(type)), (value, index) => (
                         <option value={value.id} key={index}>
                             {value.name}
                         </option>
@@ -79,24 +71,23 @@ export default function ProductToolbar() {
             </Input>
             <Input
                 type="select"
-                size="sm"
+                bsSize="sm"
                 className="waves-effect float-right mb-3 ml-2"
                 style={{ width: 100 }}
-                value={selectedType ? selectedType.id : ""}
+                value={type || ""}
                 onChange={e => {
+                    query.delete("type");
+                    query.delete("style");
                     if (e.target.value) {
-                        const category = allCategories.find(c => c.id === parseInt(e.target.value));
-                        dispatch(setProductsSelectedType(category));
-                    } else {
-                        dispatch(setProductsSelectedType(""));
+                        query.append("type", e.target.value);
                     }
+                    history.push({search: query.toString()});
                 }}
-                disabled={!selectedClass}
             >
                 <option value="">Type</option>
                 {
-                    selectedClass &&
-                    map(filter(allCategories, c => c.parentCategoryId === selectedClass.id), (value, index) => (
+                    productClass &&
+                    map(filter(categories, c => c.parentCategoryId === parseInt(productClass)), (value, index) => (
                         <option value={value.id} key={index}>
                             {value.name}
                         </option>
@@ -105,22 +96,23 @@ export default function ProductToolbar() {
             </Input>
             <Input
                 type="select"
-                size="sm"
+                bsSize="sm"
                 className="waves-effect float-right mb-3 ml-2"
                 style={{ width: 100 }}
-                value={selectedClass ? selectedClass.id : ""}
+                value={productClass || ""}
                 onChange={e => {
+                    query.delete("class");
+                    query.delete("type");
+                    query.delete("style");
                     if (e.target.value) {
-                        const category = allCategories.find(c => c.id === parseInt(e.target.value));
-                        dispatch(setProductsSelectedClass(category));
-                    } else {
-                        dispatch(setProductsSelectedClass(""));
+                        query.append("class", e.target.value);
                     }
+                    history.push({search: query.toString()});
                 }}
             >
                 <option value="">Class</option>
                 {
-                    map(filter(allCategories, c => c.parentCategoryId === null), (value, index) => (
+                    map(filter(categories, c => c.parentCategoryId === null), (value, index) => (
                         <option value={value.id} key={index}>
                             {value.name}
                         </option>
@@ -128,7 +120,7 @@ export default function ProductToolbar() {
                 }
             </Input>
             <Input
-                size="sm"
+                bsSize="sm"
                 type="search"
                 name="search"
                 id="productsSearch"

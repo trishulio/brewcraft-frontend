@@ -5,6 +5,8 @@ import {
   FETCH_ALL_PURCHASE_INVOICES_SUCCESS,
   FETCH_ALL_PURCHASE_INVOICES_FAILURE,
   FETCH_ALL_PURCHASE_INVOICES_REQUEST,
+  SET_PURCHASE_INVOICES_PAGE_INDEX,
+  SET_PURCHASE_INVOICES_PAGE_SIZE,
   SET_PURCHASE_INVOICES_DETAILS,
   SET_PURCHASE_INVOICE_ITEM_DETAILS
 } from "./actionTypes";
@@ -17,7 +19,7 @@ const initialState = {
   totalElements: 0,
   totalPages: 0,
   pageIndex: 0,
-  pageSize: 10
+  pageSize: 20
 };
 
 const PurchaseInvoices = (state = initialState, { type, payload, data }) => {
@@ -61,6 +63,8 @@ const PurchaseInvoices = (state = initialState, { type, payload, data }) => {
           loading: false,
           error: payload,
       };
+  case SET_PURCHASE_INVOICES_PAGE_INDEX:
+  case SET_PURCHASE_INVOICES_PAGE_SIZE:
   case SET_PURCHASE_INVOICES_DETAILS:
     return {
       ...state,

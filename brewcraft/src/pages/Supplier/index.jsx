@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import {
     setBreadcrumbItems,
     fetchSupplierById,
     saveSupplier,
     editSupplier,
     deleteSupplier,
-    resetSupplierDetails,
-    fetchAllCompanies
+    resetSupplierDetails
 } from "../../store/actions";
+import {
+    useQuery
+} from "../../helpers/utils";
 import SupplierInner from "./supplier";
-
-function useQuery() {
-    return new URLSearchParams(useLocation().search);
-}
 
 export default function Supplier() {
     const [editable, setEditable] = useState(false);
@@ -35,12 +33,13 @@ export default function Supplier() {
     });
 
     const {
-        invalidFirstName,
-        invalidLastName,
-        invalidPosition,
-        invalidEmail,
-        invalidPhoneNumber,
-        invalidCompany
+        invalidName,
+        invalidAddressLine1,
+        invalidAddressLine2,
+        invalidCity,
+        invalidProvince,
+        invalidPostalCode,
+        invalidCountry
     } = useSelector(state => {
         return state.Supplier
     });
@@ -50,42 +49,41 @@ export default function Supplier() {
             dispatch(resetSupplierDetails());
             history.replace("/suppliers/new?edit=true");
         } else {
-            fetch(id);
+            dispatch(fetchSupplierById({ id } ));
         }
         setEditable(editMode && editMode !== "false");
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, editMode]);
 
     useEffect(() => {
-        dispatch(fetchAllCompanies());
-
-    }, [supplier]);
-
-    useEffect(() => {
         if (supplier.id) {
-            dispatch(setBreadcrumbItems(supplier.firstName + " " + supplier.lastName, [
+            dispatch(setBreadcrumbItems(supplier.name, [
                 { title: "Main", link: "#" },
-                { title: "Suppliers", link: "#" }]
+                { title: "Companies", link: "#" }]
             ));
         } else {
             dispatch(setBreadcrumbItems("New Supplier", [
                 { title: "Main", link: "#" },
-                { title: "Suppliers", link: "#" }]
+                { title: "Companies", link: "#" }]
             ));
         }
         setChanged(isChanged());
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [supplier]);
 
     function isChanged() {
         return JSON.stringify(
-                (({ id, firstName, lastName, company, position, email, phone }) => ({ id, firstName, lastName, company, position, email, phone }))(initialSupplier))
+                (({ id, name }) => ({ id, name }))(initialSupplier))
             !== JSON.stringify(
-                (({ id, firstName, lastName, company, position, email, phone }) => ({ id, firstName, lastName, company, position, email, phone }))(supplier))
+                (({ id, name }) => ({ id, name }))(supplier))
     }
 
     function onSave() {
-        if (invalidFirstName || invalidLastName || invalidPosition || invalidEmail
-            || invalidPhoneNumber || invalidCompany) {
+        if (invalidName || invalidAddressLine1 || invalidAddressLine2 || invalidCity
+            || invalidProvince || invalidPostalCode || invalidCountry)
+        {
             return;
         }
         if (!isChanged()) {
@@ -95,13 +93,18 @@ export default function Supplier() {
             dispatch(
                 editSupplier({
                     id: supplier.id,
-                    companyId: supplier.company.id,
                     form: {
-                        firstName: supplier.firstName,
-                        lastName: supplier.lastName,
-                        position: supplier.position,
-                        email: supplier.email,
-                        phoneNumber: supplier.phoneNumber,
+                        name: supplier.name,
+                        address: {
+                            id: supplier.addressId,
+                            addressLine1: supplier.addressLine1,
+                            addressLine2: supplier.addressLine2,
+                            city: supplier.city,
+                            province: supplier.province,
+                            postalCode: supplier.postalCode,
+                            country: supplier.country
+                        },
+                        contacts: supplier.contacts,
                         version: supplier.version
                     },
                     success: supplier => {
@@ -112,13 +115,17 @@ export default function Supplier() {
         } else {
             dispatch(
                 saveSupplier({
-                    supplierId: supplier.company.id,
                     form: {
-                        firstName: supplier.firstName,
-                        lastName: supplier.lastName,
-                        position: supplier.position,
-                        email: supplier.email,
-                        phoneNumber: supplier.phoneNumber
+                        name: supplier.name,
+                        address: {
+                            addressLine1: supplier.addressLine1,
+                            addressLine2: supplier.addressLine2,
+                            city: supplier.city,
+                            province: supplier.province,
+                            postalCode: supplier.postalCode,
+                            country: supplier.country
+                        },
+                        contacts: []
                     },
                     success: supplier => {
                         history.push("/suppliers/" + supplier.id);
@@ -137,10 +144,6 @@ export default function Supplier() {
                 }
             }));
         }
-    }
-
-    function fetch(id) {
-        dispatch(fetchSupplierById({ id } ));
     }
 
     return (

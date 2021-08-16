@@ -1,15 +1,11 @@
 import { all } from "redux-saga/effects"
 import Batch from "./Batch/saga";
+import Batches from "./Batches/saga";
 import FinishedGood from "./FinishedGood/saga";
 import FinishedGoods from "./FinishedGoods/saga";
 import Ingredient from "./Ingredient/saga";
 import Ingredients from "./Ingredients/saga";
 import LayoutSaga from "./layout/saga";
-import Company from "./Company/saga";
-import Companies from "./Companies/saga";
-import Customers from "./Customers/saga";
-import Driver from "./Driver/saga";
-import Vechicles from "./Vechicles/saga";
 import Invoice from "./Invoice/saga";
 import Packaging from "./Packaging/saga";
 import PackagingItem from "./PackagingItem/saga";
@@ -21,25 +17,26 @@ import ProductCategory from "./ProductCategory/saga";
 import Products from "./Products/saga";
 import Supplier from "./Supplier/saga";
 import Suppliers from "./Suppliers/saga";
-import Equipment from "./Equipment/saga";
+import SupplierContact from "./SupplierContact/saga";
+import SupplierContacts from "./SupplierContacts/saga";
+import Materials from "./Materials/saga";
 import MaterialCategories from "./MaterialCategories/saga";
 import MaterialCategory from "./MaterialCategory/saga";
-import Storages from "./Storages/saga";
+import RawMaterials from "./RawMaterials/saga";
 
 export default function* rootSaga() {
     yield all([
         LayoutSaga(),
         Batch(),
-        Company(),
-        Companies(),
-        Customers(),
-        Driver(),
+        Batches(),
         FinishedGood(),
         FinishedGoods(),
         Ingredient(),
         Ingredients(),
-        Vechicles(),
         Invoice(),
+        Materials(),
+        MaterialCategories(),
+        MaterialCategory(),
         Packaging(),
         PackagingItem(),
         PurchaseInvoice(),
@@ -48,11 +45,10 @@ export default function* rootSaga() {
         ProductCategories(),
         ProductCategory(),
         Products(),
+        RawMaterials(),
         Supplier(),
         Suppliers(),
-        Equipment(),
-        MaterialCategories(),
-        MaterialCategory(),
-        Storages()
+        SupplierContact(),
+        SupplierContacts()
     ])
 }

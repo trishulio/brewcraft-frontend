@@ -1,36 +1,54 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams, useLocation } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import {
     setBreadcrumbItems,
-    fetchBatch
+    fetchBatchById,
+    editBatch,
+    saveBatch,
+    resetBatchDetails,
+    fetchAllProducts
 } from "../../store/actions";
+import {
+    useQuery
+} from "../../helpers/utils";
 import BatchInner from "./batch";
 
-function useQuery() {
-    return new URLSearchParams(useLocation().search);
-}
-
-export default function Brew() {
+export default function Batch() {
     const [editable, setEditable] = useState(false);
-    const [initialBatch, setInitialBatch] = useState(null);
+    const [changed, setChanged] = useState(false);
+
     const { id } = useParams();
-    const dispatch = useDispatch();
     const history = useHistory();
     const query = useQuery();
     const editMode = query.get("edit");
+    const dispatch = useDispatch();
 
-    const batch = useSelector((state) => {
+    const batch = useSelector(state => {
         return state.Batch.data;
     });
 
+    const initialBatch = useSelector(state => {
+        return state.Batch.initial;
+    });
+
+    const { invalidName } = useSelector(state => {
+        return state.Batch
+    })
+
     useEffect(() => {
-        if (!id || id === "new") {
+        if (id === "new") {
+            dispatch(resetBatchDetails());
             history.replace("/batches/new?edit=true");
         } else {
-            dispatch(fetchBatch(id));
+            dispatch(fetchBatchById(id));
         }
-    }, [id]);
+        if (editMode) {
+            dispatch(fetchAllProducts());
+        }
+        setEditable(editMode && editMode !== "false");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id, editMode]);
 
     useEffect(() => {
         if (batch.id) {
@@ -48,28 +66,68 @@ export default function Brew() {
                 ]),
             );
         }
-
+        setChanged(isChanged());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [batch]);
 
-    useEffect(() => {
-        setEditMode(editMode && editMode !== "false");
-    }, [editMode]);
-
-    function setEditMode(editable) {
-        if (editable) {
-            setInitialBatch({
-                ...batch
-            });
-        }
-        setEditable(editable);
+    function isChanged() {
+        return JSON.stringify(
+                (({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }) => ({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }))(initialBatch))
+            !== JSON.stringify(
+                (({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }) => ({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }))(batch))
     }
 
-    const props = {
-        id,
-        batch,
-        editable
-    };
+    function onSave() {
+        if (invalidName) {
+            return;
+        }
+        if (!isChanged()) {
+            history.push("/batches/" + id);
+
+        } else if (batch.id) {
+            dispatch(
+                editBatch({
+                    id: batch.id,
+                    form: {
+                        name: batch.name,
+                        description: batch.description,
+                        batchId: batch.batchId,
+                        productId: batch.product.id,
+                        parentBrewId: batch.parentBrewId,
+                        startedAt: batch.startedAt,
+                        endedAt: batch.endedAt,
+                        version: batch.version
+                    },
+                    success: batch => {
+                        history.push("/batches/" + batch.id);
+                    }
+                })
+            );
+        } else {
+            dispatch(
+                saveBatch({
+                    form: {
+                        name: batch.name,
+                        description: batch.description,
+                        batchId: batch.batchId,
+                        productId: batch.product.id,
+                        parentBrewId: batch.parentBrewId,
+                        startedAt: batch.startedAt,
+                        endedAt: batch.endedAt
+                    },
+                    success: batch => {
+                        history.push("/batches/" + batch.id);
+                    }
+                })
+            );
+        }
+    }
+
+    function onDelete() {
+
+    }
+
     return (
-        <BatchInner { ...props } />
+        <BatchInner {...{editable, changed, onSave, onDelete}} />
     );
 }

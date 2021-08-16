@@ -5,7 +5,9 @@ import {
     FETCH_ALL_PACKAGING_SUCCESS,
     FETCH_ALL_PACKAGING_FAILURE,
     FETCH_ALL_PACKAGING_REQUEST,
-    SET_PACKAGING_DETAILS
+    SET_PACKAGING_DETAILS,
+    SET_PACKAGING_PAGE_INDEX,
+    SET_PACKAGING_PAGE_SIZE
 } from "./actionTypes";
 
 const initialState = {
@@ -13,11 +15,10 @@ const initialState = {
     all: [],
     loading: false,
     error: null,
-    selectedCategory: { id: 2, name: "Packaging" },
     totalElements: 0,
     totalPages: 0,
     pageIndex: 0,
-    pageSize: 10
+    pageSize: 20
 };
 
 const Packaging = (state = initialState, { type, payload, data }) => {
@@ -61,6 +62,8 @@ const Packaging = (state = initialState, { type, payload, data }) => {
             loading: false,
             error: payload,
         };
+    case SET_PACKAGING_PAGE_INDEX:
+    case SET_PACKAGING_PAGE_SIZE:
     case SET_PACKAGING_DETAILS:
       return {
         ...state,

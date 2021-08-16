@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Card, CardBody, Badge, Button } from "reactstrap";
+import { Col, Card, CardBody, Badge } from "reactstrap";
 import { Link } from "react-router-dom";
 class MiniCard extends Component {
     render() {

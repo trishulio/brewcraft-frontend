@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import {
     Row,
     Col,
@@ -10,12 +9,7 @@ import Pagination from "./components/pagination";
 import Table from "./components/table";
 import Toolbar from "./components/toolbar";
 
-export default function FinshedGoods({ fetchPage={fetchPage} }) {
-
-    const finishedGoods = useSelector(state => {
-        return state.FinishedGoods.content
-    });
-
+export default function FinshedGoods() {
     return (
         <React.Fragment>
             <Row>
@@ -23,8 +17,8 @@ export default function FinshedGoods({ fetchPage={fetchPage} }) {
                     <Toolbar/>
                     <Card>
                         <CardBody className="py-2">
-                            <Pagination fetchPage={fetchPage}>
-                                <Table />
+                            <Pagination>
+                                <Table/>
                             </Pagination>
                         </CardBody>
                     </Card>

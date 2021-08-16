@@ -15,11 +15,10 @@ const initialState = {
     all: [],
     loading: false,
     error: null,
-    selectedCategory: "",
     totalElements: 0,
     totalPages: 0,
     pageIndex: 0,
-    pageSize: 10
+    pageSize: 20
 };
 
 const MaterialCategories = (state = initialState, { type, payload, data }) => {

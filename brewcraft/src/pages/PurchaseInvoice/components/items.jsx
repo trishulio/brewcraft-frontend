@@ -48,7 +48,8 @@ export default function PurchaseInvoiceItems({ editable }) {
         setSubtotal(amountSubtotal);
         setTaxTotal(amountTax);
         setTotal(amountTotal);
-    }, [JSON.stringify(items)]);
+
+    }, [items]);
 
     function addItem() {
         const newItems = [...items];

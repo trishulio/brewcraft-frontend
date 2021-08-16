@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useQuery } from "../../helpers/utils";
 import {
     fetchPackaging,
     setBreadcrumbItems,
@@ -9,12 +10,16 @@ import PackagingInner from "./packaging";
 
 export default function Packaging() {
     const dispatch = useDispatch();
+    const query = useQuery();
+    const parentCategoryId = query.get("category");
+    const sort = query.get("sort");
+    const order = query.get("order");
 
     const packaging = useSelector(state => {
         return state.Packaging.content;
     });
 
-    const { pageIndex, pageSize, selectedCategory } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector(state => {
         return state.Packaging;
     });
 
@@ -25,29 +30,21 @@ export default function Packaging() {
                 { title: "Materials", link: "#" }
             ])
         );
-        fetchPage();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        dispatch(fetchAllMaterialCategories());
-
-    }, [packaging]);
-
-    useEffect(() => {
-        fetchPage();
-
-    }, [selectedCategory]);
-
-    function fetchPage() {
         const props = {
-            pageIndex, pageSize, parentCategoryId: selectedCategory.id
+            pageIndex, pageSize, parentCategoryId, sort, order
         };
         dispatch(fetchPackaging({ ...props }));
-    }
+        dispatch(fetchAllMaterialCategories());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageIndex, pageSize, parentCategoryId, sort, order]);
 
     return (
         <PackagingInner
-            packaging={packaging} fetchPage={fetchPage}
+            packaging={packaging}
         />
     );
 }

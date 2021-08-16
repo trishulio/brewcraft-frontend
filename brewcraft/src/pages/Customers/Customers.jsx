@@ -36,6 +36,7 @@ export default function Customers() {
       ])
     );
     dispatch(fetchContacts());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onAddCustomer = () => {

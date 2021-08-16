@@ -5,12 +5,11 @@ async function fetchSuppliers(params = {}) {
         params: {
             page: params.pageIndex || 0,
             size: params.pageSize || 500,
+            sort: params.sort || "name",
+            order_asc: !params.order || params.order === "asc"
         }
     };
-    if (params.companyId) {
-        data.params.companyId = params.parentCategoryId
-    }
-    return await AxiosInstance.get("/api/v1/suppliers/contacts", data)
+    return await AxiosInstance.get("/api/v1/suppliers", data)
         .then((r) => r)
 }
 

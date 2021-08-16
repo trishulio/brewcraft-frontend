@@ -11,13 +11,10 @@ import {
 const initialState = {
   content: [],
   data: [],
-  selectedClass: "",
-  selectedType: "",
-  selectedStyle: "",
   totalElements: 0,
   totalPages: 0,
   pageIndex: 0,
-  pageSize: 10,
+  pageSize: 20,
   loading: true,
   error: null
 };

@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: 0 */
 import { combineReducers } from "redux";
 import Batch from "./Batch/reducer";
 import Batches from "./Batches/reducer";
@@ -13,10 +14,9 @@ import Product from "./Product/reducer";
 import ProductCategories from "./ProductCategories/reducer";
 import ProductCategory from "./ProductCategory/reducer";
 import Products from "./Products/reducer";
-import Company from "./Company/reducer";
-import Companies from "./Companies/reducer";
 import Customers from './Customers/reducer';
 import Equipment from './Equipment/reducer';
+import Materials from "./Materials/reducer";
 import MaterialCategories from "./MaterialCategories/reducer";
 import MaterialCategory from "./MaterialCategory/reducer";
 import Packaging from "./Packaging/reducer";
@@ -26,10 +26,12 @@ import PurchaseInvoices from "./PurchaseInvoices/reducer";
 import Driver from './Driver/reducer';
 import Vechicles from './Vechicles/reducer';
 import Invoice from './Invoice/reducer';
-import Inventory from './Inventory/reducer';
 import Tax from './Tax/reducer';
-import Supplier from './Supplier/reducer';
-import Suppliers from './Suppliers/reducer';
+import RawMaterials from "./RawMaterials/reducer";
+import Supplier from "./Supplier/reducer";
+import Suppliers from "./Suppliers/reducer";
+import SupplierContact from './SupplierContact/reducer';
+import SupplierContacts from './SupplierContacts/reducer';
 import Profile from './Profile/reducer';
 import Snackbar from "./Snackbar/reducer";
 import Storages from "./Storages/reducer";
@@ -37,38 +39,31 @@ import Storages from "./Storages/reducer";
 const rootReducer = combineReducers({
   Batch,
   Batches,
+  Breadcrumb,
   FinishedGood,
   FinishedGoods,
   Ingredient,
   Ingredients,
+  Invoice,
   Layout,
+  Materials,
+  MaterialCategories,
+  MaterialCategory,
   Notifications,
-  Breadcrumb,
   PurchaseInvoice,
   PurchaseInvoices,
-  // Brewery,
   Product,
   ProductCategories,
   ProductCategory,
   Products,
-  Customers,
-  Company,
-  Companies,
-  MaterialCategories,
-  MaterialCategory,
   Packaging,
   PackagingItem,
-  // Profile,
-  // Driver,
-  // Vechicles,
-  Invoice,
-  // Inventory,
+  RawMaterials,
+  Snackbar,
   Supplier,
   Suppliers,
-  // Tax,
-  // Equipment,
-  Snackbar,
-  // Storages
+  SupplierContact,
+  SupplierContacts
 });
 
 export default rootReducer;

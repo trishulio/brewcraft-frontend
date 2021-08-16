@@ -1,4 +1,4 @@
-import { findIndex, get, filter } from "lodash";
+import { filter } from "lodash";
 import {
     ADD_PACKAGING_ITEM_REQUEST,
     ADD_PACKAGING_ITEM_FAILURE,

@@ -5,11 +5,9 @@ import {
     fetchFinishedGoods,
     fetchAllProducts
 } from "../../store/actions";
-
 import FinishedGoodsInner from "./finished-goods";
 
 export default function FinshedGoods() {
-
     const dispatch = useDispatch();
 
     const { pageIndex, pageSize } = useSelector(state => {
@@ -23,17 +21,16 @@ export default function FinshedGoods() {
                 { title: "Batches", link: "#" },
             ])
         );
-        fetch();
-        dispatch(fetchAllProducts());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    function fetch() {
-        dispatch(
-            fetchFinishedGoods({ pageIndex, pageSize })
-        );
-    }
+    useEffect(() => {
+        dispatch(fetchFinishedGoods({ pageIndex, pageSize }));
+        dispatch(fetchAllProducts());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageIndex, pageSize]);
 
     return (
-        <FinishedGoodsInner fetchPage={fetch} />
+        <FinishedGoodsInner />
     );
 }

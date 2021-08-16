@@ -1,27 +1,23 @@
 import React from "react";
 import {
-    Row,
-    Col,
     Card,
-    CardBody
+    CardBody,
+    Row,
+    Col
 } from "reactstrap";
-import Banner from "./components/banner";
-import Pagination from "./components/pagination";
 import Table from "./components/table";
 import Toolbar from "./components/toolbar";
+import Pagination from "./components/pagination";
 
 export default function Batches() {
-    const fetchPage = () => {};
-
     return (
         <React.Fragment>
-            {/* <Banner /> */}
             <Row>
-                <Col xl="10">
+                <Col xl="11">
                     <Toolbar/>
                     <Card>
                         <CardBody className="py-2">
-                            <Pagination fetchPage={fetchPage}>
+                            <Pagination>
                                 <Table/>
                             </Pagination>
                         </CardBody>

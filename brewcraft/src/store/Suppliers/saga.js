@@ -9,34 +9,31 @@ import {
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
-import { ALL } from "../../helpers/constants";
-import { snackFailure, snackSuccess } from "../Snackbar/actions";
+import { snackFailure } from "../Snackbar/actions";
 
 function* fetchAllSuppliersGenerator() {
     try {
-        let res = yield call(api.fetchSuppliers, ALL);
-        delete Object.assign(res.data, {["all"]: res.data["supplierContacts"] })["supplierContacts"];
-        yield put({ type: FETCH_ALL_SUPPLIERS_SUCCESS, data: { data: res.data }});
+        const res = yield call(api.fetchSuppliers);
+        yield put({ type: FETCH_ALL_SUPPLIERS_SUCCESS, data: res.data.suppliers });
     } catch (e) {
         yield put({ type: FETCH_ALL_SUPPLIERS_FAILURE });
+        yield put(snackFailure("Something went wrong please try again."));
     }
 }
 
 function* fetchSuppliersGenerator(action) {
     try {
-      const res = yield call(api.fetchSuppliers, get(action, "payload.params"));
-      delete Object.assign(res.data, {["content"]: res.data["supplierContacts"] })["supplierContacts"];
+      const res = yield call(api.fetchSuppliers,get(action, "payload.params"));
+      delete Object.assign(res.data, {"content": res.data["suppliers"] })["suppliers"];
       yield put({ type: FETCH_SUPPLIERS_SUCCESS, data: { data: res.data }});
     } catch (e) {
       yield put({ type: FETCH_SUPPLIERS_FAILURE });
+      yield put(snackFailure("Something went wrong please try again."));
     }
   }
 
 function* Suppliers() {
-    yield takeEvery(
-        FETCH_SUPPLIERS_REQUEST,
-        fetchSuppliersGenerator
-    );
+    yield takeEvery(FETCH_SUPPLIERS_REQUEST, fetchSuppliersGenerator);
     yield takeEvery(FETCH_ALL_SUPPLIERS_REQUEST, fetchAllSuppliersGenerator);
 }
 

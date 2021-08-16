@@ -36,28 +36,28 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
     });
 
     function changeevent (e) {
-      const itemsNew = [...items];
-      switch(e.target.name) {
-          case "purchaseInvoiceItemMaterial":
-              itemsNew[indexv].material = materials.find(m => m.id === parseInt(e.target.value)) || "";
-              break;
-          case "purchaseInvoiceItemDescription":
-              itemsNew[indexv].description = e.target.value;
-              break;
-          case "purchaseInvoiceItemQuantity":
-              itemsNew[indexv].quantity.value = e.target.value;
-              break;
-          case "purchaseInvoiceItemPrice":
-              itemsNew[indexv].price.amount = e.target.value;
-              break;
-          case "purchaseInvoiceItemTax":
-              itemsNew[indexv].tax.amount.amount = e.target.value;
-              break;
-          default:
-              return;
+        const itemsNew = [...items];
+        switch(e.target.name) {
+            case "purchaseInvoiceItemMaterial":
+            itemsNew[indexv].material = materials.find(m => m.id === parseInt(e.target.value)) || "";
+            break;
+            case "purchaseInvoiceItemDescription":
+            itemsNew[indexv].description = e.target.value;
+            break;
+            case "purchaseInvoiceItemQuantity":
+            itemsNew[indexv].quantity.value = e.target.value;
+            break;
+            case "purchaseInvoiceItemPrice":
+            itemsNew[indexv].price.amount = e.target.value;
+            break;
+            case "purchaseInvoiceItemTax":
+            itemsNew[indexv].tax.amount.amount = e.target.value;
+            break;
+            default:
+            return;
 
-      }
-      dispatch(setPurchaseInvoiceItems(itemsNew));
+        }
+        dispatch(setPurchaseInvoiceItems(itemsNew));
     };
 
     function removeItem () {
@@ -68,10 +68,11 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
     function formatAmount() {
         if (item.quantity.value && item.price.amount && item.tax.amount.amount) {
             const amount = parseFloat(item.quantity.value)
-                * parseFloat(item.price.amount)
-                * (parseFloat(item.tax.amount.amount) + 1.0);
-
-            return (Number.isInteger(amount) || isFloat(amount)) && amount.toFixed(2) || undefined;
+            * parseFloat(item.price.amount)
+            * (parseFloat(item.tax.amount.amount) + 1.0);
+            if (Number.isInteger(amount) || isFloat(amount)) {
+                return amount.toFixed(2);
+            }
         }
     }
 

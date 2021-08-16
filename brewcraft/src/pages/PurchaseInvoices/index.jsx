@@ -2,17 +2,21 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     fetchPurchaseInvoices,
-    fetchAllPurchaseInvoices,
+    fetchAllSuppliers,
     setBreadcrumbItems
 } from "../../store/actions";
-import PurchaseInvoicesInner from "./purchase-invoices";
+import {
+    useQuery
+} from "../../helpers/utils";
+import PurchaseInvoicesInner from "./invoices";
 
 export default function PurchaseInvoices() {
     const dispatch = useDispatch();
-
-    const invoices = useSelector(state => {
-        return state.PurchaseInvoices.content;
-    });
+    const query = useQuery();
+    const invoiceFrom = query.get("invoiceFrom");
+    const invoiceTo = query.get("invoiceTo");
+    const supplierId = query.get("supplier");
+    const status = query.get("status");
 
     const { pageIndex, pageSize } = useSelector(state => {
         return state.PurchaseInvoices;
@@ -25,24 +29,24 @@ export default function PurchaseInvoices() {
                 { title: "Purchases", link: "#" }
             ])
         );
-        fetchPage();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        dispatch(fetchAllPurchaseInvoices());
-    }, [invoices]);
-
-    function fetchPage() {
         const props = {
-            pageIndex, pageSize
+            pageIndex,
+            pageSize,
+            invoiceFrom,
+            invoiceTo,
+            supplierId,
+            status
         };
-
         dispatch(fetchPurchaseInvoices({ ...props }));
-    }
+        dispatch(fetchAllSuppliers());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageIndex, pageSize, invoiceFrom, invoiceTo, supplierId, status]);
 
     return (
-        <PurchaseInvoicesInner
-            invoices={invoices} fetchPage={fetchPage}
-        />
+        <PurchaseInvoicesInner />
     );
 }

@@ -1,4 +1,3 @@
-import { map } from "lodash";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,114 +12,97 @@ import {
 } from "reactstrap";
 import {
     setSupplierDetails,
-    setInvalidSupplierFirstName,
-    setInvalidSupplierLastName,
-    setInvalidSupplierPosition,
-    setInvalidSupplierEmail,
-    setInvalidSupplierPhoneNumber,
-    setInvalidSupplierCompany
+    setInvalidSupplierName,
+    setInvalidSupplierAddressLine1,
+    setInvalidSupplierCity,
+    setInvalidSupplierProvince,
+    setInvalidSupplierPostalCode,
+    setInvalidSupplierCountry
 } from "../../../store/actions";
-
-const ADD_NEW = "ADD_NEW";
 
 export default function SupplierDetails({ editable }) {
 
+    const dispatch = useDispatch();
+
     const {
-        invalidFirstName,
-        invalidLastName,
-        invalidPosition,
-        invalidEmail,
-        invalidPhoneNumber,
-        invalidCompany
+        invalidName,
+        invalidAddressLine1,
+        invalidAddressLine2,
+        invalidCity,
+        invalidProvince,
+        invalidPostalCode,
+        invalidCountry
     } = useSelector(state => {
         return state.Supplier
-    });
-
-    const companies = useSelector(state => {
-        return state.Companies.all;
     });
 
     const supplier = useSelector(state => {
         return state.Supplier.data;
     });
 
-    const dispatch = useDispatch();
-
     function onFormInputChange(e) {
         switch(e.target.name) {
-            case "supplierFirstName":
-                if (supplier.firstName !== e.target.value) {
-                    dispatch(setInvalidSupplierFirstName(!e.target.value));
+            case "supplierName":
+                if (supplier.name !== e.target.value) {
+                    dispatch(setInvalidSupplierName(!e.target.value));
                     dispatch(setSupplierDetails({
                         data: {
                             ...supplier,
-                            firstName: e.target.value
+                            name: e.target.value
                         }
                     }));
                 }
                 break;
-            case "supplierLastName":
-                if (supplier.lastName !== e.target.value) {
-                    dispatch(setInvalidSupplierLastName(!e.target.value));
-                    dispatch(setSupplierDetails({
-                        data: {
-                            ...supplier,
-                            lastName: e.target.value
-                        }
-                    }));
-                }
-                break;
-            case "supplierCompany":
-                if (supplier.company?.id !== e.target.value) {
-                    dispatch(setInvalidSupplierCompany(!e.target.value));
-                    dispatch(setSupplierDetails({
-                        data: {
-                            ...supplier,
-                            company: companies.find(c => c.id === parseInt(e.target.value))
-                        }
-                    }));
-                }
-                break;
-            case "supplierPosition":
-                if (supplier.position !== e.target.value) {
-                    dispatch(setInvalidSupplierPosition(!e.target.value));
-                    dispatch(setSupplierDetails({
-                        data: {
-                            ...supplier,
-                            position: e.target.value
-                        }
-                    }));
-                }
-                break;
-            case "supplierEmail":
-                if (supplier.email !== e.target.value) {
-                    dispatch(setInvalidSupplierEmail(!e.target.value));
-                    dispatch(setSupplierDetails({
-                        data: {
-                            ...supplier,
-                            email: e.target.value
-                        }
-                    }));
-                }
-                break;
-            case "supplierPhoneNumber":
-                if (supplier.phoneNumber !== e.target.value) {
-                    dispatch(setInvalidSupplierPhoneNumber(!e.target.value));
-                    dispatch(setSupplierDetails({
-                        data: {
-                            ...supplier,
-                            phoneNumber: e.target.value
-                        }
-                    }));
-                }
-                break;
-            case "supplierCompany":
-                debugger;
-                dispatch(setInvalidSupplierCompany(!e.target.value));
+            case "supplierAddressLine1":
+                dispatch(setInvalidSupplierAddressLine1(!e.target.value));
                 dispatch(setSupplierDetails({
                     data: {
                         ...supplier,
-                        company: companies.find(c => c.id === parseInt(e.target.value))
+                        addressLine1: e.target.value
+                    }
+                }));
+                break;
+            case "supplierAddressLine2":
+                dispatch(setSupplierDetails({
+                    data: {
+                        ...supplier,
+                        addressLine2: e.target.value
+                    }
+                }));
+                break;
+            case "supplierAddressCity":
+                dispatch(setInvalidSupplierCity(!e.target.value));
+                dispatch(setSupplierDetails({
+                    data: {
+                        ...supplier,
+                        city: e.target.value
+                    }
+                }));
+                break;
+            case "supplierAddressProvince":
+                dispatch(setInvalidSupplierProvince(!e.target.value));
+                dispatch(setSupplierDetails({
+                    data: {
+                        ...supplier,
+                        province: e.target.value
+                    }
+                }));
+                break;
+            case "supplierAddressPostalCode":
+                dispatch(setInvalidSupplierPostalCode(!e.target.value));
+                dispatch(setSupplierDetails({
+                    data: {
+                        ...supplier,
+                        postalCode: e.target.value
+                    }
+                }));
+                break;
+            case "supplierAddressCountry":
+                dispatch(setInvalidSupplierCountry(!e.target.value));
+                dispatch(setSupplierDetails({
+                    data: {
+                        ...supplier,
+                        country: e.target.value
                     }
                 }));
                 break;
@@ -149,10 +131,10 @@ export default function SupplierDetails({ editable }) {
                     <Row>
                         <Col xs="2">
                             <Label
-                                for="supplierFirstName"
+                                for="supplierName"
                                 className="mb-3"
                             >
-                                First Name
+                                Name
                             </Label>
                         </Col>
                         <Col xs="8">
@@ -162,28 +144,28 @@ export default function SupplierDetails({ editable }) {
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    size="sm"
-                                    value={supplier.firstName}
+                                    bsSize="sm"
+                                    value={supplier.name}
                                     placeholder="Enter"
-                                    name="supplierFirstName"
+                                    name="supplierName"
                                     disabled={!editable}
                                     onChange={onFormInputChange}
-                                    invalid={invalidFirstName}
+                                    invalid={invalidName}
                                 />
                                 <FormFeedback>Enter a valid supplier name.</FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
-                                {supplier.firstName ? supplier.firstName : "-"}
+                                {supplier.name ? supplier.name : "-"}
                             </div>
                         </Col>
                     </Row>
                     <Row>
                         <Col xs="2">
                             <Label
-                                for="supplierLastName"
+                                for="supplierAddressLine1"
                                 className="mb-3"
                             >
-                                Last Name
+                                Address Line 1
                             </Label>
                         </Col>
                         <Col xs="8">
@@ -193,71 +175,28 @@ export default function SupplierDetails({ editable }) {
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    size="sm"
-                                    value={supplier.lastName}
+                                    bsSize="sm"
+                                    value={supplier.addressLine1}
                                     placeholder="Enter"
-                                    name="supplierLastName"
+                                    name="supplierAddressLine1"
                                     disabled={!editable}
                                     onChange={onFormInputChange}
-                                    invalid={invalidLastName}
+                                    invalid={invalidAddressLine1}
                                 />
-                                <FormFeedback>Enter a valid supplier name.</FormFeedback>
+                                <FormFeedback>Enter a valid address field.</FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
-                                {supplier.lastName ? supplier.lastName : "-"}
+                                {supplier.addressLine1 || "-"}
                             </div>
                         </Col>
                     </Row>
                     <Row>
                         <Col xs="2">
                             <Label
-                                for="supplierCompany"
+                                for="supplierAddressLine2"
                                 className="mb-3"
                             >
-                                Company
-                            </Label>
-                        </Col>
-                        <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
-                                <Input
-                                    type="select"
-                                    className="waves-effect"
-                                    size="sm"
-                                    name="supplierCompany"
-                                    style={{ width: "8rem" }}
-                                    disabled={!editable}
-                                    invalid={invalidCompany}
-                                    value={supplier.company.id}
-                                    onChange={e => {
-                                        onFormInputChange(e);
-                                    }}
-                                >
-                                    <option value="">Select</option>
-                                    {
-                                        map(companies, (value, index) => (
-                                            <option value={value.id} key={index}>
-                                                {value.name}
-                                            </option>
-                                        ))
-                                    }
-                                    <option value={ADD_NEW}>+ Add new</option>
-                                </Input>
-                                <FormFeedback>Enter a valid company.</FormFeedback>
-                            </FormGroup>
-                            <div hidden={editable}>
-                                {supplier.company ? supplier.company.name : "-"}
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="2">
-                            <Label
-                                for="supplierPosition"
-                                className="mb-3"
-                            >
-                                Position
+                                Address Line 2
                             </Label>
                         </Col>
                         <Col xs="8">
@@ -267,28 +206,28 @@ export default function SupplierDetails({ editable }) {
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    size="sm"
-                                    value={supplier.position}
+                                    bsSize="sm"
+                                    value={supplier.addressLine2}
                                     placeholder="Enter"
-                                    name="supplierPosition"
+                                    name="supplierAddressLine2"
                                     disabled={!editable}
                                     onChange={onFormInputChange}
-                                    invalid={invalidPosition}
+                                    invalid={invalidAddressLine2}
                                 />
-                                <FormFeedback>Enter a valid position.</FormFeedback>
+                                <FormFeedback>Enter a valid address field.</FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
-                                {supplier.position ? supplier.position : "-"}
+                                {supplier.addressLine2 || "-"}
                             </div>
                         </Col>
                     </Row>
                     <Row>
                         <Col xs="2">
                             <Label
-                                for="supplierEmail"
+                                for="supplierAddressCity"
                                 className="mb-3"
                             >
-                                Email
+                                City
                             </Label>
                         </Col>
                         <Col xs="8">
@@ -298,28 +237,28 @@ export default function SupplierDetails({ editable }) {
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    size="sm"
-                                    value={supplier.email}
+                                    bsSize="sm"
+                                    value={supplier.city}
                                     placeholder="Enter"
-                                    name="supplierEmail"
+                                    name="supplierAddressCity"
                                     disabled={!editable}
                                     onChange={onFormInputChange}
-                                    invalid={invalidEmail}
+                                    invalid={invalidCity}
                                 />
-                                <FormFeedback>Enter a valid email.</FormFeedback>
+                                <FormFeedback>Enter a valid city field.</FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
-                                {supplier.email ? supplier.email : "-"}
+                                {supplier.city || "-"}
                             </div>
                         </Col>
                     </Row>
                     <Row>
                         <Col xs="2">
                             <Label
-                                for="supplierPhoneNumber"
+                                for="supplierAddressProvince"
                                 className="mb-3"
                             >
-                                Phone
+                                Province / State
                             </Label>
                         </Col>
                         <Col xs="8">
@@ -329,18 +268,80 @@ export default function SupplierDetails({ editable }) {
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    size="sm"
-                                    value={supplier.phoneNumber}
+                                    bsSize="sm"
+                                    value={supplier.province}
                                     placeholder="Enter"
-                                    name="supplierPhoneNumber"
+                                    name="supplierAddressProvince"
                                     disabled={!editable}
                                     onChange={onFormInputChange}
-                                    invalid={invalidPhoneNumber}
+                                    invalid={invalidProvince}
                                 />
-                                <FormFeedback>Enter a valid phone number.</FormFeedback>
+                                <FormFeedback>Enter a valid province or state.</FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
-                                {supplier.phone ? supplier.phone : "-"}
+                                {supplier.province || "-"}
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="2">
+                            <Label
+                                for="supplierAddressPostalCode"
+                                className="mb-3"
+                            >
+                                Postal Code
+                            </Label>
+                        </Col>
+                        <Col xs="8">
+                            <FormGroup
+                                hidden={!editable}
+                            >
+                                <Input
+                                    type="text"
+                                    className="waves-effect"
+                                    bsSize="sm"
+                                    value={supplier.postalCode}
+                                    placeholder="Enter"
+                                    name="supplierAddressPostalCode"
+                                    disabled={!editable}
+                                    onChange={onFormInputChange}
+                                    invalid={invalidPostalCode}
+                                />
+                                <FormFeedback>Enter a valid postal code.</FormFeedback>
+                            </FormGroup>
+                            <div hidden={editable}>
+                                {supplier.postalCode || "-"}
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="2">
+                            <Label
+                                for="supplierAddressCountry"
+                                className="mb-3"
+                            >
+                                Country
+                            </Label>
+                        </Col>
+                        <Col xs="8">
+                            <FormGroup
+                                hidden={!editable}
+                            >
+                                <Input
+                                    type="text"
+                                    className="waves-effect"
+                                    bsSize="sm"
+                                    value={supplier.country}
+                                    placeholder="Enter"
+                                    name="supplierAddressCountry"
+                                    disabled={!editable}
+                                    onChange={onFormInputChange}
+                                    invalid={invalidCountry}
+                                />
+                                <FormFeedback>Enter a valid country.</FormFeedback>
+                            </FormGroup>
+                            <div hidden={editable}>
+                                {supplier.country || "-"}
                             </div>
                         </Col>
                     </Row>

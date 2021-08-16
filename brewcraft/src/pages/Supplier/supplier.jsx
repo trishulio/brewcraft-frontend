@@ -5,8 +5,6 @@ import {
 } from "reactstrap";
 import Toolbar from "./components/toolbar";
 import SupplierDetails from "./components/details";
-// import SupplierImage from "./components/image";
-
 
 export default function Supplier({ editable, changed, onSave, onDelete }) {
     return (
@@ -23,9 +21,6 @@ export default function Supplier({ editable, changed, onSave, onDelete }) {
                         editable={editable}
                     />
                 </Col>
-                {/* <Col md="3">
-                    <SupplierImage editable={editable} />
-                </Col> */}
             </Row>
         </React.Fragment>
     );

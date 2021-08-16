@@ -1,28 +1,13 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { filter, map } from "lodash";
 import {
     Button,
     Input
 } from "reactstrap";
-import {
-    setSuppliersSelectedCompany
-} from "../../../store/actions";
 import Toolbar from "../../../component/Common/toolbar";
 
 export default function ProductCategoriesToolbar() {
-
-    const dispatch = useDispatch();
     const history = useHistory();
-
-    const { selectedCompany } = useSelector(state => {
-        return state.Suppliers;
-    });
-
-    const companies = useSelector(state => {
-        return state.Companies.all;
-    });
 
     return (
         <Toolbar>
@@ -47,16 +32,16 @@ export default function ProductCategoriesToolbar() {
                 className="waves-effect mr-2 mb-3"
                 outline={true}
                 onClick={() => {
-                    history.push("/companies");
+                    history.push("/suppliers/contacts");
                 }}
             >
-                    Companies
+                    All Contacts
             </Button>
             <Input
-                size="sm"
+                bsSize="sm"
                 type="search"
                 name="search"
-                id="exampleSearch"
+                id="suppliersSearch"
                 placeholder="Name"
                 className="waves-effect float-right mb-3 ml-2"
                 style={{ width: 170 }}

@@ -7,7 +7,7 @@ import {
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
-import { snackFailure, snackSuccess } from "../Snackbar/actions";
+import { snackFailure } from "../Snackbar/actions";
 
 function* fetchAllFinishedGoods(action) {
     try {

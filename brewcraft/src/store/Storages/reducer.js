@@ -2,16 +2,12 @@ import { filter, map } from "lodash";
 import {
   FETCH_STORAGES_REQUEST,
   FETCH_STORAGES_SUCCESS,
-  FETCH_STORAGES_FAILURE,
   CREATE_STORAGES_REQUEST,
   CREATE_STORAGES_SUCCESS,
-  CREATE_STORAGES_FAILURE,
   UPDATE_STORAGES_REQUEST,
   UPDATE_STORAGES_SUCCESS,
-  UPDATE_STORAGES_FAILURE,
   DELETE_STORAGES_REQUEST,
-  DELETE_STORAGES_SUCCESS,
-  DELETE_STORAGES_FAILURE,
+  DELETE_STORAGES_SUCCESS
 } from "./actionTypes";
 
 const initialState = {
@@ -39,7 +35,7 @@ const Storages = (state = initialState, { type, payload }) => {
         data: [...state.data, { ...payload }],
       };
     case DELETE_STORAGES_SUCCESS: {
-      const filterData = filter(state.data, (o) => o.id != payload);
+      const filterData = filter(state.data, (o) => o.id !== payload);
       return {
         ...state,
         data: filterData,
@@ -47,7 +43,7 @@ const Storages = (state = initialState, { type, payload }) => {
     }
     case UPDATE_STORAGES_SUCCESS: {
       const filterData = map(state.data, (o) => {
-        if (o.id != payload.id) {
+        if (o.id !== payload.id) {
           return o;
         } else {
           return payload;

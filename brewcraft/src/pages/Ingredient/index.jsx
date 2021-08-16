@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import {
     setBreadcrumbItems,
     fetchIngredientById,
@@ -10,11 +10,10 @@ import {
     fetchAllMaterialCategories,
     resetIngredientDetails
 } from "../../store/actions";
+import {
+    useQuery
+} from "../../helpers/utils";
 import IngredientInner from "./ingredient";
-
-function useQuery() {
-    return new URLSearchParams(useLocation().search);
-}
 
 export default function Ingredient() {
     const [editable, setEditable] = useState(false);
@@ -43,14 +42,15 @@ export default function Ingredient() {
             dispatch(resetIngredientDetails());
             history.replace("/materials/ingredients/new?edit=true");
         } else {
-            fetch(id);
+            dispatch(fetchIngredientById({ id }));
+        }
+        if (editMode) {
+            dispatch(fetchAllMaterialCategories());
         }
         setEditable(editMode && editMode !== "false");
-    }, [id, editMode]);
 
-    useEffect(() => {
-        dispatch(fetchAllMaterialCategories());
-    }, [ingredient]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id, editMode, ingredient]);
 
     useEffect(() => {
         if (ingredient.id) {
@@ -65,6 +65,8 @@ export default function Ingredient() {
             ));
         }
         setChanged(isChanged());
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ingredient]);
 
     function isChanged() {
@@ -120,10 +122,6 @@ export default function Ingredient() {
         if (ingredient.id) {
             dispatch(deleteMaterial(id));
         }
-    }
-
-    function fetch(id) {
-        dispatch(fetchIngredientById({ id } ));
     }
 
     return (

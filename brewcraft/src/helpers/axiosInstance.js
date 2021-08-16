@@ -1,38 +1,35 @@
 
 import Axios from "axios";
 import { getLoggedInUser } from "./authUtils"
-import { useDispatch } from "react-redux";
-import { togglePreloader } from '../store/layout/actions';
 
 const AxiosInstance = Axios.create({
-
-    // timeout: 5000,
-    mode: 'no-cors',
-    crossDomain: true
+  // timeout: 5000,
+  mode: 'no-cors',
+  crossDomain: true
 });
 
 AxiosInstance.interceptors.request.use(async function (config) {
 
-    const user = getLoggedInUser();
+  const user = getLoggedInUser();
 
-    if (user) {
+  if (user) {
 
-        config.headers.common['Authorization'] = `Bearer ${user.accessToken.jwtToken}`;
+    config.headers.common['Authorization'] = `Bearer ${user.accessToken.jwtToken}`;
 
-    } else {
-
-      debugger;
-
-    }
-
-    return config;
-
-}, function (error) {
+  } else {
 
     debugger;
 
-    return Promise.reject(error);
+  }
 
-  });
+  return config;
+
+}, function (error) {
+
+  debugger;
+
+  return Promise.reject(error);
+
+});
 
 export default AxiosInstance;

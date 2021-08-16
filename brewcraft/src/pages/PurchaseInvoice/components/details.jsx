@@ -56,6 +56,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
             case "invoiceDetailsPoSo":
                 dispatch(setInvalidPurchaseOrder(false));
                 dispatch(setPurchaseInvoicePurchaseOrder(e.target.value));
+                break;
             default:
                 break;
         }
@@ -78,7 +79,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             name="invoiceDetailsSupplier"
                             className="mb-2 float-left"
                             style={{maxWidth: "16rem"}}
-                            value={invoice.selectedSupplier.id}
+                            value={invoice.purchaseOrder.supplier.id}
                             onChange={onFormInputChange}
                             hidden={!editable}
                         >
@@ -87,7 +88,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                                 suppliers.map((value, index) => {
                                     return (
                                         <option value={value.id} key={index}>
-                                            {value.firstName} {value.lastName}
+                                            {value.name}
                                         </option>
                                     );
                                 })
@@ -98,7 +99,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             style={{ lineHeight: "2rem", verticalAlign: "middle" }}
                             width="100%"
                             hidden={editable}>
-                            {invoice.supplier ? invoice.supplier.firstName + " " + invoice.supplier.lastName : "-"}
+                            {invoice.purchaseOrder.supplier ? invoice.purchaseOrder.supplier.name : "-"}
                         </div>
                         <FormFeedback>Enter a valid supplier.</FormFeedback>
                     </FormGroup>
@@ -207,7 +208,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             name="invoiceDetailsPoSo"
                             className="mb-2 float-left"
                             style={{maxWidth: "16rem"}}
-                            value={invoice.purchaseOrder?.orderNumber}
+                            value={invoice.purchaseOrder?.orderNumber || "-"}
                             onChange={onFormInputChange}
                             hidden={!editable}
                         />
@@ -216,7 +217,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             style={{ lineHeight: "2rem", verticalAlign: "middle" }}
                             width="100%"
                             hidden={editable}>
-                            {invoice.purchaseOrder || "-"}
+                            {invoice.purchaseOrder.orderNumber || "-"}
                         </div>
                         <FormFeedback>Enter a valid order number.</FormFeedback>
                     </FormGroup>

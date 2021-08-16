@@ -9,7 +9,7 @@ import Table from "./components/table";
 import Toolbar from "./components/toolbar";
 import Pagination from "./components/pagination";
 
-export default function Suppliers({ fetchPage }) {
+export default function Suppliers() {
     return (
         <React.Fragment>
             <Row>
@@ -17,7 +17,7 @@ export default function Suppliers({ fetchPage }) {
                     <Toolbar/>
                     <Card>
                         <CardBody className="py-2">
-                            <Pagination fetchPage={fetchPage}>
+                            <Pagination>
                                 <Table/>
                             </Pagination>
                         </CardBody>

@@ -1,81 +1,136 @@
+import { filter } from "lodash";
 import {
-    FETCH_BATCH,
-    CREATE_BATCH,
-    DELETE_BATCH,
-    UPDATE_BATCH,
-    SET_BATCH_DETAILS
-} from './actionTypes';
+    ADD_BATCH_REQUEST,
+    ADD_BATCH_FAILURE,
+    EDIT_BATCH_REQUEST,
+    EDIT_BATCH_SUCCESS,
+    DELETE_BATCH_REQUEST,
+    DELETE_BATCH_SUCCESS,
+    ADD_BATCH_SUCCESS,
+    SET_BATCH_DETAILS,
+    RESET_BATCH_DETAILS,
+    SET_BATCH_INVALID_CATEGORY
+} from "./actionTypes";
 
 const initialState = {
     data: {
         id: "",
-        title: "",
+        name: "",
         description: "",
-        parentId: null,
-        productId: null,
-        created: null,
-        createdBy: null,
-        updated: null,
-        updatedBy: null,
-        version: null,
-        files: [],
-        abvPercent: null,
-        materials: [],
-        batchStart: null,
-        batchEnd: null,
-        batchStatus: 0,
-        fermentVolumeInHl: null,
-        fermentTimeIn: null,
-        fermentTimeIn: null,
-        fermentEquipmentId: null,
-        transfers: [],
-        packaged: [],
+        batchId: "",
+        product: {
+            id: "",
+            name: "",
+            description: "",
+            productClass: "",
+            type: "",
+            style: "",
+            targetMeasures: [],
+            version: null
+        },
+        parentBrew: "",
+        startedAt: "",
+        endedAt: "",
+        createdAt: null,
+        version: null
+    },
+    initial: {
+        id: "",
+        name: "",
+        description: "",
+        batchId: "",
+        product: {
+            id: "",
+            name: "",
+            description: "",
+            productClass: "",
+            type: "",
+            style: "",
+            targetMeasures: [],
+            version: null
+        },
+        parentBrew: "",
+        startedAt: "",
+        endedAt: "",
+        createdAt: null,
+        version: null
     },
     invalidName: false,
+    invalidBatchId: false,
     invalidDescription: false,
+    invalidParentBrewId: false,
+    invalidProduct: false,
+    invalidStartedAt: false,
+    invalidEndedAt: false,
     loading: true,
     error: null
 };
 
-const Batch = (state = initialState, { type, payload }) => {
-    switch(type){
+const Batch = (state = initialState, { type, payload, data }) => {
+    switch(type) {
         case SET_BATCH_DETAILS:
+            return {
+                ...state,
+                ...payload,
+                loading: false,
+                error: null
+            };
+        case ADD_BATCH_REQUEST:
+        case EDIT_BATCH_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: null
+            };
+        case ADD_BATCH_SUCCESS:
+        case EDIT_BATCH_SUCCESS:
+            return {
+                ...state,
+                ...payload,
+                loading: false,
+                error: null
+            };
+        case ADD_BATCH_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: true
+            };
+        case DELETE_BATCH_REQUEST:
         return {
             ...state,
-            id: payload.id,
-            title: payload.title,
-            description: payload.description,
-            parentId: payload.parentId,
-            productId: payload.productId,
-            created: payload.created,
-            createdBy: payload.createdBy,
-            updated: payload.updated,
-            updatedBy: payload.updatedBy,
-            version: payload.version,
-            files: payload.files,
-            abvPercent: payload.abvPercent,
-            materials: payload.materials,
-            batchStart: payload.batchStart,
-            batchEnd: payload.batchEnd,
-            batchStatus: payload.batchStatus,
-            fermentVolumeInHl: payload.fermentVolumeInHl,
-            fermentTimeIn: payload.fermentTimeIn,
-            fermentTimeOut: payload.fermentTimeOut,
-            fermentEquipmentId: payload.fermentEquipmentId,
-            transfers: payload.transfers,
-            packaged: payload.packaged
+            formLoading: { ...state.formLoading, loading: true },
         };
-
-        case FETCH_BATCH:
-        case CREATE_BATCH:
-        case UPDATE_BATCH:
-        case DELETE_BATCH:
+        case DELETE_BATCH_SUCCESS:
+        return {
+            ...state,
+            data: filter([...state.data], (instanceData) => {
+                return (
+                    payload.id!==instanceData.id
+                    );
+                }),
+                formLoading: { ...state.formLoading, loading: false },
+            };
+        case RESET_BATCH_DETAILS:
+        return {
+            ...initialState,
+            loading: false,
+            error: null
+        };
+        case SET_BATCH_INVALID_CATEGORY:
+            return {
+                ...state,
+                invalidCategory: payload,
+                loading: false,
+                error: null
+            };
         default:
         return {
             ...state,
-            loading: false
+            loading: false,
+            error: null
         };
     }
-}
+};
 
 export default Batch;

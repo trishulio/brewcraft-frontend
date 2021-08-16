@@ -1,13 +1,16 @@
 import {
     FETCH_SUPPLIER_BY_ID_REQUEST,
+    SET_SUPPLIER_DETAILS,
+    ADD_SUPPLIER_REQUEST,
     EDIT_SUPPLIER_REQUEST,
     DELETE_SUPPLIER_REQUEST,
-    ADD_SUPPLIER_REQUEST,
-    SET_SUPPLIER_DETAILS,
-    RESET_SUPPLIER_DETAILS,
-    INVALID_SUPPLIER_NAME,
-    INVALID_SUPPLIER_PARENT_SUPPLIER
+    RESET_SUPPLIER_DETAILS
 } from "./actionTypes";
+
+export const fetchSupplierById = (payload) => ({
+    type: FETCH_SUPPLIER_BY_ID_REQUEST,
+    payload: payload,
+  });
 
 export const setSupplierDetails = payload => ({
     type: SET_SUPPLIER_DETAILS,
@@ -19,35 +22,59 @@ export const resetSupplierDetails = () => ({
     payload: null
 });
 
-export const fetchSupplierById = (payload) => ({
-    type: FETCH_SUPPLIER_BY_ID_REQUEST,
+export const saveSupplier = payload => ({
+    type: ADD_SUPPLIER_REQUEST,
     payload: payload,
 });
-export const editSupplier = (payload) => ({
+
+export const editSupplier = payload => ({
     type: EDIT_SUPPLIER_REQUEST,
     payload: payload,
 });
 
-export const deleteSupplier = (payload) => ({
+export const deleteSupplier = payload => ({
     type: DELETE_SUPPLIER_REQUEST,
     payload: payload,
 });
 
-export const saveSupplier = payload => ({
-    type: ADD_SUPPLIER_REQUEST,
-    payload: payload
-});
-
-export const setInvalidSupplierName = enabled => ({
-    type: INVALID_SUPPLIER_NAME,
+export const setInvalidSupplierName = value => ({
+    type: SET_SUPPLIER_DETAILS,
     payload: {
-        invalidName: enabled
+        invalidName: value
     }
 });
 
-export const setInvalidSupplierParentCategory = enabled => ({
-    type: INVALID_SUPPLIER_PARENT_SUPPLIER,
+export const setInvalidSupplierAddressLine1 = value => ({
+    type: SET_SUPPLIER_DETAILS,
     payload: {
-        invalidParentCategory: enabled
+        invalidAddressLine1: value
+    }
+});
+
+export const setInvalidSupplierCity = value => ({
+    type: SET_SUPPLIER_DETAILS,
+    payload: {
+        city: value
+    }
+});
+
+export const setInvalidSupplierProvince = value => ({
+    type: SET_SUPPLIER_DETAILS,
+    payload: {
+        province: value
+    }
+});
+
+export const setInvalidSupplierPostalCode = value => ({
+    type: SET_SUPPLIER_DETAILS,
+    payload: {
+        postalCode: value
+    }
+});
+
+export const setInvalidSupplierCountry = value => ({
+    type: SET_SUPPLIER_DETAILS,
+    payload: {
+        country: value
     }
 });

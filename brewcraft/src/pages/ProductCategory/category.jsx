@@ -5,17 +5,14 @@ import {
 } from "reactstrap";
 import Toolbar from "./components/toolbar";
 import ProductCategoryDetails from "./components/details";
-import ProductCategoryImage from "./components/image";
 
-
-export default function ProductCategory({ category, editable, changed, onChange, onCancel, onSave, onEdit, onDelete }) {
+export default function ProductCategory({ category, editable, changed, onSave, onEdit, onDelete }) {
     return (
         <React.Fragment>
             <Toolbar
                 category={category}
                 editable={editable}
                 changed={changed}
-                onCancel={onCancel}
                 onSave={onSave}
                 onEdit={onEdit}
                 onDelete={onDelete}

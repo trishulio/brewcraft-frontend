@@ -8,17 +8,17 @@ import BrewDetails from "./components/brew-details";
 import Details from "./components/details";
 import Toolbar from "./components/toolbar";
 
-export default function Batch({ batch, editable }) {
+export default function Batch(props) {
     return (
         <React.Fragment>
-            <Toolbar batch={batch} editable={editable} />
+            <Toolbar {...props} />
             <Row>
-                <Col md={8} xl={6}>
-                    <Metadata brew={batch} editable={editable} />
-                    <BrewDetails brew={batch} editable={editable} />
+                <Col xl={8}>
+                    <Metadata {...props} />
+                    <BrewDetails {...props} />
                 </Col>
                 <Col md={4}>
-                    <Details item={batch} editable={editable}/>
+                    <Details {...props}/>
                 </Col>
             </Row>
         </React.Fragment>

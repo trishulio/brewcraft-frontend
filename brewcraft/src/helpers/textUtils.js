@@ -1,6 +1,29 @@
 import React from 'react';
 import NumberFormat from 'react-number-format';
 
+export function formatAddress(address) {
+    let fAddress = ""
+    if (address.addressLine1) {
+        fAddress += address.addressLine1 + " ";
+    }
+    if (address.addressLine2) {
+        fAddress += address.addressLine2 + " ";
+    }
+    if (address.city) {
+        fAddress += address.city + " ";
+    }
+    if (address.province) {
+        fAddress += address.province + " ";
+    }
+    if (address.postalCode) {
+        fAddress += address.postalCode + " ";
+    }
+    if (address.country) {
+        fAddress += address.country + " ";
+    }
+    return fAddress.trim();
+}
+
 export function formatCurrency(value, decimalScale=2) {
     return <NumberFormat
         value={value}
@@ -10,6 +33,11 @@ export function formatCurrency(value, decimalScale=2) {
         thousandSeparator=","
         decimalScale={decimalScale}
         fixedDecimalScale={true}/>;
+}
+
+export function formatDate(date) {
+    const d = new Date(date);
+    return d.toDateString().replace(/^\S+\s/,'');
 }
 
 export function formatPercent(value) {

@@ -2,14 +2,27 @@ import React from "react";
 import {
     Table
 } from "reactstrap";
+import { useQuery } from "../../helpers/utils";
 
-export default function CommonTable({ children }) {
+export function Th(props) {
+    const query = useQuery();
+    const sort = query.get("sort");
+    const order = query.get("order");
+    return (
+        <th style={{ cursor: "pointer" }} name={props.name} onClick={props.onSort}>
+            <i className="mdi mdi-sort-ascending mr-1" hidden={sort !== props.id || order !== "asc"}></i>
+            <i className="mdi mdi-sort-descending mr-1" hidden={sort !== props.id || order !== "desc"}></i>
+            {props.children}
+        </th>
+    );
+}
 
+export default function CommonTable(props) {
     return (
         <React.Fragment>
             <div className="table-responsive table-striped table-sm">
                 <Table className="table-centered table-vertical table-nowrap jadc-effect mb-1">
-                    {children}
+                    {props.children}
                 </Table>
             </div>
         </React.Fragment>

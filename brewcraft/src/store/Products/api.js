@@ -5,6 +5,9 @@ async function fetchProducts(params) {
         params: {
             page: params.pageIndex || 0,
             size: params.pageSize || 100,
+            category_ids: params.categoryId,
+            sort: params.name || "name",
+            order_asc: !params.order || params.order === "asc"
         }
     };
     if (params.categoryId) {

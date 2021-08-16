@@ -1,19 +1,14 @@
-import AxiosInstance from "../../helpers/axiosInstance";
-
 import user1 from "../../assets/images/users/user-4.jpg";
 import user2 from "../../assets/images/users/user-6.jpg";
-import noImage from "../../assets/images/no-image.jpg";
+// import noImage from "../../assets/images/no-image.jpg";
 
 async function fetchFinishedGoods(params) {
-    const data = {
-        params: {
-            page: params.pageIndex || 0,
-            size: params.pageSize || 500,
-        }
-    };
-    // return await AxiosInstance.get("/api/v1/products/categories", data)
-    //     .then((r) => r)
-    //     .catch(() => {});
+    // const data = {
+    //     params: {
+    //         page: params.pageIndex || 0,
+    //         size: params.pageSize || 500,
+    //     }
+    // };
 
     return Promise.resolve({
         data: {
@@ -30,7 +25,7 @@ async function fetchFinishedGoods(params) {
             totalElements: 8,
             totalPages: 1,
             pageIndex: 0,
-            pageSize: 10
+            pageSize: 20
         }
     })
 }

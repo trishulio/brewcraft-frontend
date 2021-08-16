@@ -17,8 +17,6 @@ import {
     setInvalidMaterialCategoryParentCategory
 } from "../../../store/actions";
 
-const ADD_NEW = "ADD_NEW";
-
 export default function MaterialCategoryDetails({ editable }) {
 
     const { invalidName, invalidParentCategory } = useSelector(state => {
@@ -96,7 +94,7 @@ export default function MaterialCategoryDetails({ editable }) {
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    size="sm"
+                                    bsSize="sm"
                                     value={materialCategory.name}
                                     placeholder="Enter"
                                     name="materialCategoryName"
@@ -127,7 +125,7 @@ export default function MaterialCategoryDetails({ editable }) {
                                 <Input
                                     type="select"
                                     className="waves-effect"
-                                    size="sm"
+                                    bsSize="sm"
                                     name="materialCategoryParentCategory"
                                     style={{ width: "8rem" }}
                                     disabled={!editable}

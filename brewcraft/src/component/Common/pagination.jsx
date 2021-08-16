@@ -9,7 +9,7 @@ import {
     PaginationLink
 } from "reactstrap";
 
-export default function PageWrapper({ items, fetchItems, totalElements, totalPages, pageIndex, setPageIndex, pageSize, setPageSize, children }) {
+export default function PageWrapper({ items, totalElements, totalPages, pageIndex, setPageIndex, pageSize, setPageSize, children }) {
     const [pages, setPages] = useState([]);
 
     useEffect(() => {
@@ -34,20 +34,10 @@ export default function PageWrapper({ items, fetchItems, totalElements, totalPag
         }
         setPages(pages);
 
-    }, [items]);
-
-    useEffect(() => {
-        fetchItems(({pageIndex, pageSize}));
-        setPageIndex(0);
-
-    }, [pageSize]);
-
-    useEffect(() => {
-        fetchItems(({pageIndex, pageSize}));
-
-    }, [pageIndex]);
+    }, [items, pageIndex, pageSize, totalPages]);
 
     function onChangePageSize(e) {
+        setPageIndex(0);
         setPageSize(parseInt(e.target.value));
     }
 
@@ -73,13 +63,14 @@ export default function PageWrapper({ items, fetchItems, totalElements, totalPag
                 <Col xs="12">
                     <Input
                         type="select"
-                        size="sm"
+                        bsSize="sm"
                         className="waves-effect float-left mr-2 my-2"
                         style={{ width: 60 }}
+                        value={pageSize}
                         onChange={onChangePageSize}
                     >
-                        <option>10</option>
-                        <option>25</option>
+                        <option>20</option>
+                        <option>50</option>
                         <option>100</option>
                     </Input>
                 </Col>

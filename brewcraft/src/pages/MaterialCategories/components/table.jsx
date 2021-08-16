@@ -1,14 +1,12 @@
 import React from "react";
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import {
-    Button
-} from "reactstrap";
-import Table from "../../../component/Common/table";
+import { useQuery } from "../../../helpers/utils";
+import Table, { Th } from "../../../component/Common/table";
 
 export default function MaterialCategoriesTable() {
-
     const history = useHistory();
+    const query = useQuery();
 
     const categories = useSelector(state => {
         return state.MaterialCategories.content;
@@ -18,16 +16,41 @@ export default function MaterialCategoriesTable() {
         return state.MaterialCategories.all;
     });
 
-    function onView(id) {
-        history.push("/materials/categories/" + id);
+    function onSort(e) {
+        const name = e.target.getAttribute("name");
+        const sort = query.get("sort");
+        let order = query.get("order");
+        query.delete("sort");
+        query.delete("order");
+        switch(name) {
+            case "materialCategoryName":
+                if (sort !== "name") {
+                    order = undefined;
+                }
+                query.append("sort", "name");
+                break;
+            default:
+                break;
+        }
+        if (!order || order !== "asc") {
+            query.append("order", "asc");
+        } else {
+            query.append("order", "desc");
+        }
+        history.push({search: query.toString()});
     }
 
     return (
         <Table>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
+                    <Th
+                        name="materialCategoryName"
+                        id="name"
+                        onSort={onSort}
+                    >
+                        Name
+                    </Th>
                     <th>Parent Category</th>
                 </tr>
             </thead>
@@ -35,7 +58,6 @@ export default function MaterialCategoriesTable() {
                 {
                     categories.map((category, key) =>
                         <tr key={key}>
-                            <td><Link to={"/materials/categories/" + category.id}>#{category.id}</Link></td>
                             <td><Link to={"/materials/categories/" + category.id}>{category.name}</Link></td>
                             <td>
                                 <Link to={"/materials/categories/" + category.parentCategoryId}>

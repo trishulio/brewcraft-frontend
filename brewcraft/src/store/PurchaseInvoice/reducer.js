@@ -15,14 +15,15 @@ const initialState = {
     data: {
         id: "",
         invoiceNumber: "",
-        purchaseOrder: null,
+        purchaseOrder: {
+            supplier: ""
+        },
         description: "",
         freight: null,
         generatedOn: "",
         receivedOn: "",
         paymentDueDate: "",
         statusId: null,
-        selectedSupplier: "",
         items: [{
             description: "",
             quantity: {
@@ -43,7 +44,9 @@ const initialState = {
     initial: {
         id: "",
         invoiceNumber: "",
-        purchaseOrder: null,
+        purchaseOrder: {
+            supplier: ""
+        },
         description: "",
         freight: null,
         generatedOn: "",
@@ -96,8 +99,6 @@ const PurchaseInvoice = (state = initialState, { type, payload }) => {
         case SET_PURCHASE_INVOICE_INVOICE_DATE:
         case SET_PURCHASE_INVOICE_INVOICE_NUMBER:
         case SET_PURCHASE_INVOICE_DUE_DATE:
-        case SET_PURCHASE_INVOICE_PURCHASE_ORDER:
-        case SET_PURCHASE_INVOICE_SUPPLIER:
         case SET_PURCHASE_INVOICE_ITEMS:
             return {
                 ...state,
@@ -105,7 +106,19 @@ const PurchaseInvoice = (state = initialState, { type, payload }) => {
                     ...state.data,
                     ...payload
                 }
-            }
+            };
+        case SET_PURCHASE_INVOICE_SUPPLIER:
+        case SET_PURCHASE_INVOICE_PURCHASE_ORDER:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    purchaseOrder: {
+                        ...state.data.purchaseOrder,
+                        ...payload
+                    }
+                }
+            };
         case RESET_PURCHASE_INVOICE_DETAILS:
             return {
                 ...initialState,

@@ -22,7 +22,6 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 onClick={onSave}
                 disabled={!changed}
                 hidden={!editable}
-                disabled={true}
             >
                     Save
             </Button>
