@@ -60,7 +60,7 @@ export const setPurchaseInvoiceInvalidName = enabled => ({
     }
 });
 
-export const setInvalidDescription = enabled => ({
+export const setPurchaseInvoiceInvalidDescription = enabled => ({
     type: INVALID_DESCRIPTION,
     payload: {
         invalidDescription: enabled

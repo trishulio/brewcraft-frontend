@@ -62,28 +62,28 @@ export const setProductInvalidName = enabled => ({
     }
 });
 
-export const setInvalidClass = enabled => ({
+export const setProductInvalidClass = enabled => ({
     type: INVALID_CLASS,
     payload: {
         invalidClass: enabled
     }
 });
 
-export const setInvalidType = enabled => ({
+export const setProductInvalidType = enabled => ({
     type: INVALID_TYPE,
     payload: {
         invalidType: enabled
     }
 });
 
-export const setInvalidStyle = enabled => ({
+export const setProductInvalidStyle = enabled => ({
     type: INVALID_STYLE,
     payload: {
         invalidStyle: enabled
     }
 });
 
-export const setInvalidDescription = enabled => ({
+export const setProductInvalidDescription = enabled => ({
     type: INVALID_DESCRIPTION,
     payload: {
         invalidDescription: enabled

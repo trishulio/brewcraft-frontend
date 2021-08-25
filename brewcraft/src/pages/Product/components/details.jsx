@@ -14,7 +14,7 @@ import {
 import {
     setProductDetails,
     setProductInvalidName,
-    setInvalidClass
+    setProductInvalidClass
 } from "../../../store/actions";
 import CategoriesModal from "../../../component/ProductCategories/modal";
 
@@ -50,7 +50,7 @@ export default function ProductDetails({ product, editable }) {
                 break;
             case "productClass":
                 if (product.productClass?.id !== e.target.value) {
-                    dispatch(setInvalidClass(!e.target.value));
+                    dispatch(setProductInvalidClass(!e.target.value));
                     dispatch(setProductDetails({
                         productClass: categories.find(c => c.id === parseInt(e.target.value)),
                         type: null,
