@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
-      env:
+      run:
         working-directory: brewcraft
     strategy:
       matrix:
