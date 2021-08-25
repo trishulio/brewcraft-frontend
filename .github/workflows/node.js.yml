@@ -14,6 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: ./brewcraft
+    defaults:
+      run:
+        working-directory: ./brewcraft
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
