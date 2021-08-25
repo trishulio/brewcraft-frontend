@@ -29,7 +29,6 @@
     "chartist": "^0.11.4",
     "chartist-plugin-tooltips-updated": "^0.1.4",
     "draft-js": "^0.11.7",
-    "eslint": "6.6.0",
     "google-maps-react": "^2.0.6",
     "lodash": "^4.17.21",
     "mdbreact": "^4.27.0",
@@ -85,9 +84,6 @@
     "build": "react-scripts --max-old-space-size=8000 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [
