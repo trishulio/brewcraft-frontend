@@ -13,9 +13,6 @@ const initialState = {
     id: null,
     name: "",
     description: "",
-    productClass: null,
-    style: null,
-    type: null,
     targetMeasures: [],
     version: null
   },
@@ -23,9 +20,6 @@ const initialState = {
     id: null,
     name: "",
     description: "",
-    productClass: null,
-    style: null,
-    type: null,
     targetMeasures: [],
     version: null
   },

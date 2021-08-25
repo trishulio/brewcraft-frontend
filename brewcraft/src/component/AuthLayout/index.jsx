@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Switch } from "react-router-dom";
 import VerticalLayout from "../Layout/VerticalLayout";
 import HorizontalLayout from "../Layout/HorizontalLayout/";
 import { authProtectedRoutes } from "../../routes/";
@@ -25,13 +25,13 @@ export default function AuthLayout() {
             <Layout>
                 <Switch>
                     {authProtectedRoutes.map((route, idx) => (
-                    <AppRoute
-                        path={route.path}
-                        component={route.component}
-                        key={idx}
-                        isAuthProtected={true}
-                        {...route}
-                    />
+                        <AppRoute
+                            path={route.path}
+                            component={route.component}
+                            key={idx}
+                            isAuthProtected={true}
+                            {...route}
+                        />
                     ))}
                 </Switch>
             </Layout>

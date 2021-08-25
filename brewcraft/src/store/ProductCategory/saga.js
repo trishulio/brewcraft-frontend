@@ -20,7 +20,6 @@ function* fetchProductCategoryByIdGenerator(action) {
             yield call(action.payload.success, res.data);
         }
     } catch (e) {
-        debugger;
         yield put(snackFailure("Something went wrong please try again."));
     }
 }

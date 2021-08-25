@@ -1,0 +1,60 @@
+import React, { useEffect, useState } from "react";
+import { Button } from "reactstrap";
+import { Modal } from "../Common/modal";
+
+export const DeleteGuard = ({
+    when,
+    confirm,
+    close,
+    content
+}) => {
+    const [modalVisible, updateModalVisible] = useState(false);
+    const [confirmedNavigation, updateConfirmedNavigation] = useState(false);
+
+    useEffect(() => {
+        updateModalVisible(when);
+    }, [when]);
+
+    const closeModal = cb => {
+        close();
+        if (cb) {
+            try {
+                cb();
+            } catch {}
+        }
+    };
+
+    const handleConfirmNavigationClick = () => {
+        closeModal(() => {
+            updateConfirmedNavigation(true);
+        });
+    };
+
+    useEffect(() => {
+        if (confirmedNavigation) {
+            confirm();
+            updateConfirmedNavigation(false);
+        }
+    }, [confirmedNavigation]);
+
+  return (
+    <>
+      <Modal
+        show={modalVisible}
+        onValidSubmit={handleConfirmNavigationClick}
+        close={closeModal}
+        title={"Hi"}
+        footer={(
+            <React.Fragment>
+                <Button color="secondary" onClick={handleConfirmNavigationClick}>Confirm</Button>
+                <Button color="primary" onClick={closeModal}>Cancel</Button>
+            </React.Fragment>
+          )}
+      >
+        <p className="main_text">{content}</p>
+      </Modal>
+    </>
+  );
+};
+
+export default DeleteGuard;

@@ -14,10 +14,14 @@ import {
     useQuery
 } from "../../helpers/utils";
 import ProductInner from "./product";
+import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
+import DeleteGuard from "../../component/Prompt/DeleteGuard";
 
 export default function Product() {
     const [editable, setEditable] = useState(false);
     const [changed, setChanged] = useState(false);
+    const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+    const [showRouterPrompt, setShowRouterPrompt] = useState(false);
 
     const { id } = useParams();
     const history = useHistory();
@@ -38,17 +42,21 @@ export default function Product() {
     });
 
     useEffect(() => {
-        if (!id || id === "new") {
-            dispatch(resetProductDetails());
+        if (id === "new" && !editMode) {
             history.replace("/products/new?edit=true");
         } else {
-            dispatch(fetchProductById(id));
+            if (id === "new") {
+                dispatch(resetProductDetails());
+            } else {
+                dispatch(fetchProductById(id));
+            }
+            if (editMode && editMode !== "false") {
+                dispatch(fetchAllProductCategories());
+                setEditable(true);
+            } else {
+                setEditable(false);
+            }
         }
-        if (editMode) {
-            dispatch(fetchAllProductCategories());
-        }
-        setEditable(editMode && editMode !== "false");
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, editMode]);
 
@@ -120,12 +128,35 @@ export default function Product() {
     }
 
     function onDelete() {
-        if (product.id) {
-            dispatch(deleteProduct(id));
-        }
+        setShowDeletePrompt(!!product.id);
+    }
+
+    function onLeave() {
+        setShowRouterPrompt(!!editMode && changed);
     }
 
     return (
-        <ProductInner {...{product, editable, changed, onSave, onDelete}} />
+        <React.Fragment>
+            <DeleteGuard
+                when={showDeletePrompt}
+                confirm={() => {
+                    debugger;
+                    dispatch(deleteProduct(product.id));
+                }}
+                close={() => {
+                    setShowDeletePrompt(false);
+                }}
+                content="This cannot be undone. Are you sure want to delete this product?"
+            />
+            <RouteLeavingGuard
+                when={showRouterPrompt}
+                navigate={path => {
+                    history.push(path);
+                }}
+                shouldBlockNavigation={() => editMode && isChanged()}
+                content="There are unsaved changes. Are you sure want to leave this page?"
+            />
+            <ProductInner {...{product, editable, changed, onSave, onDelete, onLeave}} />
+        </React.Fragment>
     );
 }

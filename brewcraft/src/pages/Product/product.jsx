@@ -8,7 +8,7 @@ import ProductDetails from "./components/details";
 import ProductImage from "./components/image";
 
 
-export default function Product({ product, editable, changed, onSave, onDelete }) {
+export default function Product({ product, editable, changed, onSave, onDelete, onLeave }) {
     return (
         <React.Fragment>
             <Toolbar
@@ -17,6 +17,7 @@ export default function Product({ product, editable, changed, onSave, onDelete }
                 changed={changed}
                 onSave={onSave}
                 onDelete={onDelete}
+                onLeave={onLeave}
             />
             <Row>
                 <Col md={9} xl={8}>

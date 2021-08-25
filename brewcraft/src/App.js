@@ -27,9 +27,13 @@ const App = () => {
     }, []);
 
     useEffect(() => {
-        setTimeout(() => {
-            dispatch(togglePreloader(!loggedIn));
-        }, 500);
+        if (!loggedIn) {
+            setTimeout(() => {
+                dispatch(togglePreloader(false)); // LOL we fake this!
+            }, 500);
+        } else {
+            dispatch(togglePreloader(true));
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loggedIn]);
 

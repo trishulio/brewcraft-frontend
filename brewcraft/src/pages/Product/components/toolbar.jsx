@@ -4,7 +4,7 @@ import {
     Button
 } from "reactstrap";
 
-export default function Toolbar({ product, editable, changed, onSave, onDelete }) {
+export default function Toolbar({ product, editable, changed, onSave, onDelete, onLeave }) {
     const history = useHistory();
 
     return (
@@ -25,7 +25,8 @@ export default function Toolbar({ product, editable, changed, onSave, onDelete }
                 color="secondary"
                 size="sm"
                 className="waves-effect mr-2 mb-3"
-                onClick={() => {
+                onClick={async() => {
+                    onLeave();
                     history.goBack();
                 }}
                 hidden={!editable}
@@ -40,6 +41,7 @@ export default function Toolbar({ product, editable, changed, onSave, onDelete }
                 disabled={editable}
                 hidden={!product.id || editable}
                 onClick={() => {
+                    onLeave();
                     history.push({
                         pathname: "/products/" + product.id,
                         search: "?edit=true"
@@ -55,6 +57,7 @@ export default function Toolbar({ product, editable, changed, onSave, onDelete }
                 className="waves-effect mr-2 mb-3"
                 hidden={!product.id || editable}
                 onClick={() => {
+                    onLeave();
                     history.push({
                         pathname: "/products/new",
                         search: "?edit=true"
@@ -78,24 +81,14 @@ export default function Toolbar({ product, editable, changed, onSave, onDelete }
                 color="secondary"
                 size="sm"
                 className="waves-effect mr-2 mb-3"
-                disabled={editable}
-                hidden={!product.id || editable}
-                outline={true}
-            >
-                Batches
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2 mb-3"
                 hidden={!product.id || editable}
                 outline={true}
                 onClick={() => {
+                    onLeave();
                     history.push("/products");
                 }}
             >
-                Products
+                All Products
             </Button>
         </React.Fragment>
     );
