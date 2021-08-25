@@ -16,7 +16,7 @@ jobs:
       working-directory: ./brewcraft
     defaults:
       run:
-        working-directory: ./brewcraft
+        working-directory: ${{ env.working-directory }}
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
