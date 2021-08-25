@@ -16,6 +16,7 @@ export const Modal = ({ show, close, title, children, size, footer, onValidSubmi
         <AvForm onValidSubmit={onValidSubmit}>
           <ModalBody>{children}</ModalBody>
           <ModalFooter>{footer}</ModalFooter>
+
         </AvForm>
         :
         <React.Fragment>
