@@ -1,83 +1,44 @@
-import React, { useMemo, useState, useEffect } from "react";
-import { Switch } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { authProtectedRoutes, publicRoutes } from "./routes/";
-import AppRoute from "./routes/route";
-import VerticalLayout from "./component/Layout/VerticalLayout";
-import HorizontalLayout from "./component/Layout/HorizontalLayout/";
-import NonAuthLayout from "./component/NonAuthLayout/NonAuthLayout";
-import { listenAuthEvents, authenticateUser } from "./helpers/authUtils";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import AuthLayout from "./component/AuthLayout";
+import NonAuthLayout from "./component/NonAuthLayout";
+import { authenticateUser } from "./helpers/authUtils";
 import { togglePreloader } from "./store/layout/actions";
+import {
+  setProfileLoggedIn
+} from "./store/actions";
 import "react-toastify/dist/ReactToastify.css";
-// Import scss
 import "./theme.scss";
 import "./jadc.scss";
 
-if (process.env.NODE_ENV !== "production") {
-  // write authentication events to console log
-  listenAuthEvents();
-}
-
 const App = () => {
-  const layout = useSelector((state) => state.Layout);
-  const dispatch = useDispatch();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    (async () => {
-      const isAuth = await authenticateUser();
-      dispatch(togglePreloader(!isAuth));
-      setIsLoggedIn(isAuth);
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const { loggedIn } = useSelector(state => {
+        return state.Profile;
+    });
 
-  const GetLayout = useMemo(() => {
-    let layoutCls = VerticalLayout;
-    switch (layout.layoutType) {
-      case "horizontal":
-        layoutCls = HorizontalLayout;
-        break;
-      default:
-        layoutCls = VerticalLayout;
-        break;
-    }
-    return layoutCls;
-  }, [layout]);
+    useEffect(() => {
+        (async() => {
+            const isAuth = await authenticateUser();
+            dispatch(setProfileLoggedIn(isAuth));
+        })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-  return (
-    <React.Fragment>
-      {!isLoggedIn && (
-        <NonAuthLayout>
-          <Switch>
-            {publicRoutes.map((route, idx) => (
-              <AppRoute
-                path={route.path}
-                component={route.component}
-                key={idx}
-                isAuthProtected={false}
-              />
-            ))}
-          </Switch>
-        </NonAuthLayout>
-      )}
+    useEffect(() => {
+        setTimeout(() => {
+            dispatch(togglePreloader(!loggedIn));
+        }, 500);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loggedIn]);
 
-      {isLoggedIn && (
-        <GetLayout>
-          <Switch>
-            {authProtectedRoutes.map((route, idx) => (
-              <AppRoute
-                path={route.path}
-                component={route.component}
-                key={idx}
-                isAuthProtected={true}
-                {...route}
-              />
-            ))}
-          </Switch>
-        </GetLayout>
-      )}
-    </React.Fragment>
-  );
+    return (
+        <React.Fragment>
+            {!loggedIn && <NonAuthLayout />}
+            {loggedIn && <AuthLayout />}
+        </React.Fragment>
+    );
 };
+
 export default App;

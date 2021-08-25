@@ -14,6 +14,7 @@ import Product from "./Product/reducer";
 import ProductCategories from "./ProductCategories/reducer";
 import ProductCategory from "./ProductCategory/reducer";
 import Products from "./Products/reducer";
+import Profile from "./Profile/reducer";
 import Customers from './Customers/reducer';
 import Equipment from './Equipment/reducer';
 import Materials from "./Materials/reducer";
@@ -32,7 +33,6 @@ import Supplier from "./Supplier/reducer";
 import Suppliers from "./Suppliers/reducer";
 import SupplierContact from './SupplierContact/reducer';
 import SupplierContacts from './SupplierContacts/reducer';
-import Profile from './Profile/reducer';
 import Snackbar from "./Snackbar/reducer";
 import Storages from "./Storages/reducer";
 
@@ -50,14 +50,15 @@ const rootReducer = combineReducers({
   MaterialCategories,
   MaterialCategory,
   Notifications,
+  Packaging,
+  PackagingItem,
   PurchaseInvoice,
   PurchaseInvoices,
   Product,
   ProductCategories,
   ProductCategory,
   Products,
-  Packaging,
-  PackagingItem,
+  Profile,
   RawMaterials,
   Snackbar,
   Supplier,

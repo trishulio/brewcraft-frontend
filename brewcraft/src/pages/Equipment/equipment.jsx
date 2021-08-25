@@ -1,5 +1,4 @@
-import React, { useEffect, Fragment, useState, useCallback } from "react";
-import { get, isArray, map, findIndex, filter, set } from "lodash";
+import React, { useEffect, Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import { Row, Col, Card, CardBody, CardFooter, Button } from "reactstrap";
@@ -13,7 +12,6 @@ import {
   updateEquipmentItem,
   deleteEquipmentItem
 } from "../../store/Equipment/actions";
-import { togglePreloader } from "../../store/layout/actions";
 import EquipmentForm from "./component/form";
 
 export default function Equipment() {

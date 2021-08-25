@@ -62,7 +62,7 @@ export const togglePreloader = is_show => ({
     payload: is_show
 })
 
-export const toggleSidebar = (is_toggle) => {
+export const toggleSidebar = is_toggle => {
     return {
         type: TOGGLE,
             payload: { is_toggle }
@@ -70,7 +70,7 @@ export const toggleSidebar = (is_toggle) => {
     }
 }
 
-export const toggleRightSidebar = (is_toggle) => {
+export const toggleRightSidebar = is_toggle => {
     return {
         type : TOGGLE_RIGHT_SIDEBAR,
         payload : {is_toggle}
@@ -83,5 +83,3 @@ export const hideRightSidebar = () => {
         payload : null
     }
 }
-
-

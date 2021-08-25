@@ -16,6 +16,7 @@ export * from "./Product/actions";
 export * from "./ProductCategories/actions";
 export * from "./ProductCategory/actions";
 export * from "./Products/actions";
+export * from "./Profile/actions";
 export * from "./PurchaseInvoice/actions";
 export * from "./PurchaseInvoices/actions";
 export * from "./RawMaterials/actions";
