@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import {
     setPackagingItemDetails,
-    setInvalidName,
+    setPackagingItemInvalidName,
     setPackagingItemInvalidBaseQuantityUnit,
     setPackagingItemInvalidCategory
 } from "../../../store/actions";
@@ -41,7 +41,7 @@ export default function PackagingItemDetails({ editable }) {
         switch(e.target.name) {
             case "packagingItemName":
                 if (packagingItem.name !== e.target.value) {
-                    dispatch(setInvalidName(!e.target.value));
+                    dispatch(setPackagingItemInvalidName(!e.target.value));
                     dispatch(setPackagingItemDetails({
                         data: {
                             ...packagingItem,

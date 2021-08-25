@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 import {
     setFinishedGoodDetails,
-    setInvalidName
+    setFinishedGoodInvalidName
 } from "../../../store/actions";
 
 export default function FinishedGoodDetails({ editable }) {
@@ -31,7 +31,7 @@ export default function FinishedGoodDetails({ editable }) {
         switch(e.target.name) {
             case "finishedGoodName":
                 if (finishedGood.name !== e.target.value) {
-                    dispatch(setInvalidName(!e.target.value));
+                    dispatch(setFinishedGoodInvalidName(!e.target.value));
                     dispatch(setFinishedGoodDetails({
                         name: e.target.value
                     }));

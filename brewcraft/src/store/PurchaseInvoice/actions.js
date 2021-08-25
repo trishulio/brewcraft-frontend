@@ -53,7 +53,7 @@ export const deletePurchaseInvoice = ({id, success}) => ({
     }
 });
 
-export const setInvalidName = enabled => ({
+export const setPurchaseInvoiceInvalidName = enabled => ({
     type: INVALID_NAME,
     payload: {
         invalidName: enabled

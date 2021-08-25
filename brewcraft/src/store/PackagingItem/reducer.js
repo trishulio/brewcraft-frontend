@@ -9,7 +9,9 @@ import {
     ADD_PACKAGING_ITEM_SUCCESS,
     SET_PACKAGING_ITEM_DETAILS,
     RESET_PACKAGING_ITEM_DETAILS,
-    SET_PACKAGING_ITEM_INVALID_CATEGORY
+    PACKAGING_ITEM_INVALID_NAME,
+    PACKAGING_ITEM_INVALID_CATEGORY,
+    PACKAGING_ITEM_INVALID_BASE_QUANTITY_UNIT
 } from "./actionTypes";
 
 const initialState = {
@@ -88,10 +90,12 @@ const PackagingItem = (state = initialState, { type, payload, data }) => {
             loading: false,
             error: null
         };
-        case SET_PACKAGING_ITEM_INVALID_CATEGORY:
+        case PACKAGING_ITEM_INVALID_NAME:
+        case PACKAGING_ITEM_INVALID_CATEGORY:
+        case PACKAGING_ITEM_INVALID_BASE_QUANTITY_UNIT:
             return {
                 ...state,
-                invalidCategory: payload,
+                ...payload,
                 loading: false,
                 error: null
             };

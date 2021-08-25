@@ -5,10 +5,12 @@ import {
     EDIT_PACKAGING_ITEM_REQUEST,
     DELETE_PACKAGING_ITEM_REQUEST,
     RESET_PACKAGING_ITEM_DETAILS,
-    SET_PACKAGING_ITEM_INVALID_CATEGORY
+    PACKAGING_ITEM_INVALID_NAME,
+    PACKAGING_ITEM_INVALID_CATEGORY,
+    PACKAGING_ITEM_INVALID_BASE_QUANTITY_UNIT
 } from "./actionTypes";
 
-export const fetchPackagingItemById = (payload) => ({
+export const fetchPackagingItemById = payload => ({
     type: FETCH_PACKAGING_ITEM_BY_ID_REQUEST,
     payload: payload,
   });
@@ -38,12 +40,17 @@ export const deletePackagingItem = id => ({
     payload: { id },
 });
 
+export const setPackagingItemInvalidName = value => ({
+    type: PACKAGING_ITEM_INVALID_NAME,
+    payload: { invalidName: value }
+});
+
 export const setPackagingItemInvalidCategory = value => ({
-    type: SET_PACKAGING_ITEM_INVALID_CATEGORY,
-    payload: value
+    type: PACKAGING_ITEM_INVALID_CATEGORY,
+    payload: { invalidCategory: value }
 });
 
 export const setPackagingItemInvalidBaseQuantityUnit = value => ({
-    type: SET_PACKAGING_ITEM_INVALID_CATEGORY,
-    payload: value
+    type: PACKAGING_ITEM_INVALID_BASE_QUANTITY_UNIT,
+    payload: { invakidBaseQuantityUnit: value }
 });

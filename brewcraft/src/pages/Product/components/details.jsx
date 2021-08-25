@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import {
     setProductDetails,
-    setInvalidName,
+    setProductInvalidName,
     setInvalidClass
 } from "../../../store/actions";
 import CategoriesModal from "../../../component/ProductCategories/modal";
@@ -42,7 +42,7 @@ export default function ProductDetails({ product, editable }) {
         switch(e.target.name) {
             case "productName":
                 if (product.name !== e.target.value) {
-                    dispatch(setInvalidName(!e.target.value));
+                    dispatch(setProductInvalidName(!e.target.value));
                     dispatch(setProductDetails({
                         name: e.target.value
                     }));

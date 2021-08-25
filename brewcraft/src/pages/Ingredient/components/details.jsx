@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import {
     setIngredientDetails,
-    setInvalidName,
+    setIngredientInvalidName,
     setIngredientInvalidBaseQuantityUnit,
     setIngredientInvalidCategory
 } from "../../../store/actions";
@@ -41,7 +41,7 @@ export default function IngredientDetails({ editable }) {
         switch(e.target.name) {
             case "ingredientName":
                 if (ingredient.name !== e.target.value) {
-                    dispatch(setInvalidName(!e.target.value));
+                    dispatch(setIngredientInvalidName(!e.target.value));
                     dispatch(setIngredientDetails({
                         data: {
                             ...ingredient,

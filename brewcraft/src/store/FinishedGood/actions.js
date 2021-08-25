@@ -55,7 +55,7 @@ export const deleteFinishedGood = (id) => ({
     payload: { id }
 });
 
-export const setInvalidName = enabled => ({
+export const setFinishedGoodInvalidName = enabled => ({
     type: INVALID_NAME,
     payload: {
         invalidName: enabled

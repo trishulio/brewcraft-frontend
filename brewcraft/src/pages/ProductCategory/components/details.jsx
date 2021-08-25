@@ -14,7 +14,7 @@ import {
 import {
     fetchAllProductCategories,
     setProductCategoryDetails,
-    setInvalidName
+    setProductCategoryInvalidName
 } from "../../../store/actions";
 import CategoriesModal from "../../../component/ProductCategories/modal";
 
@@ -79,7 +79,7 @@ export default function ProductCategoryDetails({ editable }) {
         switch(e.target.name) {
             case "productCategoryName":
                 if (category.name !== e.target.value) {
-                    dispatch(setInvalidName(!e.target.value));
+                    dispatch(setProductCategoryInvalidName(!e.target.value));
                     dispatch(setProductCategoryDetails({
                         name: e.target.value
                     }));

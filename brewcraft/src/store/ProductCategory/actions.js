@@ -52,7 +52,7 @@ export const deleteProductCategory = ({ id, success }) => ({
     payload: { id, success }
 });
 
-export const setInvalidName = enabled => ({
+export const setProductCategoryInvalidName = enabled => ({
     type: INVALID_NAME,
     payload: {
         invalidName: enabled
