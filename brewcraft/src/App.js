@@ -5,17 +5,24 @@ import NonAuthLayout from "./component/NonAuthLayout";
 import { authenticateUser } from "./helpers/authUtils";
 import { togglePreloader } from "./store/layout/actions";
 import {
-  setProfileLoggedIn
+  setProfileLoggedIn,
+  setGlobalRedirect
 } from "./store/actions";
 import "react-toastify/dist/ReactToastify.css";
 import "./theme.scss";
 import "./jadc.scss";
+import { useHistory } from "react-router-dom";
 
 const App = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const { loggedIn } = useSelector(state => {
         return state.Profile;
+    });
+
+    const { redirect } = useSelector(state => {
+        return state.Brewery;
     });
 
     useEffect(() => {
@@ -36,6 +43,17 @@ const App = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loggedIn]);
+
+    useEffect(() => {
+        if (redirect) {
+            history.push({
+                pathname: redirect.pathname,
+                search: redirect.search
+            });
+            dispatch(setGlobalRedirect(""));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [redirect]);
 
     return (
         <React.Fragment>

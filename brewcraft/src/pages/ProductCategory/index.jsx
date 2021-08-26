@@ -127,10 +127,7 @@ export default function ProductCategory() {
     function onDelete() {
         if (category.id) {
             dispatch(deleteProductCategory({
-                id: category.id,
-                success: () => {
-                    history.push("/products/categories");
-                }
+                id: category.id
             }));
         }
     }

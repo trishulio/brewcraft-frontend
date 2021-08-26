@@ -15,6 +15,7 @@ import {
 } from "./actionTypes";
 import { api } from "./api";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
+import { setGlobalRedirect } from "../Brewery/actions";
 
 function formatResponse(res) {
     res.initial = JSON.parse(JSON.stringify(res.data));
@@ -68,9 +69,7 @@ function* editSupplierContactGenerator(action) {
 function* deleteSupplierContactGenerator(action) {
     try {
         yield call(api.deleteSupplierContact, get(action, "payload.id"));
-        if (action.payload.success) {
-            yield call(action.payload.success);
-        }
+        yield put(setGlobalRedirect({ pathname: "/suppliers/contacts" }));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: DELETE_SUPPLIER_CONTACT_FAILURE });

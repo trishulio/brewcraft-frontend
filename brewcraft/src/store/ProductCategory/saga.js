@@ -9,6 +9,7 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
+import { setGlobalRedirect } from "../Brewery/actions";
 
 function* fetchProductCategoryByIdGenerator(action) {
     try {
@@ -57,9 +58,7 @@ function* udpateProductCategoryGenerator(action) {
 function* deleteProductCategoryGenerator(action) {
     try {
         yield call(api.deleteProductCategory, get(action, "payload.id"));
-        if (action.payload.success) {
-            yield call(action.payload.success);
-        }
+        yield put(setGlobalRedirect({ pathname: "/products/categories" }));
         yield put(snackSuccess("Deleted product category."));
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));

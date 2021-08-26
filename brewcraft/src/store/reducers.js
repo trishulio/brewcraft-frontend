@@ -40,6 +40,7 @@ const rootReducer = combineReducers({
   Batch,
   Batches,
   Breadcrumb,
+  Brewery,
   FinishedGood,
   FinishedGoods,
   Ingredient,

@@ -113,10 +113,7 @@ export default function MaterialCategory() {
     function onDelete() {
         if (materialCategory.id) {
             dispatch(deleteMaterialCategory({
-                id: materialCategory.id,
-                success: () => {
-                    history.push("/materials/categories");
-                }
+                id: materialCategory.id
             }));
         }
     }

@@ -190,10 +190,7 @@ export default function PurchaseInvoice() {
     function onDelete() {
         if (invoice.id) {
             dispatch(deletePurchaseInvoice({
-                id: id,
-                success: () => {
-                    history.push("/purchases/invoices");
-                }
+                id: id
             }));
         }
     }

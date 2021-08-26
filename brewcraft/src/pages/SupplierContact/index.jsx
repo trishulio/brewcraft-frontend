@@ -133,10 +133,7 @@ export default function SupplierContact() {
     function onDelete() {
         if (contact.id) {
             dispatch(deleteSupplierContact({
-                id: contact.id,
-                success: () => {
-                    history.push("/suppliers/contacts");
-                }
+                id: contact.id
             }));
         }
     }

@@ -9,6 +9,7 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
+import { setGlobalRedirect } from "../Brewery/actions";
 
 function* fetchFinishedGoodByIdGenerator(action) {
     try {
@@ -51,9 +52,7 @@ function* udpateFinishedGoodGenerator(action) {
 function* deleteFinishedGoodGenerator(action) {
     try {
         yield call(api.deleteFinishedGood, get(action, "payload.id"));
-        if (action.payload.success) {
-            action.payload.success();
-        }
+        yield put(setGlobalRedirect({ pathname: "/finished-goods" }));
         yield put(snackSuccess("Deleted finished good."));
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));

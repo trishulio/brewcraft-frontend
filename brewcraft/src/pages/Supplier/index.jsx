@@ -138,10 +138,7 @@ export default function Supplier() {
     function onDelete() {
         if (supplier.id) {
             dispatch(deleteSupplier({
-                id: supplier.id,
-                success: () => {
-                    history.push("/suppliers");
-                }
+                id: supplier.id
             }));
         }
     }

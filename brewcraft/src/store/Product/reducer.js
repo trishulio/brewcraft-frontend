@@ -31,7 +31,7 @@ const initialState = {
   invalidType: false,
   invalidStyle: false,
   invalidDescription: false,
-  redirect: false,
+  redirect: "",
   loading: true,
   error: null
 };
@@ -51,21 +51,18 @@ const Product = (state = initialState, { type, payload }) => {
           ...state.data,
           ...payload.data
         },
-        redirect: state.redirect,
         loading: false,
         error: null,
       };
     case RESET_PRODUCT_DETAILS:
       return {
         ...initialState,
-        redirect: state.redirect,
         loading: false,
         error: null
       };
     default:
       return {
         ...state,
-        redirect: false,
         loading: true,
         error: null,
       };

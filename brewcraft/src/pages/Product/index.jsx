@@ -73,7 +73,6 @@ export default function Product() {
             ));
         }
         setChanged(isChanged());
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [product]);
 
@@ -140,7 +139,6 @@ export default function Product() {
             <DeleteGuard
                 when={showDeletePrompt}
                 confirm={() => {
-                    debugger;
                     dispatch(deleteProduct(product.id));
                 }}
                 close={() => {

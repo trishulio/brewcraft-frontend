@@ -6,7 +6,7 @@ import {
     fetchIngredientById,
     saveIngredient,
     editIngredient,
-    deleteMaterial,
+    deleteIngredient,
     fetchAllMaterialCategories,
     resetIngredientDetails
 } from "../../store/actions";
@@ -120,7 +120,7 @@ export default function Ingredient() {
 
     function onDelete() {
         if (ingredient.id) {
-            dispatch(deleteMaterial(id));
+            dispatch(deleteIngredient(id));
         }
     }
 

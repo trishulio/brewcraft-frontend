@@ -14,6 +14,7 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
+import { setGlobalRedirect } from "../Brewery/actions";
 
 function formatAddress(data) {
     data.addressId = data.address?.id || "";
@@ -75,9 +76,7 @@ function* editSupplierGenerator(action) {
 function* deleteSupplierGenerator(action) {
     try {
         yield call(api.deleteSupplier, get(action, "payload.id"));
-        if (action.payload.success) {
-            yield call(action.payload.success);
-        }
+        yield put(setGlobalRedirect({ pathname: "/suppliers" }));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: DELETE_SUPPLIER_FAILURE });

@@ -15,6 +15,7 @@ import {
 } from "./actionTypes";
 import { api } from "./api";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
+import { setGlobalRedirect } from "../Brewery/actions";
 
 function* fetchMaterialCategoryByIdGenerator(action) {
     try {
@@ -64,9 +65,7 @@ function* fetchMaterialCategoryByIdGenerator(action) {
   function* deleteMaterialCategoryGenerator(action) {
     try {
       yield call(api.deleteMaterialCategory, get(action, "payload.id"));
-      if (action.payload.success) {
-        yield call(action.payload.success);
-      }
+      yield put(setGlobalRedirect({ pathname: "/materials/categories" }));
       yield put(snackSuccess());
     } catch (e) {
       yield put({ type: DELETE_MATERIAL_CATEGORY_FAILURE });

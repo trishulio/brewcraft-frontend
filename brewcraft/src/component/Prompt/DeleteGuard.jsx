@@ -35,6 +35,7 @@ export const DeleteGuard = ({
             confirm();
             updateConfirmedNavigation(false);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [confirmedNavigation]);
 
   return (

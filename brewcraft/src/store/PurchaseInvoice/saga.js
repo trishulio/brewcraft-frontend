@@ -9,6 +9,7 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
+import { setGlobalRedirect } from "../Brewery/actions";
 
 function formatResponse(res) {
     res.data = {
@@ -63,9 +64,7 @@ function* udpatePurchaseInvoiceGenerator(action) {
 function* deletePurchaseInvoiceGenerator(action) {
     try {
         yield call(api.deletePurchaseInvoice, get(action, "payload.id"));
-        if (action.payload.success) {
-            yield call(action.payload.success);
-        }
+        yield put(setGlobalRedirect({ pathname: "/purchases/invoices" }));
         yield put(snackSuccess("Deleted purchase invoice."));
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));

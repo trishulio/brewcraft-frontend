@@ -5,6 +5,7 @@ import {
     EDIT_INGREDIENT_REQUEST,
     DELETE_INGREDIENT_REQUEST,
     RESET_INGREDIENT_DETAILS,
+    SET_INGREDIENT_INVALID_NAME,
     SET_INGREDIENT_INVALID_CATEGORY
 } from "./actionTypes";
 
@@ -36,6 +37,11 @@ export const editIngredient = payload => ({
 export const deleteIngredient = payload => ({
     type: DELETE_INGREDIENT_REQUEST,
     payload: payload,
+});
+
+export const setIngredientInvalidName = value => ({
+    type: SET_INGREDIENT_INVALID_NAME,
+    payload: value
 });
 
 export const setIngredientInvalidCategory = value => ({

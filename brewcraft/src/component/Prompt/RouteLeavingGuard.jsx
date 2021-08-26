@@ -34,6 +34,7 @@ export const RouteLeavingGuard = ({
     }
     return true;
   };
+
   const handleConfirmNavigationClick = () => {
     closeModal(() => {
       if (lastLocation) {
@@ -47,6 +48,7 @@ export const RouteLeavingGuard = ({
       navigate(lastLocation.pathname);
       updateConfirmedNavigation(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [confirmedNavigation]);
 
   return (
