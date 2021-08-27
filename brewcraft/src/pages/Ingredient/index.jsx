@@ -14,10 +14,14 @@ import {
     useQuery
 } from "../../helpers/utils";
 import IngredientInner from "./ingredient";
+import DeleteGuard from "../../component/Prompt/DeleteGuard";
+import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 
 export default function Ingredient() {
     const [editable, setEditable] = useState(false);
     const [changed, setChanged] = useState(false);
+    const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+    const [showRouterPrompt, setShowRouterPrompt] = useState(false);
 
     const { id } = useParams();
     const history = useHistory();
@@ -48,9 +52,10 @@ export default function Ingredient() {
             dispatch(fetchAllMaterialCategories());
         }
         setEditable(editMode && editMode !== "false");
+        setShowRouterPrompt(!!editMode);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id, editMode, ingredient]);
+    }, [id, editMode]);
 
     useEffect(() => {
         if (ingredient.id) {
@@ -119,12 +124,31 @@ export default function Ingredient() {
     }
 
     function onDelete() {
-        if (ingredient.id) {
-            dispatch(deleteIngredient(id));
-        }
+        setShowDeletePrompt(!!ingredient.id);
     }
 
     return (
-        <IngredientInner {...{editable, changed, onSave, onDelete}} />
+        <React.Fragment>
+            <DeleteGuard
+                when={showDeletePrompt}
+                confirm={() => {
+                    dispatch(deleteIngredient(ingredient.id));
+                    setShowRouterPrompt(false);
+                }}
+                close={() => {
+                    setShowDeletePrompt(false);
+                }}
+                content="This cannot be undone. Are you sure want to delete this ingredient?"
+            />
+            <RouteLeavingGuard
+                when={showRouterPrompt}
+                navigate={path => {
+                    history.push(path);
+                }}
+                shouldBlockNavigation={() => editMode && isChanged()}
+                content="There are unsaved changes. Are you sure want to leave this page?"
+            />
+            <IngredientInner {...{editable, changed, onSave, onDelete}} />
+        </React.Fragment>
     );
 }

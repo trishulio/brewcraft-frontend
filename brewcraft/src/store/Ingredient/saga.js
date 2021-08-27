@@ -15,6 +15,7 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
+import { setGlobalRedirect } from "../Brewery/actions";
 
 function* fetchIngredientByIdGenerator(action) {
     try {
@@ -63,9 +64,7 @@ function* deleteIngredientGenerator(action) {
     try {
         yield call(api.deleteIngredient, get(action, "payload.id"));
         yield put({ type: DELETE_INGREDIENT_SUCCESS , payload : get(action, "payload") });
-        if (action.payload.success) {
-            yield call(action.payload.success);
-        }
+        yield put(setGlobalRedirect({ pathname: "/materials/ingredients" }));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: DELETE_INGREDIENT_FAILURE });

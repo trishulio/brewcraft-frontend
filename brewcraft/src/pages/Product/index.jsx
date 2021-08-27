@@ -52,10 +52,10 @@ export default function Product() {
             }
             if (editMode && editMode !== "false") {
                 dispatch(fetchAllProductCategories());
-                setEditable(true);
-            } else {
-                setEditable(false);
+
             }
+            setEditable(!!editMode);
+            setShowRouterPrompt(!!editMode);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, editMode]);
@@ -130,16 +130,13 @@ export default function Product() {
         setShowDeletePrompt(!!product.id);
     }
 
-    function onLeave() {
-        setShowRouterPrompt(!!editMode && changed);
-    }
-
     return (
         <React.Fragment>
             <DeleteGuard
                 when={showDeletePrompt}
                 confirm={() => {
                     dispatch(deleteProduct(product.id));
+                    setShowRouterPrompt(false);
                 }}
                 close={() => {
                     setShowDeletePrompt(false);
@@ -154,7 +151,7 @@ export default function Product() {
                 shouldBlockNavigation={() => editMode && isChanged()}
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
-            <ProductInner {...{product, editable, changed, onSave, onDelete, onLeave}} />
+            <ProductInner {...{product, editable, changed, onSave, onDelete}} />
         </React.Fragment>
     );
 }

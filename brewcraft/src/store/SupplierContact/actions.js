@@ -32,9 +32,9 @@ export const editSupplierContact = (payload) => ({
     payload: payload,
 });
 
-export const deleteSupplierContact = (payload) => ({
+export const deleteSupplierContact = id => ({
     type: DELETE_SUPPLIER_CONTACT_REQUEST,
-    payload: payload,
+    payload: { id },
 });
 
 export const saveSupplierContact = payload => ({

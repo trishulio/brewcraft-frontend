@@ -5,30 +5,31 @@ import Batch from "../pages/Batch";
 import Batches from "../pages/Batches";
 import FinishedGood from "../pages/FinishedGood";
 import FinishedGoods from "../pages/FinishedGoods";
+import Ingredient from "../pages/Ingredient";
+import Ingredients from "../pages/Ingredients";
+import MaterialCategory from "../pages/MaterialCategory";
+import MaterialCategories from "../pages/MaterialCategories";
+import PackagingItem from "../pages/PackagingItem";
+import Packaging from "../pages/Packaging";
 import Products from "../pages/Products";
 import Product from "../pages/Product";
 import ProductCategories from "../pages/ProductCategories";
 import ProductCategory from "../pages/ProductCategory";
+import PurchaseInvoice from "../pages/PurchaseInvoice";
+import PurchaseInvoices from "../pages/PurchaseInvoices";
 import RawMaterials from "../pages/RawMaterials";
+import Reports from "../pages/Reports/k50b";
 import SalesCustomer from "../pages/Customers/Customers";
 import SalesCustomers from "../pages/Customers/Customers";
 import SalesReceipts from "../pages/CustomerInvoices/invoices";
 import SalesReceipt from "../pages/CustomerInvoices/view-invoice";
 import Sku from "../pages/Sku";
-import Ingredient from "../pages/Ingredient";
-import Ingredients from "../pages/Ingredients";
-import MaterialCategory from "../pages/MaterialCategory";
-import PackagingItem from "../pages/PackagingItem";
-import Packaging from "../pages/Packaging";
-import MaterialCategories from "../pages/MaterialCategories";
 import Supplier from "../pages/Supplier";
 import Suppliers from "../pages/Suppliers";
 import SupplierContact from "../pages/SupplierContact";
 import SupplierContacts from "../pages/SupplierContacts";
-import PurchaseInvoice from "../pages/PurchaseInvoice";
-import PurchaseInvoices from "../pages/PurchaseInvoices";
+import Users from "../pages/Users";
 import notFound from "../pages/pages-404";
-import Reports from "../pages/Reports/k50b";
 
 const publicRoutes = [
   { path: "/404", component: notFound }
@@ -90,6 +91,9 @@ const authProtectedRoutes = [
 
   // Reports
   { path: "/reports", component: Reports },
+
+  // Users
+  { path: "/users", component: Users },
 
   // Default
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }

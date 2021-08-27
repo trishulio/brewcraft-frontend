@@ -35,6 +35,7 @@ import SupplierContact from './SupplierContact/reducer';
 import SupplierContacts from './SupplierContacts/reducer';
 import Snackbar from "./Snackbar/reducer";
 import Storages from "./Storages/reducer";
+import Users from "./Users/reducer";
 
 const rootReducer = combineReducers({
   Batch,
@@ -65,7 +66,8 @@ const rootReducer = combineReducers({
   Supplier,
   Suppliers,
   SupplierContact,
-  SupplierContacts
+  SupplierContacts,
+  Users
 });
 
 export default rootReducer;

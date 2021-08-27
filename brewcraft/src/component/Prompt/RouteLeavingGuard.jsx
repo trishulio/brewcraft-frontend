@@ -4,52 +4,52 @@ import { Button } from "reactstrap";
 import { Modal } from "../Common/modal";
 
 export const RouteLeavingGuard = ({
-  navigate,
-  when,
-  shouldBlockNavigation,
-  content
+    navigate,
+    when,
+    shouldBlockNavigation,
+    content
 }) => {
-  const [modalVisible, updateModalVisible] = useState(false);
-  const [lastLocation, updateLastLocation] = useState();
-  const [confirmedNavigation, updateConfirmedNavigation] = useState(false);
+    const [modalVisible, updateModalVisible] = useState(false);
+    const [lastLocation, updateLastLocation] = useState();
+    const [confirmedNavigation, updateConfirmedNavigation] = useState(false);
 
-  const showModal = location => {
-    updateModalVisible(true);
-    updateLastLocation(location);
-  };
+    const showModal = location => {
+        updateModalVisible(true);
+        updateLastLocation(location);
+    };
 
-  const closeModal = cb => {
-    updateModalVisible(false);
-    if (cb) {
-      try {
-        cb();
-      } catch {}
-    }
-  };
+    const closeModal = cb => {
+        updateModalVisible(false);
+        if (cb) {
+            try {
+                cb();
+            } catch {}
+        }
+    };
 
-  const handleBlockedNavigation = nextLocation => {
-    if (!confirmedNavigation && shouldBlockNavigation(nextLocation)) {
-      showModal(nextLocation);
-      return false;
-    }
-    return true;
-  };
+    const handleBlockedNavigation = nextLocation => {
+        if (!confirmedNavigation && shouldBlockNavigation(nextLocation)) {
+            showModal(nextLocation);
+            return false;
+        }
+        return true;
+    };
 
-  const handleConfirmNavigationClick = () => {
-    closeModal(() => {
-      if (lastLocation) {
-        updateConfirmedNavigation(true);
-      }
-    });
-  };
+    const handleConfirmNavigationClick = () => {
+        closeModal(() => {
+            if (lastLocation) {
+                updateConfirmedNavigation(true);
+            }
+        });
+    };
 
-  useEffect(() => {
-    if (confirmedNavigation) {
-      navigate(lastLocation.pathname);
-      updateConfirmedNavigation(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [confirmedNavigation]);
+    useEffect(() => {
+        if (confirmedNavigation) {
+            navigate(lastLocation.pathname);
+            updateConfirmedNavigation(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [confirmedNavigation]);
 
   return (
     <>

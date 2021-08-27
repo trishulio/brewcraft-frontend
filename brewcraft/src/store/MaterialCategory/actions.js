@@ -28,9 +28,9 @@ export const editMaterialCategory = (payload) => ({
     payload: payload,
 });
 
-export const deleteMaterialCategory = (payload) => ({
+export const deleteMaterialCategory = id => ({
     type: DELETE_MATERIAL_CATEGORY_REQUEST,
-    payload: payload,
+    payload: { id },
 });
 
 export const saveMaterialCategory = payload => ({

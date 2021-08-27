@@ -14,10 +14,14 @@ import {
     useQuery
 } from "../../helpers/utils";
 import PackagingItemInner from "./packaging-item";
+import DeleteGuard from "../../component/Prompt/DeleteGuard";
+import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 
 export default function PackagingItem() {
     const [editable, setEditable] = useState(false);
     const [changed, setChanged] = useState(false);
+    const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+    const [showRouterPrompt, setShowRouterPrompt] = useState(false);
 
     const { id } = useParams();
     const history = useHistory();
@@ -48,6 +52,7 @@ export default function PackagingItem() {
             dispatch(fetchAllMaterialCategories());
         }
         setEditable(editMode && editMode !== "false");
+        setShowRouterPrompt(!!editMode);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, editMode]);
@@ -119,12 +124,31 @@ export default function PackagingItem() {
     }
 
     function onDelete() {
-        if (packagingItem.id) {
-            dispatch(deletePackagingItem(id));
-        }
+        setShowDeletePrompt(!!packagingItem.id)
     }
 
     return (
-        <PackagingItemInner {...{editable, changed, onSave, onDelete}} />
+        <React.Fragment>
+            <DeleteGuard
+                when={showDeletePrompt}
+                confirm={() => {
+                    dispatch(deletePackagingItem(packagingItem.id));
+                    setShowRouterPrompt(false);
+                }}
+                close={() => {
+                    setShowDeletePrompt(false);
+                }}
+                content="This cannot be undone. Are you sure want to delete this item?"
+            />
+            <RouteLeavingGuard
+                when={showRouterPrompt}
+                navigate={path => {
+                    history.push(path);
+                }}
+                shouldBlockNavigation={() => editMode && isChanged()}
+                content="There are unsaved changes. Are you sure want to leave this page?"
+            />
+            <PackagingItemInner {...{editable, changed, onSave, onDelete}} />
+        </React.Fragment>
     );
 }

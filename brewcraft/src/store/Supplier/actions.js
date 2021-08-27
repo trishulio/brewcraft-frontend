@@ -32,9 +32,9 @@ export const editSupplier = payload => ({
     payload: payload,
 });
 
-export const deleteSupplier = payload => ({
+export const deleteSupplier = id => ({
     type: DELETE_SUPPLIER_REQUEST,
-    payload: payload,
+    payload: { id },
 });
 
 export const setInvalidSupplierName = value => ({

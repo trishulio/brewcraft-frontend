@@ -13,10 +13,14 @@ import {
     useQuery
 } from "../../helpers/utils";
 import SupplierInner from "./supplier";
+import DeleteGuard from "../../component/Prompt/DeleteGuard";
+import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 
 export default function Supplier() {
     const [editable, setEditable] = useState(false);
     const [changed, setChanged] = useState(false);
+    const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+    const [showRouterPrompt, setShowRouterPrompt] = useState(false);
 
     const { id } = useParams();
     const history = useHistory();
@@ -52,6 +56,7 @@ export default function Supplier() {
             dispatch(fetchSupplierById({ id } ));
         }
         setEditable(editMode && editMode !== "false");
+        setShowRouterPrompt(!!editMode);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, editMode]);
@@ -136,14 +141,31 @@ export default function Supplier() {
     }
 
     function onDelete() {
-        if (supplier.id) {
-            dispatch(deleteSupplier({
-                id: supplier.id
-            }));
-        }
+        setShowDeletePrompt(!!supplier.id);
     }
 
     return (
-        <SupplierInner {...{editable, changed, onSave, onDelete}} />
+        <React.Fragment>
+            <DeleteGuard
+                    when={showDeletePrompt}
+                    confirm={() => {
+                        dispatch(deleteSupplier(supplier.id));
+                        setShowRouterPrompt(false);
+                    }}
+                    close={() => {
+                        setShowDeletePrompt(false);
+                    }}
+                    content="This cannot be undone. Are you sure want to delete this supplier?"
+                />
+                <RouteLeavingGuard
+                    when={showRouterPrompt}
+                    navigate={path => {
+                        history.push(path);
+                    }}
+                    shouldBlockNavigation={() => editMode && isChanged()}
+                    content="There are unsaved changes. Are you sure want to leave this page?"
+                />
+            <SupplierInner {...{editable, changed, onSave, onDelete}} />
+        </React.Fragment>
     );
 }

@@ -73,6 +73,8 @@ export default function SupplierContactsTable() {
                         Supplier
                     </Th>
                     <th>Position</th>
+                    <th>Phone Num.</th>
+                    <th>Email</th>
                 </tr>
             </thead>
             <tbody>
@@ -81,8 +83,10 @@ export default function SupplierContactsTable() {
                         <tr key={key}>
                             <td><Link to={"/suppliers/contacts/" + supplier.id}>{supplier.firstName}</Link></td>
                             <td><Link to={"/suppliers/contacts/" + supplier.id}>{supplier.lastName}</Link></td>
-                            <td>{supplier.supplier?.name || "-"}</td>
+                            <td>{supplier.supplier?.name}</td>
                             <td>{supplier.position}</td>
+                            <td>{supplier.phoneNumber}</td>
+                            <td><a href={`mailto:${supplier.email}`}>{supplier.email}</a></td>
                         </tr>
                     )
                 }

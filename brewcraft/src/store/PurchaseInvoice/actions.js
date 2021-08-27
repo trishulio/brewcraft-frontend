@@ -46,10 +46,10 @@ export const updatePurchaseInvoice = ({id, form, success}) => ({
     }
 });
 
-export const deletePurchaseInvoice = ({id, success}) => ({
+export const deletePurchaseInvoice = id => ({
     type: DELETE_PURCHASE_INVOICE,
     payload: {
-        id, success
+        id
     }
 });
 

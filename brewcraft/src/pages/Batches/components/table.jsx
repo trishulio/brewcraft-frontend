@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import Table, { Th } from "../../../component/Common/table";
-import { formatDate } from "../../../helpers/textUtils";
+import { formatDatetime } from "../../../helpers/textUtils";
 import { useQuery } from "../../../helpers/utils";
 
 export default function BatchesTable() {
@@ -110,9 +110,9 @@ export default function BatchesTable() {
                             <td><Link to={"/batches/" + batch.id}>{batch.batchId}</Link></td>
                             <td><Link to={"/batches/" + batch.id}>{batch.name}</Link></td>
                             <td><Link to={"/products/" + batch.product.id}>{batch.product.name}</Link></td>
-                            <td>{formatDate(batch.startedAt)}</td>
-                            <td>{formatDate(batch.endedAt)}</td>
-                            <td>{batch.parentBatch?.batchId || "-"}</td>
+                            <td>{formatDatetime(batch.startedAt)}</td>
+                            <td>{formatDatetime(batch.endedAt)}</td>
+                            <td>{batch.parentBatch?.batchId}</td>
                         </tr>
                     )
                 }

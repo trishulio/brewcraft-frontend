@@ -14,10 +14,14 @@ import {
     useQuery
 } from "../../helpers/utils";
 import ProductCategoryInner from "./category";
+import DeleteGuard from "../../component/Prompt/DeleteGuard";
+import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 
 export default function ProductCategory() {
     const [editable, setEditable] = useState(false);
     const [changed, setChanged] = useState(false);
+    const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+    const [showRouterPrompt, setShowRouterPrompt] = useState(false);
 
     const { id } = useParams();
     const query = useQuery();
@@ -48,6 +52,7 @@ export default function ProductCategory() {
             dispatch(fetchAllProductCategories());
         }
         setEditable(editMode && editMode !== "false");
+        setShowRouterPrompt(!!editMode);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, editMode]);
@@ -125,14 +130,31 @@ export default function ProductCategory() {
     }
 
     function onDelete() {
-        if (category.id) {
-            dispatch(deleteProductCategory({
-                id: category.id
-            }));
-        }
+        setShowDeletePrompt(!!category.id);
     }
 
     return (
-        <ProductCategoryInner {...{category, editable, changed, onChange, onSave, onEdit, onDelete}} />
+        <React.Fragment>
+            <DeleteGuard
+                when={showDeletePrompt}
+                confirm={() => {
+                    dispatch(deleteProductCategory(category.id));
+                    setShowRouterPrompt(false);
+                }}
+                close={() => {
+                    setShowDeletePrompt(false);
+                }}
+                content="This cannot be undone. Are you sure want to delete this category?"
+            />
+            <RouteLeavingGuard
+                when={showRouterPrompt}
+                navigate={path => {
+                    history.push(path);
+                }}
+                shouldBlockNavigation={() => editMode && isChanged()}
+                content="There are unsaved changes. Are you sure want to leave this page?"
+            />
+            <ProductCategoryInner {...{category, editable, changed, onChange, onSave, onEdit, onDelete}} />
+        </React.Fragment>
     );
 }

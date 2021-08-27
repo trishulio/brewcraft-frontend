@@ -1,3 +1,8 @@
+import { call, put, takeEvery } from "redux-saga/effects";
+import { api } from "./api";
+import { get } from "lodash";
+import { setGlobalRedirect } from "../Brewery/actions";
+import { snackFailure, snackSuccess } from "../Snackbar/actions";
 import {
     FETCH_BATCH_BY_ID_REQUEST,
     SET_BATCH_DETAILS,
@@ -7,14 +12,8 @@ import {
     EDIT_BATCH_REQUEST,
     DELETE_BATCH_REQUEST,
     EDIT_BATCH_SUCCESS,
-    DELETE_BATCH_SUCCESS,
-    EDIT_BATCH_FAILURE,
-    DELETE_BATCH_FAILURE
+    EDIT_BATCH_FAILURE
 } from "./actionTypes";
-import { call, put, takeEvery } from "redux-saga/effects";
-import { api } from "./api";
-import { get } from "lodash";
-import { snackFailure, snackSuccess } from "../Snackbar/actions";
 
 function* fetchBatchByIdGenerator(action) {
     try {
@@ -62,13 +61,9 @@ function* editBatchGenerator(action) {
 function* deleteBatchGenerator(action) {
     try {
         yield call(api.deleteBatch, get(action, "payload.id"));
-        yield put({ type: DELETE_BATCH_SUCCESS , payload : get(action, "payload") });
-        if (action.payload.success) {
-            yield call(action.payload.success);
-        }
+        yield put(setGlobalRedirect({ pathname: "/batches" }));
         yield put(snackSuccess());
     } catch (e) {
-        yield put({ type: DELETE_BATCH_FAILURE });
         yield put(snackFailure());
     }
 }

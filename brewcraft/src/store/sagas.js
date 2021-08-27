@@ -7,6 +7,9 @@ import Ingredient from "./Ingredient/saga";
 import Ingredients from "./Ingredients/saga";
 import LayoutSaga from "./layout/saga";
 import Invoice from "./Invoice/saga";
+import Materials from "./Materials/saga";
+import MaterialCategories from "./MaterialCategories/saga";
+import MaterialCategory from "./MaterialCategory/saga";
 import Packaging from "./Packaging/saga";
 import PackagingItem from "./PackagingItem/saga";
 import PurchaseInvoice from "./PurchaseInvoice/saga";
@@ -19,10 +22,8 @@ import Supplier from "./Supplier/saga";
 import Suppliers from "./Suppliers/saga";
 import SupplierContact from "./SupplierContact/saga";
 import SupplierContacts from "./SupplierContacts/saga";
-import Materials from "./Materials/saga";
-import MaterialCategories from "./MaterialCategories/saga";
-import MaterialCategory from "./MaterialCategory/saga";
 import RawMaterials from "./RawMaterials/saga";
+import Users from "./Users/saga";
 
 export default function* rootSaga() {
     yield all([
@@ -49,6 +50,7 @@ export default function* rootSaga() {
         Supplier(),
         Suppliers(),
         SupplierContact(),
-        SupplierContacts()
+        SupplierContacts(),
+        Users()
     ])
 }

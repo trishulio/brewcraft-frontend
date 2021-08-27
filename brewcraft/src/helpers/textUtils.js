@@ -1,5 +1,7 @@
-import React from 'react';
-import NumberFormat from 'react-number-format';
+import React from "react";
+import NumberFormat from "react-number-format";
+
+const MS_PER_WEEK = 1000 * 60 * 60 * 24 * 7;
 
 export function formatAddress(address) {
     let fAddress = ""
@@ -37,7 +39,27 @@ export function formatCurrency(value, decimalScale=2) {
 
 export function formatDate(date) {
     const d = new Date(date);
-    return d.toDateString().replace(/^\S+\s/,'');
+    return d.toDateString().replace(/^\S+\s/,"");
+}
+
+function isLastWeek(date) {
+    const now = new Date();
+    return now - date <= MS_PER_WEEK;
+}
+
+export function formatDatetime(date) {
+    const d = new Date(date);
+    const options = {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute:"2-digit"
+    };
+    if (isLastWeek(d)) {
+        options.weekday = "long";
+    };
+    return d.toLocaleString([], options);
 }
 
 export function formatPercent(value) {

@@ -14,10 +14,14 @@ import {
     useQuery
 } from "../../helpers/utils";
 import MaterialCategoryInner from "./material-category";
+import DeleteGuard from "../../component/Prompt/DeleteGuard";
+import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 
 export default function MaterialCategory() {
     const [editable, setEditable] = useState(false);
     const [changed, setChanged] = useState(false);
+    const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+    const [showRouterPrompt, setShowRouterPrompt] = useState(false);
 
     const { id } = useParams();
     const history = useHistory();
@@ -45,6 +49,7 @@ export default function MaterialCategory() {
             dispatch(fetchMaterialCategoryById({ id }));
         }
         setEditable(editMode && editMode !== "false");
+        setShowRouterPrompt(!!editMode);
         dispatch(fetchAllMaterialCategories());
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -111,14 +116,31 @@ export default function MaterialCategory() {
     }
 
     function onDelete() {
-        if (materialCategory.id) {
-            dispatch(deleteMaterialCategory({
-                id: materialCategory.id
-            }));
-        }
+        setShowDeletePrompt(!!materialCategory.id);
     }
 
     return (
-        <MaterialCategoryInner {...{editable, changed, onSave, onDelete}} />
+        <React.Fragment>
+            <DeleteGuard
+                when={showDeletePrompt}
+                confirm={() => {
+                    dispatch(deleteMaterialCategory(materialCategory.id));
+                    setShowRouterPrompt(false);
+                }}
+                close={() => {
+                    setShowDeletePrompt(false);
+                }}
+                content="This cannot be undone. Are you sure want to delete this ingredient?"
+            />
+            <RouteLeavingGuard
+                when={showRouterPrompt}
+                navigate={path => {
+                    history.push(path);
+                }}
+                shouldBlockNavigation={() => editMode && isChanged()}
+                content="There are unsaved changes. Are you sure want to leave this page?"
+            />
+            <MaterialCategoryInner {...{editable, changed, onSave, onDelete}} />
+        </React.Fragment>
     );
 }

@@ -47,9 +47,9 @@ export const updateProductCategory = ({data, parentCategoryId, success}) => ({
     }
 });
 
-export const deleteProductCategory = ({ id, success }) => ({
+export const deleteProductCategory = id => ({
     type: DELETE_PRODUCT_CATEGORY,
-    payload: { id, success }
+    payload: { id }
 });
 
 export const setProductCategoryInvalidName = enabled => ({

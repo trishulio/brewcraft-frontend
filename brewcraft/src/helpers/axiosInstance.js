@@ -1,35 +1,47 @@
 
 import Axios from "axios";
-import { getLoggedInUser } from "./authUtils"
+import { authenticateUser, getLoggedInUser } from "./authUtils"
 
 const AxiosInstance = Axios.create({
-  // timeout: 5000,
-  mode: 'no-cors',
-  crossDomain: true
+    // timeout: 5000,
+    mode: 'no-cors',
+    crossDomain: true
 });
 
-AxiosInstance.interceptors.request.use(async function (config) {
+AxiosInstance.interceptors.request.use(function (config) {
 
-  const user = getLoggedInUser();
+    const user = getLoggedInUser();
 
-  if (user) {
+    if (user) {
 
-    config.headers.common['Authorization'] = `Bearer ${user.accessToken.jwtToken}`;
+        config.headers.common['Authorization'] = `Bearer ${user.accessToken.jwtToken}`;
 
-  } else {
+    } else {
 
-    debugger;
+        debugger;
+    }
 
-  }
-
-  return config;
+    return config;
 
 }, function (error) {
 
-  debugger;
+    debugger;
 
-  return Promise.reject(error);
+    return Promise.reject(error);
+});
 
+AxiosInstance.interceptors.response.use(function(response) {
+
+    return response;
+
+}, function(error) {
+
+    if (error.response.status === 401) {
+
+        authenticateUser();
+    }
+
+    return Promise.reject(error);
 });
 
 export default AxiosInstance;

@@ -14,10 +14,14 @@ import {
     useQuery
 } from "../../helpers/utils";
 import SupplierContactInner from "./contact";
+import DeleteGuard from "../../component/Prompt/DeleteGuard";
+import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 
 export default function SupplierContact() {
     const [editable, setEditable] = useState(false);
     const [changed, setChanged] = useState(false);
+    const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+    const [showRouterPrompt, setShowRouterPrompt] = useState(false);
 
     const { id } = useParams();
     const history = useHistory();
@@ -55,6 +59,7 @@ export default function SupplierContact() {
             dispatch(fetchAllSuppliers());
         }
         setEditable(editMode && editMode !== "false");
+        setShowRouterPrompt(!!editMode);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, editMode]);
@@ -131,14 +136,30 @@ export default function SupplierContact() {
     }
 
     function onDelete() {
-        if (contact.id) {
-            dispatch(deleteSupplierContact({
-                id: contact.id
-            }));
-        }
+        setShowDeletePrompt(!!contact.id);
     }
-
     return (
-        <SupplierContactInner {...{editable, changed, onSave, onDelete}} />
+        <React.Fragment>
+            <DeleteGuard
+                when={showDeletePrompt}
+                confirm={() => {
+                    dispatch(deleteSupplierContact(contact.id));
+                    setShowRouterPrompt(false);
+                }}
+                close={() => {
+                    setShowDeletePrompt(false);
+                }}
+                content="This cannot be undone. Are you sure want to delete this contact?"
+            />
+            <RouteLeavingGuard
+                when={showRouterPrompt}
+                navigate={path => {
+                    history.push(path);
+                }}
+                shouldBlockNavigation={() => editMode && isChanged()}
+                content="There are unsaved changes. Are you sure want to leave this page?"
+            />
+            <SupplierContactInner {...{editable, changed, onSave, onDelete}} />
+        </React.Fragment>
     );
 }

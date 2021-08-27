@@ -38,9 +38,9 @@ export const editBatch = payload => ({
     payload: payload,
 });
 
-export const deleteBatch = payload => ({
+export const deleteBatch = id => ({
     type: DELETE_BATCH_REQUEST,
-    payload: payload,
+    payload: { id },
 });
 
 export const setBatchInvalidName = value => ({

@@ -22,7 +22,7 @@ import {
     setBatchInvalidDescription,
     setBatchInvalidBatchId
 } from "../../../store/actions";
-import { formatDate } from "../../../helpers/textUtils";
+import { formatDatetime } from "../../../helpers/textUtils";
 
 export default function BatchMetadata({ editable }) {
 
@@ -277,7 +277,7 @@ export default function BatchMetadata({ editable }) {
                             <FormFeedback>Enter a valid start date.</FormFeedback>
                         </FormGroup>
                         <div hidden={editable}>
-                            {batch.startedAt ? formatDate(batch.startedAt) : "-"}
+                            {batch.startedAt ? formatDatetime(batch.startedAt) : "-"}
                         </div>
                     </Col>
                 </Row>
@@ -307,7 +307,7 @@ export default function BatchMetadata({ editable }) {
                             <FormFeedback>Enter a valid end date.</FormFeedback>
                         </FormGroup>
                         <div hidden={editable}>
-                            {batch.startedAt ? formatDate(batch.startedAt) : "-"}
+                            {batch.startedAt ? formatDatetime(batch.startedAt) : "-"}
                         </div>
                     </Col>
                 </Row>
