@@ -3,14 +3,17 @@ import { useDispatch } from "react-redux";
 import {
     Button
 } from "reactstrap";
-import { AvField } from "availity-reactstrap-validation";
-import { Modal } from "../Common/modal";
+import { AvForm, AvField } from "availity-reactstrap-validation";
+import {
+    Modal,
+    ModalBody,
+    ModalFooter
+} from "../Common/modal";
 import {
     fetchAllProductCategories,
     createProductCategory,
     setProductDetails
 } from "../../store/actions"
-
 
 export default function ProductCategoriesModal({ show, setShow, type, parentCategoryId }) {
     const dispatch = useDispatch();
@@ -75,17 +78,21 @@ export default function ProductCategoriesModal({ show, setShow, type, parentCate
             onValidSubmit={onFormSubmit}
             close={close}
             title={formatTitle(type)}
-            footer={(
-                <Button color="primary" type="submit">Save</Button>
-            )}
         >
-            <AvField
-                name="name"
-                type="text"
-                label="Category Title"
-                errorMessage={`Enter a valid title.`}
-                validate={{ required: { value: true } }}
-            />
+            <ModalBody>
+                <AvForm onValidSubmit={onFormSubmit}>
+                    <AvField
+                        name="name"
+                        type="text"
+                        label="Category Title"
+                        errorMessage={`Enter a valid title.`}
+                        validate={{ required: { value: true } }}
+                    />
+                </AvForm>
+            </ModalBody>
+            <ModalFooter>
+                <Button color="primary" type="submit">Save</Button>
+            </ModalFooter>
         </Modal>
     );
 };

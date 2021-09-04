@@ -4,9 +4,6 @@ import { map } from "lodash";
 import {
     Row,
     Col,
-    Card,
-    CardBody,
-    CardHeader,
     Input,
     Label,
     FormGroup,
@@ -23,6 +20,11 @@ import {
     setBatchInvalidBatchId
 } from "../../../store/actions";
 import { formatDatetime } from "../../../helpers/textUtils";
+import {
+    Card,
+    CardBody,
+    CardHeader
+} from "../../../component/Common/Card";
 
 export default function BatchMetadata({ editable }) {
 

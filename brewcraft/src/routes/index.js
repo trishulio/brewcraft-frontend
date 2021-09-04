@@ -29,74 +29,74 @@ import Suppliers from "../pages/Suppliers";
 import SupplierContact from "../pages/SupplierContact";
 import SupplierContacts from "../pages/SupplierContacts";
 import Users from "../pages/Users";
-import notFound from "../pages/pages-404";
+import NotFound from "../pages/pages-404";
 
 const publicRoutes = [
-  { path: "/404", component: notFound }
+    { path: "/404", component: NotFound }
 ];
 
 const authProtectedRoutes = [
-  // Dashboard
-  { path: "/dashboard", component: Dashboard },
+    // Dashboard
+    { path: "/dashboard", component: Dashboard },
 
-  // Batches
-  { path: "/batches/:id", component: Batch },
-  { path: "/batches", component: Batches },
+    // Batches
+    { path: "/batches/:id", component: Batch },
+    { path: "/batches", component: Batches },
 
-  // Inventory
-  { path: "/inventory/raw-materials", component: RawMaterials },
+    // Inventory
+    { path: "/inventory/raw-materials", component: RawMaterials },
 
-  // Finished Goods
-  { path: "/finished-goods/:id", component: FinishedGood },
-  { path: "/finished-goods", component: FinishedGoods },
+    // Finished Goods
+    { path: "/finished-goods/:id", component: FinishedGood },
+    { path: "/finished-goods", component: FinishedGoods },
 
-  // Product Categories
-  { path: "/products/categories/:id", component: ProductCategory },
-  { path: "/products/categories", component: ProductCategories },
+    // Product Categories
+    { path: "/products/categories/:id", component: ProductCategory },
+    { path: "/products/categories", component: ProductCategories },
 
-  // Products
-  { path: "/products/:id", component: Product },
-  { path: "/sku", component: Sku },
-  { path: "/products", component: Products },
+    // Products
+    { path: "/products/:id", component: Product },
+    { path: "/sku", component: Sku },
+    { path: "/products", component: Products },
 
-  // Ingredients
-  { path: "/materials/ingredients/:id", component: Ingredient },
-  { path: "/materials/ingredients", component: Ingredients },
+    // Ingredients
+    { path: "/materials/ingredients/:id", component: Ingredient },
+    { path: "/materials/ingredients", component: Ingredients },
 
-  // Packaging
-  { path: "/materials/packaging/:id", component: PackagingItem },
-  { path: "/materials/packaging", component: Packaging },
+    // Packaging
+    { path: "/materials/packaging/:id", component: PackagingItem },
+    { path: "/materials/packaging", component: Packaging },
 
-  // Material Categories
-  { path: "/materials/categories/:id", component: MaterialCategory },
-  { path: "/materials/categories", component: MaterialCategories },
+    // Material Categories
+    { path: "/materials/categories/:id", component: MaterialCategory },
+    { path: "/materials/categories", component: MaterialCategories },
 
-  // Purchase Invoices
-  { path: "/purchases/invoices/:id", component: PurchaseInvoice },
-  { path: "/purchases/invoices", component: PurchaseInvoices },
+    // Purchase Invoices
+    { path: "/purchases/invoices/:id", component: PurchaseInvoice },
+    { path: "/purchases/invoices", component: PurchaseInvoices },
 
-  // Suppliers
-  { path: "/suppliers/contacts/:id", component: SupplierContact },
-  { path: "/suppliers/contacts", component: SupplierContacts },
-  { path: "/suppliers/:id", component: Supplier },
-  { path: "/suppliers", component: Suppliers },
+    // Suppliers
+    { path: "/suppliers/contacts/:id", component: SupplierContact },
+    { path: "/suppliers/contacts", component: SupplierContacts },
+    { path: "/suppliers/:id", component: Supplier },
+    { path: "/suppliers", component: Suppliers },
 
-  // Sales Receipts
-  { path: "/sales/receipts/:id", component: SalesReceipt },
-  { path: "/sales/receipts", component: SalesReceipts },
+    // Sales Receipts
+    { path: "/sales/receipts/:id", component: SalesReceipt },
+    { path: "/sales/receipts", component: SalesReceipts },
 
-  // Customers
-  { path: "/sales/customers/:id", component: SalesCustomer },
-  { path: "/sales/customers", component: SalesCustomers },
+    // Customers
+    { path: "/sales/customers/:id", component: SalesCustomer },
+    { path: "/sales/customers", component: SalesCustomers },
 
-  // Reports
-  { path: "/reports", component: Reports },
+    // Reports
+    { path: "/reports", component: Reports },
 
-  // Users
-  { path: "/users", component: Users },
+    // Users
+    { path: "/users", component: Users },
 
-  // Default
-  { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
+    // Default
+    { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
 ];
 
 export { authProtectedRoutes, publicRoutes };

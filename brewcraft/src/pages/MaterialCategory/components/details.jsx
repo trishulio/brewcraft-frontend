@@ -4,8 +4,6 @@ import { map } from "lodash";
 import {
     Row,
     Col,
-    Card,
-    CardBody,
     FormGroup,
     FormFeedback,
     Input,
@@ -16,6 +14,11 @@ import {
     setInvalidMaterialCategoryName,
     setInvalidMaterialCategoryParentCategory
 } from "../../../store/actions";
+import {
+    Card,
+    CardBody,
+    CardHeader
+} from "../../../component/Common/Card";
 
 export default function MaterialCategoryDetails({ editable }) {
 
@@ -64,8 +67,8 @@ export default function MaterialCategoryDetails({ editable }) {
     return (
         <React.Fragment>
             <Card>
+                <CardHeader>Material Category Details</CardHeader>
                 <CardBody>
-                    <h4 className="card-title mb-4">Material Category Details</h4>
                     <Row>
                         <Col xs="2">
                             <Label className="mb-3">

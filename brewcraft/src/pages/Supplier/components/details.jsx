@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     Row,
     Col,
-    Card,
-    CardBody,
     FormGroup,
     FormFeedback,
     Input,
@@ -19,6 +17,11 @@ import {
     setInvalidSupplierPostalCode,
     setInvalidSupplierCountry
 } from "../../../store/actions";
+import {
+    Card,
+    CardBody,
+    CardHeader
+} from "../../../component/Common/Card";
 
 export default function SupplierDetails({ editable }) {
 
@@ -114,8 +117,9 @@ export default function SupplierDetails({ editable }) {
     return (
         <React.Fragment>
             <Card>
+                <CardHeader>Supplier Details</CardHeader>
                 <CardBody>
-                    <h4 className="card-title mb-4">Supplier Details</h4>
+                    <h4 className="card-title mb-4"></h4>
                     <Row>
                         <Col xs="2">
                             <Label className="mb-3">

@@ -1,4 +1,5 @@
 
+import React from "react";
 import Axios from "axios";
 import { authenticateUser, getLoggedInUser } from "./authUtils"
 
@@ -18,30 +19,40 @@ AxiosInstance.interceptors.request.use(function (config) {
 
     } else {
 
-        debugger;
+        authenticateUser();
     }
 
     return config;
 
 }, function (error) {
 
-    debugger;
-
     return Promise.reject(error);
+
 });
 
-AxiosInstance.interceptors.response.use(function(response) {
+export function setInterceptorHistory(history) {
 
-    return response;
+    AxiosInstance.interceptors.response.use(function(response) {
 
-}, function(error) {
+        return response;
 
-    if (error.response.status === 401) {
+    }, function(error) {
 
-        authenticateUser();
-    }
+        if (error.response.status === 401) {
 
-    return Promise.reject(error);
-});
+            authenticateUser();
+
+        } else if (error.response.status === 404) {
+
+            history.replace("/404");
+
+        } else if  (error.response.status === 500) {
+
+            history.replace("/404");
+        }
+
+        return Promise.reject(error);
+    });
+}
 
 export default AxiosInstance;

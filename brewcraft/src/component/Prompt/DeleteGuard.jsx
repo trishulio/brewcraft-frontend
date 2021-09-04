@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
-import { Modal } from "../Common/modal";
+import {
+    Modal,
+    ModalBody,
+    ModalFooter
+} from "../Common/modal";
 
 export const DeleteGuard = ({
     when,
@@ -38,24 +42,24 @@ export const DeleteGuard = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [confirmedNavigation]);
 
-  return (
-    <>
-      <Modal
-        show={modalVisible}
-        onValidSubmit={handleConfirmNavigationClick}
-        close={closeModal}
-        title={"Hi"}
-        footer={(
-            <React.Fragment>
-                <Button color="secondary" onClick={handleConfirmNavigationClick}>Confirm</Button>
-                <Button color="primary" onClick={closeModal}>Cancel</Button>
-            </React.Fragment>
-          )}
-      >
-        <p className="main_text">{content}</p>
-      </Modal>
-    </>
-  );
+    return (
+        <>
+            <Modal
+                show={modalVisible}
+                onValidSubmit={handleConfirmNavigationClick}
+                close={closeModal}
+                title={"Hi"}
+            >
+                <ModalBody>
+                    <p className="main_text">{content}</p>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="secondary" onClick={handleConfirmNavigationClick}>Confirm</Button>
+                    <Button color="primary" onClick={closeModal}>Cancel</Button>
+                </ModalFooter>
+            </Modal>
+        </>
+    );
 };
 
 export default DeleteGuard;

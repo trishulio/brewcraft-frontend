@@ -4,7 +4,9 @@ async function fetchPurchaseInvoices(params = {}) {
     const data = {
         params: {
             page: params.pageIndex || 0,
-            size: params.pageSize || 500
+            size: params.pageSize || 500,
+            sort: params.sort || "generatedOn",
+            order_asc: !params.order || params.order === "asc"
         }
     };
     if (params.supplierId) {

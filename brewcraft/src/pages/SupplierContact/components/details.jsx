@@ -4,8 +4,6 @@ import { map } from "lodash";
 import {
     Row,
     Col,
-    Card,
-    CardBody,
     FormGroup,
     FormFeedback,
     Input,
@@ -20,6 +18,11 @@ import {
     setInvalidSupplierContactPhoneNumber,
     setInvalidSupplierContactCompany
 } from "../../../store/actions";
+import {
+    Card,
+    CardBody,
+    CardHeader
+} from "../../../component/Common/Card";
 
 export default function SupplierContactDetails({ editable }) {
     const {
@@ -119,8 +122,8 @@ export default function SupplierContactDetails({ editable }) {
     return (
         <React.Fragment>
             <Card>
+                <CardHeader>Contact Details</CardHeader>
                 <CardBody>
-                    <h4 className="card-title mb-4">Contact Details</h4>
                     <Row>
                         <Col xs="2">
                             <Label className="mb-3">
@@ -216,7 +219,7 @@ export default function SupplierContactDetails({ editable }) {
                                     style={{ width: "8rem" }}
                                     disabled={!editable}
                                     invalid={invalidCompany}
-                                    value={contact.company.id}
+                                    value={contact.company.id || ""}
                                     onChange={e => {
                                         onFormInputChange(e);
                                     }}
@@ -284,7 +287,7 @@ export default function SupplierContactDetails({ editable }) {
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    size="sm"
+                                    bsSize="sm"
                                     value={contact.email}
                                     placeholder="Enter"
                                     name="contactEmail"
@@ -315,7 +318,7 @@ export default function SupplierContactDetails({ editable }) {
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    size="sm"
+                                    bsSize="sm"
                                     value={contact.phoneNumber}
                                     placeholder="Enter"
                                     name="contactPhoneNumber"

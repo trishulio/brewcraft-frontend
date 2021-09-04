@@ -9,9 +9,9 @@ import {
     SET_INGREDIENT_INVALID_CATEGORY
 } from "./actionTypes";
 
-export const fetchIngredientById = (payload) => ({
+export const fetchIngredientById = id => ({
     type: FETCH_INGREDIENT_BY_ID_REQUEST,
-    payload: payload,
+    payload: { id },
   });
 
 export const setIngredientDetails = payload => ({

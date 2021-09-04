@@ -1,17 +1,19 @@
 import React from "react";
 import {
-  Card,
-  CardBody,
   Button
 } from "reactstrap";
+import {
+    Card,
+    CardBody,
+    CardHeader
+} from "../../../component/Common/Card";
 import fantasticLager from "../../../assets/images/products/fantastic-lager.jpg";
-
 
 export default function ProductImage({ editable }) {
     return (
         <Card>
-        <CardBody>
-                <h4 className="card-title mb-4">Product Image</h4>
+            <CardHeader>Product Image</CardHeader>
+            <CardBody>
                 <img style={{ width: "100%" }} src={fantasticLager} alt="material" className="border d-block mr-2 mb-2 p-1" />
                 <span className="d-block mb-2">fantastic-lager.jpg</span>
                 <Button

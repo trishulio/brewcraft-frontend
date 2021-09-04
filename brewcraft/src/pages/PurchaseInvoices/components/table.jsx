@@ -1,26 +1,120 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import Table from "../../../component/Common/table";
+import { Link, useHistory } from "react-router-dom";
+import Table, { Th } from "../../../component/Common/table";
 import { formatCurrency, formatDate } from "../../../helpers/textUtils";
+import { useQuery } from "../../../helpers/utils";
 
 export default function PurchaseInvoicesTable() {
+    const history = useHistory();
+    const query = useQuery();
 
     const invoices = useSelector(state => {
         return state.PurchaseInvoices.content;
     });
+
+    function onSort(e) {
+        const name = e.target.getAttribute("name");
+        const sort = query.get("sort");
+        let order = query.get("order");
+        query.delete("sort");
+        query.delete("order");
+        switch(name) {
+            case "purchaseInvoiceNumber":
+                if (sort !== "invoiceNumber") {
+                    order = undefined;
+                }
+                query.append("sort", "invoiceNumber");
+                break;
+            case "purchaseInvoiceSupplier":
+                if (sort !== "purchaseOrder.supplier.name") {
+                    order = undefined;
+                }
+                query.append("sort", "purchaseOrder.supplier.name");
+                break;
+            case "purchaseInvoiceDate":
+                if (sort !== "generatedOn") {
+                    order = undefined;
+                }
+                query.append("sort", "generatedOn");
+                break;
+            case "purchaseInvoicePaymentDue":
+                if (sort !== "paymentDueDate") {
+                    order = undefined;
+                }
+                query.append("sort", "paymentDueDate");
+                break;
+            case "purchaseInvoiceAmount":
+                if (sort !== "amount.amount") {
+                    order = undefined;
+                }
+                query.append("sort", "amount.amount");
+                break;
+
+            case "purchaseInvoiceStatus":
+                if (sort !== "status") {
+                    order = undefined;
+                }
+                query.append("sort", "status");
+                break;
+            default:
+                break;
+        }
+        if (!order || order !== "asc") {
+            query.append("order", "asc");
+        } else {
+            query.append("order", "desc");
+        }
+        history.push({search: query.toString()});
+    }
 
     return (
         <React.Fragment>
             <Table>
                 <thead>
                     <tr>
-                        <th>Number</th>
-                        <th>Supplier</th>
-                        <th>Date</th>
-                        <th>Payment Due</th>
-                        <th>Amount</th>
-                        <th>Status</th>
+                        <Th
+                            name="purchaseInvoiceNumber"
+                            id="invoiceNumber"
+                            onSort={onSort}
+                        >
+                            Number
+                        </Th>
+                        <Th
+                            name="purchaseInvoiceSupplier"
+                            id="supplier"
+                            onSort={onSort}
+                        >
+                            Supplier
+                        </Th>
+                        <Th
+                            name="purchaseInvoiceDate"
+                            id="invoiceDate"
+                            onSort={onSort}
+                        >
+                            Date
+                        </Th>
+                        <Th
+                            name="purchaseInvoicePaymentDue"
+                            id="paymentDue"
+                            onSort={onSort}
+                        >
+                            Payment Due
+                        </Th>
+                        <Th
+                            name="purchaseInvoiceAmount"
+                            id="amount"
+                            onSort={onSort}
+                        >
+                            Amount
+                        </Th>
+                        <Th
+                            name="purchaseInvoiceStatus"
+                            id="status"
+                            onSort={onSort}
+                        >
+                            Status
+                        </Th>
                     </tr>
                 </thead>
                 <tbody>

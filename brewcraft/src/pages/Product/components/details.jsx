@@ -4,8 +4,6 @@ import { filter, map } from "lodash";
 import {
     Row,
     Col,
-    Card,
-    CardBody,
     FormGroup,
     FormFeedback,
     Input,
@@ -16,6 +14,11 @@ import {
     setProductInvalidName,
     setProductInvalidClass
 } from "../../../store/actions";
+import {
+    Card,
+    CardBody,
+    CardHeader
+} from "../../../component/Common/Card";
 import CategoriesModal from "../../../component/ProductCategories/modal";
 
 const ADD_NEW = "ADD_NEW";
@@ -88,8 +91,8 @@ export default function ProductDetails({ product, editable }) {
     return (
         <React.Fragment>
             <Card>
+                <CardHeader>Product Details</CardHeader>
                 <CardBody>
-                    <h4 className="card-title mb-4">Product Details</h4>
                     <Row>
                         <Col xs="2">
                             <Label

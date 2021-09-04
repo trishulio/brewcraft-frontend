@@ -1,11 +1,13 @@
 import React from "react";
 import {
-    Card,
-    CardBody,
-    CardHeader,
     Col,
     Row
 } from "reactstrap";
+import {
+    Card,
+    CardBody,
+    CardHeader
+} from "../../../component/Common/Card";
 import Details from "./details";
 import Items from "./items";
 

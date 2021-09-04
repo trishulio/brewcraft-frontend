@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Prompt } from "react-router-dom";
 import { Button } from "reactstrap";
-import { Modal } from "../Common/modal";
+import {
+    Modal,
+    ModalBody,
+    ModalFooter
+} from "../Common/modal";
 
 export const RouteLeavingGuard = ({
     navigate,
@@ -59,14 +63,14 @@ export const RouteLeavingGuard = ({
         onValidSubmit={handleConfirmNavigationClick}
         close={closeModal}
         title={"Hi"}
-        footer={(
-            <React.Fragment>
-                <Button color="secondary" onClick={handleConfirmNavigationClick}>Confirm</Button>
-                <Button color="primary" onClick={closeModal}>Cancel</Button>
-            </React.Fragment>
-          )}
       >
-        <p className="main_text">{content}</p>
+        <ModalBody>
+            <p className="main_text">{content}</p>
+        </ModalBody>
+        <ModalFooter>
+            <Button color="secondary" onClick={handleConfirmNavigationClick}>Confirm</Button>
+            <Button color="primary" onClick={closeModal}>Cancel</Button>
+        </ModalFooter>
       </Modal>
     </>
   );

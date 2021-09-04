@@ -104,8 +104,8 @@ export default function Batch() {
                         name: batch.name,
                         description: batch.description,
                         batchId: batch.batchId,
-                        productId: batch.product.id,
-                        parentBrewId: batch.parentBrewId,
+                        productId: parseInt(batch.product.id),
+                        parentBrewId: batch.parentBrewId || null,
                         startedAt: batch.startedAt,
                         endedAt: batch.endedAt,
                         version: batch.version
@@ -122,8 +122,8 @@ export default function Batch() {
                         name: batch.name,
                         description: batch.description,
                         batchId: batch.batchId,
-                        productId: batch.product.id,
-                        parentBrewId: batch.parentBrewId,
+                        productId: parseInt(batch.product.id),
+                        parentBrewId: batch.parentBrewId || null,
                         startedAt: batch.startedAt,
                         endedAt: batch.endedAt
                     },

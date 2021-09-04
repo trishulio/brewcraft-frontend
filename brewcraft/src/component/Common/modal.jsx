@@ -1,29 +1,33 @@
 import React from "react";
-import { Modal as ModalReactStrap, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { AvForm } from "availity-reactstrap-validation";
+import * as ReactStrap from "reactstrap";
 
-export const Modal = ({ show, close, title, children, size, footer, onValidSubmit }) => {
-  return (
-    <ModalReactStrap
-      isOpen={show}
-      toggle={() => close && close(false)}
-      autoFocus={true}
-      size={size}
-    >
-      <ModalHeader toggle={() => close && close(false)}>{title}</ModalHeader>
-      {onValidSubmit ?
-        // wrap in form when pass submit handler
-        <AvForm onValidSubmit={onValidSubmit}>
-          <ModalBody>{children}</ModalBody>
-          <ModalFooter>{footer}</ModalFooter>
+export const ModalBody = props => {
+    return (
+        <ReactStrap.ModalBody>{props.children}</ReactStrap.ModalBody>
+    );
+}
 
-        </AvForm>
-        :
-        <React.Fragment>
-          <ModalBody>{children}</ModalBody>
-          <ModalFooter>{footer}</ModalFooter>
-        </React.Fragment>
-      }
-    </ModalReactStrap>
-  );
+export const ModalFooter = props => {
+    return (
+        <ReactStrap.ModalFooter>{props.children}</ReactStrap.ModalFooter>
+    );
+}
+
+export const Modal = ({ show, close, title, size, children }) => {
+
+    function onToggle() {
+        close && close(false);
+    }
+
+    return (
+        <ReactStrap.Modal
+            isOpen={show}
+            toggle={onToggle}
+            autoFocus={true}
+            size={size}
+            >
+            <ReactStrap.ModalHeader toggle={onToggle}>{title}</ReactStrap.ModalHeader>
+            {children}
+        </ReactStrap.Modal>
+    );
 };

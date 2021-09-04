@@ -42,18 +42,20 @@ export default function Ingredient() {
     });
 
     useEffect(() => {
-        if (id === "new") {
-            dispatch(resetIngredientDetails());
-            history.replace("/materials/ingredients/new?edit=true");
+        if (id === "new" && !editMode) {
+            history.replace("/products/new?edit=true");
         } else {
-            dispatch(fetchIngredientById({ id }));
+            if (id === "new") {
+                dispatch(resetIngredientDetails());
+            } else {
+                dispatch(fetchIngredientById(id));
+            }
+            if (editMode) {
+                dispatch(fetchAllMaterialCategories());
+            }
+            setEditable(!!editMode);
+            setShowRouterPrompt(!!editMode);
         }
-        if (editMode) {
-            dispatch(fetchAllMaterialCategories());
-        }
-        setEditable(editMode && editMode !== "false");
-        setShowRouterPrompt(!!editMode);
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, editMode]);
 
