@@ -25,8 +25,9 @@ import {
     CardBody,
     CardHeader
 } from "../../../component/Common/Card";
+import Toolbar from "./toolbar";
 
-export default function BatchMetadata({ editable }) {
+export default function BatchMetadata(props) {
 
     const dispatch = useDispatch();
 
@@ -40,6 +41,14 @@ export default function BatchMetadata({ editable }) {
 
     const products = useSelector(state => {
         return state.Products.all;
+    });
+
+    const statuses = useSelector(state => {
+        return state.BatchStatus.content;
+    });
+
+    const tasks = useSelector(state => {
+        return state.BatchTask.content;
     });
 
     function onFormInputChange(e) {
@@ -128,8 +137,10 @@ export default function BatchMetadata({ editable }) {
 
     return (
         <Card>
+            {console.log(statuses)}
+            {console.log(tasks)}
             <CardHeader>
-                <h4 className="card-title font-size-12 align-middle">Batch Details</h4>
+                Batch Details
             </CardHeader>
             <CardBody>
                 <Row>
@@ -143,23 +154,23 @@ export default function BatchMetadata({ editable }) {
                     </Col>
                     <Col xs="8">
                         <FormGroup
-                            hidden={!editable}
+                            hidden={!props.editable}
                         >
                             <Input
                                 type="text"
                                 className="waves-effect"
-                                bsSize="sm"
+                                // bsSize="sm"
                                 value={batch.name}
                                 placeholder="Enter"
                                 name="batchName"
-                                disabled={!editable}
+                                disabled={!props.editable}
                                 onChange={onFormInputChange}
                                 invalid={invalidName}
                                 style={{ width: "16rem" }}
                             />
                             <FormFeedback>Enter a valid batch name.</FormFeedback>
                         </FormGroup>
-                        <div hidden={editable}>
+                        <div hidden={props.editable}>
                             {batch.name ? batch.name : "-"}
                         </div>
                     </Col>
@@ -175,23 +186,23 @@ export default function BatchMetadata({ editable }) {
                     </Col>
                     <Col xs="8">
                         <FormGroup
-                            hidden={!editable}
+                            hidden={!props.editable}
                         >
                             <Input
                                 type="text"
                                 className="waves-effect"
-                                bsSize="sm"
+                                // bsSize="sm"
                                 value={batch.batchId}
                                 placeholder="Enter"
                                 name="batchBatchId"
-                                disabled={!editable}
+                                disabled={!props.editable}
                                 onChange={onFormInputChange}
                                 invalid={invalidBatchId}
                                 style={{ width: "16rem" }}
                             />
                             <FormFeedback>Enter a valid batch id.</FormFeedback>
                         </FormGroup>
-                        <div hidden={editable}>
+                        <div hidden={props.editable}>
                             {batch.batchId ? batch.batchId : "-"}
                         </div>
                     </Col>
@@ -222,15 +233,15 @@ export default function BatchMetadata({ editable }) {
                     </Col>
                     <Col xs="8">
                         <FormGroup
-                            hidden={!editable}
+                            hidden={!props.editable}
                         >
                             <Input
                                 type="select"
                                 className="waves-effect"
-                                bsSize="sm"
+                                // bsSize="sm"
                                 name="batchProduct"
-                                style={{ width: "8rem" }}
-                                disabled={!editable}
+                                style={{ width: "16rem" }}
+                                disabled={!props.editable}
                                 invalid={invalidProduct}
                                 value={batch.product?.id || ""}
                                 onChange={e => {
@@ -248,7 +259,7 @@ export default function BatchMetadata({ editable }) {
                             </Input>
                             <FormFeedback>Enter a valid batch product.</FormFeedback>
                         </FormGroup>
-                        <div hidden={editable}>
+                        <div hidden={props.editable}>
                             {batch.product ? batch.product.name : "-"}
                         </div>
                     </Col>
@@ -264,21 +275,21 @@ export default function BatchMetadata({ editable }) {
                     </Col>
                     <Col xs="8">
                         <FormGroup
-                            hidden={!editable}
+                            hidden={!props.editable}
                         >
                             <Input
                                 type="datetime-local"
                                 name="batchStartDateTime"
                                 className="waves-effect"
-                                bsSize="sm"
+                                // bsSize="sm"
                                 style={{maxWidth: "16rem"}}
                                 value={batch.startedAt}
                                 onChange={onFormInputChange}
-                                hidden={!editable}
+                                hidden={!props.editable}
                             />
                             <FormFeedback>Enter a valid start date.</FormFeedback>
                         </FormGroup>
-                        <div hidden={editable}>
+                        <div hidden={props.editable}>
                             {batch.startedAt ? formatDatetime(batch.startedAt) : "-"}
                         </div>
                     </Col>
@@ -294,21 +305,21 @@ export default function BatchMetadata({ editable }) {
                     </Col>
                     <Col xs="8">
                         <FormGroup
-                            hidden={!editable}
+                            hidden={!props.editable}
                         >
                             <Input
                                 type="datetime-local"
                                 name="batchEndDateTime"
                                 className="waves-effect"
-                                bsSize="sm"
+                                // bsSize="sm"
                                 style={{maxWidth: "16rem"}}
                                 value={batch.endedAt}
                                 onChange={onFormInputChange}
-                                hidden={!editable}
+                                hidden={!props.editable}
                             />
                             <FormFeedback>Enter a valid end date.</FormFeedback>
                         </FormGroup>
-                        <div hidden={editable}>
+                        <div hidden={props.editable}>
                             {batch.startedAt ? formatDatetime(batch.startedAt) : "-"}
                         </div>
                     </Col>
@@ -324,16 +335,18 @@ export default function BatchMetadata({ editable }) {
                     <Col xs="10">
                         <Input
                             type="textarea"
-                            className="waves-effect mb-2"
+                            className="waves-effect mb-4"
                             value={batch.description}
                             rows={8}
                             name="batchDescription"
-                            disabled={!editable}
+                            style={{ maxWidth: "40rem" }}
+                            disabled={!props.editable}
                             onChange={onFormInputChange}
                             autoComplete="false"
                         />
                     </Col>
                 </Row>
+                <Toolbar {...props} className="mb-3"/>
             </CardBody>
         </Card>
     )

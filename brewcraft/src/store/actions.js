@@ -1,5 +1,7 @@
 export * from "./Batch/actions";
 export * from "./Batches/actions";
+export * from "./BatchStatus/actions";
+export * from "./BatchTask/actions";
 export * from "./Breadcrumb/actions";
 export * from "./Brewery/actions";
 export * from "./FinishedGood/actions";

@@ -46,9 +46,6 @@ export function setInterceptorHistory(history) {
 
             history.replace("/404");
 
-        } else if  (error.response.status === 500) {
-
-            history.replace("/404");
         }
 
         return Promise.reject(error);

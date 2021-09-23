@@ -19,18 +19,20 @@ const initialState = {
         id: "",
         name: "",
         description: "",
-        category: null,
+        category: "",
         baseQuantityUnit: null,
         upc: "",
+        imageSrc: "",
         version: null
     },
     initial: {
         id: "",
         name: "",
         description: "",
-        category: null,
+        category: "",
         baseQuantityUnit: null,
         upc: "",
+        imageSrc: "",
         version: null
     },
     invalidName: false,

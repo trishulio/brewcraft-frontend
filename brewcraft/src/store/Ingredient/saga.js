@@ -35,9 +35,7 @@ function* addIngredientGenerator(action) {
         const res = yield call(api.addIngredient, get(action, "payload.form"));
         res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: ADD_INGREDIENT_SUCCESS, payload: { data: res.data, initial: res.data }});
-        if (action.payload.success) {
-            yield call(action.payload.success, res.data);
-        }
+        yield put(setGlobalRedirect({ pathname: "/materials/ingredients/" + res.data.id }));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: ADD_INGREDIENT_FAILURE });
@@ -50,9 +48,7 @@ function* editIngredientGenerator(action) {
         const res = yield call(api.updateIngredient, get(action, "payload.id"), get(action, "payload.form"));
         res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: EDIT_INGREDIENT_SUCCESS, payload: { data: res.data, initial: res.data }});
-        if (action.payload.success) {
-            yield call(action.payload.success, res.data);
-        }
+        yield put(setGlobalRedirect({ pathname: "/materials/ingredients/" + res.data.id }));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: EDIT_INGREDIENT_FAILURE });

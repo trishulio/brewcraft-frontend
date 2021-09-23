@@ -1,11 +1,10 @@
 import React from "react";
 import * as ReactStrap from "reactstrap";
 
-export const CardHeader = props => {
+export const CardHeader = ({children}) => {
     return (
-        <ReactStrap.CardHeader>
-            <h4 className="card-title font-size-12 align-middle mb-2">{props.children}</h4>
-        </ReactStrap.CardHeader>
+        <ReactStrap.CardHeader
+            className="font-size-14 mb-2">{children}</ReactStrap.CardHeader>
     );
 };
 

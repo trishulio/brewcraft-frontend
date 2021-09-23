@@ -110,14 +110,10 @@ export default function SupplierContact() {
                         email: contact.email,
                         phoneNumber: contact.phoneNumber,
                         version: contact.version
-                    },
-                    success: contact => {
-                        history.push("/suppliers/contacts/" + contact.id);
                     }
                 })
             );
         } else {
-            debugger;
             dispatch(
                 saveSupplierContact({
                     supplierId: contact.company.id,
@@ -127,9 +123,6 @@ export default function SupplierContact() {
                         position: contact.position,
                         email: contact.email,
                         phoneNumber: contact.phoneNumber
-                    },
-                    success: contact => {
-                        history.push("/suppliers/contacts/" + contact.id);
                     }
                 })
             );

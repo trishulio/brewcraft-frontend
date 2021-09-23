@@ -162,7 +162,7 @@ export default function PackagingItemDetails({ editable }) {
                                     style={{ width: "8rem" }}
                                     disabled={!editable}
                                     invalid={invalidCategory}
-                                    value={packagingItem.category?.id || ""}
+                                    value={packagingItem.category.id || ""}
                                     onChange={e => {
                                         onFormInputChange(e);
                                     }}

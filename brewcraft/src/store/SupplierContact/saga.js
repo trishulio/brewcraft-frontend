@@ -38,13 +38,10 @@ function* fetchSupplierContactByIdGenerator(action) {
 
 function* addSupplierContactGenerator(action) {
     try {
-        debugger;
         const res = yield call(api.addSupplierContact, get(action, "payload.supplierId"), get(action, "payload.form"));
         formatResponse(res);
         yield put({ type: ADD_SUPPLIER_CONTACT_SUCCESS, payload: { data: res.data, initial: res.data }});
-        if (action.payload.success) {
-            yield call(action.payload.success, res.data);
-        }
+        yield put(setGlobalRedirect({ pathname: "/suppliers/contacts/" + res.data.id }));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: ADD_SUPPLIER_CONTACT_FAILURE });
@@ -57,9 +54,7 @@ function* editSupplierContactGenerator(action) {
         let res = yield call(api.updateSupplierContact, get(action, "payload.id"), get(action, "payload.supplierId"), get(action, "payload.form"));
         formatResponse(res);
         yield put({ type: EDIT_SUPPLIER_CONTACT_SUCCESS, payload: { data: res.data, initial: res.data }});
-        if (action.payload.success) {
-            yield call(action.payload.success, res.data);
-        }
+        yield put(setGlobalRedirect({ pathname: "/suppliers/contacts/" + res.data.id }));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: EDIT_SUPPLIER_CONTACT_FAILURE });

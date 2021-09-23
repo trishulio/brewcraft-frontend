@@ -20,11 +20,8 @@ function* fetchBatchByIdGenerator(action) {
         const res = yield call(api.fetchBatchById,get(action, "payload.id"));
         res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: SET_BATCH_DETAILS, payload: { data: res.data, initial: res.data }});
-        if (action.payload.success) {
-            yield call(action.payload.success, res.data);
-        }
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put(snackFailure(e.message));
     }
 }
 
@@ -33,13 +30,11 @@ function* addBatchGenerator(action) {
         const res = yield call(api.addBatch, get(action, "payload.form"));
         res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: ADD_BATCH_SUCCESS, payload: { data: res.data, initial: res.data }});
-        if (action.payload.success) {
-            yield call(action.payload.success, res.data);
-        }
+        yield put(setGlobalRedirect({ pathname: "/batches/" + res.data.id }));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: ADD_BATCH_FAILURE });
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put(snackFailure(e.message));
     }
 }
 
@@ -48,13 +43,11 @@ function* editBatchGenerator(action) {
         const res = yield call(api.updateBatch, get(action, "payload.id"), get(action, "payload.form"));
         res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: EDIT_BATCH_SUCCESS, payload: { data: res.data, initial: res.data }});
-        if (action.payload.success) {
-            yield call(action.payload.success, res.data);
-        }
+        yield put(setGlobalRedirect({ pathname: "/batches/" + res.data.id }));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: EDIT_BATCH_FAILURE });
-        yield put(snackFailure());
+        yield put(snackFailure(e.message));
     }
 }
 
@@ -64,7 +57,7 @@ function* deleteBatchGenerator(action) {
         yield put(setGlobalRedirect({ pathname: "/batches" }));
         yield put(snackSuccess());
     } catch (e) {
-        yield put(snackFailure());
+        yield put(snackFailure(e.message));
     }
 }
 

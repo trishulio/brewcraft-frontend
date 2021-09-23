@@ -100,10 +100,8 @@ export default function Ingredient() {
                         categoryId: ingredient.category.id,
                         baseQuantityUnit: ingredient.baseQuantityUnit,
                         upc: ingredient.upc,
+                        imageSrc: "https://media.giphy.com/media/13raYVIdU3Zu48/giphy.gif?cid=ecf05e47f0oz1g60305stwichysuopch345osbr07wf33sb0&rid=giphy.gif&ct=g",
                         version: ingredient.version
-                    },
-                    success: ingredient => {
-                        history.push("/materials/ingredients/" + ingredient.id);
                     }
                 })
             );
@@ -115,10 +113,8 @@ export default function Ingredient() {
                         description: ingredient.description,
                         categoryId: ingredient.category.id,
                         baseQuantityUnit: ingredient.baseQuantityUnit,
+                        imageSrc: "https://media.giphy.com/media/13raYVIdU3Zu48/giphy.gif?cid=ecf05e47f0oz1g60305stwichysuopch345osbr07wf33sb0&rid=giphy.gif&ct=g",
                         upc: ingredient.upc
-                    },
-                    success: ingredient => {
-                        history.push("/materials/ingredients/" + ingredient.id);
                     }
                 })
             );

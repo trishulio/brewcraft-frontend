@@ -20,6 +20,7 @@ const initialState = {
         category: null,
         baseQuantityUnit: null,
         upc: "",
+        imageSrc: "",
         version: null
     },
     initial: {
@@ -29,6 +30,7 @@ const initialState = {
         category: null,
         baseQuantityUnit: null,
         upc: "",
+        imageSrc: "",
         version: null
     },
     invalidName: false,

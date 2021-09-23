@@ -17,7 +17,7 @@ export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, o
                 type="button"
                 color="secondary"
                 size="sm"
-                className="waves-effect mr-2 mb-3"
+                className="waves-effect mr-2 mb-1"
                 onClick={onSave}
                 disabled={!changed}
                 hidden={!editable}
@@ -28,7 +28,7 @@ export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, o
                 type="button"
                 color="secondary"
                 size="sm"
-                className="waves-effect mr-2 mb-3"
+                className="waves-effect mr-2 mb-1"
                 onClick={() => {
                     history.goBack();
                 }}
@@ -40,7 +40,7 @@ export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, o
                 type="button"
                 color="secondary"
                 size="sm"
-                className="waves-effect mr-2 mb-3"
+                className="waves-effect mr-2 mb-1"
                 disabled={editable}
                 hidden={!batch.id || editable}
                 onClick={() => {
@@ -54,39 +54,13 @@ export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, o
             </Button>
             <Button
                 type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2 mb-3"
-                hidden={!batch.id || editable}
-                onClick={() => {
-                    history.push("/batches/new");
-                }}
-            >
-                New Batch
-            </Button>
-            <Button
-                type="button"
                 color="danger"
                 size="sm"
-                className="waves-effect mr-2 mb-3"
+                className="waves-effect mr-2 mb-1"
                 onClick={onDelete}
                 hidden={!batch.id || !editable}
             >
                 Delete Batch
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2 mb-3"
-                disabled={editable}
-                hidden={!batch.id || editable}
-                outline={true}
-                onClick={() => {
-                    history.push("/batches");
-                }}
-            >
-                Batches
             </Button>
         </React.Fragment>
     );

@@ -33,19 +33,11 @@ const App = () => {
             const isAuth = await authenticateUser();
             dispatch(setProfileLoggedIn(isAuth));
         })();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
-        if (!loggedIn) {
-            setTimeout(() => {
-                dispatch(togglePreloader(false)); // LOL we fake this!
-            }, 500);
-        } else {
-            dispatch(togglePreloader(true));
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loggedIn]);
+        dispatch(togglePreloader(!loggedIn));
+    }, [loggedIn, dispatch]);
 
     useEffect(() => {
         if (redirect) {
@@ -55,8 +47,7 @@ const App = () => {
             });
             dispatch(setGlobalRedirect(""));
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [redirect]);
+    }, [redirect, dispatch, history]);
 
     function isAuthLayout() {
         return window.location.pathname === "/404" || !loggedIn

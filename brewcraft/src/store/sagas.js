@@ -1,6 +1,8 @@
 import { all } from "redux-saga/effects"
 import Batch from "./Batch/saga";
 import Batches from "./Batches/saga";
+import BatchStatus from "./BatchStatus/saga";
+import BatchTask from "./BatchTask/saga";
 import FinishedGood from "./FinishedGood/saga";
 import FinishedGoods from "./FinishedGoods/saga";
 import Ingredient from "./Ingredient/saga";
@@ -30,6 +32,8 @@ export default function* rootSaga() {
         LayoutSaga(),
         Batch(),
         Batches(),
+        BatchStatus(),
+        BatchTask(),
         FinishedGood(),
         FinishedGoods(),
         Ingredient(),

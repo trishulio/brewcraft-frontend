@@ -98,6 +98,7 @@ export default function PackagingItem() {
                         categoryId: packagingItem.category.id,
                         baseQuantityUnit: packagingItem.baseQuantityUnit,
                         upc: packagingItem.upc,
+                        imageSrc: "https://media.giphy.com/media/13raYVIdU3Zu48/giphy.gif?cid=ecf05e47f0oz1g60305stwichysuopch345osbr07wf33sb0&rid=giphy.gif&ct=g",
                         version: packagingItem.version
                     },
                     success: packagingItem => {
@@ -113,7 +114,8 @@ export default function PackagingItem() {
                         description: packagingItem.description,
                         categoryId: packagingItem.category.id,
                         baseQuantityUnit: packagingItem.baseQuantityUnit,
-                        upc: packagingItem.upc
+                        upc: packagingItem.upc,
+                        imageSrc: "https://media.giphy.com/media/13raYVIdU3Zu48/giphy.gif?cid=ecf05e47f0oz1g60305stwichysuopch345osbr07wf33sb0&rid=giphy.gif&ct=g",
                     },
                     success: packagingItem => {
                         history.push("/materials/packaging/" + packagingItem.id);

@@ -25,7 +25,7 @@ function* fetchPackagingItemByIdGenerator(action) {
             yield call(action.payload.success, res.data);
         }
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put(snackFailure(e.message));
     }
 }
 
@@ -34,13 +34,11 @@ function* addPackagingItemGenerator(action) {
         const res = yield call(api.addPackagingItem, get(action, "payload.form"));
         res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: ADD_PACKAGING_ITEM_SUCCESS, payload: { data: res.data, initial: res.data }});
-        if (action.payload.success) {
-            yield call(action.payload.success, res.data);
-        }
+        yield put(setGlobalRedirect({ pathname: "/materials/packaging/" + res.data.id }));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: ADD_PACKAGING_ITEM_FAILURE });
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put(snackFailure(e.message));
     }
 }
 
@@ -49,13 +47,11 @@ function* editPackagingItemGenerator(action) {
         const res = yield call(api.updatePackagingItem, get(action, "payload.id"), get(action, "payload.form"));
         res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: EDIT_PACKAGING_ITEM_SUCCESS, payload: { data: res.data, initial: res.data }});
-        if (action.payload.success) {
-            yield call(action.payload.success, res.data);
-        }
+        yield put(setGlobalRedirect({ pathname: "/materials/packaging/" + res.data.id }));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: EDIT_PACKAGING_ITEM_FAILURE });
-        yield put(snackFailure());
+        yield put(snackFailure(e.message));
     }
 }
 
@@ -66,7 +62,7 @@ function* deletePackagingItemGenerator(action) {
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: DELETE_PACKAGING_ITEM_FAILURE });
-        yield put(snackFailure());
+        yield put(snackFailure(e.message));
     }
 }
 

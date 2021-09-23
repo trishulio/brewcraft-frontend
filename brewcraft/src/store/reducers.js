@@ -2,6 +2,8 @@
 import { combineReducers } from "redux";
 import Batch from "./Batch/reducer";
 import Batches from "./Batches/reducer";
+import BatchStatus from "./BatchStatus/reducer";
+import BatchTask from "./BatchTask/reducer";
 import Breadcrumb from "./Breadcrumb/reducer";
 import Brewery from "./Brewery/reducer";
 import FinishedGood from "./FinishedGood/reducer";
@@ -40,6 +42,8 @@ import Users from "./Users/reducer";
 const rootReducer = combineReducers({
   Batch,
   Batches,
+  BatchStatus,
+  BatchTask,
   Breadcrumb,
   Brewery,
   FinishedGood,

@@ -17,19 +17,19 @@ function* fetchAllCategoriesGenerator() {
         yield put({ type: FETCH_ALL_BATCHES_SUCCESS, data: { data: res.data }});
     } catch (e) {
         yield put({ type: FETCH_ALL_BATCHES_FAILURE });
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put(snackFailure(e.message));
     }
 }
 
 function* fetchBatchesGenerator(action) {
     try {
-      const res = yield call(api.fetchBatches, get(action, "payload.params"));
-      yield put({ type: FETCH_BATCHES_SUCCESS, data: { data: res.data }});
+        const res = yield call(api.fetchBatches, get(action, "payload.params"));
+        yield put({ type: FETCH_BATCHES_SUCCESS, data: { data: res.data }});
     } catch (e) {
-      yield put({ type: FETCH_BATCHES_FAILURE });
-      yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: FETCH_BATCHES_FAILURE });
+        yield put(snackFailure(e.message));
     }
-  }
+}
 
 function* Batches() {
     yield takeEvery(FETCH_BATCHES_REQUEST, fetchBatchesGenerator);

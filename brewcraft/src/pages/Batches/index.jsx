@@ -32,8 +32,7 @@ export default function Batches() {
                 { title: "Batches", link: "#" }
             ])
         );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         const props = {
@@ -41,8 +40,8 @@ export default function Batches() {
         };
         dispatch(fetchBatches({ ...props }));
         dispatch(fetchAllProducts());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageIndex, pageSize, product, batchFrom, batchTo, sort, order]);
+
+    }, [pageIndex, pageSize, product, batchFrom, batchTo, sort, order, dispatch]);
 
     return (
         <BatchesInner

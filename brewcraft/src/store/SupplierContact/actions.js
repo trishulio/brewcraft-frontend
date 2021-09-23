@@ -27,6 +27,7 @@ export const fetchSupplierContactById = (payload) => ({
     type: FETCH_SUPPLIER_CONTACT_BY_ID_REQUEST,
     payload: payload,
 });
+
 export const editSupplierContact = (payload) => ({
     type: EDIT_SUPPLIER_CONTACT_REQUEST,
     payload: payload,

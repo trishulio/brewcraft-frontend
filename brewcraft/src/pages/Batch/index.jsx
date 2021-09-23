@@ -8,7 +8,9 @@ import {
     saveBatch,
     deleteBatch,
     resetBatchDetails,
-    fetchAllProducts
+    fetchAllProducts,
+    fetchBatchStatuses,
+    fetchBatchTasks
 } from "../../store/actions";
 import {
     useQuery
@@ -25,6 +27,7 @@ import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 export default function Batch() {
     const [editable, setEditable] = useState(false);
     const [changed, setChanged] = useState(false);
+    const [activeTab, setActiveTab] = useState("1");
     const [showDeletePrompt, setShowDeletePrompt] = useState(false);
     const [showRouterPrompt, setShowRouterPrompt] = useState(false);
 
@@ -56,6 +59,8 @@ export default function Batch() {
         if (editMode) {
             dispatch(fetchAllProducts());
         }
+        dispatch(fetchBatchStatuses());
+        dispatch(fetchBatchTasks());
         setEditable(editMode && editMode !== "false");
         setShowRouterPrompt(!!editMode);
 
@@ -109,9 +114,6 @@ export default function Batch() {
                         startedAt: batch.startedAt,
                         endedAt: batch.endedAt,
                         version: batch.version
-                    },
-                    success: batch => {
-                        history.push("/batches/" + batch.id);
                     }
                 })
             );
@@ -126,9 +128,6 @@ export default function Batch() {
                         parentBrewId: batch.parentBrewId || null,
                         startedAt: batch.startedAt,
                         endedAt: batch.endedAt
-                    },
-                    success: batch => {
-                        history.push("/batches/" + batch.id);
                     }
                 })
             );
@@ -137,6 +136,19 @@ export default function Batch() {
 
     function onDelete() {
         setShowDeletePrompt(!!batch.id);
+    }
+
+    function onTabChange(tab) {
+        setActiveTab(tab);
+    }
+
+    const props = {
+        activeTab,
+        editable,
+        changed,
+        onSave,
+        onDelete,
+        onTabChange
     }
 
     return (
@@ -160,7 +172,7 @@ export default function Batch() {
                 shouldBlockNavigation={() => editMode && isChanged()}
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
-            <BatchInner {...{editable, changed, onSave, onDelete}} />
+            <BatchInner {...props} />
         </React.Fragment>
     );
 }
