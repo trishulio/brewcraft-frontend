@@ -1,3 +1,4 @@
+import { DELETE_BATCH_FAILURE } from "../Batch/actionTypes";
 import {
     INVALID_NAME,
     INVALID_DESCRIPTION,
@@ -16,6 +17,7 @@ const initialState = {
         id: "",
         invoiceNumber: "",
         purchaseOrder: {
+            orderNumber: "",
             supplier: ""
         },
         description: "",
@@ -45,6 +47,7 @@ const initialState = {
         id: "",
         invoiceNumber: "",
         purchaseOrder: {
+            orderNumber: "",
             supplier: ""
         },
         description: "",
@@ -53,7 +56,6 @@ const initialState = {
         receivedOn: "",
         paymentDueDate: "",
         statusId: null,
-        selectedSupplier: "",
         items: [{
             description: "",
             quantity: {

@@ -133,10 +133,8 @@ export default function PurchaseInvoice() {
                                 version: item.version
                             }
                         }),
+                        purchaseOrderId: invoice.purchaseOrder.id,
                         version: invoice.version
-                    },
-                    success: invoice => {
-                        history.push("/purchases/invoices/" + invoice.id);
                     }
                 })
             );
@@ -183,9 +181,6 @@ export default function PurchaseInvoice() {
                             orderNumber: invoice.purchaseOrder.orderNumber,
                             supplierId: invoice.purchaseOrder.supplier.id
                         }
-                    },
-                    success: invoice => {
-                        history.push("/purchases/invoices/" + invoice.id);
                     }
                 })
             );

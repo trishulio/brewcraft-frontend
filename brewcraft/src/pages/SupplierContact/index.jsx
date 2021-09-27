@@ -91,7 +91,7 @@ export default function SupplierContact() {
     }
 
     function onSave() {
-        if (invalidFirstName || invalidLastName || invalidPosition || invalidEmail
+        if (invalidFirstName || invalidLastName || invalidEmail
             || invalidPhoneNumber || invalidCompany) {
             return;
         }
@@ -132,6 +132,7 @@ export default function SupplierContact() {
     function onDelete() {
         setShowDeletePrompt(!!contact.id);
     }
+
     return (
         <React.Fragment>
             <DeleteGuard
@@ -150,7 +151,9 @@ export default function SupplierContact() {
                 navigate={path => {
                     history.push(path);
                 }}
-                shouldBlockNavigation={() => editMode && isChanged()}
+                shouldBlockNavigation={() => {
+                    return editMode && isChanged()}
+                }
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
             <SupplierContactInner {...{editable, changed, onSave, onDelete}} />

@@ -22,6 +22,7 @@ export * from "./Profile/actions";
 export * from "./PurchaseInvoice/actions";
 export * from "./PurchaseInvoices/actions";
 export * from "./RawMaterials/actions";
+export * from "./Shipments/actions";
 export * from "./Supplier/actions";
 export * from "./Suppliers/actions";
 export * from "./SupplierContact/actions";

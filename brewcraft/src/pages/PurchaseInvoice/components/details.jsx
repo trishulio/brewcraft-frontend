@@ -208,7 +208,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             name="invoiceDetailsPoSo"
                             className="mb-2 float-left"
                             style={{maxWidth: "16rem"}}
-                            value={invoice.purchaseOrder?.orderNumber || "-"}
+                            value={invoice.purchaseOrder?.orderNumber || ""}
                             onChange={onFormInputChange}
                             hidden={!editable}
                         />
