@@ -1,10 +1,11 @@
 import { combineReducers } from "redux";
-import Batch from "./Batch/reducer";
+import Batch from "./Brew/reducer";
 import Batches from "./Batches/reducer";
 import BatchStatus from "./BatchStatus/reducer";
 import BatchTask from "./BatchTask/reducer";
 import Breadcrumb from "./Breadcrumb/reducer";
 import Brewery from "./Brewery/reducer";
+import BrewStage from "./BrewStage/reducer";
 import FinishedGood from "./FinishedGood/reducer";
 import FinishedGoods from "./FinishedGoods/reducer";
 import Ingredient from "./Ingredient/reducer";
@@ -16,9 +17,12 @@ import ProductCategories from "./ProductCategories/reducer";
 import ProductCategory from "./ProductCategory/reducer";
 import Products from "./Products/reducer";
 import Profile from "./Profile/reducer";
+import MaterialPortion from "./MaterialPortion/reducer";
 import Materials from "./Materials/reducer";
 import MaterialCategories from "./MaterialCategories/reducer";
 import MaterialCategory from "./MaterialCategory/reducer";
+import Mixture from "./Mixture/reducer";
+import MixtureRecording from "./MixtureRecording/reducer";
 import Packaging from "./Packaging/reducer";
 import PackagingItem from "./PackagingItem/reducer";
 import PurchaseInvoice from "./PurchaseInvoice/reducer";
@@ -39,6 +43,7 @@ const rootReducer = combineReducers({
   BatchStatus,
   BatchTask,
   Breadcrumb,
+  BrewStage,
   Brewery,
   FinishedGood,
   FinishedGoods,
@@ -46,9 +51,12 @@ const rootReducer = combineReducers({
   Ingredients,
   Invoice,
   Layout,
+  MaterialPortion,
   Materials,
   MaterialCategories,
   MaterialCategory,
+  Mixture,
+  MixtureRecording,
   Notifications,
   Packaging,
   PackagingItem,

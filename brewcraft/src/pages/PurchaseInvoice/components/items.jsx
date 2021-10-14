@@ -78,10 +78,11 @@ export default function PurchaseInvoiceItems({ editable }) {
                     <Row>
                         <Col xs="3">Item</Col>
                         <Col xs="3">Description</Col>
+                        <Col xs="1">Lot</Col>
                         <Col xs="1">Qty</Col>
                         <Col xs="1">Price</Col>
                         <Col xs="1">Tax</Col>
-                        <Col xs="3">Amount</Col>
+                        <Col xs="2">Amount</Col>
                     </Row>
                 </ListGroupItem>
                 {

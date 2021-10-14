@@ -39,10 +39,10 @@ export const createPurchaseInvoice = payload => ({
     }
 });
 
-export const updatePurchaseInvoice = ({id, form, success}) => ({
+export const updatePurchaseInvoice = ({id, form}) => ({
     type: UPDATE_PURCHASE_INVOICE,
     payload: {
-        id, form, success
+        id, form
     }
 });
 
@@ -67,9 +67,8 @@ export const setPurchaseInvoiceInvalidDescription = enabled => ({
     }
 });
 
-export const resetPurchaseInvoiceDetails = success => ({
-    type: RESET_PURCHASE_INVOICE_DETAILS,
-    payload: success
+export const resetPurchaseInvoiceDetails = () => ({
+    type: RESET_PURCHASE_INVOICE_DETAILS
 });
 
 export const setPurchaseInvoiceSupplier = supplier => ({

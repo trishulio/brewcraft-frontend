@@ -84,7 +84,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
             <Input
               type="select"
               name="purchaseInvoiceItemMaterial"
-              value={item.material.id}
+              value={item.material.id || ""}
               onChange={changeevent}
               hidden={!editable}
             >
@@ -98,7 +98,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                 }
             </Input>
             <div hidden={editable}>
-              {item.material.name|| "-"}
+              {item.material.name || "-"}
             </div>
           </Col>
           <Col xs="3">
@@ -112,6 +112,17 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
             />
             <div hidden={editable}>
               {item.description|| "-"}
+            </div>
+          </Col>
+          <Col xs="1">
+              <Input
+                type="text"
+                name="purchaseInvoiceItemLot"
+                // onChange={changeevent}
+                hidden={!editable}
+              />
+              <div hidden={editable}>
+                -
             </div>
           </Col>
           <Col xs="1">
@@ -135,7 +146,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
               hidden={!editable}
             />
             <div hidden={editable}>
-              {item.price.amount|| "-"}
+              {item.price.amount || "-"}
             </div>
           </Col>
           <Col xs="1">
@@ -150,7 +161,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
               {item.tax.amount.amount || "-"}
             </div>
           </Col>
-          <Col xs="2">
+          <Col xs="1">
               <Input
                 type="text"
                 name="purchaseInvoiceItemAmount"

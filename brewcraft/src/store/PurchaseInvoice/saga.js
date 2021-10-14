@@ -44,7 +44,7 @@ function* createPurchaseInvoiceGenerator(action) {
     }
     const data = {
         form: {
-            shipmentNumber: "hi",
+            shipmentNumber: "abc",
             statusId: 1, // delivered
             deliveredDate: res.data.generatedOn,
             lots: []

@@ -1,4 +1,3 @@
-import { DELETE_BATCH_FAILURE } from "../Batch/actionTypes";
 import {
     INVALID_NAME,
     INVALID_DESCRIPTION,
