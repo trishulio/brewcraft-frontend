@@ -26,23 +26,15 @@ export default function BatchProduct(props) {
     const dispatch = useDispatch();
 
     const batch = useSelector(state => {
-        return state.Batch.data;
+        return state.Batch.details.data;
     });
 
     const { invalidProduct } = useSelector(state => {
-        return state.Batch;
+        return state.Batch.details;
     });
 
     const products = useSelector(state => {
         return state.Products.all;
-    });
-
-    const statuses = useSelector(state => {
-        return state.BatchStatus.content;
-    });
-
-    const tasks = useSelector(state => {
-        return state.BatchTask.content;
     });
 
     function onFormInputChange(e) {
@@ -75,58 +67,92 @@ export default function BatchProduct(props) {
     }
 
     return (
-        <Card>
-            <CardHeader>
-                Batch Product
-            </CardHeader>
-            <CardBody>
-            <img style={{ maxWidth: "14rem" }} src={fantasticLager} alt="material" className="border d-block mr-2 mb-2 p-1" />
-                {/* <Row>
-                    <Col xs="2">
-                        <Label
-                            for="batchParentBrew"
-                            className="mb-3"
-                        >
-                            Parent
-                        </Label>
-                    </Col>
-                    <Col xs="8">
-                        <div hidden={false}>
-                            {batch.parentBrew ? batch.parentBrew.name : "-"}
-                        </div>
-                    </Col>
-                </Row> */}
-                        <FormGroup
-                            hidden={!props.editable}
-                        >
-                            <Input
-                                type="select"
-                                className="waves-effect"
-                                // bsSize="sm"
-                                name="batchProduct"
-                                style={{ width: "16rem" }}
-                                disabled={!props.editable}
-                                invalid={invalidProduct}
-                                value={batch.product?.id || ""}
-                                onChange={e => {
-                                    onFormInputChange(e);
-                                }}
-                            >
-                                <option value="">Select</option>
-                                {
-                                    map(products, (value, index) => (
-                                        <option value={value.id} key={index}>
-                                            {value.name}
-                                        </option>
-                                    ))
-                                }
-                            </Input>
-                            <FormFeedback>Enter a valid batch product.</FormFeedback>
-                        </FormGroup>
-                        <div hidden={props.editable}>
-                            {batch.product ? batch.product.name : "-"}
-                        </div>
-            </CardBody>
-        </Card>
+        <img style={{ maxWidth: "14rem" }} src={fantasticLager} alt="material" className="border d-block mr-2 mb-4 p-1" />
+        // <React.Fragment>
+        //     <img style={{ maxWidth: "14rem" }} src={fantasticLager} alt="material" className="border d-block mr-2 mb-2 p-1" />
+        //     <FormGroup
+        //         hidden={!props.editable}
+        //     >
+        //         <Input
+        //             type="select"
+        //             className="waves-effect"
+        //             // bsSize="sm"
+        //             name="batchProduct"
+        //             style={{ width: "16rem" }}
+        //             disabled={!props.editable}
+        //             invalid={invalidProduct}
+        //             value={batch.product?.id || ""}
+        //             onChange={e => {
+        //                 onFormInputChange(e);
+        //             }}
+        //         >
+        //             <option value="">Select</option>
+        //             {
+        //                 map(products, (value, index) => (
+        //                     <option value={value.id} key={index}>
+        //                         {value.name}
+        //                     </option>
+        //                 ))
+        //             }
+        //         </Input>
+        //         <FormFeedback>Enter a valid batch product.</FormFeedback>
+        //     </FormGroup>
+        //     <div hidden={props.editable}>
+        //         {batch.product ? batch.product.name : "-"}
+        //     </div>
+        // </React.Fragment>
+        // <Card>
+        //     <CardHeader>
+        //         Batch Product
+        //     </CardHeader>
+        //     <CardBody>
+        //     <img style={{ maxWidth: "14rem" }} src={fantasticLager} alt="material" className="border d-block mr-2 mb-2 p-1" />
+        //         {/* <Row>
+        //             <Col xs="2">
+        //                 <Label
+        //                     for="batchParentBrew"
+        //                     className="mb-3"
+        //                 >
+        //                     Parent
+        //                 </Label>
+        //             </Col>
+        //             <Col xs="8">
+        //                 <div hidden={false}>
+        //                     {batch.parentBrew ? batch.parentBrew.name : "-"}
+        //                 </div>
+        //             </Col>
+        //         </Row> */}
+        //                 <FormGroup
+        //                     hidden={!props.editable}
+        //                 >
+        //                     <Input
+        //                         type="select"
+        //                         className="waves-effect"
+        //                         // bsSize="sm"
+        //                         name="batchProduct"
+        //                         style={{ width: "16rem" }}
+        //                         disabled={!props.editable}
+        //                         invalid={invalidProduct}
+        //                         value={batch.product?.id || ""}
+        //                         onChange={e => {
+        //                             onFormInputChange(e);
+        //                         }}
+        //                     >
+        //                         <option value="">Select</option>
+        //                         {
+        //                             map(products, (value, index) => (
+        //                                 <option value={value.id} key={index}>
+        //                                     {value.name}
+        //                                 </option>
+        //                             ))
+        //                         }
+        //                     </Input>
+        //                     <FormFeedback>Enter a valid batch product.</FormFeedback>
+        //                 </FormGroup>
+        //                 <div hidden={props.editable}>
+        //                     {batch.product ? batch.product.name : "-"}
+        //                 </div>
+        //     </CardBody>
+        // </Card>
     );
 }

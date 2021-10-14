@@ -8,7 +8,7 @@ import {
 export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, onDelete }) {
     const history = useHistory();
     const batch = useSelector(state => {
-        return state.Batch.data;
+        return state.Batch.details.data;
     });
 
     return (
@@ -16,7 +16,7 @@ export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, o
             <Button
                 type="button"
                 color="secondary"
-                size="sm"
+                // size="sm"
                 className="waves-effect mr-2 mb-1"
                 onClick={onSave}
                 disabled={!changed}
@@ -27,7 +27,7 @@ export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, o
             <Button
                 type="button"
                 color="secondary"
-                size="sm"
+                // size="sm"
                 className="waves-effect mr-2 mb-1"
                 onClick={() => {
                     history.goBack();
@@ -39,7 +39,7 @@ export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, o
             <Button
                 type="button"
                 color="secondary"
-                size="sm"
+                // size="sm"
                 className="waves-effect mr-2 mb-1"
                 disabled={editable}
                 hidden={!batch.id || editable}
@@ -55,7 +55,7 @@ export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, o
             <Button
                 type="button"
                 color="danger"
-                size="sm"
+                // size="sm"
                 className="waves-effect mr-2 mb-1"
                 onClick={onDelete}
                 hidden={!batch.id || !editable}

@@ -12,7 +12,10 @@ async function fetchBatchTasks(params = {}) {
         }
     };
     return await AxiosInstance.get("/api/v1/brews/tasks", data)
-        .then((r) => r)
+        .then((r) => {
+            console.log(r.data.content);
+            return r;
+        })
         .catch((error) => console.log(error));
 }
 

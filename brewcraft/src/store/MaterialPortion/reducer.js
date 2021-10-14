@@ -15,30 +15,71 @@ import {
 const initialState = {
     data: {
         id: "",
-        name: "",
-        description: "",
-        category: null,
-        baseQuantityUnit: null,
-        upc: "",
-        imageSrc: "",
-        version: null
+        materialLot: {
+            id: "",
+            lotNumber: "",
+            invoiceItem: {},
+            storage: {},
+            createdAt: "",
+            lastUpdated: "",
+            version: 0,
+            quantity: {}
+        },
+        quantity: {},
+        addedAt: "",
+        mixture: {},
+        version: null,
     },
-    initial: {
-        id: "",
-        name: "",
-        description: "",
-        category: null,
-        baseQuantityUnit: null,
-        upc: "",
-        imageSrc: "",
-        version: null
-    },
-    invalidName: false,
-    invalidDescription: false,
-    invalidClass: false,
-    invalidCategory: false,
-    invalidBaseQuantityUnit: false,
-    invalidUpc: false,
+    content: [{
+        id: 0,
+        materialLot: {
+            id: "",
+            lotNumber: "",
+            invoiceItem: {},
+            storage: {},
+            createdAt: "",
+            lastUpdated: "",
+            version: 0,
+            quantity: {}
+        },
+        quantity: {},
+        addedAt: "",
+        mixture: {
+            id: 0,
+            parentMixtureId: 0,
+            quantity: {},
+            equipment: {},
+            brewStage: {},
+            version: null
+        },
+        version: null,
+    }],
+    initial: [{
+        id: 0,
+        materialLot: {
+            id: "",
+            lotNumber: "",
+            invoiceItem: {},
+            storage: {},
+            createdAt: "",
+            lastUpdated: "",
+            version: 0,
+            quantity: {}
+        },
+        quantity: {},
+        addedAt: "",
+        mixture: {
+            id: 0,
+            parentMixtureId: 0,
+            quantity: {},
+            equipment: {},
+            brewStage: {},
+            version: null
+        },
+        version: null,
+    }],
+    totalElements: 0,
+    totalPages: 0,
     loading: true,
     error: null
 };

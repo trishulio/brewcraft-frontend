@@ -13,32 +13,26 @@ import {
 } from "./actionTypes";
 
 const initialState = {
-    data: {
+    content: [{
         id: "",
-        name: "",
-        description: "",
-        category: null,
-        baseQuantityUnit: null,
-        upc: "",
-        imageSrc: "",
+        brewId: "",
+        status: {},
+        task: {},
+        startedAt: "",
+        endedAt: "",
         version: null
-    },
-    initial: {
+    }],
+    initial: [{
         id: "",
-        name: "",
-        description: "",
-        category: null,
-        baseQuantityUnit: null,
-        upc: "",
-        imageSrc: "",
+        brewId: "",
+        status: {},
+        task: {},
+        startedAt: "",
+        endedAt: "",
         version: null
-    },
-    invalidName: false,
-    invalidDescription: false,
-    invalidClass: false,
-    invalidCategory: false,
-    invalidBaseQuantityUnit: false,
-    invalidUpc: false,
+    }],
+    totalElements: 0,
+    totalPages: 0,
     loading: true,
     error: null
 };
@@ -73,27 +67,12 @@ const BrewStage = (state = initialState, { type, payload, data }) => {
                 loading: false,
                 error: true
             };
-        case DELETE_BREW_STAGE_REQUEST:
-        return {
-            ...state,
-            formLoading: { ...state.formLoading, loading: true },
-        };
-        case DELETE_BREW_STAGE_SUCCESS:
-        return {
-            ...state,
-            data: filter([...state.data], (instanceData) => {
-                return (
-                    payload.id!==instanceData.id
-                    );
-                }),
-                formLoading: { ...state.formLoading, loading: false },
-            };
         case RESET_BREW_STAGE_DETAILS:
-        return {
-            ...initialState,
-            loading: false,
-            error: null
-        };
+            return {
+                ...initialState,
+                loading: false,
+                error: null
+            };
         case SET_BREW_STAGE_INVALID_CATEGORY:
             return {
                 ...state,
@@ -102,11 +81,11 @@ const BrewStage = (state = initialState, { type, payload, data }) => {
                 error: null
             };
         default:
-        return {
-            ...state,
-            loading: false,
-            error: null
-        };
+            return {
+                ...state,
+                loading: false,
+                error: null
+            };
     }
 };
 

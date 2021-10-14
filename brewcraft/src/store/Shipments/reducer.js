@@ -56,7 +56,6 @@ const Shipment = (state = initialState, { type, payload }) => {
         case INVALID_NAME:
         case INVALID_DESCRIPTION:
         case SET_SHIPMENT_DETAILS:
-            debugger;
             return {
                 ...state,
                 ...payload,

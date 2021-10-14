@@ -18,8 +18,8 @@ function* fetchStatusesGenerator(action) {
     }
 }
 
-function* Statuses() {
+function* BatchTasks() {
     yield takeEvery(FETCH_BATCH_TASK_REQUEST, fetchStatusesGenerator);
 }
 
-export default Statuses;
+export default BatchTasks;

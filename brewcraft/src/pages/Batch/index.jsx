@@ -4,6 +4,9 @@ import { useHistory, useParams } from "react-router-dom";
 import {
     setBreadcrumbItems,
     fetchBatchById,
+    fetchMaterialPortionById,
+    fetchMixtureById,
+    fetchMixtureRecordingById,
     editBatch,
     saveBatch,
     deleteBatch,
@@ -19,15 +22,10 @@ import BatchInner from "./batch";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 
-// window.addEventListener('beforeunload', (event) => {
-//     debugger;
-//     event.returnValue = `Are you sure you want to leave?`;
-// });
-
 export default function Batch() {
     const [editable, setEditable] = useState(false);
     const [changed, setChanged] = useState(false);
-    const [activeTab, setActiveTab] = useState("1");
+    const [activeTab, setActiveTab] = useState("mash");
     const [showDeletePrompt, setShowDeletePrompt] = useState(false);
     const [showRouterPrompt, setShowRouterPrompt] = useState(false);
 
@@ -38,23 +36,29 @@ export default function Batch() {
     const dispatch = useDispatch();
 
     const batch = useSelector(state => {
-        return state.Batch.data;
+        return state.Batch.details.data;
     });
 
     const initialBatch = useSelector(state => {
-        return state.Batch.initial;
+        return state.Batch.details.initial;
     });
 
     const { invalidName } = useSelector(state => {
-        return state.Batch
+        return state.Batch.details;
     })
 
     useEffect(() => {
+        function fetchBatch() {
+            dispatch(fetchBatchById(id));
+            // dispatch(fetchMaterialPortionById(id));
+            // dispatch(fetchMixtureById(id));
+            // dispatch(fetchMixtureRecordingById(id));
+        };
         if (id === "new") {
             dispatch(resetBatchDetails());
             history.replace("/batches/new?edit=true");
         } else {
-            dispatch(fetchBatchById(id));
+            fetchBatch();
         }
         if (editMode) {
             dispatch(fetchAllProducts());
@@ -63,7 +67,6 @@ export default function Batch() {
         dispatch(fetchBatchTasks());
         setEditable(editMode && editMode !== "false");
         setShowRouterPrompt(!!editMode);
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, editMode]);
 

@@ -3,7 +3,7 @@ export * from "./Batches/actions";
 export * from "./BatchStatus/actions";
 export * from "./BatchTask/actions";
 export * from "./Breadcrumb/actions";
-export * from "./BrewStage/actions";
+export * from "./BrewStages/actions";
 export * from "./Brewery/actions";
 export * from "./FinishedGood/actions";
 export * from "./FinishedGoods/actions";
