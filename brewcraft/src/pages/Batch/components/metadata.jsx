@@ -32,11 +32,11 @@ export default function BatchMetadata(props) {
     const dispatch = useDispatch();
 
     const batch = useSelector(state => {
-        return state.Batch.data;
+        return state.Batch.details.data;
     });
 
     const { invalidName, invalidBatchId, invalidProduct } = useSelector(state => {
-        return state.Batch;
+        return state.Batch.details;
     });
 
     const products = useSelector(state => {
@@ -137,8 +137,6 @@ export default function BatchMetadata(props) {
 
     return (
         <Card>
-            {console.log(statuses)}
-            {console.log(tasks)}
             <CardHeader>
                 Batch Details
             </CardHeader>

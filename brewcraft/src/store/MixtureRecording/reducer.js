@@ -43,7 +43,7 @@ const initialState = {
     error: null
 };
 
-const MixtureRecording = (state = initialState, { type, payload, data }) => {
+const MixtureRecording = (state = initialState, { type, payload, data } = {}) => {
     switch(type) {
         case SET_MIXTURE_RECORDING_DETAILS:
             return {

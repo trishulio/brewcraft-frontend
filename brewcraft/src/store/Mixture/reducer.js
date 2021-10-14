@@ -43,7 +43,7 @@ const initialState = {
     error: null
 };
 
-const Mixture = (state = initialState, { type, payload, data }) => {
+const Mixture = (state = initialState, { type, payload, data } = {}) => {
     switch(type) {
         case SET_MIXTURE_DETAILS:
             return {
@@ -74,26 +74,26 @@ const Mixture = (state = initialState, { type, payload, data }) => {
                 error: true
             };
         case DELETE_MIXTURE_REQUEST:
-        return {
-            ...state,
-            formLoading: { ...state.formLoading, loading: true },
-        };
-        case DELETE_MIXTURE_SUCCESS:
-        return {
-            ...state,
-            data: filter([...state.data], (instanceData) => {
-                return (
-                    payload.id!==instanceData.id
-                    );
-                }),
-                formLoading: { ...state.formLoading, loading: false },
+            return {
+                ...state,
+                formLoading: { ...state.formLoading, loading: true },
             };
+        case DELETE_MIXTURE_SUCCESS:
+            return {
+                ...state,
+                data: filter([...state.data], (instanceData) => {
+                    return (
+                        payload.id!==instanceData.id
+                        );
+                    }),
+                    formLoading: { ...state.formLoading, loading: false },
+                };
         case RESET_MIXTURE_DETAILS:
-        return {
-            ...initialState,
-            loading: false,
-            error: null
-        };
+            return {
+                ...initialState,
+                loading: false,
+                error: null
+            };
         case SET_MIXTURE_INVALID_CATEGORY:
             return {
                 ...state,
@@ -102,11 +102,11 @@ const Mixture = (state = initialState, { type, payload, data }) => {
                 error: null
             };
         default:
-        return {
-            ...state,
-            loading: false,
-            error: null
-        };
+            return {
+                ...state,
+                loading: false,
+                error: null
+            };
     }
 };
 

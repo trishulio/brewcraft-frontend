@@ -23,7 +23,6 @@ function* fetchShipmentByIdGenerator(action) {
 
 function* createShipmentGenerator(action) {
     try {
-        debugger;
         const res = yield call(api.postShipment, get(action, "payload.form"));
 
         // yield put({ type: SET_SHIPMENT_DETAILS, payload: { ...res } });

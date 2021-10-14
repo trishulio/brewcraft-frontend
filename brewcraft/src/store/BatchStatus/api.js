@@ -12,7 +12,10 @@ async function fetchBatchStatuses(params = {}) {
         }
     };
     return await AxiosInstance.get("/api/v1/brews/stages/statuses", data)
-        .then((r) => r)
+        .then((r) => {
+            console.log(r.data.content);
+            return r;
+        })
         .catch((error) => console.log(error));
 }
 

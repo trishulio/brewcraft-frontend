@@ -26,17 +26,18 @@ import {
     CardBody,
     CardHeader
 } from "../../../component/Common/Card";
+import Product from "./batch-product";
 
 export default function BatchMetadata(props) {
 
     const dispatch = useDispatch();
 
     const batch = useSelector(state => {
-        return state.Batch.data;
+        return state.Batch.details.data;
     });
 
     const { invalidName, invalidBatchId, invalidProduct } = useSelector(state => {
-        return state.Batch;
+        return state.Batch.details;
     });
 
     const products = useSelector(state => {
@@ -136,199 +137,189 @@ export default function BatchMetadata(props) {
     }
 
     return (
-        <Card>
-            {console.log(statuses)}
-            {console.log(tasks)}
-            <CardHeader>
-                Batch Details
-            </CardHeader>
-            <CardBody>
-                <Row>
-                    <Col xs="2">
-                        <Label
-                            for="batchStartDateTime"
-                            // className="mb-3"
-                        >
-                            Progress
-                        </Label>
-                    </Col>
-                    <Col xs="8">
-                        <Progress
-                            color="primary"
-                            className="mb-3"
-                            style={{
-                                height: "2rem",
-                                width: "16rem"
-                            }}
-                            value={25}
-                        >
-                            Kettle 25%
-                        </Progress>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs="2">
-                        <Label
-                            for="batchName"
-                            className="mb-3"
-                        >
-                            Name
-                        </Label>
-                    </Col>
-                    <Col xs="8">
-                        <FormGroup
-                            hidden={!props.editable}
-                        >
-                            <Input
-                                type="text"
-                                className="waves-effect"
-                                // bsSize="sm"
-                                value={batch.name}
-                                placeholder="Enter"
-                                name="batchName"
-                                disabled={!props.editable}
-                                onChange={onFormInputChange}
-                                invalid={invalidName}
-                                style={{ width: "16rem" }}
-                            />
-                            <FormFeedback>Enter a valid batch name.</FormFeedback>
-                        </FormGroup>
-                        <div hidden={props.editable}>
-                            {batch.name ? batch.name : "-"}
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs="2">
-                        <Label
-                            for="batchBatchId"
-                            className="mb-3"
-                        >
-                            Batch ID
-                        </Label>
-                    </Col>
-                    <Col xs="8">
-                        <FormGroup
-                            hidden={!props.editable}
-                        >
-                            <Input
-                                type="text"
-                                className="waves-effect"
-                                // bsSize="sm"
-                                value={batch.batchId}
-                                placeholder="Enter"
-                                name="batchBatchId"
-                                disabled={!props.editable}
-                                onChange={onFormInputChange}
-                                invalid={invalidBatchId}
-                                style={{ width: "16rem" }}
-                            />
-                            <FormFeedback>Enter a valid batch id.</FormFeedback>
-                        </FormGroup>
-                        <div hidden={props.editable}>
-                            {batch.batchId ? batch.batchId : "-"}
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs="2">
-                        <Label
-                            for="batchStartDateTime"
-                            className="mb-3"
-                        >
-                            Start
-                        </Label>
-                    </Col>
-                    <Col xs="8">
-                        <FormGroup
-                            hidden={!props.editable}
-                        >
-                            <Input
-                                type="datetime-local"
-                                name="batchStartDateTime"
-                                className="waves-effect"
-                                // bsSize="sm"
-                                style={{maxWidth: "16rem"}}
-                                value={batch.startedAt}
-                                onChange={onFormInputChange}
+        <React.Fragment>
+            <div className="mb-4">
+                <div className="d-sm-inline-block mr-4">
+                    <Product {...props}/>
+                </div>
+                <div className="d-sm-inline-block align-bottom">
+                    <Row>
+                        <Col xs="2">
+                            <Label
+                                for="batchStartDateTime"
+                                // className="mb-3"
+                            >
+                                Progress
+                            </Label>
+                        </Col>
+                        <Col xs="8">
+                            <Progress
+                                color="primary"
+                                className="mb-3"
+                                style={{
+                                    height: "2rem",
+                                    width: "16rem"
+                                }}
+                                value={25}
+                            >
+                                Kettle 25%
+                            </Progress>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="2">
+                            <Label
+                                for="batchName"
+                                className="mb-3"
+                            >
+                                Product
+                            </Label>
+                        </Col>
+                        <Col xs="8">
+                            <FormGroup
                                 hidden={!props.editable}
-                            />
-                            <FormFeedback>Enter a valid start date.</FormFeedback>
-                        </FormGroup>
-                        <div hidden={props.editable}>
-                            {batch.startedAt ? formatDatetime(batch.startedAt) : "-"}
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs="2">
-                        <Label
-                            for="batchParentBrew"
-                            className="mb-3"
-                        >
-                            Parent
-                        </Label>
-                    </Col>
-                    <Col xs="8">
-                        <div hidden={false}>
-                            {batch.parentBrew ? batch.parentBrew.name : "-"}
-                        </div>
-                    </Col>
-                </Row>
-                {/* <Row>
-                    <Col xs="2">
-                        <Label
-                            for="batchEndDateTime"
-                            className="mb-3"
-                        >
-                            Finish Time
-                        </Label>
-                    </Col>
-                    <Col xs="8">
-                        <FormGroup
-                            hidden={!props.editable}
-                        >
-                            <Input
-                                type="datetime-local"
-                                name="batchEndDateTime"
-                                className="waves-effect"
-                                // bsSize="sm"
-                                style={{maxWidth: "16rem"}}
-                                value={batch.endedAt}
-                                onChange={onFormInputChange}
+                            >
+                                <Input
+                                    type="select"
+                                    className="waves-effect"
+                                    // bsSize="sm"
+                                    name="batchProduct"
+                                    style={{ width: "16rem" }}
+                                    disabled={!props.editable}
+                                    invalid={invalidProduct}
+                                    value={batch.product?.id || ""}
+                                    onChange={e => {
+                                        onFormInputChange(e);
+                                    }}
+                                >
+                                    <option value="">Select</option>
+                                    {
+                                        map(products, (value, index) => (
+                                            <option value={value.id} key={index}>
+                                                {value.name}
+                                            </option>
+                                        ))
+                                    }
+                                </Input>
+                                <FormFeedback>Enter a valid batch product.</FormFeedback>
+                            </FormGroup>
+                            <div hidden={props.editable}>
+                                {batch.product ? batch.product.name : "-"}
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="2">
+                            <Label
+                                for="batchName"
+                                className="mb-3"
+                            >
+                                Name
+                            </Label>
+                        </Col>
+                        <Col xs="8">
+                            <FormGroup
                                 hidden={!props.editable}
-                            />
-                            <FormFeedback>Enter a valid end date.</FormFeedback>
-                        </FormGroup>
-                        <div hidden={props.editable}>
-                            {batch.startedAt ? formatDatetime(batch.startedAt) : "-"}
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs="2">
-                        <Label
-                            for="batchDescription"
-                        >
-                            Description
-                        </Label>
-                    </Col>
-                    <Col xs="10">
-                        <Input
-                            type="textarea"
-                            className="waves-effect mb-4"
-                            value={batch.description}
-                            rows={8}
-                            name="batchDescription"
-                            style={{ maxWidth: "40rem" }}
-                            disabled={!props.editable}
-                            onChange={onFormInputChange}
-                            autoComplete="false"
-                        />
-                    </Col>
-                </Row> */}
-            </CardBody>
-        </Card>
+                            >
+                                <Input
+                                    type="text"
+                                    className="waves-effect"
+                                    // bsSize="sm"
+                                    value={batch.name}
+                                    placeholder="Enter"
+                                    name="batchName"
+                                    disabled={!props.editable}
+                                    onChange={onFormInputChange}
+                                    invalid={invalidName}
+                                    style={{ width: "16rem" }}
+                                />
+                                <FormFeedback>Enter a valid batch name.</FormFeedback>
+                            </FormGroup>
+                            <div hidden={props.editable}>
+                                {batch.name ? batch.name : "-"}
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="2">
+                            <Label
+                                for="batchBatchId"
+                                className="mb-3"
+                            >
+                                Batch ID
+                            </Label>
+                        </Col>
+                        <Col xs="8">
+                            <FormGroup
+                                hidden={!props.editable}
+                            >
+                                <Input
+                                    type="text"
+                                    className="waves-effect"
+                                    // bsSize="sm"
+                                    value={batch.batchId}
+                                    placeholder="Enter"
+                                    name="batchBatchId"
+                                    disabled={!props.editable}
+                                    onChange={onFormInputChange}
+                                    invalid={invalidBatchId}
+                                    style={{ width: "16rem" }}
+                                />
+                                <FormFeedback>Enter a valid batch id.</FormFeedback>
+                            </FormGroup>
+                            <div hidden={props.editable}>
+                                {batch.batchId ? batch.batchId : "-"}
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="2">
+                            <Label
+                                for="batchStartDateTime"
+                                className="mb-3"
+                            >
+                                Start
+                            </Label>
+                        </Col>
+                        <Col xs="8">
+                            <FormGroup
+                                hidden={!props.editable}
+                            >
+                                <Input
+                                    type="datetime-local"
+                                    name="batchStartDateTime"
+                                    className="waves-effect"
+                                    // bsSize="sm"
+                                    style={{maxWidth: "16rem"}}
+                                    value={batch.startedAt}
+                                    onChange={onFormInputChange}
+                                    hidden={!props.editable}
+                                />
+                                <FormFeedback>Enter a valid start date.</FormFeedback>
+                            </FormGroup>
+                            <div hidden={props.editable}>
+                                {batch.startedAt ? formatDatetime(batch.startedAt) : "-"}
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="2">
+                            <Label
+                                for="batchParentBrew"
+                                className="mb-3"
+                            >
+                                Parent
+                            </Label>
+                        </Col>
+                        <Col xs="8">
+                            <div hidden={false}>
+                                {batch.parentBrew ? batch.parentBrew.name : "-"}
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
+            </div>
+            </React.Fragment>
     )
 };
 

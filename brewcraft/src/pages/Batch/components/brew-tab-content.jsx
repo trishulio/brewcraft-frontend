@@ -19,9 +19,9 @@ import Ferment from "./brew-ferment";
 
 export default function BatchTabContent(props) {
     return (
-        <Card>
-            <CardHeader>Brew Stage</CardHeader>
-            <CardBody>
+        // <Card>
+        //     <CardHeader>Brew Stage</CardHeader>
+        //     <CardBody>
                 <Row style={{ minHeight: "20rem" }}>
                     <Col xs={2}>
                         <Nav
@@ -30,7 +30,7 @@ export default function BatchTabContent(props) {
                             className="mb-4"
                         />
                     </Col>
-                    <Col xs={6}>
+                    <Col xs={10}>
                         <TabContent activeTab={props.activeTab}>
                             <TabPane tabId="mash">
                                 <Mash {...props}/>
@@ -50,7 +50,7 @@ export default function BatchTabContent(props) {
                         </TabContent>
                     </Col>
                 </Row>
-            </CardBody>
-        </Card>
+        //     </CardBody>
+        // </Card>
     );
 }

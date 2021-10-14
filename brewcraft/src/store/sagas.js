@@ -2,8 +2,8 @@ import { all } from "redux-saga/effects"
 import Batch from "./Brew/saga";
 import Batches from "./Batches/saga";
 import BatchStatus from "./BatchStatus/saga";
-import BatchTask from "./BatchTask/saga";
-import BrewStage from "./BrewStage/saga";
+import BatchTasks from "./BatchTask/saga";
+import BrewStage from "./BrewStages/saga";
 import FinishedGood from "./FinishedGood/saga";
 import FinishedGoods from "./FinishedGoods/saga";
 import Ingredient from "./Ingredient/saga";
@@ -38,7 +38,7 @@ export default function* rootSaga() {
         Batch(),
         Batches(),
         BatchStatus(),
-        BatchTask(),
+        BatchTasks(),
         BrewStage(),
         FinishedGood(),
         FinishedGoods(),

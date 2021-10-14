@@ -4,9 +4,8 @@ import {
     SET_BATCH_STATUS_PAGE_SIZE
 } from "./actionTypes";
 
-export const fetchBatchStatuses = params => ({
-    type: FETCH_BATCH_STATUS_REQUEST,
-    payload: { params },
+export const fetchBatchStatuses = () => ({
+    type: FETCH_BATCH_STATUS_REQUEST
 });
 
 export const setBatchStatusesPageIndex = index => ({

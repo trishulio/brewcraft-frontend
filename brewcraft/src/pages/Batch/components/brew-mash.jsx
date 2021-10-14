@@ -28,11 +28,11 @@ export default function BrewDetails(props) {
     const dispatch = useDispatch();
 
     const batch = useSelector(state => {
-        return state.Batch.data;
+        return state.Batch.details.data;
     });
 
     const { invalidBrewMashStatus } = useSelector(state => {
-        return state.Batch;
+        return state.Batch.details;
     });
 
     const ingredientLots = useSelector(state => {

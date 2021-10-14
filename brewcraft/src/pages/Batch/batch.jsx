@@ -2,20 +2,35 @@ import React from "react";
 import {
   Row,
   Col,
-  TabContent,
-  TabPane
+  Card,
+  CardHeader,
+  CardBody,
+//   TabContent,
+//   TabPane
 } from "reactstrap";
 import Nav from "./components/nav";
 import Metadata from "./components/metadata";
-import BrewDetails from "./components/brew-details";
-import Details from "./components/details";
+import Details from "./components/batch-details";
+import Toolbar from "./components/toolbar";
+import BatchProduct from "./components/batch-product";
+import TabContent from "./components/brew-tab-content";
 
 export default function Batch(props) {
 
     return (
         <React.Fragment>
+            <div className="mb-3">
+                <Toolbar {...props}/>
+            </div>
+            <Card className="mb-3">
+                <CardBody>
+                    {/* <Metadata {...props} /> */}
+                    <Details {...props}/>
+                    <TabContent {...props}/>
+                </CardBody>
+            </Card>
 
-            <Nav
+            {/* <Nav
                 activeTab={props.activeTab}
                 onTabChange={props.onTabChange}
                 className="mb-4"
@@ -36,7 +51,7 @@ export default function Batch(props) {
                         Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.
                     </p>
                 </TabPane>
-            </TabContent>
+            </TabContent> */}
         </React.Fragment>
     );
 }
