@@ -24,19 +24,18 @@ export const fetchProductById = (id) => ({
     payload: { id }
 });
 
-export const createProduct = ({data, categoryId, success}) => ({
+export const createProduct = ({ data, categoryId }) => ({
     type: CREATE_PRODUCT,
     payload: {
         form: {
             name: data.name,
             description: data.description || "",
             categoryId: categoryId
-        },
-        success: success
+        }
     }
 });
 
-export const updateProduct = ({data, categoryId, success}) => ({
+export const updateProduct = ({ data, categoryId }) => ({
     type: UPDATE_PRODUCT,
     payload: {
         id: data.id,
@@ -45,8 +44,7 @@ export const updateProduct = ({data, categoryId, success}) => ({
             description: data.description || "",
             categoryId: categoryId,
             version: data.version
-        },
-        success: success
+        }
     }
 });
 

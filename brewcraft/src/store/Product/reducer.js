@@ -5,6 +5,7 @@ import {
   INVALID_STYLE,
   INVALID_DESCRIPTION,
   SET_PRODUCT_DETAILS,
+  SET_INITIAL_PRODUCT_DETAILS,
   RESET_PRODUCT_DETAILS
 } from "./actionTypes";
 
@@ -14,6 +15,9 @@ const initialState = {
     name: "",
     description: "",
     targetMeasures: [],
+    productClass: "",
+    type: "",
+    style: "",
     version: null
   },
   initialProduct: {
@@ -21,6 +25,9 @@ const initialState = {
     name: "",
     description: "",
     targetMeasures: [],
+    productClass: "",
+    type: "",
+    style: "",
     version: null
   },
   status: null,
@@ -49,6 +56,17 @@ const Product = (state = initialState, { type, payload }) => {
         ...payload,
         data: {
           ...state.data,
+          ...payload.data
+        },
+        loading: false,
+        error: null,
+      };
+    case SET_INITIAL_PRODUCT_DETAILS:
+      return {
+        ...state,
+        ...payload,
+        initialProduct: {
+          ...initialState,
           ...payload.data
         },
         loading: false,
