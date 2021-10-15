@@ -43,14 +43,6 @@ export default function BatchMetadata(props) {
         return state.Products.all;
     });
 
-    const statuses = useSelector(state => {
-        return state.BatchStatus.content;
-    });
-
-    const tasks = useSelector(state => {
-        return state.BatchTask.content;
-    });
-
     function onFormInputChange(e) {
         switch(e.target.name) {
             case "batchName":

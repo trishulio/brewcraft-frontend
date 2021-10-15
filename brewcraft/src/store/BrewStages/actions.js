@@ -6,8 +6,14 @@ import {
     DELETE_BREW_STAGE_REQUEST,
     RESET_BREW_STAGE_DETAILS,
     SET_BREW_STAGE_INVALID_NAME,
-    SET_BREW_STAGE_INVALID_CATEGORY
+    SET_BREW_STAGE_INVALID_CATEGORY,
+    FETCH_ALL_BREW_STAGE_REQUEST
 } from "./actionTypes";
+
+export const fetchAllBrewStages = id => ({
+    type: FETCH_ALL_BREW_STAGE_REQUEST,
+    payload: { id }
+});
 
 export const fetchBrewStageById = id => ({
     type: FETCH_BREW_STAGE_BY_ID_REQUEST,

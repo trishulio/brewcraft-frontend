@@ -72,6 +72,7 @@ export default function Product() {
             ));
         }
         setChanged(isChanged());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [product, dispatch]);
 
     function isChanged() {

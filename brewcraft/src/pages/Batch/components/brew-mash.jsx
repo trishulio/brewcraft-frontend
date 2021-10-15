@@ -7,7 +7,6 @@ import {
     Button,
     Input,
     Label,
-    Progress,
     FormGroup,
     FormFeedback
 } from "reactstrap";
@@ -216,8 +215,9 @@ export default function BrewDetails(props) {
                                 ))
                             }
                         </Input>
-                        <FormFeedback>Enter a valid batch product.</FormFeedback>
+                        <FormFeedback>Enter a valid batch ingredient.</FormFeedback>
                     </FormGroup>
+                    {console.log(batch)}
                     <div hidden={props.editable}>
                         {batch.product ? batch.product.name : "-"}
                     </div>

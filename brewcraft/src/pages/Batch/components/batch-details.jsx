@@ -6,7 +6,6 @@ import {
     Col,
     Input,
     Label,
-    Progress,
     FormGroup,
     FormFeedback
 } from "reactstrap";
@@ -21,11 +20,6 @@ import {
     setBatchInvalidProduct
 } from "../../../store/actions";
 import { formatDatetime } from "../../../helpers/textUtils";
-import {
-    Card,
-    CardBody,
-    CardHeader
-} from "../../../component/Common/Card";
 import Product from "./batch-product";
 
 export default function BatchMetadata(props) {
@@ -42,14 +36,6 @@ export default function BatchMetadata(props) {
 
     const products = useSelector(state => {
         return state.Products.all;
-    });
-
-    const statuses = useSelector(state => {
-        return state.BatchStatus.content;
-    });
-
-    const tasks = useSelector(state => {
-        return state.BatchTask.content;
     });
 
     function onFormInputChange(e) {
@@ -144,6 +130,21 @@ export default function BatchMetadata(props) {
                 </div>
                 <div className="d-sm-inline-block align-bottom">
                     <Row>
+                        <Col xs="4">
+                            <Label
+                                for="batchParentBrew"
+                                className="mb-3"
+                            >
+                                Parent
+                            </Label>
+                        </Col>
+                        <Col xs="8">
+                            <div hidden={false}>
+                                {batch.parentBrew ? batch.parentBrew.name : "-"}
+                            </div>
+                        </Col>
+                    </Row>
+                    {/* <Row>
                         <Col xs="2">
                             <Label
                                 for="batchStartDateTime"
@@ -165,9 +166,9 @@ export default function BatchMetadata(props) {
                                 Kettle 25%
                             </Progress>
                         </Col>
-                    </Row>
+                    </Row> */}
                     <Row>
-                        <Col xs="2">
+                        <Col xs="4">
                             <Label
                                 for="batchName"
                                 className="mb-3"
@@ -209,7 +210,7 @@ export default function BatchMetadata(props) {
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs="2">
+                        <Col xs="4">
                             <Label
                                 for="batchName"
                                 className="mb-3"
@@ -241,7 +242,7 @@ export default function BatchMetadata(props) {
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs="2">
+                        <Col xs="4">
                             <Label
                                 for="batchBatchId"
                                 className="mb-3"
@@ -273,7 +274,7 @@ export default function BatchMetadata(props) {
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs="2">
+                        <Col xs="4">
                             <Label
                                 for="batchStartDateTime"
                                 className="mb-3"
@@ -297,23 +298,13 @@ export default function BatchMetadata(props) {
                                 />
                                 <FormFeedback>Enter a valid start date.</FormFeedback>
                             </FormGroup>
-                            <div hidden={props.editable}>
-                                {batch.startedAt ? formatDatetime(batch.startedAt) : "-"}
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="2">
-                            <Label
-                                for="batchParentBrew"
-                                className="mb-3"
+                            <div
+                                style={{
+                                    minWidth: "16rem"
+                                }}
+                                hidden={props.editable}
                             >
-                                Parent
-                            </Label>
-                        </Col>
-                        <Col xs="8">
-                            <div hidden={false}>
-                                {batch.parentBrew ? batch.parentBrew.name : "-"}
+                                {batch.startedAt ? formatDatetime(batch.startedAt) : "-"}
                             </div>
                         </Col>
                     </Row>

@@ -4,9 +4,6 @@ import { useHistory, useParams } from "react-router-dom";
 import {
     setBreadcrumbItems,
     fetchBatchById,
-    fetchMaterialPortionById,
-    fetchMixtureById,
-    fetchMixtureRecordingById,
     editBatch,
     saveBatch,
     deleteBatch,
@@ -91,6 +88,7 @@ export default function Batch() {
     }, [batch]);
 
     function isChanged() {
+        debugger;
         return JSON.stringify(
                 (({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }) => ({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }))(initialBatch))
             !== JSON.stringify(

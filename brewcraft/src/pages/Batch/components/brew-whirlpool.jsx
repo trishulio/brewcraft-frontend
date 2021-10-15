@@ -1,13 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { map } from "lodash";
 import {
     Row,
     Col,
-    Button,
     Input,
     Label,
-    Progress,
     FormGroup,
     FormFeedback
 } from "reactstrap";
@@ -29,14 +26,6 @@ export default function BrewDetails(props) {
 
     const batch = useSelector(state => {
         return state.Batch.details.data;
-    });
-
-    const { invalidBrewWhirlpoolStatus } = useSelector(state => {
-        return state.Batch.details;
-    });
-
-    const ingredientLots = useSelector(state => {
-        return [];
     });
 
     function onFormInputChange(e) {

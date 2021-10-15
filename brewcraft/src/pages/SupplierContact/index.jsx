@@ -40,7 +40,6 @@ export default function SupplierContact() {
     const {
         invalidFirstName,
         invalidLastName,
-        invalidPosition,
         invalidEmail,
         invalidPhoneNumber,
         invalidCompany
