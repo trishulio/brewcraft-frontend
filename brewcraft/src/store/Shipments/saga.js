@@ -24,9 +24,8 @@ function* fetchShipmentByIdGenerator(action) {
 function* createShipmentGenerator(action) {
     try {
         const res = yield call(api.postShipment, get(action, "payload.form"));
-
-        // yield put({ type: SET_SHIPMENT_DETAILS, payload: { ...res } });
-        // yield put(snackSuccess(`Created shipment ${get(action, "payload.form.invoiceNumber")}.`));
+        yield put({ type: SET_SHIPMENT_DETAILS, payload: { ...res } });
+        yield put(snackSuccess(`Created shipment ${get(action, "payload.form.invoiceNumber")}.`));
     } catch (e) {
         yield put(snackFailure("Failed to create shipment"));
     }

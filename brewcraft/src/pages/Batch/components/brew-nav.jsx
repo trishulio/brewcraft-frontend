@@ -13,7 +13,8 @@ export default function BatchNav(props) {
     }
 
     return (
-        <Nav pills justify className="flex-column">
+        // <Nav pills justify className="flex-column">
+        <Nav tabs style={{ borderBottom: "none" }} className="mb-3">
             <NavItem className="waves-effect waves-light">
                 <NavLink
                     style={{ cursor : "pointer" }}

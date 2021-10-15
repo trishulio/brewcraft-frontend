@@ -119,7 +119,6 @@ export default function SupplierDetails({ editable }) {
             <Card>
                 <CardHeader>Supplier Details</CardHeader>
                 <CardBody>
-                    <h4 className="card-title mb-4"></h4>
                     <Row>
                         <Col xs="2">
                             <Label className="mb-3">

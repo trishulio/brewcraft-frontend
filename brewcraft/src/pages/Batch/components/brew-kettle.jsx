@@ -7,7 +7,6 @@ import {
     Button,
     Input,
     Label,
-    Progress,
     FormGroup,
     FormFeedback
 } from "reactstrap";

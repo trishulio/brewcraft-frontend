@@ -9,7 +9,8 @@ import {
     ADD_BATCH_SUCCESS,
     SET_BATCH_DETAILS,
     RESET_BATCH_DETAILS,
-    SET_BATCH_INVALID_CATEGORY
+    SET_BATCH_INVALID_CATEGORY,
+    SET_INITIAL_BATCH_DETAILS
 } from "./actionTypes";
 
 const initialState = {
@@ -66,12 +67,25 @@ const initialState = {
     error: null
 };
 
-const Batch = (state = initialState, { type, payload, data }) => {
+const Batch = (state = initialState, { type, payload }) => {
     switch(type) {
         case SET_BATCH_DETAILS:
             return {
                 ...state,
-                ...payload,
+                data: {
+                    ...state.data,
+                    ...payload.data
+                },
+                loading: false,
+                error: null
+            };
+        case SET_INITIAL_BATCH_DETAILS:
+            return {
+                ...state,
+                initial: {
+                    ...initialState.initial,
+                    ...payload,
+                },
                 loading: false,
                 error: null
             };

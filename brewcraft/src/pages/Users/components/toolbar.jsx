@@ -1,23 +1,19 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
     Button,
     Input
 } from "reactstrap";
-import {
-    useQuery
-} from "../../../helpers/utils";
 import Toolbar from "../../../component/Common/toolbar";
 
 export default function ProductCategoriesToolbar() {
     const history = useHistory();
-    const query = useQuery();
-    const supplierId = query.get("supplier");
+    // const query = useQuery();
+    // const supplierId = query.get("supplier");
 
-    const users = useSelector(state => {
-        return state.Users.all;
-    });
+    // const users = useSelector(state => {
+    //     return state.Users.all;
+    // });
 
     return (
         <Toolbar>
