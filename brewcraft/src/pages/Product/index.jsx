@@ -57,8 +57,7 @@ export default function Product() {
             setEditable(!!editMode);
             setShowRouterPrompt(!!editMode);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id, editMode]);
+    }, [id, editMode, history, dispatch]);
 
     useEffect(() => {
         if (product.id) {
@@ -73,8 +72,7 @@ export default function Product() {
             ));
         }
         setChanged(isChanged());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [product]);
+    }, [product, dispatch]);
 
     function isChanged() {
         return JSON.stringify(
@@ -107,20 +105,14 @@ export default function Product() {
             dispatch(
                 updateProduct({
                     data: product,
-                    categoryId: getCategoryId(),
-                    success: id => {
-                        history.push("/products/" + id);
-                    }
+                    categoryId: getCategoryId()
                 })
             );
         } else {
             dispatch(
                 createProduct({
                     data: product,
-                    categoryId: getCategoryId(),
-                    success: id => {
-                        history.push("/products/" + id);
-                    }
+                    categoryId: getCategoryId()
                 })
             );
         }

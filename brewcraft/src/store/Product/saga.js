@@ -1,5 +1,6 @@
 import {
     SET_PRODUCT_DETAILS,
+    SET_INITIAL_PRODUCT_DETAILS,
     FETCH_PRODUCT,
     CREATE_PRODUCT,
     UPDATE_PRODUCT,
@@ -14,7 +15,7 @@ import { setGlobalRedirect } from "../../store/actions";
 function* fetchProductByIdGenerator(action) {
     try {
         const res = yield call(api.fetchProductById, get(action, "payload.id"));
-        res.initialProduct = JSON.parse(JSON.stringify(res.data));
+        yield put({ type: SET_INITIAL_PRODUCT_DETAILS, payload: { ...res } });
         yield put({ type: SET_PRODUCT_DETAILS, payload: { ...res } });
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
@@ -24,11 +25,9 @@ function* fetchProductByIdGenerator(action) {
 function* createProductGenerator(action) {
     try {
         const res = yield call(api.postProduct, get(action, "payload.form"));
-        res.initialProduct = JSON.parse(JSON.stringify(res.data));
         yield put({ type: SET_PRODUCT_DETAILS, payload: { ...res } });
-        if (action.payload.success) {
-            action.payload.success(res.data.id);
-        }
+        yield put({ type: SET_INITIAL_PRODUCT_DETAILS, payload: { ...res } });
+        yield put(setGlobalRedirect({ pathname: "/products/" + res.data.id }));
         yield put(snackSuccess(`Created product ${get(action, "payload.form.name")}.`));
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
@@ -38,11 +37,9 @@ function* createProductGenerator(action) {
 function* udpateProductGenerator(action) {
     try {
         const res = yield call(api.patchProduct, get(action, "payload.id"), get(action, "payload.form"));
-        res.initialProduct = JSON.parse(JSON.stringify(res.data));
         yield put({ type: SET_PRODUCT_DETAILS, payload: { ...res } });
-        if (action.payload.success) {
-            action.payload.success(res.data.id);
-        }
+        yield put({ type: SET_INITIAL_PRODUCT_DETAILS, payload: { ...res } });
+        yield put(setGlobalRedirect({ pathname: "/products/" + res.data.id }));
         yield put(snackSuccess(`Updated product ${get(action, "payload.form.name")}.`));
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
