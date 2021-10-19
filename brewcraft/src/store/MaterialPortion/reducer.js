@@ -13,78 +13,81 @@ import {
 } from "./actionTypes";
 
 const initialState = {
-    data: {
-        id: "",
-        materialLot: {
-            id: "",
-            lotNumber: "",
-            invoiceItem: {},
-            storage: {},
-            createdAt: "",
-            lastUpdated: "",
-            version: 0,
-            quantity: {}
-        },
-        quantity: {},
-        addedAt: "",
-        mixture: {},
-        version: null,
-    },
-    content: [{
-        id: 0,
-        materialLot: {
-            id: "",
-            lotNumber: "",
-            invoiceItem: {},
-            storage: {},
-            createdAt: "",
-            lastUpdated: "",
-            version: 0,
-            quantity: {}
-        },
-        quantity: {},
-        addedAt: "",
-        mixture: {
-            id: 0,
-            parentMixtureId: 0,
-            quantity: {},
-            equipment: {},
-            brewStage: {},
-            version: null
-        },
-        version: null,
-    }],
-    initial: [{
-        id: 0,
-        materialLot: {
-            id: "",
-            lotNumber: "",
-            invoiceItem: {},
-            storage: {},
-            createdAt: "",
-            lastUpdated: "",
-            version: 0,
-            quantity: {}
-        },
-        quantity: {},
-        addedAt: "",
-        mixture: {
-            id: 0,
-            parentMixtureId: 0,
-            quantity: {},
-            equipment: {},
-            brewStage: {},
-            version: null
-        },
-        version: null,
-    }],
+    content: [],
+    // data: {
+    //     id: "",
+    //     materialLot: {
+    //         id: "",
+    //         lotNumber: "",
+    //         invoiceItem: {},
+    //         storage: {},
+    //         createdAt: "",
+    //         lastUpdated: "",
+    //         version: 0,
+    //         quantity: {}
+    //     },
+    //     quantity: {},
+    //     addedAt: "",
+    //     mixture: {},
+    //     version: null,
+    // },
+    // content: [{
+    //     id: 0,
+    //     materialLot: {
+    //         id: "",
+    //         lotNumber: "",
+    //         invoiceItem: {},
+    //         storage: {},
+    //         createdAt: "",
+    //         lastUpdated: "",
+    //         version: 0,
+    //         quantity: {}
+    //     },
+    //     quantity: {},
+    //     addedAt: "",
+    //     mixture: {
+    //         id: 0,
+    //         parentMixtureId: 0,
+    //         quantity: {},
+    //         equipment: {},
+    //         brewStage: {},
+    //         version: null
+    //     },
+    //     version: null,
+    // }],
+    // initial: [{
+    //     id: 0,
+    //     materialLot: {
+    //         id: "",
+    //         lotNumber: "",
+    //         invoiceItem: {},
+    //         storage: {},
+    //         createdAt: "",
+    //         lastUpdated: "",
+    //         version: 0,
+    //         quantity: {}
+    //     },
+    //     quantity: {},
+    //     addedAt: "",
+    //     mixture: {
+    //         id: 0,
+    //         parentMixtureId: 0,
+    //         quantity: {},
+    //         equipment: {},
+    //         brewStage: {},
+    //         version: null
+    //     },
+    //     version: null,
+    // }],
     totalElements: 0,
     totalPages: 0,
+    pageIndex: 0,
+    pageSize: 20,
     loading: true,
     error: null
 };
 
-const MaterialPortion = (state = initialState, { type, payload, data }) => {
+const MaterialPortion = (state = initialState, { type, payload }) => {
     switch(type) {
         case SET_MATERIAL_PORTION_DETAILS:
             return {
@@ -114,27 +117,12 @@ const MaterialPortion = (state = initialState, { type, payload, data }) => {
                 loading: false,
                 error: true
             };
-        case DELETE_MATERIAL_PORTION_REQUEST:
-        return {
-            ...state,
-            formLoading: { ...state.formLoading, loading: true },
-        };
-        case DELETE_MATERIAL_PORTION_SUCCESS:
-        return {
-            ...state,
-            data: filter([...state.data], (instanceData) => {
-                return (
-                    payload.id!==instanceData.id
-                    );
-                }),
-                formLoading: { ...state.formLoading, loading: false },
-            };
         case RESET_MATERIAL_PORTION_DETAILS:
-        return {
-            ...initialState,
-            loading: false,
-            error: null
-        };
+            return {
+                ...initialState,
+                loading: false,
+                error: null
+            };
         case SET_MATERIAL_PORTION_INVALID_CATEGORY:
             return {
                 ...state,

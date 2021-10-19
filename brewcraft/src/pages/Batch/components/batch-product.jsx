@@ -3,6 +3,6 @@ import fantasticLager from "../../../assets/images/products/fantastic-lager.jpg"
 
 export default function BatchProduct() {
     return (
-        <img style={{ maxWidth: "14rem" }} src={fantasticLager} alt="material" className="border d-block mr-2 p-1" />
+        <img style={{ maxWidth: "14rem", margin: "0 auto" }} src={fantasticLager} alt="material" className="border d-block" />
     );
 }

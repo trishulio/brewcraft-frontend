@@ -5,26 +5,30 @@ async function fetchBrewStages(brewId) {
         params: {
             page: 0,
             size: 500,
-            brews_ids: brewId,
+            brew_ids: brewId,
+            sort: "task.id",
+            order_asc: true
             // sort: params.sort || "name",
             // order_asc: !params.order || params.order === "asc"
         }
     };
     return await AxiosInstance.get(`/api/v1/brews/stages`, data)
-        .then((r) => {
-            console.log(r.data.content);
-            return r;
-        })
+        .then((r) => r)
 }
 
 async function fetchBrewStageById(id) {
     return await AxiosInstance.get(`/api/v1/brews/stages/${id}`)
-    .then((r) => r)
+        .then((r) => r)
 }
 
 async function addBrewStage(payload) {
     return await AxiosInstance.post("/api/v1/brews/stages", payload)
-    .then((r) => r)
+        .then((r) => r)
+}
+
+async function addMixture(params) {
+    return await AxiosInstance.post("/api/v1/brews/mixtures", params)
+        .then((r) => r);
 }
 
 async function updateBrewStage(id, payload) {
@@ -41,6 +45,7 @@ export const api = {
     fetchBrewStages,
     fetchBrewStageById,
     addBrewStage,
+    addMixture,
     updateBrewStage,
     deleteBrewStage
 };

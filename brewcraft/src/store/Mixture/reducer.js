@@ -1,49 +1,46 @@
-import { filter } from "lodash";
 import {
     ADD_MIXTURE_REQUEST,
     ADD_MIXTURE_FAILURE,
     EDIT_MIXTURE_REQUEST,
     EDIT_MIXTURE_SUCCESS,
-    DELETE_MIXTURE_REQUEST,
-    DELETE_MIXTURE_SUCCESS,
     ADD_MIXTURE_SUCCESS,
     SET_MIXTURE_DETAILS,
-    RESET_MIXTURE_DETAILS,
-    SET_MIXTURE_INVALID_CATEGORY
+    RESET_MIXTURE_DETAILS
 } from "./actionTypes";
 
 const initialState = {
-    data: {
-        id: "",
-        name: "",
-        description: "",
-        category: null,
-        baseQuantityUnit: null,
-        upc: "",
-        imageSrc: "",
-        version: null
-    },
-    initial: {
-        id: "",
-        name: "",
-        description: "",
-        category: null,
-        baseQuantityUnit: null,
-        upc: "",
-        imageSrc: "",
-        version: null
-    },
-    invalidName: false,
-    invalidDescription: false,
-    invalidClass: false,
-    invalidCategory: false,
-    invalidBaseQuantityUnit: false,
-    invalidUpc: false,
+    content: [],
+    // data: {
+    //     id: "",
+    //     parentMixtureId: "",
+    //     quantity: {
+    //         symbol: "",
+    //         value: null
+    //     },
+    //     equipment: {},
+    //     brewStage: {},
+    //     version: null
+    // },
+    // initial: {
+    //     id: "",
+    //     parentMixtureId: "",
+    //     quantity: {
+    //         symbol: "",
+    //         value: null
+    //     },
+    //     equipment: {},
+    //     brewStage: {},
+    //     version: null
+    // },
+    totalElements: 0,
+    totalPages: 0,
+    pageIndex: 0,
+    pageSize: 20,
     loading: true,
     error: null
 };
 
-const Mixture = (state = initialState, { type, payload, data } = {}) => {
+const Mixture = (state = initialState, { type, payload } = {}) => {
     switch(type) {
         case SET_MIXTURE_DETAILS:
             return {
@@ -73,31 +70,9 @@ const Mixture = (state = initialState, { type, payload, data } = {}) => {
                 loading: false,
                 error: true
             };
-        case DELETE_MIXTURE_REQUEST:
-            return {
-                ...state,
-                formLoading: { ...state.formLoading, loading: true },
-            };
-        case DELETE_MIXTURE_SUCCESS:
-            return {
-                ...state,
-                data: filter([...state.data], (instanceData) => {
-                    return (
-                        payload.id!==instanceData.id
-                        );
-                    }),
-                    formLoading: { ...state.formLoading, loading: false },
-                };
         case RESET_MIXTURE_DETAILS:
             return {
                 ...initialState,
-                loading: false,
-                error: null
-            };
-        case SET_MIXTURE_INVALID_CATEGORY:
-            return {
-                ...state,
-                invalidCategory: payload,
                 loading: false,
                 error: null
             };

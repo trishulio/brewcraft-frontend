@@ -10,6 +10,7 @@ export * from "./FinishedGoods/actions";
 export * from "./Ingredient/actions";
 export * from "./Ingredients/actions";
 export * from "./layout/actions";
+export * from "./MaterialLots/actions";
 export * from "./MaterialPortion/actions";
 export * from "./Materials/actions";
 export * from "./MaterialCategories/actions";

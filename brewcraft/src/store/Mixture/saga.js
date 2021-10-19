@@ -1,9 +1,8 @@
 import {
     FETCH_MIXTURE_BY_ID_REQUEST,
+    FETCH_MIXTURE_BY_BREW_ID_REQUEST,
     SET_MIXTURE_DETAILS,
     ADD_MIXTURE_REQUEST,
-    ADD_MIXTURE_SUCCESS,
-    ADD_MIXTURE_FAILURE,
     EDIT_MIXTURE_REQUEST,
     DELETE_MIXTURE_REQUEST,
     EDIT_MIXTURE_SUCCESS,
@@ -17,14 +16,26 @@ import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
 import { setGlobalRedirect } from "../Brewery/actions";
 
+function* fetchMixturesByBrewId(action) {
+    try {
+        const res = yield call(api.fetchMixturesByBrewId, get(action, "payload.id"));
+        for (let i = 0; i < res.data.content.length; i++) {
+            const mixture = res.data.content[i];
+            const r = yield call(api.fetchMaterialPortionsByMixtureId, mixture.id);
+            mixture.materialPortions = r.data.content;
+        }
+        yield put({ type: SET_MIXTURE_DETAILS, payload: { content: res.data.content }});
+    } catch (e) {
+        console.log(e);
+        yield put(snackFailure("Something went wrong please try again."));
+    }
+}
+
 function* fetchMixtureByIdGenerator(action) {
     try {
         const res = yield call(api.fetchMixtureById,get(action, "payload.id"));
         res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: SET_MIXTURE_DETAILS, payload: { data: res.data, initial: res.data }});
-        if (action.payload.success) {
-            yield call(action.payload.success, res.data);
-        }
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
     }
@@ -32,13 +43,9 @@ function* fetchMixtureByIdGenerator(action) {
 
 function* addMixtureGenerator(action) {
     try {
-        const res = yield call(api.addMixture, get(action, "payload.form"));
-        res.initial = JSON.parse(JSON.stringify(res.data));
-        yield put({ type: ADD_MIXTURE_SUCCESS, payload: { data: res.data, initial: res.data }});
-        yield put(setGlobalRedirect({ pathname: "/materials/brews/mixturesss/" + res.data.id }));
-        yield put(snackSuccess());
+        yield call(api.addMixture, get(action, "payload.params"));
     } catch (e) {
-        yield put({ type: ADD_MIXTURE_FAILURE });
+        console.log(e);
         yield put(snackFailure("Something went wrong please try again."));
     }
 }
@@ -70,6 +77,7 @@ function* deleteMixtureGenerator(action) {
 
 function* Mixture() {
     yield takeEvery(FETCH_MIXTURE_BY_ID_REQUEST, fetchMixtureByIdGenerator);
+    yield takeEvery(FETCH_MIXTURE_BY_BREW_ID_REQUEST, fetchMixturesByBrewId);
     yield takeEvery(ADD_MIXTURE_REQUEST, addMixtureGenerator);
     yield takeEvery(EDIT_MIXTURE_REQUEST, editMixtureGenerator);
     yield takeEvery(DELETE_MIXTURE_REQUEST, deleteMixtureGenerator);

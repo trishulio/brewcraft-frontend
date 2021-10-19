@@ -10,7 +10,8 @@ import {
 } from "./actionTypes";
 
 const initialState = {
-    content: [{
+    content: [],
+    data: {
         id: "",
         brewId: "",
         status: {},
@@ -18,8 +19,8 @@ const initialState = {
         startedAt: "",
         endedAt: "",
         version: null
-    }],
-    initial: [{
+    },
+    initial: {
         id: "",
         brewId: "",
         status: {},
@@ -27,14 +28,14 @@ const initialState = {
         startedAt: "",
         endedAt: "",
         version: null
-    }],
+    },
     totalElements: 0,
     totalPages: 0,
     loading: true,
     error: null
 };
 
-const BrewStage = (state = initialState, { type, payload, data }) => {
+const BrewStage = (state = initialState, { type, payload }) => {
     switch(type) {
         case SET_BREW_STAGE_DETAILS:
             return {

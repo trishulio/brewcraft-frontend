@@ -1,5 +1,6 @@
 import {
     FETCH_MIXTURE_BY_ID_REQUEST,
+    FETCH_MIXTURE_BY_BREW_ID_REQUEST,
     SET_MIXTURE_DETAILS,
     ADD_MIXTURE_REQUEST,
     EDIT_MIXTURE_REQUEST,
@@ -12,7 +13,12 @@ import {
 export const fetchMixtureById = id => ({
     type: FETCH_MIXTURE_BY_ID_REQUEST,
     payload: { id },
-  });
+});
+
+export const fetchMixturesByBrewId = id => ({
+    type: FETCH_MIXTURE_BY_BREW_ID_REQUEST,
+    payload: { id },
+});
 
 export const setMixtureDetails = payload => ({
     type: SET_MIXTURE_DETAILS,

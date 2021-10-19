@@ -20,7 +20,7 @@ import { snackFailure, snackSuccess } from "../Snackbar/actions";
 function* fetchAllBrewStages(action) {
     try {
         let res = yield call(api.fetchBrewStages, get(action, "payload.id"));
-        yield put({ type: SET_BREW_STAGE_DETAILS, data: { stages: res.data }});
+        yield put({ type: SET_BREW_STAGE_DETAILS, payload: { content: res.data.content }});
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
     }

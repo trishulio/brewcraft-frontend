@@ -10,7 +10,8 @@ import {
     resetBatchDetails,
     fetchAllProducts,
     fetchBatchStatuses,
-    fetchBatchTasks
+    fetchBatchTasks,
+    fetchMaterialStockQuantity
 } from "../../store/actions";
 import {
     useQuery
@@ -22,7 +23,7 @@ import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 export default function Batch() {
     const [editable, setEditable] = useState(false);
     const [changed, setChanged] = useState(false);
-    const [activeTab, setActiveTab] = useState("mash");
+    const [activeTab, setActiveTab] = useState("mashlauter");
     const [showDeletePrompt, setShowDeletePrompt] = useState(false);
     const [showRouterPrompt, setShowRouterPrompt] = useState(false);
 
@@ -62,6 +63,7 @@ export default function Batch() {
         }
         dispatch(fetchBatchStatuses());
         dispatch(fetchBatchTasks());
+        dispatch(fetchMaterialStockQuantity());
         setEditable(editMode && editMode !== "false");
         setShowRouterPrompt(!!editMode);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,7 +90,6 @@ export default function Batch() {
     }, [batch]);
 
     function isChanged() {
-        debugger;
         return JSON.stringify(
                 (({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }) => ({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }))(initialBatch))
             !== JSON.stringify(

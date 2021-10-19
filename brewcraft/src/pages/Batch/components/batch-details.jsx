@@ -125,10 +125,10 @@ export default function BatchMetadata(props) {
     return (
         <React.Fragment>
             <div className="mb-4">
-                <div className="d-sm-inline-block mr-4">
+                <div className="d-sm-inline-block mb-4 mb-sm-0">
                     <Product {...props}/>
                 </div>
-                <div className="d-sm-inline-block align-bottom">
+                <div className="d-sm-inline-block align-bottom ml-0 ml-sm-4">
                     <Row>
                         <Col xs="4">
                             <Label
@@ -291,7 +291,7 @@ export default function BatchMetadata(props) {
                                     name="batchStartDateTime"
                                     className="waves-effect"
                                     // bsSize="sm"
-                                    style={{maxWidth: "16rem"}}
+                                    style={{ width: "16rem" }}
                                     value={batch.startedAt}
                                     onChange={onFormInputChange}
                                     hidden={!props.editable}

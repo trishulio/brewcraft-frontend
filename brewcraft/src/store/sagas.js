@@ -10,12 +10,13 @@ import Ingredient from "./Ingredient/saga";
 import Ingredients from "./Ingredients/saga";
 import LayoutSaga from "./layout/saga";
 import Invoice from "./Invoice/saga";
+import MaterialLots from "./MaterialLots/saga";
 import MaterialPortion from "./MaterialPortion/saga";
 import Materials from "./Materials/saga";
 import MaterialCategories from "./MaterialCategories/saga";
 import MaterialCategory from "./MaterialCategory/saga";
-import Mixture from "./Mixture/reducer";
-import MixtureRecording from "./MixtureRecording/reducer";
+import Mixture from "./Mixture/saga";
+import MixtureRecording from "./MixtureRecording/saga";
 import Packaging from "./Packaging/saga";
 import PackagingItem from "./PackagingItem/saga";
 import PurchaseInvoice from "./PurchaseInvoice/saga";
@@ -45,6 +46,7 @@ export default function* rootSaga() {
         Ingredient(),
         Ingredients(),
         Invoice(),
+        MaterialLots(),
         MaterialPortion(),
         Materials(),
         MaterialCategories(),

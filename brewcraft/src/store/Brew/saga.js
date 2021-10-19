@@ -5,8 +5,9 @@ import { setGlobalRedirect } from "../Brewery/actions";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
 import {
     fetchAllBrewStages,
+    fetchMixturesByBrewId,
     saveBrewStage
-} from "../BrewStages/actions";
+} from "../actions";
 import {
     FETCH_BATCH_BY_ID_REQUEST,
     SET_BATCH_DETAILS,
@@ -20,11 +21,12 @@ import {
 
 function* fetchBatchByIdGenerator(action) {
     try {
-        const res = yield call(api.fetchBatchById,get(action, "payload.id"));
+        const res = yield call(api.fetchBatchById, get(action, "payload.id"));
         yield put({ type: SET_BATCH_DETAILS, payload: { data: res.data }});
         yield put({ type: SET_INITIAL_BATCH_DETAILS, payload: res.data });
         yield put(fetchAllBrewStages(res.data.id));
-        // yield put(fetchMixtureById(res.data.id));
+        yield put(fetchMixturesByBrewId(res.data.id));
+
     } catch (e) {
         yield put(snackFailure(e.message));
     }
@@ -59,6 +61,7 @@ function* addBatchGenerator(action) {
         }));
         yield put({ type: SET_BATCH_DETAILS, payload: { data: res.data }});
         yield put({ type: SET_INITIAL_BATCH_DETAILS, payload: res.data });
+        // yield put(fetchMixturesByBrewId(res.data.id));
         yield put(setGlobalRedirect({ pathname: "/batches/" + res.data.id }));
         yield put(snackSuccess());
     } catch (e) {

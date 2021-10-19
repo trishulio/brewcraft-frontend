@@ -1,5 +1,6 @@
 import {
     FETCH_MATERIAL_PORTION_BY_ID_REQUEST,
+    FETCH_MATERIAL_PORTIONS_BY_MIXTURE_ID_REQUEST,
     SET_MATERIAL_PORTION_DETAILS,
     ADD_MATERIAL_PORTION_REQUEST,
     EDIT_MATERIAL_PORTION_REQUEST,
@@ -12,7 +13,12 @@ import {
 export const fetchMaterialPortionById = id => ({
     type: FETCH_MATERIAL_PORTION_BY_ID_REQUEST,
     payload: { id },
-  });
+});
+
+export const fetchMaterialPortionsByMixtureId = id => ({
+    type: FETCH_MATERIAL_PORTIONS_BY_MIXTURE_ID_REQUEST,
+    payload: { id },
+});
 
 export const setMaterialPortionDetails = payload => ({
     type: SET_MATERIAL_PORTION_DETAILS,

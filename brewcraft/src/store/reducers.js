@@ -17,6 +17,7 @@ import ProductCategories from "./ProductCategories/reducer";
 import ProductCategory from "./ProductCategory/reducer";
 import Products from "./Products/reducer";
 import Profile from "./Profile/reducer";
+import MaterialLots from "./MaterialLots/reducer";
 import MaterialPortion from "./MaterialPortion/reducer";
 import Materials from "./Materials/reducer";
 import MaterialCategories from "./MaterialCategories/reducer";
@@ -56,6 +57,7 @@ const rootReducer = combineReducers({
   Ingredients,
   Invoice,
   Layout,
+  MaterialLots,
   Materials,
   MaterialCategories,
   MaterialCategory,
