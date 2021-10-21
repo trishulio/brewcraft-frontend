@@ -4,8 +4,8 @@ import {
     Row,
     Col
 } from "reactstrap";
-import Ingredients from "../ingredients";
-import Times from "../times";
+import MixtureRecordings from "./mixture-recording";
+import Times from "./stage-details";
 
 export default function BrewWhirlpool({ editable }) {
 
@@ -14,7 +14,7 @@ export default function BrewWhirlpool({ editable }) {
     });
 
     const mixture = useSelector(state => {
-        return state.Batch.mixtures.content[2];
+        return state.Batch.mixtures.content[4] || {};
     });
 
     return (

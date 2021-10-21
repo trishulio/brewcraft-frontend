@@ -157,7 +157,8 @@ export default function Batch() {
         changed,
         onSave,
         onDelete,
-        onTabChange
+        onTabChange,
+        showTabContent: id && id !== "new"
     }
 
     return (

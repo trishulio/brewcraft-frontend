@@ -4,9 +4,8 @@ import {
     Row,
     Col
 } from "reactstrap";
-import { setProductsPageSize } from "../../../../store/actions";
-import Ingredients from "../ingredients";
-import Times from "../times";
+import Ingredients from "./ingredients";
+import Times from "./stage-details";
 
 export default function BrewMash({ editable }) {
 
@@ -20,8 +19,8 @@ export default function BrewMash({ editable }) {
 
     const ingredientProps = {
         mixture,
-        title: "Mash Ingredients",
-        mTitle: "Mash Ingredient",
+        title: "Ingredients",
+        mTitle: "Ingredient",
         multiple: true,
         editable
     };

@@ -1,10 +1,7 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { map } from "lodash";
+import React from "react";
 import {
     Row,
     Col,
-    Button,
     Input,
     Label,
     FormGroup,
@@ -23,7 +20,7 @@ export default function BatchTimes({ stage, editable }) {
 
     return (
         <React.Fragment>
-            <h4 className="font-size-12 pt-3 pt-sm-0">Stage</h4>
+            <h4 className="font-size-12 pt-3 pt-sm-0">Timeline</h4>
             <hr/>
             <Row>
                 <Col sm="6" xl="4">

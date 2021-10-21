@@ -6,8 +6,8 @@ import {
   Button
 } from "reactstrap";
 import Details from "./components/batch-details";
-import BrewToolbar from "./components/brew/brew-toolbar";
-import TabContent from "./components/brew/brew-tab-content";
+import BrewToolbar from "./components/brew-toolbar";
+import TabContent from "./components/brew-tab-content";
 import Toolbar from "./components/toolbar";
 
 export default function Batch(props) {
@@ -26,7 +26,7 @@ export default function Batch(props) {
                 </CardHeader>
                 <CardBody>
                     <Details {...props}/>
-                    <TabContent {...props}/>
+                    {props.showTabContent && <TabContent {...props}/>}
                 </CardBody>
             </Card>
         </React.Fragment>
