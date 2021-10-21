@@ -129,48 +129,10 @@ export default function BatchMetadata(props) {
                     <Product {...props}/>
                 </div>
                 <div className="d-sm-inline-block align-middle ml-0 ml-sm-4">
-                    <Row hidden={props.editable}>
-                        <Col xs="4">
-                            <Label
-                                for="batchParentBrew"
-                                className="my-3"
-                            >
-                                Parent
-                            </Label>
-                        </Col>
-                        <Col xs="8">
-                            <div className="mt-3">
-                                {batch.parentBrew ? batch.parentBrew.name : "-"}
-                            </div>
-                        </Col>
-                    </Row>
-                    {/* <Row>
-                        <Col xs="2">
-                            <Label
-                                for="batchStartDateTime"
-                                // className="mb-3"
-                            >
-                                Progress
-                            </Label>
-                        </Col>
-                        <Col xs="8">
-                            <Progress
-                                color="primary"
-                                className="mb-3"
-                                style={{
-                                    height: "2rem",
-                                    width: "16rem"
-                                }}
-                                value={25}
-                            >
-                                Kettle 25%
-                            </Progress>
-                        </Col>
-                    </Row> */}
                     <Row>
                         <Col xs="4">
                             <Label
-                                for="batchName"
+                                for="batchProduct"
                                 className="mb-3"
                             >
                                 Product
@@ -270,6 +232,21 @@ export default function BatchMetadata(props) {
                             </FormGroup>
                             <div hidden={props.editable}>
                                 {batch.batchId ? batch.batchId : "-"}
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row hidden={props.editable}>
+                        <Col xs="4">
+                            <Label
+                                for="batchParentBrew"
+                                className="mb-3"
+                            >
+                                Parent
+                            </Label>
+                        </Col>
+                        <Col xs="8">
+                            <div className="">
+                                {batch.parentBrew ? batch.parentBrew.name : "-"}
                             </div>
                         </Col>
                     </Row>

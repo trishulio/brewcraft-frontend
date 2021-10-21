@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import {
     Button
 } from "reactstrap";
-import { formatDatetime } from "../../../helpers/textUtils";
-import Modal from "../../../component/MixtureRecording/modal";
+import { formatDatetime } from "../../../../helpers/textUtils";
+import Modal from "../../../../component/MixtureRecording/modal";
 
 export default function MixtureRecording({ title, mTitle, mUnit, mixture, measureId, multiple, editable }) {
     const [showModal, setShowModal] = useState(false);

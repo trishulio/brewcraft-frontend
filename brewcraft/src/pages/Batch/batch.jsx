@@ -2,12 +2,11 @@ import React from "react";
 import {
   Card,
   CardHeader,
-  CardBody,
-  Button
+  CardBody
 } from "reactstrap";
-import Details from "./components/batch-details";
-import BrewToolbar from "./components/brew-toolbar";
-import TabContent from "./components/brew-tab-content";
+import BatchDetails from "./components/batch-details";
+import BrewToolbar from "./components/brew/toolbar";
+import TabContent from "./components/brew/tab-content";
 import Toolbar from "./components/toolbar";
 
 export default function Batch(props) {
@@ -25,7 +24,7 @@ export default function Batch(props) {
                     <div className="float-right"><BrewToolbar {...props}/></div>
                 </CardHeader>
                 <CardBody>
-                    <Details {...props}/>
+                    <BatchDetails {...props}/>
                     {props.showTabContent && <TabContent {...props}/>}
                 </CardBody>
             </Card>

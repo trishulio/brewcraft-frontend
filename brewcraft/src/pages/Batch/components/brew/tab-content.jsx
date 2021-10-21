@@ -3,11 +3,11 @@ import {
     TabContent,
     TabPane
 } from "reactstrap";
-import Nav from "./brew-nav";
-import Mash from "./brew-mash";
-import Kettle from "./brew-kettle";
-import Transfer from "./brew-transfer";
-import Whirlpool from "./brew-whirlpool";
+import Nav from "./nav";
+import Mash from "./mash";
+import Kettle from "./kettle";
+import Transfer from "./transfer";
+import Whirlpool from "./whirlpool";
 
 export default function BatchTabContent(props) {
     return (

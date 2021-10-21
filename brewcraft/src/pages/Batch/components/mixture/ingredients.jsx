@@ -3,8 +3,8 @@ import { map } from "lodash";
 import {
     Button
 } from "reactstrap";
-import Modal from "../../../component/MaterialLots/modal";
-import BarChart from "./charts/horizontal-barchart";
+import Modal from "../../../../component/MaterialLots/modal";
+import BarChart from "../charts/horizontal-barchart";
 
 export default function BatchIngredients({ title, mTitle, mixture, multiple, editable }) {
     const [showModal, setShowModal] = useState(false);
@@ -33,13 +33,20 @@ export default function BatchIngredients({ title, mTitle, mixture, multiple, edi
                         stepSize: 10
                     }
                 }],
-            },
-            // legend: false
+            }
         }
     };
 
     useEffect(() => {
-
+        if (mixture && mixture.materialPortions) {
+            setMaterialPortions(mixture. materialPortions
+                .sort((a, b) => {
+                    return new Date(a.addedAt) - new Date(b.addedAt);
+                })
+            );
+        } else {
+            setMaterialPortions([]);
+        }
     }, [mixture]);
 
     return (

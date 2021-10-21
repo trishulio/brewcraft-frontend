@@ -4,8 +4,8 @@ import {
     Row,
     Col
 } from "reactstrap";
-import Ingredients from "./ingredients";
-import Times from "./stage-details";
+import Ingredients from "../mixture/ingredients";
+import Details from "../mixture/details";
 
 export default function BrewMash({ editable }) {
 
@@ -16,6 +16,12 @@ export default function BrewMash({ editable }) {
     const mixture = useSelector(state => {
         return state.Batch.mixtures.content[0] || {};
     });
+
+    const detailsProps = {
+        stage,
+        mixture,
+        editable
+    };
 
     const ingredientProps = {
         mixture,
@@ -30,10 +36,10 @@ export default function BrewMash({ editable }) {
             <Row>
                 <Col xs="12">
                     <div className="mb-3">
-                        <Times {...{stage, editable}}/>
+                        <Details {...detailsProps}/>
                     </div>
                 </Col>
-                <Col sm="6" xl="4">
+                <Col sm="6">
                     <div className="mb-3">
                         <Ingredients {...ingredientProps}/>
                     </div>

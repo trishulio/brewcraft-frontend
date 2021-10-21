@@ -4,10 +4,10 @@ import {
     Row,
     Col
 } from "reactstrap";
-import Ingredients from "./ingredients";
-import MixtureRecordings from "./mixture-recording";
-import Temperatures from "./mixture-temperature";
-import Times from "./stage-details";
+import Ingredients from "../mixture/ingredients";
+import MixtureRecordings from "../mixture/recording";
+import Temperatures from "../mixture/temperature";
+import Times from "../mixture/details";
 
 export default function BrewKettle({ editable }) {
 
@@ -45,12 +45,12 @@ export default function BrewKettle({ editable }) {
                         <Times {...{stage, editable}}/>
                     </div>
                 </Col>
-                <Col sm="6" xl="4">
+                <Col md="6">
                     <div className="mb-3">
                         <Temperatures {...recordingsProps}/>
                     </div>
                 </Col>
-                <Col sm="6" xl="4">
+                <Col md="6">
                     <div className="mb-3">
                         <Ingredients {...ingredientProps}/>
                     </div>

@@ -19,13 +19,19 @@ export const Modal = ({ show, close, title, size, children }) => {
         close && close(false);
     }
 
+    const props = {
+        centered: true,
+        isOpen: show,
+        toggle: onToggle,
+        autoFocus: true,
+        size,
+        fade: false
+    };
+
     return (
         <ReactStrap.Modal
-            isOpen={show}
-            toggle={onToggle}
-            autoFocus={true}
-            size={size}
-            >
+            {...props}
+        >
             <ReactStrap.ModalHeader toggle={onToggle}>{title}</ReactStrap.ModalHeader>
             {children}
         </ReactStrap.Modal>

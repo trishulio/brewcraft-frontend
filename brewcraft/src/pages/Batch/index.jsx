@@ -53,9 +53,6 @@ export default function Batch() {
     useEffect(() => {
         function fetchBatch() {
             dispatch(fetchBatchById(id));
-            // dispatch(fetchMaterialPortionById(id));
-            // dispatch(fetchMixtureById(id));
-            // dispatch(fetchMixtureRecordingById(id));
         };
         if (id === "new") {
             dispatch(resetBatchDetails());

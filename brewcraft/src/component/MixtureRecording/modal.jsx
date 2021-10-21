@@ -29,9 +29,11 @@ export default function MixtureRecordingModal(props) {
                     measureId: props.measureId,
                     value: recordValue,
                     recordedAt: recordRecordedAt
-                }]
+                }],
+                batchId: props.batchId
             })
         );
+        close();
     }
 
     return (

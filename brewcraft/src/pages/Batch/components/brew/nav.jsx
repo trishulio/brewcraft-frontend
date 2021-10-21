@@ -5,16 +5,28 @@ import {
     NavLink
 } from "reactstrap";
 import classnames from "classnames";
+import { useSelector } from "react-redux";
 
 export default function BatchNav(props) {
+
+    const stages = useSelector(state => {
+        return state.Batch.stages.content;
+    });
 
     function onTabChange(tab) {
         props.onTabChange(tab);
     }
 
+    let
+        mashlauter = stages.find(s => s.task.id === 1),
+        kettle = stages.find(s => s.task.id === 2),
+        whirlpool = stages.find(s => s.task.id === 3),
+        transfers = stages.find(s => s.task.id === 7);
+
     return (
         // <Nav pills justify className="flex-column">
         <Nav tabs style={{ borderBottom: "none" }} className="mb-3">
+            {console.log(stages)}
             <NavItem className="waves-effect waves-light">
                 <NavLink
                     style={{ cursor : "pointer" }}
@@ -25,8 +37,9 @@ export default function BatchNav(props) {
                         onTabChange("mashlauter");
                     }}
                 >
-                    <span className="d-block d-sm-none"><i className="fa fa-chevron-right"></i> Mash Lauter</span>
-                    <span className="d-none d-sm-block">Mash Lauter</span>
+                    <span className="">
+                            {mashlauter?.status.id === 1 && <i style={{ color: "#7a6fbe"}} className="fa fa-check mr-1"></i>}
+                    Mash Lauter</span>
                 </NavLink>
             </NavItem>
             <NavItem className="nav-item waves-effect waves-light">
@@ -39,8 +52,9 @@ export default function BatchNav(props) {
                         onTabChange("kettle");
                     }}
                 >
-                    <span className="d-block d-sm-none"><i className="fa fa-chevron-right"></i> Kettle</span>
-                    <span className="d-none d-sm-block">Kettle</span>
+                    <span className="">
+                            {kettle?.status.id === 1 && <i style={{ color: "#7a6fbe"}} className="fa fa-check mr-1"></i>}
+                    Kettle</span>
                 </NavLink>
             </NavItem>
             <NavItem className="nav-item waves-effect waves-light">
@@ -53,8 +67,9 @@ export default function BatchNav(props) {
                         onTabChange("whirlpool");
                     }}
                 >
-                    <span className="d-block d-sm-none"><i className="fa fa-chevron-right"></i> Whirlpool</span>
-                    <span className="d-none d-sm-block">Whirlpool</span>
+                    <span className="">
+                            {whirlpool?.status.id === 2 && <i style={{ color: "#7a6fbe"}} className="fa fa-check mr-1"></i>}
+                    Whirlpool</span>
                 </NavLink>
             </NavItem>
             <NavItem className="waves-effect waves-light">
@@ -67,8 +82,9 @@ export default function BatchNav(props) {
                         onTabChange("transfer");
                     }}
                 >
-                    <span className="d-block d-sm-none"><i className="fa fa-chevron-right"></i> Transfer</span>
-                    <span className="d-none d-sm-block">Transfer</span>
+                    <span>
+                            {transfers?.status.id === 2 && <i style={{ color: "#7a6fbe"}} className="fa fa-check mr-1"></i>}
+                    Transfer</span>
                 </NavLink>
             </NavItem>
         </Nav>
