@@ -33,6 +33,20 @@ async function fetchMaterialPortionsByMixtureId(id) {
         .then((r) => r)
 }
 
+async function fetchMixtureRecordingsByMixtureId(id) {
+    const data = {
+        params: {
+            mixture_ids: id,
+            page: 0,
+            size: 500,
+            sort: "id",
+            order_asc: true
+        }
+    };
+    return await AxiosInstance.get("/api/v1/mixtures/recordings", data)
+        .then((r) => r)
+}
+
 async function addMixture(params) {
     return await AxiosInstance.post("/api/v1/brews/mixtures", params)
         .then((r) => r);
@@ -52,6 +66,7 @@ export const api = {
     fetchMixtureById,
     fetchMixturesByBrewId,
     fetchMaterialPortionsByMixtureId,
+    fetchMixtureRecordingsByMixtureId,
     addMixture,
     updateMixture,
     deleteMixture

@@ -6,6 +6,7 @@ import {
 import Nav from "./brew-nav";
 import Mash from "./brew-mash";
 import Kettle from "./brew-kettle";
+import Transfer from "./brew-transfer";
 import Whirlpool from "./brew-whirlpool";
 
 export default function BatchTabContent(props) {
@@ -25,6 +26,9 @@ export default function BatchTabContent(props) {
                 </TabPane>
                 <TabPane tabId="whirlpool">
                     <Whirlpool {...props}/>
+                </TabPane>
+                <TabPane tabId="transfer">
+                    <Transfer {...props}/>
                 </TabPane>
             </TabContent>
         </React.Fragment>

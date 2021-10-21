@@ -125,21 +125,21 @@ export default function BatchMetadata(props) {
     return (
         <React.Fragment>
             <div className="mb-4">
-                <div className="d-sm-inline-block mb-4 mb-sm-0">
+                <div className="d-sm-inline-block align-middle mb-4 mb-sm-0">
                     <Product {...props}/>
                 </div>
-                <div className="d-sm-inline-block align-bottom ml-0 ml-sm-4">
-                    <Row>
+                <div className="d-sm-inline-block align-middle ml-0 ml-sm-4">
+                    <Row hidden={props.editable}>
                         <Col xs="4">
                             <Label
                                 for="batchParentBrew"
-                                className="mb-3"
+                                className="my-3"
                             >
                                 Parent
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <div hidden={false}>
+                            <div className="mt-3">
                                 {batch.parentBrew ? batch.parentBrew.name : "-"}
                             </div>
                         </Col>

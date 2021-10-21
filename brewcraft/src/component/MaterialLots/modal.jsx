@@ -27,7 +27,6 @@ export default function MaterialLotsModal(props) {
     }
 
     function onFormSubmit(e, values) {
-        debugger;
         dispatch(
             saveMaterialPortion({
                 mixtureId: props.mixtureId,
@@ -63,7 +62,6 @@ export default function MaterialLotsModal(props) {
                         hidden={!props.editable}
                         value={materialLot.id || ""}
                         onChange={e => {
-                            debugger;
                             const materialLot = materialLots.stock.find (s => s.id === parseInt(e.target.value));
                             setMaterialLot(materialLot);
                         }}

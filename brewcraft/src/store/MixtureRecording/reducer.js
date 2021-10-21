@@ -13,32 +13,25 @@ import {
 } from "./actionTypes";
 
 const initialState = {
+    content: [],
     data: {
         id: "",
-        name: "",
-        description: "",
-        category: null,
-        baseQuantityUnit: null,
-        upc: "",
-        imageSrc: "",
-        version: null
+        measure: {},
+        value: "",
+        recordedAt: "",
+        mixture: {},
+        version: 0
     },
     initial: {
         id: "",
-        name: "",
-        description: "",
-        category: null,
-        baseQuantityUnit: null,
-        upc: "",
-        imageSrc: "",
-        version: null
+        measure: {},
+        value: "",
+        recordedAt: "",
+        mixture: {},
+        version: 0
     },
-    invalidName: false,
-    invalidDescription: false,
-    invalidClass: false,
-    invalidCategory: false,
-    invalidBaseQuantityUnit: false,
-    invalidUpc: false,
+    totalElements: 0,
+    totalPages: 0,
     loading: true,
     error: null
 };

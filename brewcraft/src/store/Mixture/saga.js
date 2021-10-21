@@ -21,8 +21,11 @@ function* fetchMixturesByBrewId(action) {
         const res = yield call(api.fetchMixturesByBrewId, get(action, "payload.id"));
         for (let i = 0; i < res.data.content.length; i++) {
             const mixture = res.data.content[i];
-            const r = yield call(api.fetchMaterialPortionsByMixtureId, mixture.id);
+            let r;
+            r = yield call(api.fetchMaterialPortionsByMixtureId, mixture.id);
             mixture.materialPortions = r.data.content;
+            r = yield call(api.fetchMixtureRecordingsByMixtureId, mixture.id);
+            mixture.mixtureRecordings = r.data.content;
         }
         yield put({ type: SET_MIXTURE_DETAILS, payload: { content: res.data.content }});
     } catch (e) {
@@ -55,7 +58,6 @@ function* editMixtureGenerator(action) {
         const res = yield call(api.updateMixture, get(action, "payload.id"), get(action, "payload.form"));
         res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: EDIT_MIXTURE_SUCCESS, payload: { data: res.data, initial: res.data }});
-        yield put(setGlobalRedirect({ pathname: "/materials/brews/mixturesss/" + res.data.id }));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: EDIT_MIXTURE_FAILURE });
@@ -67,7 +69,6 @@ function* deleteMixtureGenerator(action) {
     try {
         yield call(api.deleteMixture, get(action, "payload.id"));
         yield put({ type: DELETE_MIXTURE_SUCCESS , payload : get(action, "payload") });
-        yield put(setGlobalRedirect({ pathname: "/materials/brews/mixturesss" }));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: DELETE_MIXTURE_FAILURE });

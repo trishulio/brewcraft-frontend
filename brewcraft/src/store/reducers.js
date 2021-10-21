@@ -22,6 +22,7 @@ import MaterialPortion from "./MaterialPortion/reducer";
 import Materials from "./Materials/reducer";
 import MaterialCategories from "./MaterialCategories/reducer";
 import MaterialCategory from "./MaterialCategory/reducer";
+import Measures from "./Measures/reducer";
 import Mixture from "./Mixture/reducer";
 import MixtureRecording from "./MixtureRecording/reducer";
 import Packaging from "./Packaging/reducer";
@@ -61,6 +62,7 @@ const rootReducer = combineReducers({
   Materials,
   MaterialCategories,
   MaterialCategory,
+  Measures,
   Notifications,
   Packaging,
   PackagingItem,

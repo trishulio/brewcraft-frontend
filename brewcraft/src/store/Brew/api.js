@@ -10,6 +10,16 @@ async function addBatch(payload) {
         .then((r) => r)
 }
 
+async function addBrewStage(payload) {
+    return await AxiosInstance.post("/api/v1/brews/stages", payload)
+        .then((r) => r)
+}
+
+async function addMixture(params) {
+    return await AxiosInstance.post("/api/v1/brews/mixtures", params)
+        .then((r) => r);
+}
+
 async function updateBatch(id, payload) {
     return await AxiosInstance.put(`/api/v1/brews/${id}`, payload)
         .then((r) => r)
@@ -23,6 +33,8 @@ async function deleteBatch(id) {
 export const api = {
     fetchBatchById,
     addBatch,
+    addBrewStage,
+    addMixture,
     updateBatch,
     deleteBatch
 };

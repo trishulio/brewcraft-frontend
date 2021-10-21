@@ -15,7 +15,6 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
-import { setGlobalRedirect } from "../Brewery/actions";
 
 function* fetchMixtureRecordingByIdGenerator(action) {
     try {
@@ -35,7 +34,6 @@ function* addMixtureRecordingGenerator(action) {
         const res = yield call(api.addMixtureRecording, get(action, "payload.form"));
         res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: ADD_MIXTURE_RECORDING_SUCCESS, payload: { data: res.data, initial: res.data }});
-        yield put(setGlobalRedirect({ pathname: "/materials/mixtures/recordingsss/" + res.data.id }));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: ADD_MIXTURE_RECORDING_FAILURE });
@@ -47,9 +45,7 @@ function* editMixtureRecordingGenerator(action) {
     try {
         const res = yield call(api.updateMixtureRecording, get(action, "payload.id"), get(action, "payload.form"));
         res.initial = JSON.parse(JSON.stringify(res.data));
-        yield put({ type: EDIT_MIXTURE_RECORDING_SUCCESS, payload: { data: res.data, initial: res.data }});
-        yield put(setGlobalRedirect({ pathname: "/materials/mixtures/recordingsss/" + res.data.id }));
-        yield put(snackSuccess());
+        yield put({ type: EDIT_MIXTURE_RECORDING_SUCCESS, payload: { data: res.data, initial: res.data }});        yield put(snackSuccess());
     } catch (e) {
         yield put({ type: EDIT_MIXTURE_RECORDING_FAILURE });
         yield put(snackFailure());
@@ -60,7 +56,6 @@ function* deleteMixtureRecordingGenerator(action) {
     try {
         yield call(api.deleteMixtureRecording, get(action, "payload.id"));
         yield put({ type: DELETE_MIXTURE_RECORDING_SUCCESS , payload : get(action, "payload") });
-        yield put(setGlobalRedirect({ pathname: "/materials/mixtures/recordingsss" }));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: DELETE_MIXTURE_RECORDING_FAILURE });

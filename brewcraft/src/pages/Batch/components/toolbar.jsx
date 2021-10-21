@@ -7,6 +7,7 @@ import {
 
 export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, onDelete }) {
     const history = useHistory();
+
     const batch = useSelector(state => {
         return state.Batch.details.data;
     });
@@ -16,8 +17,36 @@ export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, o
             <Button
                 type="button"
                 color="secondary"
-                // size="sm"
-                className="waves-effect mr-2 mb-1"
+                size="sm"
+                disabled={true}
+                className="waves-effect mr-2"
+                hidden={editable}
+            >
+                    Brew
+            </Button>
+            <Button
+                type="button"
+                color="secondary"
+                size="sm"
+                className="waves-effect mr-2"
+                hidden={editable}
+            >
+                    Tanks
+            </Button>
+            <Button
+                type="button"
+                color="secondary"
+                size="sm"
+                className="waves-effect mr-2"
+                hidden={editable}
+            >
+                    Finished Goods
+            </Button>
+            <Button
+                type="button"
+                color="secondary"
+                size="sm"
+                className="waves-effect mr-2"
                 onClick={onSave}
                 disabled={!changed}
                 hidden={!editable}
@@ -27,8 +56,8 @@ export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, o
             <Button
                 type="button"
                 color="secondary"
-                // size="sm"
-                className="waves-effect mr-2 mb-1"
+                size="sm"
+                className="waves-effect mr-2"
                 onClick={() => {
                     history.goBack();
                 }}
@@ -39,24 +68,17 @@ export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, o
             <Button
                 type="button"
                 color="secondary"
-                // size="sm"
-                className="waves-effect mr-2 mb-1"
-                disabled={editable}
-                hidden={!batch.id || editable}
-                onClick={() => {
-                    history.push({
-                        pathname: "/batches/" + batch.id,
-                        search: "?edit=true"
-                    });
-                }}
+                size="sm"
+                className="waves-effect mr-2"
+                hidden={!batch.id || !editable}
             >
-                Edit Batch
+                Split Batch
             </Button>
             <Button
                 type="button"
                 color="danger"
-                // size="sm"
-                className="waves-effect mr-2 mb-1"
+                size="sm"
+                className="waves-effect mr-2"
                 onClick={onDelete}
                 hidden={!batch.id || !editable}
             >

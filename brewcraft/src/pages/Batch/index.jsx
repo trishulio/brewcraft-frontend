@@ -11,6 +11,7 @@ import {
     fetchAllProducts,
     fetchBatchStatuses,
     fetchBatchTasks,
+    fetchMeasures,
     fetchMaterialStockQuantity
 } from "../../store/actions";
 import {
@@ -43,7 +44,11 @@ export default function Batch() {
 
     const { invalidName } = useSelector(state => {
         return state.Batch.details;
-    })
+    });
+
+    const measures = useSelector(state => {
+        return state.Measures;
+    });
 
     useEffect(() => {
         function fetchBatch() {
@@ -63,6 +68,7 @@ export default function Batch() {
         }
         dispatch(fetchBatchStatuses());
         dispatch(fetchBatchTasks());
+        dispatch(fetchMeasures());
         dispatch(fetchMaterialStockQuantity());
         setEditable(editMode && editMode !== "false");
         setShowRouterPrompt(!!editMode);
@@ -72,14 +78,15 @@ export default function Batch() {
     useEffect(() => {
         if (batch.id) {
             dispatch(
-                setBreadcrumbItems(batch.name, [
+                setBreadcrumbItems("Brew", [
                     { title: "Main", link: "#" },
-                    { title: "Batches", link: "#" }
+                    { title: "Batches", link: "#" },
+                    { title: batch.name, link: "#"}
                 ]),
             );
         } else {
             dispatch(
-                setBreadcrumbItems("New Batch", [
+                setBreadcrumbItems("New Brew", [
                     { title: "Main", link: "#" },
                     { title: "Batches", link: "#" }
                 ]),

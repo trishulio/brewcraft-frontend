@@ -57,6 +57,20 @@ export default function BatchNav(props) {
                     <span className="d-none d-sm-block">Whirlpool</span>
                 </NavLink>
             </NavItem>
+            <NavItem className="waves-effect waves-light">
+                <NavLink
+                    style={{ cursor : "pointer" }}
+                    className={classnames({
+                        active: props.activeTab === "transfer"
+                    })}
+                    onClick={() => {
+                        onTabChange("transfer");
+                    }}
+                >
+                    <span className="d-block d-sm-none"><i className="fa fa-chevron-right"></i> Transfer</span>
+                    <span className="d-none d-sm-block">Transfer</span>
+                </NavLink>
+            </NavItem>
         </Nav>
     );
 }
