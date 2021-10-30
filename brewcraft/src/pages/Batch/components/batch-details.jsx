@@ -2,12 +2,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import {
-    Row,
-    Col,
     Input,
     Label,
     FormGroup,
-    FormFeedback
+    FormFeedback,
+    Card,
+    CardHeader,
+    CardBody
 } from "reactstrap";
 import {
     setBatchDetails,
@@ -21,6 +22,7 @@ import {
 } from "../../../store/actions";
 import { formatDatetime } from "../../../helpers/textUtils";
 import Product from "./batch-product";
+import Toolbar from "./toolbar";
 
 export default function BatchMetadata(props) {
 
@@ -30,7 +32,7 @@ export default function BatchMetadata(props) {
         return state.Batch.details.data;
     });
 
-    const { invalidName, invalidBatchId, invalidProduct } = useSelector(state => {
+    const { invalidBatchId, invalidProduct } = useSelector(state => {
         return state.Batch.details;
     });
 
@@ -124,170 +126,145 @@ export default function BatchMetadata(props) {
 
     return (
         <React.Fragment>
-            <div className="mb-4">
-                <div className="d-sm-inline-block align-middle mb-4 mb-sm-0">
-                    <Product {...props}/>
-                </div>
-                <div className="d-sm-inline-block align-middle ml-0 ml-sm-4">
-                    <Row>
-                        <Col xs="4">
-                            <Label
-                                for="batchProduct"
-                                className="mb-3"
-                            >
-                                Product
-                            </Label>
-                        </Col>
-                        <Col xs="8">
-                            <FormGroup
+            {console.log(batch)}
+            <Card className="mb-3">
+                <CardHeader>
+                    <div className="float-left">
+                        <h4 className="card-title font-size-14 pt-1">Batch </h4>
+                    </div>
+                </CardHeader>
+                <CardBody>
+                    <div className="d-sm-inline-block align-bottom mr-0 mr-sm-4 mb-3">
+                        <Product {...props}/>
+                    </div>
+                    <div className="d-sm-inline-block align-top mr-0 mr-sm-4 mb-3">
+                        <Label
+                            for="batchProduct"
+                            className="d-sm-inline-block font-size-12 mb-3"
+                            style={{
+                                width: "5rem"
+                            }}
+                        >
+                            Product
+                        </Label>
+                        <FormGroup
+                            className="d-sm-inline-block font-size-12 mb-3"
+                            hidden={!props.editable}
+                        >
+                            <Input
+                                type="select"
+                                className="waves-effect"
+                                // bsSize="sm"
+                                name="batchProduct"
+                                style={{ width: "16rem" }}
+                                disabled={!props.editable}
+                                invalid={invalidProduct}
+                                value={batch.product?.id || ""}
+                                onChange={e => {
+                                    onFormInputChange(e);
+                                }}
                                 hidden={!props.editable}
                             >
-                                <Input
-                                    type="select"
-                                    className="waves-effect"
-                                    // bsSize="sm"
-                                    name="batchProduct"
-                                    style={{ width: "16rem" }}
-                                    disabled={!props.editable}
-                                    invalid={invalidProduct}
-                                    value={batch.product?.id || ""}
-                                    onChange={e => {
-                                        onFormInputChange(e);
-                                    }}
-                                >
-                                    <option value="">Select</option>
-                                    {
-                                        map(products, (value, index) => (
-                                            <option value={value.id} key={index}>
-                                                {value.name}
-                                            </option>
-                                        ))
-                                    }
-                                </Input>
-                                <FormFeedback>Enter a valid batch product.</FormFeedback>
-                            </FormGroup>
+                                <option value="">Select</option>
+                                {
+                                    map(products, (value, index) => (
+                                        <option value={value.id} key={index}>
+                                            {value.name}
+                                        </option>
+                                    ))
+                                }
+                            </Input>
+                            <FormFeedback>Enter a valid batch product.</FormFeedback>
+                        </FormGroup>
+                        <div className="d-sm-inline-block font-size-12 mb-3">
                             <div hidden={props.editable}>
                                 {batch.product ? batch.product.name : "-"}
                             </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="4">
-                            <Label
-                                for="batchName"
-                                className="mb-3"
-                            >
-                                Name
-                            </Label>
-                        </Col>
-                        <Col xs="8">
-                            <FormGroup
+                        </div>
+                        <div className="clearFix"></div>
+                        <Label
+                            for="batchBatchId"
+                            className="d-sm-inline-block font-size-12f mb-3"
+                            style={{
+                                width: "5rem"
+                            }}
+                        >
+                            Batch ID
+                        </Label>
+                        <FormGroup
+                            className="d-sm-inline-block font-size-12 mb-3"
+                            hidden={!props.editable}
+                        >
+                            <Input
+                                type="text"
+                                className="waves-effect"
+                                // bsSize="sm"
+                                value={batch.batchId}
+                                placeholder="Enter"
+                                name="batchBatchId"
+                                disabled={!props.editable}
+                                onChange={onFormInputChange}
+                                invalid={invalidBatchId}
+                                style={{ width: "16rem" }}
                                 hidden={!props.editable}
-                            >
-                                <Input
-                                    type="text"
-                                    className="waves-effect"
-                                    // bsSize="sm"
-                                    value={batch.name}
-                                    placeholder="Enter"
-                                    name="batchName"
-                                    disabled={!props.editable}
-                                    onChange={onFormInputChange}
-                                    invalid={invalidName}
-                                    style={{ width: "16rem" }}
-                                />
-                                <FormFeedback>Enter a valid batch name.</FormFeedback>
-                            </FormGroup>
-                            <div hidden={props.editable}>
-                                {batch.name ? batch.name : "-"}
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="4">
-                            <Label
-                                for="batchBatchId"
-                                className="mb-3"
-                            >
-                                Batch ID
-                            </Label>
-                        </Col>
-                        <Col xs="8">
-                            <FormGroup
-                                hidden={!props.editable}
-                            >
-                                <Input
-                                    type="text"
-                                    className="waves-effect"
-                                    // bsSize="sm"
-                                    value={batch.batchId}
-                                    placeholder="Enter"
-                                    name="batchBatchId"
-                                    disabled={!props.editable}
-                                    onChange={onFormInputChange}
-                                    invalid={invalidBatchId}
-                                    style={{ width: "16rem" }}
-                                />
-                                <FormFeedback>Enter a valid batch id.</FormFeedback>
-                            </FormGroup>
+                            />
+                            <FormFeedback>Enter a valid batch id.</FormFeedback>
+                        </FormGroup>
+                        <div className="d-sm-inline-block font-size-12 mb-3">
                             <div hidden={props.editable}>
                                 {batch.batchId ? batch.batchId : "-"}
                             </div>
-                        </Col>
-                    </Row>
-                    <Row hidden={props.editable}>
-                        <Col xs="4">
-                            <Label
-                                for="batchParentBrew"
-                                className="mb-3"
-                            >
-                                Parent
-                            </Label>
-                        </Col>
-                        <Col xs="8">
-                            <div className="">
-                                {batch.parentBrew ? batch.parentBrew.name : "-"}
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="4">
-                            <Label
-                                for="batchStartDateTime"
-                                className="mb-3"
-                            >
-                                Start
-                            </Label>
-                        </Col>
-                        <Col xs="8">
-                            <FormGroup
+                        </div>
+                        <div className="clearfix"></div>
+                        <Label
+                            for="batchParentBrew"
+                            className="d-sm-inline-block font-size-12 mb-3"
+                            style={{
+                                width: "5rem"
+                            }}
+                        >
+                            Parent
+                        </Label>
+                        <div className="d-sm-inline-block font-size-12 mb-3">
+                            {batch.parentBrew ? batch.parentBrew.name : "-"}
+                        </div>
+                        <div className="clearfix"></div>
+                        <Label
+                            for="batchStartDateTime"
+                            className="d-sm-inline-block font-size-12 mb-3"
+                            style={{
+                                width: "5rem"
+                            }}
+                        >
+                            Start
+                        </Label>
+                        <FormGroup
+                            className="d-sm-inline-block font-size-12 mb-3"
+                            hidden={!props.editable}
+                        >
+                            <Input
+                                type="datetime-local"
+                                name="batchStartDateTime"
+                                className="waves-effect"
+                                // bsSize="sm"
+                                style={{ width: "16rem" }}
+                                value={batch.startedAt}
+                                onChange={onFormInputChange}
                                 hidden={!props.editable}
-                            >
-                                <Input
-                                    type="datetime-local"
-                                    name="batchStartDateTime"
-                                    className="waves-effect"
-                                    // bsSize="sm"
-                                    style={{ width: "16rem" }}
-                                    value={batch.startedAt}
-                                    onChange={onFormInputChange}
-                                    hidden={!props.editable}
-                                />
-                                <FormFeedback>Enter a valid start date.</FormFeedback>
-                            </FormGroup>
-                            <div
-                                style={{
-                                    minWidth: "16rem"
-                                }}
-                                hidden={props.editable}
-                            >
+                            />
+                            <FormFeedback>Enter a valid start date.</FormFeedback>
+                        </FormGroup>
+                        <div className="d-sm-inline-block font-size-12 mb-3">
+                            <div hidden={props.editable}>
                                 {batch.startedAt ? formatDatetime(batch.startedAt) : "-"}
                             </div>
-                        </Col>
-                    </Row>
-                </div>
-            </div>
-            </React.Fragment>
+                        </div>
+                    </div>
+                    <div className="d-sm-inline-block align-top mr-0 mr-sm-4 mb-3">
+                            <Toolbar {...props}/>
+                    </div>
+                </CardBody>
+            </Card>
+        </React.Fragment>
     )
 };
-

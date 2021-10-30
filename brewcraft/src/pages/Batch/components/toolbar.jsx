@@ -18,46 +18,31 @@ export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, o
                 type="button"
                 color="secondary"
                 size="sm"
-                disabled={true}
-                className="waves-effect mr-2"
+                className="waves-effect mr-2 mb-2"
+                onClick={() => {
+                    history.push({
+                        pathname: "/batches/" + batch.id,
+                        search: "?edit=true"
+                    });
+                }}
                 hidden={editable}
             >
-                    Brew
+                Edit Details
             </Button>
             <Button
                 type="button"
                 color="secondary"
                 size="sm"
-                className="waves-effect mr-2"
+                className="waves-effect mr-2  mb-2"
                 hidden={editable}
             >
-                    Tanks
+                    Start Ferment
             </Button>
             <Button
                 type="button"
                 color="secondary"
                 size="sm"
-                className="waves-effect mr-2"
-                hidden={editable}
-            >
-                    Finished Goods
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2"
-                onClick={onSave}
-                disabled={!changed}
-                hidden={!editable}
-            >
-                    Save
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2"
+                className="waves-effect mr-2  mb-2"
                 onClick={() => {
                     history.goBack();
                 }}
@@ -69,16 +54,20 @@ export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, o
                 type="button"
                 color="secondary"
                 size="sm"
-                className="waves-effect mr-2"
-                hidden={!batch.id || !editable}
+                className="waves-effect mr-2 mb-2"
+                onClick={onSave}
+                disabled={!changed}
+                hidden={!editable}
             >
-                Split Batch
+                    Save
             </Button>
+            <div className="clearFix"></div>
             <Button
                 type="button"
                 color="danger"
                 size="sm"
-                className="waves-effect mr-2"
+                className="waves-effect mr-2  mb-2"
+                disabled={changed}
                 onClick={onDelete}
                 hidden={!batch.id || !editable}
             >

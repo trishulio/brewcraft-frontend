@@ -20,8 +20,6 @@ export default function BatchTimes({ stage, mixture, hideQuantity, editable }) {
 
     return (
         <React.Fragment>
-            <h4 className="font-size-12 pt-3 pt-sm-0">Stage Details</h4>
-            <hr/>
             <Row>
                 <Col sm="6" xl="4">
                     <Label

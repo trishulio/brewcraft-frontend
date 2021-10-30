@@ -39,11 +39,6 @@ export default function BrewMash({ editable }) {
                         <Details {...detailsProps}/>
                     </div>
                 </Col>
-                <Col sm="6">
-                    <div className="mb-3">
-                        <Ingredients {...ingredientProps}/>
-                    </div>
-                </Col>
             </Row>
         </React.Fragment>
     );

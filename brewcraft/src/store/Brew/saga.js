@@ -59,7 +59,7 @@ function* addBatchGenerator(action) {
             brewId: res.data.id,
             taskId: 2, // kettle
             statusId: 1, // in-process
-            startedAt: get(action, "payload.form.startedAt")
+            // startedAt: get(action, "payload.form.startedAt")
         });
         resMixture = yield call(api.addMixture, {
             parentMixtureId: resMixture.data.id,
@@ -74,7 +74,7 @@ function* addBatchGenerator(action) {
             brewId: res.data.id,
             taskId: 3, // whirlpool
             statusId: 1, // in-process
-            startedAt: get(action, "payload.form.startedAt")
+            // startedAt: get(action, "payload.form.startedAt")
         });
         resMixture = yield call(api.addMixture, {
             parentMixtureId: resMixture.data.id,
@@ -89,7 +89,7 @@ function* addBatchGenerator(action) {
             brewId: res.data.id,
             taskId: 7, // transfer
             statusId: 1, // in-process
-            startedAt: get(action, "payload.form.startedAt")
+            // startedAt: get(action, "payload.form.startedAt")
         });
         resMixture = yield call(api.addMixture, {
             parentMixtureId: resMixture.data.id,

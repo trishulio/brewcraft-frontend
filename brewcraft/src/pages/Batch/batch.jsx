@@ -2,30 +2,52 @@ import React from "react";
 import {
   Card,
   CardHeader,
-  CardBody
+  CardBody,
+  Row
 } from "reactstrap";
 import BatchDetails from "./components/batch-details";
-import BrewToolbar from "./components/brew/toolbar";
-import TabContent from "./components/brew/tab-content";
-import Toolbar from "./components/toolbar";
+import MiniCard from "./components/mini-card";
+import Mash from "./components/brew/mash";
+import Kettle from "./components/brew/kettle";
+import Transfer from "./components/brew/transfer";
+import Whirlpool from "./components/brew/whirlpool";
 
 export default function Batch(props) {
 
     return (
         <React.Fragment>
-            <div className="mb-3">
-                <Toolbar {...props}/>
-            </div>
+            <Row>
+                <MiniCard/>
+            </Row>
+            <BatchDetails {...props}/>
             <Card className="mb-3">
                 <CardHeader>
                     <div className="float-left">
-                        <h4 className="card-title font-size-14 pt-1">Brew</h4>
+                        <h4 className="card-title font-size-14 pt-1">Mash Lauter</h4>
                     </div>
-                    <div className="float-right"><BrewToolbar {...props}/></div>
                 </CardHeader>
                 <CardBody>
-                    <BatchDetails {...props}/>
-                    {props.showTabContent && <TabContent {...props}/>}
+                    {props.showTabContent && <Mash {...props}/>}
+                </CardBody>
+            </Card>
+            <Card className="mb-3">
+                <CardHeader>
+                    <div className="float-left">
+                        <h4 className="card-title font-size-14 pt-1">Boil</h4>
+                    </div>
+                </CardHeader>
+                <CardBody>
+                    {props.showTabContent && <Kettle {...props}/>}
+                </CardBody>
+            </Card>
+            <Card className="mb-3">
+                <CardHeader>
+                    <div className="float-left">
+                        <h4 className="card-title font-size-14 pt-1">Whirlpool</h4>
+                    </div>
+                </CardHeader>
+                <CardBody>
+                    {props.showTabContent && <Whirlpool {...props}/>}
                 </CardBody>
             </Card>
         </React.Fragment>
