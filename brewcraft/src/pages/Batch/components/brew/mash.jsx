@@ -35,7 +35,7 @@ export default function BrewMash({ editable }) {
         <React.Fragment>
             <Row>
                 <Col xs="12">
-                    <div className="mb-3">
+                    <div className="">
                         <Details {...detailsProps}/>
                     </div>
                 </Col>

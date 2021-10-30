@@ -9,7 +9,7 @@ import {
 } from "reactstrap";
 import { formatDatetime } from "../../../../helpers/textUtils";
 
-export default function BatchTimes({ stage, mixture, hideQuantity, editable }) {
+export default function BatchTimes({ stage, mixture, showSkipCheckbox, editable }) {
 
     function onFormInputChange(e) {
         switch(e.target.name) {
@@ -57,7 +57,7 @@ export default function BatchTimes({ stage, mixture, hideQuantity, editable }) {
                     <div className="clearfix"></div>
                     <Label
                         for="mixtureFinishDateTime"
-                        className="d-sm-inline-block font-size-12 mb-3"
+                        className="d-sm-inline-block font-size-12"
                         style={{
                             width: "5rem"
                         }}
@@ -65,7 +65,7 @@ export default function BatchTimes({ stage, mixture, hideQuantity, editable }) {
                         Finish time
                     </Label>
                     <FormGroup
-                        className="d-sm-inline-block mb-3"
+                        className="d-sm-inline-block"
                         hidden={!editable}
                     >
                         <Input
@@ -82,7 +82,7 @@ export default function BatchTimes({ stage, mixture, hideQuantity, editable }) {
                     </FormGroup>
                     {
                         !editable && <div
-                            className="d-sm-inline-block mb-3"
+                            className="d-sm-inline-block"
                         >
                             {stage.finishedAt ? formatDatetime(stage.finishedAt) : "-"}
                         </div>
@@ -90,7 +90,6 @@ export default function BatchTimes({ stage, mixture, hideQuantity, editable }) {
                 </Col>
                 <Col sm="6" xl="4">
                     {
-                        !hideQuantity &&
                             <React.Fragment>
                                 <Label
                                     for="mixtureQuantity"
@@ -128,26 +127,31 @@ export default function BatchTimes({ stage, mixture, hideQuantity, editable }) {
                                 <div className="clearfix"></div>
                             </React.Fragment>
                     }
-                    <Label
-                        for="mixtureCompleteCheckbox"
-                        className="d-inline-block font-size-12 mb-3"
-                        style={{
-                            width: "6rem"
-                        }}
+                    <div
+                        hidden={!showSkipCheckbox}
                     >
-                        Completed
-                    </Label>
-                    <FormGroup
-                        className="d-sm-inline-block mb-3"
-                        hidden={!editable}
-                    >
-                        <Input
-                            type="checkbox"
-                            name="mixtureCompleteCheckbox"
-                            className="mx-0"
-                            onChange={onFormInputChange}
-                        />
-                    </FormGroup>
+                        <Label
+                            for="mixtureCompleteCheckbox"
+                            className="d-inline-block font-size-12"
+                            style={{
+                                width: "6rem"
+                            }}
+                        >
+                            Skip
+                        </Label>
+                        <FormGroup
+                            className="d-sm-inline-block"
+                        >
+                            <Input
+                                type="checkbox"
+                                name="mixtureCompleteCheckbox"
+                                className="mx-0"
+                                onChange={onFormInputChange}
+                                disabled={!editable}
+                                checked={true}
+                            />
+                        </FormGroup>
+                    </div>
                 </Col>
             </Row>
         </React.Fragment>

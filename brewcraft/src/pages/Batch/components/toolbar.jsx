@@ -61,7 +61,6 @@ export default function Toolbar({ editable, changed, onCancel, onSave, onEdit, o
             >
                     Save
             </Button>
-            <div className="clearFix"></div>
             <Button
                 type="button"
                 color="danger"

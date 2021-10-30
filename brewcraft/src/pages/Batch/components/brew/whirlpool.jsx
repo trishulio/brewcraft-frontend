@@ -21,7 +21,7 @@ export default function BrewWhirlpool({ editable }) {
             <Row>
                 <Col xs="12">
                     <div className="mb-3">
-                        <Details {...{stage, hideQuantity: false, editable}}/>
+                        <Details {...{stage, showSkipCheckbox: true, editable}}/>
                     </div>
                 </Col>
             </Row>

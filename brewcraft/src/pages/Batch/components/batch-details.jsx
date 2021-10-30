@@ -259,10 +259,12 @@ export default function BatchMetadata(props) {
                                 {batch.startedAt ? formatDatetime(batch.startedAt) : "-"}
                             </div>
                         </div>
+                        <div className="clearFix mt-3"></div>
+                        <Toolbar {...props}/>
                     </div>
-                    <div className="d-sm-inline-block align-top mr-0 mr-sm-4 mb-3">
+                    {/* <div className="d-sm-inline-block align-top mr-0 mr-sm-4 mb-3">
                             <Toolbar {...props}/>
-                    </div>
+                    </div> */}
                 </CardBody>
             </Card>
         </React.Fragment>

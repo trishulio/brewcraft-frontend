@@ -41,20 +41,20 @@ export default function BrewKettle({ editable }) {
         <React.Fragment>
             <Row>
                 <Col xs="12">
-                    <div className="mb-3">
+                    <div className="m=">
                         <Times {...{stage, editable}}/>
                     </div>
                 </Col>
-                <Col md="6">
+                {/* <Col md="6">
                     <div className="mb-3">
                         <Temperatures {...recordingsProps}/>
                     </div>
                 </Col>
                 <Col md="6">
-                    <div className="mb-3">
+                    <div className="">
                         <Ingredients {...ingredientProps}/>
                     </div>
-                </Col>
+                </Col> */}
             </Row>
         </React.Fragment>
     );
