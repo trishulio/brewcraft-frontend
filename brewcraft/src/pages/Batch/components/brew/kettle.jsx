@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
     Row,
     Col
@@ -8,32 +8,80 @@ import Ingredients from "../mixture/ingredients";
 import MixtureRecordings from "../mixture/recording";
 import Temperatures from "../mixture/temperature";
 import Times from "../mixture/details";
+import { editKettleMixture, editKettleStage, setKettleMixtureDetails, setKettleStageDetails } from "../../../../store/actions";
 
 export default function BrewKettle({ editable }) {
 
     const stage = useSelector(state => {
-        return state.Batch.stages.content[1] || {};
+        return state.Batch.KettleStage.data;
+    });
+
+    const initialStage = useSelector(state => {
+        return state.Batch.KettleStage.initial;
     });
 
     const mixture = useSelector(state => {
-        return state.Batch.mixtures.content[1] || {};
+        return state.Batch.KettleMixture.data;
     });
 
-    const ingredientProps = {
-        mixture,
-        title: "Kettle Ingredients",
-        mTitle: "Kettle Ingredient",
-        multiple: true,
-        editable
-    };
+    const initialMixture = useSelector(state => {
+        return state.Batch.KettleMixture.initial;
+    });
 
-    const recordingsProps = {
+    const dispatch = useDispatch();
+
+    function setMixture(mixture) {
+        dispatch(
+            setKettleMixtureDetails({
+                data: mixture
+            })
+        )
+    }
+
+    function setStage(mixture) {
+        dispatch(
+            setKettleStageDetails({
+                data: mixture
+            })
+        )
+    }
+
+    function onSave() {
+        dispatch(
+            editKettleStage({
+                id: stage.id,
+                form: {
+                    statusId : stage.status.id,
+                    taskId: stage.task.id,
+                    startedAt: stage.startedAt,
+                    endedAt: stage.endedAt,
+                    version: stage.version
+                }
+            })
+        );
+        dispatch(
+            editKettleMixture({
+                id: mixture.id,
+                form: {
+                    parentMixtureId: mixture.parentMixtureId,
+                    quantity: {
+                        ...mixture.quantity
+                    },
+                    brewStageId: mixture.brewStage.id,
+                    version: mixture.version
+                }
+            })
+        );
+    }
+
+    const detailsProps = {
+        stage,
+        setStage,
+        initialStage,
         mixture,
-        measureId: 4, // mash temperature
-        title: "Mash Temperatures",
-        mTitle: "Mash Temperature Record",
-        mUnit: "°C",
-        multiple: true,
+        initialMixture,
+        setMixture,
+        onSave,
         editable
     };
 
@@ -42,7 +90,7 @@ export default function BrewKettle({ editable }) {
             <Row>
                 <Col xs="12">
                     <div className="m=">
-                        <Times {...{stage, editable}}/>
+                        <Times {...detailsProps}/>
                     </div>
                 </Col>
                 {/* <Col md="6">

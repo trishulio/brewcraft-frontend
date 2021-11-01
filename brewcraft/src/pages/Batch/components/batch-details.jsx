@@ -126,7 +126,6 @@ export default function BatchMetadata(props) {
 
     return (
         <React.Fragment>
-            {console.log(batch)}
             <Card className="mb-3">
                 <CardHeader>
                     <div className="float-left">

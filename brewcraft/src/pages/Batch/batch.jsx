@@ -9,7 +9,6 @@ import BatchDetails from "./components/batch-details";
 import MiniCard from "./components/mini-card";
 import Mash from "./components/brew/mash";
 import Kettle from "./components/brew/kettle";
-import Transfer from "./components/brew/transfer";
 import Whirlpool from "./components/brew/whirlpool";
 
 export default function Batch(props) {

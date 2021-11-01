@@ -41,64 +41,74 @@ function* addBatchGenerator(action) {
         yield put({ type: SET_BATCH_DETAILS, payload: { data: res.data }});
         yield put({ type: SET_INITIAL_BATCH_DETAILS, payload: res.data });
         // add mashlauter stage and mixture
-        resStage = yield call(api.addBrewStage, {
+        resStage = yield call(api.addBrewStage, [{
             brewId: res.data.id,
             taskId: 1, // mash
             statusId: 1, // in-process
             startedAt: get(action, "payload.form.startedAt")
-        });
-        resMixture = yield call(api.addMixture, {
-            quantity: {
-                symbol: "hl",
-                value: 0
-            },
-            brewStageId: resStage.data.id
-        });
-        // add kettle stage and mixture
-        resStage = yield call(api.addBrewStage, {
+        }, {
             brewId: res.data.id,
             taskId: 2, // kettle
             statusId: 1, // in-process
             // startedAt: get(action, "payload.form.startedAt")
-        });
-        resMixture = yield call(api.addMixture, {
-            parentMixtureId: resMixture.data.id,
-            quantity: {
-                symbol: "hl",
-                value: 0
-            },
-            brewStageId: resStage.data.id
-        });
-        // add whirlpool stage and mixture
-        resStage = yield call(api.addBrewStage, {
+        }, {
             brewId: res.data.id,
             taskId: 3, // whirlpool
             statusId: 1, // in-process
             // startedAt: get(action, "payload.form.startedAt")
+        }]);
+        resMixture = yield call(api.addMixture, {
+            quantity: {
+                symbol: "hl",
+                value: 0
+            },
+            brewStageId: resStage.data[0].id
         });
+        // add kettle stage and mixture
+        // resStage = yield call(api.addBrewStage, [{
+        //     brewId: res.data.id,
+        //     taskId: 2, // kettle
+        //     statusId: 1, // in-process
+        //     // startedAt: get(action, "payload.form.startedAt")
+        // }]);
         resMixture = yield call(api.addMixture, {
             parentMixtureId: resMixture.data.id,
             quantity: {
                 symbol: "hl",
                 value: 0
             },
-            brewStageId: resStage.data.id
+            brewStageId: resStage.data[1].id
+        });
+        // add whirlpool stage and mixture
+        // resStage = yield call(api.addBrewStage, [{
+        //     brewId: res.data.id,
+        //     taskId: 3, // whirlpool
+        //     statusId: 1, // in-process
+        //     // startedAt: get(action, "payload.form.startedAt")
+        // }]);
+        resMixture = yield call(api.addMixture, {
+            parentMixtureId: resMixture.data.id,
+            quantity: {
+                symbol: "hl",
+                value: 0
+            },
+            brewStageId: resStage.data[2].id
         });
         // add transfer stage and mixture
-        resStage = yield call(api.addBrewStage, {
-            brewId: res.data.id,
-            taskId: 7, // transfer
-            statusId: 1, // in-process
-            // startedAt: get(action, "payload.form.startedAt")
-        });
-        resMixture = yield call(api.addMixture, {
-            parentMixtureId: resMixture.data.id,
-            quantity: {
-                symbol: "hl",
-                value: 0
-            },
-            brewStageId: resStage.data.id
-        });
+        // resStage = yield call(api.addBrewStage, {
+        //     brewId: res.data.id,
+        //     taskId: 7, // transfer
+        //     statusId: 1, // in-process
+        //     // startedAt: get(action, "payload.form.startedAt")
+        // });
+        // resMixture = yield call(api.addMixture, {
+        //     parentMixtureId: resMixture.data.id,
+        //     quantity: {
+        //         symbol: "hl",
+        //         value: 0
+        //     },
+        //     brewStageId: resStage.data.id
+        // });
         yield put(setGlobalRedirect({ pathname: "/batches/" + res.data.id }));
         yield put(snackSuccess());
 
