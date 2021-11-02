@@ -5,8 +5,7 @@ import {
     EDIT_WHIRLPOOL_STAGE_SUCCESS,
     ADD_WHIRLPOOL_STAGE_SUCCESS,
     SET_WHIRLPOOL_STAGE_DETAILS,
-    RESET_WHIRLPOOL_STAGE_DETAILS,
-    SET_WHIRLPOOL_STAGE_INVALID_CATEGORY
+    RESET_WHIRLPOOL_STAGE_DETAILS
 } from "./actionTypes";
 import { initialState } from "./initial";
 
@@ -43,13 +42,6 @@ const WhirlpoolStage = (state = initialState, { type, payload }) => {
         case RESET_WHIRLPOOL_STAGE_DETAILS:
             return {
                 ...initialState,
-                loading: false,
-                error: null
-            };
-        case SET_WHIRLPOOL_STAGE_INVALID_CATEGORY:
-            return {
-                ...state,
-                invalidCategory: payload,
                 loading: false,
                 error: null
             };

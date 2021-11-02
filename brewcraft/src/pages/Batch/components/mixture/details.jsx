@@ -5,34 +5,12 @@ import {
     Input,
     Label,
     FormGroup,
-    FormFeedback,
-    Button
+    FormFeedback
 } from "reactstrap";
 import { formatDatetime } from "../../../../helpers/textUtils";
-import { useDispatch } from "react-redux";
 
-export default function MixtureDetails({ stage, initialStage, setStage, mixture, initialMixture, setMixture, onSave, showSkipCheckbox, showFinalVolume }) {
-    const [editable, setEditable] = useState(false);
-    const [changed, setChanged] = useState(false);
 
-    useEffect(() => {
-        setChanged(isChanged());
-    }, [stage, mixture, setChanged]);
-
-    useEffect(() => {
-        setEditable(stage.editable);
-    }, [stage]);
-
-    function isChanged() {
-        return JSON.stringify(
-                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(initialStage))
-            !== JSON.stringify(
-                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(stage))
-            || JSON.stringify(
-                    (({ quantity }) => ({ quantity }))(initialMixture))
-            !== JSON.stringify(
-                (({ quantity }) => ({ quantity }))(mixture));
-    }
+export default function MixtureDetails({ stage, setStage, mixture, setMixture, showSkipCheckbox, editable }) {
 
     function onFormInputChange(e) {
         switch(e.target.name) {
@@ -197,41 +175,6 @@ export default function MixtureDetails({ stage, initialStage, setStage, mixture,
                 </Col>
             </Row>
             <div className="clearfix mb-3"></div>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2 mb-2"
-                onClick={() => {
-                    setEditable(true);
-                }}
-                hidden={editable}
-            >
-                Edit
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2  mb-2"
-                onClick={() => {
-                    setEditable(false);
-                }}
-                hidden={!editable}
-            >
-                Cancel
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2 mb-2"
-                onClick={onSave}
-                disabled={!changed}
-                hidden={!editable}
-            >
-                    Save
-            </Button>
         </React.Fragment>
     );
 }

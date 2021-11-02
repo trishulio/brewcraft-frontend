@@ -6,7 +6,9 @@ import BatchTask from "./BatchTask/reducer";
 import Breadcrumb from "./Breadcrumb/reducer";
 import Brewery from "./Brewery/reducer";
 import {
-  MashStage, KettleStage, WhirlpoolStage
+  MashStage,
+  KettleStage,
+  WhirlpoolStage
 } from "./BrewStages/reducer";
 import FinishedGood from "./FinishedGood/reducer";
 import FinishedGoods from "./FinishedGoods/reducer";
@@ -20,7 +22,9 @@ import ProductCategory from "./ProductCategory/reducer";
 import Products from "./Products/reducer";
 import Profile from "./Profile/reducer";
 import MaterialLots from "./MaterialLots/reducer";
-import MaterialPortion from "./MaterialPortion/reducer";
+import {
+  MashMaterialPortion
+} from "./MaterialPortion/reducer";
 import Materials from "./Materials/reducer";
 import MaterialCategories from "./MaterialCategories/reducer";
 import MaterialCategory from "./MaterialCategory/reducer";
@@ -54,8 +58,8 @@ const rootReducer = combineReducers({
     MashMixture,
     KettleMixture,
     WhirlpoolMixture,
-    materials: MaterialPortion,
-    recordings: MixtureRecording
+    MashMaterialPortion,
+    MixtureRecording
   }),
   Batches,
   BatchStatus,

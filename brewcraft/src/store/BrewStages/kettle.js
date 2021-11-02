@@ -5,8 +5,7 @@ import {
     EDIT_KETTLE_STAGE_SUCCESS,
     ADD_KETTLE_STAGE_SUCCESS,
     SET_KETTLE_STAGE_DETAILS,
-    RESET_KETTLE_STAGE_DETAILS,
-    SET_KETTLE_STAGE_INVALID_CATEGORY
+    RESET_KETTLE_STAGE_DETAILS
 } from "./actionTypes";
 import { initialState } from "./initial";
 
@@ -43,13 +42,6 @@ const KettleStage = (state = initialState, { type, payload }) => {
         case RESET_KETTLE_STAGE_DETAILS:
             return {
                 ...initialState,
-                loading: false,
-                error: null
-            };
-        case SET_KETTLE_STAGE_INVALID_CATEGORY:
-            return {
-                ...state,
-                invalidCategory: payload,
                 loading: false,
                 error: null
             };

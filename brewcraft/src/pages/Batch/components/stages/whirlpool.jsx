@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    Row,
-    Col
-} from "reactstrap";
-import { editWhirlpoolMixture, editWhirlpoolStage, setWhirlpoolMixtureDetails, setWhirlpoolStageDetails } from "../../../../store/actions";
+    editWhirlpoolMixture,
+    editWhirlpoolStage,
+    setWhirlpoolMixtureDetails,
+    setWhirlpoolStageDetails
+} from "../../../../store/actions";
 import Details from "../mixture/details";
+import MixtureToolbar from "../mixture/toolbar";
 
-export default function BrewWhirlpool({ editable }) {
+export default function BrewWhirlpool() {
+    const [editable, setEditable] = useState(false);
+    const [changed, setChanged] = useState(false);
+
+    const dispatch = useDispatch();
 
     const stage = useSelector(state => {
         return state.Batch.WhirlpoolStage.data;
@@ -25,19 +31,36 @@ export default function BrewWhirlpool({ editable }) {
         return state.Batch.WhirlpoolMixture.initial;
     });
 
-    const dispatch = useDispatch();
+    useEffect(() => {
+        setChanged(isChanged());
+    }, [stage, mixture, setChanged]);
 
-    function setMixture(mixture) {
+    useEffect(() => {
+        setEditable(stage.editable);
+    }, [stage]);
+
+    function isChanged() {
+        return JSON.stringify(
+                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(initialStage))
+            !== JSON.stringify(
+                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(stage))
+            || JSON.stringify(
+                    (({ quantity }) => ({ quantity }))(initialMixture))
+            !== JSON.stringify(
+                (({ quantity }) => ({ quantity }))(mixture));
+    }
+
+    function setStage(stage) {
         dispatch(
-            setWhirlpoolMixtureDetails({
-                data: mixture
+            setWhirlpoolStageDetails({
+                data: stage
             })
         )
     }
 
-    function setStage(mixture) {
+    function setMixture(mixture) {
         dispatch(
-            setWhirlpoolStageDetails({
+            setWhirlpoolMixtureDetails({
                 data: mixture
             })
         )
@@ -78,19 +101,21 @@ export default function BrewWhirlpool({ editable }) {
         mixture,
         initialMixture,
         setMixture,
-        onSave,
-        editable
+        editable,
+        showSkipCheckbox: true
     };
+
+    const toolbarProps = {
+        editable,
+        setEditable,
+        changed,
+        onSave
+    }
 
     return (
         <React.Fragment>
-            <Row>
-                <Col xs="12">
-                    <div className="mb-3">
-                        <Details {...detailsProps}/>
-                    </div>
-                </Col>
-            </Row>
+            <Details {...detailsProps}/>
+            <MixtureToolbar {...toolbarProps}/>
         </React.Fragment>
     );
 }

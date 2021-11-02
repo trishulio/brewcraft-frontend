@@ -10,7 +10,6 @@ export default function BrewMiniCard() {
 
     return (
         <React.Fragment>
-            {console.log(WhirlpoolMixture)}
             <Col xl="3" md="6">
                 <Card className="mini-stat bg-primary">
                     <CardBody className="mini-stat-img">

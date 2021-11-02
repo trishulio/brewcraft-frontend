@@ -11,7 +11,21 @@ async function fetchMaterialPortionsByMixtureId(id) {
             mixture_ids: id,
             page: 0,
             size: 500,
-            sort: "materialLot.material.name",
+            sort: "materialLot.invoiceItem.material.name",
+            order_asc: true
+        }
+    };
+    return await AxiosInstance.get("/api/v1/brews/mixtures/portions", data)
+        .then((r) => r)
+}
+
+async function fetchMaterialPortionsByBrewId(id) {
+    const data = {
+        params: {
+            brew_ids: id,
+            page: 0,
+            size: 5000,
+            sort: "materialLot.invoiceItem.material.name",
             order_asc: true
         }
     };
@@ -36,6 +50,7 @@ async function deleteMaterialPortion(id) {
 
 export const api = {
     fetchMaterialPortionById,
+    fetchMaterialPortionsByBrewId,
     fetchMaterialPortionsByMixtureId,
     addMaterialPortion,
     updateMaterialPortion,

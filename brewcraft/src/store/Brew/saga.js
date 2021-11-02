@@ -5,6 +5,7 @@ import { setGlobalRedirect } from "../Brewery/actions";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
 import {
     fetchAllBrewStages,
+    fetchMaterialPortionsByBrewId,
     fetchMixturesByBrewId,
     saveBrewStage,
     togglePreloader
@@ -27,7 +28,7 @@ function* fetchBatchByIdGenerator(action) {
         yield put({ type: SET_INITIAL_BATCH_DETAILS, payload: res.data });
         yield put(fetchAllBrewStages(res.data.id));
         yield put(fetchMixturesByBrewId(res.data.id));
-
+        yield put(fetchMaterialPortionsByBrewId(res.data.id));
     } catch (e) {
         yield put(snackFailure(e.message));
     }

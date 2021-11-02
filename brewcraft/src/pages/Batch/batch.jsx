@@ -7,9 +7,9 @@ import {
 } from "reactstrap";
 import BatchDetails from "./components/batch-details";
 import MiniCard from "./components/mini-card";
-import Mash from "./components/brew/mash";
-import Kettle from "./components/brew/kettle";
-import Whirlpool from "./components/brew/whirlpool";
+import Mash from "./components/stages/mash";
+import Kettle from "./components/stages/kettle";
+import Whirlpool from "./components/stages/whirlpool";
 
 export default function Batch(props) {
 

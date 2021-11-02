@@ -10,7 +10,7 @@ import {
     ModalFooter
 } from "../Common/modal";
 import {
-    saveMaterialPortion
+    saveMashMaterialPortion
 } from "../../store/actions"
 
 export default function MaterialLotsModal(props) {
@@ -28,7 +28,7 @@ export default function MaterialLotsModal(props) {
 
     function onFormSubmit(e, values) {
         dispatch(
-            saveMaterialPortion({
+            saveMashMaterialPortion({
                 mixtureId: props.mixtureId,
                 materialLotId: materialLot.id,
                 quantity: {
