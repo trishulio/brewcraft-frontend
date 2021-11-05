@@ -36,10 +36,16 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, s
                         ...mixture,
                         quantity: {
                             ...mixture.quantity,
-                            value: e.target.value === "" ? 0 : e.target.value
+                            value: e.target.value === "" ? 0 : parseInt(e.target.value)
                         }
                     });
                 }
+                break;
+            case "mixtureCompleteCheckbox":
+                setStage({
+                    ...stage,
+                    status: e.target.checked ? { id: 2 } : { id: 1 },
+                });
                 break;
             default:
                 break;
@@ -48,7 +54,7 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, s
 
     return (
         <React.Fragment>
-            <Row>
+            <Row className="px-2">
                 <Col sm="6">
                     <Label
                         for="mixtureStartDateTime"
@@ -167,8 +173,8 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, s
                                 name="mixtureCompleteCheckbox"
                                 className="mx-0"
                                 onChange={onFormInputChange}
-                                disabled={editable}
-                                checked={true}
+                                disabled={!editable}
+                                checked={stage.status.id === 2}
                             />
                         </FormGroup>
                     </div>

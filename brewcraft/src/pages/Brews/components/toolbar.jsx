@@ -33,7 +33,7 @@ export default function ProductCategoriesToolbar() {
                         });
                     }}
                 >
-                        New Batch
+                        New Brew
                 </Button>
                 <FormGroup className="waves-effect float-right mb-2">
                     <Label for="purchaseInvoicesFromDate" className="waves-effect float-left mt-1 mr-1">Started from</Label>

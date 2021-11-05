@@ -1,8 +1,8 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import Dashboard from "../pages/Dashboard/dashboard";
-import Batch from "../pages/Batch";
-import Batches from "../pages/Batches";
+import Brew from "../pages/Brew";
+import Brews from "../pages/Brews";
 import FinishedGood from "../pages/FinishedGood";
 import FinishedGoods from "../pages/FinishedGoods";
 import Ingredient from "../pages/Ingredient";
@@ -40,8 +40,8 @@ const authProtectedRoutes = [
     { path: "/dashboard", component: Dashboard },
 
     // Batches
-    { path: "/batches/:id", component: Batch },
-    { path: "/batches", component: Batches },
+    { path: "/brews/:id", component: Brew },
+    { path: "/brews", component: Brews },
 
     // Inventory
     { path: "/inventory/raw-materials", component: RawMaterials },
@@ -96,7 +96,7 @@ const authProtectedRoutes = [
     { path: "/users", component: Users },
 
     // Default
-    { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
+    { path: "/", exact: true, component: () => <Redirect to="/brews" /> }
 ];
 
 export { authProtectedRoutes, publicRoutes };

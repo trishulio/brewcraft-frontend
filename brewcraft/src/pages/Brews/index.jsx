@@ -6,7 +6,7 @@ import {
     fetchAllProducts,
     setBreadcrumbItems
 } from "../../store/actions";
-import BatchesInner from "./batches";
+import BrewsInner from "./brews";
 
 export default function Batches() {
     const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export default function Batches() {
 
     useEffect(() => {
         dispatch(
-            setBreadcrumbItems("Batches", [
+            setBreadcrumbItems("Brews", [
                 { title: "Main", link: "#" },
                 { title: "Batches", link: "#" }
             ])
@@ -44,7 +44,7 @@ export default function Batches() {
     }, [pageIndex, pageSize, product, batchFrom, batchTo, sort, order, dispatch]);
 
     return (
-        <BatchesInner
+        <BrewsInner
             batches={batches}
         />
     );

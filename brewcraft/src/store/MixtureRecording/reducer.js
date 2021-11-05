@@ -8,35 +8,19 @@ import {
     DELETE_MIXTURE_RECORDING_SUCCESS,
     ADD_MIXTURE_RECORDING_SUCCESS,
     SET_MIXTURE_RECORDING_DETAILS,
-    RESET_MIXTURE_RECORDING_DETAILS,
-    SET_MIXTURE_RECORDING_INVALID_CATEGORY
+    RESET_MIXTURE_RECORDING_DETAILS
 } from "./actionTypes";
 
 const initialState = {
     content: [],
-    data: {
-        id: "",
-        measure: {},
-        value: "",
-        recordedAt: "",
-        mixture: {},
-        version: 0
-    },
-    initial: {
-        id: "",
-        measure: {},
-        value: "",
-        recordedAt: "",
-        mixture: {},
-        version: 0
-    },
+    initial: [],
     totalElements: 0,
     totalPages: 0,
     loading: true,
     error: null
 };
 
-const MixtureRecording = (state = initialState, { type, payload, data } = {}) => {
+const TransferMixtureRecordings = (state = initialState, { type, payload } = {}) => {
     switch(type) {
         case SET_MIXTURE_RECORDING_DETAILS:
             return {
@@ -87,13 +71,6 @@ const MixtureRecording = (state = initialState, { type, payload, data } = {}) =>
             loading: false,
             error: null
         };
-        case SET_MIXTURE_RECORDING_INVALID_CATEGORY:
-            return {
-                ...state,
-                invalidCategory: payload,
-                loading: false,
-                error: null
-            };
         default:
         return {
             ...state,
@@ -103,4 +80,6 @@ const MixtureRecording = (state = initialState, { type, payload, data } = {}) =>
     }
 };
 
-export default MixtureRecording;
+export {
+    TransferMixtureRecordings
+};

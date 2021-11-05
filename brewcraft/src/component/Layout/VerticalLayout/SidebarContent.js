@@ -160,16 +160,18 @@ class SidebarContent extends Component {
           <ul className="metismenu list-unstyled" id="side-menu">
             <li className="menu-title">Main</li>
             <li>
-              <Link to="/dashboard" className="waves-effect">
-                <i className="mdi mdi-view-dashboard"></i>
-                <span>Dashboard</span>
+              <Link to="/batches" className="has-arrow waves-effect">
+                <i className="mdi mdi-beer"></i>
+                <span>Batches</span>
               </Link>
-            </li>
-            <li>
-              <Link to="/batches" className="waves-effect">
-                  <i className="mdi mdi-beer"></i>
-                  <span>Batches</span>
-              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/batches">Batches</Link>
+                </li>
+                <li>
+                  <Link to="/brews">Brews</Link>
+                </li>
+              </ul>
             </li>
             <li>
               <Link to="/inventory/raw-materials" className="has-arrow waves-effect">

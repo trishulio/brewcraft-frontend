@@ -1,61 +1,50 @@
 import {
     FETCH_MIXTURE_RECORDING_BY_ID_REQUEST,
+    FETCH_MIXTURE_RECORDING_BY_BREW_ID_REQUEST,
     FETCH_MIXTURE_RECORDING_BY_MIXTURE_ID_REQUEST,
     SET_MIXTURE_RECORDING_DETAILS,
     ADD_MIXTURE_RECORDING_REQUEST,
     EDIT_MIXTURE_RECORDING_REQUEST,
     DELETE_MIXTURE_RECORDING_REQUEST,
     RESET_MIXTURE_RECORDING_DETAILS,
-    SET_MIXTURE_RECORDING_INVALID_NAME,
-    SET_MIXTURE_RECORDING_INVALID_CATEGORY
 } from "./actionTypes";
 
-export const fetchMixtureRecordingById = id => ({
+export const fetchTransferMixtureRecordsById = id => ({
     type: FETCH_MIXTURE_RECORDING_BY_ID_REQUEST,
     payload: { id },
 });
 
-export const fetchMixtureRecordingsByMixtureId = id => ({
+export const fetchTransferMixtureRecordsByMixtureId = id => ({
     type: FETCH_MIXTURE_RECORDING_BY_MIXTURE_ID_REQUEST,
     payload: { id },
 });
 
-export const setMixtureRecordingDetails = payload => ({
+export const fetchMixtureRecordingsByBrewId = id => ({
+    type: FETCH_MIXTURE_RECORDING_BY_BREW_ID_REQUEST,
+    payload: { id }
+})
+
+export const setTransferMixtureRecords = payload => ({
     type: SET_MIXTURE_RECORDING_DETAILS,
     payload: payload
 });
 
-export const resetMixtureRecordingDetails = () => ({
+export const resetTransferMixtureRecordsDetails = () => ({
     type: RESET_MIXTURE_RECORDING_DETAILS,
     payload: null
 });
 
-export const saveMixtureRecording = payload => ({
+export const saveTransferMixtureRecords = payload => ({
     type: ADD_MIXTURE_RECORDING_REQUEST,
     payload: payload,
 });
 
-export const editMixtureRecording = payload => ({
+export const editTransferMixtureRecords = payload => ({
     type: EDIT_MIXTURE_RECORDING_REQUEST,
     payload: payload,
 });
 
-export const deleteMixtureRecording = payload => ({
+export const deleteTransferMixtureRecords = payload => ({
     type: DELETE_MIXTURE_RECORDING_REQUEST,
     payload: payload,
-});
-
-export const setMixtureRecordingInvalidName = value => ({
-    type: SET_MIXTURE_RECORDING_INVALID_NAME,
-    payload: value
-});
-
-export const setMixtureRecordingInvalidCategory = value => ({
-    type: SET_MIXTURE_RECORDING_INVALID_CATEGORY,
-    payload: value
-});
-
-export const setMixtureRecordingInvalidBaseQuantityUnit = value => ({
-    type: SET_MIXTURE_RECORDING_INVALID_CATEGORY,
-    payload: value
 });

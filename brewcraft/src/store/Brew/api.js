@@ -21,7 +21,7 @@ async function addMixture(params) {
 }
 
 async function updateBatch(id, payload) {
-    return await AxiosInstance.put(`/api/v1/brews/${id}`, payload)
+    return await AxiosInstance.patch(`/api/v1/brews/${id}`, payload)
         .then((r) => r)
 }
 

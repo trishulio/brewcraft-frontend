@@ -29,7 +29,6 @@ const initialState = {
             targetMeasures: [],
             version: null
         },
-        parentBrew: "",
         startedAt: "",
         endedAt: "",
         createdAt: null,
@@ -50,7 +49,6 @@ const initialState = {
             targetMeasures: [],
             version: null
         },
-        parentBrew: "",
         startedAt: "",
         endedAt: "",
         createdAt: null,
@@ -72,10 +70,7 @@ const Batch = (state = initialState, { type, payload }) => {
         case SET_BATCH_DETAILS:
             return {
                 ...state,
-                data: {
-                    ...state.data,
-                    ...payload.data
-                },
+                ...payload,
                 loading: false,
                 error: null
             };

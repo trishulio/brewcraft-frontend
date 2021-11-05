@@ -37,7 +37,7 @@ export default function MixtureToolbar({ editable, setEditable, changed, onSave 
                 disabled={!changed}
                 hidden={!editable}
             >
-                    Save
+                Save
             </Button>
         </React.Fragment>
     );

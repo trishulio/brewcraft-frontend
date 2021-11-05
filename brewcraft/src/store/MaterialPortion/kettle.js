@@ -1,13 +1,13 @@
 import {
-    ADD_MASH_MATERIAL_PORTION_REQUEST,
-    ADD_MASH_MATERIAL_PORTION_FAILURE,
-    EDIT_MASH_MATERIAL_PORTION_REQUEST,
-    EDIT_MASH_MATERIAL_PORTION_SUCCESS,
-    DELETE_MASH_MATERIAL_PORTION_REQUEST,
-    DELETE_MASH_MATERIAL_PORTION_SUCCESS,
-    ADD_MASH_MATERIAL_PORTION_SUCCESS,
-    SET_MASH_MATERIAL_PORTION_DETAILS,
-    RESET_MASH_MATERIAL_PORTION_DETAILS,
+    ADD_KETTLE_MATERIAL_PORTION_REQUEST,
+    ADD_KETTLE_MATERIAL_PORTION_FAILURE,
+    EDIT_KETTLE_MATERIAL_PORTION_REQUEST,
+    EDIT_KETTLE_MATERIAL_PORTION_SUCCESS,
+    DELETE_KETTLE_MATERIAL_PORTION_REQUEST,
+    DELETE_KETTLE_MATERIAL_PORTION_SUCCESS,
+    ADD_KETTLE_MATERIAL_PORTION_SUCCESS,
+    SET_KETTLE_MATERIAL_PORTION_DETAILS,
+    RESET_KETTLE_MATERIAL_PORTION_DETAILS,
 } from "./actionTypes";
 
 const initialState = {
@@ -21,37 +21,37 @@ const initialState = {
     error: null
 };
 
-const MashMaterialPortion = (state = initialState, { type, payload }) => {
+const KettleMaterialPortion = (state = initialState, { type, payload }) => {
     switch(type) {
-        case SET_MASH_MATERIAL_PORTION_DETAILS:
+        case SET_KETTLE_MATERIAL_PORTION_DETAILS:
             return {
                 ...state,
                 ...payload,
                 loading: false,
                 error: null
             };
-        case ADD_MASH_MATERIAL_PORTION_REQUEST:
-        case EDIT_MASH_MATERIAL_PORTION_REQUEST:
+        case ADD_KETTLE_MATERIAL_PORTION_REQUEST:
+        case EDIT_KETTLE_MATERIAL_PORTION_REQUEST:
             return {
                 ...state,
                 loading: true,
                 error: null
             };
-        case ADD_MASH_MATERIAL_PORTION_SUCCESS:
-        case EDIT_MASH_MATERIAL_PORTION_SUCCESS:
+        case ADD_KETTLE_MATERIAL_PORTION_SUCCESS:
+        case EDIT_KETTLE_MATERIAL_PORTION_SUCCESS:
             return {
                 ...state,
                 ...payload,
                 loading: false,
                 error: null
             };
-        case ADD_MASH_MATERIAL_PORTION_FAILURE:
+        case ADD_KETTLE_MATERIAL_PORTION_FAILURE:
             return {
                 ...state,
                 loading: false,
                 error: true
             };
-        case RESET_MASH_MATERIAL_PORTION_DETAILS:
+        case RESET_KETTLE_MATERIAL_PORTION_DETAILS:
             return {
                 ...initialState,
                 loading: false,
@@ -66,4 +66,4 @@ const MashMaterialPortion = (state = initialState, { type, payload }) => {
     }
 };
 
-export default MashMaterialPortion;
+export default KettleMaterialPortion;

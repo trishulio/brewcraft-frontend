@@ -4,10 +4,6 @@ import { get } from "lodash";
 import { setGlobalRedirect } from "../Brewery/actions";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
 import {
-    fetchAllBrewStages,
-    fetchMaterialPortionsByBrewId,
-    fetchMixturesByBrewId,
-    saveBrewStage,
     togglePreloader
 } from "../actions";
 import {
@@ -24,11 +20,7 @@ import {
 function* fetchBatchByIdGenerator(action) {
     try {
         const res = yield call(api.fetchBatchById, get(action, "payload.id"));
-        yield put({ type: SET_BATCH_DETAILS, payload: { data: res.data }});
-        yield put({ type: SET_INITIAL_BATCH_DETAILS, payload: res.data });
-        yield put(fetchAllBrewStages(res.data.id));
-        yield put(fetchMixturesByBrewId(res.data.id));
-        yield put(fetchMaterialPortionsByBrewId(res.data.id));
+        yield put({ type: SET_BATCH_DETAILS, payload: { data: res.data, initial: res.data }});
     } catch (e) {
         yield put(snackFailure(e.message));
     }
@@ -37,26 +29,26 @@ function* fetchBatchByIdGenerator(action) {
 function* addBatchGenerator(action) {
     let resStage, resMixture;
     try {
-        yield put(togglePreloader(true));
+        // yield put(togglePreloader(true));
         const res = yield call(api.addBatch, get(action, "payload.form"));
-        yield put({ type: SET_BATCH_DETAILS, payload: { data: res.data }});
-        yield put({ type: SET_INITIAL_BATCH_DETAILS, payload: res.data });
-        // add mashlauter stage and mixture
+        yield put({ type: SET_BATCH_DETAILS, payload: { data: res.data, initial: res.data }});
         resStage = yield call(api.addBrewStage, [{
             brewId: res.data.id,
             taskId: 1, // mash
-            statusId: 1, // in-process
+            statusId: 1,
             startedAt: get(action, "payload.form.startedAt")
         }, {
             brewId: res.data.id,
             taskId: 2, // kettle
-            statusId: 1, // in-process
-            // startedAt: get(action, "payload.form.startedAt")
+            statusId: 1
         }, {
             brewId: res.data.id,
             taskId: 3, // whirlpool
-            statusId: 1, // in-process
-            // startedAt: get(action, "payload.form.startedAt")
+            statusId: 1
+        }, {
+            brewId: res.data.id,
+            taskId: 7, // transfer
+            statusId: 1
         }]);
         resMixture = yield call(api.addMixture, {
             quantity: {
@@ -65,13 +57,6 @@ function* addBatchGenerator(action) {
             },
             brewStageId: resStage.data[0].id
         });
-        // add kettle stage and mixture
-        // resStage = yield call(api.addBrewStage, [{
-        //     brewId: res.data.id,
-        //     taskId: 2, // kettle
-        //     statusId: 1, // in-process
-        //     // startedAt: get(action, "payload.form.startedAt")
-        // }]);
         resMixture = yield call(api.addMixture, {
             parentMixtureId: resMixture.data.id,
             quantity: {
@@ -80,13 +65,6 @@ function* addBatchGenerator(action) {
             },
             brewStageId: resStage.data[1].id
         });
-        // add whirlpool stage and mixture
-        // resStage = yield call(api.addBrewStage, [{
-        //     brewId: res.data.id,
-        //     taskId: 3, // whirlpool
-        //     statusId: 1, // in-process
-        //     // startedAt: get(action, "payload.form.startedAt")
-        // }]);
         resMixture = yield call(api.addMixture, {
             parentMixtureId: resMixture.data.id,
             quantity: {
@@ -95,24 +73,16 @@ function* addBatchGenerator(action) {
             },
             brewStageId: resStage.data[2].id
         });
-        // add transfer stage and mixture
-        // resStage = yield call(api.addBrewStage, {
-        //     brewId: res.data.id,
-        //     taskId: 7, // transfer
-        //     statusId: 1, // in-process
-        //     // startedAt: get(action, "payload.form.startedAt")
-        // });
-        // resMixture = yield call(api.addMixture, {
-        //     parentMixtureId: resMixture.data.id,
-        //     quantity: {
-        //         symbol: "hl",
-        //         value: 0
-        //     },
-        //     brewStageId: resStage.data.id
-        // });
+        resMixture = yield call(api.addMixture, {
+            parentMixtureId: resMixture.data.id,
+            quantity: {
+                symbol: "hl",
+                value: 0
+            },
+            brewStageId: resStage.data[3].id
+        });
         yield put(setGlobalRedirect({ pathname: "/batches/" + res.data.id }));
         yield put(snackSuccess());
-
     } catch (e) {
         console.log(e);
         yield put(snackFailure(e.message));
@@ -125,8 +95,7 @@ function* addBatchGenerator(action) {
 function* editBatchGenerator(action) {
     try {
         const res = yield call(api.updateBatch, get(action, "payload.id"), get(action, "payload.form"));
-        yield put({ type: SET_BATCH_DETAILS, payload: { data: res.data }});
-        yield put({ type: SET_INITIAL_BATCH_DETAILS, payload: res.data });
+        yield put({ type: SET_BATCH_DETAILS, payload: { data: res.data, initial: res.data }});
         yield put(setGlobalRedirect({ pathname: "/batches/" + res.data.id }));
         yield put(snackSuccess());
     } catch (e) {

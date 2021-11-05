@@ -3,44 +3,43 @@ import { useDispatch, useSelector } from "react-redux";
 import Ingredients from "../mixture/ingredients";
 import Details from "../mixture/details";
 import {
-    editKettleMixture,
-    editKettleStage,
-    setKettleMixtureDetails,
-    setKettleStageDetails
+    setMashMaterialPortionDetails,
+    setMashMixtureDetails,
+    setMashStageDetails
 } from "../../../../store/actions";
-import MixtureToolbar from "../mixture/toolbar";
 
-export default function BrewKettle() {
-    const [changed, setChanged] = useState(false);
+export default function BrewMash({ setChanged }) {
     const [materialPortionsChanged, setMaterialPortionsChanged] = useState(false);
+
     const dispatch = useDispatch();
 
-    const { data: stage, editable } = useSelector(state => {
-        return state.Batch.KettleStage;
+    const { editable } = useSelector(state => {
+        return state.Batch.details;
+    });
+
+    const stage = useSelector(state => {
+        return state.Batch.MashStage.data;
     });
 
     const initialStage = useSelector(state => {
-        return state.Batch.KettleStage.initial;
+        return state.Batch.MashStage.initial;
     });
 
     const mixture = useSelector(state => {
-        return state.Batch.KettleMixture.data;
+        return state.Batch.MashMixture.data;
     });
 
     const initialMixture = useSelector(state => {
-        return state.Batch.KettleMixture.initial;
+        return state.Batch.MashMixture.initial;
     });
 
-    // const { content: materialPortions, initial: initialMaterialPortions } = useSelector(state => {
-    //     return state.Batch.KettleMaterialPortion;
-    // });
-
-    const [materialPortions, setMaterialPortions] = useState([]);
-    const initialMaterialPortions = [];
+    const { content: materialPortions, initial: initialMaterialPortions } = useSelector(state => {
+        return state.Batch.MashMaterialPortion;
+    });
 
     useEffect(() => {
         setChanged(isChanged());
-    }, [stage, mixture, materialPortions, setChanged]);
+    }, [stage, mixture, materialPortions]);
 
     useEffect(() => {
         setMaterialPortionsChanged(isMaterialPortionsChanged())
@@ -64,7 +63,7 @@ export default function BrewKettle() {
 
     function setStage(stage) {
         dispatch(
-            setKettleStageDetails({
+            setMashStageDetails({
                 data: stage
             })
         )
@@ -72,44 +71,16 @@ export default function BrewKettle() {
 
     function setMixture(mixture) {
         dispatch(
-            setKettleMixtureDetails({
+            setMashMixtureDetails({
                 data: mixture
             })
         )
     }
 
-    function onSave() {
+    function setMaterialPortions(materialPortions) {
         dispatch(
-            editKettleStage({
-                id: stage.id,
-                form: {
-                    statusId : stage.status.id,
-                    taskId: stage.task.id,
-                    startedAt: stage.startedAt,
-                    endedAt: stage.endedAt,
-                    version: stage.version
-                }
-            })
-        );
-        dispatch(
-            editKettleMixture({
-                id: mixture.id,
-                form: {
-                    parentMixtureId: mixture.parentMixtureId,
-                    quantity: {
-                        ...mixture.quantity
-                    },
-                    brewStageId: mixture.brewStage.id,
-                    version: mixture.version
-                }
-            })
-        );
-    }
-
-    function setEditable(value) {
-        dispatch(
-            setKettleStageDetails({
-                editable: !!value
+            setMashMaterialPortionDetails({
+                content: materialPortions
             })
         );
     }
@@ -127,26 +98,19 @@ export default function BrewKettle() {
     const ingredientsProps = {
         mixture,
         editable,
-        changed,
         materialPortions,
         initialMaterialPortions,
         setMaterialPortions,
         materialPortionsChanged
     };
 
-    const toolbarProps = {
-        editable,
-        setEditable,
-        changed,
-        onSave
-    }
-
     return (
         <React.Fragment>
             <Details {...detailsProps}/>
-            <Ingredients {...ingredientsProps}/>
             <div className="clearFix mb-3"></div>
-            <MixtureToolbar {...toolbarProps}/>
+            <div className="px-2">
+                <Ingredients {...ingredientsProps}/>
+            </div>
         </React.Fragment>
     );
 }

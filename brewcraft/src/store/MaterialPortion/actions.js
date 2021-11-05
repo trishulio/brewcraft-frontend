@@ -7,6 +7,11 @@ import {
     EDIT_MASH_MATERIAL_PORTION_REQUEST,
     DELETE_MASH_MATERIAL_PORTION_REQUEST,
     RESET_MASH_MATERIAL_PORTION_DETAILS,
+    SET_KETTLE_MATERIAL_PORTION_DETAILS,
+    ADD_KETTLE_MATERIAL_PORTION_REQUEST,
+    EDIT_KETTLE_MATERIAL_PORTION_REQUEST,
+    DELETE_KETTLE_MATERIAL_PORTION_REQUEST,
+    RESET_KETTLE_MATERIAL_PORTION_DETAILS,
 } from "./actionTypes";
 
 export const fetchMaterialPortionById = id => ({
@@ -46,5 +51,30 @@ export const editMashMaterialPortion = payload => ({
 
 export const deleteMashMaterialPortion = payload => ({
     type: DELETE_MASH_MATERIAL_PORTION_REQUEST,
+    payload: payload,
+});
+
+export const setKettleMaterialPortionDetails = payload => ({
+    type: SET_KETTLE_MATERIAL_PORTION_DETAILS,
+    payload: payload
+});
+
+export const resetKettleMaterialPortionDetails = () => ({
+    type: RESET_KETTLE_MATERIAL_PORTION_DETAILS,
+    payload: null
+});
+
+export const saveKettleMaterialPortion = payload => ({
+    type: ADD_KETTLE_MATERIAL_PORTION_REQUEST,
+    payload: payload,
+});
+
+export const editKettleMaterialPortion = payload => ({
+    type: EDIT_KETTLE_MATERIAL_PORTION_REQUEST,
+    payload: payload,
+});
+
+export const deleteKettleMaterialPortion = payload => ({
+    type: DELETE_KETTLE_MATERIAL_PORTION_REQUEST,
     payload: payload,
 });

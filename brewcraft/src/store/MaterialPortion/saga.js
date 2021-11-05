@@ -17,10 +17,11 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
+import { fetchMaterialPortionsByBrewId } from "./actions";
 
 function* fetchMaterialPortionByIdGenerator(action) {
     try {
-        const res = yield call(api.fetchMaterialPortionById,get(action, "payload.id"));
+        const res = yield call(api.fetchMaterialPortionById, get(action, "payload.id"));
         res.initial = JSON.parse(JSON.stringify(res.data));
         // yield put({ type: SET_MATERIAL_PORTION_DETAILS, payload: { data: res.data, initial: res.data }});
     } catch (e) {
@@ -30,7 +31,7 @@ function* fetchMaterialPortionByIdGenerator(action) {
 
 function* fetchMaterialPortionsByMixtureIdGenerator(action) {
     try {
-        const res = yield call(api.fetchMaterialPortionsByMixtureId,get(action, "payload.id"));
+        const res = yield call(api.fetchMaterialPortionsByMixtureId, get(action, "payload.id"));
         // yield put({ type: SET_MATERIAL_PORTION_DETAILS, payload: { content: res.data.content }});
     } catch (e) {
         console.log(e);
@@ -40,8 +41,8 @@ function* fetchMaterialPortionsByMixtureIdGenerator(action) {
 
 function* fetchMaterialPortionByBrewIdGenerator(action) {
     try {
-        const res = yield call(api.fetchMaterialPortionsByBrewId,get(action, "payload.id"));
-        yield put({ type: SET_MASH_MATERIAL_PORTION_DETAILS, payload: { content: res.data.content }});
+        const res = yield call(api.fetchMaterialPortionsByBrewId, get(action, "payload.id"));
+        yield put({ type: SET_MASH_MATERIAL_PORTION_DETAILS, payload: { content: res.data.content, initial: res.data.content }});
     } catch (e) {
         console.log(e);
         yield put(snackFailure("Something went wrong please try again."));
@@ -51,8 +52,8 @@ function* fetchMaterialPortionByBrewIdGenerator(action) {
 function* addMashMaterialPortionGenerator(action) {
     try {
         const res = yield call(api.addMaterialPortion, get(action, "payload.form"));
-        res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: ADD_MASH_MATERIAL_PORTION_SUCCESS, payload: { data: res.data, initial: res.data }});
+        yield put(fetchMaterialPortionsByBrewId(get(action, "payload.brewId")));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: ADD_MASH_MATERIAL_PORTION_FAILURE });
@@ -63,7 +64,6 @@ function* addMashMaterialPortionGenerator(action) {
 function* editMashMaterialPortionGenerator(action) {
     try {
         const res = yield call(api.updateMaterialPortion, get(action, "payload.id"), get(action, "payload.form"));
-        res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: EDIT_MASH_MATERIAL_PORTION_SUCCESS, payload: { data: res.data, initial: res.data }});
         yield put(snackSuccess());
     } catch (e) {

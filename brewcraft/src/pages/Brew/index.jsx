@@ -12,7 +12,17 @@ import {
     fetchBatchStatuses,
     fetchBatchTasks,
     fetchMeasures,
-    fetchMaterialStockQuantity
+    fetchMaterialStockQuantity,
+    fetchAllBrewStages,
+    fetchMixturesByBrewId,
+    fetchMaterialPortionsByBrewId,
+    setBatchDetails,
+    editMashStage,
+    editMashMixture,
+    saveMashMaterialPortion,
+    fetchMixtureRecordingsByBrewId,
+    saveTransferMixtureRecords,
+    editTransferMixtureRecords
 } from "../../store/actions";
 import {
     useQuery
@@ -22,7 +32,6 @@ import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 
 export default function Batch() {
-    const [editable, setEditable] = useState(false);
     const [changed, setChanged] = useState(false);
     const [activeTab, setActiveTab] = useState("mashlauter");
     const [showDeletePrompt, setShowDeletePrompt] = useState(false);
@@ -42,32 +51,45 @@ export default function Batch() {
         return state.Batch.details.initial;
     });
 
-    const { invalidName } = useSelector(state => {
+    const { editable, invalidName } = useSelector(state => {
         return state.Batch.details;
     });
 
-    const measures = useSelector(state => {
-        return state.Measures;
+    const { data: mashStage } = useSelector(state => {
+        return state.Batch.MashStage;
+    });
+
+    const { data: mashMixture } = useSelector(state => {
+        return state.Batch.MashMixture;
+    });
+
+    const { content: materialPortions, initial: initialMaterialPortions } = useSelector(state => {
+        return state.Batch.MashMaterialPortion;
+    });
+
+    const transferMixtureRecordings = useSelector(state => {
+        return state.Batch.TransferMixtureRecordings.content;
     });
 
     useEffect(() => {
-        function fetchBatch() {
-            dispatch(fetchBatchById(id));
-        };
         if (id === "new") {
             dispatch(resetBatchDetails());
             history.replace("/batches/new?edit=true");
         } else {
-            fetchBatch();
+            dispatch(fetchBatchById(id));
+            dispatch(fetchAllBrewStages(id));
+            dispatch(fetchMixturesByBrewId(id));
+            dispatch(fetchMaterialPortionsByBrewId(id));
+            dispatch(fetchMixtureRecordingsByBrewId(id));
         }
-        if (editMode) {
-            dispatch(fetchAllProducts());
-        }
+        dispatch(fetchAllProducts());
         dispatch(fetchBatchStatuses());
         dispatch(fetchBatchTasks());
         dispatch(fetchMeasures());
         dispatch(fetchMaterialStockQuantity());
-        setEditable(editMode && editMode !== "false");
+        dispatch(setBatchDetails({
+            editable: editMode && editMode !== "false"
+        }));
         setShowRouterPrompt(!!editMode);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, editMode]);
@@ -75,10 +97,10 @@ export default function Batch() {
     useEffect(() => {
         if (batch.id) {
             dispatch(
-                setBreadcrumbItems("Brew", [
+                setBreadcrumbItems(`Batch ${batch.batchId}`, [
                     { title: "Main", link: "#" },
                     { title: "Batches", link: "#" },
-                    { title: batch.name, link: "#"}
+                    { title: "Brews", link: "#"}
                 ]),
             );
         } else {
@@ -93,6 +115,12 @@ export default function Batch() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [batch]);
 
+    function setEditable() {
+        history.push({
+            search: "?edit=true"
+        });
+    }
+
     function isChanged() {
         return JSON.stringify(
                 (({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }) => ({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }))(initialBatch))
@@ -100,13 +128,55 @@ export default function Batch() {
                 (({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }) => ({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }))(batch))
     }
 
+    function saveMashStage() {
+        dispatch(
+            editMashStage({
+                id: mashStage.id,
+                form: {
+                    statusId : mashStage.status.id,
+                    taskId: mashStage.task.id,
+                    startedAt: mashStage.startedAt,
+                    endedAt: mashStage.endedAt,
+                    version: mashStage.version
+                }
+            })
+        );
+        dispatch(
+            editMashMixture({
+                id: mashMixture.id,
+                form: {
+                    parentMixtureId: mashMixture.parentMixtureId,
+                    quantity: {
+                        ...mashMixture.quantity
+                    },
+                    brewStageId: mashMixture.brewStage.id,
+                    version: mashMixture.version
+                }
+            })
+        );
+        dispatch(
+            saveMashMaterialPortion({
+                brewId: batch.id,
+                form: materialPortions
+                    .filter(mp => !initialMaterialPortions.map(imp => imp.materialLot.id).includes(mp.materialLot.id))
+                    .map(mp => ({
+                        materialLotId: mp.materialLot.id,
+                        quantity: mp.quantity,
+                        mixtureId: mashMixture.id,
+                        // addedAt: "2021-11-03T02:59:16.053Z"
+                    }))
+            })
+        );
+    }
+
     function onSave() {
         if (invalidName) {
             return;
-        }
-        if (!isChanged()) {
-            history.push("/batches/" + id);
-
+        // }
+        // // if (!isChanged()) {
+        // //     history.push({
+        // //         search: ""
+        // //     });
         } else if (batch.id) {
             dispatch(
                 editBatch({
@@ -116,13 +186,36 @@ export default function Batch() {
                         description: batch.description,
                         batchId: batch.batchId,
                         productId: parseInt(batch.product.id),
-                        parentBrewId: batch.parentBrewId || null,
+                        parentBrewId: batch.parentBrewId,
                         startedAt: batch.startedAt,
                         endedAt: batch.endedAt,
                         version: batch.version
                     }
                 })
             );
+            saveMashStage();
+            dispatch(
+                saveTransferMixtureRecords({
+                    form: transferMixtureRecordings.filter(r => !r.id).map(r => ({
+                        mixtureId: r.mixture.id,
+                        measureId: r.measure.id,
+                        value: r.value
+                    }))
+                })
+            );
+            transferMixtureRecordings.filter(r => r.id).forEach(r => {
+                dispatch(
+                    editTransferMixtureRecords({
+                        id: r.id,
+                        form: {
+                            mixtureId: r.mixture.id,
+                            measureId: r.measure.id,
+                            value: r.value,
+                            version: r.version
+                        }
+                    })
+                );
+            });
         } else {
             dispatch(
                 saveBatch({
@@ -151,7 +244,9 @@ export default function Batch() {
     const props = {
         activeTab,
         editable,
+        setEditable,
         changed,
+        setChanged,
         onSave,
         onDelete,
         onTabChange,

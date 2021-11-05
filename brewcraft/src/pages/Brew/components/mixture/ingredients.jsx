@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { map } from "lodash";
 import {
-    Button, FormFeedback, FormGroup, Input, Label
+    Button,
+    FormFeedback,
+    FormGroup,
+    Input,
+    Label
 } from "reactstrap";
-import Modal from "../../../../component/MaterialLots/modal";
 import CommonTable from "../../../../component/Common/table";
+import { formatCurrency } from "../../../../helpers/textUtils";
 
-export default function BatchIngredients({ mixture, materialPortions, materialPortionsChanged, setMaterialPortions, mTitle, editable, changed }) {
-    const [showModal, setShowModal] = useState(false);
+export default function BatchIngredients({ mixture, materialPortions, materialPortionsChanged, setMaterialPortions, editable }) {
     const [lots, setLots] = useState([]);
     const [selectedLot, setSelectedLot] = useState("");
     const [selectedLotQuantity, setSelectedLotQuantity] = useState(0);
@@ -17,34 +20,35 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
         return state.MaterialLots.stock;
     });
 
-    const props = {
-        title: mTitle,
-        mixture,
-        show: showModal,
-        setShow: setShowModal
-    }
-
-    function onFormInputChange() {
-
-    }
-
     return (
         <React.Fragment>
-            {console.log(materialPortions)}
-            {console.log(lots)}
+            <Label
+                for="mixtureStartDateTime"
+                className="d-block d-sm-inline-block font-size-12 mb-3"
+                style={{
+                    width: "5rem"
+                }}
+            >
+                Ingredients
+            </Label>
             <div className="mb-3">
                 <CommonTable>
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Ingredients</th>
+                            <th>Ingredient</th>
+                            <th>Category</th>
+                            <th>Lot Number</th>
                             <th>Quantity</th>
+                            <th>Cost</th>
                         </tr>
                     </thead>
                     <tbody>
                     {
                         !materialPortions.length && (
-                            <tr><td></td><td>-</td><td>-</td></tr>
+                            <tr>
+                                <td></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                            </tr>
                         )
                     }
                     {
@@ -52,7 +56,7 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                             <tr key={index}>
                                 <td>
                                     <div className="d-flex align-items-center vertical-center">
-                                        <Input
+                                        {editable && <Input
                                             className="ml-1"
                                             type="checkbox"
                                             disabled={!editable}
@@ -60,18 +64,27 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                                                 if (e.target.checked) {
                                                     setLots([
                                                         ...lots,
-                                                        portion.material.name // bug this is the only unique field
+                                                        portion.materialLot.id
                                                     ])
                                                 } else {
-                                                    setLots(lots.filter(l => l !== portion.material.name))
+                                                    setLots(lots.filter(l => l !== portion.materialLot.id))
                                                 }
                                             }}
-                                            checked={lots.includes(portion.material.name)}
-                                        />
+                                            checked={lots.includes(portion.materialLot.id) && editable}
+                                        />}
                                     </div>
                                 </td>
-                                <td>{portion.material.name}</td>
+                                <td>{portion.materialLot.invoiceItem.material.name}</td>
+                                <td>{portion.materialLot.invoiceItem.material.category?.name}</td>
+                                <td>{portion.materialLot.lotNumber}</td>
                                 <td>{portion.quantity.value} {portion.quantity.symbol}</td>
+                                <td>{
+                                    formatCurrency(
+                                        portion.materialLot.invoiceItem.amount?.amount
+                                        / portion.materialLot.invoiceItem.quantity?.value
+                                        * portion.quantity.value
+                                    )
+                                }</td>
                             </tr>
                         ))
                     }
@@ -88,16 +101,16 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                         type="select"
                         className="waves-effect"
                         style={{ width: "14rem" }}
-                        value={selectedLot.lotNumber || ""}
+                        value={selectedLot.id || ""}
                         onChange={e => {
-                            const materialLot = materialLots.find (s => s.lotNumber === e.target.value);
+                            const materialLot = materialLots.find (s => s.id === parseInt(e.target.value));
                             setSelectedLot(materialLot);
                         }}
                     >
                         <option value="">Ingredient</option>
                         {
                             map(materialLots, (value, index) => (
-                                <option value={value.lotNumber} key={index}>
+                                <option value={value.id} key={index}>
                                     {value.material.name} ({value.quantity.value}{value.quantity.symbol})
                                 </option>
                             ))
@@ -124,18 +137,17 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                     className="waves-effect mr-2"
                     onClick={() => {
                         setMaterialPortions([
-                            ...materialPortions,
-                            {
-                                materialLotId: 1, // bug materialLotId not available yet!
+                            ...materialPortions, {
+                                materialLot: {
+                                    ...selectedLot
+                                },
                                 quantity: {
                                     symbol: selectedLot.quantity.symbol,
                                     value: selectedLotQuantity
                                 },
-                                material: {
-                                    name: selectedLot.material.name
-                                },
-                                mixtureId: mixture.id
-                            }])
+                                mixture: mixture
+                            }
+                        ]);
                     }}
                     hidden={!editable}
                 >
@@ -147,7 +159,7 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                     className="waves-effect"
                     onClick={() => {
                         setMaterialPortions(
-                            materialPortions.filter(p => !lots.includes(p.material.name))
+                            materialPortions.filter(p => !lots.includes(p.materialLot.id))
                         )
                     }}
                     hidden={!editable}

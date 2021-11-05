@@ -26,7 +26,8 @@ import {
     EDIT_WHIRLPOOL_MIXTURE_SUCCESS,
     DELETE_WHIRLPOOL_MIXTURE_SUCCESS,
     EDIT_WHIRLPOOL_MIXTURE_FAILURE,
-    DELETE_WHIRLPOOL_MIXTURE_FAILURE
+    DELETE_WHIRLPOOL_MIXTURE_FAILURE,
+    SET_TRANSFER_MIXTURE_DETAILS
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
@@ -48,6 +49,10 @@ function* fetchMixturesByBrewId(action) {
         data = res.data.content.find(m => m.brewStage.task.name === "WHIRLPOOL");
         initial = JSON.parse(JSON.stringify(data));
         yield put({ type: SET_WHIRLPOOL_MIXTURE_DETAILS, payload: { data, initial }});
+
+        data = res.data.content.find(m => m.brewStage.task.name === "TRANSFER");
+        initial = JSON.parse(JSON.stringify(data));
+        yield put({ type: SET_TRANSFER_MIXTURE_DETAILS, payload: { data, initial }});
 
         // Now that backend supports mixture recordings by id can implent new
         // store.

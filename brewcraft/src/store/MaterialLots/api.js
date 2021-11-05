@@ -18,7 +18,7 @@ async function fetchStockQuantity(params = {}) {
         params: {
             page: params.pageIndex || 0,
             size: params.pageSize || 500,
-            group_by: "LOT_NUMBER,MATERIAL",
+            group_by: "ID",
             sort: params.sort || "material.name",
             order_asc: !params.order || params.order === "asc"
         }

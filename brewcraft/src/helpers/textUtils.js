@@ -49,16 +49,22 @@ function isLastWeek(date) {
 
 export function formatDatetime(date) {
     const d = new Date(date);
-    const options = {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-        hour: "2-digit",
-        minute:"2-digit"
-    };
+    let options;
     if (isLastWeek(d)) {
-        options.weekday = "long";
-    };
+        options = {
+            weekday: "long",
+            hour: "2-digit",
+            minute:"2-digit"
+        };
+    } else {
+        options = {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute:"2-digit"
+        };
+    }
     return d.toLocaleString([], options);
 }
 

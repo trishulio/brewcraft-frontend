@@ -3,23 +3,28 @@ import {
   Card,
   CardHeader,
   CardBody,
-  Row
+  Row,
+  Button
 } from "reactstrap";
-import BatchDetails from "./components/batch-details";
+import BatchDetails from "./components/details";
 import MiniCard from "./components/mini-card";
 import Mash from "./components/stages/mash";
 import Kettle from "./components/stages/kettle";
 import Whirlpool from "./components/stages/whirlpool";
+import Toolbar from "./components/toolbar";
 
 export default function Batch(props) {
 
     return (
         <React.Fragment>
-            <Row>
-                <MiniCard/>
-            </Row>
+            <Toolbar {...props}/>
+            <div style={{ maxWidth: "70rem" }}>
+                <Row>
+                    <MiniCard/>
+                </Row>
+            </div>
             <BatchDetails {...props}/>
-            <Card className="mb-3">
+            <Card style={{ maxWidth: "70rem" }}className="mb-3">
                 <CardHeader>
                     <div className="float-left">
                         <h4 className="card-title font-size-14 pt-1">Mash Lauter</h4>
@@ -29,7 +34,7 @@ export default function Batch(props) {
                     {props.showTabContent && <Mash {...props}/>}
                 </CardBody>
             </Card>
-            <Card className="mb-3">
+            <Card style={{ maxWidth: "70rem" }} className="mb-3">
                 <CardHeader>
                     <div className="float-left">
                         <h4 className="card-title font-size-14 pt-1">Boil</h4>
@@ -39,7 +44,7 @@ export default function Batch(props) {
                     {props.showTabContent && <Kettle {...props}/>}
                 </CardBody>
             </Card>
-            <Card className="mb-3">
+            <Card style={{ maxWidth: "70rem" }} className="mb-3">
                 <CardHeader>
                     <div className="float-left">
                         <h4 className="card-title font-size-14 pt-1">Whirlpool</h4>
