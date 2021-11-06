@@ -122,7 +122,7 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, s
                 </Col>
                 <Col sm="6">
                     <Label
-                        for="mixtureQuantity"
+                        for="mixtureQuantityValue"
                         className="d-block d-sm-inline-block font-size-12"
                         style={{
                             width: "6rem"

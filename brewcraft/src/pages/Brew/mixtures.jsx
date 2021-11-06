@@ -14,6 +14,18 @@ export default function Mixtures(props) {
         return state.Batch.MashMixture;
     });
 
+    const { data: kettleMixture, initial: initialKettleMixture } = useSelector(state => {
+        return state.Batch.KettleMixture;
+    });
+
+    const { data: whirlpoolMixture, initial: initialWhirlpoolMixture } = useSelector(state => {
+        return state.Batch.WhirlpoolMixture;
+    });
+
+    const { data: transferMixture, initial: initialTransferMixture } = useSelector(state => {
+        return state.Batch.TransferMixture;
+    });
+
     useEffect(() => {
         if (batch.id) {
             dispatch(fetchMixturesByBrewId(batch.id));
@@ -22,11 +34,15 @@ export default function Mixtures(props) {
 
     useEffect(() => {
         props.setMixturesChanged(isChanged());
-
-    }, [mashMixture]);
+    }, [
+        mashMixture,
+        kettleMixture,
+        whirlpoolMixture,
+        transferMixture
+    ]);
 
     useEffect(() => {
-        if (save) {
+        if (save && isMixtureChanged(mashMixture, initialMashMixture)) {
             dispatch(
                 editMashMixture({
                     id: mashMixture.id,
@@ -41,13 +57,77 @@ export default function Mixtures(props) {
                 })
             );
         }
+        if (save && isMixtureChanged(kettleMixture, initialKettleMixture)) {
+            dispatch(
+                editMashMixture({
+                    id: kettleMixture.id,
+                    form: {
+                        parentMixtureId: kettleMixture.parentMixtureId,
+                        quantity: {
+                            ...kettleMixture.quantity
+                        },
+                        brewStageId: kettleMixture.brewStage.id,
+                        version: kettleMixture.version
+                    }
+                })
+            );
+        }
+        if (save && isMixtureChanged(whirlpoolMixture, initialWhirlpoolMixture)) {
+            dispatch(
+                editMashMixture({
+                    id: whirlpoolMixture.id,
+                    form: {
+                        parentMixtureId: whirlpoolMixture.parentMixtureId,
+                        quantity: {
+                            ...whirlpoolMixture.quantity
+                        },
+                        brewStageId: whirlpoolMixture.brewStage.id,
+                        version: whirlpoolMixture.version
+                    }
+                })
+            );
+        }
+        if (save && isMixtureChanged(transferMixture, initialTransferMixture)) {
+            dispatch(
+                editMashMixture({
+                    id: transferMixture.id,
+                    form: {
+                        parentMixtureId: transferMixture.parentMixtureId,
+                        quantity: {
+                            ...transferMixture.quantity
+                        },
+                        brewStageId: transferMixture.brewStage.id,
+                        version: transferMixture.version
+                    }
+                })
+            );
+        }
     }, [save]);
+
+    function isMixtureChanged(mixture, initialMixture) {
+        return JSON.stringify(
+                (({ quantity }) => ({ quantity }))(initialMixture))
+            !== JSON.stringify(
+                (({ quantity }) => ({ quantity }))(mixture))
+    }
 
     function isChanged() {
         return JSON.stringify(
                 (({ quantity }) => ({ quantity }))(initialMashMixture))
             !== JSON.stringify(
                 (({ quantity }) => ({ quantity }))(mashMixture))
+            || JSON.stringify(
+                (({ quantity }) => ({ quantity }))(initialKettleMixture))
+            !== JSON.stringify(
+                (({ quantity }) => ({ quantity }))(kettleMixture))
+            || JSON.stringify(
+                (({ quantity }) => ({ quantity }))(initialWhirlpoolMixture))
+            !== JSON.stringify(
+                (({ quantity }) => ({ quantity }))(whirlpoolMixture))
+            || JSON.stringify(
+                (({ quantity }) => ({ quantity }))(initialTransferMixture))
+            !== JSON.stringify(
+                (({ quantity }) => ({ quantity }))(transferMixture))
     }
 
     return (

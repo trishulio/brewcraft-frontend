@@ -44,7 +44,6 @@ export default function IngredientsTable() {
 
     return  (
         <Table>
-            {console.log(ingredients)}
             <thead>
                 <tr>
                     <Th

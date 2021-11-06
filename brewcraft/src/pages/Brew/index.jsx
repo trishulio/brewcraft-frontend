@@ -88,6 +88,7 @@ export default function Batch() {
     useEffect(() => {
         setChanged(isChanged());
     }, [
+        batchChanged,
         stagesChanged,
         mixturesChanged,
         materialPortionsChanged,
@@ -116,9 +117,8 @@ export default function Batch() {
     function onSave() {
         if (!batchChanged) {
             dispatch(setBatchDetails({ save: true }));
-            return;
-        }
-        if (batch.id) {
+
+        } else if (batch.id) {
             dispatch(
                 editBatch({
                     id: batch.id,

@@ -63,7 +63,6 @@ export default function BatchesTable() {
 
     return (
         <Table>
-            {console.log(batches)}
             <thead>
                 <tr>
                     <Th

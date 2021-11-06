@@ -69,7 +69,6 @@ export default function BrewMash() {
 
     return (
         <React.Fragment>
-            {console.log(stage)}
             <Details {...detailsProps}/>
             <div className="clearFix mb-3"></div>
             <div className="px-2">
