@@ -13,27 +13,26 @@ import {
     fetchBatchTasks,
     fetchMeasures,
     fetchMaterialStockQuantity,
-    fetchAllBrewStages,
-    fetchMixturesByBrewId,
-    fetchMaterialPortionsByBrewId,
-    setBatchDetails,
-    editMashStage,
-    editMashMixture,
-    saveMashMaterialPortion,
-    fetchMixtureRecordingsByBrewId,
-    saveTransferMixtureRecords,
-    editTransferMixtureRecords
+    setBatchDetails
 } from "../../store/actions";
 import {
     useQuery
 } from "../../helpers/utils";
-import BatchInner from "./batch";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
+import BatchInner from "./batch";
+import Stages from "./stages";
+import Mixtures from "./mixtures";
+import MaterialPortions from "./material-portions";
+import MixtureRecordings from "./mixture-recordings";
 
 export default function Batch() {
     const [changed, setChanged] = useState(false);
-    const [activeTab, setActiveTab] = useState("mashlauter");
+    const [batchChanged, setBatchChanged] = useState(false);
+    const [stagesChanged, setStagesChanged] = useState(false);
+    const [mixturesChanged, setMixturesChanged] = useState(false);
+    const [materialPortionsChanged, setMaterialPortionsChanged] = useState(false);
+    const [mixtureRecordingsChanged, setMixtureRecordingsChanged] = useState(false);
     const [showDeletePrompt, setShowDeletePrompt] = useState(false);
     const [showRouterPrompt, setShowRouterPrompt] = useState(false);
 
@@ -43,44 +42,16 @@ export default function Batch() {
     const editMode = query.get("edit");
     const dispatch = useDispatch();
 
-    const batch = useSelector(state => {
-        return state.Batch.details.data;
-    });
-
-    const initialBatch = useSelector(state => {
-        return state.Batch.details.initial;
-    });
-
-    const { editable, invalidName } = useSelector(state => {
+    const { data: batch, initial: initialBatch, editable } = useSelector(state => {
         return state.Batch.details;
     });
 
-    const { data: mashStage } = useSelector(state => {
-        return state.Batch.MashStage;
-    });
-
-    const { data: mashMixture } = useSelector(state => {
-        return state.Batch.MashMixture;
-    });
-
-    const { content: materialPortions, initial: initialMaterialPortions } = useSelector(state => {
-        return state.Batch.MashMaterialPortion;
-    });
-
-    const transferMixtureRecordings = useSelector(state => {
-        return state.Batch.TransferMixtureRecordings.content;
-    });
-
     useEffect(() => {
+        dispatch(resetBatchDetails());
         if (id === "new") {
-            dispatch(resetBatchDetails());
             history.replace("/batches/new?edit=true");
         } else {
             dispatch(fetchBatchById(id));
-            dispatch(fetchAllBrewStages(id));
-            dispatch(fetchMixturesByBrewId(id));
-            dispatch(fetchMaterialPortionsByBrewId(id));
-            dispatch(fetchMixtureRecordingsByBrewId(id));
         }
         dispatch(fetchAllProducts());
         dispatch(fetchBatchStatuses());
@@ -97,7 +68,7 @@ export default function Batch() {
     useEffect(() => {
         if (batch.id) {
             dispatch(
-                setBreadcrumbItems(`Batch ${batch.batchId}`, [
+                setBreadcrumbItems(`Brew ${batch.batchId}`, [
                     { title: "Main", link: "#" },
                     { title: "Batches", link: "#" },
                     { title: "Brews", link: "#"}
@@ -111,73 +82,43 @@ export default function Batch() {
                 ]),
             );
         }
-        setChanged(isChanged());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [batch]);
 
-    function setEditable() {
-        history.push({
-            search: "?edit=true"
-        });
-    }
+    useEffect(() => {
+        setChanged(isChanged());
+    }, [
+        stagesChanged,
+        mixturesChanged,
+        materialPortionsChanged,
+        mixtureRecordingsChanged
+    ]);
 
-    function isChanged() {
+    useEffect(() => {
+        setBatchChanged(isBatchChanged());
+    }, [batch]);
+
+    function isBatchChanged() {
         return JSON.stringify(
                 (({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }) => ({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }))(initialBatch))
             !== JSON.stringify(
                 (({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }) => ({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }))(batch))
     }
 
-    function saveMashStage() {
-        dispatch(
-            editMashStage({
-                id: mashStage.id,
-                form: {
-                    statusId : mashStage.status.id,
-                    taskId: mashStage.task.id,
-                    startedAt: mashStage.startedAt,
-                    endedAt: mashStage.endedAt,
-                    version: mashStage.version
-                }
-            })
-        );
-        dispatch(
-            editMashMixture({
-                id: mashMixture.id,
-                form: {
-                    parentMixtureId: mashMixture.parentMixtureId,
-                    quantity: {
-                        ...mashMixture.quantity
-                    },
-                    brewStageId: mashMixture.brewStage.id,
-                    version: mashMixture.version
-                }
-            })
-        );
-        dispatch(
-            saveMashMaterialPortion({
-                brewId: batch.id,
-                form: materialPortions
-                    .filter(mp => !initialMaterialPortions.map(imp => imp.materialLot.id).includes(mp.materialLot.id))
-                    .map(mp => ({
-                        materialLotId: mp.materialLot.id,
-                        quantity: mp.quantity,
-                        mixtureId: mashMixture.id,
-                        // addedAt: "2021-11-03T02:59:16.053Z"
-                    }))
-            })
-        );
+    function isChanged() {
+        return batchChanged
+            || stagesChanged
+            || mixturesChanged
+            || materialPortionsChanged
+            || mixtureRecordingsChanged
     }
 
     function onSave() {
-        if (invalidName) {
+        if (!batchChanged) {
+            dispatch(setBatchDetails({ save: true }));
             return;
-        // }
-        // // if (!isChanged()) {
-        // //     history.push({
-        // //         search: ""
-        // //     });
-        } else if (batch.id) {
+        }
+        if (batch.id) {
             dispatch(
                 editBatch({
                     id: batch.id,
@@ -193,29 +134,6 @@ export default function Batch() {
                     }
                 })
             );
-            saveMashStage();
-            dispatch(
-                saveTransferMixtureRecords({
-                    form: transferMixtureRecordings.filter(r => !r.id).map(r => ({
-                        mixtureId: r.mixture.id,
-                        measureId: r.measure.id,
-                        value: r.value
-                    }))
-                })
-            );
-            transferMixtureRecordings.filter(r => r.id).forEach(r => {
-                dispatch(
-                    editTransferMixtureRecords({
-                        id: r.id,
-                        form: {
-                            mixtureId: r.mixture.id,
-                            measureId: r.measure.id,
-                            value: r.value,
-                            version: r.version
-                        }
-                    })
-                );
-            });
         } else {
             dispatch(
                 saveBatch({
@@ -237,20 +155,23 @@ export default function Batch() {
         setShowDeletePrompt(!!batch.id);
     }
 
-    function onTabChange(tab) {
-        setActiveTab(tab);
+    function setEditable() {
+        history.push({
+            search: "?edit=true"
+        });
     }
 
     const props = {
-        activeTab,
         editable,
         setEditable,
         changed,
         setChanged,
         onSave,
         onDelete,
-        onTabChange,
-        showTabContent: id && id !== "new"
+        setStagesChanged,
+        setMixturesChanged,
+        setMaterialPortionsChanged,
+        setMixtureRecordingsChanged
     }
 
     return (
@@ -274,6 +195,10 @@ export default function Batch() {
                 shouldBlockNavigation={() => editMode && isChanged()}
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
+            <Stages {...props}/>
+            <Mixtures {...props}/>
+            <MaterialPortions {...props}/>
+            <MixtureRecordings {...props}/>
             <BatchInner {...props} />
         </React.Fragment>
     );

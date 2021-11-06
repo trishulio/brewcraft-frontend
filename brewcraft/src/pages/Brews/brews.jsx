@@ -1,9 +1,7 @@
 import React from "react";
 import {
     Card,
-    CardBody,
-    Row,
-    Col
+    CardBody
 } from "reactstrap";
 import Table from "./components/table";
 import Toolbar from "./components/toolbar";
@@ -12,18 +10,14 @@ import Pagination from "./components/pagination";
 export default function Batches() {
     return (
         <React.Fragment>
-            <Row>
-                <Col xl="11">
-                    <Toolbar/>
-                    <Card>
-                        <CardBody className="py-2">
-                            <Pagination>
-                                <Table/>
-                            </Pagination>
-                        </CardBody>
-                    </Card>
-                </Col>
-            </Row>
+            <Toolbar/>
+            <Card>
+                <CardBody className="py-2">
+                    <Pagination>
+                        <Table/>
+                    </Pagination>
+                </CardBody>
+            </Card>
         </React.Fragment>
     );
 }

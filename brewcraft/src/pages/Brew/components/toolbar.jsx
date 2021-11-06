@@ -5,7 +5,7 @@ import {
     Button
 } from "reactstrap";
 
-export default function Toolbar({ editable, setEditable, changed, onCancel, onSave, onEdit, onDelete }) {
+export default function Toolbar({ editable, setEditable, changed, onSave, onDelete }) {
     const [completed, setCompleted] = useState(false);
     const history = useHistory();
 

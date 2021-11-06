@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Ingredients from "../mixture/ingredients";
 import Details from "../mixture/details";
@@ -8,8 +8,7 @@ import {
     setMashStageDetails
 } from "../../../../store/actions";
 
-export default function BrewMash({ setChanged }) {
-    const [materialPortionsChanged, setMaterialPortionsChanged] = useState(false);
+export default function BrewMash() {
 
     const dispatch = useDispatch();
 
@@ -21,52 +20,20 @@ export default function BrewMash({ setChanged }) {
         return state.Batch.MashStage.data;
     });
 
-    const initialStage = useSelector(state => {
-        return state.Batch.MashStage.initial;
-    });
-
     const mixture = useSelector(state => {
         return state.Batch.MashMixture.data;
     });
 
-    const initialMixture = useSelector(state => {
-        return state.Batch.MashMixture.initial;
+    const materialPortions = useSelector(state => {
+        return state.Batch.MashMaterialPortion.content;
     });
-
-    const { content: materialPortions, initial: initialMaterialPortions } = useSelector(state => {
-        return state.Batch.MashMaterialPortion;
-    });
-
-    useEffect(() => {
-        setChanged(isChanged());
-    }, [stage, mixture, materialPortions]);
-
-    useEffect(() => {
-        setMaterialPortionsChanged(isMaterialPortionsChanged())
-    }, [materialPortions]);
-
-    function isChanged() {
-        return JSON.stringify(
-                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(initialStage))
-            !== JSON.stringify(
-                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(stage))
-            || JSON.stringify(
-                    (({ quantity }) => ({ quantity }))(initialMixture))
-            !== JSON.stringify(
-                (({ quantity }) => ({ quantity }))(mixture))
-            || isMaterialPortionsChanged()
-    }
-
-    function isMaterialPortionsChanged() {
-        return JSON.stringify(materialPortions) !== JSON.stringify(initialMaterialPortions);
-    }
 
     function setStage(stage) {
         dispatch(
             setMashStageDetails({
                 data: stage
             })
-        )
+        );
     }
 
     function setMixture(mixture) {
@@ -74,7 +41,7 @@ export default function BrewMash({ setChanged }) {
             setMashMixtureDetails({
                 data: mixture
             })
-        )
+        );
     }
 
     function setMaterialPortions(materialPortions) {
@@ -87,10 +54,8 @@ export default function BrewMash({ setChanged }) {
 
     const detailsProps = {
         stage,
-        initialStage,
         setStage,
         mixture,
-        initialMixture,
         setMixture,
         editable
     };
@@ -99,13 +64,12 @@ export default function BrewMash({ setChanged }) {
         mixture,
         editable,
         materialPortions,
-        initialMaterialPortions,
-        setMaterialPortions,
-        materialPortionsChanged
+        setMaterialPortions
     };
 
     return (
         <React.Fragment>
+            {console.log(stage)}
             <Details {...detailsProps}/>
             <div className="clearFix mb-3"></div>
             <div className="px-2">

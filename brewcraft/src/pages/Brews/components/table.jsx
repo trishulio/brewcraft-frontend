@@ -101,8 +101,8 @@ export default function BatchesTable() {
                 {
                     batches.map((batch, key) =>
                         <tr key={key}>
-                            <td><Link to={"/batches/" + batch.id}>{batch.batchId}</Link></td>
-                            <td><Link to={"/products/" + batch.product.id}>{batch.product.name}</Link></td>
+                            <td><Link to={"/brews/" + batch.id}>{batch.batchId}</Link></td>
+                            <td><Link to={"/brews/" + batch.id}>{batch.product.name}</Link></td>
                             <td>{formatDatetime(batch.startedAt)}</td>
                             <td>{batch.endedAt ? formatDatetime(batch.endedAt) : "-"}</td>
                             <td>{batch.parentBatch ? batch.parentBatch.batchId : "-"}</td>

@@ -1,6 +1,12 @@
-import React, { Component, useEffect } from 'react';
-import { Col, Card, CardBody, Badge } from "reactstrap";
+import React from 'react';
 import { useSelector } from 'react-redux';
+import {
+    Row,
+    Col,
+    Card,
+    CardBody,
+    Badge
+} from "reactstrap";
 import { formatCurrency } from '../../../helpers/textUtils';
 
 export default function BrewMiniCard() {
@@ -63,58 +69,60 @@ export default function BrewMiniCard() {
 
     return (
         <React.Fragment>
-            <Col xl="3" md="6">
-                <Card className="mini-stat bg-primary">
-                    <CardBody className="mini-stat-img">
-                        <div className="mini-stat-icon">
-                            <i className={"mdi mdi-arrow-up-box float-right"}></i>
-                        </div>
-                        <div className="text-white">
-                            <h6 className="text-uppercase font-size-16">Wort<br/>Volume</h6>
-                            <h2 className="mb-4">{formatWortVolume()}</h2>
-                        </div>
-                    </CardBody>
-                </Card>
-            </Col>
-            <Col xl="3" md="6">
-                <Card className="mini-stat bg-primary">
-                    <CardBody className="mini-stat-img">
-                        <div className="mini-stat-icon">
-                            <i className={"mdi mdi-clipboard-text-outline float-right"}></i>
-                        </div>
-                        <div className="text-white">
-                            <h6 className="text-uppercase font-size-16">Original<br/>Gravity</h6>
-                            <h2 className="mb-4">{formatOriginalGravity()}</h2>
-                        </div>
-                    </CardBody>
-                </Card>
-            </Col>
-            <Col xl="3" md="6">
-                <Card className="mini-stat bg-primary">
-                    <CardBody className="mini-stat-img">
-                        <div className="mini-stat-icon">
-                            <i className={"mdi mdi-barley float-right"}></i>
-                        </div>
-                        <div className="text-white">
-                            <h6 className="text-uppercase font-size-16">Total Malt<br/>&nbsp;</h6>
-                            <h2 className="mb-4">{formatMaltUsed()}</h2>
-                        </div>
-                    </CardBody>
-                </Card>
-            </Col>
-            <Col xl="3" md="6">
-                <Card className="mini-stat bg-primary">
-                    <CardBody className="mini-stat-img">
-                        <div className="mini-stat-icon">
-                            <i className={"mdi mdi-currency-usd float-right"}></i>
-                        </div>
-                        <div className="text-white">
-                            <h6 className="text-uppercase font-size-16">Brew Cost<br/>&nbsp;</h6>
-                            <h2 className="mb-4">{formatCurrency(formatCost())}</h2>
-                        </div>
-                    </CardBody>
-                </Card>
-            </Col>
+            <Row>
+                <Col xl="3" md="6">
+                    <Card className="mini-stat bg-primary">
+                        <CardBody className="mini-stat-img">
+                            <div className="mini-stat-icon">
+                                <i className={"mdi mdi-arrow-up-box float-right"}></i>
+                            </div>
+                            <div className="text-white">
+                                <h6 className="text-uppercase font-size-16">Wort<br/>Volume</h6>
+                                <h2 className="mb-4">{formatWortVolume()}</h2>
+                            </div>
+                        </CardBody>
+                    </Card>
+                </Col>
+                <Col xl="3" md="6">
+                    <Card className="mini-stat bg-primary">
+                        <CardBody className="mini-stat-img">
+                            <div className="mini-stat-icon">
+                                <i className={"mdi mdi-clipboard-text-outline float-right"}></i>
+                            </div>
+                            <div className="text-white">
+                                <h6 className="text-uppercase font-size-16">Original<br/>Gravity</h6>
+                                <h2 className="mb-4">{formatOriginalGravity()}</h2>
+                            </div>
+                        </CardBody>
+                    </Card>
+                </Col>
+                <Col xl="3" md="6">
+                    <Card className="mini-stat bg-primary">
+                        <CardBody className="mini-stat-img">
+                            <div className="mini-stat-icon">
+                                <i className={"mdi mdi-barley float-right"}></i>
+                            </div>
+                            <div className="text-white">
+                                <h6 className="text-uppercase font-size-16">Total Malt<br/>&nbsp;</h6>
+                                <h2 className="mb-4">{formatMaltUsed()}</h2>
+                            </div>
+                        </CardBody>
+                    </Card>
+                </Col>
+                <Col xl="3" md="6">
+                    <Card className="mini-stat bg-primary">
+                        <CardBody className="mini-stat-img">
+                            <div className="mini-stat-icon">
+                                <i className={"mdi mdi-currency-usd float-right"}></i>
+                            </div>
+                            <div className="text-white">
+                                <h6 className="text-uppercase font-size-16">Brew Cost<br/>&nbsp;</h6>
+                                <h2 className="mb-4">{formatCurrency(formatCost())}</h2>
+                            </div>
+                        </CardBody>
+                    </Card>
+                </Col>
+            </Row>
         </React.Fragment>
     );
 }

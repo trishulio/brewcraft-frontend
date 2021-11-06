@@ -157,7 +157,7 @@ export default function BatchMetadata(props) {
             <Card style={{ maxWidth: "70rem" }} className="mb-3">
                 <CardHeader>
                     <div className="float-left">
-                        <h4 className="card-title font-size-14 pt-1">{batch.id ? `Batch ${batch.batchId} (${batch.product.name})` : "New Brew"}</h4>
+                        <h4 className="card-title font-size-14 pt-1">{batch.id ? `Brew ${batch.batchId} (${batch.product.name})` : "New Brew"}</h4>
                     </div>
                 </CardHeader>
                 <CardBody>

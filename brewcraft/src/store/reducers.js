@@ -8,7 +8,8 @@ import Brewery from "./Brewery/reducer";
 import {
   MashStage,
   KettleStage,
-  WhirlpoolStage
+  WhirlpoolStage,
+  TransferStage
 } from "./BrewStages/reducer";
 import FinishedGood from "./FinishedGood/reducer";
 import FinishedGoods from "./FinishedGoods/reducer";
@@ -64,6 +65,7 @@ const rootReducer = combineReducers({
     KettleMaterialPortion,
     WhirlpoolStage,
     WhirlpoolMixture,
+    TransferStage,
     TransferMixture,
     TransferMixtureRecordings
   }),

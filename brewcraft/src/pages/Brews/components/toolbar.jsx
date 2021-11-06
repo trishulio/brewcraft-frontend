@@ -19,77 +19,42 @@ export default function ProductCategoriesToolbar() {
     });
 
     return (
+        <React.Fragment>
         <Toolbar>
-            <div className="clearfix">
-                <Button
-                    type="button"
-                    color="secondary"
-                    size="sm"
-                    className="waves-effect mr-2"
-                    onClick={() => {
-                        history.push({
-                            pathname: "/batches/new",
-                            search: "?edit=true"
-                        });
-                    }}
-                >
-                        New Brew
-                </Button>
-                <FormGroup className="waves-effect float-right mb-2">
-                    <Label for="purchaseInvoicesFromDate" className="waves-effect float-left mt-1 mr-1">Started from</Label>
-                    <Input
-                        bsSize="sm"
-                        type="date"
-                        name="purchaseInvoicesFromDate"
-                        className="waves-effect float-left"
-                        style={{ width: 170 }}
-                        value={query.get("batchFrom") || ""}
-                        onChange={e => {
-                            query.delete("batchFrom");
-                            if (e.target.value) {
-                                query.append("batchFrom", e.target.value);
-                            }
-                            history.push({search: query.toString()});
-                        }}
-                    />
-                    <Label for="purchaseInvoicesToDate" className="waves-effect float-left mt-1 mr-1 ml-2">Started to</Label>
-                    <Input
-                        bsSize="sm"
-                        type="date"
-                        name="purchaseInvoicesToDate"
-                        className="waves-effect float-left"
-                        style={{ width: 170 }}
-                        value={query.get("batchTo") || ""}
-                        onChange={e => {
-                            query.delete("batchTo");
-                            if (e.target.value) {
-                                query.append("batchTo", e.target.value);
-                            }
-                            history.push({search: query.toString()});
-                        }}
-                    />
-                    <Button
-                        type="button"
-                        color="primary"
-                        size="sm"
-                        className="waves-effect float-left ml-2"
-                        disabled={!(query.get("batchTo") || query.get("batchFrom"))}
-                        onClick={() => {
-                            query.delete("batchTo");
-                            query.delete("batchFrom");
-                            history.push({search: query.toString()});
-                        }}
-                    >
-                            Reset
-                    </Button>
-                </FormGroup>
-            </div>
-            <div className="clearfix">
+            <Button
+                type="button"
+                color="secondary"
+                size="sm"
+                className="waves-effect mr-2 mb-3"
+                onClick={() => {
+                    history.push({
+                        pathname: "/batches/new",
+                        search: "?edit=true"
+                    });
+                }}
+            >
+                    New Brew
+            </Button>
+        </Toolbar>
+        <div className="px-2">
+            <Label
+                for="brewsProduct"
+                className="d-inline-block font-size-12 mb-3"
+                style={{
+                    width: "10rem"
+                }}
+            >
+                Product
+            </Label>
+            <FormGroup
+                className="d-inline-block mb-3"
+            >
                 <Input
                     type="select"
+                    name="brewsProduct"
                     bsSize="sm"
-                    className="waves-effect float-right mb-3 ml-2"
-                    style={{ width: 100 }}
+                    className="waves-effect"
+                    style={{ width: "10rem" }}
                     value={query.get("product") || ""}
                     onChange={e => {
                         query.delete("product");
@@ -106,16 +71,116 @@ export default function ProductCategoriesToolbar() {
                         )
                     }
                 </Input>
+            </FormGroup>
+            <div className="clearfix"></div>
+            <Label
+                for="brewsSearch"
+                className="d-inline-block font-size-12 mb-3"
+                style={{
+                    width: "10rem"
+                }}
+            >
+                Search
+            </Label>
+            <FormGroup
+                className="d-inline-block mb-3"
+            >
+                <Input
+                    type="search"
+                    name="brewsSearch"
+                    bsSize="sm"
+                    id="batchesSearch"
+                    placeholder="Filter"
+                    className="waves-effect"
+                    style={{ width: "10rem" }}
+                    disabled={true} // not supported
+                />
+            </FormGroup>
+            <div className="clearfix"></div>
+            <Label
+                for="brewsStartedFromDate"
+                className="d-inline-block font-size-12 mb-3"
+                style={{
+                    width: "10rem"
+                }}
+            >
+                Start Date
+            </Label>
+            <FormGroup
+                className="d-inline-block mb-3"
+            >
                 <Input
                     bsSize="sm"
-                    type="search"
-                    name="search"
-                    id="batchesSearch"
-                    placeholder="Search"
-                    className="waves-effect float-right mb-3 ml-2"
-                    style={{ width: 170 }}
+                    type="date"
+                    name="brewsStartedFromDate"
+                    className="waves-effect mr-2"
+                    style={{ width: "14rem" }}
+                    value={query.get("batchFrom") || ""}
+                    onChange={e => {
+                        query.delete("batchFrom");
+                        if (e.target.value) {
+                            query.append("batchFrom", e.target.value);
+                        }
+                        history.push({search: query.toString()});
+                    }}
                 />
-            </div>
-        </Toolbar>
+                <Button
+                    type="button"
+                    color="secondary"
+                    size="sm"
+                    className="waves-effect"
+                    disabled={!query.get("batchFrom")}
+                    onClick={() => {
+                        query.delete("batchFrom");
+                        history.push({search: query.toString()});
+                    }}
+                >
+                        Clear
+                </Button>
+            </FormGroup>
+            <div className="clearFix"></div>
+            <Label
+                for="brewsCompletedDate"
+                className="d-inline-block font-size-12 mb-3"
+                style={{
+                    width: "10rem"
+                }}
+            >
+                End Date
+            </Label>
+            <FormGroup
+                className="d-inline-block mb-3"
+            >
+                <Input
+                    bsSize="sm"
+                    type="date"
+                    name="brewsStartedToDate"
+                    className="waves-effect mr-2"
+                    style={{ width: "14rem" }}
+                    value={query.get("batchTo") || ""}
+                    onChange={e => {
+                        query.delete("batchTo");
+                        if (e.target.value) {
+                            query.append("batchTo", e.target.value);
+                        }
+                        history.push({search: query.toString()});
+                    }}
+                />
+                <Button
+                    type="button"
+                    color="secondary"
+                    size="sm"
+                    className="waves-effect"
+                    disabled={!query.get("batchTo")}
+                    onClick={() => {
+                        query.delete("batchTo");
+                        history.push({search: query.toString()});
+                    }}
+                >
+                        Clear
+                </Button>
+            </FormGroup>
+        </div>
+        </React.Fragment>
     );
 }

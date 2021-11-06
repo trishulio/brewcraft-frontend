@@ -2,9 +2,7 @@ import React from "react";
 import {
   Card,
   CardHeader,
-  CardBody,
-  Row,
-  Button
+  CardBody
 } from "reactstrap";
 import BatchDetails from "./components/details";
 import MiniCard from "./components/mini-card";
@@ -19,9 +17,7 @@ export default function Batch(props) {
         <React.Fragment>
             <Toolbar {...props}/>
             <div style={{ maxWidth: "70rem" }}>
-                <Row>
-                    <MiniCard/>
-                </Row>
+                <MiniCard/>
             </div>
             <BatchDetails {...props}/>
             <Card style={{ maxWidth: "70rem" }}className="mb-3">
@@ -31,7 +27,7 @@ export default function Batch(props) {
                     </div>
                 </CardHeader>
                 <CardBody>
-                    {props.showTabContent && <Mash {...props}/>}
+                    <Mash {...props}/>
                 </CardBody>
             </Card>
             <Card style={{ maxWidth: "70rem" }} className="mb-3">
@@ -41,7 +37,7 @@ export default function Batch(props) {
                     </div>
                 </CardHeader>
                 <CardBody>
-                    {props.showTabContent && <Kettle {...props}/>}
+                    <Kettle {...props}/>
                 </CardBody>
             </Card>
             <Card style={{ maxWidth: "70rem" }} className="mb-3">
@@ -51,7 +47,7 @@ export default function Batch(props) {
                     </div>
                 </CardHeader>
                 <CardBody>
-                    {props.showTabContent && <Whirlpool {...props}/>}
+                    <Whirlpool {...props}/>
                 </CardBody>
             </Card>
         </React.Fragment>

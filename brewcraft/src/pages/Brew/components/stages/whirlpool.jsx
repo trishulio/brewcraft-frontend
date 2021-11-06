@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Details from "../mixture/details";
 import {
@@ -6,8 +6,7 @@ import {
     setWhirlpoolStageDetails
 } from "../../../../store/actions";
 
-export default function BrewWhirlpool({ setChanged }) {
-    const [materialPortionsChanged, setMaterialPortionsChanged] = useState(false);
+export default function BrewWhirlpool() {
 
     const dispatch = useDispatch();
 
@@ -19,16 +18,8 @@ export default function BrewWhirlpool({ setChanged }) {
         return state.Batch.WhirlpoolStage.data;
     });
 
-    const initialStage = useSelector(state => {
-        return state.Batch.WhirlpoolStage.initial;
-    });
-
     const mixture = useSelector(state => {
         return state.Batch.WhirlpoolMixture.data;
-    });
-
-    const initialMixture = useSelector(state => {
-        return state.Batch.WhirlpoolMixture.initial;
     });
 
     function setStage(stage) {
@@ -49,13 +40,11 @@ export default function BrewWhirlpool({ setChanged }) {
 
     const detailsProps = {
         stage,
-        initialStage,
         setStage,
         mixture,
-        initialMixture,
         setMixture,
         editable,
-        showSkipCheckbox: true
+        showSkipCheckmark: true
     };
 
     return (
