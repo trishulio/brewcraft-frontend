@@ -76,19 +76,6 @@ export default function SkuToolbar({ editable, changed, onSave, onEdit, onDelete
                 >
                     Delete SKU
                 </Button>
-                <Button
-                    type="button"
-                    color="secondary"
-                    size="sm"
-                    className="waves-effect mr-2 mb-3"
-                    hidden={!sku.id || editable}
-                    outline={true}
-                    onClick={() => {
-                        history.push("/sku");
-                    }}
-                >
-                    Product Categories
-                </Button>
             </Toolbar>
         </React.Fragment>
     );

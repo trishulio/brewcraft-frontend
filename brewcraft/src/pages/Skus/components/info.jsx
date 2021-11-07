@@ -6,7 +6,7 @@ import {
     CardBody
 } from "reactstrap";
 
-export default function FinishedGoodsInfo() {
+export default function SkusInfo() {
     return (
         <Row>
             <Col xl="3" md="6">

@@ -7,7 +7,7 @@ import {
 } from "reactstrap";
 import Toolbar from "../../../component/Common/toolbar";
 
-export default function FinishedGoodsToolbar() {
+export default function SkusToolbar() {
 
     const history = useHistory();
 

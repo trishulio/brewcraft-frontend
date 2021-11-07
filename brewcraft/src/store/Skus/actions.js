@@ -1,4 +1,5 @@
 import {
+    FETCH_SKUS,
     FETCH_ALL_SKUS,
     FETCH_SKUS_BY_PRODUCT_ID,
     SET_SKUS_PAGE_INDEX,
@@ -8,6 +9,11 @@ import {
 export const fetchAllSkus = () => ({
     type: FETCH_ALL_SKUS,
     payload: {}
+});
+
+export const fetchSkus = params => ({
+    type: FETCH_SKUS,
+    payload: { ...params }
 });
 
 export const fetchSkusByProductId = id => ({

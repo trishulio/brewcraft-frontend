@@ -11,11 +11,9 @@ import {
     DELETE_SKU
 } from "./actionTypes";
 
-export const setSkuDetails = product => ({
+export const setSkuDetails = payload => ({
     type: SET_SKU_DETAILS,
-    payload: {
-        data: product
-    }
+    payload
 });
 
 export const fetchSkuById = ({id, success}) => ({
@@ -23,28 +21,14 @@ export const fetchSkuById = ({id, success}) => ({
     payload: { id, success }
 });
 
-export const createSku = ({data, categoryId, success}) => ({
+export const createSku = payload => ({
     type: CREATE_SKU,
-    payload: {
-        form: {
-            name: data.name,
-            parentCategoryId: categoryId
-        },
-        success: success
-    }
+    payload
 });
 
-export const updateSku = ({data, parentCategoryId, success}) => ({
+export const updateSku = payload => ({
     type: UPDATE_SKU,
-    payload: {
-        id: data.id,
-        form: {
-            name: data.name,
-            parentCategoryId: parentCategoryId,
-            version: data.version
-        },
-        success: success
-    }
+    payload
 });
 
 export const deleteSku = id => ({
@@ -56,27 +40,6 @@ export const setSkuInvalidName = enabled => ({
     type: INVALID_NAME,
     payload: {
         invalidName: enabled
-    }
-});
-
-export const setSkuInvalidClass = enabled => ({
-    type: INVALID_CLASS,
-    payload: {
-        invalidClass: enabled
-    }
-});
-
-export const setSkuInvalidType = enabled => ({
-    type: INVALID_TYPE,
-    payload: {
-        invalidType: enabled
-    }
-});
-
-export const setSkuInvalidStyle = enabled => ({
-    type: INVALID_STYLE,
-    payload: {
-        invalidStyle: enabled
     }
 });
 

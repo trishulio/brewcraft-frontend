@@ -8,7 +8,8 @@ import {
     updateSku,
     deleteSku,
     fetchAllSkus,
-    setSkuDetails
+    setSkuDetails,
+    fetchAllProducts
 } from "../../store/actions";
 import {
     useQuery
@@ -45,13 +46,12 @@ export default function Sku() {
             dispatch(fetchSkuById({ id }));
         }
         if (editMode) {
-            dispatch(fetchAllSkus());
+            dispatch(fetchAllProducts());
         }
         setEditable(editMode && editMode !== "false");
         setShowRouterPrompt(!!editMode);
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id, editMode]);
+    }, [id, editMode, dispatch, history]);
 
     useEffect(() => {
         if (sku.id) {
@@ -73,17 +73,9 @@ export default function Sku() {
 
     function isChanged() {
         return JSON.stringify(
-                (({ id, name, parentCategoryId }) => ({ id, name, parentCategoryId }))(initialSku))
+                (({ id, name, description, product, materials, quantity }) => ({ id, name, description, product, materials, quantity }))(initialSku))
             !== JSON.stringify(
-                (({ id, name, parentCategoryId }) => ({ id, name, parentCategoryId }))(sku))
-    }
-
-    function onChange(e) {
-        dispatch(
-            setSkuDetails({
-                [e.target.name]: e.target.value
-            })
-        );
+                (({ id, name, description, product, materials, quantity }) => ({ id, name, description, product, materials, quantity }))(sku))
     }
 
     function onSave() {
@@ -93,20 +85,27 @@ export default function Sku() {
         } else if (sku.id) {
             dispatch(
                 updateSku({
-                    data: sku,
-                    parentCategoryId: sku.parentCategoryId,
-                    success: () => {
-                        history.push(`/sku/${sku.id}`);
+                    id: sku.id,
+                    form: {
+                        name: sku.name,
+                        productId: sku.product.id,
+                        quantity: sku.quantity,
+                        materials: [],
+                        version: sku.version
                     }
                 })
             );
         } else {
             dispatch(
                 createSku({
-                    data: sku,
-                    skuId: sku.id,
-                    success: sku => {
-                        history.push(`/sku/${sku.id}`);
+                    form: {
+                        name: sku.name,
+                        productId: sku.product.id,
+                        quantity: {
+                            value: sku.quantity.value,
+                            symbol: "l"
+                        },
+                        materials: []
                     }
                 })
             );
@@ -145,7 +144,7 @@ export default function Sku() {
                 shouldBlockNavigation={() => editMode && isChanged()}
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
-            <SkuInner {...{sku, editable, changed, onChange, onSave, onEdit, onDelete}} />
+            <SkuInner {...{sku, editable, changed, onSave, onEdit, onDelete}} />
         </React.Fragment>
     );
 }
