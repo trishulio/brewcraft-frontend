@@ -33,38 +33,24 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
+import { SET_BATCH_DETAILS } from "../Brew/actionTypes";
 
 function* fetchMixturesByBrewId(action) {
     try {
         const res = yield call(api.fetchMixturesByBrewId, get(action, "payload.id"));
-        let data, initial;
-        data = res.data.content.find(m => m.brewStage.task.name === "MASH");
-        initial = JSON.parse(JSON.stringify(data));
-        yield put({ type: SET_MASH_MIXTURE_DETAILS, payload: { data, initial }});
+        let content;
+        content = res.data.content.find(m => m.brewStage.task.name === "MASH");
+        yield put({ type: SET_MASH_MIXTURE_DETAILS, payload: { data: content, initial: content }});
 
-        data = res.data.content.find(m => m.brewStage.task.name === "BOIL");
-        initial = JSON.parse(JSON.stringify(data));
-        yield put({ type: SET_KETTLE_MIXTURE_DETAILS, payload: { data, initial }});
+        content = res.data.content.find(m => m.brewStage.task.name === "BOIL");
+        yield put({ type: SET_KETTLE_MIXTURE_DETAILS, payload: { data: content, initial: content }});
 
-        data = res.data.content.find(m => m.brewStage.task.name === "WHIRLPOOL");
-        initial = JSON.parse(JSON.stringify(data));
-        yield put({ type: SET_WHIRLPOOL_MIXTURE_DETAILS, payload: { data, initial }});
+        content = res.data.content.find(m => m.brewStage.task.name === "WHIRLPOOL");
+        yield put({ type: SET_WHIRLPOOL_MIXTURE_DETAILS, payload: { data: content, initial: content }});
 
-        data = res.data.content.find(m => m.brewStage.task.name === "TRANSFER");
-        initial = JSON.parse(JSON.stringify(data));
-        yield put({ type: SET_TRANSFER_MIXTURE_DETAILS, payload: { data, initial }});
+        content = res.data.content.find(m => m.brewStage.task.name === "TRANSFER");
+        yield put({ type: SET_TRANSFER_MIXTURE_DETAILS, payload: { data: content, initial: content }});
 
-        // Now that backend supports mixture recordings by id can implent new
-        // store.
-        // for (let i = 0; i < res.data.content.length; i++) {
-        //     const mixture = res.data.content[i];
-        //     let r;
-        //     r = yield call(api.fetchMaterialPortionsByMixtureId, mixture.id);
-        //     mixture.materialPortions = r.data.content;
-        //     r = yield call(api.fetchMixtureRecordingsByMixtureId, mixture.id);
-        //     mixture.mixtureRecordings = r.data.content;
-        // }
-        // yield put({ type: SET_MASH_MIXTURE_DETAILS, payload: { content: res.data.content }});
     } catch (e) {
         console.log(e);
         yield put(snackFailure("Something went wrong please try again."));
@@ -84,6 +70,7 @@ function* fetchMashMixtureByIdGenerator(action) {
 function* addMashMixtureGenerator(action) {
     try {
         yield call(api.addMixture, get(action, "payload.params"));
+        yield put({ type: SET_BATCH_DETAILS, payload: { save: false }});
     } catch (e) {
         console.log(e);
         yield put(snackFailure("Something went wrong please try again."));
@@ -93,9 +80,8 @@ function* addMashMixtureGenerator(action) {
 function* editMashMixtureGenerator(action) {
     try {
         const res = yield call(api.updateMixture, get(action, "payload.id"), get(action, "payload.form"));
-        res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: EDIT_MASH_MIXTURE_SUCCESS, payload: { data: res.data, initial: res.data }});
-        yield put(snackSuccess());
+        yield put({ type: SET_BATCH_DETAILS, payload: { save: false }});
     } catch (e) {
         yield put({ type: EDIT_MASH_MIXTURE_FAILURE });
         yield put(snackFailure());
@@ -116,6 +102,7 @@ function* deleteMashMixtureGenerator(action) {
 function* addKettleMixtureGenerator(action) {
     try {
         yield call(api.addMixture, get(action, "payload.params"));
+        yield put({ type: SET_BATCH_DETAILS, payload: { save: false }});
     } catch (e) {
         console.log(e);
         yield put(snackFailure("Something went wrong please try again."));
@@ -125,7 +112,6 @@ function* addKettleMixtureGenerator(action) {
 function* fetchKettleMixtureByIdGenerator(action) {
     try {
         const res = yield call(api.fetchMixtureById,get(action, "payload.id"));
-        res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: SET_KETTLE_MIXTURE_DETAILS, payload: { data: res.data, initial: res.data }});
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
@@ -135,9 +121,8 @@ function* fetchKettleMixtureByIdGenerator(action) {
 function* editKettleMixtureGenerator(action) {
     try {
         const res = yield call(api.updateMixture, get(action, "payload.id"), get(action, "payload.form"));
-        res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: EDIT_KETTLE_MIXTURE_SUCCESS, payload: { data: res.data, initial: res.data }});
-        yield put(snackSuccess());
+        yield put({ type: SET_BATCH_DETAILS, payload: { save: false }});
     } catch (e) {
         yield put({ type: EDIT_KETTLE_MIXTURE_FAILURE });
         yield put(snackFailure());
@@ -168,6 +153,7 @@ function* fetchWhirlpoolMixtureByIdGenerator(action) {
 function* addWhirlpoolMixtureGenerator(action) {
     try {
         yield call(api.addMixture, get(action, "payload.params"));
+        yield put({ type: SET_BATCH_DETAILS, payload: { save: false }});
     } catch (e) {
         console.log(e);
         yield put(snackFailure("Something went wrong please try again."));
@@ -177,9 +163,8 @@ function* addWhirlpoolMixtureGenerator(action) {
 function* editWhirlpoolMixtureGenerator(action) {
     try {
         const res = yield call(api.updateMixture, get(action, "payload.id"), get(action, "payload.form"));
-        res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: EDIT_WHIRLPOOL_MIXTURE_SUCCESS, payload: { data: res.data, initial: res.data }});
-        yield put(snackSuccess());
+        yield put({ type: SET_BATCH_DETAILS, payload: { save: false }});
     } catch (e) {
         yield put({ type: EDIT_WHIRLPOOL_MIXTURE_FAILURE });
         yield put(snackFailure());

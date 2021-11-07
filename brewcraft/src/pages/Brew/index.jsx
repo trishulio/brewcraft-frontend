@@ -49,7 +49,7 @@ export default function Batch() {
     useEffect(() => {
         dispatch(resetBatchDetails());
         if (id === "new") {
-            history.replace("/batches/new?edit=true");
+            history.replace("/brews/new?edit=true");
         } else {
             dispatch(fetchBatchById(id));
         }
@@ -97,7 +97,7 @@ export default function Batch() {
 
     useEffect(() => {
         setBatchChanged(isBatchChanged());
-    }, [batch]);
+    }, [batch, initialBatch]);
 
     function isBatchChanged() {
         return JSON.stringify(
@@ -168,6 +168,7 @@ export default function Batch() {
         setChanged,
         onSave,
         onDelete,
+        batch,
         setStagesChanged,
         setMixturesChanged,
         setMaterialPortionsChanged,
@@ -195,10 +196,10 @@ export default function Batch() {
                 shouldBlockNavigation={() => editMode && isChanged()}
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
-            <Stages {...props}/>
-            <Mixtures {...props}/>
-            <MaterialPortions {...props}/>
-            <MixtureRecordings {...props}/>
+            {batch.id && <Stages {...props}/>}
+            {batch.id && <Mixtures {...props}/>}
+            {batch.id && <MaterialPortions {...props}/>}
+            {batch.id && <MixtureRecordings {...props}/>}
             <BatchInner {...props} />
         </React.Fragment>
     );

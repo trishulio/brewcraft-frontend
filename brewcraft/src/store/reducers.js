@@ -47,6 +47,8 @@ import PurchaseInvoices from "./PurchaseInvoices/reducer";
 import Invoice from './Invoice/reducer';
 import RawMaterials from "./RawMaterials/reducer";
 import Shipments from "./Shipments/reducer";
+import Sku from "./Sku/reducer";
+import Skus from "./Skus/reducer";
 import Supplier from "./Supplier/reducer";
 import Suppliers from "./Suppliers/reducer";
 import SupplierContact from './SupplierContact/reducer';
@@ -97,6 +99,8 @@ const rootReducer = combineReducers({
   Profile,
   RawMaterials,
   Shipments,
+  Sku,
+  Skus,
   Snackbar,
   Supplier,
   Suppliers,

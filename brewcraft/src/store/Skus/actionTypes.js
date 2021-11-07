@@ -1,0 +1,9 @@
+export const FETCH_SKUS = "FETCH_SKUS";
+export const FETCH_ALL_SKUS = "FETCH_ALL_SKUS";
+export const SET_SKUS = "SET_SKUS";
+export const SET_SKUS_PAGE_INDEX = "SET_SKUS_PAGE_INDEX";
+export const SET_SKUS_PAGE_SIZE = "SET_SKUS_PAGE_SIZE";
+export const SET_SKUS_CLASS = "SET_SKUS_CLASS";
+export const SET_SKUS_TYPE = "SET_SKUS_TYPE";
+export const SET_SKUS_STYLE = "SET_SKUS_STYLE";
+export const FETCH_SKUS_BY_PRODUCT_ID = "FETCH_SKUS_BY_PRODUCT_ID";

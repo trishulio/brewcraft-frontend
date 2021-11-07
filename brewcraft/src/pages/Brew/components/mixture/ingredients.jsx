@@ -125,9 +125,9 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                         type="number"
                         className="waves-effect"
                         style={{ width: "8rem" }}
-                        value={selectedLotQuantity}
+                        value={selectedLotQuantity || ""}
                         onChange={e => {
-                            setSelectedLotQuantity(parseFloat(e.target.value));
+                            setSelectedLotQuantity(e.target.value);
                         }}
                     />
                     <FormFeedback>Enter a valid number.</FormFeedback>
@@ -163,7 +163,7 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                         )
                     }}
                     hidden={!editable}
-                    disabled={!materialPortionsChanged}
+                    disabled={!lots.length}
                 >
                     Remove
                 </Button>

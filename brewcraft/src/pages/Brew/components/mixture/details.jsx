@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
     Row,
     Col,
@@ -36,7 +36,7 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, s
                         ...mixture,
                         quantity: {
                             ...mixture.quantity,
-                            value: e.target.value === "" ? 0 : parseInt(e.target.value)
+                            value: e.target.value === "" ? 0 : e.target.value
                         }
                     });
                 }
@@ -44,7 +44,7 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, s
             case "mixtureCompleteCheckbox":
                 setStage({
                     ...stage,
-                    status: e.target.checked ? { id: 2 } : { id: 1 },
+                    status: e.target.checked ? { id: 3 } : { id: 1 },
                 });
                 break;
             default:
@@ -174,7 +174,7 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, s
                                 className="mx-0"
                                 onChange={onFormInputChange}
                                 disabled={!editable}
-                                checked={stage.status.id === 2}
+                                checked={stage.status.id === 3}
                             />
                         </FormGroup>
                     </div>

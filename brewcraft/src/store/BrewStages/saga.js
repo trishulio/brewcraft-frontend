@@ -116,7 +116,7 @@ function* addKettleStageGenerator(action) {
         const res = yield call(api.addBrewStage, get(action, "payload.form"));
         res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: ADD_KETTLE_STAGE_SUCCESS, payload: { data: res.data, initial: res.data }});
-        // yield put(snackSuccess());
+        yield put({ type: SET_BATCH_DETAILS, payload: { save: false }});
     } catch (e) {
         yield put({ type: ADD_MASH_STAGE_FAILURE });
         yield put(snackFailure("Something went wrong please try again."));
@@ -128,7 +128,7 @@ function* editKettleStageGenerator(action) {
         const res = yield call(api.updateBrewStage, get(action, "payload.id"), get(action, "payload.form"));
         res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: EDIT_KETTLE_STAGE_SUCCESS, payload: { data: res.data, initial: res.data, editable: false }});
-        // yield put(snackSuccess());
+        yield put({ type: SET_BATCH_DETAILS, payload: { save: false }});
     } catch (e) {
         yield put({ type: EDIT_MASH_STAGE_FAILURE });
         yield put(snackFailure());
@@ -150,7 +150,7 @@ function* addWhirlpoolStageGenerator(action) {
         const res = yield call(api.addBrewStage, get(action, "payload.form"));
         res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: ADD_WHIRLPOOL_STAGE_SUCCESS, payload: { data: res.data, initial: res.data }});
-        // yield put(snackSuccess());
+        yield put({ type: SET_BATCH_DETAILS, payload: { save: false }});
     } catch (e) {
         yield put({ type: ADD_WHIRLPOOL_STAGE_FAILURE });
         yield put(snackFailure("Something went wrong please try again."));
@@ -162,7 +162,7 @@ function* editWhirlpoolStageGenerator(action) {
         const res = yield call(api.updateBrewStage, get(action, "payload.id"), get(action, "payload.form"));
         res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: EDIT_WHIRLPOOL_STAGE_SUCCESS, payload: { data: res.data, initial: res.data, editable: false }});
-        // yield put(snackSuccess());
+        yield put({ type: SET_BATCH_DETAILS, payload: { save: false }});
     } catch (e) {
         yield put({ type: EDIT_WHIRLPOOL_STAGE_FAILURE });
         yield put(snackFailure());

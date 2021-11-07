@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editMashStage, fetchAllBrewStages } from "../../store/actions";
+import { editKettleStage, editMashStage, editWhirlpoolStage, fetchAllBrewStages } from "../../store/actions";
 
 export default function Stages(props) {
 
@@ -31,7 +31,11 @@ export default function Stages(props) {
     useEffect(() => {
         props.setStagesChanged(isChanged());
 
-    }, [mashStage, kettleStage, whirlpoolStage]);
+    }, [
+        mashStage,
+        kettleStage,
+        whirlpoolStage
+    ]);
 
     useEffect(() => {
         if (save && isStageChanged(mashStage, initialMashStage)) {
@@ -50,7 +54,7 @@ export default function Stages(props) {
         }
         if (save && isStageChanged(kettleStage, initialKettleStage)) {
             dispatch(
-                editMashStage({
+                editKettleStage({
                     id: kettleStage.id,
                     form: {
                         statusId : kettleStage.status.id,
@@ -64,7 +68,7 @@ export default function Stages(props) {
         }
         if (save && isStageChanged(whirlpoolStage, initialWhirlpoolStage)) {
             dispatch(
-                editMashStage({
+                editWhirlpoolStage({
                     id: whirlpoolStage.id,
                     form: {
                         statusId : whirlpoolStage.status.id,

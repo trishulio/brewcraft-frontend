@@ -1,6 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editMashMixture, fetchMixturesByBrewId } from "../../store/actions";
+import {
+    editKettleMixture,
+    editMashMixture,
+    editTransferMixtureRecords,
+    editWhirlpoolMixture,
+    editTransferMixture,
+    fetchMixturesByBrewId
+} from "../../store/actions";
 
 export default function Mixtures(props) {
 
@@ -59,7 +66,7 @@ export default function Mixtures(props) {
         }
         if (save && isMixtureChanged(kettleMixture, initialKettleMixture)) {
             dispatch(
-                editMashMixture({
+                editKettleMixture({
                     id: kettleMixture.id,
                     form: {
                         parentMixtureId: kettleMixture.parentMixtureId,
@@ -74,7 +81,7 @@ export default function Mixtures(props) {
         }
         if (save && isMixtureChanged(whirlpoolMixture, initialWhirlpoolMixture)) {
             dispatch(
-                editMashMixture({
+                editWhirlpoolMixture({
                     id: whirlpoolMixture.id,
                     form: {
                         parentMixtureId: whirlpoolMixture.parentMixtureId,
@@ -89,7 +96,7 @@ export default function Mixtures(props) {
         }
         if (save && isMixtureChanged(transferMixture, initialTransferMixture)) {
             dispatch(
-                editMashMixture({
+                editTransferMixture({
                     id: transferMixture.id,
                     form: {
                         parentMixtureId: transferMixture.parentMixtureId,

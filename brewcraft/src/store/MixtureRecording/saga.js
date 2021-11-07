@@ -18,6 +18,7 @@ import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
 import { fetchMixturesByBrewId } from "../actions";
+import { SET_BATCH_DETAILS } from "../Brew/actionTypes";
 
 function* fetchMixtureRecordingByBrewIdGenerator(action) {
     try {
@@ -52,6 +53,7 @@ function* addMixtureRecordingGenerator(action) {
     try {
         const res = yield call(api.addMixtureRecording, get(action, "payload.form"));
         yield put({ type: SET_MIXTURE_RECORDING_DETAILS, payload: { ...res.data, initial: res.data.content }});
+        yield put({ type: SET_BATCH_DETAILS, payload: { save: false }});
     } catch (e) {
         console.log(e);
         yield put(snackFailure("Something went wrong please try again."));
@@ -62,6 +64,7 @@ function* editMixtureRecordingGenerator(action) {
     try {
         const res = yield call(api.updateMixtureRecording, get(action, "payload.id"), get(action, "payload.form"));
         yield put({ type: SET_MIXTURE_RECORDING_DETAILS, payload: { ...res.data, initial: res.data.content }});
+        yield put({ type: SET_BATCH_DETAILS, payload: { save: false }});
     } catch (e) {
         yield put({ type: EDIT_MIXTURE_RECORDING_FAILURE });
         yield put(snackFailure());

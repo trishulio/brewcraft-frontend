@@ -32,7 +32,8 @@ export default function BrewMiniCard() {
     }
 
     function formatWortVolume() {
-        if (whirlpoolMixture.brewStage.status?.id === 2) {
+        if (whirlpoolMixture.brewStage.status?.id === 3) {
+            // skip whirlpool
             if (kettleMixture.quantity.value) {
                 return `${kettleMixture.quantity.value} ${kettleMixture.quantity.symbol}`;
             } else {

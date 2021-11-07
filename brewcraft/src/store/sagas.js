@@ -27,6 +27,8 @@ import ProductCategories from "./ProductCategories/saga";
 import ProductCategory from "./ProductCategory/saga";
 import Products from "./Products/saga";
 import Shipments from "./Shipments/saga";
+import Sku from "./Sku/saga";
+import Skus from "./Skus/saga";
 import Supplier from "./Supplier/saga";
 import Suppliers from "./Suppliers/saga";
 import SupplierContact from "./SupplierContact/saga";
@@ -65,6 +67,8 @@ export default function* rootSaga() {
         Products(),
         RawMaterials(),
         Shipments(),
+        Sku(),
+        Skus(),
         Supplier(),
         Suppliers(),
         SupplierContact(),

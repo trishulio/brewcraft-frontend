@@ -17,7 +17,13 @@ import {
     ADD_WHIRLPOOL_MIXTURE_REQUEST,
     EDIT_WHIRLPOOL_MIXTURE_REQUEST,
     DELETE_WHIRLPOOL_MIXTURE_REQUEST,
-    RESET_WHIRLPOOL_MIXTURE_DETAILS
+    RESET_WHIRLPOOL_MIXTURE_DETAILS,
+    FETCH_TRANSFER_MIXTURE_BY_ID_REQUEST,
+    SET_TRANSFER_MIXTURE_DETAILS,
+    ADD_TRANSFER_MIXTURE_REQUEST,
+    EDIT_TRANSFER_MIXTURE_REQUEST,
+    DELETE_TRANSFER_MIXTURE_REQUEST,
+    RESET_TRANSFER_MIXTURE_DETAILS,
 } from "./actionTypes";
 
 export const fetchMixturesByBrewId = id => ({
@@ -112,5 +118,35 @@ export const setWhirlpoolMixtureDetails = payload => ({
 
 export const resetWhirlpoolMixtureDetails = () => ({
     type: RESET_WHIRLPOOL_MIXTURE_DETAILS,
+    payload: null
+});
+
+export const fetchTransferMixtureById = id => ({
+    type: FETCH_TRANSFER_MIXTURE_BY_ID_REQUEST,
+    payload: { id },
+});
+
+export const saveTransferMixture = payload => ({
+    type: ADD_TRANSFER_MIXTURE_REQUEST,
+    payload: payload,
+});
+
+export const editTransferMixture = payload => ({
+    type: EDIT_TRANSFER_MIXTURE_REQUEST,
+    payload: payload,
+});
+
+export const deleteTransferMixture = payload => ({
+    type: DELETE_TRANSFER_MIXTURE_REQUEST,
+    payload: payload,
+});
+
+export const setTransferMixtureDetails = payload => ({
+    type: SET_TRANSFER_MIXTURE_DETAILS,
+    payload: payload
+});
+
+export const resetTransferMixtureDetails = () => ({
+    type: RESET_TRANSFER_MIXTURE_DETAILS,
     payload: null
 });

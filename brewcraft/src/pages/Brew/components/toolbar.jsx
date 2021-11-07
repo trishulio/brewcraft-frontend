@@ -73,11 +73,10 @@ export default function Toolbar({ editable, setEditable, changed, onSave, onDele
                 color="danger"
                 size="sm"
                 className="waves-effect mr-2  mb-2"
-                disabled={changed}
                 onClick={onDelete}
                 hidden={!batch.id || !editable}
             >
-                Delete Batch
+                Delete Brew
             </Button>
             <Button
                 type="button"

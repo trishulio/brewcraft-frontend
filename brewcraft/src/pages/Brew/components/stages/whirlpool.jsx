@@ -44,7 +44,7 @@ export default function BrewWhirlpool() {
         mixture,
         setMixture,
         editable,
-        showSkipCheckmark: true
+        showSkipCheckbox: true
     };
 
     return (

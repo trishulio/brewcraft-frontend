@@ -24,6 +24,7 @@ import SalesCustomers from "../pages/Customers/Customers";
 import SalesReceipts from "../pages/CustomerInvoices/invoices";
 import SalesReceipt from "../pages/CustomerInvoices/view-invoice";
 import Sku from "../pages/Sku";
+import Skus from "../pages/Skus";
 import Supplier from "../pages/Supplier";
 import Suppliers from "../pages/Suppliers";
 import SupplierContact from "../pages/SupplierContact";
@@ -56,8 +57,9 @@ const authProtectedRoutes = [
 
     // Products
     { path: "/products/:id", component: Product },
-    { path: "/sku", component: Sku },
     { path: "/products", component: Products },
+    { path: "/sku/:id", component: Sku },
+    { path: "/sku", component: Skus },
 
     // Ingredients
     { path: "/materials/ingredients/:id", component: Ingredient },

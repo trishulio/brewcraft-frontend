@@ -235,8 +235,8 @@ export default function BatchMetadata(props) {
                             >
                                 Product
                             </Label>
-                            <div className="d-inline-block align-middle mr-0 mr-1 mb-2">
-                                <div hidden={props.editable}>
+                            <div className="d-inline-block align-middle mr-0 mb-2">
+                                <div hidden={props.editable} className="mr-2">
                                     <img style={{ height: "2.5rem", margin: "0 auto" }} src={fantasticLager} alt="product" className="border d-block" />
                                 </div>
                             </div>

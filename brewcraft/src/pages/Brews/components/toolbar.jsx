@@ -28,7 +28,7 @@ export default function ProductCategoriesToolbar() {
                 className="waves-effect mr-2 mb-3"
                 onClick={() => {
                     history.push({
-                        pathname: "/batches/new",
+                        pathname: "/brews/new",
                         search: "?edit=true"
                     });
                 }}

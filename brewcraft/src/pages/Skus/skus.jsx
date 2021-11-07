@@ -1,7 +1,7 @@
 import React from "react";
 import {
-    Row,
     Col,
+    Row,
     Card,
     CardBody
 } from "reactstrap";
@@ -9,7 +9,7 @@ import Pagination from "./components/pagination";
 import Table from "./components/table";
 import Toolbar from "./components/toolbar";
 
-export default function FinshedGoods() {
+export default function Skus() {
     return (
         <React.Fragment>
             <Row>
