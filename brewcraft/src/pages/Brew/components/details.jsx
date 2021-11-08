@@ -167,7 +167,7 @@ export default function BatchMetadata(props) {
                                 for="batchBatchId"
                                 className="d-sm-inline-block font-size-12 mb-3"
                                 style={{
-                                    width: "5rem"
+                                    width: "8rem"
                                 }}
                             >
                                 Batch ID
@@ -199,7 +199,7 @@ export default function BatchMetadata(props) {
                                 for="batchStartDateTime"
                                 className="d-sm-inline-block font-size-12 mb-3"
                                 style={{
-                                    width: "5rem"
+                                    width: "8rem"
                                 }}
                             >
                                 Start
@@ -241,7 +241,7 @@ export default function BatchMetadata(props) {
                                 </div>
                             </div>
                             <FormGroup
-                                className="d-inline-block font-size-12 mb-2"
+                                className="d-inline-block font-size-12 mb-3"
                                 hidden={!props.editable}
                             >
                                 <Input
@@ -279,6 +279,7 @@ export default function BatchMetadata(props) {
                                 style={{
                                     width: "8rem"
                                 }}
+                                hidden={!batch.id}
                             >
                                 Original Gravity
                             </Label>
@@ -295,7 +296,7 @@ export default function BatchMetadata(props) {
                                     disabled={!props.editable}
                                     onChange={onFormInputChange}
                                     style={{ width: "16rem" }}
-                                    hidden={!props.editable}
+                                    hidden={!batch.id || !props.editable}
                                 />
                                 <FormFeedback>Enter a valid gravity value.</FormFeedback>
                             </FormGroup>

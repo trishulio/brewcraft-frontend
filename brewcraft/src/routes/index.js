@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import Dashboard from "../pages/Dashboard/dashboard";
 import Brew from "../pages/Brew";
 import Brews from "../pages/Brews";
+import Batches from "../pages/Batches";
 import FinishedGood from "../pages/FinishedGood";
 import FinishedGoods from "../pages/FinishedGoods";
 import Ingredient from "../pages/Ingredient";
@@ -41,6 +42,7 @@ const authProtectedRoutes = [
     { path: "/dashboard", component: Dashboard },
 
     // Batches
+    { path: "/batches", component: Batches },
     { path: "/brews/:id", component: Brew },
     { path: "/brews", component: Brews },
 

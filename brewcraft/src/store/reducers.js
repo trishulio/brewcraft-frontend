@@ -38,7 +38,8 @@ import {
   TransferMixture,
 } from "./Mixture/reducer";
 import {
-  TransferMixtureRecordings
+  TransferMixtureRecordings,
+  FermentMixtureRecordings
 } from "./MixtureRecording/reducer";
 import Packaging from "./Packaging/reducer";
 import PackagingItem from "./PackagingItem/reducer";
@@ -69,7 +70,8 @@ const rootReducer = combineReducers({
     WhirlpoolMixture,
     TransferStage,
     TransferMixture,
-    TransferMixtureRecordings
+    TransferMixtureRecordings,
+    FermentMixtureRecordings
   }),
   Batches,
   BatchStatus,

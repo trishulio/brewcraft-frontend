@@ -29,9 +29,7 @@ function* fetchBatchByIdGenerator(action) {
 function* addBatchGenerator(action) {
     let resStage, resMixture;
     try {
-        // yield put(togglePreloader(true));
         const res = yield call(api.addBatch, get(action, "payload.form"));
-        yield put({ type: SET_BATCH_DETAILS, payload: { data: res.data, initial: res.data }});
         resStage = yield call(api.addBrewStage, [{
             brewId: res.data.id,
             taskId: 1, // mash
@@ -81,14 +79,11 @@ function* addBatchGenerator(action) {
             },
             brewStageId: resStage.data[3].id
         });
+        yield put({ type: SET_BATCH_DETAILS, payload: { data: res.data, initial: res.data }});
         yield put(setGlobalRedirect({ pathname: "/brews/" + res.data.id }));
-        yield put(snackSuccess());
     } catch (e) {
         console.log(e);
         yield put(snackFailure(e.message));
-
-    } finally {
-        yield put(togglePreloader(false));
     }
 }
 
