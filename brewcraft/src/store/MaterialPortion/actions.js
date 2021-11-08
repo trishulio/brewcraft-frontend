@@ -12,6 +12,11 @@ import {
     EDIT_KETTLE_MATERIAL_PORTION_REQUEST,
     DELETE_KETTLE_MATERIAL_PORTION_REQUEST,
     RESET_KETTLE_MATERIAL_PORTION_DETAILS,
+    SET_FERMENT_MATERIAL_PORTION_DETAILS,
+    ADD_FERMENT_MATERIAL_PORTION_REQUEST,
+    EDIT_FERMENT_MATERIAL_PORTION_REQUEST,
+    DELETE_FERMENT_MATERIAL_PORTION_REQUEST,
+    RESET_FERMENT_MATERIAL_PORTION_DETAILS,
 } from "./actionTypes";
 
 export const fetchMaterialPortionById = id => ({
@@ -76,5 +81,30 @@ export const editKettleMaterialPortion = payload => ({
 
 export const deleteKettleMaterialPortion = payload => ({
     type: DELETE_KETTLE_MATERIAL_PORTION_REQUEST,
+    payload: payload,
+});
+
+export const setFermentMaterialPortionDetails = payload => ({
+    type: SET_FERMENT_MATERIAL_PORTION_DETAILS,
+    payload: payload
+});
+
+export const resetFermentMaterialPortionDetails = () => ({
+    type: RESET_FERMENT_MATERIAL_PORTION_DETAILS,
+    payload: null
+});
+
+export const saveFermentMaterialPortion = payload => ({
+    type: ADD_FERMENT_MATERIAL_PORTION_REQUEST,
+    payload: payload,
+});
+
+export const editFermentMaterialPortion = payload => ({
+    type: EDIT_FERMENT_MATERIAL_PORTION_REQUEST,
+    payload: payload,
+});
+
+export const deleteFermentMaterialPortion = payload => ({
+    type: DELETE_FERMENT_MATERIAL_PORTION_REQUEST,
     payload: payload,
 });

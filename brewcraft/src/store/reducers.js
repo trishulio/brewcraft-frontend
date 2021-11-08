@@ -25,7 +25,8 @@ import Profile from "./Profile/reducer";
 import MaterialLots from "./MaterialLots/reducer";
 import {
   MashMaterialPortion,
-  KettleMaterialPortion
+  KettleMaterialPortion,
+  FermentMaterialPortion
 } from "./MaterialPortion/reducer";
 import Materials from "./Materials/reducer";
 import MaterialCategories from "./MaterialCategories/reducer";
@@ -71,6 +72,7 @@ const rootReducer = combineReducers({
     TransferStage,
     TransferMixture,
     TransferMixtureRecordings,
+    FermentMaterialPortion,
     FermentMixtureRecordings
   }),
   Batches,
