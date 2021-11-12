@@ -1,4 +1,3 @@
-import { filter } from "lodash";
 import {
     ADD_BATCH_REQUEST,
     ADD_BATCH_FAILURE,
@@ -9,7 +8,6 @@ import {
     ADD_BATCH_SUCCESS,
     SET_BATCH_DETAILS,
     RESET_BATCH_DETAILS,
-    SET_BATCH_INVALID_CATEGORY,
     SET_INITIAL_BATCH_DETAILS
 } from "./actionTypes";
 
@@ -105,34 +103,12 @@ const Batch = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: true
             };
-        case DELETE_BATCH_REQUEST:
-        return {
-            ...state,
-            formLoading: { ...state.formLoading, loading: true },
-        };
-        case DELETE_BATCH_SUCCESS:
-        return {
-            ...state,
-            data: filter([...state.data], (instanceData) => {
-                return (
-                    payload.id!==instanceData.id
-                    );
-                }),
-                formLoading: { ...state.formLoading, loading: false },
-            };
         case RESET_BATCH_DETAILS:
         return {
             ...initialState,
             loading: false,
             error: null
         };
-        case SET_BATCH_INVALID_CATEGORY:
-            return {
-                ...state,
-                invalidCategory: payload,
-                loading: false,
-                error: null
-            };
         default:
         return {
             ...state,

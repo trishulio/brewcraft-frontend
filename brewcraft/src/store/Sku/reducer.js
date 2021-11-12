@@ -1,52 +1,59 @@
 import {
-  SET_SKU_DETAILS,
-  INVALID_DESCRIPTION
+    SET_SKU_DETAILS,
+    RESET_SKU_DETAILS,
+    INVALID_DESCRIPTION
 } from "./actionTypes";
 
 const initialState = {
-  data: {
-    id: "",
-    name: "",
-    description: "",
-    product: {},
-    materials: [],
-    quantity: {
-      value: ""
+    data: {
+        id: "",
+        name: "",
+        description: "",
+        product: {},
+        materials: [],
+        quantity: {
+            value: ""
+        },
+        version: null
     },
-    version: null
-  },
-  initial: {
-    id: "",
-    name: "",
-    description: "",
-    product: {},
-    materials: [],
-    quantity: {
-      value: ""
+    initial: {
+        id: "",
+        name: "",
+        description: "",
+        product: {},
+        materials: [],
+        quantity: {
+            value: ""
+        },
+        version: null
     },
-    version: null
-  },
-  loading: true,
-  error: null
+    loading: true,
+    error: null
 };
 
 const Sku = (state = initialState, { type, payload }) => {
-  switch (type) {
-    case INVALID_DESCRIPTION:
-    case SET_SKU_DETAILS:
-      return {
-        ...state,
-        ...payload,
-        loading: false,
-        error: null,
-      };
-    default:
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
-  }
+    switch (type) {
+        case INVALID_DESCRIPTION:
+        case SET_SKU_DETAILS:
+        return {
+            ...state,
+            ...payload,
+            loading: false,
+            error: null,
+        };
+        case RESET_SKU_DETAILS:
+        return {
+            ...initialState,
+            loading: false,
+            error: null,
+        };
+        default:
+        return {
+            ...state,
+            loading: true,
+            error: null,
+        };
+    }
 };
 
 export default Sku;

@@ -1,40 +1,29 @@
+import { call, put, takeEvery } from "redux-saga/effects";
+import { get } from "lodash";
 import {
     SET_FINISHED_GOODS,
-    SET_ALL_FINISHED_GOODS,
+    SET_FERMENT_FINISHED_GOODS,
+    SET_CONDITION_FINISHED_GOODS,
+    SET_BRITE_TANK_FINISHED_GOODS,
     FETCH_FINISHED_GOODS,
-    FETCH_ALL_FINISHED_GOODS
-} from "./actionTypes";
-import { call, put, takeEvery } from "redux-saga/effects";
-import { api } from "./api";
-import { get } from "lodash";
-import { snackFailure } from "../Snackbar/actions";
 
-function* fetchAllFinishedGoods(action) {
-    try {
-        const res = yield call(api.fetchFinishedGoods, {});
-        yield put({ type: SET_ALL_FINISHED_GOODS, payload: { data: res.data.content }});
-        if (action.payload?.success) {
-            yield call(action.payload.success);
-        }
-    } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
-    }
-}
+} from "./actionTypes";
+import { api } from "./api";
+import { snackFailure } from "../Snackbar/actions";
 
 function* fetchFinishedGoods(action) {
     try {
-        const res = yield call(api.fetchFinishedGoods, get(action, "payload"));
+        const res = yield call(api.fetchFinishedGoods, get(action, "payload.params"));
         yield put({ type: SET_FINISHED_GOODS, payload: { ...res.data }});
-        if (action.payload?.success) {
-            yield call(action.payload.success);
-        }
+        yield put({ type: SET_FERMENT_FINISHED_GOODS, payload: { content: res.data.content, initial: res.data.content }});
+        yield put({ type: SET_CONDITION_FINISHED_GOODS, payload: { content: res.data.content, initial: res.data.content }});
+        yield put({ type: SET_BRITE_TANK_FINISHED_GOODS, payload: { content: res.data.content, initial: res.data.content }});
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
     }
 }
 
 function* FinishedGoods() {
-    yield takeEvery(FETCH_ALL_FINISHED_GOODS, fetchAllFinishedGoods);
     yield takeEvery(FETCH_FINISHED_GOODS, fetchFinishedGoods);
 }
 

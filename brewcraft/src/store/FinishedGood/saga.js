@@ -10,6 +10,7 @@ import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
 import { setGlobalRedirect } from "../Brewery/actions";
+import { SET_BATCH_DETAILS } from "../Brew/actionTypes";
 
 function* fetchFinishedGoodByIdGenerator(action) {
     try {
@@ -23,13 +24,8 @@ function* fetchFinishedGoodByIdGenerator(action) {
 
 function* createFinishedGoodGenerator(action) {
     try {
-        const res = yield call(api.postFinishedGood, get(action, "payload.form"));
-        res.initialFinishedGood = JSON.parse(JSON.stringify(res.data));
-        yield put({ type: SET_FINISHED_GOOD_DETAILS, payload: { ...res } });
-        if (action.payload.success) {
-            action.payload.success(res.data.id);
-        }
-        yield put(snackSuccess(`Created finished good ${get(action, "payload.form.name")}.`));
+        yield call(api.addFinishedGood, get(action, "payload.form"));
+        yield put({ type: SET_BATCH_DETAILS, payload: { save: false }});
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
     }
@@ -37,7 +33,7 @@ function* createFinishedGoodGenerator(action) {
 
 function* udpateFinishedGoodGenerator(action) {
     try {
-        const res = yield call(api.patchFinishedGood, get(action, "payload.id"), get(action, "payload.form"));
+        const res = yield call(api.updateFinishedGood, get(action, "payload.id"), get(action, "payload.form"));
         res.initialFinishedGood = JSON.parse(JSON.stringify(res.data));
         yield put({ type: SET_FINISHED_GOOD_DETAILS, payload: { ...res } });
         if (action.payload.success) {

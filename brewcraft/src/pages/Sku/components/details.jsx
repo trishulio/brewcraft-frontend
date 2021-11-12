@@ -42,6 +42,16 @@ export default function SkuDetails(props) {
                     }));
                 }
                 break;
+            case "skuDescription":
+                if (sku.description !== e.target.value) {
+                    dispatch(setSkuDetails({
+                        data: {
+                            ...sku,
+                            description: e.target.value
+                        }
+                    }));
+                }
+                break;
             case "skuProduct":
                 if (sku.product?.id !== e.target.value) {
                     const product = products.find(p => p.id === parseInt(e.target.value));
@@ -86,7 +96,7 @@ export default function SkuDetails(props) {
                             width: "8rem"
                         }}
                     >
-                        Name
+                        SKU
                     </Label>
                     <FormGroup
                         className="d-inline-block font-size-12 mb-2"
@@ -184,6 +194,39 @@ export default function SkuDetails(props) {
                     <div className="d-inline-block font-size-12 mb-2">
                         <div hidden={props.editable}>
                             {sku.quantity ? sku.quantity.value + " " + sku.quantity.symbol : "-"}
+                        </div>
+                    </div>
+                    <div className="clearFix"></div>
+                    <Label
+                        for="skuDescription"
+                        className="d-inline-block font-size-12 mb-3"
+                        style={{
+                            width: "8rem"
+                        }}
+                    >
+                        Description
+                    </Label>
+                    <FormGroup
+                        className="d-inline-block font-size-12 mb-2"
+                        hidden={!props.editable}
+                    >
+                        <Input
+                            type="text"
+                            className="waves-effect"
+                            name="skuDescription"
+                            style={{ width: "16rem" }}
+                            disabled={!props.editable}
+                            value={sku.description || ""}
+                            onChange={e => {
+                                onFormInputChange(e);
+                            }}
+                            hidden={!props.editable}
+                        />
+                        <FormFeedback>Enter a valid sku description.</FormFeedback>
+                    </FormGroup>
+                    <div className="d-inline-block font-size-12 mb-2">
+                        <div hidden={props.editable}>
+                            {sku.description ? sku.description : "-"}
                         </div>
                     </div>
                 </CardBody>

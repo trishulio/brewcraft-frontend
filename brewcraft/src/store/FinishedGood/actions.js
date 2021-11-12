@@ -24,15 +24,10 @@ export const fetchFinishedGoodById = (id) => ({
     payload: { id }
 });
 
-export const createFinishedGood = ({data, categoryId, success}) => ({
+export const createFinishedGood = params => ({
     type: CREATE_FINISHED_GOOD,
     payload: {
-        form: {
-            name: data.name,
-            description: data.description || "",
-            categoryId: categoryId
-        },
-        success: success
+        ...params
     }
 });
 

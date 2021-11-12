@@ -3,6 +3,7 @@ export const FETCH_SKU = "FETCH_SKU";
 export const CREATE_SKU = "CREATE_SKU";
 export const UPDATE_SKU = "UPDATE_SKU";
 export const DELETE_SKU = "DELETE_SKU";
+export const RESET_SKU_DETAILS = "RESET_SKU_DETAILS";
 export const INVALID_NAME = "INVALID_NAME";
 export const INVALID_CLASS = "INVALID_CLASS";
 export const INVALID_TYPE = "INVALID_TYPE";

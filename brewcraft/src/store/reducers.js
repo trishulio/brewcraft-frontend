@@ -9,10 +9,17 @@ import {
   MashStage,
   KettleStage,
   WhirlpoolStage,
-  TransferStage
+  TransferStage,
+  FermentStage,
+  ConditionStage,
+  BriteTankStage
 } from "./BrewStages/reducer";
 import FinishedGood from "./FinishedGood/reducer";
-import FinishedGoods from "./FinishedGoods/reducer";
+import {
+  FermentFinishedGoods,
+  ConditionFinishedGoods,
+  BriteTankFinishedGoods
+} from "./FinishedGoods/reducer";
 import Ingredient from "./Ingredient/reducer";
 import Ingredients from "./Ingredients/reducer";
 import Layout from "./layout/reducer";
@@ -37,6 +44,7 @@ import {
   KettleMixture,
   WhirlpoolMixture,
   TransferMixture,
+  FermentMixture
 } from "./Mixture/reducer";
 import {
   TransferMixtureRecordings,
@@ -60,7 +68,7 @@ import Users from "./Users/reducer";
 
 const rootReducer = combineReducers({
   Batch: combineReducers({
-    details: Brew,
+    Batch: Brew,
     MashStage,
     MashMixture,
     MashMaterialPortion,
@@ -72,8 +80,15 @@ const rootReducer = combineReducers({
     TransferStage,
     TransferMixture,
     TransferMixtureRecordings,
+    FermentStage,
+    FermentMixture,
     FermentMaterialPortion,
-    FermentMixtureRecordings
+    FermentMixtureRecordings,
+    FermentFinishedGoods,
+    ConditionStage,
+    ConditionFinishedGoods,
+    BriteTankStage,
+    BriteTankFinishedGoods
   }),
   Batches,
   BatchStatus,
@@ -81,7 +96,6 @@ const rootReducer = combineReducers({
   Breadcrumb,
   Brewery,
   FinishedGood,
-  FinishedGoods,
   Ingredient,
   Ingredients,
   Invoice,

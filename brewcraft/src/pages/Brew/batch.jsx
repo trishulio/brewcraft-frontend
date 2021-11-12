@@ -16,9 +16,9 @@ export default function Batch(props) {
     return (
         <React.Fragment>
             <Toolbar {...props}/>
-            <div style={{ maxWidth: "70rem" }}>
+            {props.batch.id && <div style={{ maxWidth: "70rem" }}>
                 <MiniCard/>
-            </div>
+            </div>}
             <BatchDetails {...props}/>
             {props.batch.id && <Card style={{ maxWidth: "70rem" }}className="mb-3">
                 <CardHeader>

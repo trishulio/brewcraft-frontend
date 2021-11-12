@@ -43,7 +43,7 @@ export default function Batch() {
     const dispatch = useDispatch();
 
     const { data: batch, initial: initialBatch, editable } = useSelector(state => {
-        return state.Batch.details;
+        return state.Batch.Batch;
     });
 
     useEffect(() => {

@@ -7,7 +7,7 @@ export default function Stages(props) {
     const dispatch = useDispatch();
 
     const { data: batch, save } = useSelector(state => {
-        return state.Batch.details;
+        return state.Batch.Batch;
     });
 
     const { data: mashStage, initial: initialMashStage } = useSelector(state => {

@@ -1,13 +1,25 @@
 import {
     FETCH_FINISHED_GOODS,
-    FETCH_ALL_FINISHED_GOODS,
+    SET_BRITE_TANK_FINISHED_GOODS,
+    SET_CONDITION_FINISHED_GOODS,
+    SET_FERMENT_FINISHED_GOODS,
     SET_FINISHED_GOODS,
     SET_FINISHED_GOODS_PAGE_INDEX,
     SET_FINISHED_GOODS_PAGE_SIZE
 } from "./actionTypes";
 
-export const setFinishedGoodsDetails = (payload) => ({
+export const setFinishedGoodsDetails = payload => ({
     type: SET_FINISHED_GOODS,
+    payload: { ...payload }
+});
+
+export const setFermentFinishedGoodsDetails = payload => ({
+    type: SET_FERMENT_FINISHED_GOODS,
+    payload: { ...payload }
+});
+
+export const setConditionFinishedGoodsDetails = payload => ({
+    type: SET_CONDITION_FINISHED_GOODS,
     payload: { ...payload }
 });
 
@@ -25,14 +37,7 @@ export const setFinishedGoodsPageSize = size => ({
     }
 });
 
-export const fetchFinishedGoods = ({pageIndex, pageSize, parentCategoryId, success}) => ({
+export const fetchFinishedGoods = payload => ({
     type: FETCH_FINISHED_GOODS,
-    payload: {pageIndex, pageSize, parentCategoryId, success}
-});
-
-export const fetchAllFinishedGoods = params => ({
-    type: FETCH_ALL_FINISHED_GOODS,
-    payload: {
-        success: params?.success
-    }
+    payload: { ...payload }
 });

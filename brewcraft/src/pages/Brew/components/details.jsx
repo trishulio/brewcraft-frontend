@@ -31,7 +31,7 @@ export default function BatchMetadata(props) {
     const dispatch = useDispatch();
 
     const batch = useSelector(state => {
-        return state.Batch.details.data;
+        return state.Batch.Batch.data;
     });
 
     const products = useSelector(state => {

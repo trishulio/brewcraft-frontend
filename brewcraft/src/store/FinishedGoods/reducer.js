@@ -1,3 +1,6 @@
+import FermentFinishedGoods from "./ferment";
+import ConditionFinishedGoods from "./condition";
+import BriteTankFinishedGoods from "./brite-tank";
 import {
     SET_FINISHED_GOODS,
     SET_FINISHED_GOODS_PAGE_INDEX,
@@ -12,7 +15,7 @@ const initialState = {
     pageSize: 20,
     loading: true,
     error: null
-};
+}
 
 const FinishedGoods = (state = initialState, { type, payload }) => {
     switch(type) {
@@ -32,6 +35,11 @@ const FinishedGoods = (state = initialState, { type, payload }) => {
                 error: null
             };
     }
-};
+}
 
-export default FinishedGoods;
+export {
+    FinishedGoods,
+    FermentFinishedGoods,
+    ConditionFinishedGoods,
+    BriteTankFinishedGoods
+}

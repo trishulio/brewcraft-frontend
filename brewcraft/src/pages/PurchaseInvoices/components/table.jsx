@@ -126,7 +126,7 @@ export default function PurchaseInvoicesTable() {
                                 <td>{formatDate(invoice.generatedOn)}</td>
                                 <td>{formatDate(invoice.paymentDueDate)}</td>
                                 <td>{formatCurrency(invoice.amount.amount)}</td>
-                                <td>{invoice.status.id}</td>
+                                <td>{invoice.invoiceStatus.id}</td>
                             </tr>
                         )
                     }

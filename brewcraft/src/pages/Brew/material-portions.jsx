@@ -11,7 +11,7 @@ export default function MaterialPortions(props) {
     const dispatch = useDispatch();
 
     const { data: batch, save } = useSelector(state => {
-        return state.Batch.details;
+        return state.Batch.Batch;
     });
 
     const { content: mashMaterialPortions, initial: mashInitialMaterialPortions } = useSelector(state => {

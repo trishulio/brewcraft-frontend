@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import {
     Button
 } from "reactstrap";
+import { saveFermentStage } from "../../../store/BrewStages/actions";
 
 export default function Toolbar({ editable, setEditable, changed, onSave, onDelete }) {
     const [completed, setCompleted] = useState(false);
+
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const batch = useSelector(state => {
-        return state.Batch.details.data;
+        return state.Batch.Batch.data;
     });
+
+    const fermentStage = useSelector(state => {
+        return state.Batch.FermentStage.data;
+    })
 
     const kettleMixture = useSelector(state => {
         return state.Batch.KettleMixture.data;
@@ -49,9 +56,7 @@ export default function Toolbar({ editable, setEditable, changed, onSave, onDele
                 size="sm"
                 className="waves-effect mr-2  mb-2"
                 onClick={() => {
-                    history.push({
-                        search: ""
-                    });
+                    history.goBack();
                 }}
                 hidden={!editable}
             >
@@ -78,13 +83,22 @@ export default function Toolbar({ editable, setEditable, changed, onSave, onDele
             >
                 Delete Brew
             </Button>
-            <Button
+            {/* <Button
                 type="button"
                 color="secondary"
                 size="sm"
                 className="waves-effect mr-2 mb-2"
-                hidden={editable}
+                hidden={editable || fermentStage.id}
                 disabled={!completed}
+                onClick={() => {
+                    dispatch(saveFermentStage({
+                        form: [{
+                            brewId: batch.id,
+                            statusId: 1,
+                            taskId: 8 // ferment
+                        }]
+                    }));
+                }}
             >
                     Start Batch
             </Button>
@@ -93,10 +107,20 @@ export default function Toolbar({ editable, setEditable, changed, onSave, onDele
                 color="secondary"
                 size="sm"
                 className="waves-effect mr-2  mb-2"
-                hidden={editable}
-                disabled={!completed}
+                hidden={editable || fermentStage.id}
+                disabled={true} // not supported yet
             >
                     Add to Batch
+            </Button> */}
+            <Button
+                type="button"
+                color="secondary"
+                size="sm"
+                className="waves-effect mr-2  mb-2"
+                hidden={editable}
+                disabled={true} // not supported yet
+            >
+                    Print Batch
             </Button>
         </React.Fragment>
     );

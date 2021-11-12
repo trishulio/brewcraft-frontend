@@ -62,7 +62,7 @@ export const RouteLeavingGuard = ({
         show={modalVisible}
         onValidSubmit={handleConfirmNavigationClick}
         close={closeModal}
-        title={"Hi"}
+        title={"Warning"}
       >
         <ModalBody>
             <p className="main_text">{content}</p>

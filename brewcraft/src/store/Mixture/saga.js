@@ -27,13 +27,16 @@ import {
     DELETE_WHIRLPOOL_MIXTURE_SUCCESS,
     EDIT_WHIRLPOOL_MIXTURE_FAILURE,
     DELETE_WHIRLPOOL_MIXTURE_FAILURE,
-    SET_TRANSFER_MIXTURE_DETAILS
+    SET_TRANSFER_MIXTURE_DETAILS,
+    SET_FERMENT_MIXTURE_DETAILS,
+    SET_CONDITION_MIXTURE_DETAILS
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
 import { SET_BATCH_DETAILS } from "../Brew/actionTypes";
+import { SET_BRITE_TANK_MIXTURE_RECORDING_DETAILS } from "../MixtureRecording/actionTypes";
 
 function* fetchMixturesByBrewId(action) {
     try {
@@ -50,6 +53,15 @@ function* fetchMixturesByBrewId(action) {
 
         content = res.data.content.find(m => m.brewStage.task.name === "TRANSFER");
         yield put({ type: SET_TRANSFER_MIXTURE_DETAILS, payload: { data: content, initial: content }});
+
+        content = res.data.content.find(m => m.brewStage.task.name === "FERMENT");
+        yield put({ type: SET_FERMENT_MIXTURE_DETAILS, payload: { data: content, initial: content }});
+
+        content = res.data.content.find(m => m.brewStage.task.name === "CONDITION");
+        yield put({ type: SET_CONDITION_MIXTURE_DETAILS, payload: { data: content, initial: content }});
+
+        content = res.data.content.find(m => m.brewStage.task.name === "STORAGEs");
+        yield put({ type: SET_BRITE_TANK_MIXTURE_RECORDING_DETAILS, payload: { data: content, initial: content }});
 
     } catch (e) {
         console.log(e);

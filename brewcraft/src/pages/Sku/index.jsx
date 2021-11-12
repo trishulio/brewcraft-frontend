@@ -7,8 +7,7 @@ import {
     createSku,
     updateSku,
     deleteSku,
-    fetchAllSkus,
-    setSkuDetails,
+    resetSkuDetails,
     fetchAllProducts
 } from "../../store/actions";
 import {
@@ -40,6 +39,9 @@ export default function Sku() {
     });
 
     useEffect(() => {
+
+        dispatch(resetSkuDetails());
+
         if (!id || id === "new") {
             history.replace("/sku/new?edit=true");
         } else {
@@ -48,6 +50,7 @@ export default function Sku() {
         if (editMode) {
             dispatch(fetchAllProducts());
         }
+
         setEditable(editMode && editMode !== "false");
         setShowRouterPrompt(!!editMode);
 
@@ -88,6 +91,7 @@ export default function Sku() {
                     id: sku.id,
                     form: {
                         name: sku.name,
+                        description: sku.description,
                         productId: sku.product.id,
                         quantity: sku.quantity,
                         materials: [],
@@ -100,6 +104,7 @@ export default function Sku() {
                 createSku({
                     form: {
                         name: sku.name,
+                        description: sku.description,
                         productId: sku.product.id,
                         quantity: {
                             value: sku.quantity.value,

@@ -48,7 +48,7 @@ export const DeleteGuard = ({
                 show={modalVisible}
                 onValidSubmit={handleConfirmNavigationClick}
                 close={closeModal}
-                title="Warning!"
+                title="Warning"
             >
                 <ModalBody>
                     <p className="main_text">{content}</p>

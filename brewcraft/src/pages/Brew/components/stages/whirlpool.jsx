@@ -11,7 +11,7 @@ export default function BrewWhirlpool() {
     const dispatch = useDispatch();
 
     const { editable } = useSelector(state => {
-        return state.Batch.details;
+        return state.Batch.Batch;
     });
 
     const stage = useSelector(state => {

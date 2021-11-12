@@ -17,8 +17,7 @@ function* fetchPurchaseInvoiceByIdGenerator(action) {
         const res = yield call(api.fetchPurchaseInvoiceById, get(action, "payload"));
         res.data.generatedOn = res.data.generatedOn?.split("T")[0];
         res.data.paymentDueDate = res.data.paymentDueDate?.split("T")[0];
-        res.initial = JSON.parse(JSON.stringify(res.data));
-        yield put({ type: SET_PURCHASE_INVOICE_DETAILS, payload: { ...res } });
+        yield put({ type: SET_PURCHASE_INVOICE_DETAILS, payload: { data: res.data, initial: res.data } });
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
     }
@@ -34,32 +33,29 @@ function* createPurchaseInvoiceGenerator(action) {
                 ...res.data.purchaseOrder
             }
         };
-        res.initial = JSON.parse(JSON.stringify(res.data));
-        yield put({ type: SET_PURCHASE_INVOICE_DETAILS, payload: { ...res } });
+        yield put({ type: SET_PURCHASE_INVOICE_DETAILS, payload: { data: res.data, initial: res.data } });
         yield put(setGlobalRedirect({ pathname: "/purchases/invoices/" + res.data.id }));
-        yield put(snackSuccess(`Created purchase invoice ${get(action, "payload.form.invoiceNumber")}.`));
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
-        return;
     }
-    const data = {
-        form: {
-            shipmentNumber: "abc",
-            statusId: 1, // delivered
-            deliveredDate: res.data.generatedOn,
-            lots: []
-        }
-    };
-    res.data.items.forEach(item => {
-        data.form.lots.push({
-            // lotNumber:
-            invoiceItemId: item.id,
-            quantity: {
-                ...item.quantity
-            }
-        });
-    });
-    yield put(createShipment(data));
+    // const data = {
+    //     form: {
+    //         shipmentNumber: "abc",
+    //         statusId: 1, // delivered
+    //         deliveredDate: res.data.generatedOn,
+    //         lots: []
+    //     }
+    // };
+    // res.data.items.forEach(item => {
+    //     data.form.lots.push({
+    //         // lotNumber:
+    //         invoiceItemId: item.id,
+    //         quantity: {
+    //             ...item.quantity
+    //         }
+    //     });
+    // });
+    // yield put(createShipment(data));
 }
 
 function* udpatePurchaseInvoiceGenerator(action) {

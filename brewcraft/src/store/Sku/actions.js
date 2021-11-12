@@ -3,6 +3,7 @@ import {
     FETCH_SKU,
     UPDATE_SKU,
     SET_SKU_DETAILS,
+    RESET_SKU_DETAILS,
     INVALID_NAME,
     INVALID_CLASS,
     INVALID_TYPE,
@@ -34,6 +35,11 @@ export const updateSku = payload => ({
 export const deleteSku = id => ({
     type: DELETE_SKU,
     payload: { id }
+});
+
+export const resetSkuDetails = () => ({
+    type: RESET_SKU_DETAILS,
+    payload: null
 });
 
 export const setSkuInvalidName = enabled => ({

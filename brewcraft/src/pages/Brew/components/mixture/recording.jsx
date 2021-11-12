@@ -1,42 +1,163 @@
-import { map } from "lodash";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { map } from "lodash";
 import {
-    Button
+    Button,
+    FormFeedback,
+    FormGroup,
+    Input,
+    Label
 } from "reactstrap";
+import CommonTable from "../../../../component/Common/table";
 import { formatDatetime } from "../../../../helpers/textUtils";
-import Modal from "../../../../component/MixtureRecording/modal";
 
-export default function MixtureRecording({ title, mTitle, mUnit, mixture, measureId, multiple, editable }) {
-    const [showModal, setShowModal] = useState(false);
+export default function BatchRecordings({ mixtureRecordings, setMixtureRecordings, editable }) {
+    const [items, setItems] = useState([]);
+    const [measure, setMeasure] = useState("");
+    const [quantity, setQuantity] = useState(0);
 
-    const props = {
-        title: mTitle,
-        unit: mUnit,
-        mixture,
-        measureId,
-        show: showModal,
-        setShow: setShowModal
-    };
+    const measures = useSelector(state => {
+        return state.Measures.content;
+    })
 
     return (
         <React.Fragment>
-            {/* <h4 className="font-size-12 pt-3 pt-sm-0">{title}</h4> */}
-            <hr/>
-            {
-                mixture && mixture.mixtureRecordings && map(mixture.mixtureRecordings, (record, index) => (
-                    <div key={index} className="d-sm-inline-block mb-3"><span className="font-size-12"> {record.value} °C - {formatDatetime(record.recordedAt)}</span></div>
-                ))
-            }
-            <div className="clearfix"></div>
-            <Button
-                size="sm"
-                className="waves-effect"
-                onClick={() => setShowModal(true)}
-                hidden={!editable || (!multiple && mixture?.mixtureRecordings)}
+            {console.log(mixtureRecordings)}
+            <Label
+                for="mixtureRecording"
+                className="d-block d-inline-block font-size-12 mb-3"
+                style={{
+                    width: "5rem"
+                }}
             >
-                Add
-            </Button>
-            <Modal {...props}/>
+                Recordings
+            </Label>
+            <div className="mb-3">
+                <CommonTable>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Recording</th>
+                            <th>Value</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        !mixtureRecordings.length && (
+                            <tr>
+                                <td></td><td>-</td><td>-</td><td>-</td>
+                            </tr>
+                        )
+                    }
+                    {
+                        mixtureRecordings && map(mixtureRecordings, (recording, index) => (
+                            <tr key={index}>
+                                <td>
+                                    <div className="d-flex align-items-center vertical-center">
+                                        {editable && <Input
+                                            className="ml-1"
+                                            type="checkbox"
+                                            disabled={!editable}
+                                            onChange={e => {
+                                                if (e.target.checked) {
+                                                    setItems([
+                                                        ...items,
+                                                        recording.measure.id
+                                                    ])
+                                                } else {
+                                                    setItems(items.filter(l => l !== recording.measure.id))
+                                                }
+                                            }}
+                                            checked={items.includes(recording.measure.id) && editable}
+                                        />}
+                                    </div>
+                                </td>
+                                <td>{recording.measure.name}</td>
+                                <td>{recording.value}</td>
+                                <td>{formatDatetime(recording.recordedAt)}</td>
+                            </tr>
+                        ))
+                    }
+                    </tbody>
+                </CommonTable>
+            </div>
+            <div
+                hidden={!editable}
+            >
+                <FormGroup
+                    className="d-block d-sm-inline-block mr-2"
+                >
+                    <Input
+                        type="select"
+                        name="mixtureRecordingMeasure"
+                        className="waves-effect"
+                        style={{ width: "14rem" }}
+                        value={measure.id || ""}
+                        onChange={e => {
+                            const measure = measures.find (s => s.id === parseInt(e.target.value));
+                            setMeasure(measure);
+                        }}
+                    >
+                        <option value="">Recording</option>
+                        {
+                            map(measures, (value, index) => (
+                                <option value={value.id} key={index}>
+                                    {value.name}
+                                </option>
+                            ))
+                        }
+                    </Input>
+                    <FormFeedback>Enter a valid measure.</FormFeedback>
+                </FormGroup>
+                <FormGroup
+                    className="d-block d-sm-inline-block mr-2"
+                >
+                    <Input
+                        type="number"
+                        name="MixtureRecordingQuantity"
+                        className="waves-effect"
+                        style={{ width: "8rem" }}
+                        value={quantity || ""}
+                        onChange={e => {
+                            setQuantity(e.target.value);
+                        }}
+                        disabled={!measure.id}
+                    />
+                    <FormFeedback>Enter a valid number.</FormFeedback>
+                </FormGroup>
+                <Button
+                    size="sm"
+                    className="waves-effect mr-2"
+                    onClick={() => {
+                        setMixtureRecordings([
+                            ...mixtureRecordings, {
+                                measure,
+                                value: quantity
+                            }
+                        ]);
+                    }}
+                    hidden={!editable}
+                    disabled={!measure.id || !quantity}
+                >
+                    Enter
+                </Button>
+                <Button
+                    size="sm"
+                    color="warning"
+                    className="waves-effect"
+                    onClick={() => {
+                        setMixtureRecordings(
+                            mixtureRecordings.filter(p => !items.includes(p.measure.id))
+                        );
+                        setItems([]);
+                    }}
+                    hidden={!editable}
+                    disabled={!items.length}
+                >
+                    Remove
+                </Button>
+            </div>
         </React.Fragment>
     );
 }

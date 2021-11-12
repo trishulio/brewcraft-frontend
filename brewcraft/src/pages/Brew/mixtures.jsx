@@ -14,7 +14,7 @@ export default function Mixtures(props) {
     const dispatch = useDispatch();
 
     const { data: batch, save } = useSelector(state => {
-        return state.Batch.details;
+        return state.Batch.Batch;
     })
 
     const { data: mashMixture, initial: initialMashMixture } = useSelector(state => {

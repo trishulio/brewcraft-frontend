@@ -7,7 +7,7 @@ export default function MixtureRecordings(props) {
     const dispatch = useDispatch();
 
     const { data: batch, save } = useSelector(state => {
-        return state.Batch.details;
+        return state.Batch.Batch;
     });
 
     const { content: transferMixtureRecordings, initial: transferInitialMixtureRecordings } = useSelector(state => {

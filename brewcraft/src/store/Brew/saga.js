@@ -47,6 +47,18 @@ function* addBatchGenerator(action) {
             brewId: res.data.id,
             taskId: 7, // transfer
             statusId: 1
+        }, {
+            brewId: res.data.id,
+            taskId: 8, // ferment
+            statusId: 1
+        }, {
+            brewId: res.data.id,
+            taskId: 5, // condition
+            statusId: 1
+        }, {
+            brewId: res.data.id,
+            taskId: 9, // storage
+            statusId: 1
         }]);
         resMixture = yield call(api.addMixture, {
             quantity: {
@@ -78,6 +90,30 @@ function* addBatchGenerator(action) {
                 value: 0
             },
             brewStageId: resStage.data[3].id
+        });
+        resMixture = yield call(api.addMixture, {
+            parentMixtureId: resMixture.data.id,
+            quantity: {
+                symbol: "hl",
+                value: 0
+            },
+            brewStageId: resStage.data[4].id
+        });
+        resMixture = yield call(api.addMixture, {
+            parentMixtureId: resMixture.data.id,
+            quantity: {
+                symbol: "hl",
+                value: 0
+            },
+            brewStageId: resStage.data[5].id
+        });
+        resMixture = yield call(api.addMixture, {
+            parentMixtureId: resMixture.data.id,
+            quantity: {
+                symbol: "hl",
+                value: 0
+            },
+            brewStageId: resStage.data[6].id
         });
         yield put({ type: SET_BATCH_DETAILS, payload: { data: res.data, initial: res.data }});
         yield put(setGlobalRedirect({ pathname: "/brews/" + res.data.id }));

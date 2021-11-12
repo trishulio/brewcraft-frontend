@@ -24,6 +24,12 @@ import {
     EDIT_TRANSFER_MIXTURE_REQUEST,
     DELETE_TRANSFER_MIXTURE_REQUEST,
     RESET_TRANSFER_MIXTURE_DETAILS,
+    FETCH_FERMENT_MIXTURE_BY_ID_REQUEST,
+    ADD_FERMENT_MIXTURE_REQUEST,
+    EDIT_FERMENT_MIXTURE_REQUEST,
+    DELETE_FERMENT_MIXTURE_REQUEST,
+    SET_FERMENT_MIXTURE_DETAILS,
+    RESET_FERMENT_MIXTURE_DETAILS,
 } from "./actionTypes";
 
 export const fetchMixturesByBrewId = id => ({
@@ -148,5 +154,35 @@ export const setTransferMixtureDetails = payload => ({
 
 export const resetTransferMixtureDetails = () => ({
     type: RESET_TRANSFER_MIXTURE_DETAILS,
+    payload: null
+});
+
+export const fetchFermentMixtureById = id => ({
+    type: FETCH_FERMENT_MIXTURE_BY_ID_REQUEST,
+    payload: { id },
+});
+
+export const saveFermentMixture = payload => ({
+    type: ADD_FERMENT_MIXTURE_REQUEST,
+    payload: payload,
+});
+
+export const editFermentMixture = payload => ({
+    type: EDIT_FERMENT_MIXTURE_REQUEST,
+    payload: payload,
+});
+
+export const deleteFermentMixture = payload => ({
+    type: DELETE_FERMENT_MIXTURE_REQUEST,
+    payload: payload,
+});
+
+export const setFermentMixtureDetails = payload => ({
+    type: SET_FERMENT_MIXTURE_DETAILS,
+    payload: payload
+});
+
+export const resetFermentMixtureDetails = () => ({
+    type: RESET_FERMENT_MIXTURE_DETAILS,
     payload: null
 });
