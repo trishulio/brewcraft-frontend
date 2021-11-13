@@ -15,12 +15,14 @@ const initialState = {
     data: {
         id: "",
         invoiceNumber: "",
+        invoiceStatus: "",
+        invoiceVersion: null,
         purchaseOrder: {
             orderNumber: "",
             supplier: ""
         },
         description: "",
-        freight: null,
+        freight: "",
         generatedOn: "",
         receivedOn: "",
         paymentDueDate: "",
@@ -40,17 +42,24 @@ const initialState = {
             },
             material: ""
         }],
+        amount: "",
+        tax: "",
+        createdAt: "",
+        lastUpdated: "",
+        shipmentStatus: "",
         version: null
     },
     initial: {
         id: "",
         invoiceNumber: "",
+        invoiceStatus: "",
+        invoiceVersion: "",
         purchaseOrder: {
             orderNumber: "",
             supplier: ""
         },
         description: "",
-        freight: null,
+        freight: "",
         generatedOn: "",
         receivedOn: "",
         paymentDueDate: "",
@@ -70,6 +79,11 @@ const initialState = {
             },
             material: ""
         }],
+        amount: "",
+        tax: "",
+        createdAt: "",
+        lastUpdated: "",
+        shipmentStatus: "",
         version: null
     },
     invalidName: false,

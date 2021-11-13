@@ -118,6 +118,7 @@ export default function PurchaseInvoicesTable() {
                     </tr>
                 </thead>
                 <tbody>
+                    {console.log(invoices)}
                     {
                         invoices.map((invoice, key) =>
                             <tr key={key}>
@@ -126,7 +127,7 @@ export default function PurchaseInvoicesTable() {
                                 <td>{formatDate(invoice.generatedOn)}</td>
                                 <td>{formatDate(invoice.paymentDueDate)}</td>
                                 <td>{formatCurrency(invoice.amount.amount)}</td>
-                                <td>{invoice.invoiceStatus.id}</td>
+                                <td>{invoice.invoiceStatus?.id}</td>
                             </tr>
                         )
                     }

@@ -34,7 +34,7 @@ const PurchaseInvoices = (state = initialState, { type, payload, data }) => {
         case FETCH_PURCHASE_INVOICES_SUCCESS:
             return {
                 ...state,
-                ...data.data,
+                ...payload,
                 loading: false,
                 error: null,
             };

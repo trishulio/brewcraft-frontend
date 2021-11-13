@@ -24,7 +24,7 @@ function* fetchAllPurchaseInvoicesGenerator() {
 function* fetchPurchaseInvoicesGenerator(action) {
     try {
       const res = yield call(api.fetchPurchaseInvoices, get(action, "payload.params"));
-      yield put({ type: FETCH_PURCHASE_INVOICES_SUCCESS, data: { data: res.data }});
+      yield put({ type: FETCH_PURCHASE_INVOICES_SUCCESS, payload: { ...res.data }});
     } catch (e) {
       yield put({ type: FETCH_PURCHASE_INVOICES_FAILURE });
       yield put(snackFailure("Something went wrong please try again."));

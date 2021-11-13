@@ -32,21 +32,19 @@ export default function PurchaseInvoice() {
     const editMode = query.get("edit");
     const dispatch = useDispatch();
 
-    const invoice = useSelector(state => {
-        return state.PurchaseInvoice.data;
-    });
-
-    const initialInvoice = useSelector(state => {
-        return state.PurchaseInvoice.initial;
-    });
-
-    const { invalidInvoiceNumber } = useSelector(state => {
-        return state.PurchaseInvoice
+    const {
+        data: invoice,
+        initial: initialInvoice,
+        invalidInvoiceNumber
+    } = useSelector(state => {
+        return state.PurchaseInvoice;
     });
 
     useEffect(() => {
+
+        dispatch(resetPurchaseInvoiceDetails());
+
         if (id === "new") {
-            dispatch(resetPurchaseInvoiceDetails());
             history.replace("/purchases/invoices/new?edit=true");
         } else {
             dispatch(fetchPurchaseInvoiceById(id));
@@ -54,6 +52,7 @@ export default function PurchaseInvoice() {
         if (editMode) {
             dispatch(fetchAllMaterialCategories());
             dispatch(fetchAllSuppliers());
+
             dispatch(fetchAllIngredients());
             dispatch(fetchAllPackaging());
         }
@@ -144,8 +143,8 @@ export default function PurchaseInvoice() {
         if (invoice.id) {
             dispatch(
                 updatePurchaseInvoice({
-                    id: invoice.id,
-                    form: {
+                    form: [{
+                        id: invoice.id,
                         invoiceNumber: invoice.invoiceNumber,
                         description: invoice.description,
                         freight: {
@@ -158,7 +157,7 @@ export default function PurchaseInvoice() {
                         receivedOn: null,
                         paymentDueDate: invoice.paymentDueDate + "T00:00:00.001Z",
                         statusId: 1,
-                        items: invoice.items.map(item => {
+                        invoiceItems: invoice.items.map(item => {
                             return {
                                 id: item.id,
                                 description: item.description,
@@ -182,7 +181,7 @@ export default function PurchaseInvoice() {
                         }),
                         purchaseOrderId: invoice.purchaseOrder.id,
                         version: invoice.version
-                    }
+                    }]
                 })
             );
         } else {
