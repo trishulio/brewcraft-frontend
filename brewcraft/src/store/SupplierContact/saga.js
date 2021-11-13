@@ -14,23 +14,13 @@ import {
     SET_SUPPLIER_CONTACT_DETAILS
 } from "./actionTypes";
 import { api } from "./api";
-import { snackFailure, snackSuccess } from "../Snackbar/actions";
+import { snackSuccess } from "../Snackbar/actions";
 import { setGlobalRedirect } from "../Brewery/actions";
-
-function formatResponse(res) {
-    res.initial = JSON.parse(JSON.stringify(res.data));
-    if (res.data.supplier) {
-        res.data.company = res.data.supplier;
-        delete res.data.supplier;
-    }
-}
 
 function* fetchSupplierContactByIdGenerator(action) {
     try {
         let res = yield call(api.fetchSupplierContactById,get(action,"payload.id"));
-        formatResponse(res);
         yield put({ type: SET_SUPPLIER_CONTACT_DETAILS, payload: { data: res.data, initial: res.data }});
-        action.payload.success && action.payload.success(res.data);
     } catch (e) {
         yield put({ type: FETCH_SUPPLIER_CONTACT_BY_ID_FAILURE });
     }
@@ -39,27 +29,21 @@ function* fetchSupplierContactByIdGenerator(action) {
 function* addSupplierContactGenerator(action) {
     try {
         const res = yield call(api.addSupplierContact, get(action, "payload.supplierId"), get(action, "payload.form"));
-        formatResponse(res);
         yield put({ type: ADD_SUPPLIER_CONTACT_SUCCESS, payload: { data: res.data, initial: res.data }});
         yield put(setGlobalRedirect({ pathname: "/suppliers/contacts/" + res.data.id }));
-        yield put(snackSuccess());
+        yield put(snackSuccess("Supplier Contact saved!"));
     } catch (e) {
         yield put({ type: ADD_SUPPLIER_CONTACT_FAILURE });
-        yield put(snackFailure());
     }
 }
 
 function* editSupplierContactGenerator(action) {
     try {
-        // let res = yield call(api.updateSupplierContact, get(action, "payload.id"), get(action, "payload.supplierId"), get(action, "payload.form"));
-        let res = yield call(api.patchSupplierContact, get(action, "payload.id"), get(action, "payload.form"));
-        formatResponse(res);
+        const res = yield call(api.patchSupplierContact, get(action, "payload.id"), get(action, "payload.form"));
         yield put({ type: EDIT_SUPPLIER_CONTACT_SUCCESS, payload: { data: res.data, initial: res.data }});
-        yield put(setGlobalRedirect({ pathname: "/suppliers/contacts/" + res.data.id }));
-        yield put(snackSuccess());
+        yield put(snackSuccess("Supplier Contact saved!"));
     } catch (e) {
         yield put({ type: EDIT_SUPPLIER_CONTACT_FAILURE });
-        yield put(snackFailure());
     }
 }
 
@@ -67,10 +51,8 @@ function* deleteSupplierContactGenerator(action) {
     try {
         yield call(api.deleteSupplierContact, get(action, "payload.id"));
         yield put(setGlobalRedirect({ pathname: "/suppliers/contacts" }));
-        yield put(snackSuccess());
     } catch (e) {
         yield put({ type: DELETE_SUPPLIER_CONTACT_FAILURE });
-        yield put(snackFailure());
     }
 }
 

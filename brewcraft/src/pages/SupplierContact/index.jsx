@@ -84,9 +84,9 @@ export default function SupplierContact() {
 
     function isChanged() {
         return JSON.stringify(
-                (({ id, firstName, lastName, company, position, email, phoneNumber }) => ({ id, firstName, lastName, company, position, email, phoneNumber }))(initialContact))
+                (({ id, firstName, lastName, supplier, position, email, phoneNumber }) => ({ id, firstName, lastName, supplier, position, email, phoneNumber }))(initialContact))
             !== JSON.stringify(
-                (({ id, firstName, lastName, company, position, email, phoneNumber }) => ({ id, firstName, lastName, company, position, email, phoneNumber }))(contact))
+                (({ id, firstName, lastName, supplier, position, email, phoneNumber }) => ({ id, firstName, lastName, supplier, position, email, phoneNumber }))(contact))
     }
 
     function onSave() {
@@ -101,7 +101,7 @@ export default function SupplierContact() {
             dispatch(
                 editSupplierContact({
                     id: contact.id,
-                    supplierId: contact.company.id,
+                    supplierId: contact.supplier.id,
                     form: {
                         firstName: contact.firstName,
                         lastName: contact.lastName,
@@ -115,7 +115,7 @@ export default function SupplierContact() {
         } else {
             dispatch(
                 saveSupplierContact({
-                    supplierId: contact.company.id,
+                    supplierId: contact.supplier.id,
                     form: {
                         firstName: contact.firstName,
                         lastName: contact.lastName,

@@ -71,12 +71,12 @@ export default function SupplierContactDetails({ editable }) {
                 }
                 break;
             case "contactCompany":
-                if (contact.company?.id !== e.target.value) {
+                if (contact.supplier?.id !== e.target.value) {
                     dispatch(setInvalidSupplierContactCompany(!e.target.value));
                     dispatch(setSupplierContactDetails({
                         data: {
                             ...contact,
-                            company: companies.find(c => c.id === parseInt(e.target.value))
+                            supplier: companies.find(c => c.id === parseInt(e.target.value))
                         }
                     }));
                 }
@@ -246,7 +246,7 @@ export default function SupplierContactDetails({ editable }) {
                                 style={{ width: "8rem" }}
                                 disabled={!editable}
                                 invalid={invalidCompany}
-                                value={contact.company.id || ""}
+                                value={contact.supplier.id || ""}
                                 onChange={e => {
                                     onFormInputChange(e);
                                 }}
@@ -270,7 +270,7 @@ export default function SupplierContactDetails({ editable }) {
                     }
                     {!editable &&
                         <div className="d-inline-block mb-2">
-                            {contact.company ? contact.company.name : "-"}
+                            {contact.supplier ? contact.supplier.name : "-"}
                         </div>
                     }
                     <div className="clearfix"></div>

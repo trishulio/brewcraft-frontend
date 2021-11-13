@@ -17,7 +17,9 @@ import {
     INVALID_SUPPLIER_CONTACT_COMPANY,
     INVALID_SUPPLIER_CONTACT_POSITION,
     INVALID_SUPPLIER_CONTACT_EMAIL,
-    INVALID_SUPPLIER_CONTACT_PHONE_NUMBER
+    INVALID_SUPPLIER_CONTACT_PHONE_NUMBER,
+    EDIT_SUPPLIER_CONTACT_FAILURE,
+    DELETE_SUPPLIER_CONTACT_FAILURE
 } from "./actionTypes";
 
 const initialState = {
@@ -25,17 +27,17 @@ const initialState = {
         id: "",
         firstName: "",
         lastName: "",
-        company: "",
+        supplier: "",
         position: "",
         email: "",
-        phoneNumber: "",
+    phoneNumber: "",
         version: null
     },
     initial: {
         id: "",
         firstName: "",
         lastName: "",
-        company: "",
+        supplier: "",
         position: "",
         email: "",
         phoneNumber: "",
@@ -98,6 +100,8 @@ const SupplierContact = (state = initialState, { type, payload, data }) => {
                 error: null
             };
         case ADD_SUPPLIER_CONTACT_FAILURE:
+        case EDIT_SUPPLIER_CONTACT_FAILURE:
+        case DELETE_SUPPLIER_CONTACT_FAILURE:
             return {
                 ...state,
                 loading: false,
