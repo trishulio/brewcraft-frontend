@@ -1,27 +1,22 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    Row,
-    Col,
     FormGroup,
     FormFeedback,
     Input,
-    Label
+    Label,
+    Alert
 } from "reactstrap";
 import {
-    setSupplierDetails,
-    setInvalidSupplierName,
-    setInvalidSupplierAddressLine1,
-    setInvalidSupplierCity,
-    setInvalidSupplierProvince,
-    setInvalidSupplierPostalCode,
-    setInvalidSupplierCountry
+    setSupplierAddressDetails,
+    setSupplierDetails
 } from "../../../store/actions";
 import {
     Card,
     CardBody,
     CardHeader
 } from "../../../component/Common/Card";
+import { isValidName } from "../../../helpers/utils";
 
 export default function SupplierDetails({ editable }) {
 
@@ -34,7 +29,8 @@ export default function SupplierDetails({ editable }) {
         invalidCity,
         invalidProvince,
         invalidPostalCode,
-        invalidCountry
+        invalidCountry,
+        loading
     } = useSelector(state => {
         return state.Supplier
     });
@@ -46,67 +42,60 @@ export default function SupplierDetails({ editable }) {
     function onFormInputChange(e) {
         switch(e.target.name) {
             case "supplierName":
-                if (supplier.name !== e.target.value) {
-                    dispatch(setInvalidSupplierName(!e.target.value));
-                    dispatch(setSupplierDetails({
-                        data: {
-                            ...supplier,
-                            name: e.target.value
-                        }
-                    }));
-                }
-                break;
-            case "supplierAddressLine1":
-                dispatch(setInvalidSupplierAddressLine1(!e.target.value));
                 dispatch(setSupplierDetails({
                     data: {
                         ...supplier,
-                        addressLine1: e.target.value
-                    }
+                        name: e.target.value
+                    },
+                    invalidName: !isValidName(e.target.value)
+                }));
+                break;
+            case "supplierAddressLine1":
+                dispatch(setSupplierAddressDetails({
+                    addressLine1: e.target.value
+                }));
+                dispatch(setSupplierDetails({
+                    invalidAddressLine1: typeof e.target.value !== "string"
                 }));
                 break;
             case "supplierAddressLine2":
+                dispatch(setSupplierAddressDetails({
+                    addressLine2: e.target.value
+                }));
                 dispatch(setSupplierDetails({
-                    data: {
-                        ...supplier,
-                        addressLine2: e.target.value
-                    }
+                    invalidAddressLine2: typeof e.target.value !== "string"
                 }));
                 break;
             case "supplierAddressCity":
-                dispatch(setInvalidSupplierCity(!e.target.value));
+                dispatch(setSupplierAddressDetails({
+                    city: e.target.value
+                }));
                 dispatch(setSupplierDetails({
-                    data: {
-                        ...supplier,
-                        city: e.target.value
-                    }
+                    invalidCity: typeof e.target.value !== "string"
                 }));
                 break;
             case "supplierAddressProvince":
-                dispatch(setInvalidSupplierProvince(!e.target.value));
+                dispatch(setSupplierAddressDetails({
+                    province: e.target.value
+                }));
                 dispatch(setSupplierDetails({
-                    data: {
-                        ...supplier,
-                        province: e.target.value
-                    }
+                    invalidProvince: typeof e.target.value !== "string"
                 }));
                 break;
             case "supplierAddressPostalCode":
-                dispatch(setInvalidSupplierPostalCode(!e.target.value));
+                dispatch(setSupplierAddressDetails({
+                    postalCode: e.target.value
+                }));
                 dispatch(setSupplierDetails({
-                    data: {
-                        ...supplier,
-                        postalCode: e.target.value
-                    }
+                    invalidPostalCode: typeof e.target.value !== "string"
                 }));
                 break;
             case "supplierAddressCountry":
-                dispatch(setInvalidSupplierCountry(!e.target.value));
+                dispatch(setSupplierAddressDetails({
+                    country: e.target.value
+                }));
                 dispatch(setSupplierDetails({
-                    data: {
-                        ...supplier,
-                        country: e.target.value
-                    }
+                    invalidCountry: typeof e.target.value !== "string"
                 }));
                 break;
             default:
@@ -116,38 +105,43 @@ export default function SupplierDetails({ editable }) {
 
     return (
         <React.Fragment>
-            <Card>
-                <CardHeader>Supplier Details</CardHeader>
-                <CardBody>
-                    <Row>
-                        <Col xs="2">
-                            <Label className="mb-3">
-                                ID
-                            </Label>
-                        </Col>
-                        <Col xs="8">
-                            <div hidden={false}>
-                                {supplier.id ? supplier.id : "-"}
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="2">
-                            <Label
-                                for="supplierName"
-                                className="mb-3"
-                            >
-                                Name
-                            </Label>
-                        </Col>
-                        <Col xs="8">
+                <Card>
+                    <CardHeader>Supplier Details</CardHeader>
+                    <CardBody>
+                        <Label
+                            className="d-inline-block mb-3"
+                            style={{
+                                width: "10rem"
+                            }}
+                        >
+                            ID
+                        </Label>
+                        <div className="d-inline-block mb-2">
+                            {supplier.id ? supplier.id : "-"}
+                        </div>
+                        <div className="clearfix"></div>
+                        <Label
+                            for="supplierName"
+                            className="d-inline-block mb-3"
+                            style={{
+                                width: "10rem"
+                            }}
+                        >
+                            Name
+                        </Label>
+                        {editable &&
                             <FormGroup
+                                className="d-inline-block mb-3"
                                 hidden={!editable}
+                                style={{
+                                    maxWidth: "20rem",
+                                    width: "100%"
+                                }}
                             >
                                 <Input
                                     type="text"
-                                    className="waves-effect"
-                                    bsSize="sm"
+                                    className="faves-effect"
+                                    width="20rem"
                                     value={supplier.name}
                                     placeholder="Enter"
                                     name="supplierName"
@@ -155,201 +149,268 @@ export default function SupplierDetails({ editable }) {
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
                                 />
-                                <FormFeedback>Enter a valid supplier name.</FormFeedback>
+                                <FormFeedback>
+                                    {supplier.name.length > 0
+                                        ? "Invalid supplier name field"
+                                        : "Supplier name field must not be empty"
+                                    }
+                                </FormFeedback>
                             </FormGroup>
-                            <div hidden={editable}>
+                        }
+                        {!editable &&
+                            <div className="d-inline-block mb-2">
                                 {supplier.name ? supplier.name : "-"}
                             </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="2">
-                            <Label
-                                for="supplierAddressLine1"
-                                className="mb-3"
-                            >
-                                Address Line 1
-                            </Label>
-                        </Col>
-                        <Col xs="8">
+                        }
+                        <div className="clearfix"></div>
+                        <Label
+                            for="supplierAddressLine1"
+                            className="d-inline-block mb-3"
+                            style={{
+                                width: "10rem"
+                            }}
+                        >
+                            Address Line 1
+                        </Label>
+                        {editable &&
                             <FormGroup
+                                className="d-inline-block mb-3"
                                 hidden={!editable}
+                                style={{
+                                    maxWidth: "20rem",
+                                    width: "100%"
+                                }}
                             >
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    bsSize="sm"
-                                    value={supplier.addressLine1}
+                                    value={supplier.address.addressLine1}
                                     placeholder="Enter"
                                     name="supplierAddressLine1"
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidAddressLine1}
                                 />
-                                <FormFeedback>Enter a valid address field.</FormFeedback>
+                                <FormFeedback>
+                                    {supplier.address.addressLine1.length > 0
+                                        ? "Invalid supplier address field"
+                                        : "Supplier address line 1 field must not be empty"
+                                    }
+                                </FormFeedback>
                             </FormGroup>
-                            <div hidden={editable}>
-                                {supplier.addressLine1 || "-"}
+                        }
+                        {!editable &&
+                            <div className="d-inline-block mb-2">
+                                {supplier.address.addressLine1 || "-"}
                             </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="2">
-                            <Label
-                                for="supplierAddressLine2"
-                                className="mb-3"
-                            >
-                                Address Line 2
-                            </Label>
-                        </Col>
-                        <Col xs="8">
+                        }
+                        <div className="clearfix"></div>
+                        <Label
+                            for="supplierAddressLine2"
+                            className="d-inline-block mb-3"
+                            style={{
+                                width: "10rem"
+                            }}
+                        >
+                            Address Line 2
+                        </Label>
+                        {editable &&
                             <FormGroup
+                                className="d-inline-block mb-3"
                                 hidden={!editable}
+                                style={{
+                                    maxWidth: "20rem",
+                                    width: "100%"
+                                }}
                             >
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    bsSize="sm"
-                                    value={supplier.addressLine2}
+                                    value={supplier.address.addressLine2}
                                     placeholder="Enter"
                                     name="supplierAddressLine2"
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidAddressLine2}
                                 />
-                                <FormFeedback>Enter a valid address field.</FormFeedback>
+                                <FormFeedback>Invalid supplier address field</FormFeedback>
                             </FormGroup>
-                            <div hidden={editable}>
-                                {supplier.addressLine2 || "-"}
+                        }
+                        {!editable &&
+                            <div className="d-inline-block mb-2">
+                                {supplier.address.addressLine2 || "-"}
                             </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="2">
-                            <Label
-                                for="supplierAddressCity"
-                                className="mb-3"
-                            >
-                                City
-                            </Label>
-                        </Col>
-                        <Col xs="8">
+                        }
+                        <div className="clearfix"></div>
+                        <Label
+                            for="supplierAddressCity"
+                            className="d-inline-block mb-3"
+                            style={{
+                                width: "10rem"
+                            }}
+                        >
+                            City
+                        </Label>
+                        {editable &&
                             <FormGroup
+                                className="d-inline-block mb-3"
                                 hidden={!editable}
+                                style={{
+                                    maxWidth: "20rem",
+                                    width: "100%"
+                                }}
                             >
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    bsSize="sm"
-                                    value={supplier.city}
+                                    value={supplier.address.city}
                                     placeholder="Enter"
                                     name="supplierAddressCity"
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidCity}
                                 />
-                                <FormFeedback>Enter a valid city field.</FormFeedback>
+                                <FormFeedback>
+                                    {supplier.address.city.length > 0
+                                        ? "Invalid supplier address field"
+                                        : "Supplier city field must not be empty"
+                                    }
+                                </FormFeedback>
                             </FormGroup>
-                            <div hidden={editable}>
-                                {supplier.city || "-"}
+                        }
+                        {!editable &&
+                            <div className="d-inline-block mb-2">
+                                {supplier.address.city || "-"}
                             </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="2">
-                            <Label
-                                for="supplierAddressProvince"
-                                className="mb-3"
-                            >
-                                Province / State
-                            </Label>
-                        </Col>
-                        <Col xs="8">
+                        }
+                        <div className="clearfix"></div>
+                        <Label
+                            for="supplierAddressProvince"
+                            className="d-inline-block mb-3"
+                            style={{
+                                width: "10rem"
+                            }}
+                        >
+                            Province / State
+                        </Label>
+                        {editable &&
                             <FormGroup
+                                className="d-inline-block mb-3"
                                 hidden={!editable}
+                                style={{
+                                    maxWidth: "20rem",
+                                    width: "100%"
+                                }}
                             >
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    bsSize="sm"
-                                    value={supplier.province}
+                                    value={supplier.address.province}
                                     placeholder="Enter"
                                     name="supplierAddressProvince"
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidProvince}
                                 />
-                                <FormFeedback>Enter a valid province or state.</FormFeedback>
+                                <FormFeedback>
+                                    {supplier.address.province.length > 0
+                                        ? "Invalid supplier address field"
+                                        : "Supplier province / state field must not be empty"
+                                    }
+                                </FormFeedback>
                             </FormGroup>
-                            <div hidden={editable}>
-                                {supplier.province || "-"}
+                        }
+                        {!editable &&
+                            <div className="d-inline-block mb-2">
+                                {supplier.address.province || "-"}
                             </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="2">
-                            <Label
-                                for="supplierAddressPostalCode"
-                                className="mb-3"
-                            >
-                                Postal Code
-                            </Label>
-                        </Col>
-                        <Col xs="8">
+                        }
+                        <div className="clearfix"></div>
+                        <Label
+                            for="supplierAddressPostalCode"
+                            className="d-inline-block mb-3"
+                            style={{
+                                width: "10rem"
+                            }}
+                        >
+                            Postal / Zip code
+                        </Label>
+                        {editable &&
                             <FormGroup
+                                className="d-inline-block mb-3"
                                 hidden={!editable}
+                                style={{
+                                    maxWidth: "20rem",
+                                    width: "100%"
+                                }}
                             >
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    bsSize="sm"
-                                    value={supplier.postalCode}
+                                    value={supplier.address.postalCode}
                                     placeholder="Enter"
                                     name="supplierAddressPostalCode"
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidPostalCode}
                                 />
-                                <FormFeedback>Enter a valid postal code.</FormFeedback>
+                                <FormFeedback>
+                                    {supplier.address.postalCode.length > 0
+                                        ? "Invalid supplier address field"
+                                        : "Supplier postal / zip code field must not be empty"
+                                    }
+                                </FormFeedback>
                             </FormGroup>
-                            <div hidden={editable}>
-                                {supplier.postalCode || "-"}
+                        }
+                        {!editable &&
+                            <div className="d-inline-block mb-2">
+                                {supplier.address.postalCode || "-"}
                             </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="2">
-                            <Label
-                                for="supplierAddressCountry"
-                                className="mb-3"
-                            >
-                                Country
-                            </Label>
-                        </Col>
-                        <Col xs="8">
+                        }
+                        <div className="clearfix"></div>
+                        <Label
+                            for="supplierAddressCountry"
+                            className="d-inline-block mb-3"
+                            style={{
+                                width: "10rem"
+                            }}
+                        >
+                            Country
+                        </Label>
+                        {editable &&
                             <FormGroup
+                                className="d-inline-block mb-3"
                                 hidden={!editable}
+                                style={{
+                                    maxWidth: "20rem",
+                                    width: "100%"
+                                }}
                             >
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    bsSize="sm"
-                                    value={supplier.country}
+                                    value={supplier.address.country}
                                     placeholder="Enter"
                                     name="supplierAddressCountry"
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidCountry}
                                 />
-                                <FormFeedback>Enter a valid country.</FormFeedback>
+                                <FormFeedback>
+                                    {supplier.address.country.length > 0
+                                        ? "Invalid supplier address field"
+                                        : "Supplier country field must not be empty"
+                                    }
+                                </FormFeedback>
                             </FormGroup>
-                            <div hidden={editable}>
-                                {supplier.country || "-"}
+                        }
+                        {!editable &&
+                            <div className="d-inline-block mb-2">
+                                {supplier.address.country || "-"}
                             </div>
-                        </Col>
-                    </Row>
-                </CardBody>
-            </Card>
+                        }
+                    </CardBody>
+                </Card>
         </React.Fragment>
     );
 }

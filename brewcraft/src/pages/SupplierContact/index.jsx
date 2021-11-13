@@ -33,7 +33,7 @@ export default function SupplierContact() {
         return state.SupplierContact.data;
     });
 
-    const initialSupplierContact = useSelector(state => {
+    const initialContact = useSelector(state => {
         return state.SupplierContact.initial;
     });
 
@@ -64,8 +64,8 @@ export default function SupplierContact() {
     }, [id, editMode]);
 
     useEffect(() => {
-        if (contact.id) {
-            dispatch(setBreadcrumbItems(contact.firstName + " " + contact.lastName, [
+        if (initialContact.id) {
+            dispatch(setBreadcrumbItems(initialContact.firstName + " " + initialContact.lastName, [
                 { title: "Main", link: "#" },
                 { title: "Suppliers", link: "#" },
                 { title: "Contacts", link: "#" }]
@@ -84,7 +84,7 @@ export default function SupplierContact() {
 
     function isChanged() {
         return JSON.stringify(
-                (({ id, firstName, lastName, company, position, email, phoneNumber }) => ({ id, firstName, lastName, company, position, email, phoneNumber }))(initialSupplierContact))
+                (({ id, firstName, lastName, company, position, email, phoneNumber }) => ({ id, firstName, lastName, company, position, email, phoneNumber }))(initialContact))
             !== JSON.stringify(
                 (({ id, firstName, lastName, company, position, email, phoneNumber }) => ({ id, firstName, lastName, company, position, email, phoneNumber }))(contact))
     }

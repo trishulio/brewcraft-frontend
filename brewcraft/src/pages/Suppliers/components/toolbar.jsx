@@ -35,7 +35,7 @@ export default function ProductCategoriesToolbar() {
                     history.push("/suppliers/contacts");
                 }}
             >
-                    All Contacts
+                    Contacts
             </Button>
             <Input
                 bsSize="sm"

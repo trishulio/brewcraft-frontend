@@ -12,18 +12,16 @@ import Pagination from "./components/pagination";
 export default function Suppliers() {
     return (
         <React.Fragment>
-            <Row>
-                <Col xl="10">
-                    <Toolbar/>
-                    <Card>
-                        <CardBody className="py-2">
-                            <Pagination>
-                                <Table/>
-                            </Pagination>
-                        </CardBody>
-                    </Card>
-                </Col>
-            </Row>
+            <div style={{ maxWidth: "1024px" }}>
+                <Toolbar/>
+                <Card>
+                    <CardBody className="py-2">
+                        <Pagination>
+                            <Table/>
+                        </Pagination>
+                    </CardBody>
+                </Card>
+            </div>
         </React.Fragment>
     );
 }

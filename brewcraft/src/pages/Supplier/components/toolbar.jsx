@@ -16,7 +16,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
         <React.Fragment>
             <Button
                 type="button"
-                color="secondary"
+                color="primary"
                 size="sm"
                 className="waves-effect mr-2 mb-3"
                 onClick={onSave}
@@ -44,6 +44,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 className="waves-effect mr-2 mb-3"
                 disabled={editable}
                 hidden={!supplier.id || editable}
+                outline={true}
                 onClick={() => {
                     history.push({
                         pathname: "/suppliers/" + supplier.id,
@@ -51,22 +52,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                     });
                 }}
             >
-                Edit Supplier
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2 mb-3"
-                hidden={!supplier.id || editable}
-                onClick={() => {
-                    history.push({
-                        pathname: "/suppliers/new",
-                        search: "?edit=true"
-                    });
-                }}
-            >
-                New Supplier
+                Edit
             </Button>
             <Button
                 type="button"
@@ -75,6 +61,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 className="waves-effect mr-2 mb-3"
                 onClick={onDelete}
                 hidden={!supplier.id || !editable}
+                disabled={changed}
             >
                 Delete Supplier
             </Button>
@@ -90,6 +77,22 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 }}
             >
                 Suppliers
+            </Button>
+            <Button
+                type="button"
+                color="secondary"
+                size="sm"
+                className="waves-effect mr-2 mb-3"
+                hidden={!supplier.id || editable}
+                outline={true}
+                onClick={() => {
+                    history.push({
+                        pathname: "/suppliers/new",
+                        search: "?edit=true"
+                    });
+                }}
+            >
+                New Supplier
             </Button>
         </React.Fragment>
     );

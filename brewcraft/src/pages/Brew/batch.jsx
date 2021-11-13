@@ -20,7 +20,7 @@ export default function Batch(props) {
                 <MiniCard/>
             </div>}
             <BatchDetails {...props}/>
-            {props.batch.id && <Card style={{ maxWidth: "70rem" }}className="mb-3">
+            {props.batch.id && <Card style={{ maxWidth: "70rem" }} className="mb-3">
                 <CardHeader>
                     <div className="float-left">
                         <h4 className="card-title font-size-14 pt-1">Mash Lauter</h4>

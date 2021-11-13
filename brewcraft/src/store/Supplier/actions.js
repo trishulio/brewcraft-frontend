@@ -4,16 +4,22 @@ import {
     ADD_SUPPLIER_REQUEST,
     EDIT_SUPPLIER_REQUEST,
     DELETE_SUPPLIER_REQUEST,
-    RESET_SUPPLIER_DETAILS
+    RESET_SUPPLIER_DETAILS,
+    SET_SUPPLIER_ADDRESS_DETAILS
 } from "./actionTypes";
 
-export const fetchSupplierById = (payload) => ({
+export const fetchSupplierById = payload => ({
     type: FETCH_SUPPLIER_BY_ID_REQUEST,
     payload: payload,
   });
 
 export const setSupplierDetails = payload => ({
     type: SET_SUPPLIER_DETAILS,
+    payload: payload
+});
+
+export const setSupplierAddressDetails = payload => ({
+    type: SET_SUPPLIER_ADDRESS_DETAILS,
     payload: payload
 });
 

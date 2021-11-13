@@ -7,7 +7,8 @@ import {
     saveSupplier,
     editSupplier,
     deleteSupplier,
-    resetSupplierDetails
+    resetSupplierDetails,
+    setSupplierDetails
 } from "../../store/actions";
 import {
     useQuery
@@ -49,8 +50,8 @@ export default function Supplier() {
     });
 
     useEffect(() => {
+        dispatch(resetSupplierDetails());
         if (id === "new") {
-            dispatch(resetSupplierDetails());
             history.replace("/suppliers/new?edit=true");
         } else {
             dispatch(fetchSupplierById({ id } ));
@@ -62,39 +63,48 @@ export default function Supplier() {
     }, [id, editMode]);
 
     useEffect(() => {
-        if (supplier.id) {
-            dispatch(setBreadcrumbItems(supplier.name, [
+        if (initialSupplier.id) {
+            dispatch(setBreadcrumbItems(initialSupplier.name, [
                 { title: "Main", link: "#" },
-                { title: "Companies", link: "#" }]
+                { title: "Purchases", link: "#" },
+                { title: "Suppliers", link: "#" }]
             ));
         } else {
             dispatch(setBreadcrumbItems("New Supplier", [
                 { title: "Main", link: "#" },
-                { title: "Companies", link: "#" }]
+                { title: "Purchases", link: "#" },
+                { title: "Suppliers", link: "#" }]
             ));
         }
-        setChanged(isChanged());
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [initialSupplier]);
+
+    useEffect(() => {
+        setChanged(isChanged());
     }, [supplier]);
 
     function isChanged() {
         return JSON.stringify(
-                (({ id, name }) => ({ id, name }))(initialSupplier))
+                (({ id, name, address }) => ({ id, name, address }))(initialSupplier))
             !== JSON.stringify(
-                (({ id, name }) => ({ id, name }))(supplier))
+                (({ id, name, address }) => ({ id, name, address }))(supplier))
     }
 
     function onSave() {
-        if (invalidName || invalidAddressLine1 || invalidAddressLine2 || invalidCity
-            || invalidProvince || invalidPostalCode || invalidCountry)
-        {
-            return;
-        }
-        if (!isChanged()) {
-            history.push("/suppliers/" + id);
+        if (
+            invalidName
+            || invalidAddressLine1
+            || invalidAddressLine2
+            || invalidCity
+            || invalidProvince
+            || invalidPostalCode
+            || invalidCountry) {
 
-        } else if (supplier.id) {
+            dispatch(setSupplierDetails({
+                error: true
+            }));
+
+        } else if (isChanged() && supplier.id) {
             dispatch(
                 editSupplier({
                     id: supplier.id,
@@ -102,18 +112,15 @@ export default function Supplier() {
                         name: supplier.name,
                         address: {
                             id: supplier.addressId,
-                            addressLine1: supplier.addressLine1,
-                            addressLine2: supplier.addressLine2,
-                            city: supplier.city,
-                            province: supplier.province,
-                            postalCode: supplier.postalCode,
-                            country: supplier.country
+                            addressLine1: supplier.address.addressLine1,
+                            addressLine2: supplier.address.addressLine2,
+                            city: supplier.address.city,
+                            province: supplier.address.province,
+                            postalCode: supplier.address.postalCode,
+                            country: supplier.address.country
                         },
                         contacts: supplier.contacts,
                         version: supplier.version
-                    },
-                    success: supplier => {
-                        history.push("/suppliers/" + supplier.id);
                     }
                 })
             );
@@ -123,17 +130,14 @@ export default function Supplier() {
                     form: {
                         name: supplier.name,
                         address: {
-                            addressLine1: supplier.addressLine1,
-                            addressLine2: supplier.addressLine2,
-                            city: supplier.city,
-                            province: supplier.province,
-                            postalCode: supplier.postalCode,
-                            country: supplier.country
+                            addressLine1: supplier.address.addressLine1,
+                            addressLine2: supplier.address.addressLine2,
+                            city: supplier.address.city,
+                            province: supplier.address.province,
+                            postalCode: supplier.address.postalCode,
+                            country: supplier.address.country
                         },
                         contacts: []
-                    },
-                    success: supplier => {
-                        history.push("/suppliers/" + supplier.id);
                     }
                 })
             );
@@ -143,6 +147,13 @@ export default function Supplier() {
     function onDelete() {
         setShowDeletePrompt(!!supplier.id);
     }
+
+    const props = {
+        editable,
+        changed,
+        onSave,
+        onDelete
+    };
 
     return (
         <React.Fragment>
@@ -165,7 +176,7 @@ export default function Supplier() {
                     shouldBlockNavigation={() => editMode && isChanged()}
                     content="There are unsaved changes. Are you sure want to leave this page?"
                 />
-            <SupplierInner {...{editable, changed, onSave, onDelete}} />
+            <SupplierInner {...props}/>
         </React.Fragment>
     );
 }

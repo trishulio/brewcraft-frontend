@@ -13,63 +13,37 @@ import {
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
-import { snackFailure, snackSuccess } from "../Snackbar/actions";
 import { setGlobalRedirect } from "../Brewery/actions";
-
-function formatAddress(data) {
-    data.addressId = data.address?.id || "";
-    data.addressLine1 = data.address?.addressLine1 || "";
-    data.addressLine2 = data.address?.addressLine2 || "";
-    data.city = data.address?.city || "";
-    data.province = data.address?.province || "";
-    data.postalCode = data.address?.postalCode || "";
-    data.country = data.address?.country || "";
-    delete data.address;
-}
+import { snackSuccess } from "../Snackbar/actions";
 
 function* fetchSupplierByIdGenerator(action) {
     try {
         const res = yield call(api.fetchSupplierById,get(action, "payload.id"));
-        formatAddress(res.data);
-        res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: SET_SUPPLIER_DETAILS, payload: { data: res.data, initial: res.data }});
-        if (action.payload.success) {
-            yield call(action.payload.success, res.data);
-        }
+        yield put({ type: SET_SUPPLIER_DETAILS, payload: { error: true }});
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_SUPPLIER_DETAILS, payload: { error: true }});
     }
 }
 
 function* addSupplierGenerator(action) {
     try {
         const res = yield call(api.addSupplier, get(action, "payload.form"));
-        formatAddress(res.data);
-        res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: ADD_SUPPLIER_SUCCESS, payload: { data: res.data, initial: res.data }});
-        if (action.payload.success) {
-            yield call(action.payload.success, res.data);
-        }
-        yield put(snackSuccess());
+        yield put(setGlobalRedirect({ pathname: "/suppliers/" + res.data.id }));
+        yield put(snackSuccess("Supplier saved!"));
     } catch (e) {
-        yield put({ type: ADD_SUPPLIER_FAILURE });
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_SUPPLIER_DETAILS, payload: { error: true }});
     }
 }
 
 function* editSupplierGenerator(action) {
     try {
         const res = yield call(api.updateSupplier, get(action, "payload.id"), get(action, "payload.form"));
-        formatAddress(res.data);
-        res.initial = JSON.parse(JSON.stringify(res.data));
-        yield put({ type: EDIT_SUPPLIER_SUCCESS, payload: { data: res.data, initial: res.data }});
-        if (action.payload.success) {
-            yield call(action.payload.success, res.data);
-        }
-        yield put(snackSuccess());
+        yield put({ type: SET_SUPPLIER_DETAILS, payload: { data: res.data, initial: res.data }});
+        yield put(snackSuccess("Supplier saved!"));
     } catch (e) {
-        yield put({ type: EDIT_SUPPLIER_FAILURE });
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_SUPPLIER_DETAILS, payload: { error: true }});
     }
 }
 
@@ -77,10 +51,8 @@ function* deleteSupplierGenerator(action) {
     try {
         yield call(api.deleteSupplier, get(action, "payload.id"));
         yield put(setGlobalRedirect({ pathname: "/suppliers" }));
-        yield put(snackSuccess());
     } catch (e) {
-        yield put({ type: DELETE_SUPPLIER_FAILURE });
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_SUPPLIER_DETAILS, payload: { error: true }});
     }
 }
 

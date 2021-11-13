@@ -89,7 +89,7 @@ export default function SupplierContactToolbar({ editable, changed, onSave, onDe
                     history.push("/suppliers/contacts");
                 }}
             >
-                All Contacts
+                Contacts
             </Button>
         </React.Fragment>
     );
