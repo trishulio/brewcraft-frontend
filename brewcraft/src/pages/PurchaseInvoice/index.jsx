@@ -128,7 +128,7 @@ export default function PurchaseInvoice() {
                             amount: parseFloat(item.tax.amount.amount) || 0
                         }
                     },
-                    materialId: item.material.id,
+                    material: item.material,
                     lotNumber: item.lotNumber || undefined
                 }
             }),

@@ -131,7 +131,8 @@ const PurchaseInvoice = (state = initialState, { type, payload }) => {
                 data: {
                     ...state.data,
                     ...payload
-                }
+                },
+                loading: false
             };
         case SET_PURCHASE_INVOICE_SUPPLIER:
         case SET_PURCHASE_INVOICE_PURCHASE_ORDER:

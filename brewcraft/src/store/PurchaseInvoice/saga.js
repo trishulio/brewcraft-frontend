@@ -12,28 +12,16 @@ import {
     INVALID_PURCHASE_INVOICE_PAYMENT_DUE_DATE,
     SET_PURCHASE_INVOICE_INVOICE_NUMBER,
     SET_PURCHASE_INVOICE_INVOICE_DATE,
-    SET_PURCHASE_INVOICE_ERROR
+    SET_PURCHASE_INVOICE_ERROR,
+    SET_PURCHASE_INVOICE_ITEMS
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
-import { get, find } from "lodash";
+import { get, find, map } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
 import { setGlobalRedirect } from "../Brewery/actions";
 import { setPurchaseInvoiceError } from "./actions";
-
-function validId(id) {
-    return id
-        && ((Number.isInteger(id) && id > 0)
-            || (typeof id === "string" && id.trim().length > 0));
-}
-
-function validInvoiceNumber(invoiceNumber) {
-    return invoiceNumber && invoiceNumber.trim().length > 0;
-}
-
-function validDate(date) {
-    return !(!date || isNaN(Date.parse(date)));
-}
+import { validAmount, validDate, validId, validInvoiceNumber } from "../../helpers/utils";
 
 function validInvoice(invoice) {
     return validId(invoice.purchaseOrder.supplierId)
@@ -100,6 +88,18 @@ function* createPurchaseInvoiceGenerator(action) {
                     error: true
                 }
             });
+            const temp = get(action, "payload.form[0].procurementItems");
+            const items = [...temp];
+            map(items, (value, index) => {
+                items[index] = {
+                    ...items[index],
+                    invalidMaterial: !validId(value.material.id),
+                    invalidQuantity: !validAmount(value.quantity.value),
+                    invalidPrice: !validAmount(value.price.amount),
+                    invalidTax: !validAmount(value.tax.amount)
+                };
+            });
+            yield put({ type: SET_PURCHASE_INVOICE_ITEMS, payload: { items }});
         } else {
             let res;
             res = yield call(api.postProcurements, get(action, "payload.form"));
