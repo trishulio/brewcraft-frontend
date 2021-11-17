@@ -143,3 +143,10 @@ export const setInvalidPurchaseOrder = enabled => ({
         invalidPurchaseOrder: enabled
     }
 });
+
+export const setPurchaseInvoiceError = error => ({
+    type: SET_PURCHASE_INVOICE_DETAILS,
+    payload: {
+        ...error
+    }
+});

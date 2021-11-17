@@ -16,7 +16,12 @@ import {
     resetPurchaseInvoiceDetails,
     fetchAllSuppliers,
     fetchAllIngredients,
-    fetchAllPackaging
+    fetchAllPackaging,
+    setInvalidInvoiceSupplier,
+    setInvalidInvoiceDate,
+    setInvalidDueDate,
+    setInvalidInvoiceNumber,
+    setPurchaseInvoiceError
 } from "../../store/actions";
 import PurchaseInvoiceInner from "./invoice";
 
@@ -35,7 +40,11 @@ export default function PurchaseInvoice() {
     const {
         data: invoice,
         initial: initialInvoice,
-        invalidInvoiceNumber
+        invalidSupplier,
+        invalidGeneratedOn,
+        invalidInvoiceNumber,
+        invalidPaymentDueDate,
+        invalidPurchaseOrder
     } = useSelector(state => {
         return state.PurchaseInvoice;
     });
@@ -87,13 +96,10 @@ export default function PurchaseInvoice() {
     }
 
     function onSave() {
-        if (invalidInvoiceNumber) {
-            return;
-        }
         if (!isChanged()) {
-            history.push("/purchases/invoices/" + id);
-            return
-
+            history.push({
+                search: ""
+            });
         } else {
             _save();
         }
@@ -195,6 +201,13 @@ export default function PurchaseInvoice() {
         setShowDeletePrompt(!!invoice.id);
     }
 
+    const props = {
+        editable,
+        changed,
+        onSave,
+        onDelete
+    }
+
     return (
         <React.Fragment>
             <DeleteGuard
@@ -216,7 +229,7 @@ export default function PurchaseInvoice() {
                     shouldBlockNavigation={() => editMode && isChanged()}
                     content="There are unsaved changes. Are you sure want to leave this page?"
                 />
-            <PurchaseInvoiceInner {...{editable, changed, onSave, onDelete}} />
+            <PurchaseInvoiceInner {...props} />
         </React.Fragment>
     );
 }

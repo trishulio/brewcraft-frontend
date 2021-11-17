@@ -1,9 +1,15 @@
 import React from "react";
 import Toolbar from "./components/toolbar";
 import Invoice from "./components/invoice";
-import { Col, Row } from "reactstrap";
+import { Alert } from "reactstrap";
+import { useSelector } from "react-redux";
 
 export default function PurchaseInvoice({ editable, changed, onSave, onDelete }) {
+
+    const error = useSelector(state => {
+        return state.PurchaseInvoice.error
+    })
+
     return (
         <React.Fragment>
             <Toolbar
@@ -12,11 +18,14 @@ export default function PurchaseInvoice({ editable, changed, onSave, onDelete })
                 onSave={onSave}
                 onDelete={onDelete}
             />
-            <Row>
-                <Col xl={10}>
-                    <Invoice editable={editable} />
-                </Col>
-            </Row>
+            <div style={{ maxWidth: "1200px" }}>
+                {error &&
+                    <Alert color="info" className="mt-2 mb-4">
+                        <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                    </Alert>
+                }
+                <Invoice editable={editable} />
+            </div>
         </React.Fragment>
     );
 }
