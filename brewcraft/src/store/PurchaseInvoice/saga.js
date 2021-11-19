@@ -6,22 +6,21 @@ import {
     DELETE_PURCHASE_INVOICE,
     INVALID_PURCHASE_INVOICE_SUPPLIER,
     INVALID_PURCHASE_INVOICE_GENERATED_ON,
-    SET_PURCHASE_INVOICE_DUE_DATE,
     INVALID_PURCHASE_INVOICE_INVOICE_NUMBER,
-    SET_PURCHASE_INVOICE_SUPPLIER,
     INVALID_PURCHASE_INVOICE_PAYMENT_DUE_DATE,
+    SET_PURCHASE_INVOICE_DUE_DATE,
+    SET_PURCHASE_INVOICE_SUPPLIER,
     SET_PURCHASE_INVOICE_INVOICE_NUMBER,
     SET_PURCHASE_INVOICE_INVOICE_DATE,
     SET_PURCHASE_INVOICE_ERROR,
     SET_PURCHASE_INVOICE_ITEMS
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
-import { api } from "./api";
-import { get, find, map } from "lodash";
-import { snackFailure, snackSuccess } from "../Snackbar/actions";
-import { setGlobalRedirect } from "../Brewery/actions";
-import { setPurchaseInvoiceError } from "./actions";
+import { get, map } from "lodash";
 import { validAmount, validDate, validId, validInvoiceNumber } from "../../helpers/utils";
+import { snackSuccess } from "../Snackbar/actions";
+import { setGlobalRedirect } from "../Brewery/actions";
+import { api } from "./api";
 
 function validInvoice(invoice) {
     return validId(invoice.purchaseOrder.supplierId)
@@ -38,8 +37,8 @@ function* validatePurchaseInvoiceSupplierGenerator(action) {
 }
 
 function* validatePurchaseInvoiceInvoiceNumberGenerator(action) {
-    yield put({ type:
-        INVALID_PURCHASE_INVOICE_INVOICE_NUMBER,
+    yield put({
+        type: INVALID_PURCHASE_INVOICE_INVOICE_NUMBER,
         payload: { invalidInvoiceNumber: !validInvoiceNumber(get(action, "payload.invoiceNumber")) }
     });
 }
@@ -58,7 +57,6 @@ function* validatePurchaseInvoicePaymentDateDueGenerator(action) {
     });
 }
 
-
 function* fetchPurchaseInvoiceByIdGenerator(action) {
     try {
         const res = yield call(api.fetchPurchaseInvoiceById, get(action, "payload"));
@@ -71,7 +69,7 @@ function* fetchPurchaseInvoiceByIdGenerator(action) {
         delete data.invoiceItems;
         yield put({ type: SET_PURCHASE_INVOICE_DETAILS, payload: { data: data, initial: data } });
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_PURCHASE_INVOICE_ERROR, payload: { error: true }});
     }
 }
 
@@ -84,8 +82,7 @@ function* createPurchaseInvoiceGenerator(action) {
                     invalidInvoiceNumber: !validInvoiceNumber(get(action, "payload.form[0].invoiceNumber")),
                     invalidSupplier: !validId(get(action, "payload.form[0].purchaseOrder.supplierId")),
                     invalidGeneratedOn: !validDate(get(action, "payload.form[0].generatedOn")),
-                    invalidPaymentDueDate: !validDate(get(action, "payload.form[0].paymentDueDate")),
-                    error: true
+                    invalidPaymentDueDate: !validDate(get(action, "payload.form[0].paymentDueDate"))
                 }
             });
             const temp = get(action, "payload.form[0].procurementItems");
@@ -96,10 +93,11 @@ function* createPurchaseInvoiceGenerator(action) {
                     invalidMaterial: !validId(value.material.id),
                     invalidQuantity: !validAmount(value.quantity.value),
                     invalidPrice: !validAmount(value.price.amount),
-                    invalidTax: !validAmount(value.tax.amount)
+                    invalidTax: !validAmount(value.tax.amount.amount)
                 };
             });
             yield put({ type: SET_PURCHASE_INVOICE_ITEMS, payload: { items }});
+            yield put({ type: SET_PURCHASE_INVOICE_ERROR, payload: { error: true }});
         } else {
             let res;
             res = yield call(api.postProcurements, get(action, "payload.form"));
@@ -108,7 +106,7 @@ function* createPurchaseInvoiceGenerator(action) {
                 items: res.data[0].procurementItems
             }
             delete data.procurementItems;
-            yield put({ type: SET_PURCHASE_INVOICE_DETAILS, payload: { data: data, initial: data } });
+            yield put({ type: SET_PURCHASE_INVOICE_DETAILS, payload: { data: data, initial: data, error: false } });
             yield put(setGlobalRedirect({ pathname: "/purchases/invoices/" + res.data.id }));
         }
     } catch (e) {
@@ -129,7 +127,7 @@ function* udpatePurchaseInvoiceGenerator(action) {
         yield put({ type: SET_PURCHASE_INVOICE_DETAILS, payload: { data: data, initial: data } });
         yield put(snackSuccess(`Updated purchase invoice ${get(action, "payload.form.name")}.`));
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_PURCHASE_INVOICE_ERROR, payload: { error: true }});
     }
 }
 
@@ -139,7 +137,7 @@ function* deletePurchaseInvoiceGenerator(action) {
         yield put(setGlobalRedirect({ pathname: "/purchases/invoices" }));
         yield put(snackSuccess("Deleted purchase invoice."));
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_PURCHASE_INVOICE_ERROR, payload: { error: true }});
     }
 }
 

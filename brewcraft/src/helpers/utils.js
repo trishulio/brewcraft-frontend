@@ -21,7 +21,7 @@ export function validId(id) {
 }
 
 export function validAmount(quantity) {
-    return quantity
+    return (quantity || quantity === 0)
         && (Number.isInteger(quantity) || isFloat(quantity))
         && quantity >= 0
 }

@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 export default function PurchaseInvoice({ editable, changed, onSave, onDelete }) {
 
     const error = useSelector(state => {
-        return state.PurchaseInvoice.error
+        return state.PurchaseInvoice.error;
     })
 
     return (

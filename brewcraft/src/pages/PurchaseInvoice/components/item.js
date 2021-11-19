@@ -152,7 +152,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             <Input
                                 type="text"
                                 name="purchaseInvoiceItemQuantity"
-                                value={item.quantity.value}
+                                value={item.quantity?.value || ""}
                                 onChange={changeevent}
                                 hidden={!editable}
                                 invalid={item.invalidQuantity}
@@ -165,7 +165,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             </FormFeedback>
                         </FormGroup>
                         <div hidden={editable}>
-                            {item.quantity.value|| "-"}
+                            {item.quantity.value || "-"}
                         </div>
                     </Col>
                     <Col xs="1">
@@ -173,7 +173,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             <Input
                                 type="text"
                                 name="purchaseInvoiceItemPrice"
-                                value={item.price.amount}
+                                value={item.price?.amount || ""}
                                 onChange={changeevent}
                                 hidden={!editable}
                                 invalid={item.invalidPrice}
@@ -194,7 +194,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             <Input
                                 type="text"
                                 name="purchaseInvoiceItemTax"
-                                value={item.tax.amount.amount}
+                                value={item.tax.amount?.amount || ""}
                                 onChange={changeevent}
                                 hidden={!editable}
                                 invalid={item.invalidTax}

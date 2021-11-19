@@ -132,7 +132,8 @@ const PurchaseInvoice = (state = initialState, { type, payload }) => {
                     ...state.data,
                     ...payload
                 },
-                loading: false
+                loading: false,
+                error: null
             };
         case SET_PURCHASE_INVOICE_SUPPLIER:
         case SET_PURCHASE_INVOICE_PURCHASE_ORDER:
@@ -144,7 +145,8 @@ const PurchaseInvoice = (state = initialState, { type, payload }) => {
                         ...state.data.purchaseOrder,
                         ...payload
                     }
-                }
+                },
+                loading: false
             };
         case RESET_PURCHASE_INVOICE_DETAILS:
             return {
@@ -155,8 +157,7 @@ const PurchaseInvoice = (state = initialState, { type, payload }) => {
         default:
         return {
             ...state,
-            loading: true,
-            error: null,
+            loading: true
         };
     }
 };

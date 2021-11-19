@@ -125,7 +125,7 @@ export default function PurchaseInvoice() {
                     tax: {
                         amount: {
                             currency: "CAD",
-                            amount: parseFloat(item.tax.amount.amount) || 0
+                            amount: parseFloat(item.tax.amount.amount)
                         }
                     },
                     material: item.material,
@@ -178,7 +178,7 @@ export default function PurchaseInvoice() {
                                 tax: {
                                     amount: {
                                         currency: "CAD",
-                                        amount: parseFloat(item.tax.amount.amount) || 0
+                                        amount: parseFloat(item.tax.amount.amount)
                                     }
                                 },
                                 materialId: item.material.id,
