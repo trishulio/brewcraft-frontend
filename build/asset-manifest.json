@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4befd6f8.chunk.css",
+    "main.js": "/static/js/main.c3396edf.chunk.js",
+    "main.js.map": "/static/js/main.c3396edf.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.62224a0e.js",
+    "runtime-main.js.map": "/static/js/runtime-main.62224a0e.js.map",
+    "static/css/2.e9cd5a53.chunk.css": "/static/css/2.e9cd5a53.chunk.css",
+    "static/js/2.d935bba5.chunk.js": "/static/js/2.d935bba5.chunk.js",
+    "static/js/2.d935bba5.chunk.js.map": "/static/js/2.d935bba5.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.d0d6f082deed0d848e4b886ed261e67e.js": "/precache-manifest.d0d6f082deed0d848e4b886ed261e67e.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.e9cd5a53.chunk.css.map": "/static/css/2.e9cd5a53.chunk.css.map",
+    "static/css/main.4befd6f8.chunk.css.map": "/static/css/main.4befd6f8.chunk.css.map",
+    "static/js/2.d935bba5.chunk.js.LICENSE.txt": "/static/js/2.d935bba5.chunk.js.LICENSE.txt",
+    "static/media/theme.scss": "/static/media/typicons.a509074c.eot",
+    "static/media/brewcraft-logo.png": "/static/media/brewcraft-logo.d90d8944.png",
+    "static/media/delicous-ipa.jpg": "/static/media/delicous-ipa.138da970.jpg",
+    "static/media/fantastic-lager.jpg": "/static/media/fantastic-lager.f025b413.jpg",
+    "static/media/layout-1.jpg": "/static/media/layout-1.abc3d744.jpg",
+    "static/media/layout-2.jpg": "/static/media/layout-2.c4f463cb.jpg",
+    "static/media/layout-3.jpg": "/static/media/layout-3.686d8f21.jpg",
+    "static/media/special-ale.jpg": "/static/media/special-ale.ece3b0b1.jpg",
+    "static/media/warm-stout.jpg": "/static/media/warm-stout.bd9b2035.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.62224a0e.js",
+    "static/css/2.e9cd5a53.chunk.css",
+    "static/js/2.d935bba5.chunk.js",
+    "static/css/main.4befd6f8.chunk.css",
+    "static/js/main.c3396edf.chunk.js"
+  ]
+}

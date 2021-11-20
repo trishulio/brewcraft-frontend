@@ -1,4 +1,0 @@
-export const SNACK_FAILURE = "SNACK_FAILURE";
-export const SNACK_SUCCESS = "SNACK_SUCCESS";
-export const SNACK_WARNING = "SNACK_WARNING";
-export const SNACK_INFO = "SNACK_INFO";

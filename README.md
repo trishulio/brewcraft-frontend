@@ -30,3 +30,5 @@ password: Freebeer1!
 
 ## Contact
 [northstar8888@protonmail.com](mailto:northstar8888@protonmail.com?subject=[GitHub]%20Hi)
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
