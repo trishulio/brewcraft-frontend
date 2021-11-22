@@ -7,7 +7,7 @@ export function useQuery() {
 
 export function isValidName(name) {
     return typeof name === "string"
-        && name.timr().length > 0;
+        && name.trim().length > 0;
 }
 
 export function isValidCountry(country) {
