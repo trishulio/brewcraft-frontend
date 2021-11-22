@@ -45,11 +45,11 @@ function* addBatchGenerator(action) {
             statusId: 1
         }, {
             brewId: res.data.id,
-            taskId: 7, // transfer
+            taskId: 6, // transfer
             statusId: 1
         }, {
             brewId: res.data.id,
-            taskId: 8, // ferment
+            taskId: 7, // ferment
             statusId: 1
         }, {
             brewId: res.data.id,
@@ -57,7 +57,7 @@ function* addBatchGenerator(action) {
             statusId: 1
         }, {
             brewId: res.data.id,
-            taskId: 9, // storage
+            taskId: 8, // storage
             statusId: 1
         }]);
         resMixture = yield call(api.addMixture, {
