@@ -19,7 +19,6 @@ import {
 import { isValidName } from "../../../helpers/utils";
 
 export default function SupplierDetails({ editable }) {
-
     const dispatch = useDispatch();
 
     const {
@@ -39,6 +38,9 @@ export default function SupplierDetails({ editable }) {
         return state.Supplier.data;
     });
 
+    const validatePostalCode=(code)=>{
+        return (/^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i.exec(code) ? true : false)
+    }
     function onFormInputChange(e) {
         switch(e.target.name) {
             case "supplierName":
@@ -86,8 +88,9 @@ export default function SupplierDetails({ editable }) {
                 dispatch(setSupplierAddressDetails({
                     postalCode: e.target.value
                 }));
+                const checkPostalCode=validatePostalCode(e.target.value)
                 dispatch(setSupplierDetails({
-                    invalidPostalCode: typeof e.target.value !== "string"
+                    invalidPostalCode: typeof e.target.value !== "string" && (supplier.address.country.toLower() === "canada" ? checkPostalCode : true)
                 }));
                 break;
             case "supplierAddressCountry":
