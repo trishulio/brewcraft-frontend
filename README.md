@@ -24,8 +24,8 @@ npm run start
 
 ## Auth
 ```
-user: admin
-password: Freebeer1!
+user: westcoast
+password: Password123$
 ```
 
 ## Contact
