@@ -37,7 +37,7 @@ export default function PackagingItem() {
         return state.PackagingItem.initial;
     });
 
-    const { invalidName } = useSelector(state => {
+    const { invalidName, invalidUpc, invalidCategory } = useSelector(state => {
         return state.PackagingItem
     });
 
@@ -82,7 +82,7 @@ export default function PackagingItem() {
     }
 
     function onSave() {
-        if (invalidName) {
+        if (invalidName || invalidUpc || invalidCategory) {
             return;
         }
         if (!isChanged()) {

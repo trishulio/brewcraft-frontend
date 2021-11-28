@@ -39,7 +39,6 @@ function* addIngredientGenerator(action) {
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: ADD_INGREDIENT_FAILURE });
-        yield put(snackFailure("Something went wrong please try again."));
     }
 }
 

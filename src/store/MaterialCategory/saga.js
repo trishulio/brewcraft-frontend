@@ -39,7 +39,6 @@ function* addCategoryGenerator(action) {
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: ADD_CATEGORY_FAILURE });
-        yield put(snackFailure());
     }
 }
 

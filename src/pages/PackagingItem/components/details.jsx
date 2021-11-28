@@ -13,7 +13,8 @@ import {
     setPackagingItemDetails,
     setPackagingItemInvalidName,
     setPackagingItemInvalidBaseQuantityUnit,
-    setPackagingItemInvalidCategory
+    setPackagingItemInvalidCategory,
+    setInvalidPackagingUpc
 } from "../../../store/actions";
 import {
     Card,
@@ -72,7 +73,7 @@ export default function PackagingItemDetails({ editable }) {
                 }));
                 break;
             case "packagingItemUpc":
-                // dispatch(setInvalidUpc(!e.target.value))
+                dispatch(setInvalidPackagingUpc(e.target.value))
                 dispatch(setPackagingItemDetails({
                     data: {
                         ...packagingItem,
@@ -116,7 +117,7 @@ export default function PackagingItemDetails({ editable }) {
                                 for="packagingItemName"
                                 className="mb-3"
                             >
-                                Name
+                                *Name
                             </Label>
                         </Col>
                         <Col xs="8">
@@ -147,7 +148,7 @@ export default function PackagingItemDetails({ editable }) {
                                 for="packagingItemCategory"
                                 className="mb-3"
                             >
-                                Category
+                                *Category
                             </Label>
                         </Col>
                         <Col xs="8">
@@ -190,7 +191,7 @@ export default function PackagingItemDetails({ editable }) {
                                 for="packagingItemBaseQuantityUnit"
                                 className="mb-3"
                             >
-                                Measure
+                                *Measure
                             </Label>
                         </Col>
                         <Col xs="8">

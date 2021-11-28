@@ -37,7 +37,7 @@ export default function Ingredient() {
         return state.Ingredient.initial;
     });
 
-    const { invalidName } = useSelector(state => {
+    const { invalidName, invalidUpc } = useSelector(state => {
         return state.Ingredient
     });
 
@@ -84,7 +84,7 @@ export default function Ingredient() {
     }
 
     function onSave() {
-        if (invalidName) {
+        if (invalidName || invalidUpc) {
             return;
         }
         if (!isChanged()) {

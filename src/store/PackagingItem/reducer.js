@@ -11,7 +11,8 @@ import {
     RESET_PACKAGING_ITEM_DETAILS,
     PACKAGING_ITEM_INVALID_NAME,
     PACKAGING_ITEM_INVALID_CATEGORY,
-    PACKAGING_ITEM_INVALID_BASE_QUANTITY_UNIT
+    PACKAGING_ITEM_INVALID_BASE_QUANTITY_UNIT,
+    PACKAGING_ITEM_INVALID_UPC
 } from "./actionTypes";
 
 const initialState = {
@@ -52,7 +53,7 @@ const PackagingItem = (state = initialState, { type, payload, data }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_PACKAGING_ITEM_REQUEST:
         case EDIT_PACKAGING_ITEM_REQUEST:
@@ -95,11 +96,12 @@ const PackagingItem = (state = initialState, { type, payload, data }) => {
         case PACKAGING_ITEM_INVALID_NAME:
         case PACKAGING_ITEM_INVALID_CATEGORY:
         case PACKAGING_ITEM_INVALID_BASE_QUANTITY_UNIT:
+        case PACKAGING_ITEM_INVALID_UPC:
             return {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: true
             };
         default:
         return {

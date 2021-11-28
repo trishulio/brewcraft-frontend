@@ -13,7 +13,8 @@ import {
     setIngredientDetails,
     setIngredientInvalidName,
     setIngredientInvalidBaseQuantityUnit,
-    setIngredientInvalidCategory
+    setIngredientInvalidCategory,
+    setIngredientInvalidUpc
 } from "../../../store/actions";
 import {
     Card,
@@ -72,7 +73,7 @@ export default function IngredientDetails({ editable }) {
                 }));
                 break;
             case "ingredientUpc":
-                // dispatch(setInvalidUpc(!e.target.value))
+                dispatch(setIngredientInvalidUpc(e.target.value))
                 dispatch(setIngredientDetails({
                     data: {
                         ...ingredient,
@@ -116,7 +117,7 @@ export default function IngredientDetails({ editable }) {
                                 for="ingredientName"
                                 className="mb-3"
                             >
-                                Name
+                                *Name
                             </Label>
                         </Col>
                         <Col xs="8">
@@ -147,7 +148,7 @@ export default function IngredientDetails({ editable }) {
                                 for="ingredientCategory"
                                 className="mb-3"
                             >
-                                Category
+                                *Category
                             </Label>
                         </Col>
                         <Col xs="8">
@@ -190,7 +191,7 @@ export default function IngredientDetails({ editable }) {
                                 for="ingredientBaseQuantityUnit"
                                 className="mb-3"
                             >
-                                Measure
+                                *Measure
                             </Label>
                         </Col>
                         <Col xs="8">
