@@ -42,7 +42,16 @@ export default function Batch() {
     const editMode = query.get("edit");
     const dispatch = useDispatch();
 
-    const { data: batch, initial: initialBatch, editable } = useSelector(state => {
+    const {
+        data: batch,
+        initial: initialBatch,
+        invalidBatchId,
+        invalidBatchStartedAt,
+        invalidBatchEndedAt,
+        invalidBatchProduct,
+        editable,
+        error
+    } = useSelector(state => {
         return state.Batch.Batch;
     });
 
@@ -115,7 +124,13 @@ export default function Batch() {
     }
 
     function onSave() {
-        if (!batchChanged) {
+        if (invalidBatchId
+            || invalidBatchStartedAt
+            || invalidBatchEndedAt
+            || invalidBatchProduct) {
+                dispatch(setBatchDetails({ error: true }));
+
+        } else if (!batchChanged) {
             dispatch(setBatchDetails({ save: true }));
 
         } else if (batch.id) {
@@ -166,6 +181,7 @@ export default function Batch() {
         setEditable,
         changed,
         setChanged,
+        error,
         onSave,
         onDelete,
         batch,
