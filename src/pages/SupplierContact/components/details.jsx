@@ -43,7 +43,6 @@ export default function SupplierContactDetails({ editable }) {
     const contact = useSelector(state => {
         return state.SupplierContact.data;
     });
-
     const dispatch = useDispatch();
     const validatePhoneNumber=(code)=>{
         return (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.exec(code) ? true : false)
@@ -58,7 +57,7 @@ export default function SupplierContactDetails({ editable }) {
           var intlCode = (match[1] ? '+1 ' : '');
           return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('');
         }
-        return null;
+        return phoneNumberString;
       }
     function onFormInputChange(e) {
         switch(e.target.name) {
@@ -222,7 +221,7 @@ export default function SupplierContactDetails({ editable }) {
                                 invalid={invalidLastName}
                             />
                             <FormFeedback>
-                                {contact.firstName.length > 0
+                                {contact.lastName.length > 0
                                     ? "Invalid contact name field"
                                     : "Contact name field must not be empty"
                                 }
@@ -275,7 +274,7 @@ export default function SupplierContactDetails({ editable }) {
                                 }
                             </Input>
                             <FormFeedback>
-                                {contact.firstName.length > 0
+                                {contact.supplier !==""
                                     ? "Invalid supplier field"
                                     : "Contact supplier field must not be empty"
                                 }
@@ -317,7 +316,7 @@ export default function SupplierContactDetails({ editable }) {
                                 invalid={invalidPosition}
                             />
                             <FormFeedback>
-                                {contact.firstName.length > 0
+                                {contact.position.length > 0
                                     ? "Invalid contact position field"
                                     : "Contact position field must not be empty"
                                 }
@@ -359,7 +358,7 @@ export default function SupplierContactDetails({ editable }) {
                                 invalid={invalidEmail}
                             />
                             <FormFeedback>
-                                {contact.firstName.length > 0
+                                {contact.email.length > 0
                                     ? "Invalid contact position field"
                                     : "Contact position field must not be empty"
                                 }
@@ -400,8 +399,9 @@ export default function SupplierContactDetails({ editable }) {
                                     onChange={onFormInputChange}
                                     invalid={invalidPhoneNumber}
                             />
+
                             <FormFeedback>
-                                {contact.firstName.length > 0
+                                {contact.phoneNumber.length > 0
                                     ? "Invalid contact phone field"
                                     : "Contact phone field must not be empty"
                                 }

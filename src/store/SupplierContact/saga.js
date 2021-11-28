@@ -14,7 +14,7 @@ import {
     SET_SUPPLIER_CONTACT_DETAILS
 } from "./actionTypes";
 import { api } from "./api";
-import { snackSuccess } from "../Snackbar/actions";
+import { snackSuccess , snackFailure } from "../Snackbar/actions";
 import { setGlobalRedirect } from "../Brewery/actions";
 
 function* fetchSupplierContactByIdGenerator(action) {
@@ -34,6 +34,7 @@ function* addSupplierContactGenerator(action) {
         yield put(snackSuccess("Supplier Contact saved!"));
     } catch (e) {
         yield put({ type: ADD_SUPPLIER_CONTACT_FAILURE });
+        yield put(snackFailure("Something went wrong when adding the supplier contact !! Please try again."));
     }
 }
 
@@ -44,6 +45,7 @@ function* editSupplierContactGenerator(action) {
         yield put(snackSuccess("Supplier Contact saved!"));
     } catch (e) {
         yield put({ type: EDIT_SUPPLIER_CONTACT_FAILURE });
+        yield put(snackFailure("Something went wrong when editing the supplier contact !! Please try again."));
     }
 }
 
@@ -53,6 +55,7 @@ function* deleteSupplierContactGenerator(action) {
         yield put(setGlobalRedirect({ pathname: "/suppliers/contacts" }));
     } catch (e) {
         yield put({ type: DELETE_SUPPLIER_CONTACT_FAILURE });
+        yield put(snackFailure("Something went wrong when deleting the supplier contact !! Please try again."));
     }
 }
 
