@@ -91,7 +91,7 @@ export default function MaterialCategory() {
                 editMaterialCategory({
                     id: materialCategory.id,
                     form: {
-                        name: materialCategory.name,
+                        name: materialCategory.name.trim(),
                         parentCategoryId: materialCategory.parentCategory.id,
                         version: materialCategory.version
                     },
