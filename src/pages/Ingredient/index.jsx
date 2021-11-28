@@ -109,7 +109,7 @@ export default function Ingredient() {
             dispatch(
                 saveIngredient({
                     form: {
-                        name: ingredient.name,
+                        name: ingredient.name.trim(),
                         description: ingredient.description,
                         categoryId: ingredient.category.id,
                         baseQuantityUnit: ingredient.baseQuantityUnit,
