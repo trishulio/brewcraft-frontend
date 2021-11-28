@@ -37,7 +37,7 @@ export default function MaterialCategory() {
         return state.MaterialCategory.initial;
     });
 
-    const { invalidName } = useSelector(state => {
+    const { invalidName, invalidParentCategory } = useSelector(state => {
         return state.MaterialCategory
     });
 
@@ -80,7 +80,7 @@ export default function MaterialCategory() {
     }
 
     function onSave() {
-        if (invalidName) {
+        if (invalidName || invalidParentCategory) {
             return;
         }
         if (!isChanged()) {
@@ -112,6 +112,7 @@ export default function MaterialCategory() {
                     }
                 })
             );
+            console.log("Material Cateogry", materialCategory.name, materialCategory.name.length)
         }
     }
 

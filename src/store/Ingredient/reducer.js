@@ -9,7 +9,9 @@ import {
     ADD_INGREDIENT_SUCCESS,
     SET_INGREDIENT_DETAILS,
     RESET_INGREDIENT_DETAILS,
-    SET_INGREDIENT_INVALID_CATEGORY
+    SET_INGREDIENT_INVALID_CATEGORY,
+    SET_INGREDIENT_INVALID_UNIT,
+    SET_INGREDIENT_INVALID_UPC
 } from "./actionTypes";
 
 const initialState = {
@@ -44,13 +46,14 @@ const initialState = {
 };
 
 const Ingredient = (state = initialState, { type, payload, data }) => {
+    console.log(`payload`, payload)
     switch(type) {
         case SET_INGREDIENT_DETAILS:
             return {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_INGREDIENT_REQUEST:
         case EDIT_INGREDIENT_REQUEST:
@@ -98,6 +101,20 @@ const Ingredient = (state = initialState, { type, payload, data }) => {
             return {
                 ...state,
                 invalidCategory: payload,
+                loading: false,
+                error: null
+            };
+        case SET_INGREDIENT_INVALID_UNIT:
+            return {
+                ...state,
+                invalidBaseQuantityUnit: payload,
+                loading: false,
+                error: null
+            };
+        case SET_INGREDIENT_INVALID_UPC:
+            return {
+                ...state,
+                invalidUpc: payload,
                 loading: false,
                 error: null
             };
