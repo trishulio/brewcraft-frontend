@@ -99,7 +99,6 @@ export default function PackagingItemDetails({ editable }) {
         }
     }
 
-    console.log(`categories`, categories)
     return (
         <React.Fragment>
             <Card>
@@ -189,7 +188,7 @@ export default function PackagingItemDetails({ editable }) {
                                             </option>
                                         ))
                                     }
-                                    <option key={categories.length + 1} value={ADD_NEW}>+ Add new</option>
+                                    <option key={categories.length} value={ADD_NEW}>+ Add new</option>
                                 </Input>
                                 <FormFeedback>Enter a valid packagingItem category.</FormFeedback>
                             </FormGroup>
