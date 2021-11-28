@@ -73,9 +73,6 @@ export default function BrewMash() {
             <div className="clearFix mb-3"></div>
             <div
                 className="px-2"
-                style={{
-                    maxWidth: "50rem"
-                }}
             >
                 <Ingredients {...ingredientsProps}/>
             </div>

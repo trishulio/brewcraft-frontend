@@ -29,7 +29,7 @@ export default function Batch(props) {
     return (
         <React.Fragment>
             {console.log(error)}
-            <div style={{ maxWidth: "70rem" }}>
+            <div style={{ maxWidth: "60rem" }}>
                 {error &&
                     <Alert color="info" className="mt-2 mb-4">
                         <strong>Oh snap!</strong> Change a few things up and try submitting again.
@@ -48,22 +48,18 @@ export default function Batch(props) {
                         <TabContent activeTab={activeTab}>
                             <TabPane tabId="brew">
                                 <Row className="text-center mt-4 pt-2">
-                                    <Col xs="3">
+                                    <Col xs="4">
                                         <h5 className="font-size-20">40.40 hl</h5>
-                                        <p className="text-muted">Final Volume (Wort)</p>
+                                        <p className="text-muted">Wort Volume</p>
                                     </Col>
-                                    <Col xs="3">
+                                    <Col xs="4">
                                         <h5 className="font-size-20">1.018</h5>
                                         <p className="text-muted">Original Gravity (Actual)</p>
                                     </Col>
-                                    <Col xs="3">
+                                    <Col xs="4">
                                         <h5 className="font-size-20">100.0</h5>
                                         <p className="text-muted">Yield</p>
                                     </Col>
-                                    {/* <Col xs="3">
-                                        <h5 className="font-size-20">$285.10</h5>
-                                        <p className="text-muted">Cost</p>
-                                    </Col> */}
                                 </Row>
                                 <Card className="mb-3">
                                     <CardHeader>
