@@ -112,7 +112,6 @@ export default function MaterialCategory() {
                     }
                 })
             );
-            console.log("Material Cateogry", materialCategory.name, materialCategory.name.length)
         }
     }
 

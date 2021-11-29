@@ -38,8 +38,6 @@ const initialState = {
 const MaterialCategory = (state = initialState, { type, payload, data }) => {
     switch(type) {
         case SET_MATERIAL_CATEGORY_DETAILS:
-            console.log(`PAYLOAD state`, state)
-            console.log(`PAYLOAD payload`, payload)
             return {
                 ...state,
                 ...payload,
