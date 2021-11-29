@@ -103,28 +103,28 @@ const Ingredient = (state = initialState, { type, payload, data }) => {
                 ...state,
                 invalidCategory: payload,
                 loading: false,
-                error: null
+                error: true
             };
         case SET_INGREDIENT_INVALID_NAME:
             return {
                 ...state,
                 invalidName: payload,
                 loading: false,
-                error: null
+                error: true
             };
         case SET_INGREDIENT_INVALID_UNIT:
             return {
                 ...state,
                 invalidBaseQuantityUnit: payload,
                 loading: false,
-                error: null
+                error: true
             };
         case SET_INGREDIENT_INVALID_UPC:
             return {
                 ...state,
                 invalidUpc: payload,
                 loading: false,
-                error: null
+                error: true
             };
         default:
         return {

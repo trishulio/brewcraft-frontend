@@ -120,7 +120,7 @@ const MaterialCategory = (state = initialState, { type, payload, data }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: true
             };
         default:
             return {
