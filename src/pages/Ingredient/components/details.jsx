@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import {
@@ -21,10 +21,15 @@ import {
     CardBody,
     CardHeader
 } from "../../../component/Common/Card";
+import MaterialCategoriesModal from "../../../component/MaterialCategories/modal";
 
 const ADD_NEW = "ADD_NEW";
+const MATERIAL_CATEGORY = "category";
 
 export default function IngredientDetails({ editable }) {
+    const [showPackageCategoryModal, setShowPackageCategoryModal] = useState(false);
+    const [modalPackageType, setModalPackageType] = useState(null);
+    const [modalParentCategoryId, setModalParentCategoryId] = useState(null);
 
     const { invalidName, invalidCategory, invalidBaseQuantityUnit, invalidUpc } = useSelector(state => {
         return state.Ingredient
@@ -165,7 +170,14 @@ export default function IngredientDetails({ editable }) {
                                     invalid={invalidCategory}
                                     value={ingredient.category?.id || ""}
                                     onChange={e => {
-                                        onFormInputChange(e);
+                                        if (e.target.value !== ADD_NEW) {
+                                            onFormInputChange(e);
+                                        }
+                                        else {
+                                            setModalPackageType(MATERIAL_CATEGORY);
+                                            setModalParentCategoryId(1);
+                                            setShowPackageCategoryModal(true);
+                                        }
                                     }}
                                 >
                                     <option value="">Select</option>
@@ -280,6 +292,12 @@ export default function IngredientDetails({ editable }) {
                     </Row>
                 </CardBody>
             </Card>
+            <MaterialCategoriesModal
+                show={showPackageCategoryModal}
+                parentCategoryId={modalParentCategoryId}
+                setShow={setShowPackageCategoryModal}
+                type={modalPackageType}
+            />
         </React.Fragment>
     );
 }

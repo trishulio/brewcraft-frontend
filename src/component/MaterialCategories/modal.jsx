@@ -9,13 +9,9 @@ import {
     ModalBody,
     ModalFooter
 } from "../Common/modal";
-// import {
-//     // fetchAllProductCategories,
-//     // createProductCategory,
-//     // setProductDetails
-// } from "../../store/actions"
+import { fetchAllMaterialCategories, saveMaterialCategory } from "../../store/actions";
 
-export default function PackageCategoriesModal({ show, setShow, type, parentCategoryId }) {
+export default function MaterialCategoriesModal({ show, setShow, type, parentCategoryId }) {
     const dispatch = useDispatch();
 
     function close() {
@@ -23,8 +19,18 @@ export default function PackageCategoriesModal({ show, setShow, type, parentCate
     }
 
     function onFormSubmit(e, values) {
-        // TO DO API Integration
-        console.log("Submit form", values)
+        dispatch(
+            saveMaterialCategory({
+                form: {
+                    name: values.name.trim(),
+                    parentCategoryId: parentCategoryId
+                },
+                success: () => {
+                    dispatch(fetchAllMaterialCategories());
+                    close();
+                }
+            }),
+        );
     }
 
     function formatTitle(type) {
@@ -45,7 +51,7 @@ export default function PackageCategoriesModal({ show, setShow, type, parentCate
             title={formatTitle(type)}
         >
             <ModalBody>
-                <AvForm onValidSubmit={onFormSubmit}>
+                <AvForm id="material-categories-modal-form" onValidSubmit={onFormSubmit}>
                     <AvField
                         name="name"
                         type="text"
@@ -56,7 +62,7 @@ export default function PackageCategoriesModal({ show, setShow, type, parentCate
                 </AvForm>
             </ModalBody>
             <ModalFooter>
-                <Button color="primary" type="submit">Save</Button>
+                <Button color="primary" type="submit" form="material-categories-modal-form">Save</Button>
             </ModalFooter>
         </Modal>
     );

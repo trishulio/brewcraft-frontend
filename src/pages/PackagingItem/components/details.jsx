@@ -21,10 +21,10 @@ import {
     CardBody,
     CardHeader
 } from "../../../component/Common/Card";
-import PackagesModal from "../../../component/ProductItem/modal";
+import MaterialCategoriesModal from "../../../component/MaterialCategories/modal";
 
 const ADD_NEW = "ADD_NEW";
-const PRODUCT_CATEGORY_CLASS = "category";
+const MATERIAL_CATEGORY = "category";
 
 export default function PackagingItemDetails({ editable }) {
     const [showPackageCategoryModal, setShowPackageCategoryModal] = useState(false);
@@ -174,8 +174,8 @@ export default function PackagingItemDetails({ editable }) {
                                             onFormInputChange(e);
                                         }
                                         else {
-                                            setModalPackageType(PRODUCT_CATEGORY_CLASS);
-                                            setModalParentCategoryId(null);
+                                            setModalPackageType(MATERIAL_CATEGORY);
+                                            setModalParentCategoryId(2);
                                             setShowPackageCategoryModal(true);
                                         }
                                     }}
@@ -292,7 +292,7 @@ export default function PackagingItemDetails({ editable }) {
                     </Row>
                 </CardBody>
             </Card>
-            <PackagesModal
+            <MaterialCategoriesModal
                 show={showPackageCategoryModal}
                 parentCategoryId={modalParentCategoryId}
                 setShow={setShowPackageCategoryModal}
