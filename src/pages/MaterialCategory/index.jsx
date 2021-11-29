@@ -8,7 +8,8 @@ import {
     editMaterialCategory,
     deleteMaterialCategory,
     fetchAllMaterialCategories,
-    resetMaterialCategoryDetails
+    resetMaterialCategoryDetails,
+    setInvalidMaterialCategoryName
 } from "../../store/actions";
 import {
     useQuery
@@ -101,6 +102,9 @@ export default function MaterialCategory() {
                 })
             );
         } else {
+            if (!materialCategory.name) {
+                return dispatch(setInvalidMaterialCategoryName(!materialCategory.name))
+            }
             dispatch(
                 saveMaterialCategory({
                     form: {

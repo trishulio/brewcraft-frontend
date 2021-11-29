@@ -8,7 +8,8 @@ import {
     editPackagingItem,
     deletePackagingItem,
     fetchAllMaterialCategories,
-    resetPackagingItemDetails
+    resetPackagingItemDetails,
+    setPackagingItemInvalidName
 } from "../../store/actions";
 import {
     useQuery
@@ -107,6 +108,9 @@ export default function PackagingItem() {
                 })
             );
         } else {
+            if (!packagingItem.name) {
+                return dispatch(setPackagingItemInvalidName(!packagingItem.name));
+            }
             dispatch(
                 savePackagingItem({
                     form: {

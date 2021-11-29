@@ -11,7 +11,8 @@ import {
     RESET_INGREDIENT_DETAILS,
     SET_INGREDIENT_INVALID_CATEGORY,
     SET_INGREDIENT_INVALID_UNIT,
-    SET_INGREDIENT_INVALID_UPC
+    SET_INGREDIENT_INVALID_UPC,
+    SET_INGREDIENT_INVALID_NAME
 } from "./actionTypes";
 
 const initialState = {
@@ -101,6 +102,13 @@ const Ingredient = (state = initialState, { type, payload, data }) => {
             return {
                 ...state,
                 invalidCategory: payload,
+                loading: false,
+                error: null
+            };
+        case SET_INGREDIENT_INVALID_NAME:
+            return {
+                ...state,
+                invalidName: payload,
                 loading: false,
                 error: null
             };
