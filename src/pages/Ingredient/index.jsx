@@ -9,7 +9,10 @@ import {
     deleteIngredient,
     fetchAllMaterialCategories,
     resetIngredientDetails,
-    setIngredientInvalidName
+    setIngredientInvalidName,
+    setIngredientInvalidCategory,
+    setIngredientInvalidBaseQuantityUnit,
+    setIngredientInvalidUpc
 } from "../../store/actions";
 import {
     useQuery
@@ -108,8 +111,15 @@ export default function Ingredient() {
             );
         } else {
             if (!ingredient.name) {
-                return dispatch(setIngredientInvalidName(!ingredient.name))
+                return dispatch(setIngredientInvalidName(!ingredient.name));
+            } else if (!ingredient.category) {
+                return dispatch(setIngredientInvalidCategory(!ingredient.category));
+            } else if (!ingredient.baseQuantityUnit) {
+                return dispatch(setIngredientInvalidBaseQuantityUnit(!ingredient.baseQuantityUnit))
+            } else if (ingredient.upc && ingredient.upc.length > 12) {
+                return dispatch(setIngredientInvalidUpc(ingredient.upc))
             }
+
             dispatch(
                 saveIngredient({
                     form: {

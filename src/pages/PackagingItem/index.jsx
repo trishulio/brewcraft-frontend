@@ -9,7 +9,10 @@ import {
     deletePackagingItem,
     fetchAllMaterialCategories,
     resetPackagingItemDetails,
-    setPackagingItemInvalidName
+    setPackagingItemInvalidName,
+    setPackagingItemInvalidCategory,
+    setPackagingItemInvalidBaseQuantityUnit,
+    setInvalidPackagingUpc
 } from "../../store/actions";
 import {
     useQuery
@@ -110,7 +113,14 @@ export default function PackagingItem() {
         } else {
             if (!packagingItem.name) {
                 return dispatch(setPackagingItemInvalidName(!packagingItem.name));
+            } else if (!packagingItem.category) {
+                return dispatch(setPackagingItemInvalidCategory(!packagingItem.category))
+            } else if (!packagingItem.baseQuantityUnit) {
+                return dispatch(setPackagingItemInvalidBaseQuantityUnit(!packagingItem.baseQuantityUnit))
+            } else if (packagingItem.upc && packagingItem.upc.length > 12) {
+                return dispatch(setInvalidPackagingUpc(packagingItem.upc))
             }
+
             dispatch(
                 savePackagingItem({
                     form: {
