@@ -14,6 +14,10 @@ export default function MixtureRecordings(props) {
         return state.Batch.TransferMixtureRecordings;
     });
 
+    const { content: kettleMixtureRecordings, initial: transferKettleMixtureRecordings } = useSelector(state => {
+        return state.Batch.TransferMixtureRecordings;
+    });
+
     useEffect(() => {
         if (batch.id) {
             dispatch(fetchMixtureRecordingsByBrewId(batch.id));
@@ -23,7 +27,7 @@ export default function MixtureRecordings(props) {
     useEffect(() => {
         props.setMixtureRecordingsChanged(isChanged());
 
-    }, [transferMixtureRecordings]);
+    }, [transferMixtureRecordings, kettleMixtureRecordings]);
 
     useEffect(() => {
         if (save) {

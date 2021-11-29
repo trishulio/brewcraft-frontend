@@ -37,7 +37,7 @@ export default function PackagingItem() {
         return state.PackagingItem.initial;
     });
 
-    const { invalidName } = useSelector(state => {
+    const { invalidName, invalidUpc, invalidCategory } = useSelector(state => {
         return state.PackagingItem
     });
 
@@ -82,7 +82,7 @@ export default function PackagingItem() {
     }
 
     function onSave() {
-        if (invalidName) {
+        if (invalidName || invalidUpc || invalidCategory) {
             return;
         }
         if (!isChanged()) {
@@ -93,7 +93,7 @@ export default function PackagingItem() {
                 editPackagingItem({
                     id: packagingItem.id,
                     form: {
-                        name: packagingItem.name,
+                        name: packagingItem.name.trim(),
                         description: packagingItem.description,
                         categoryId: packagingItem.category.id,
                         baseQuantityUnit: packagingItem.baseQuantityUnit,
@@ -110,7 +110,7 @@ export default function PackagingItem() {
             dispatch(
                 savePackagingItem({
                     form: {
-                        name: packagingItem.name,
+                        name: packagingItem.name.trim(),
                         description: packagingItem.description,
                         categoryId: packagingItem.category.id,
                         baseQuantityUnit: packagingItem.baseQuantityUnit,

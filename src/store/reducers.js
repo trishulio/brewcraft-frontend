@@ -47,6 +47,8 @@ import {
   FermentMixture
 } from "./Mixture/reducer";
 import {
+  KettleMixtureRecordings,
+  WhirlpoolMixtureRecordings,
   TransferMixtureRecordings,
   FermentMixtureRecordings
 } from "./MixtureRecording/reducer";
@@ -75,8 +77,10 @@ const rootReducer = combineReducers({
     KettleStage,
     KettleMixture,
     KettleMaterialPortion,
+    KettleMixtureRecordings,
     WhirlpoolStage,
     WhirlpoolMixture,
+    WhirlpoolMixtureRecordings,
     TransferStage,
     TransferMixture,
     TransferMixtureRecordings,

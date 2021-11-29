@@ -6,7 +6,9 @@ import {
     DELETE_INGREDIENT_REQUEST,
     RESET_INGREDIENT_DETAILS,
     SET_INGREDIENT_INVALID_NAME,
-    SET_INGREDIENT_INVALID_CATEGORY
+    SET_INGREDIENT_INVALID_CATEGORY,
+    SET_INGREDIENT_INVALID_UNIT,
+    SET_INGREDIENT_INVALID_UPC
 } from "./actionTypes";
 
 export const fetchIngredientById = id => ({
@@ -50,6 +52,11 @@ export const setIngredientInvalidCategory = value => ({
 });
 
 export const setIngredientInvalidBaseQuantityUnit = value => ({
-    type: SET_INGREDIENT_INVALID_CATEGORY,
+    type: SET_INGREDIENT_INVALID_UNIT,
     payload: value
+});
+
+export const setIngredientInvalidUpc = value => ({
+    type: SET_INGREDIENT_INVALID_UPC,
+    payload: value.length > 12
 });

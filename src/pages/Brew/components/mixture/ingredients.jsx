@@ -40,14 +40,15 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                             <th>Category</th>
                             <th>Lot Number</th>
                             <th>Quantity</th>
-                            <th>Cost</th>
+                            {/* <th>Cost</th> */}
                         </tr>
                     </thead>
                     <tbody>
                     {
                         !materialPortions.length && (
                             <tr>
-                                <td></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                {/* <td></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td> */}
+                                <td></td><td>-</td><td>-</td><td>-</td><td>-</td>
                             </tr>
                         )
                     }
@@ -78,13 +79,13 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                                 <td>{portion.materialLot.invoiceItem.material.category?.name}</td>
                                 <td>{portion.materialLot.lotNumber}</td>
                                 <td>{portion.quantity.value} {portion.quantity.symbol}</td>
-                                <td>{
+                                {/* <td>{
                                     formatCurrency(
                                         portion.materialLot.invoiceItem.amount?.amount
                                         / portion.materialLot.invoiceItem.quantity?.value
                                         * portion.quantity.value
                                     )
-                                }</td>
+                                }</td> */}
                             </tr>
                         ))
                     }
@@ -103,13 +104,13 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                         style={{ width: "14rem" }}
                         value={selectedLot.id || ""}
                         onChange={e => {
-                            const materialLot = materialLots.find (s => s.id === parseInt(e.target.value));
-                            setSelectedLot(materialLot);
+                            // const materialLot = materialLots.find (s => s.id === parseInt(e.target.value));
+                            // setSelectedLot(materialLot);
                         }}
                     >
                         <option value="">Ingredient</option>
                         {
-                            map(materialLots, (value, index) => (
+                            false && map(materialLots, (value, index) => (
                                 <option value={value.id} key={index}>
                                     {value.material.name} ({value.quantity.value}{value.quantity.symbol})
                                 </option>

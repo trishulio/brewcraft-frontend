@@ -7,7 +7,8 @@ import {
     RESET_PACKAGING_ITEM_DETAILS,
     PACKAGING_ITEM_INVALID_NAME,
     PACKAGING_ITEM_INVALID_CATEGORY,
-    PACKAGING_ITEM_INVALID_BASE_QUANTITY_UNIT
+    PACKAGING_ITEM_INVALID_BASE_QUANTITY_UNIT,
+    PACKAGING_ITEM_INVALID_UPC
 } from "./actionTypes";
 
 export const fetchPackagingItemById = payload => ({
@@ -52,5 +53,10 @@ export const setPackagingItemInvalidCategory = value => ({
 
 export const setPackagingItemInvalidBaseQuantityUnit = value => ({
     type: PACKAGING_ITEM_INVALID_BASE_QUANTITY_UNIT,
-    payload: { invakidBaseQuantityUnit: value }
+    payload: { invalidBaseQuantityUnit: value }
+});
+
+export const setInvalidPackagingUpc = value => ({
+    type: PACKAGING_ITEM_INVALID_UPC,
+    payload: { invalidUpc: value.length > 12 }
 });

@@ -52,19 +52,7 @@ export default function Toolbar({ editable, setEditable, changed, onSave, onDele
             </Button>
             <Button
                 type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2  mb-2"
-                onClick={() => {
-                    history.goBack();
-                }}
-                hidden={!editable}
-            >
-                Cancel
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
+                color="primary"
                 size="sm"
                 className="waves-effect mr-2 mb-2"
                 onClick={onSave}
@@ -72,6 +60,18 @@ export default function Toolbar({ editable, setEditable, changed, onSave, onDele
                 hidden={!editable}
             >
                     Save
+            </Button>
+            <Button
+                type="button"
+                color="secondary"
+                size="sm"
+                className="waves-effect mr-2  mb-2"
+                onClick={() => {
+                    history.goBack();
+                }}
+                hidden={!editable || !batch.id}
+            >
+                Cancel
             </Button>
             <Button
                 type="button"

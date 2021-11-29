@@ -103,13 +103,13 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                         style={{ width: "14rem" }}
                         value={selectedLot.id || ""}
                         onChange={e => {
-                            const materialLot = materialLots.find (s => s.id === parseInt(e.target.value));
-                            setSelectedLot(materialLot);
+                            // const materialLot = materialLots.find (s => s.id === parseInt(e.target.value));
+                            // setSelectedLot(materialLot);
                         }}
                     >
                         <option value="">Ingredient</option>
                         {
-                            map(materialLots, (value, index) => (
+                            false && map(materialLots, (value, index) => (
                                 <option value={value.id} key={index}>
                                     {value.material.name} ({value.quantity.value}{value.quantity.symbol})
                                 </option>

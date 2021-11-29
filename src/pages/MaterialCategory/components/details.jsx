@@ -87,7 +87,7 @@ export default function MaterialCategoryDetails({ editable }) {
                                 for="materialCategoryName"
                                 className="mb-3"
                             >
-                                Name
+                                *Name
                             </Label>
                         </Col>
                         <Col xs="8">
@@ -118,7 +118,7 @@ export default function MaterialCategoryDetails({ editable }) {
                                 for="materialCategoryParentCategory"
                                 className="mb-3"
                             >
-                                Parent Category
+                                *Parent Category
                             </Label>
                         </Col>
                         <Col xs="8">
