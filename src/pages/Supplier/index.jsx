@@ -91,6 +91,15 @@ export default function Supplier() {
     }
 
     function onSave() {
+        dispatch(setSupplierDetails({
+            invalidName : supplier.name.length === 0,
+            invalidAddressLine1 : supplier.address.addressLine1.length === 0,
+            invalidAddressLine2 : supplier.address.addressLine2.length === 0,
+            invalidCity : supplier.address.city.length === 0,
+            invalidProvince : supplier.address.province.length === 0,
+            invalidPostalCode : supplier.address.postalCode.length === 0 ,
+            invalidCountry : supplier.address.country.length === 0
+        }));
         if (
             invalidName
             || invalidAddressLine1
@@ -103,7 +112,6 @@ export default function Supplier() {
             dispatch(setSupplierDetails({
                 error: true
             }));
-
         } else if (isChanged() && supplier.id) {
             dispatch(
                 editSupplier({
