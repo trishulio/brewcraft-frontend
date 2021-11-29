@@ -24,7 +24,7 @@ import {
 import MaterialCategoriesModal from "../../../component/MaterialCategories/modal";
 
 const ADD_NEW = "ADD_NEW";
-const MATERIAL_CATEGORY = "category";
+const INGREDIENT_CATEGORY = "ingredient";
 
 export default function IngredientDetails({ editable }) {
     const [showPackageCategoryModal, setShowPackageCategoryModal] = useState(false);
@@ -174,7 +174,7 @@ export default function IngredientDetails({ editable }) {
                                             onFormInputChange(e);
                                         }
                                         else {
-                                            setModalPackageType(MATERIAL_CATEGORY);
+                                            setModalPackageType(INGREDIENT_CATEGORY);
                                             setModalParentCategoryId(1);
                                             setShowPackageCategoryModal(true);
                                         }

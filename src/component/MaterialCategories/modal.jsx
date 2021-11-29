@@ -22,7 +22,7 @@ export default function MaterialCategoriesModal({ show, setShow, type, parentCat
         dispatch(
             saveMaterialCategory({
                 form: {
-                    name: values.name.trim(),
+                    name: values.materialCategoryName.trim(),
                     parentCategoryId: parentCategoryId
                 },
                 success: () => {
@@ -35,7 +35,9 @@ export default function MaterialCategoriesModal({ show, setShow, type, parentCat
 
     function formatTitle(type) {
         switch(type) {
-            case "category":
+            case "ingredient":
+                return "Ingredient Category";
+            case "packaging":
                 return "Packaging Category";
             default:
                 break
@@ -53,7 +55,7 @@ export default function MaterialCategoriesModal({ show, setShow, type, parentCat
             <ModalBody>
                 <AvForm id="material-categories-modal-form" onValidSubmit={onFormSubmit}>
                     <AvField
-                        name="name"
+                        name="materialCategoryName"
                         type="text"
                         label="Category Title"
                         errorMessage={`Enter a valid title.`}
