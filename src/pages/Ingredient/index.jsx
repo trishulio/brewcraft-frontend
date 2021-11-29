@@ -8,7 +8,8 @@ import {
     editIngredient,
     deleteIngredient,
     fetchAllMaterialCategories,
-    resetIngredientDetails
+    resetIngredientDetails,
+    setIngredientInvalidName
 } from "../../store/actions";
 import {
     useQuery
@@ -106,6 +107,9 @@ export default function Ingredient() {
                 })
             );
         } else {
+            if (!ingredient.name) {
+                return dispatch(setIngredientInvalidName(!ingredient.name))
+            }
             dispatch(
                 saveIngredient({
                     form: {
