@@ -188,7 +188,7 @@ export default function IngredientDetails({ editable }) {
                                             </option>
                                         ))
                                     }
-                                    <option value={ADD_NEW}>+ Add new</option>
+                                    <option key={categories.length} value={ADD_NEW}>+ Add new</option>
                                 </Input>
                                 <FormFeedback>Enter a valid ingredient category.</FormFeedback>
                             </FormGroup>
