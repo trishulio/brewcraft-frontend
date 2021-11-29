@@ -93,7 +93,7 @@ export default function PackagingItem() {
                 editPackagingItem({
                     id: packagingItem.id,
                     form: {
-                        name: packagingItem.name,
+                        name: packagingItem.name.trim(),
                         description: packagingItem.description,
                         categoryId: packagingItem.category.id,
                         baseQuantityUnit: packagingItem.baseQuantityUnit,
@@ -110,7 +110,7 @@ export default function PackagingItem() {
             dispatch(
                 savePackagingItem({
                     form: {
-                        name: packagingItem.name,
+                        name: packagingItem.name.trim(),
                         description: packagingItem.description,
                         categoryId: packagingItem.category.id,
                         baseQuantityUnit: packagingItem.baseQuantityUnit,
