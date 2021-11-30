@@ -46,7 +46,6 @@ const initialState = {
 };
 
 const Ingredient = (state = initialState, { type, payload, data }) => {
-    console.log(`payload`, payload)
     switch(type) {
         case SET_INGREDIENT_DETAILS:
             return {

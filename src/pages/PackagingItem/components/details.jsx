@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import {
@@ -21,10 +21,15 @@ import {
     CardBody,
     CardHeader
 } from "../../../component/Common/Card";
+import MaterialCategoriesModal from "../../../component/MaterialCategories/modal";
 
 const ADD_NEW = "ADD_NEW";
+const PACKAGING_CATEGORY = "packaging";
 
 export default function PackagingItemDetails({ editable }) {
+    const [showPackageCategoryModal, setShowPackageCategoryModal] = useState(false);
+    const [modalPackageType, setModalPackageType] = useState(null);
+    const [modalParentCategoryId, setModalParentCategoryId] = useState(null);
 
     const { invalidName, invalidCategory, invalidBaseQuantityUnit, invalidUpc } = useSelector(state => {
         return state.PackagingItem
@@ -165,7 +170,14 @@ export default function PackagingItemDetails({ editable }) {
                                     invalid={invalidCategory}
                                     value={packagingItem.category.id || ""}
                                     onChange={e => {
-                                        onFormInputChange(e);
+                                        if (e.target.value !== ADD_NEW) {
+                                            onFormInputChange(e);
+                                        }
+                                        else {
+                                            setModalPackageType(PACKAGING_CATEGORY);
+                                            setModalParentCategoryId(2);
+                                            setShowPackageCategoryModal(true);
+                                        }
                                     }}
                                 >
                                     <option value="">Select</option>
@@ -176,7 +188,7 @@ export default function PackagingItemDetails({ editable }) {
                                             </option>
                                         ))
                                     }
-                                    <option value={ADD_NEW}>+ Add new</option>
+                                    <option key={categories.length} value={ADD_NEW}>+ Add new</option>
                                 </Input>
                                 <FormFeedback>Enter a valid packagingItem category.</FormFeedback>
                             </FormGroup>
@@ -280,6 +292,12 @@ export default function PackagingItemDetails({ editable }) {
                     </Row>
                 </CardBody>
             </Card>
+            <MaterialCategoriesModal
+                show={showPackageCategoryModal}
+                parentCategoryId={modalParentCategoryId}
+                setShow={setShowPackageCategoryModal}
+                type={modalPackageType}
+            />
         </React.Fragment>
     );
 }
