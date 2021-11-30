@@ -111,14 +111,12 @@ export default function PackagingItem() {
                 })
             );
         } else {
-            if (!packagingItem.name) {
-                return dispatch(setPackagingItemInvalidName(!packagingItem.name));
-            } else if (!packagingItem.category) {
-                return dispatch(setPackagingItemInvalidCategory(!packagingItem.category))
-            } else if (!packagingItem.baseQuantityUnit) {
-                return dispatch(setPackagingItemInvalidBaseQuantityUnit(!packagingItem.baseQuantityUnit))
-            } else if (packagingItem.upc && packagingItem.upc.length > 12) {
-                return dispatch(setInvalidPackagingUpc(packagingItem.upc))
+            if (!packagingItem.name || !packagingItem.category || !packagingItem.baseQuantityUnit || !packagingItem.baseQuantityUnit || (packagingItem.upc && packagingItem.upc.length > 12)) {
+                dispatch(setPackagingItemInvalidName(!packagingItem.name));
+                dispatch(setPackagingItemInvalidCategory(!packagingItem.category));
+                dispatch(setPackagingItemInvalidBaseQuantityUnit(!packagingItem.baseQuantityUnit));
+                dispatch(setInvalidPackagingUpc(packagingItem.upc));
+                return
             }
 
             dispatch(

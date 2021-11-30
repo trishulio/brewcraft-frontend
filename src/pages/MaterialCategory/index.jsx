@@ -103,10 +103,10 @@ export default function MaterialCategory() {
                 })
             );
         } else {
-            if (!materialCategory.name) {
-                return dispatch(setInvalidMaterialCategoryName(!materialCategory.name))
-            } else if (!materialCategory.parentCategory) {
-                return dispatch(setInvalidMaterialCategoryParentCategory(!materialCategory.parentCategory))
+            if (!materialCategory.name || !materialCategory.parentCategory) {
+                dispatch(setInvalidMaterialCategoryName(!materialCategory.name));
+                dispatch(setInvalidMaterialCategoryParentCategory(!materialCategory.parentCategory));
+                return
             }
 
             dispatch(

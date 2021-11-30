@@ -110,14 +110,12 @@ export default function Ingredient() {
                 })
             );
         } else {
-            if (!ingredient.name) {
-                return dispatch(setIngredientInvalidName(!ingredient.name));
-            } else if (!ingredient.category) {
-                return dispatch(setIngredientInvalidCategory(!ingredient.category));
-            } else if (!ingredient.baseQuantityUnit) {
-                return dispatch(setIngredientInvalidBaseQuantityUnit(!ingredient.baseQuantityUnit))
-            } else if (ingredient.upc && ingredient.upc.length > 12) {
-                return dispatch(setIngredientInvalidUpc(ingredient.upc))
+            if (!ingredient.name || !ingredient.category || !ingredient.baseQuantityUnit || (ingredient.upc && ingredient.upc.length > 12)) {
+                dispatch(setIngredientInvalidName(!ingredient.name));
+                dispatch(setIngredientInvalidCategory(!ingredient.category));
+                dispatch(setIngredientInvalidBaseQuantityUnit(!ingredient.baseQuantityUnit))
+                dispatch(setIngredientInvalidUpc(ingredient.upc))
+                return
             }
 
             dispatch(
