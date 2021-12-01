@@ -91,6 +91,13 @@ export default function Ingredient() {
         if (invalidName || invalidUpc) {
             return;
         }
+        if (!ingredient.name || !ingredient.category || !ingredient.baseQuantityUnit || (ingredient.upc && ingredient.upc.length > 12)) {
+            dispatch(setIngredientInvalidName(!ingredient.name));
+            dispatch(setIngredientInvalidCategory(!ingredient.category));
+            dispatch(setIngredientInvalidBaseQuantityUnit(!ingredient.baseQuantityUnit))
+            dispatch(setIngredientInvalidUpc(ingredient.upc))
+            return
+        }
         if (!isChanged()) {
             history.push("/materials/ingredients/" + id);
 
@@ -110,14 +117,6 @@ export default function Ingredient() {
                 })
             );
         } else {
-            if (!ingredient.name || !ingredient.category || !ingredient.baseQuantityUnit || (ingredient.upc && ingredient.upc.length > 12)) {
-                dispatch(setIngredientInvalidName(!ingredient.name));
-                dispatch(setIngredientInvalidCategory(!ingredient.category));
-                dispatch(setIngredientInvalidBaseQuantityUnit(!ingredient.baseQuantityUnit))
-                dispatch(setIngredientInvalidUpc(ingredient.upc))
-                return
-            }
-
             dispatch(
                 saveIngredient({
                     form: {

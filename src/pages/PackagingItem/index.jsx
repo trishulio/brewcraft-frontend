@@ -89,6 +89,13 @@ export default function PackagingItem() {
         if (invalidName || invalidUpc || invalidCategory) {
             return;
         }
+        if (!packagingItem.name || !packagingItem.category || !packagingItem.baseQuantityUnit || (packagingItem.upc && packagingItem.upc.length > 12)) {
+            dispatch(setPackagingItemInvalidName(!packagingItem.name));
+            dispatch(setPackagingItemInvalidCategory(!packagingItem.category));
+            dispatch(setPackagingItemInvalidBaseQuantityUnit(!packagingItem.baseQuantityUnit));
+            dispatch(setInvalidPackagingUpc(packagingItem.upc));
+            return
+        }
         if (!isChanged()) {
             history.push("/materials/packaging/" + id);
 
@@ -111,13 +118,6 @@ export default function PackagingItem() {
                 })
             );
         } else {
-            if (!packagingItem.name || !packagingItem.category || !packagingItem.baseQuantityUnit || (packagingItem.upc && packagingItem.upc.length > 12)) {
-                dispatch(setPackagingItemInvalidName(!packagingItem.name));
-                dispatch(setPackagingItemInvalidCategory(!packagingItem.category));
-                dispatch(setPackagingItemInvalidBaseQuantityUnit(!packagingItem.baseQuantityUnit));
-                dispatch(setInvalidPackagingUpc(packagingItem.upc));
-                return
-            }
 
             dispatch(
                 savePackagingItem({
