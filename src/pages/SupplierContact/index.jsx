@@ -12,7 +12,7 @@ import {
     setSupplierContactDetails
 } from "../../store/actions";
 import {
-    useQuery
+    useQuery, validateEmail, validatePhoneNumber
 } from "../../helpers/utils";
 import SupplierContactInner from "./contact";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
@@ -97,8 +97,8 @@ export default function SupplierContact() {
             dispatch(setSupplierContactDetails({
                 invalidFirstName: contact.firstName.length === 0,
                 invalidLastName: contact.lastName.length === 0,
-                invalidEmail: contact.email.length === 0,
-                invalidPhoneNumber: contact.phoneNumber.length === 0,
+                invalidEmail: contact.email.length === 0 || !validateEmail(contact.email),
+                invalidPhoneNumber: contact.phoneNumber.length === 0 || !validatePhoneNumber(contact.phoneNumber),
                 invalidCompany: contact.supplier.length === 0,
             }));
             return;
