@@ -8,7 +8,8 @@ import {
     editSupplierContact,
     deleteSupplierContact,
     resetSupplierContactDetails,
-    fetchAllSuppliers
+    fetchAllSuppliers,
+    setSupplierContactDetails
 } from "../../store/actions";
 import {
     useQuery
@@ -84,16 +85,30 @@ export default function SupplierContact() {
 
     function isChanged() {
         return JSON.stringify(
-                (({ id, firstName, lastName, supplier, position, email, phoneNumber }) => ({ id, firstName, lastName, supplier, position, email, phoneNumber }))(initialContact))
+            (({ id, firstName, lastName, supplier, position, email, phoneNumber }) => ({ id, firstName, lastName, supplier, position, email, phoneNumber }))(initialContact))
             !== JSON.stringify(
                 (({ id, firstName, lastName, supplier, position, email, phoneNumber }) => ({ id, firstName, lastName, supplier, position, email, phoneNumber }))(contact))
     }
-
+    console.log(invalidFirstName,
+        invalidLastName,
+        invalidEmail,
+        invalidPhoneNumber,
+        invalidCompany)
     function onSave() {
-        if (invalidFirstName || invalidLastName || invalidEmail
-            || invalidPhoneNumber || invalidCompany) {
+
+
+        if (contact.firstName.length === 0 || contact.lastName.length === 0 || contact.email.length === 0
+            || contact.phoneNumber.length === 0 || contact.supplier.length === 0) {
+            dispatch(setSupplierContactDetails({
+                invalidFirstName: contact.firstName.length === 0,
+                invalidLastName: contact.lastName.length === 0,
+                invalidEmail: contact.email.length === 0,
+                invalidPhoneNumber: contact.phoneNumber.length === 0,
+                invalidCompany: contact.supplier.length === 0,
+            }));
             return;
         }
+
         if (!isChanged()) {
             history.push("/suppliers/contacts/" + id);
 
@@ -151,11 +166,12 @@ export default function SupplierContact() {
                     history.push(path);
                 }}
                 shouldBlockNavigation={() => {
-                    return editMode && isChanged()}
+                    return editMode && isChanged()
+                }
                 }
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
-            <SupplierContactInner {...{editable, changed, onSave, onDelete}} />
+            <SupplierContactInner {...{ editable, changed, onSave, onDelete }} />
         </React.Fragment>
     );
 }
