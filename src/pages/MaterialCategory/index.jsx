@@ -8,7 +8,9 @@ import {
     editMaterialCategory,
     deleteMaterialCategory,
     fetchAllMaterialCategories,
-    resetMaterialCategoryDetails
+    resetMaterialCategoryDetails,
+    setInvalidMaterialCategoryName,
+    setInvalidMaterialCategoryParentCategory
 } from "../../store/actions";
 import {
     useQuery
@@ -101,6 +103,12 @@ export default function MaterialCategory() {
                 })
             );
         } else {
+            if (!materialCategory.name || !materialCategory.parentCategory) {
+                dispatch(setInvalidMaterialCategoryName(!materialCategory.name));
+                dispatch(setInvalidMaterialCategoryParentCategory(!materialCategory.parentCategory));
+                return
+            }
+
             dispatch(
                 saveMaterialCategory({
                     form: {

@@ -8,7 +8,11 @@ import {
     editPackagingItem,
     deletePackagingItem,
     fetchAllMaterialCategories,
-    resetPackagingItemDetails
+    resetPackagingItemDetails,
+    setPackagingItemInvalidName,
+    setPackagingItemInvalidCategory,
+    setPackagingItemInvalidBaseQuantityUnit,
+    setInvalidPackagingUpc
 } from "../../store/actions";
 import {
     useQuery
@@ -107,6 +111,14 @@ export default function PackagingItem() {
                 })
             );
         } else {
+            if (!packagingItem.name || !packagingItem.category || !packagingItem.baseQuantityUnit || (packagingItem.upc && packagingItem.upc.length > 12)) {
+                dispatch(setPackagingItemInvalidName(!packagingItem.name));
+                dispatch(setPackagingItemInvalidCategory(!packagingItem.category));
+                dispatch(setPackagingItemInvalidBaseQuantityUnit(!packagingItem.baseQuantityUnit));
+                dispatch(setInvalidPackagingUpc(packagingItem.upc));
+                return
+            }
+
             dispatch(
                 savePackagingItem({
                     form: {
