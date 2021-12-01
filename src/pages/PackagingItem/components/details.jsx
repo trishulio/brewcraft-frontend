@@ -106,18 +106,6 @@ export default function PackagingItemDetails({ editable }) {
                 <CardBody>
                     <Row>
                         <Col xs="2">
-                            <Label className="mb-3">
-                                ID
-                            </Label>
-                        </Col>
-                        <Col xs="8">
-                            <div hidden={false}>
-                                {packagingItem.id ? packagingItem.id : "-"}
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="2">
                             <Label
                                 for="packagingItemName"
                                 className="mb-3"
