@@ -41,7 +41,7 @@ export default function MaterialCategoriesTable() {
     }
 
     return (
-        <Table>
+        <Table hover>
             <thead>
                 <tr>
                     <Th
@@ -57,7 +57,7 @@ export default function MaterialCategoriesTable() {
             <tbody>
                 {
                     categories.map((category, key) =>
-                        <tr key={key}>
+                        <tr key={key} onClick={() => history.push("/materials/categories/" + category.id)}>
                             <td><Link to={"/materials/categories/" + category.id}>{category.name}</Link></td>
                             <td>
                                 <Link to={"/materials/categories/" + category.parentCategoryId}>
