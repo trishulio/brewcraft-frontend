@@ -89,11 +89,6 @@ export default function SupplierContact() {
             !== JSON.stringify(
                 (({ id, firstName, lastName, supplier, position, email, phoneNumber }) => ({ id, firstName, lastName, supplier, position, email, phoneNumber }))(contact))
     }
-    console.log(invalidFirstName,
-        invalidLastName,
-        invalidEmail,
-        invalidPhoneNumber,
-        invalidCompany)
     function onSave() {
 
 
