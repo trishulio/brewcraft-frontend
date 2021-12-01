@@ -23,7 +23,7 @@ import {
     CardBody,
     CardHeader
 } from "../../../component/Common/Card";
-
+import { formatPhoneNumber, validateEmail, validatePhoneNumber } from "../../../helpers/utils";
 export default function SupplierContactDetails({ editable }) {
     const {
         invalidFirstName,
@@ -45,7 +45,6 @@ export default function SupplierContactDetails({ editable }) {
     });
 
     const dispatch = useDispatch();
-
     function onFormInputChange(e) {
         switch(e.target.name) {
             case "contactFirstName":
@@ -94,7 +93,7 @@ export default function SupplierContactDetails({ editable }) {
                 break;
             case "contactEmail":
                 if (contact.email !== e.target.value) {
-                    dispatch(setInvalidSupplierContactEmail(!e.target.value));
+                    dispatch(setInvalidSupplierContactEmail(!e.target.value ? true : !validateEmail(e.target.value)));
                     dispatch(setSupplierContactDetails({
                         data: {
                             ...contact,
@@ -105,11 +104,11 @@ export default function SupplierContactDetails({ editable }) {
                 break;
             case "contactPhoneNumber":
                 if (contact.phoneNumber !== e.target.value) {
-                    dispatch(setInvalidSupplierContactPhoneNumber(!e.target.value));
+                    dispatch(setInvalidSupplierContactPhoneNumber(!e.target.value ? true : !validatePhoneNumber(e.target.value)));
                     dispatch(setSupplierContactDetails({
                         data: {
                             ...contact,
-                            phoneNumber: e.target.value
+                            phoneNumber: formatPhoneNumber(e.target.value)
                         }
                     }));
                 }
