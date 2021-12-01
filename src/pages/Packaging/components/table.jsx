@@ -48,7 +48,6 @@ function onSort(e) {
         <Table hover>
             <thead>
                 <tr>
-                    <th></th>
                     <Th
                         name="packagingName"
                         id="name"
@@ -72,16 +71,7 @@ function onSort(e) {
                 {
                     packaging.map((packagingItem, key) =>
                         <tr key={key} onClick={() => history.push("/materials/packaging/" + packagingItem.id)}>
-                            <td>
-                                <div className="d-flex align-items-center vertical-center">
-                                    <Input className="ml-1" type="checkbox" />
-                                </div>
-                            </td>
-                            <td>
-                                <div className="pl-4">
-                                    {packagingItem.name || "-"}
-                                </div>
-                            </td>
+                            <td>{packagingItem.name || "-"}</td>
                             <td>{packagingItem.materialClass?.name ?
                                 packagingItem.materialClass.name
                                 : "-"
