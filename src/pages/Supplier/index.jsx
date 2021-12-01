@@ -54,7 +54,7 @@ export default function Supplier() {
         if (id === "new") {
             history.replace("/suppliers/new?edit=true");
         } else {
-            dispatch(fetchSupplierById({ id } ));
+            dispatch(fetchSupplierById({ id }));
         }
         setEditable(editMode && editMode !== "false");
         setShowRouterPrompt(!!editMode);
@@ -85,32 +85,32 @@ export default function Supplier() {
 
     function isChanged() {
         return JSON.stringify(
-                (({ id, name, address }) => ({ id, name, address }))(initialSupplier))
+            (({ id, name, address }) => ({ id, name, address }))(initialSupplier))
             !== JSON.stringify(
                 (({ id, name, address }) => ({ id, name, address }))(supplier))
     }
 
     function onSave() {
-        dispatch(setSupplierDetails({
-            invalidName : supplier.name.length === 0,
-            invalidAddressLine1 : supplier.address.addressLine1.length === 0,
-            invalidAddressLine2 : supplier.address.addressLine2.length === 0,
-            invalidCity : supplier.address.city.length === 0,
-            invalidProvince : supplier.address.province.length === 0,
-            invalidPostalCode : supplier.address.postalCode.length === 0 ,
-            invalidCountry : supplier.address.country.length === 0
-        }));
         if (
-            invalidName
-            || invalidAddressLine1
-            || invalidAddressLine2
-            || invalidCity
-            || invalidProvince
-            || invalidPostalCode
-            || invalidCountry) {
+            supplier.name.length === 0
+            || supplier.address.addressLine1.length === 0
+            || supplier.address.addressLine2.length === 0
+            || supplier.address.city.length === 0
+            || supplier.address.province.length === 0
+            || supplier.address.postalCode.length === 0
+            || supplier.address.country.length === 0) {
 
             dispatch(setSupplierDetails({
                 error: true
+            }));
+            dispatch(setSupplierDetails({
+                invalidName: supplier.name.length === 0,
+                invalidAddressLine1: supplier.address.addressLine1.length === 0,
+                invalidAddressLine2: supplier.address.addressLine2.length === 0,
+                invalidCity: supplier.address.city.length === 0,
+                invalidProvince: supplier.address.province.length === 0,
+                invalidPostalCode: supplier.address.postalCode.length === 0,
+                invalidCountry: supplier.address.country.length === 0
             }));
         } else if (isChanged() && supplier.id) {
             dispatch(
@@ -166,25 +166,25 @@ export default function Supplier() {
     return (
         <React.Fragment>
             <DeleteGuard
-                    when={showDeletePrompt}
-                    confirm={() => {
-                        dispatch(deleteSupplier(supplier.id));
-                        setShowRouterPrompt(false);
-                    }}
-                    close={() => {
-                        setShowDeletePrompt(false);
-                    }}
-                    content="This cannot be undone. Are you sure want to delete this supplier?"
-                />
-                <RouteLeavingGuard
-                    when={showRouterPrompt}
-                    navigate={path => {
-                        history.push(path);
-                    }}
-                    shouldBlockNavigation={() => editMode && isChanged()}
-                    content="There are unsaved changes. Are you sure want to leave this page?"
-                />
-            <SupplierInner {...props}/>
+                when={showDeletePrompt}
+                confirm={() => {
+                    dispatch(deleteSupplier(supplier.id));
+                    setShowRouterPrompt(false);
+                }}
+                close={() => {
+                    setShowDeletePrompt(false);
+                }}
+                content="This cannot be undone. Are you sure want to delete this supplier?"
+            />
+            <RouteLeavingGuard
+                when={showRouterPrompt}
+                navigate={path => {
+                    history.push(path);
+                }}
+                shouldBlockNavigation={() => editMode && isChanged()}
+                content="There are unsaved changes. Are you sure want to leave this page?"
+            />
+            <SupplierInner {...props} />
         </React.Fragment>
     );
 }
