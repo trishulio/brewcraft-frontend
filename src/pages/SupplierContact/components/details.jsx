@@ -23,7 +23,7 @@ import {
     CardBody,
     CardHeader
 } from "../../../component/Common/Card";
-import { formatPhoneNumber, validateEmail, validatePhoneNumber } from "../../../helpers/utils";
+import { formatPhoneNumber, isValidEmail, isValidPhoneNumber } from "../../../helpers/utils";
 export default function SupplierContactDetails({ editable }) {
     const {
         invalidFirstName,
@@ -92,7 +92,7 @@ export default function SupplierContactDetails({ editable }) {
                 break;
             case "contactEmail":
                 if (contact.email !== e.target.value) {
-                    dispatch(setInvalidSupplierContactEmail(!e.target.value ? true : !validateEmail(e.target.value)));
+                    dispatch(setInvalidSupplierContactEmail(!e.target.value ? true : !isValidEmail(e.target.value)));
                     dispatch(setSupplierContactDetails({
                         data: {
                             ...contact,
@@ -103,7 +103,7 @@ export default function SupplierContactDetails({ editable }) {
                 break;
             case "contactPhoneNumber":
                 if (contact.phoneNumber !== e.target.value) {
-                    dispatch(setInvalidSupplierContactPhoneNumber(!e.target.value ? true : !validatePhoneNumber(e.target.value)));
+                    dispatch(setInvalidSupplierContactPhoneNumber(!e.target.value ? true : !isValidPhoneNumber(e.target.value)));
                     dispatch(setSupplierContactDetails({
                         data: {
                             ...contact,
@@ -122,7 +122,7 @@ export default function SupplierContactDetails({ editable }) {
             <Card>
                 <CardHeader>Contact Details</CardHeader>
                 <CardBody>
-                    <Label
+                    {/* <Label
                         className="d-inline-block mb-3"
                         style={{
                             width: "6rem"
@@ -133,7 +133,7 @@ export default function SupplierContactDetails({ editable }) {
                     <div className="d-inline-block mb-2">
                         {contact.id ? contact.id : "-"}
                     </div>
-                    <div className="clearfix"></div>
+                    <div className="clearfix"></div> */}
                     <Label
                         for="contactFirstName"
                         className="d-inline-block mb-3"
@@ -344,8 +344,8 @@ export default function SupplierContactDetails({ editable }) {
                             />
                             <FormFeedback>
                                 {contact.email.length > 0
-                                    ? "Invalid contact position field"
-                                    : "Contact position field must not be empty"
+                                    ? "Invalid contact email field"
+                                    : "Contact email field must not be empty"
                                 }
                             </FormFeedback>
                         </FormGroup>

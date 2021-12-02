@@ -59,8 +59,7 @@ const SupplierContact = (state = initialState, { type, payload, data }) => {
             return {
                 ...state,
                 ...payload,
-                loading: false,
-                error: null
+                loading: false
             };
         case FETCH_SUPPLIER_CONTACT_BY_ID_REQUEST:
             return {
