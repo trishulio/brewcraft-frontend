@@ -122,7 +122,7 @@ export default function SupplierContactDetails({ editable }) {
             <Card>
                 <CardHeader>Contact Details</CardHeader>
                 <CardBody>
-                    <Label
+                    {/* <Label
                         className="d-inline-block mb-3"
                         style={{
                             width: "6rem"
@@ -133,7 +133,7 @@ export default function SupplierContactDetails({ editable }) {
                     <div className="d-inline-block mb-2">
                         {contact.id ? contact.id : "-"}
                     </div>
-                    <div className="clearfix"></div>
+                    <div className="clearfix"></div> */}
                     <Label
                         for="contactFirstName"
                         className="d-inline-block mb-3"

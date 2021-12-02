@@ -137,6 +137,11 @@ export default function SupplierContact() {
     );
   }
   function onSave() {
+    dispatch(
+        setSupplierContactDetails({
+          error : true
+        })
+      );
     if (
       !isValidName(contact.firstName) ||
       !isValidName(contact.lastName) ||
