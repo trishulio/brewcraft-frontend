@@ -33,11 +33,14 @@ export function validInvoiceNumber(invoiceNumber) {
 export function validDate(date) {
     return !(!date || isNaN(Date.parse(date)));
 }
-export function validatePhoneNumber(code){
-    return (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.exec(code) ? true : false)
+export function isValidPhoneNumber(code){
+    return isValidName(code)  && (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.exec(code) ? true : false)
 }
-export function validateEmail(email){
-    return (/\S+@\S+\.\S+/.exec(email) ? true : false)
+export function isValidSupplier(supplier){
+    return typeof supplier !== "string"
+}
+export function isValidEmail(email){
+    return  isValidName(email) && (/\S+@\S+\.\S+/.exec(email) ? true : false)
 }
 export function formatPhoneNumber(phoneNumberString) {
     var cleaned = ('' + phoneNumberString).replace(/\D/g, '');
