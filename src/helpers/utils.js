@@ -19,7 +19,9 @@ export function validId(id) {
         && ((Number.isInteger(id) && id > 0)
             || (typeof id === "string" && id.trim().length > 0));
 }
-
+export function isValidPostalCode(code){
+    return (/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/.exec(code) ? true : false)
+}
 export function validAmount(quantity) {
     return (quantity || quantity === 0)
         && (Number.isInteger(quantity) || isFloat(quantity))
@@ -34,10 +36,10 @@ export function validDate(date) {
     return !(!date || isNaN(Date.parse(date)));
 }
 export function validatePhoneNumber(code){
-    return (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.exec(code) ? true : false)
+    return isValidName(code)  && (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.exec(code) ? true : false)
 }
 export function validateEmail(email){
-    return (/\S+@\S+\.\S+/.exec(email) ? true : false)
+    return  isValidName(email) && (/\S+@\S+\.\S+/.exec(email) ? true : false)
 }
 export function formatPhoneNumber(phoneNumberString) {
     var cleaned = ('' + phoneNumberString).replace(/\D/g, '');

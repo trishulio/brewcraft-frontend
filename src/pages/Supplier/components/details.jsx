@@ -16,7 +16,7 @@ import {
     CardBody,
     CardHeader
 } from "../../../component/Common/Card";
-import { isValidName } from "../../../helpers/utils";
+import { isValidName, isValidPostalCode } from "../../../helpers/utils";
 
 export default function SupplierDetails({ editable }) {
     const dispatch = useDispatch();
@@ -38,9 +38,6 @@ export default function SupplierDetails({ editable }) {
         return state.Supplier.data;
     });
 
-    const validatePostalCode=(code)=>{
-        return (/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/.exec(code) ? true : false)
-    }
     function onFormInputChange(e) {
         switch(e.target.name) {
             case "supplierName":
@@ -90,7 +87,7 @@ export default function SupplierDetails({ editable }) {
                 }));
 
                 dispatch(setSupplierDetails({
-                    invalidPostalCode: typeof e.target.value !== "string" ? true : (supplier.address.country.toLowerCase() === "canada" ? !validatePostalCode(e.target.value) : false)
+                    invalidPostalCode: typeof e.target.value !== "string" ? true : (supplier.address.country.toLowerCase() === "canada" ? !isValidPostalCode(e.target.value) : false)
                 }));
                 break;
             case "supplierAddressCountry":

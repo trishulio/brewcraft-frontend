@@ -11,6 +11,8 @@ import {
     setSupplierDetails
 } from "../../store/actions";
 import {
+    isValidName,
+    isValidPostalCode,
     useQuery
 } from "../../helpers/utils";
 import SupplierInner from "./supplier";
@@ -91,26 +93,24 @@ export default function Supplier() {
     }
 
     function onSave() {
-        if (
-            supplier.name.length === 0
-            || supplier.address.addressLine1.length === 0
-            || supplier.address.addressLine2.length === 0
-            || supplier.address.city.length === 0
-            || supplier.address.province.length === 0
-            || supplier.address.postalCode.length === 0
-            || supplier.address.country.length === 0) {
 
+        if (
+             !isValidName(supplier.name)
+            || !isValidName(supplier.address.addressLine1)
+            || !isValidName(supplier.address.addressLine2)
+            || !isValidName(supplier.address.city)
+            || !isValidName(supplier.address.province)
+            || !isValidPostalCode(supplier.address.postalCode)
+            || !isValidName(supplier.address.country)) {
             dispatch(setSupplierDetails({
-                error: true
-            }));
-            dispatch(setSupplierDetails({
-                invalidName: supplier.name.length === 0,
-                invalidAddressLine1: supplier.address.addressLine1.length === 0,
-                invalidAddressLine2: supplier.address.addressLine2.length === 0,
-                invalidCity: supplier.address.city.length === 0,
-                invalidProvince: supplier.address.province.length === 0,
-                invalidPostalCode: supplier.address.postalCode.length === 0,
-                invalidCountry: supplier.address.country.length === 0
+                error: true,
+                invalidName: !isValidName(supplier.name),
+                invalidAddressLine1: !isValidName(supplier.address.addressLine1),
+                invalidAddressLine2: !isValidName(supplier.address.addressLine2),
+                invalidCity: !isValidName(supplier.address.city),
+                invalidProvince: !isValidName(supplier.address.province),
+                invalidPostalCode: !isValidPostalCode(supplier.address.postalCode),
+                invalidCountry: !isValidName(supplier.address.country)
             }));
         } else if (isChanged() && supplier.id) {
             dispatch(
