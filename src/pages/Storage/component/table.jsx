@@ -60,7 +60,7 @@ export default function EquipmentTable({ equipment, editEquipmentItem, deleteEqu
         )
       };
     });
-  }, [equipment]);
+  }, [equipment, editEquipmentItem, deleteEquipmentItem]);
   return (
     <MDBDataTable
       responsive
