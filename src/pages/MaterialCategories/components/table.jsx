@@ -58,7 +58,7 @@ export default function MaterialCategoriesTable() {
                 {
                     categories.map((category, key) =>
                         <tr key={key} onClick={() => history.push("/materials/categories/" + category.id)}>
-                            <td><Link to={"/materials/categories/" + category.id}>{category.name}</Link></td>
+                            <td>{category.name}</td>
                             <td>
                                 <Link to={"/materials/categories/" + category.parentCategoryId}>
                                     {allCategories.find(c => c.id === category.parentCategoryId)?.name || "-"}
