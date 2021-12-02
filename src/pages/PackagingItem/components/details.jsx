@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import {
@@ -22,14 +22,17 @@ import {
     CardHeader
 } from "../../../component/Common/Card";
 import MaterialCategoriesModal from "../../../component/MaterialCategories/modal";
+import { useKeyPress } from "../../../helpers/utils";
 
 const ADD_NEW = "ADD_NEW";
 const PACKAGING_CATEGORY = "packaging";
+const ENTER_KEY = "Enter"
 
-export default function PackagingItemDetails({ editable }) {
+export default function PackagingItemDetails({ editable, onSave }) {
     const [showPackageCategoryModal, setShowPackageCategoryModal] = useState(false);
     const [modalPackageType, setModalPackageType] = useState(null);
     const [modalParentCategoryId, setModalParentCategoryId] = useState(null);
+    const [inputFocused, setInputFocused] = useState(false);
 
     const { invalidName, invalidCategory, invalidBaseQuantityUnit, invalidUpc } = useSelector(state => {
         return state.PackagingItem
@@ -45,6 +48,15 @@ export default function PackagingItemDetails({ editable }) {
     });
 
     const dispatch = useDispatch();
+
+    const enterKeyPressed = useKeyPress(ENTER_KEY);
+
+    useEffect(() => {
+        if (enterKeyPressed && !inputFocused) {
+            onSave();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [enterKeyPressed])
 
     function onFormInputChange(e) {
         switch(e.target.name) {
@@ -99,6 +111,10 @@ export default function PackagingItemDetails({ editable }) {
         }
     }
 
+    function toggleFocus() {
+        setInputFocused(!inputFocused)
+    }
+
     return (
         <React.Fragment>
             <Card>
@@ -127,6 +143,8 @@ export default function PackagingItemDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
+                                    onFocus={toggleFocus}
+                                    onBlur={toggleFocus}
                                 />
                                 <FormFeedback>Enter a valid packagingItem name.</FormFeedback>
                             </FormGroup>
@@ -249,6 +267,8 @@ export default function PackagingItemDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidUpc}
+                                    onFocus={toggleFocus}
+                                    onBlur={toggleFocus}
                                 />
                                 <FormFeedback>Enter a valid upc.</FormFeedback>
                             </FormGroup>
@@ -275,6 +295,8 @@ export default function PackagingItemDetails({ editable }) {
                                 disabled={!editable}
                                 onChange={onFormInputChange}
                                 autoComplete="false"
+                                onFocus={toggleFocus}
+                                onBlur={toggleFocus}
                             />
                         </Col>
                     </Row>

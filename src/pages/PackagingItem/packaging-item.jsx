@@ -23,6 +23,7 @@ export default function PackagingItem({ editable, changed, onSave, onDelete }) {
                 changed={changed}
                 onSave={onSave}
                 onDelete={onDelete}
+                tabIndex={-1}
             />
             <Row>
                 <Col md={9} xl={8}>
@@ -33,6 +34,7 @@ export default function PackagingItem({ editable, changed, onSave, onDelete }) {
                     }
                     <PackagingItemDetails
                         editable={editable}
+                        onSave={onSave}
                     />
                 </Col>
                 {/* <Col md="3">

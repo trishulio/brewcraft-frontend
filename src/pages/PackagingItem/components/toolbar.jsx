@@ -5,7 +5,7 @@ import {
     Button
 } from "reactstrap";
 
-export default function Toolbar({ editable, changed, onSave, onDelete }) {
+export default function Toolbar({ editable, changed, onSave, onDelete, tabIndex }) {
     const history = useHistory();
 
     const packagingItem = useSelector(state => {
@@ -22,6 +22,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 onClick={onSave}
                 disabled={!changed}
                 hidden={!editable}
+                tabIndex={-1}
             >
                     Save
             </Button>
@@ -34,6 +35,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                     history.goBack();
                 }}
                 hidden={!editable}
+                tabIndex={-1}
             >
                 Cancel
             </Button>
@@ -44,6 +46,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 className="waves-effect mr-2 mb-3"
                 disabled={editable}
                 hidden={!packagingItem.id || editable}
+                tabIndex={-1}
                 onClick={() => {
                     history.push({
                         pathname: "/materials/packaging/" + packagingItem.id,
@@ -59,6 +62,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 size="sm"
                 className="waves-effect mr-2 mb-3"
                 hidden={!packagingItem.id || editable}
+                tabIndex={-1}
                 onClick={() => {
                     history.push("/materials/packaging/new");
                 }}
@@ -72,6 +76,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 className="waves-effect mr-2 mb-3"
                 onClick={onDelete}
                 hidden={!packagingItem.id || !editable}
+                tabIndex={-1}
             >
                 Delete Item
             </Button>
@@ -82,6 +87,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 className="waves-effect mr-2 mb-3"
                 hidden={!packagingItem.id || editable}
                 outline={true}
+                tabIndex={-1}
                 onClick={() => {
                     history.push("/materials/packaging");
                 }}

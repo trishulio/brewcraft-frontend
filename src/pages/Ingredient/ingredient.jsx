@@ -23,6 +23,7 @@ export default function Ingredient({ editable, changed, onSave, onDelete }) {
                 changed={changed}
                 onSave={onSave}
                 onDelete={onDelete}
+                tabIndex={-1}
             />
             <Row>
                 <Col md={9} xl={8}>
@@ -33,6 +34,7 @@ export default function Ingredient({ editable, changed, onSave, onDelete }) {
                     }
                     <IngredientDetails
                         editable={editable}
+                        onSave={onSave}
                     />
                 </Col>
                 {/* <Col md="3">

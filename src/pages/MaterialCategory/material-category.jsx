@@ -21,6 +21,7 @@ export default function MaterialCategory({ editable, changed, onSave, onDelete }
                 changed={changed}
                 onSave={onSave}
                 onDelete={onDelete}
+                tabIndex={-1}
             />
             <Row>
                 <Col md={9} xl={8}>
@@ -31,6 +32,7 @@ export default function MaterialCategory({ editable, changed, onSave, onDelete }
                     }
                     <MaterialCategoryDetails
                         editable={editable}
+                        onSave={onSave}
                     />
                 </Col>
             </Row>

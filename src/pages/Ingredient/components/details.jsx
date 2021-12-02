@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import {
@@ -22,18 +22,29 @@ import {
     CardHeader
 } from "../../../component/Common/Card";
 import MaterialCategoriesModal from "../../../component/MaterialCategories/modal";
+import { useKeyPress } from "../../../helpers/utils";
 
 const ADD_NEW = "ADD_NEW";
 const INGREDIENT_CATEGORY = "ingredient";
+const ENTER_KEY = "Enter"
 
-export default function IngredientDetails({ editable }) {
+export default function IngredientDetails({ editable, onSave }) {
     const [showPackageCategoryModal, setShowPackageCategoryModal] = useState(false);
     const [modalPackageType, setModalPackageType] = useState(null);
     const [modalParentCategoryId, setModalParentCategoryId] = useState(null);
+    const [inputFocused, setInputFocused] = useState(false);
 
     const { invalidName, invalidCategory, invalidBaseQuantityUnit, invalidUpc } = useSelector(state => {
         return state.Ingredient
     });
+    const enterKeyPressed = useKeyPress(ENTER_KEY);
+
+    useEffect(() => {
+        if (enterKeyPressed && !inputFocused) {
+            onSave();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [enterKeyPressed])
 
     const categories = useSelector(state => {
         return state.MaterialCategories.all
@@ -99,6 +110,10 @@ export default function IngredientDetails({ editable }) {
         }
     }
 
+    function toggleFocus() {
+        setInputFocused(!inputFocused)
+    }
+
     return (
         <React.Fragment>
             <Card>
@@ -121,6 +136,8 @@ export default function IngredientDetails({ editable }) {
                                     type="text"
                                     className="waves-effect"
                                     bsSize="sm"
+                                    onFocus={toggleFocus}
+                                    onBlur={toggleFocus}
                                     value={ingredient.name}
                                     placeholder="Enter"
                                     name="ingredientName"
@@ -243,6 +260,8 @@ export default function IngredientDetails({ editable }) {
                                     type="text"
                                     className="waves-effect"
                                     bsSize="sm"
+                                    onFocus={toggleFocus}
+                                    onBlur={toggleFocus}
                                     value={ingredient.upc}
                                     placeholder="Enter"
                                     name="ingredientUpc"
@@ -272,6 +291,8 @@ export default function IngredientDetails({ editable }) {
                                 value={ingredient.description}
                                 rows={4}
                                 name="ingredientDescription"
+                                onFocus={toggleFocus}
+                                onBlur={toggleFocus}
                                 disabled={!editable}
                                 onChange={onFormInputChange}
                                 autoComplete="false"

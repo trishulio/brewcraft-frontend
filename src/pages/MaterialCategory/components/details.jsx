@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import {
@@ -19,8 +19,13 @@ import {
     CardBody,
     CardHeader
 } from "../../../component/Common/Card";
+import { useKeyPress } from "../../../helpers/utils";
 
-export default function MaterialCategoryDetails({ editable }) {
+const ENTER_KEY = "Enter";
+
+export default function MaterialCategoryDetails({ editable, onSave }) {
+
+    const [inputFocused, setInputFocused] = useState(false);
 
     const { invalidName, invalidParentCategory } = useSelector(state => {
         return state.MaterialCategory
@@ -36,6 +41,15 @@ export default function MaterialCategoryDetails({ editable }) {
     });
 
     const dispatch = useDispatch();
+
+    const enterKeyPressed = useKeyPress(ENTER_KEY);
+
+    useEffect(() => {
+        if (enterKeyPressed && !inputFocused) {
+            onSave();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [enterKeyPressed])
 
     function onFormInputChange(e) {
         switch(e.target.name) {
@@ -62,6 +76,10 @@ export default function MaterialCategoryDetails({ editable }) {
             default:
                 break;
         }
+    }
+
+    function toggleFocus() {
+        setInputFocused(!inputFocused)
     }
 
     return (
@@ -92,6 +110,8 @@ export default function MaterialCategoryDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
+                                    onFocus={toggleFocus}
+                                    onBlur={toggleFocus}
                                 />
                                 <FormFeedback>Enter a valid material category name.</FormFeedback>
                             </FormGroup>
