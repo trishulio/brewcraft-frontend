@@ -8,5 +8,5 @@ export default function Imagefortable ({ cell }) {
         height="37"
       />
     );
-  };
+  }
   

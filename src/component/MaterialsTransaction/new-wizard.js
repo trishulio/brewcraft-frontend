@@ -63,6 +63,6 @@ class NewTransactionWizard extends Component {
             </Modal>
         )
     }
-};
+}
 
 export default NewTransactionWizard;
