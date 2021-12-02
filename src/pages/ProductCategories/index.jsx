@@ -34,7 +34,7 @@ export default function ProductCategories() {
             pageIndex, pageSize, parentCategoryId, sort, order
         };
         dispatch(fetchProductCategories({ ...props }));
-        dispatch(fetchAllProductCategories());
+        // dispatch(fetchAllProductCategories());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageIndex, pageSize, parentCategoryId, sort, order]);
 
