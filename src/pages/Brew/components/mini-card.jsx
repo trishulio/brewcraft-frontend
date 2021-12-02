@@ -1,72 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import {
     Row,
     Col,
     Card,
-    CardBody,
-    Badge
+    CardBody
 } from "reactstrap";
-import { formatCurrency, formatPercent, formatVolumeHL } from '../../../helpers/textUtils';
+import { formatPercent, formatVolumeHL } from '../../../helpers/textUtils';
 
 export default function BrewMiniCard() {
-
-    const kettleMixture = useSelector(state => {
-        return state.Batch.KettleMixture.data;
-    })
-
-    const whirlpoolMixture = useSelector(state => {
-        return state.Batch.WhirlpoolMixture.data;
-    })
-
-    const { initial: initialMaterialPortions } = useSelector(state => {
-        return state.Batch.MashMaterialPortion;
-    });
-
-    const transferMixtureRecordings = useSelector(state => {
-        return state.Batch.TransferMixtureRecordings.content;
-    })
-
-    function formatOriginalGravity() {
-        return transferMixtureRecordings.find(r => r.measure.id === 5)?.value || "-";
-    }
-
-    function formatWortVolume() {
-        if (whirlpoolMixture.brewStage.status?.id === 3) {
-            // skip whirlpool
-            if (kettleMixture.quantity.value) {
-                return `${kettleMixture.quantity.value} ${kettleMixture.quantity.symbol}`;
-            } else {
-                return "-";
-            }
-        } else if (whirlpoolMixture.quantity.value) {
-            return `${whirlpoolMixture.quantity.value} ${whirlpoolMixture.quantity.symbol}`;
-        } else {
-            return "-";
-        }
-    }
-
-    function formatMaltUsed() {
-        let quantity = 0;
-        initialMaterialPortions
-            .filter(portion => portion.materialLot.invoiceItem.material.category.name === "Malt")
-            .forEach(portion => {
-                quantity += portion.quantity.value;
-            });
-
-        return quantity + " kg";
-    }
-
-    function formatCost() {
-        let cost = 0;
-        initialMaterialPortions.forEach(mp => {
-            cost += mp.materialLot.invoiceItem.amount.amount
-                / mp.materialLot.invoiceItem.quantity.value
-                * mp.quantity.value;
-        });
-
-        return cost;
-    }
 
     return (
         <React.Fragment>

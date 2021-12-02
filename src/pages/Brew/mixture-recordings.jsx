@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editTransferMixtureRecords, fetchMixtureRecordingsByBrewId, saveTransferMixtureRecords } from "../../store/actions";
 
@@ -14,20 +14,35 @@ export default function MixtureRecordings(props) {
         return state.Batch.TransferMixtureRecordings;
     });
 
-    const { content: kettleMixtureRecordings, initial: transferKettleMixtureRecordings } = useSelector(state => {
+    const { content: kettleMixtureRecordings, initial: kettleInitialMixtureRecordings } = useSelector(state => {
         return state.Batch.TransferMixtureRecordings;
     });
+
+    const isChanged = useCallback(() => {
+        return JSON.stringify(transferMixtureRecordings) !== JSON.stringify(transferInitialMixtureRecordings)
+            || JSON.stringify(kettleMixtureRecordings) !== JSON.stringify(kettleInitialMixtureRecordings);
+    }, [
+        transferInitialMixtureRecordings,
+        transferMixtureRecordings,
+        kettleInitialMixtureRecordings,
+        kettleMixtureRecordings
+    ]);
 
     useEffect(() => {
         if (batch.id) {
             dispatch(fetchMixtureRecordingsByBrewId(batch.id));
         }
-    }, [batch.id]);
+    }, [batch.id, dispatch]);
 
     useEffect(() => {
         props.setMixtureRecordingsChanged(isChanged());
 
-    }, [transferMixtureRecordings, kettleMixtureRecordings]);
+    }, [
+        transferMixtureRecordings,
+        kettleMixtureRecordings,
+        props,
+        isChanged
+    ]);
 
     useEffect(() => {
         if (save) {
@@ -54,11 +69,8 @@ export default function MixtureRecordings(props) {
                 );
             });
         }
+        // eslint-disable-next-line
     }, [save]);
-
-    function isChanged() {
-        return JSON.stringify(transferMixtureRecordings) !== JSON.stringify(transferInitialMixtureRecordings);
-    }
 
     return (
         <React.Fragment>{props.children}</React.Fragment>

@@ -11,7 +11,7 @@ import Details from "../mixture/details";
 import Ingredients from "../mixture/ingredients";
 import Recordings from "../mixture/recording";
 import FinishedGoods from "../../../Batch/components/mixture/finished-goods";
-import { Col, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
+import { FormFeedback, FormGroup, Input, Label } from "reactstrap";
 
 export default function BatchFerment() {
 

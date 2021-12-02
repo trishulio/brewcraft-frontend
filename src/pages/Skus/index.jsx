@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "../../helpers/utils";
 import {
     setBreadcrumbItems,
-    fetchAllSkus,
     fetchAllProducts,
     fetchSkus
 } from "../../store/actions";
@@ -35,7 +34,13 @@ export default function Skus() {
         };
         dispatch(fetchSkus(params));
         dispatch(fetchAllProducts());
-    }, [pageIndex, pageSize, dispatch]);
+    }, [
+        pageIndex,
+        pageSize,
+        order,
+        sort,
+        dispatch
+    ]);
 
     return (
         <SkusInner />

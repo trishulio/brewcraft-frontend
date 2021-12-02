@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     editKettleMixture,
     editMashMixture,
-    editTransferMixtureRecords,
     editWhirlpoolMixture,
     editTransferMixture,
     fetchMixturesByBrewId
@@ -33,11 +32,39 @@ export default function Mixtures(props) {
         return state.Batch.TransferMixture;
     });
 
+    const isChanged = useCallback(() => {
+        return JSON.stringify(
+                (({ quantity }) => ({ quantity }))(initialFermentMixture))
+            !== JSON.stringify(
+                (({ quantity }) => ({ quantity }))(fermentMixture))
+            || JSON.stringify(
+                (({ quantity }) => ({ quantity }))(initialConditionMixture))
+            !== JSON.stringify(
+                (({ quantity }) => ({ quantity }))(conditionMixture))
+            || JSON.stringify(
+                (({ quantity }) => ({ quantity }))(initialBriteTankMixture))
+            !== JSON.stringify(
+                (({ quantity }) => ({ quantity }))(briteTankMixture))
+            || JSON.stringify(
+                (({ quantity }) => ({ quantity }))(initialTransferMixture))
+            !== JSON.stringify(
+                (({ quantity }) => ({ quantity }))(transferMixture))
+    }, [
+        initialFermentMixture,
+        fermentMixture,
+        initialConditionMixture,
+        conditionMixture,
+        initialBriteTankMixture,
+        briteTankMixture,
+        initialTransferMixture,
+        transferMixture
+    ]);
+
     useEffect(() => {
         if (batch.id) {
             dispatch(fetchMixturesByBrewId(batch.id));
         }
-    }, [batch.id]);
+    }, [batch.id, dispatch]);
 
     useEffect(() => {
         props.setMixturesChanged(isChanged());
@@ -45,7 +72,9 @@ export default function Mixtures(props) {
         fermentMixture,
         conditionMixture,
         briteTankMixture,
-        transferMixture
+        transferMixture,
+        props,
+        isChanged
     ]);
 
     useEffect(() => {
@@ -109,6 +138,7 @@ export default function Mixtures(props) {
                 })
             );
         }
+        // eslint-disable-next-line
     }, [save]);
 
     function isMixtureChanged(mixture, initialMixture) {
@@ -116,25 +146,6 @@ export default function Mixtures(props) {
                 (({ quantity }) => ({ quantity }))(initialMixture))
             !== JSON.stringify(
                 (({ quantity }) => ({ quantity }))(mixture))
-    }
-
-    function isChanged() {
-        return JSON.stringify(
-                (({ quantity }) => ({ quantity }))(initialFermentMixture))
-            !== JSON.stringify(
-                (({ quantity }) => ({ quantity }))(fermentMixture))
-            || JSON.stringify(
-                (({ quantity }) => ({ quantity }))(initialConditionMixture))
-            !== JSON.stringify(
-                (({ quantity }) => ({ quantity }))(conditionMixture))
-            || JSON.stringify(
-                (({ quantity }) => ({ quantity }))(initialBriteTankMixture))
-            !== JSON.stringify(
-                (({ quantity }) => ({ quantity }))(briteTankMixture))
-            || JSON.stringify(
-                (({ quantity }) => ({ quantity }))(initialTransferMixture))
-            !== JSON.stringify(
-                (({ quantity }) => ({ quantity }))(transferMixture))
     }
 
     return (

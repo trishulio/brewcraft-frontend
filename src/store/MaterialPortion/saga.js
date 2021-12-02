@@ -22,7 +22,6 @@ import {
     EDIT_KETTLE_MATERIAL_PORTION_REQUEST,
     DELETE_KETTLE_MATERIAL_PORTION_REQUEST,
     SET_KETTLE_MATERIAL_PORTION_DETAILS,
-    SET_FERMENT_MATERIAL_PORTION_DETAILS,
     ADD_FERMENT_MATERIAL_PORTION_REQUEST,
     ADD_FERMENT_MATERIAL_PORTION_SUCCESS,
     ADD_FERMENT_MATERIAL_PORTION_FAILURE,
@@ -36,7 +35,7 @@ import {
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
-import { snackFailure, snackSuccess } from "../Snackbar/actions";
+import { snackFailure } from "../Snackbar/actions";
 import { fetchMaterialPortionsByBrewId } from "./actions";
 import { SET_BATCH_DETAILS } from "../Brew/actionTypes";
 
@@ -52,7 +51,7 @@ function* fetchMaterialPortionByIdGenerator(action) {
 
 function* fetchMaterialPortionsByMixtureIdGenerator(action) {
     try {
-        const res = yield call(api.fetchMaterialPortionsByMixtureId, get(action, "payload.id"));
+        yield call(api.fetchMaterialPortionsByMixtureId, get(action, "payload.id"));
         // yield put({ type: SET_MATERIAL_PORTION_DETAILS, payload: { content: res.data.content }});
     } catch (e) {
         console.log(e);

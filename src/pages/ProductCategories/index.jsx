@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "../../helpers/utils";
 import {
     fetchProductCategories,
-    fetchAllProductCategories,
     setBreadcrumbItems
 } from "../../store/actions";
 import ProductCategoriesInner from "./categories";

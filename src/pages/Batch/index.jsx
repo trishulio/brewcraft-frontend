@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import {
@@ -47,6 +47,16 @@ export default function Batch() {
         return state.Batch.Batch;
     });
 
+    const isChanged = useCallback(() => {
+        return batchChanged
+            || stagesChanged
+            || mixturesChanged
+            || finishedGoodsChanged
+            || materialPortionsChanged
+            || mixtureRecordingsChanged
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     useEffect(() => {
         dispatch(resetBatchDetails());
         if (id === "new") {
@@ -80,6 +90,7 @@ export default function Batch() {
 
     useEffect(() => {
         setChanged(isChanged());
+        // eslint-disable-next-line
     }, [
         batchChanged,
         stagesChanged,
@@ -90,22 +101,14 @@ export default function Batch() {
 
     useEffect(() => {
         setBatchChanged(isBatchChanged());
-    }, [batch, initialBatch]);
+    }, [batch, initialBatch, isBatchChanged]);
 
+    // eslint-disable-next-line
     function isBatchChanged() {
         return JSON.stringify(
                 (({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }) => ({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }))(initialBatch))
             !== JSON.stringify(
                 (({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }) => ({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }))(batch))
-    }
-
-    function isChanged() {
-        return batchChanged
-            || stagesChanged
-            || mixturesChanged
-            || finishedGoodsChanged
-            || materialPortionsChanged
-            || mixtureRecordingsChanged
     }
 
     function onSave() {

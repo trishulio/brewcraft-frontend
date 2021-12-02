@@ -4,17 +4,12 @@ import { get } from "lodash";
 import { setGlobalRedirect } from "../Brewery/actions";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
 import {
-    togglePreloader
-} from "../actions";
-import {
     FETCH_BATCH_BY_ID_REQUEST,
     SET_BATCH_DETAILS,
     ADD_BATCH_REQUEST,
-    ADD_BATCH_FAILURE,
     EDIT_BATCH_REQUEST,
     DELETE_BATCH_REQUEST,
-    EDIT_BATCH_FAILURE,
-    SET_INITIAL_BATCH_DETAILS
+    EDIT_BATCH_FAILURE
 } from "./actionTypes";
 import { isValidName, validDate, validId } from "../../helpers/utils";
 
@@ -35,9 +30,9 @@ function* fetchBatchByIdGenerator(action) {
 }
 
 function* addBatchGenerator(action) {
+    // eslint-disable-next-line
     let resStage, resMixture;
     try {
-        debugger;
         const batch = get(action, "payload.form")
         yield put({
             type: SET_BATCH_DETAILS,

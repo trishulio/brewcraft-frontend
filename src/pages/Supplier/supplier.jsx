@@ -1,8 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import {
-  Row,
-  Col,
   Alert
 } from "reactstrap";
 import Toolbar from "./components/toolbar";

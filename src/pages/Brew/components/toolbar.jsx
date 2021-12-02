@@ -1,40 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import {
     Button
 } from "reactstrap";
-import { saveFermentStage } from "../../../store/BrewStages/actions";
 
 export default function Toolbar({ editable, setEditable, changed, onSave, onDelete }) {
-    const [completed, setCompleted] = useState(false);
 
     const history = useHistory();
-    const dispatch = useDispatch();
 
     const batch = useSelector(state => {
         return state.Batch.Batch.data;
     });
-
-    const fermentStage = useSelector(state => {
-        return state.Batch.FermentStage.data;
-    })
-
-    const kettleMixture = useSelector(state => {
-        return state.Batch.KettleMixture.data;
-    })
-
-    const whirlpoolMixture = useSelector(state => {
-        return state.Batch.WhirlpoolMixture.data;
-    })
-
-    useEffect(() => {
-        if (whirlpoolMixture.brewStage.status?.id === 2) {
-            setCompleted(!!kettleMixture.quantity.value);
-        } else {
-            setCompleted(!!whirlpoolMixture.quantity.value);
-        }
-    }, [kettleMixture, whirlpoolMixture]);
 
     return (
         <React.Fragment>

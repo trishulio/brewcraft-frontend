@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     fetchMaterialPortionsByBrewId,
@@ -22,15 +22,30 @@ export default function MaterialPortions(props) {
         return state.Batch.KettleMaterialPortion;
     });
 
+    const isChanged = useCallback(() => {
+        return JSON.stringify(mashMaterialPortions) !== JSON.stringify(mashInitialMaterialPortions)
+            || JSON.stringify(kettleMaterialPortions) !== JSON.stringify(kettleInitialMaterialPortions);
+    }, [
+        mashInitialMaterialPortions,
+        mashMaterialPortions,
+        kettleInitialMaterialPortions,
+        kettleMaterialPortions
+    ]);
+
     useEffect(() => {
         if (batch.id) {
             dispatch(fetchMaterialPortionsByBrewId(batch.id));
         }
-    }, [batch.id]);
+    }, [batch.id, dispatch]);
 
     useEffect(() => {
         props.setMaterialPortionsChanged(isChanged());
-    }, [mashMaterialPortions, kettleMaterialPortions]);
+    }, [
+        mashMaterialPortions,
+        kettleMaterialPortions,
+        props,
+        isChanged
+    ]);
 
     useEffect(() => {
         if (save && isMaterialPortionsChanged(mashMaterialPortions, mashInitialMaterialPortions)) {
@@ -63,15 +78,11 @@ export default function MaterialPortions(props) {
                 })
             );
         }
+        // eslint-disable-next-line
     }, [save]);
 
     function isMaterialPortionsChanged(materialPortion, intialMaterialPortion) {
         return JSON.stringify(materialPortion) !== JSON.stringify(intialMaterialPortion)
-    }
-
-    function isChanged() {
-        return JSON.stringify(mashMaterialPortions) !== JSON.stringify(mashInitialMaterialPortions)
-            || JSON.stringify(kettleMaterialPortions) !== JSON.stringify(kettleInitialMaterialPortions);
     }
 
     return (

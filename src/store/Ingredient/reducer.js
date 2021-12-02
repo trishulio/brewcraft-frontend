@@ -1,4 +1,3 @@
-import { filter } from "lodash";
 import {
     ADD_INGREDIENT_REQUEST,
     ADD_INGREDIENT_FAILURE,

@@ -16,12 +16,7 @@ import {
     resetPurchaseInvoiceDetails,
     fetchAllSuppliers,
     fetchAllIngredients,
-    fetchAllPackaging,
-    setInvalidInvoiceSupplier,
-    setInvalidInvoiceDate,
-    setInvalidDueDate,
-    setInvalidInvoiceNumber,
-    setPurchaseInvoiceError
+    fetchAllPackaging
 } from "../../store/actions";
 import PurchaseInvoiceInner from "./invoice";
 
@@ -39,12 +34,7 @@ export default function PurchaseInvoice() {
 
     const {
         data: invoice,
-        initial: initialInvoice,
-        invalidSupplier,
-        invalidGeneratedOn,
-        invalidInvoiceNumber,
-        invalidPaymentDueDate,
-        invalidPurchaseOrder
+        initial: initialInvoice
     } = useSelector(state => {
         return state.PurchaseInvoice;
     });

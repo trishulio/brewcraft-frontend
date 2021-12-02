@@ -5,22 +5,13 @@ import {
     Input,
     Label,
     FormGroup,
-    FormFeedback,
-    Card,
-    CardHeader,
-    CardBody,
-    Row,
-    Col
+    FormFeedback
 } from "reactstrap";
 import {
     setBatchDetails,
     setBatchInvalidName,
-    setBatchInvalidStartedAt,
-    setBatchInvalidEndedAt,
     setBatchInvalidDescription,
-    setBatchInvalidBatchId,
     setBatchInvalidParentBrew,
-    setBatchInvalidProduct,
     setTransferMixtureRecords
 } from "../../../store/actions";
 import { formatDatetime } from "../../../helpers/textUtils";

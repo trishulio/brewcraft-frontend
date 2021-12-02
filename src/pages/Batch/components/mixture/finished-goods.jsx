@@ -9,7 +9,6 @@ import {
     Label
 } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
-import { formatCurrency } from "../../../../helpers/textUtils";
 import { fetchSkus } from "../../../../store/actions";
 
 export default function BatchIngredients({ mixture, finishedGoods, setFinishedGoods, editable }) {
@@ -21,13 +20,11 @@ export default function BatchIngredients({ mixture, finishedGoods, setFinishedGo
 
     useEffect(() => {
         if (editable) {
-            dispatch(
-                fetchSkus({
-                    pageSize: 500
-                })
-            );
+            dispatch(fetchSkus({
+                pageSize: 500
+            }));
         }
-    }, [editable]);
+    }, [editable, dispatch]);
 
     const skus = useSelector(state => {
         return state.Skus.content;

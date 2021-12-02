@@ -34,6 +34,7 @@ export function validDate(date) {
     return !(!date || isNaN(Date.parse(date)));
 }
 export function validatePhoneNumber(code){
+    // eslint-disable-next-line
     return (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.exec(code) ? true : false)
 }
 export function validateEmail(email){

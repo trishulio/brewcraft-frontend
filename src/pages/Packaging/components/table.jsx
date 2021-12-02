@@ -1,9 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-    Input
-} from "reactstrap";
 import { useQuery } from "../../../helpers/utils";
 import Table, { Th } from "../../../component/Common/table";
 

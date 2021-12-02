@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import {
     Row,
     Col,
@@ -198,8 +197,10 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, m
                                 <Input
                                     type="text"
                                     className="waves-effect"
-                                    value={showSkipCheckbox && stage.status.id === 3
-                                        ? "" : mixtureRecords && mixtureRecords.find(r => r.measure.id === 5)?.value || ""}
+                                    value={
+                                        // eslint-disable-next-line
+                                        showSkipCheckbox && stage.status.id === 3 ? "" : mixtureRecords && mixtureRecords.find(r => r.measure.id === 5)?.value || ""
+                                    }
                                     placeholder={showSkipCheckbox && stage.status.id === 3 ? "-" : "Enter"}
                                     name="mixtureGravity"
                                     onChange={onFormInputChange}
@@ -212,7 +213,10 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, m
                             {
                                 !editable &&
                                     <div className="d-sm-inline-block align-middle">
-                                        {mixtureRecords && mixtureRecords.find(r => r.measure.id === 5)?.value || "-"}
+                                        {
+                                            // eslint-disable-next-line
+                                            mixtureRecords && mixtureRecords.find(r => r.measure.id === 5)?.value || "-"
+                                        }
                                     </div>
                             }
                             <div className="clearFix"></div>

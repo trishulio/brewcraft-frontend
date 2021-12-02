@@ -9,9 +9,8 @@ import {
     Label
 } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
-import { formatCurrency } from "../../../../helpers/textUtils";
 
-export default function BatchIngredients({ mixture, materialPortions, materialPortionsChanged, setMaterialPortions, editable }) {
+export default function BatchIngredients({ mixture, materialPortions, setMaterialPortions, editable }) {
     const [lots, setLots] = useState([]);
     const [selectedLot, setSelectedLot] = useState("");
     const [selectedLotQuantity, setSelectedLotQuantity] = useState(0);
@@ -79,13 +78,6 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                                 <td>{portion.materialLot.invoiceItem.material.category?.name}</td>
                                 <td>{portion.materialLot.lotNumber}</td>
                                 <td>{portion.quantity.value} {portion.quantity.symbol}</td>
-                                {/* <td>{
-                                    formatCurrency(
-                                        portion.materialLot.invoiceItem.amount?.amount
-                                        / portion.materialLot.invoiceItem.quantity?.value
-                                        * portion.quantity.value
-                                    )
-                                }</td> */}
                             </tr>
                         ))
                     }
@@ -104,8 +96,8 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                         style={{ width: "14rem" }}
                         value={selectedLot.id || ""}
                         onChange={e => {
-                            // const materialLot = materialLots.find (s => s.id === parseInt(e.target.value));
-                            // setSelectedLot(materialLot);
+                            const materialLot = materialLots.find (s => s.id === parseInt(e.target.value));
+                            setSelectedLot(materialLot);
                         }}
                     >
                         <option value="">Ingredient</option>

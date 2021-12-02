@@ -5,7 +5,6 @@ import {
     FormFeedback,
     Input,
     Label,
-    Alert
 } from "reactstrap";
 import {
     setSupplierAddressDetails,
@@ -28,8 +27,7 @@ export default function SupplierDetails({ editable }) {
         invalidCity,
         invalidProvince,
         invalidPostalCode,
-        invalidCountry,
-        loading
+        invalidCountry
     } = useSelector(state => {
         return state.Supplier
     });

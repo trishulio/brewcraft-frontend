@@ -1,11 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import {
     Row,
     Col,
     Card,
-    CardBody,
-    Badge
+    CardBody
 } from "reactstrap";
 import { formatCurrency } from '../../../helpers/textUtils';
 
@@ -15,22 +13,6 @@ export default function BrewMiniCard() {
     const brewHouseTurns = 0;
     const totalCost = 0;
     const costPerLitre = 0;
-
-    const kettleMixture = useSelector(state => {
-        return state.Batch.KettleMixture.data;
-    })
-
-    const whirlpoolMixture = useSelector(state => {
-        return state.Batch.WhirlpoolMixture.data;
-    })
-
-    const { initial: initialMaterialPortions } = useSelector(state => {
-        return state.Batch.MashMaterialPortion;
-    });
-
-    const transferMixtureRecordings = useSelector(state => {
-        return state.Batch.TransferMixtureRecordings.content;
-    })
 
     return (
         <React.Fragment>
