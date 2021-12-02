@@ -84,12 +84,7 @@ const Ingredient = (state = initialState, { type, payload, data }) => {
         case DELETE_INGREDIENT_SUCCESS:
         return {
             ...state,
-            data: filter([...state.data], (instanceData) => {
-                return (
-                    payload.id!==instanceData.id
-                    );
-                }),
-                formLoading: { ...state.formLoading, loading: false },
+            data: state.initial
             };
         case RESET_INGREDIENT_DETAILS:
         return {

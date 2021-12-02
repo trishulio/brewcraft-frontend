@@ -36,9 +36,9 @@ export const editIngredient = payload => ({
     payload: payload,
 });
 
-export const deleteIngredient = payload => ({
+export const deleteIngredient = id => ({
     type: DELETE_INGREDIENT_REQUEST,
-    payload: payload,
+    payload: { id },
 });
 
 export const setIngredientInvalidName = value => ({
