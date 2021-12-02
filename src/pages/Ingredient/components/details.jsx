@@ -106,18 +106,6 @@ export default function IngredientDetails({ editable }) {
                 <CardBody>
                     <Row>
                         <Col xs="2">
-                            <Label className="mb-3">
-                                ID
-                            </Label>
-                        </Col>
-                        <Col xs="8">
-                            <div hidden={false}>
-                                {ingredient.id ? ingredient.id : "-"}
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="2">
                             <Label
                                 for="ingredientName"
                                 className="mb-3"
