@@ -67,15 +67,6 @@ export default function IngredientsToolbar() {
                     ))
                 }
             </Input>
-            <Input
-                bsSize="sm"
-                type="search"
-                name="search"
-                id="ingredientsSearch"
-                placeholder="Name"
-                className="waves-effect float-right mb-3 ml-2"
-                style={{ width: 170 }}
-            />
         </Toolbar>
     );
 }

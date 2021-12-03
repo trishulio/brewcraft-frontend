@@ -55,15 +55,6 @@ export default function PackagingToolbar() {
                     ))
                 }
             </Input>
-            <Input
-                bsSize="sm"
-                type="search"
-                name="search"
-                id="packagingSearch"
-                placeholder="Name"
-                className="waves-effect float-right mb-3 ml-2"
-                style={{ width: 170 }}
-            />
         </Toolbar>
     );
 }
