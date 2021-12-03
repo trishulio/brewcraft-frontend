@@ -92,7 +92,7 @@ export default function SupplierContactDetails({ editable }) {
                 break;
             case "contactEmail":
                 if (contact.email !== e.target.value) {
-                    dispatch(setInvalidSupplierContactEmail(!e.target.value ? true : !isValidEmail(e.target.value)));
+                    dispatch(setInvalidSupplierContactEmail(!isValidEmail(e.target.value)));
                     dispatch(setSupplierContactDetails({
                         data: {
                             ...contact,
@@ -103,7 +103,7 @@ export default function SupplierContactDetails({ editable }) {
                 break;
             case "contactPhoneNumber":
                 if (contact.phoneNumber !== e.target.value) {
-                    dispatch(setInvalidSupplierContactPhoneNumber(!e.target.value ? true : !isValidPhoneNumber(e.target.value)));
+                    dispatch(setInvalidSupplierContactPhoneNumber(!isValidPhoneNumber(e.target.value)));
                     dispatch(setSupplierContactDetails({
                         data: {
                             ...contact,
@@ -122,18 +122,6 @@ export default function SupplierContactDetails({ editable }) {
             <Card>
                 <CardHeader>Contact Details</CardHeader>
                 <CardBody>
-                    {/* <Label
-                        className="d-inline-block mb-3"
-                        style={{
-                            width: "6rem"
-                        }}
-                    >
-                        ID
-                    </Label>
-                    <div className="d-inline-block mb-2">
-                        {contact.id ? contact.id : "-"}
-                    </div>
-                    <div className="clearfix"></div> */}
                     <Label
                         for="contactFirstName"
                         className="d-inline-block mb-3"
