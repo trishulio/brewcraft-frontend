@@ -13,7 +13,7 @@ class SearchBar extends Component {
             <React.Fragment>
                     <Form className="app-search d-none d-lg-block">
                         <div className="position-relative">
-                            <Input type="text" className="form-control" placeholder="Search..."/>
+                            <Input id="app-search-input" type="text" className="form-control" placeholder="Search..."/>
                             <span className="fa fa-search"></span>
                         </div>
                     </Form>

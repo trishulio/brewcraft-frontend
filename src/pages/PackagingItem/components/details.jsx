@@ -33,6 +33,7 @@ export default function PackagingItemDetails({ editable, onSave }) {
     const [modalPackageType, setModalPackageType] = useState(null);
     const [modalParentCategoryId, setModalParentCategoryId] = useState(null);
     const [inputFocused, setInputFocused] = useState(false);
+    const searchFocused = document.activeElement === document.getElementById('app-search-input');
 
     const { invalidName, invalidCategory, invalidBaseQuantityUnit, invalidUpc } = useSelector(state => {
         return state.PackagingItem
@@ -52,11 +53,11 @@ export default function PackagingItemDetails({ editable, onSave }) {
     const enterKeyPressed = useKeyPress(ENTER_KEY);
 
     useEffect(() => {
-        if (enterKeyPressed && !inputFocused) {
+        if (enterKeyPressed && !inputFocused && !searchFocused) {
             onSave();
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [enterKeyPressed])
+    }, [enterKeyPressed, searchFocused])
 
     function onFormInputChange(e) {
         switch(e.target.name) {
