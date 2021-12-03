@@ -174,6 +174,8 @@ export default function IngredientDetails({ editable, onSave }) {
                                     disabled={!editable}
                                     invalid={invalidCategory}
                                     value={ingredient.category?.id || ""}
+                                    onFocus={toggleFocus}
+                                    onBlur={toggleFocus}
                                     onChange={e => {
                                         if (e.target.value !== ADD_NEW) {
                                             onFormInputChange(e);
@@ -224,6 +226,8 @@ export default function IngredientDetails({ editable, onSave }) {
                                     disabled={!editable}
                                     invalid={invalidBaseQuantityUnit}
                                     value={ingredient.baseQuantityUnit || ""}
+                                    onFocus={toggleFocus}
+                                    onBlur={toggleFocus}
                                     onChange={e => {
                                         onFormInputChange(e);
                                     }}

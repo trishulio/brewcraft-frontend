@@ -5,7 +5,7 @@ import {
     Button
 } from "reactstrap";
 
-export default function Toolbar({ editable, changed, onSave, onDelete, tabIndex }) {
+export default function Toolbar({ editable, changed, onSave, onDelete }) {
     const history = useHistory();
 
     const materialCategory = useSelector(state => {
@@ -22,7 +22,6 @@ export default function Toolbar({ editable, changed, onSave, onDelete, tabIndex 
                 onClick={onSave}
                 disabled={!changed}
                 hidden={!editable}
-                tabIndex={tabIndex}
             >
                 Save
             </Button>
@@ -35,7 +34,6 @@ export default function Toolbar({ editable, changed, onSave, onDelete, tabIndex 
                     history.goBack();
                 }}
                 hidden={!editable}
-                tabIndex={tabIndex}
             >
                 Cancel
             </Button>
@@ -46,7 +44,6 @@ export default function Toolbar({ editable, changed, onSave, onDelete, tabIndex 
                 className="waves-effect mr-2 mb-3"
                 disabled={editable || !materialCategory.parentCategory}
                 hidden={!materialCategory.id || editable}
-                tabIndex={tabIndex}
                 onClick={() => {
                     history.push({
                         pathname: "/materials/categories/" + materialCategory.id,
@@ -62,7 +59,6 @@ export default function Toolbar({ editable, changed, onSave, onDelete, tabIndex 
                 size="sm"
                 className="waves-effect mr-2 mb-3"
                 hidden={!materialCategory.id || editable}
-                tabIndex={tabIndex}
                 onClick={() => {
                     history.push({
                         pathname: "/materials/categories/new",
@@ -79,7 +75,6 @@ export default function Toolbar({ editable, changed, onSave, onDelete, tabIndex 
                 className="waves-effect mr-2 mb-3"
                 onClick={onDelete}
                 hidden={!materialCategory.id || !editable}
-                tabIndex={tabIndex}
             >
                 Delete Category
             </Button>
@@ -90,7 +85,6 @@ export default function Toolbar({ editable, changed, onSave, onDelete, tabIndex 
                 className="waves-effect mr-2 mb-3"
                 hidden={!materialCategory.id || editable}
                 outline={true}
-                tabIndex={tabIndex}
                 onClick={() => {
                     history.push("/materials/categories");
                 }}

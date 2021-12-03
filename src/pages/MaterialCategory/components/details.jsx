@@ -142,6 +142,8 @@ export default function MaterialCategoryDetails({ editable, onSave }) {
                                     disabled={!editable}
                                     invalid={invalidParentCategory}
                                     value={materialCategory.parentCategory?.id || ""}
+                                    onFocus={toggleFocus}
+                                    onBlur={toggleFocus}
                                     onChange={e => {
                                         onFormInputChange(e);
                                     }}

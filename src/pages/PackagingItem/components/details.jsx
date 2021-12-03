@@ -175,6 +175,8 @@ export default function PackagingItemDetails({ editable, onSave }) {
                                     disabled={!editable}
                                     invalid={invalidCategory}
                                     value={packagingItem.category.id || ""}
+                                    onFocus={toggleFocus}
+                                    onBlur={toggleFocus}
                                     onChange={e => {
                                         if (e.target.value !== ADD_NEW) {
                                             onFormInputChange(e);
@@ -225,6 +227,8 @@ export default function PackagingItemDetails({ editable, onSave }) {
                                     disabled={!editable}
                                     invalid={invalidBaseQuantityUnit}
                                     value={packagingItem.baseQuantityUnit || ""}
+                                    onFocus={toggleFocus}
+                                    onBlur={toggleFocus}
                                     onChange={e => {
                                         onFormInputChange(e);
                                     }}
