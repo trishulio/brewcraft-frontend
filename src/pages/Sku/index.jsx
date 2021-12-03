@@ -93,7 +93,10 @@ export default function Sku() {
                         name: sku.name,
                         description: sku.description,
                         productId: sku.product.id,
-                        quantity: sku.quantity,
+                        quantity: {
+                            value: parseFloat(sku.quantity.value),
+                            symbol: "l"
+                        },
                         materials: [],
                         version: sku.version
                     }
@@ -107,7 +110,7 @@ export default function Sku() {
                         description: sku.description,
                         productId: sku.product.id,
                         quantity: {
-                            value: sku.quantity.value,
+                            value: parseFloat(sku.quantity.value),
                             symbol: "l"
                         },
                         materials: []
