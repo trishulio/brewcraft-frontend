@@ -78,10 +78,6 @@ export default function MaterialCategoryDetails({ editable, onSave }) {
         }
     }
 
-    function toggleFocus() {
-        setInputFocused(!inputFocused)
-    }
-
     return (
         <React.Fragment>
             <Card>
@@ -110,8 +106,6 @@ export default function MaterialCategoryDetails({ editable, onSave }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
-                                    onFocus={toggleFocus}
-                                    onBlur={toggleFocus}
                                     onKeyUp={onKeyUp}
                                 />
                                 <FormFeedback>Enter a valid material category name.</FormFeedback>
@@ -143,8 +137,7 @@ export default function MaterialCategoryDetails({ editable, onSave }) {
                                     disabled={!editable}
                                     invalid={invalidParentCategory}
                                     value={materialCategory.parentCategory?.id || ""}
-                                    onFocus={toggleFocus}
-                                    onBlur={toggleFocus}
+                                    onKeyUp={onKeyUp}
                                     onChange={e => {
                                         onFormInputChange(e);
                                     }}
