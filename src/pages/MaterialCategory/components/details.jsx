@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import {
@@ -26,7 +26,6 @@ const ENTER_KEY = "Enter";
 export default function MaterialCategoryDetails({ editable, onSave }) {
 
     const [inputFocused, setInputFocused] = useState(false);
-    const searchFocused = document.activeElement === document.getElementById('app-search-input');
 
     const { invalidName, invalidParentCategory } = useSelector(state => {
         return state.MaterialCategory
@@ -45,12 +44,12 @@ export default function MaterialCategoryDetails({ editable, onSave }) {
 
     const enterKeyPressed = useKeyPress(ENTER_KEY);
 
-    useEffect(() => {
-        if (enterKeyPressed && !inputFocused && !searchFocused) {
+    function onKeyUp() {
+        if (enterKeyPressed) {
             onSave();
+            return;
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [enterKeyPressed, searchFocused])
+    }
 
     function onFormInputChange(e) {
         switch(e.target.name) {
@@ -113,6 +112,7 @@ export default function MaterialCategoryDetails({ editable, onSave }) {
                                     invalid={invalidName}
                                     onFocus={toggleFocus}
                                     onBlur={toggleFocus}
+                                    onKeyUp={onKeyUp}
                                 />
                                 <FormFeedback>Enter a valid material category name.</FormFeedback>
                             </FormGroup>

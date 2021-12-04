@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import {
@@ -32,20 +32,11 @@ export default function IngredientDetails({ editable, onSave }) {
     const [showPackageCategoryModal, setShowPackageCategoryModal] = useState(false);
     const [modalPackageType, setModalPackageType] = useState(null);
     const [modalParentCategoryId, setModalParentCategoryId] = useState(null);
-    const [inputFocused, setInputFocused] = useState(false);
-    const searchFocused = document.activeElement === document.getElementById('app-search-input');
 
     const { invalidName, invalidCategory, invalidBaseQuantityUnit, invalidUpc } = useSelector(state => {
         return state.Ingredient
     });
     const enterKeyPressed = useKeyPress(ENTER_KEY);
-
-    useEffect(() => {
-        if (enterKeyPressed && !inputFocused && !searchFocused) {
-            onSave();
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [enterKeyPressed, searchFocused])
 
     const categories = useSelector(state => {
         return state.MaterialCategories.all
@@ -111,8 +102,11 @@ export default function IngredientDetails({ editable, onSave }) {
         }
     }
 
-    function toggleFocus() {
-        setInputFocused(!inputFocused)
+    function onKeyUp() {
+        if (enterKeyPressed) {
+            onSave();
+            return;
+        }
     }
 
     return (
@@ -137,14 +131,13 @@ export default function IngredientDetails({ editable, onSave }) {
                                     type="text"
                                     className="waves-effect"
                                     bsSize="sm"
-                                    onFocus={toggleFocus}
-                                    onBlur={toggleFocus}
                                     value={ingredient.name}
                                     placeholder="Enter"
                                     name="ingredientName"
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
+                                    onKeyUp={onKeyUp}
                                 />
                                 <FormFeedback>Enter a valid ingredient name.</FormFeedback>
                             </FormGroup>
@@ -175,8 +168,7 @@ export default function IngredientDetails({ editable, onSave }) {
                                     disabled={!editable}
                                     invalid={invalidCategory}
                                     value={ingredient.category?.id || ""}
-                                    onFocus={toggleFocus}
-                                    onBlur={toggleFocus}
+                                    onKeyUp={onKeyUp}
                                     onChange={e => {
                                         if (e.target.value !== ADD_NEW) {
                                             onFormInputChange(e);
@@ -227,8 +219,7 @@ export default function IngredientDetails({ editable, onSave }) {
                                     disabled={!editable}
                                     invalid={invalidBaseQuantityUnit}
                                     value={ingredient.baseQuantityUnit || ""}
-                                    onFocus={toggleFocus}
-                                    onBlur={toggleFocus}
+                                    onKeyUp={onKeyUp}
                                     onChange={e => {
                                         onFormInputChange(e);
                                     }}
@@ -265,8 +256,7 @@ export default function IngredientDetails({ editable, onSave }) {
                                     type="text"
                                     className="waves-effect"
                                     bsSize="sm"
-                                    onFocus={toggleFocus}
-                                    onBlur={toggleFocus}
+                                    onKeyUp={onKeyUp}
                                     value={ingredient.upc}
                                     placeholder="Enter"
                                     name="ingredientUpc"
@@ -296,8 +286,6 @@ export default function IngredientDetails({ editable, onSave }) {
                                 value={ingredient.description}
                                 rows={4}
                                 name="ingredientDescription"
-                                onFocus={toggleFocus}
-                                onBlur={toggleFocus}
                                 disabled={!editable}
                                 onChange={onFormInputChange}
                                 autoComplete="false"
