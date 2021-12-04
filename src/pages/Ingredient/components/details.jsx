@@ -22,11 +22,13 @@ import {
     CardHeader
 } from "../../../component/Common/Card";
 import MaterialCategoriesModal from "../../../component/MaterialCategories/modal";
+import { useKeyPress } from "../../../helpers/utils";
 
 const ADD_NEW = "ADD_NEW";
 const INGREDIENT_CATEGORY = "ingredient";
+const ENTER_KEY = "Enter"
 
-export default function IngredientDetails({ editable }) {
+export default function IngredientDetails({ editable, onSave }) {
     const [showPackageCategoryModal, setShowPackageCategoryModal] = useState(false);
     const [modalPackageType, setModalPackageType] = useState(null);
     const [modalParentCategoryId, setModalParentCategoryId] = useState(null);
@@ -34,6 +36,7 @@ export default function IngredientDetails({ editable }) {
     const { invalidName, invalidCategory, invalidBaseQuantityUnit, invalidUpc } = useSelector(state => {
         return state.Ingredient
     });
+    const enterKeyPressed = useKeyPress(ENTER_KEY);
 
     const categories = useSelector(state => {
         return state.MaterialCategories.all
@@ -99,6 +102,13 @@ export default function IngredientDetails({ editable }) {
         }
     }
 
+    function onKeyUp() {
+        if (enterKeyPressed) {
+            onSave();
+            return;
+        }
+    }
+
     return (
         <React.Fragment>
             <Card>
@@ -127,6 +137,7 @@ export default function IngredientDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
+                                    onKeyUp={onKeyUp}
                                 />
                                 <FormFeedback>Enter a valid ingredient name.</FormFeedback>
                             </FormGroup>
@@ -157,6 +168,7 @@ export default function IngredientDetails({ editable }) {
                                     disabled={!editable}
                                     invalid={invalidCategory}
                                     value={ingredient.category?.id || ""}
+                                    onKeyUp={onKeyUp}
                                     onChange={e => {
                                         if (e.target.value !== ADD_NEW) {
                                             onFormInputChange(e);
@@ -207,6 +219,7 @@ export default function IngredientDetails({ editable }) {
                                     disabled={!editable}
                                     invalid={invalidBaseQuantityUnit}
                                     value={ingredient.baseQuantityUnit || ""}
+                                    onKeyUp={onKeyUp}
                                     onChange={e => {
                                         onFormInputChange(e);
                                     }}
@@ -243,6 +256,7 @@ export default function IngredientDetails({ editable }) {
                                     type="text"
                                     className="waves-effect"
                                     bsSize="sm"
+                                    onKeyUp={onKeyUp}
                                     value={ingredient.upc}
                                     placeholder="Enter"
                                     name="ingredientUpc"

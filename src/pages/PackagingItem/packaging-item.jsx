@@ -33,6 +33,7 @@ export default function PackagingItem({ editable, changed, onSave, onDelete }) {
                     }
                     <PackagingItemDetails
                         editable={editable}
+                        onSave={onSave}
                     />
                 </Col>
                 {/* <Col md="3">

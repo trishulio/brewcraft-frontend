@@ -22,11 +22,13 @@ import {
     CardHeader
 } from "../../../component/Common/Card";
 import MaterialCategoriesModal from "../../../component/MaterialCategories/modal";
+import { useKeyPress } from "../../../helpers/utils";
 
 const ADD_NEW = "ADD_NEW";
 const PACKAGING_CATEGORY = "packaging";
+const ENTER_KEY = "Enter"
 
-export default function PackagingItemDetails({ editable }) {
+export default function PackagingItemDetails({ editable, onSave }) {
     const [showPackageCategoryModal, setShowPackageCategoryModal] = useState(false);
     const [modalPackageType, setModalPackageType] = useState(null);
     const [modalParentCategoryId, setModalParentCategoryId] = useState(null);
@@ -45,6 +47,8 @@ export default function PackagingItemDetails({ editable }) {
     });
 
     const dispatch = useDispatch();
+
+    const enterKeyPressed = useKeyPress(ENTER_KEY);
 
     function onFormInputChange(e) {
         switch(e.target.name) {
@@ -99,6 +103,13 @@ export default function PackagingItemDetails({ editable }) {
         }
     }
 
+    function onKeyUp() {
+        if (enterKeyPressed) {
+            onSave();
+            return;
+        }
+    }
+
     return (
         <React.Fragment>
             <Card>
@@ -127,6 +138,7 @@ export default function PackagingItemDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
+                                    onKeyUp={onKeyUp}
                                 />
                                 <FormFeedback>Enter a valid packagingItem name.</FormFeedback>
                             </FormGroup>
@@ -157,6 +169,7 @@ export default function PackagingItemDetails({ editable }) {
                                     disabled={!editable}
                                     invalid={invalidCategory}
                                     value={packagingItem.category.id || ""}
+                                    onKeyUp={onKeyUp}
                                     onChange={e => {
                                         if (e.target.value !== ADD_NEW) {
                                             onFormInputChange(e);
@@ -207,6 +220,7 @@ export default function PackagingItemDetails({ editable }) {
                                     disabled={!editable}
                                     invalid={invalidBaseQuantityUnit}
                                     value={packagingItem.baseQuantityUnit || ""}
+                                    onKeyUp={onKeyUp}
                                     onChange={e => {
                                         onFormInputChange(e);
                                     }}
@@ -249,6 +263,7 @@ export default function PackagingItemDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidUpc}
+                                    onKeyUp={onKeyUp}
                                 />
                                 <FormFeedback>Enter a valid upc.</FormFeedback>
                             </FormGroup>

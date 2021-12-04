@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import {
@@ -19,8 +19,13 @@ import {
     CardBody,
     CardHeader
 } from "../../../component/Common/Card";
+import { useKeyPress } from "../../../helpers/utils";
 
-export default function MaterialCategoryDetails({ editable }) {
+const ENTER_KEY = "Enter";
+
+export default function MaterialCategoryDetails({ editable, onSave }) {
+
+    const [inputFocused, setInputFocused] = useState(false);
 
     const { invalidName, invalidParentCategory } = useSelector(state => {
         return state.MaterialCategory
@@ -36,6 +41,15 @@ export default function MaterialCategoryDetails({ editable }) {
     });
 
     const dispatch = useDispatch();
+
+    const enterKeyPressed = useKeyPress(ENTER_KEY);
+
+    function onKeyUp() {
+        if (enterKeyPressed) {
+            onSave();
+            return;
+        }
+    }
 
     function onFormInputChange(e) {
         switch(e.target.name) {
@@ -92,6 +106,7 @@ export default function MaterialCategoryDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
+                                    onKeyUp={onKeyUp}
                                 />
                                 <FormFeedback>Enter a valid material category name.</FormFeedback>
                             </FormGroup>
@@ -122,6 +137,7 @@ export default function MaterialCategoryDetails({ editable }) {
                                     disabled={!editable}
                                     invalid={invalidParentCategory}
                                     value={materialCategory.parentCategory?.id || ""}
+                                    onKeyUp={onKeyUp}
                                     onChange={e => {
                                         onFormInputChange(e);
                                     }}
