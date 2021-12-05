@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "https://apollo.brewcraft.io/",
+  "babel": {},
   "dependencies": {
     "@fullcalendar/bootstrap": "^4.4.2",
     "@fullcalendar/core": "^4.4.2",
@@ -102,6 +103,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.16.3",
+    "@babel/preset-react": "^7.16.0",
     "eslint": "^8.3.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.24.2",
