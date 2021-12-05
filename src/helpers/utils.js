@@ -36,6 +36,7 @@ export function validDate(date) {
 }
 
 export function isValidPhoneNumber(code){
+    /* eslint-disable-next-line no-useless-escape */
     return isValidName(code)  && (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.exec(code) ? true : false)
 }
 
@@ -85,7 +86,6 @@ export function useKeyPress(targetKey) {
             window.removeEventListener("keydown", downHandler);
             window.removeEventListener("keyup", upHandler);
         };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return keyPressed;
 }

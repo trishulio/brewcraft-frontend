@@ -127,7 +127,7 @@ class SidebarContent extends Component {
   }
 
   //theme preloader
-  changeThemePreloader = (value) => {
+  changeThemePreloader = () => {
     this.props.changePreloader(!this.props.isPreloader);
   };
 
@@ -137,7 +137,7 @@ class SidebarContent extends Component {
   }
 
   //change layout width
-  changeLayoutWidth(value) {
+  changeLayoutWidth() {
     if (this.state.layoutWidth === "boxed")
       this.props.changeLayoutWidth("fluid", this.state.layoutType);
     else this.props.changeLayoutWidth("boxed", this.state.layoutType);

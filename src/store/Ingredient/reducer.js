@@ -45,7 +45,7 @@ const initialState = {
     error: null
 };
 
-const Ingredient = (state = initialState, { type, payload, data }) => {
+const Ingredient = (state = initialState, { type, payload }) => {
     switch(type) {
         case SET_INGREDIENT_DETAILS:
             return {

@@ -37,7 +37,7 @@ class Navbar extends Component {
     }
 
     //change layout width
-    changeLayoutWidth(value) {
+    changeLayoutWidth() {
         if (this.state.layoutWidth === "boxed")
             this.props.changeLayoutWidth("fluid", this.state.layoutType);
         else
@@ -45,7 +45,7 @@ class Navbar extends Component {
     }
 
     //theme preloader
-    changeThemePreloader = (value) => {
+    changeThemePreloader = () => {
         this.props.changePreloader(!this.props.isPreloader);
     }
 

@@ -66,12 +66,12 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
 
         }
         dispatch(setPurchaseInvoiceItems(itemsNew));
-    };
+    }
 
     function removeItem () {
         items.splice(indexv, 1);
         dispatch(setPurchaseInvoiceItems(items));
-    };
+    }
 
     function formatAmount() {
         if (item.quantity.value && item.price.amount && item.tax.amount.amount) {

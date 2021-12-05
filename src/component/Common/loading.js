@@ -46,7 +46,7 @@ const Element = (props) => {
   );
 };
 
-const Loading = (props) =>{
+const Loading = () =>{
     return      <div style={{ width: "100%"}}>
     <Element viewBox="0 0 1100 256" />
   </div>

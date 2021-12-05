@@ -65,7 +65,7 @@ class RightSideBar extends Component {
     }
 
     //theme preloader
-    changeThemePreloader = (e) => {
+    changeThemePreloader = () => {
         this.props.changePreloader(!this.props.isPreloader);
     }
 

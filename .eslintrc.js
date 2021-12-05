@@ -7,7 +7,7 @@ module.exports = {
         "eslint:recommended",
         "plugin:react/recommended"
     ],
-    // parser: babel-eslint,
+
     parserOptions: {
         ecmaFeatures: {
             jsx: true
@@ -19,10 +19,18 @@ module.exports = {
         "react"
     ],
     rules: {
-        "no-empty": 0
+        "no-empty": 0,
+        "react/prop-types": 0
     },
     ignorePatterns: [
         "src/assets/**/*",
+        "src/component/MaterialsTransaction",
+        "src/component/TransactionsTable/",
+        "src/pages/CustomerInvoices",
+        "src/pages/Dashboard",
+        "src/pages/Delivery",
+        "src/pages/Storage",
+        "src/pages/Vechicles/**/*",
         "src/store/Currency/**/*",
         "src/store/Customers/**/*",
         "src/store/Driver/**/*",
@@ -33,5 +41,10 @@ module.exports = {
         "src/store/Tax/**/*",
         "src/store/Vechicles/**/*",
         "src/serviceWorker.js"
-    ]
+    ],
+    settings: {
+        react: {
+            version: "detect"
+        }
+    }
 };
