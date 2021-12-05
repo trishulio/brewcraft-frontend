@@ -9,7 +9,7 @@ import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure } from "../Snackbar/actions";
 
-function* fetchAllProductCategories(action) {
+function* fetchAllProductCategories() {
     try {
         const res = yield call(api.fetchProductCategories, {});
         yield put({ type: SET_ALL_PRODUCT_CATEGORIES, payload: { data: res.data.content }});

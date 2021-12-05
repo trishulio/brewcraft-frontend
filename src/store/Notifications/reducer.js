@@ -10,8 +10,14 @@ const initialState = {
     totalUnreadNotifications: 3
 }
 
-export default function Notifications(state = initialState, { type, payload, data }) {
-    return {
-        ...state
+export default function Notifications(state = initialState, { type, payload }) {
+    switch(type) {
+        default:
+            return {
+                ...state,
+                ...payload,
+                error: null,
+                loading: false
+            }
     }
 }

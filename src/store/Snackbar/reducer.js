@@ -38,4 +38,4 @@ export default function Snackbar (state = {}, { type, payload, data }) {
   }
 
   return state;
-};
+}

@@ -124,7 +124,7 @@ function* addBatchGenerator(action) {
                 },
                 brewStageId: resStage.data[5].id
             });
-            resMixture = yield call(api.addMixture, {
+            yield call(api.addMixture, {
                 parentMixtureId: resMixture.data.id,
                 quantity: {
                     symbol: "hl",

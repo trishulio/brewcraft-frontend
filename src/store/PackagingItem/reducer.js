@@ -46,7 +46,7 @@ const initialState = {
     error: null
 };
 
-const PackagingItem = (state = initialState, { type, payload, data }) => {
+const PackagingItem = (state = initialState, { type, payload }) => {
     switch(type) {
         case SET_PACKAGING_ITEM_DETAILS:
             return {
