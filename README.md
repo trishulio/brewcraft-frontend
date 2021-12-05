@@ -1,6 +1,6 @@
 # Fuzzy Potato - Brewcraft UI
 
-# Node version
+## Node version
 ```
 node --version
 v14.17.5
@@ -22,7 +22,7 @@ npm install
 ```
 npm run start
 
-# start on http://localhost/3000
+# start on http://localhost:3000
 ```
 
 ## Auth
