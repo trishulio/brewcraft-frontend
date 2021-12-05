@@ -11,7 +11,6 @@ export default function Supplier({ editable, changed, onSave, onDelete }) {
     const error = useSelector(state => {
         return state.Supplier.error;
     });
-
     return (
         <React.Fragment>
             {console.log(error)}

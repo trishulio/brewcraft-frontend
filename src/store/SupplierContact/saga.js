@@ -14,7 +14,7 @@ import {
     SET_SUPPLIER_CONTACT_DETAILS
 } from "./actionTypes";
 import { api } from "./api";
-import { snackSuccess } from "../Snackbar/actions";
+import { snackSuccess , snackFailure } from "../Snackbar/actions";
 import { setGlobalRedirect } from "../Brewery/actions";
 
 function* fetchSupplierContactByIdGenerator(action) {
@@ -43,7 +43,7 @@ function* editSupplierContactGenerator(action) {
         yield put({ type: EDIT_SUPPLIER_CONTACT_SUCCESS, payload: { data: res.data, initial: res.data }});
         yield put(snackSuccess("Supplier Contact saved!"));
     } catch (e) {
-        yield put({ type: EDIT_SUPPLIER_CONTACT_FAILURE });
+        yield put({ type: EDIT_SUPPLIER_CONTACT_FAILURE  });
     }
 }
 

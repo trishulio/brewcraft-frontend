@@ -21,7 +21,8 @@ import {
     CardBody,
     CardHeader
 } from "../../../component/Common/Card";
-import { formatPhoneNumber, validateEmail, validatePhoneNumber } from "../../../helpers/utils";
+import { formatPhoneNumber, isValidEmail, isValidPhoneNumber } from "../../../helpers/utils";
+
 export default function SupplierContactDetails({ editable }) {
     const {
         invalidFirstName,
@@ -41,7 +42,6 @@ export default function SupplierContactDetails({ editable }) {
     const contact = useSelector(state => {
         return state.SupplierContact.data;
     });
-
     const dispatch = useDispatch();
     function onFormInputChange(e) {
         switch(e.target.name) {
@@ -91,7 +91,7 @@ export default function SupplierContactDetails({ editable }) {
                 break;
             case "contactEmail":
                 if (contact.email !== e.target.value) {
-                    dispatch(setInvalidSupplierContactEmail(!e.target.value ? true : !validateEmail(e.target.value)));
+                    dispatch(setInvalidSupplierContactEmail(!isValidEmail(e.target.value)));
                     dispatch(setSupplierContactDetails({
                         data: {
                             ...contact,
@@ -102,7 +102,7 @@ export default function SupplierContactDetails({ editable }) {
                 break;
             case "contactPhoneNumber":
                 if (contact.phoneNumber !== e.target.value) {
-                    dispatch(setInvalidSupplierContactPhoneNumber(!e.target.value ? true : !validatePhoneNumber(e.target.value)));
+                    dispatch(setInvalidSupplierContactPhoneNumber(!isValidPhoneNumber(e.target.value)));
                     dispatch(setSupplierContactDetails({
                         data: {
                             ...contact,
@@ -121,18 +121,6 @@ export default function SupplierContactDetails({ editable }) {
             <Card>
                 <CardHeader>Contact Details</CardHeader>
                 <CardBody>
-                    <Label
-                        className="d-inline-block mb-3"
-                        style={{
-                            width: "6rem"
-                        }}
-                    >
-                        ID
-                    </Label>
-                    <div className="d-inline-block mb-2">
-                        {contact.id ? contact.id : "-"}
-                    </div>
-                    <div className="clearfix"></div>
                     <Label
                         for="contactFirstName"
                         className="d-inline-block mb-3"
@@ -205,7 +193,7 @@ export default function SupplierContactDetails({ editable }) {
                                 invalid={invalidLastName}
                             />
                             <FormFeedback>
-                                {contact.firstName.length > 0
+                                {contact.lastName.length > 0
                                     ? "Invalid contact name field"
                                     : "Contact name field must not be empty"
                                 }
@@ -258,7 +246,7 @@ export default function SupplierContactDetails({ editable }) {
                                 }
                             </Input>
                             <FormFeedback>
-                                {contact.firstName.length > 0
+                                {contact.supplier !==""
                                     ? "Invalid supplier field"
                                     : "Contact supplier field must not be empty"
                                 }
@@ -300,7 +288,7 @@ export default function SupplierContactDetails({ editable }) {
                                 invalid={invalidPosition}
                             />
                             <FormFeedback>
-                                {contact.firstName.length > 0
+                                {contact.position.length > 0
                                     ? "Invalid contact position field"
                                     : "Contact position field must not be empty"
                                 }
@@ -342,9 +330,9 @@ export default function SupplierContactDetails({ editable }) {
                                 invalid={invalidEmail}
                             />
                             <FormFeedback>
-                                {contact.firstName.length > 0
-                                    ? "Invalid contact position field"
-                                    : "Contact position field must not be empty"
+                                {contact.email.length > 0
+                                    ? "Invalid contact email field"
+                                    : "Contact email field must not be empty"
                                 }
                             </FormFeedback>
                         </FormGroup>
@@ -383,8 +371,9 @@ export default function SupplierContactDetails({ editable }) {
                                     onChange={onFormInputChange}
                                     invalid={invalidPhoneNumber}
                             />
+
                             <FormFeedback>
-                                {contact.firstName.length > 0
+                                {contact.phoneNumber.length > 0
                                     ? "Invalid contact phone field"
                                     : "Contact phone field must not be empty"
                                 }

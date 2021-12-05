@@ -8,9 +8,8 @@ import { useSelector } from "react-redux";
 
 export default function SupplierContact({ editable, changed, onSave, onDelete }) {
     const { error } = useSelector(state => {
-        return state.Supplier
+        return state.SupplierContact
     });
-
     return (
         <React.Fragment>
             <Toolbar
