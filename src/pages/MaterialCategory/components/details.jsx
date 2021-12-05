@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import {
@@ -24,8 +24,6 @@ import { useKeyPress } from "../../../helpers/utils";
 const ENTER_KEY = "Enter";
 
 export default function MaterialCategoryDetails({ editable, onSave }) {
-
-    const [inputFocused, setInputFocused] = useState(false);
 
     const { invalidName, invalidParentCategory } = useSelector(state => {
         return state.MaterialCategory

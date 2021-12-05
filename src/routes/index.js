@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import { Redirect } from "react-router-dom";
 import Batch from "../pages/Batch";

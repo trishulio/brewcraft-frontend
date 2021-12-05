@@ -42,16 +42,6 @@ export default function SupplierContact() {
     return state.SupplierContact.initial;
   });
 
-  const {
-    invalidFirstName,
-    invalidLastName,
-    invalidEmail,
-    invalidPhoneNumber,
-    invalidCompany,
-  } = useSelector((state) => {
-    return state.SupplierContact;
-  });
-
   useEffect(() => {
     if (id === "new") {
       dispatch(resetSupplierContactDetails());
