@@ -111,6 +111,7 @@ export default function ProductDetails({ product, editable }) {
                                     className="waves-effect"
                                     bsSize="sm"
                                     value={product.name}
+                                    style={{ width: "16rem" }}
                                     placeholder="Enter"
                                     name="productName"
                                     disabled={!editable}
@@ -142,7 +143,7 @@ export default function ProductDetails({ product, editable }) {
                                     className="waves-effect"
                                     bsSize="sm"
                                     name="productClass"
-                                    style={{ width: "8rem" }}
+                                    style={{ width: "16rem" }}
                                     disabled={!editable}
                                     invalid={invalidClass}
                                     value={product.productClass ? product.productClass.id : ""}
@@ -190,7 +191,7 @@ export default function ProductDetails({ product, editable }) {
                                     type="select"
                                     className="waves-effect"
                                     bsSize="sm"
-                                    style={{ width: "8rem" }}
+                                    style={{ width: "16rem" }}
                                     name="productType"
                                     disabled={!editable}
                                     invalid={invalidType}
@@ -242,7 +243,7 @@ export default function ProductDetails({ product, editable }) {
                                     type="select"
                                     className="waves-effect"
                                     bsSize="sm"
-                                    style={{ width: "8rem" }}
+                                    style={{ width: "16rem" }}
                                     name="productStyle"
                                     disabled={!editable}
                                     value={product.style ? product.style.id : ""}
@@ -284,7 +285,7 @@ export default function ProductDetails({ product, editable }) {
                                 Description
                             </Label>
                         </Col>
-                        <Col xs="10">
+                        <Col xs="8">
                             <Input
                                 type="textarea"
                                 className="waves-effect mb-2"

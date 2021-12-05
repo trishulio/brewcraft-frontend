@@ -16,6 +16,7 @@ import {
 import ProductCategoryInner from "./category";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
+import { setProductCategoryInvalidName } from "../../store/ProductCategory/actions";
 
 export default function ProductCategory() {
     const [editable, setEditable] = useState(false);
@@ -93,6 +94,10 @@ export default function ProductCategory() {
     }
 
     function onSave() {
+        if (!category.name) {
+            dispatch(setProductCategoryInvalidName(!category.name));
+            return
+        }
         if (invalidName || invalidClass || invalidType) {
             return;
         }
