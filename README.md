@@ -1,5 +1,11 @@
 # Fuzzy Potato - Brewcraft UI
 
+# Node version
+```
+node --version
+v14.17.5
+```
+
 ## Install
 ```
 echo "
