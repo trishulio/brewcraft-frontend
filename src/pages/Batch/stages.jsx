@@ -31,7 +31,7 @@ export default function Stages(props) {
         if (batch.id) {
             dispatch(fetchAllBrewStages(batch.id));
         }
-    }, [batch.id]);
+    }, [batch.id, dispatch]);
 
     useEffect(() => {
         props.setStagesChanged(isChanged());
@@ -39,7 +39,9 @@ export default function Stages(props) {
     }, [
         fermentState,
         conditionStage,
-        briteTankStage
+        briteTankStage,
+        props,
+        isChanged
     ]);
 
     useEffect(() => {
@@ -85,6 +87,7 @@ export default function Stages(props) {
                 })
             );
         }
+        // eslint-disable-next-line
     }, [save]);
 
     function isStageChanged(stage, initialStage) {
@@ -94,6 +97,7 @@ export default function Stages(props) {
                 (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(stage));
     }
 
+    // eslint-disable-next-line
     function isChanged() {
         return JSON.stringify(
                 (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(initialFermentStage))

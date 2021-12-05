@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import {
@@ -13,17 +13,25 @@ import {
     setPackagingItemDetails,
     setPackagingItemInvalidName,
     setPackagingItemInvalidBaseQuantityUnit,
-    setPackagingItemInvalidCategory
+    setPackagingItemInvalidCategory,
+    setInvalidPackagingUpc
 } from "../../../store/actions";
 import {
     Card,
     CardBody,
     CardHeader
 } from "../../../component/Common/Card";
+import MaterialCategoriesModal from "../../../component/MaterialCategories/modal";
+import { useKeyPress } from "../../../helpers/utils";
 
 const ADD_NEW = "ADD_NEW";
+const PACKAGING_CATEGORY = "packaging";
+const ENTER_KEY = "Enter"
 
-export default function PackagingItemDetails({ editable }) {
+export default function PackagingItemDetails({ editable, onSave }) {
+    const [showPackageCategoryModal, setShowPackageCategoryModal] = useState(false);
+    const [modalPackageType, setModalPackageType] = useState(null);
+    const [modalParentCategoryId, setModalParentCategoryId] = useState(null);
 
     const { invalidName, invalidCategory, invalidBaseQuantityUnit, invalidUpc } = useSelector(state => {
         return state.PackagingItem
@@ -39,6 +47,8 @@ export default function PackagingItemDetails({ editable }) {
     });
 
     const dispatch = useDispatch();
+
+    const enterKeyPressed = useKeyPress(ENTER_KEY);
 
     function onFormInputChange(e) {
         switch(e.target.name) {
@@ -72,7 +82,7 @@ export default function PackagingItemDetails({ editable }) {
                 }));
                 break;
             case "packagingItemUpc":
-                // dispatch(setInvalidUpc(!e.target.value))
+                dispatch(setInvalidPackagingUpc(e.target.value))
                 dispatch(setPackagingItemDetails({
                     data: {
                         ...packagingItem,
@@ -93,6 +103,13 @@ export default function PackagingItemDetails({ editable }) {
         }
     }
 
+    function onKeyUp() {
+        if (enterKeyPressed) {
+            onSave();
+            return;
+        }
+    }
+
     return (
         <React.Fragment>
             <Card>
@@ -100,23 +117,11 @@ export default function PackagingItemDetails({ editable }) {
                 <CardBody>
                     <Row>
                         <Col xs="2">
-                            <Label className="mb-3">
-                                ID
-                            </Label>
-                        </Col>
-                        <Col xs="8">
-                            <div hidden={false}>
-                                {packagingItem.id ? packagingItem.id : "-"}
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="2">
                             <Label
                                 for="packagingItemName"
                                 className="mb-3"
                             >
-                                Name
+                                *Name
                             </Label>
                         </Col>
                         <Col xs="8">
@@ -133,6 +138,7 @@ export default function PackagingItemDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
+                                    onKeyUp={onKeyUp}
                                 />
                                 <FormFeedback>Enter a valid packagingItem name.</FormFeedback>
                             </FormGroup>
@@ -147,7 +153,7 @@ export default function PackagingItemDetails({ editable }) {
                                 for="packagingItemCategory"
                                 className="mb-3"
                             >
-                                Category
+                                *Category
                             </Label>
                         </Col>
                         <Col xs="8">
@@ -163,8 +169,16 @@ export default function PackagingItemDetails({ editable }) {
                                     disabled={!editable}
                                     invalid={invalidCategory}
                                     value={packagingItem.category.id || ""}
+                                    onKeyUp={onKeyUp}
                                     onChange={e => {
-                                        onFormInputChange(e);
+                                        if (e.target.value !== ADD_NEW) {
+                                            onFormInputChange(e);
+                                        }
+                                        else {
+                                            setModalPackageType(PACKAGING_CATEGORY);
+                                            setModalParentCategoryId(2);
+                                            setShowPackageCategoryModal(true);
+                                        }
                                     }}
                                 >
                                     <option value="">Select</option>
@@ -175,7 +189,7 @@ export default function PackagingItemDetails({ editable }) {
                                             </option>
                                         ))
                                     }
-                                    <option value={ADD_NEW}>+ Add new</option>
+                                    <option key={categories.length} value={ADD_NEW}>+ Add new</option>
                                 </Input>
                                 <FormFeedback>Enter a valid packagingItem category.</FormFeedback>
                             </FormGroup>
@@ -190,7 +204,7 @@ export default function PackagingItemDetails({ editable }) {
                                 for="packagingItemBaseQuantityUnit"
                                 className="mb-3"
                             >
-                                Measure
+                                *Measure
                             </Label>
                         </Col>
                         <Col xs="8">
@@ -206,6 +220,7 @@ export default function PackagingItemDetails({ editable }) {
                                     disabled={!editable}
                                     invalid={invalidBaseQuantityUnit}
                                     value={packagingItem.baseQuantityUnit || ""}
+                                    onKeyUp={onKeyUp}
                                     onChange={e => {
                                         onFormInputChange(e);
                                     }}
@@ -248,6 +263,7 @@ export default function PackagingItemDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidUpc}
+                                    onKeyUp={onKeyUp}
                                 />
                                 <FormFeedback>Enter a valid upc.</FormFeedback>
                             </FormGroup>
@@ -279,6 +295,12 @@ export default function PackagingItemDetails({ editable }) {
                     </Row>
                 </CardBody>
             </Card>
+            <MaterialCategoriesModal
+                show={showPackageCategoryModal}
+                parentCategoryId={modalParentCategoryId}
+                setShow={setShowPackageCategoryModal}
+                type={modalPackageType}
+            />
         </React.Fragment>
     );
 }

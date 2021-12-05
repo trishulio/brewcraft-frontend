@@ -3,12 +3,8 @@ import {
     SET_SUPPLIER_DETAILS,
     ADD_SUPPLIER_REQUEST,
     ADD_SUPPLIER_SUCCESS,
-    ADD_SUPPLIER_FAILURE,
     EDIT_SUPPLIER_REQUEST,
-    DELETE_SUPPLIER_REQUEST,
-    EDIT_SUPPLIER_SUCCESS,
-    EDIT_SUPPLIER_FAILURE,
-    DELETE_SUPPLIER_FAILURE
+    DELETE_SUPPLIER_REQUEST
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";

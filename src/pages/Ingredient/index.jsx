@@ -8,7 +8,11 @@ import {
     editIngredient,
     deleteIngredient,
     fetchAllMaterialCategories,
-    resetIngredientDetails
+    resetIngredientDetails,
+    setIngredientInvalidName,
+    setIngredientInvalidCategory,
+    setIngredientInvalidBaseQuantityUnit,
+    setIngredientInvalidUpc
 } from "../../store/actions";
 import {
     useQuery
@@ -37,7 +41,7 @@ export default function Ingredient() {
         return state.Ingredient.initial;
     });
 
-    const { invalidName } = useSelector(state => {
+    const { invalidName, invalidUpc } = useSelector(state => {
         return state.Ingredient
     });
 
@@ -84,8 +88,15 @@ export default function Ingredient() {
     }
 
     function onSave() {
-        if (invalidName) {
+        if (invalidName || invalidUpc) {
             return;
+        }
+        if (!ingredient.name || !ingredient.category || !ingredient.baseQuantityUnit || (ingredient.upc && ingredient.upc.length > 12)) {
+            dispatch(setIngredientInvalidName(!ingredient.name));
+            dispatch(setIngredientInvalidCategory(!ingredient.category));
+            dispatch(setIngredientInvalidBaseQuantityUnit(!ingredient.baseQuantityUnit))
+            dispatch(setIngredientInvalidUpc(ingredient.upc))
+            return
         }
         if (!isChanged()) {
             history.push("/materials/ingredients/" + id);
@@ -95,7 +106,7 @@ export default function Ingredient() {
                 editIngredient({
                     id: ingredient.id,
                     form: {
-                        name: ingredient.name,
+                        name: ingredient.name.trim(),
                         description: ingredient.description,
                         categoryId: ingredient.category.id,
                         baseQuantityUnit: ingredient.baseQuantityUnit,
@@ -109,7 +120,7 @@ export default function Ingredient() {
             dispatch(
                 saveIngredient({
                     form: {
-                        name: ingredient.name,
+                        name: ingredient.name.trim(),
                         description: ingredient.description,
                         categoryId: ingredient.category.id,
                         baseQuantityUnit: ingredient.baseQuantityUnit,

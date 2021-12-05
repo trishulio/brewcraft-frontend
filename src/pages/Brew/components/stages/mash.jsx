@@ -71,7 +71,9 @@ export default function BrewMash() {
         <React.Fragment>
             <Details {...detailsProps}/>
             <div className="clearFix mb-3"></div>
-            <div className="px-2">
+            <div
+                className="px-2"
+            >
                 <Ingredients {...ingredientsProps}/>
             </div>
         </React.Fragment>

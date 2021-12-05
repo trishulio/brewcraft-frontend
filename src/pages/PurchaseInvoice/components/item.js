@@ -6,11 +6,10 @@ import {
     ListGroupItem,
     Input,
     FormGroup,
-    FormFeedback,
-    Form
+    FormFeedback
 } from "reactstrap";
 import { isFloat } from "../../../helpers/textUtils";
-import { isValidName, validAmount, validId, validQuantity } from "../../../helpers/utils";
+import { isValidName, validAmount, validId } from "../../../helpers/utils";
 import {
     setPurchaseInvoiceItems
 } from "../../../store/actions";

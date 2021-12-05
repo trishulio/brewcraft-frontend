@@ -23,7 +23,6 @@ import {
     setBatchInvalidProduct,
     setTransferMixtureRecords
 } from "../../../store/actions";
-import { formatDatetime } from "../../../helpers/textUtils";
 import fantasticLager from "../../../assets/images/products/fantastic-lager.jpg";
 
 export default function BatchMetadata(props) {

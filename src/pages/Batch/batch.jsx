@@ -7,7 +7,7 @@ import {
 import BatchDetails from "./components/details";
 import MiniCard from "./components/mini-card";
 import Toolbar from "./components/toolbar";
-import BatchFerment from "./components/stages/ferment";
+import BatchFerment from "../Brew/components/stages/ferment";
 
 export default function Batch(props) {
 

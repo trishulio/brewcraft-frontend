@@ -1,9 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-import {
-    Input
-} from "reactstrap";
+import { useHistory } from "react-router-dom";
 import { useQuery } from "../../../helpers/utils";
 import Table, { Th } from "../../../component/Common/table";
 
@@ -45,10 +42,9 @@ function onSort(e) {
     }
 
     return  (
-        <Table>
+        <Table hover>
             <thead>
                 <tr>
-                    <th></th>
                     <Th
                         name="packagingName"
                         id="name"
@@ -71,24 +67,15 @@ function onSort(e) {
             <tbody>
                 {
                     packaging.map((packagingItem, key) =>
-                        <tr key={key}>
-                            <td>
-                                <div className="d-flex align-items-center vertical-center">
-                                    <Input className="ml-1" type="checkbox" />
-                                </div>
-                            </td>
-                            <td>
-                                <div className="pl-4">
-                                    <Link to={"/materials/packaging/" + packagingItem.id}>{packagingItem.name || "-"}</Link>
-                                </div>
-                            </td>
+                        <tr key={key} onClick={() => history.push("/materials/packaging/" + packagingItem.id)}>
+                            <td>{packagingItem.name || "-"}</td>
                             <td>{packagingItem.materialClass?.name ?
-                                <Link className="jadc-effect" to={"/materials/categories/" + packagingItem.materialClass.id}>{packagingItem.materialClass.name}</Link>
+                                packagingItem.materialClass.name
                                 : "-"
                                 }
                             </td>
                             <td>{packagingItem.category?.name ?
-                                <Link to={"/materials/categories/" + packagingItem.category.id}>{packagingItem.category.name}</Link>
+                                packagingItem.category.name
                                 : "-"
                                 }
                             </td>

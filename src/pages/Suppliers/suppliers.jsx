@@ -1,9 +1,7 @@
 import React from "react";
 import {
     Card,
-    CardBody,
-    Row,
-    Col
+    CardBody
 } from "reactstrap";
 import Table from "./components/table";
 import Toolbar from "./components/toolbar";

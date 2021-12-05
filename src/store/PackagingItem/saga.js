@@ -38,7 +38,6 @@ function* addPackagingItemGenerator(action) {
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: ADD_PACKAGING_ITEM_FAILURE });
-        yield put(snackFailure(e.message));
     }
 }
 

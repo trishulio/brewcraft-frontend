@@ -8,7 +8,11 @@ import {
     editPackagingItem,
     deletePackagingItem,
     fetchAllMaterialCategories,
-    resetPackagingItemDetails
+    resetPackagingItemDetails,
+    setPackagingItemInvalidName,
+    setPackagingItemInvalidCategory,
+    setPackagingItemInvalidBaseQuantityUnit,
+    setInvalidPackagingUpc
 } from "../../store/actions";
 import {
     useQuery
@@ -37,7 +41,7 @@ export default function PackagingItem() {
         return state.PackagingItem.initial;
     });
 
-    const { invalidName } = useSelector(state => {
+    const { invalidName, invalidUpc, invalidCategory } = useSelector(state => {
         return state.PackagingItem
     });
 
@@ -82,8 +86,15 @@ export default function PackagingItem() {
     }
 
     function onSave() {
-        if (invalidName) {
+        if (invalidName || invalidUpc || invalidCategory) {
             return;
+        }
+        if (!packagingItem.name || !packagingItem.category || !packagingItem.baseQuantityUnit || (packagingItem.upc && packagingItem.upc.length > 12)) {
+            dispatch(setPackagingItemInvalidName(!packagingItem.name));
+            dispatch(setPackagingItemInvalidCategory(!packagingItem.category));
+            dispatch(setPackagingItemInvalidBaseQuantityUnit(!packagingItem.baseQuantityUnit));
+            dispatch(setInvalidPackagingUpc(packagingItem.upc));
+            return
         }
         if (!isChanged()) {
             history.push("/materials/packaging/" + id);
@@ -93,7 +104,7 @@ export default function PackagingItem() {
                 editPackagingItem({
                     id: packagingItem.id,
                     form: {
-                        name: packagingItem.name,
+                        name: packagingItem.name.trim(),
                         description: packagingItem.description,
                         categoryId: packagingItem.category.id,
                         baseQuantityUnit: packagingItem.baseQuantityUnit,
@@ -107,10 +118,11 @@ export default function PackagingItem() {
                 })
             );
         } else {
+
             dispatch(
                 savePackagingItem({
                     form: {
-                        name: packagingItem.name,
+                        name: packagingItem.name.trim(),
                         description: packagingItem.description,
                         categoryId: packagingItem.category.id,
                         baseQuantityUnit: packagingItem.baseQuantityUnit,

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Table, { Th } from "../../../component/Common/table";
 import { useQuery } from "../../../helpers/utils";
 
@@ -43,7 +43,7 @@ export default function IngredientsTable() {
     }
 
     return  (
-        <Table>
+        <Table hover>
             <thead>
                 <tr>
                     <Th
@@ -68,15 +68,15 @@ export default function IngredientsTable() {
             <tbody>
                 {
                     ingredients.map((ingredient, key) =>
-                        <tr key={key}>
-                            <td><Link to={"/materials/ingredients/" + ingredient.id}>{ingredient.name || "-"}</Link></td>
+                        <tr key={key} onClick={() => history.push("/materials/ingredients/" + ingredient.id)}>
+                            <td>{ingredient.name || "-"}</td>
                             <td>{ingredient.materialClass?.name ?
-                                <Link className="jadc-effect" to={"/materials/categories/" + ingredient.materialClass.id}>{ingredient.materialClass.name}</Link>
+                                ingredient.materialClass.name
                                 : "-"
                                 }
                             </td>
                             <td>{ingredient.category?.name ?
-                                <Link to={"/materials/categories/" + ingredient.category.id}>{ingredient.category.name}</Link>
+                                ingredient.category.name
                                 : "-"
                                 }
                             </td>

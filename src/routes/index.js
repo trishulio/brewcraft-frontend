@@ -21,8 +21,6 @@ import PurchaseInvoice from "../pages/PurchaseInvoice";
 import PurchaseInvoices from "../pages/PurchaseInvoices";
 import RawMaterials from "../pages/RawMaterials";
 import Reports from "../pages/Reports/k50b";
-import SalesCustomer from "../pages/Customers/Customers";
-import SalesCustomers from "../pages/Customers/Customers";
 import SalesReceipts from "../pages/CustomerInvoices/invoices";
 import SalesReceipt from "../pages/CustomerInvoices/view-invoice";
 import Sku from "../pages/Sku";
@@ -90,10 +88,6 @@ const authProtectedRoutes = [
     // Sales Receipts
     { path: "/sales/receipts/:id", component: SalesReceipt },
     { path: "/sales/receipts", component: SalesReceipts },
-
-    // Customers
-    { path: "/sales/customers/:id", component: SalesCustomer },
-    { path: "/sales/customers", component: SalesCustomers },
 
     // Reports
     { path: "/reports", component: Reports },

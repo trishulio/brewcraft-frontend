@@ -2,8 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import {
-    Row,
-    Col,
     FormGroup,
     FormFeedback,
     Input,
@@ -24,6 +22,7 @@ import {
     CardHeader
 } from "../../../component/Common/Card";
 import { formatPhoneNumber, isValidEmail, isValidPhoneNumber } from "../../../helpers/utils";
+
 export default function SupplierContactDetails({ editable }) {
     const {
         invalidFirstName,

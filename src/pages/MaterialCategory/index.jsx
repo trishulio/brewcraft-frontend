@@ -8,7 +8,9 @@ import {
     editMaterialCategory,
     deleteMaterialCategory,
     fetchAllMaterialCategories,
-    resetMaterialCategoryDetails
+    resetMaterialCategoryDetails,
+    setInvalidMaterialCategoryName,
+    setInvalidMaterialCategoryParentCategory
 } from "../../store/actions";
 import {
     useQuery
@@ -37,7 +39,7 @@ export default function MaterialCategory() {
         return state.MaterialCategory.initial;
     });
 
-    const { invalidName } = useSelector(state => {
+    const { invalidName, invalidParentCategory } = useSelector(state => {
         return state.MaterialCategory
     });
 
@@ -80,7 +82,7 @@ export default function MaterialCategory() {
     }
 
     function onSave() {
-        if (invalidName) {
+        if (invalidName || invalidParentCategory) {
             return;
         }
         if (!isChanged()) {
@@ -91,7 +93,7 @@ export default function MaterialCategory() {
                 editMaterialCategory({
                     id: materialCategory.id,
                     form: {
-                        name: materialCategory.name,
+                        name: materialCategory.name.trim(),
                         parentCategoryId: materialCategory.parentCategory.id,
                         version: materialCategory.version
                     },
@@ -101,10 +103,16 @@ export default function MaterialCategory() {
                 })
             );
         } else {
+            if (!materialCategory.name || !materialCategory.parentCategory) {
+                dispatch(setInvalidMaterialCategoryName(!materialCategory.name));
+                dispatch(setInvalidMaterialCategoryParentCategory(!materialCategory.parentCategory));
+                return
+            }
+
             dispatch(
                 saveMaterialCategory({
                     form: {
-                        name: materialCategory.name,
+                        name: materialCategory.name.trim(),
                         parentCategoryId: materialCategory.parentCategory.id
                     },
                     success: materialCategory => {

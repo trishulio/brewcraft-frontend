@@ -1,4 +1,3 @@
-import { filter } from "lodash";
 import {
     ADD_INGREDIENT_REQUEST,
     ADD_INGREDIENT_FAILURE,
@@ -9,7 +8,10 @@ import {
     ADD_INGREDIENT_SUCCESS,
     SET_INGREDIENT_DETAILS,
     RESET_INGREDIENT_DETAILS,
-    SET_INGREDIENT_INVALID_CATEGORY
+    SET_INGREDIENT_INVALID_CATEGORY,
+    SET_INGREDIENT_INVALID_UNIT,
+    SET_INGREDIENT_INVALID_UPC,
+    SET_INGREDIENT_INVALID_NAME
 } from "./actionTypes";
 
 const initialState = {
@@ -50,7 +52,7 @@ const Ingredient = (state = initialState, { type, payload, data }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_INGREDIENT_REQUEST:
         case EDIT_INGREDIENT_REQUEST:
@@ -81,12 +83,7 @@ const Ingredient = (state = initialState, { type, payload, data }) => {
         case DELETE_INGREDIENT_SUCCESS:
         return {
             ...state,
-            data: filter([...state.data], (instanceData) => {
-                return (
-                    payload.id!==instanceData.id
-                    );
-                }),
-                formLoading: { ...state.formLoading, loading: false },
+            data: state.initial
             };
         case RESET_INGREDIENT_DETAILS:
         return {
@@ -99,7 +96,28 @@ const Ingredient = (state = initialState, { type, payload, data }) => {
                 ...state,
                 invalidCategory: payload,
                 loading: false,
-                error: null
+                error: true
+            };
+        case SET_INGREDIENT_INVALID_NAME:
+            return {
+                ...state,
+                invalidName: payload,
+                loading: false,
+                error: true
+            };
+        case SET_INGREDIENT_INVALID_UNIT:
+            return {
+                ...state,
+                invalidBaseQuantityUnit: payload,
+                loading: false,
+                error: true
+            };
+        case SET_INGREDIENT_INVALID_UPC:
+            return {
+                ...state,
+                invalidUpc: payload,
+                loading: false,
+                error: true
             };
         default:
         return {

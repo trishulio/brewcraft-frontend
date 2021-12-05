@@ -13,9 +13,6 @@ function* fetchAllProductCategories(action) {
     try {
         const res = yield call(api.fetchProductCategories, {});
         yield put({ type: SET_ALL_PRODUCT_CATEGORIES, payload: { data: res.data.content }});
-        if (action.payload?.success) {
-            yield call(action.payload.success);
-        }
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
     }
@@ -25,9 +22,6 @@ function* fetchProductCategories(action) {
     try {
         const res = yield call(api.fetchProductCategories, get(action, "payload"));
         yield put({ type: SET_PRODUCT_CATEGORIES, payload: { ...res.data }});
-        if (action.payload?.success) {
-            yield call(action.payload.success);
-        }
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
     }
