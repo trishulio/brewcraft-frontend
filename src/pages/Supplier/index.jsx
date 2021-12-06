@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import {
@@ -49,6 +49,13 @@ export default function Supplier() {
         return state.Supplier
     });
 
+    const isChanged = useCallback(() => {
+        return JSON.stringify(
+                (({ id, name, address }) => ({ id, name, address }))(initialSupplier))
+            !== JSON.stringify(
+                (({ id, name, address }) => ({ id, name, address }))(supplier))
+    }, [initialSupplier, supplier]);
+
     useEffect(() => {
         dispatch(resetSupplierDetails());
         if (id === "new") {
@@ -81,14 +88,7 @@ export default function Supplier() {
 
     useEffect(() => {
         setChanged(isChanged());
-    }, [supplier]);
-
-    function isChanged() {
-        return JSON.stringify(
-                (({ id, name, address }) => ({ id, name, address }))(initialSupplier))
-            !== JSON.stringify(
-                (({ id, name, address }) => ({ id, name, address }))(supplier))
-    }
+    }, [supplier, isChanged]);
 
     function onSave() {
         if (

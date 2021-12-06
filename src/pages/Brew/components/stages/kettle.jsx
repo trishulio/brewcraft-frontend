@@ -5,6 +5,7 @@ import Details from "../mixture/details";
 import {
     setKettleMaterialPortionDetails,
     setKettleMixtureDetails,
+    setKettleMixtureRecords,
     setKettleStageDetails
 } from "../../../../store/actions";
 
@@ -26,6 +27,10 @@ export default function BrewKettle() {
 
     const materialPortions = useSelector(state => {
         return state.Batch.KettleMaterialPortion.content;
+    });
+
+    const mixtureRecords = useSelector(state => {
+        return state.Batch.KettleMixtureRecordings.content;
     });
 
     function setStage(stage) {
@@ -52,11 +57,19 @@ export default function BrewKettle() {
         );
     }
 
+    function setMixtureRecords(mixtureRecords) {
+        dispatch(
+            setKettleMixtureRecords(mixtureRecords)
+        );
+    }
+
     const detailsProps = {
         stage,
         setStage,
         mixture,
         setMixture,
+        mixtureRecords,
+        setMixtureRecords,
         editable
     };
 

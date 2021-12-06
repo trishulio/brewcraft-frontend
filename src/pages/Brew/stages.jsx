@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editKettleStage, editMashStage, editWhirlpoolStage, fetchAllBrewStages } from "../../store/actions";
 
@@ -22,11 +22,33 @@ export default function Stages(props) {
         return state.Batch.WhirlpoolStage;
     });
 
+    const isChanged = useCallback(() => {
+        return JSON.stringify(
+                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(initialMashStage))
+            !== JSON.stringify(
+                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(mashStage))
+            || JSON.stringify(
+                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(initialKettleStage))
+            !== JSON.stringify(
+                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(kettleStage))
+            || JSON.stringify(
+                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(initialWhirlpoolStage))
+            !== JSON.stringify(
+                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(whirlpoolStage))
+    }, [
+        initialMashStage,
+        mashStage,
+        initialKettleStage,
+        kettleStage,
+        initialWhirlpoolStage,
+        whirlpoolStage
+    ]);
+
     useEffect(() => {
         if (batch.id) {
             dispatch(fetchAllBrewStages(batch.id));
         }
-    }, [batch.id]);
+    }, [batch.id, dispatch]);
 
     useEffect(() => {
         props.setStagesChanged(isChanged());
@@ -34,7 +56,9 @@ export default function Stages(props) {
     }, [
         mashStage,
         kettleStage,
-        whirlpoolStage
+        whirlpoolStage,
+        props,
+        isChanged
     ]);
 
     useEffect(() => {
@@ -80,6 +104,7 @@ export default function Stages(props) {
                 })
             );
         }
+        // eslint-disable-next-line
     }, [save]);
 
     function isStageChanged(stage, initialStage) {
@@ -87,21 +112,6 @@ export default function Stages(props) {
                 (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(initialStage))
             !== JSON.stringify(
                 (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(stage));
-    }
-
-    function isChanged() {
-        return JSON.stringify(
-                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(initialMashStage))
-            !== JSON.stringify(
-                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(mashStage))
-            || JSON.stringify(
-                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(initialKettleStage))
-            !== JSON.stringify(
-                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(kettleStage))
-            || JSON.stringify(
-                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(initialWhirlpoolStage))
-            !== JSON.stringify(
-                (({ startedAt, endedAt, status, task }) => ({ startedAt, endedAt, status, task }))(whirlpoolStage))
     }
 
     return (

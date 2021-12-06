@@ -3,8 +3,6 @@ import {
     ADD_BATCH_FAILURE,
     EDIT_BATCH_REQUEST,
     EDIT_BATCH_SUCCESS,
-    DELETE_BATCH_REQUEST,
-    DELETE_BATCH_SUCCESS,
     ADD_BATCH_SUCCESS,
     SET_BATCH_DETAILS,
     RESET_BATCH_DETAILS,
@@ -18,14 +16,7 @@ const initialState = {
         description: "",
         batchId: "",
         product: {
-            id: "",
-            name: "",
-            description: "",
-            productClass: "",
-            type: "",
-            style: "",
-            targetMeasures: [],
-            version: null
+            id: ""
         },
         startedAt: "",
         endedAt: "",
@@ -38,14 +29,7 @@ const initialState = {
         description: "",
         batchId: "",
         product: {
-            id: "",
-            name: "",
-            description: "",
-            productClass: "",
-            type: "",
-            style: "",
-            targetMeasures: [],
-            version: null
+            id: ""
         },
         startedAt: "",
         endedAt: "",
@@ -69,8 +53,7 @@ const Batch = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 ...payload,
-                loading: false,
-                error: null
+                loading: false
             };
         case SET_INITIAL_BATCH_DETAILS:
             return {

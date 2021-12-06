@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { isFloat } from "./textUtils";
 
@@ -50,4 +51,28 @@ export function formatPhoneNumber(phoneNumberString) {
       return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('');
     }
     return phoneNumberString;
-  }
+}
+
+export function useKeyPress(targetKey) {
+    const [keyPressed, setKeyPressed] = useState(false);
+    function downHandler({ key }) {
+        if (key === targetKey) {
+            setKeyPressed(true);
+        }
+    }
+    const upHandler = ({ key }) => {
+        if (key === targetKey) {
+            setKeyPressed(false);
+        }
+    };
+    useEffect(() => {
+        window.addEventListener("keydown", downHandler);
+        window.addEventListener("keyup", upHandler);
+        return () => {
+            window.removeEventListener("keydown", downHandler);
+            window.removeEventListener("keyup", upHandler);
+        };
+        // eslint-disable-next-line
+    }, []);
+    return keyPressed;
+}

@@ -153,7 +153,7 @@ export function Notzero (props) {
         return null;
 
     }
-};
+}
 /**
  *
  * @author Anuj Gupta
@@ -171,7 +171,7 @@ export function NotMinusoneNun (props) {
         return  <div>not found</div>;
 
     }
-};
+}
 
 export function isFloat(n){
     return Number(n) === n && n % 1 !== 0;

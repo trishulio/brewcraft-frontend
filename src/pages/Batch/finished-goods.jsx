@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createFinishedGood, fetchBatchById, fetchFinishedGoods } from "../../store/actions";
+import { createFinishedGood, fetchFinishedGoods } from "../../store/actions";
 
 export default function FinishedGoods(props) {
 
@@ -14,20 +14,25 @@ export default function FinishedGoods(props) {
         return state.Batch.FermentFinishedGoods;
     });
 
-    const { data: transferMixture, initial: initialTransferMixture } = useSelector(state => {
-        return state.Batch.TransferMixture;
-    });
+    const isChanged = useCallback(() => {
+        return JSON.stringify(fermentFinishedGoods) !== JSON.stringify(initialFermentFinishedGoods);
+    }, [
+        initialFermentFinishedGoods,
+        fermentFinishedGoods
+    ]);
 
     useEffect(() => {
         if (batch.id) {
             dispatch(fetchFinishedGoods());
         }
-    }, [batch.id]);
+    }, [batch.id, dispatch]);
 
     useEffect(() => {
         props.setFinishedGoodsChanged(isChanged());
     }, [
-        fermentFinishedGoods
+        fermentFinishedGoods,
+        props,
+        isChanged
     ]);
 
     useEffect(() => {
@@ -51,14 +56,11 @@ export default function FinishedGoods(props) {
                     );
                 });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [save]);
 
     function isFinishedGoodsChanged(finishedGoods, initialFinishedGoods) {
         return JSON.stringify(finishedGoods) !== JSON.stringify(initialFinishedGoods);
-    }
-
-    function isChanged() {
-        return JSON.stringify(fermentFinishedGoods) !== JSON.stringify(initialFermentFinishedGoods);
     }
 
     return (

@@ -22,7 +22,9 @@ const initialState = {
   },
 };
 
-const Invoice = (state = initialState, { type, payload ,data}) => {
+const Invoice = (state = initialState, { type, payload }) => {
+  let editIndex;
+
   switch (type) {
     case FETCH_INVOICES_REQUEST:
       return {
@@ -71,7 +73,7 @@ const Invoice = (state = initialState, { type, payload ,data}) => {
         formLoading: { ...state.formLoading, loading: true },
       };
     case EDIT_INVOICE_SUCCESS:
-      let editIndex = findIndex([...state.data], function (o) {
+      editIndex = findIndex([...state.data], function (o) {
         return o.id === get(payload, "id");
       });
       return {

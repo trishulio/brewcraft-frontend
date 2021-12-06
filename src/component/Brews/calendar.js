@@ -12,9 +12,8 @@ import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/bootstrap/main.css";
 import "@fullcalendar/timegrid/main.css";
 
-export default function Calendar({calendarWeekends, calendarEvents, handleDateClick}) {
+export default function Calendar({ calendarEvents, handleDateClick }) {
     const [selectedDay, setSelectedDay] = useState(new Date());
-    calendarWeekends = true;
     calendarEvents = [
         {
             title: 'All Day Event',

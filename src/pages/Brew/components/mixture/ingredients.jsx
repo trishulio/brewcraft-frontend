@@ -9,9 +9,8 @@ import {
     Label
 } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
-import { formatCurrency } from "../../../../helpers/textUtils";
 
-export default function BatchIngredients({ mixture, materialPortions, materialPortionsChanged, setMaterialPortions, editable }) {
+export default function BatchIngredients({ mixture, materialPortions, setMaterialPortions, editable }) {
     const [lots, setLots] = useState([]);
     const [selectedLot, setSelectedLot] = useState("");
     const [selectedLotQuantity, setSelectedLotQuantity] = useState(0);
@@ -40,14 +39,15 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                             <th>Category</th>
                             <th>Lot Number</th>
                             <th>Quantity</th>
-                            <th>Cost</th>
+                            {/* <th>Cost</th> */}
                         </tr>
                     </thead>
                     <tbody>
                     {
                         !materialPortions.length && (
                             <tr>
-                                <td></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                {/* <td></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td> */}
+                                <td></td><td>-</td><td>-</td><td>-</td><td>-</td>
                             </tr>
                         )
                     }
@@ -78,13 +78,6 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                                 <td>{portion.materialLot.invoiceItem.material.category?.name}</td>
                                 <td>{portion.materialLot.lotNumber}</td>
                                 <td>{portion.quantity.value} {portion.quantity.symbol}</td>
-                                <td>{
-                                    formatCurrency(
-                                        portion.materialLot.invoiceItem.amount?.amount
-                                        / portion.materialLot.invoiceItem.quantity?.value
-                                        * portion.quantity.value
-                                    )
-                                }</td>
                             </tr>
                         ))
                     }
@@ -109,7 +102,7 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                     >
                         <option value="">Ingredient</option>
                         {
-                            map(materialLots, (value, index) => (
+                            false && map(materialLots, (value, index) => (
                                 <option value={value.id} key={index}>
                                     {value.material.name} ({value.quantity.value}{value.quantity.symbol})
                                 </option>

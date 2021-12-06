@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Fragment } from "react";
 import { Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";

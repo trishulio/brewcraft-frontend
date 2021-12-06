@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "https://apollo.brewcraft.io/",
+  "babel": {},
   "dependencies": {
     "@fullcalendar/bootstrap": "^4.4.2",
     "@fullcalendar/core": "^4.4.2",
@@ -83,7 +84,8 @@
     "start": "react-scripts start",
     "build": "react-scripts --max-old-space-size=8000 build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "eslint": "node ./node_modules/eslint/bin/eslint ./src"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -101,10 +103,8 @@
     ]
   },
   "devDependencies": {
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-import": "^2.24.2",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "@babel/eslint-parser": "^7.16.3",
+    "@babel/preset-react": "^7.16.0",
+    "eslint": "^6.8.0"
   }
 }

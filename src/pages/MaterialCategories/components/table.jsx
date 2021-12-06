@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useQuery } from "../../../helpers/utils";
 import Table, { Th } from "../../../component/Common/table";
@@ -41,7 +41,7 @@ export default function MaterialCategoriesTable() {
     }
 
     return (
-        <Table>
+        <Table hover>
             <thead>
                 <tr>
                     <Th
@@ -57,12 +57,10 @@ export default function MaterialCategoriesTable() {
             <tbody>
                 {
                     categories.map((category, key) =>
-                        <tr key={key}>
-                            <td><Link to={"/materials/categories/" + category.id}>{category.name}</Link></td>
+                        <tr key={key} onClick={() => history.push("/materials/categories/" + category.id)}>
+                            <td>{category.name}</td>
                             <td>
-                                <Link to={"/materials/categories/" + category.parentCategoryId}>
-                                    {allCategories.find(c => c.id === category.parentCategoryId)?.name || "-"}
-                                </Link>
+                                {allCategories.find(c => c.id === category.parentCategoryId)?.name || "-"}
                             </td>
                         </tr>
                     )

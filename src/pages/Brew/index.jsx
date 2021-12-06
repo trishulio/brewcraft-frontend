@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import {
@@ -42,9 +42,42 @@ export default function Batch() {
     const editMode = query.get("edit");
     const dispatch = useDispatch();
 
-    const { data: batch, initial: initialBatch, editable } = useSelector(state => {
+    const {
+        data: batch,
+        initial: initialBatch,
+        invalidBatchId,
+        invalidBatchStartedAt,
+        invalidBatchEndedAt,
+        invalidBatchProduct,
+        editable,
+        error
+    } = useSelector(state => {
         return state.Batch.Batch;
     });
+
+    const isBatchChanged = useCallback(() => {
+        return JSON.stringify(
+                (({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }) => ({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }))(initialBatch))
+            !== JSON.stringify(
+                (({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }) => ({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }))(batch))
+    }, [
+        initialBatch,
+        batch
+    ]);
+
+    const isChanged = useCallback(() => {
+        return batchChanged
+            || stagesChanged
+            || mixturesChanged
+            || materialPortionsChanged
+            || mixtureRecordingsChanged
+    }, [
+        batchChanged,
+        stagesChanged,
+        mixturesChanged,
+        materialPortionsChanged,
+        mixtureRecordingsChanged
+    ]);
 
     useEffect(() => {
         dispatch(resetBatchDetails());
@@ -92,30 +125,22 @@ export default function Batch() {
         stagesChanged,
         mixturesChanged,
         materialPortionsChanged,
-        mixtureRecordingsChanged
+        mixtureRecordingsChanged,
+        isChanged
     ]);
 
     useEffect(() => {
         setBatchChanged(isBatchChanged());
-    }, [batch, initialBatch]);
-
-    function isBatchChanged() {
-        return JSON.stringify(
-                (({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }) => ({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }))(initialBatch))
-            !== JSON.stringify(
-                (({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }) => ({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }))(batch))
-    }
-
-    function isChanged() {
-        return batchChanged
-            || stagesChanged
-            || mixturesChanged
-            || materialPortionsChanged
-            || mixtureRecordingsChanged
-    }
+    }, [batch, initialBatch, isBatchChanged]);
 
     function onSave() {
-        if (!batchChanged) {
+        if (invalidBatchId
+            || invalidBatchStartedAt
+            || invalidBatchEndedAt
+            || invalidBatchProduct) {
+                dispatch(setBatchDetails({ error: true }));
+
+        } else if (!batchChanged) {
             dispatch(setBatchDetails({ save: true }));
 
         } else if (batch.id) {
@@ -166,6 +191,7 @@ export default function Batch() {
         setEditable,
         changed,
         setChanged,
+        error,
         onSave,
         onDelete,
         batch,

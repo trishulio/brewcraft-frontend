@@ -19,8 +19,11 @@ import {
     CardBody,
     CardHeader
 } from "../../../component/Common/Card";
+import { useKeyPress } from "../../../helpers/utils";
 
-export default function MaterialCategoryDetails({ editable }) {
+const ENTER_KEY = "Enter";
+
+export default function MaterialCategoryDetails({ editable, onSave }) {
 
     const { invalidName, invalidParentCategory } = useSelector(state => {
         return state.MaterialCategory
@@ -36,6 +39,15 @@ export default function MaterialCategoryDetails({ editable }) {
     });
 
     const dispatch = useDispatch();
+
+    const enterKeyPressed = useKeyPress(ENTER_KEY);
+
+    function onKeyUp() {
+        if (enterKeyPressed) {
+            onSave();
+            return;
+        }
+    }
 
     function onFormInputChange(e) {
         switch(e.target.name) {
@@ -71,23 +83,11 @@ export default function MaterialCategoryDetails({ editable }) {
                 <CardBody>
                     <Row>
                         <Col xs="2">
-                            <Label className="mb-3">
-                                ID
-                            </Label>
-                        </Col>
-                        <Col xs="8">
-                            <div hidden={false}>
-                                {materialCategory.id ? materialCategory.id : "-"}
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="2">
                             <Label
                                 for="materialCategoryName"
                                 className="mb-3"
                             >
-                                Name
+                                *Name
                             </Label>
                         </Col>
                         <Col xs="8">
@@ -104,6 +104,7 @@ export default function MaterialCategoryDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
+                                    onKeyUp={onKeyUp}
                                 />
                                 <FormFeedback>Enter a valid material category name.</FormFeedback>
                             </FormGroup>
@@ -118,7 +119,7 @@ export default function MaterialCategoryDetails({ editable }) {
                                 for="materialCategoryParentCategory"
                                 className="mb-3"
                             >
-                                Parent Category
+                                *Parent Category
                             </Label>
                         </Col>
                         <Col xs="8">
@@ -134,6 +135,7 @@ export default function MaterialCategoryDetails({ editable }) {
                                     disabled={!editable}
                                     invalid={invalidParentCategory}
                                     value={materialCategory.parentCategory?.id || ""}
+                                    onKeyUp={onKeyUp}
                                     onChange={e => {
                                         onFormInputChange(e);
                                     }}

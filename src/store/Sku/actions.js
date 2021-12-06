@@ -5,9 +5,6 @@ import {
     SET_SKU_DETAILS,
     RESET_SKU_DETAILS,
     INVALID_NAME,
-    INVALID_CLASS,
-    INVALID_TYPE,
-    INVALID_STYLE,
     INVALID_DESCRIPTION,
     DELETE_SKU
 } from "./actionTypes";

@@ -31,7 +31,7 @@ class Layout extends Component {
     return string.charAt(1).toUpperCase() + string.slice(2);
   };
 
-  openMenu = (e) => {
+  openMenu = () => {
     this.setState({ isMenuOpened: !this.state.isMenuOpened });
   };
 

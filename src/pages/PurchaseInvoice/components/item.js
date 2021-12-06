@@ -6,11 +6,10 @@ import {
     ListGroupItem,
     Input,
     FormGroup,
-    FormFeedback,
-    Form
+    FormFeedback
 } from "reactstrap";
 import { isFloat } from "../../../helpers/textUtils";
-import { isValidName, validAmount, validId, validQuantity } from "../../../helpers/utils";
+import { isValidName, validAmount, validId } from "../../../helpers/utils";
 import {
     setPurchaseInvoiceItems
 } from "../../../store/actions";
@@ -67,12 +66,12 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
 
         }
         dispatch(setPurchaseInvoiceItems(itemsNew));
-    };
+    }
 
     function removeItem () {
         items.splice(indexv, 1);
         dispatch(setPurchaseInvoiceItems(items));
-    };
+    }
 
     function formatAmount() {
         if (item.quantity.value && item.price.amount && item.tax.amount.amount) {

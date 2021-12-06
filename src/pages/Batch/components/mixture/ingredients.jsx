@@ -109,7 +109,7 @@ export default function BatchIngredients({ mixture, materialPortions, materialPo
                     >
                         <option value="">Ingredient</option>
                         {
-                            map(materialLots, (value, index) => (
+                            false && map(materialLots, (value, index) => (
                                 <option value={value.id} key={index}>
                                     {value.material.name} ({value.quantity.value}{value.quantity.symbol})
                                 </option>

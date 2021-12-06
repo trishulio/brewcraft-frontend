@@ -21,7 +21,7 @@ export default function CommonTable(props) {
     return (
         <React.Fragment>
             <div className="table-responsive table-striped table-sm">
-                <Table className="table-centered table-vertical table-nowrap jadc-effect mb-1">
+                <Table hover={props.hover} style={{ cursor: props.hover ? "pointer" : null }} className="table-centered table-vertical table-nowrap jadc-effect mb-1">
                     {props.children}
                 </Table>
             </div>

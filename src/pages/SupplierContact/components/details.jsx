@@ -2,8 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import {
-    Row,
-    Col,
     FormGroup,
     FormFeedback,
     Input,

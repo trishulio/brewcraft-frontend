@@ -2,7 +2,7 @@ import React, { useEffect, Fragment, useState, useMemo } from "react";
 import { findIndex, map, omit, get } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
-import { Row, Col, Button, Card, CardBody } from "reactstrap";
+import { Button } from "reactstrap";
 import { Modal } from "../../component/Common/modal";
 import FacilityForm from "./facility-form";
 import {
@@ -100,7 +100,7 @@ export default function Facility() {
       facilities,
       (facilitie) => facilitie.id === selectRows[0]
     );
-    if (IndexVlaue != -1) {
+    if (IndexVlaue !== -1) {
       setEditForm({ edit: true, formData: { ...facilities[IndexVlaue] } });
       setIsOpen(true);
     }
@@ -185,6 +185,7 @@ export default function Facility() {
       </Button>
       ),
     }),
+    // eslint-disable-next-line
     [tableRows]
   );
 

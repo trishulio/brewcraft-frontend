@@ -30,12 +30,14 @@ const initialState = {
 
 const Inventory = (state = initialState, { type, payload }) => {
   switch (type) {
-    
     default:
-      state = { ...state };
-      break;
+      return {
+        ...state,
+        ...payload,
+        loading: false,
+        error: null
+      };
   }
-  return state;
 };
 
 export default Inventory;
