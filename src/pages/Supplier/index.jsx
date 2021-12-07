@@ -11,6 +11,8 @@ import {
     setSupplierDetails
 } from "../../store/actions";
 import {
+    isValidName,
+    isValidPostalCode,
     useQuery
 } from "../../helpers/utils";
 import SupplierInner from "./supplier";
@@ -61,7 +63,7 @@ export default function Supplier() {
         if (id === "new") {
             history.replace("/suppliers/new?edit=true");
         } else {
-            dispatch(fetchSupplierById({ id } ));
+            dispatch(fetchSupplierById({ id }));
         }
         setEditable(editMode && editMode !== "false");
         setShowRouterPrompt(!!editMode);
@@ -91,19 +93,25 @@ export default function Supplier() {
     }, [supplier, isChanged]);
 
     function onSave() {
+
         if (
-            invalidName
-            || invalidAddressLine1
-            || invalidAddressLine2
-            || invalidCity
-            || invalidProvince
-            || invalidPostalCode
-            || invalidCountry) {
-
+             !isValidName(supplier.name)
+            || !isValidName(supplier.address.addressLine1)
+            || !isValidName(supplier.address.addressLine2)
+            || !isValidName(supplier.address.city)
+            || !isValidName(supplier.address.province)
+            || !isValidPostalCode(supplier.address.postalCode)
+            || !isValidName(supplier.address.country)) {
             dispatch(setSupplierDetails({
-                error: true
+                error: true,
+                invalidName: !isValidName(supplier.name),
+                invalidAddressLine1: !isValidName(supplier.address.addressLine1),
+                invalidAddressLine2: !isValidName(supplier.address.addressLine2),
+                invalidCity: !isValidName(supplier.address.city),
+                invalidProvince: !isValidName(supplier.address.province),
+                invalidPostalCode: !isValidPostalCode(supplier.address.postalCode),
+                invalidCountry: !isValidName(supplier.address.country)
             }));
-
         } else if (isChanged() && supplier.id) {
             dispatch(
                 editSupplier({
@@ -158,25 +166,25 @@ export default function Supplier() {
     return (
         <React.Fragment>
             <DeleteGuard
-                    when={showDeletePrompt}
-                    confirm={() => {
-                        dispatch(deleteSupplier(supplier.id));
-                        setShowRouterPrompt(false);
-                    }}
-                    close={() => {
-                        setShowDeletePrompt(false);
-                    }}
-                    content="This cannot be undone. Are you sure want to delete this supplier?"
-                />
-                <RouteLeavingGuard
-                    when={showRouterPrompt}
-                    navigate={path => {
-                        history.push(path);
-                    }}
-                    shouldBlockNavigation={() => editMode && isChanged()}
-                    content="There are unsaved changes. Are you sure want to leave this page?"
-                />
-            <SupplierInner {...props}/>
+                when={showDeletePrompt}
+                confirm={() => {
+                    dispatch(deleteSupplier(supplier.id));
+                    setShowRouterPrompt(false);
+                }}
+                close={() => {
+                    setShowDeletePrompt(false);
+                }}
+                content="This cannot be undone. Are you sure want to delete this supplier?"
+            />
+            <RouteLeavingGuard
+                when={showRouterPrompt}
+                navigate={path => {
+                    history.push(path);
+                }}
+                shouldBlockNavigation={() => editMode && isChanged()}
+                content="There are unsaved changes. Are you sure want to leave this page?"
+            />
+            <SupplierInner {...props} />
         </React.Fragment>
     );
 }

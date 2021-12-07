@@ -20,7 +20,9 @@ export function validId(id) {
         && ((Number.isInteger(id) && id > 0)
             || (typeof id === "string" && id.trim().length > 0));
 }
-
+export function isValidPostalCode(code){
+    return (/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/.exec(code) ? true : false)
+}
 export function validAmount(quantity) {
     return (quantity || quantity === 0)
         && (Number.isInteger(quantity) || isFloat(quantity))
