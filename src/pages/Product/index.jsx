@@ -16,6 +16,7 @@ import {
 import ProductInner from "./product";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
+import { setProductInvalidName, setProductInvalidClass } from "../../store/Product/actions"
 
 export default function Product() {
     const [editable, setEditable] = useState(false);
@@ -89,13 +90,18 @@ export default function Product() {
         if (product.type) {
             return product.type.id;
         }
-        if (product.class) {
-            return product.class.id;
+        if (product.productClass) {
+            return product.productClass.id;
         }
         return null;
     }
 
     function onSave() {
+        if (!product.name || !product.productClass?.id) {
+            dispatch(setProductInvalidName(!product.name));
+            dispatch(setProductInvalidClass(!product.productClass?.id));
+            return
+        }
         if (invalidName || invalidClass || invalidType) {
             return;
         }

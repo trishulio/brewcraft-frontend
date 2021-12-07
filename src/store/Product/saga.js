@@ -4,7 +4,8 @@ import {
     FETCH_PRODUCT,
     CREATE_PRODUCT,
     UPDATE_PRODUCT,
-    DELETE_PRODUCT
+    DELETE_PRODUCT,
+    SET_PRODUCT_DETAILS_FAILED
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
@@ -30,7 +31,7 @@ function* createProductGenerator(action) {
         yield put(setGlobalRedirect({ pathname: "/products/" + res.data.id }));
         yield put(snackSuccess(`Created product ${get(action, "payload.form.name")}.`));
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_PRODUCT_DETAILS_FAILED });
     }
 }
 
@@ -42,7 +43,7 @@ function* udpateProductGenerator(action) {
         yield put(setGlobalRedirect({ pathname: "/products/" + res.data.id }));
         yield put(snackSuccess(`Updated product ${get(action, "payload.form.name")}.`));
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_PRODUCT_DETAILS_FAILED });
     }
 }
 

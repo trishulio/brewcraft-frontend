@@ -6,7 +6,8 @@ import {
   INVALID_DESCRIPTION,
   SET_PRODUCT_DETAILS,
   SET_INITIAL_PRODUCT_DETAILS,
-  RESET_PRODUCT_DETAILS
+  RESET_PRODUCT_DETAILS,
+  SET_PRODUCT_DETAILS_FAILED
 } from "./actionTypes";
 
 const initialState = {
@@ -50,6 +51,12 @@ const Product = (state = initialState, { type, payload }) => {
     case INVALID_TYPE:
     case INVALID_STYLE:
     case INVALID_DESCRIPTION:
+      return {
+        ...state,
+        ...payload,
+        loading: false,
+        error: true,
+      };
     case SET_PRODUCT_DETAILS:
       return {
         ...state,
@@ -60,6 +67,12 @@ const Product = (state = initialState, { type, payload }) => {
         },
         loading: false,
         error: null,
+      };
+    case SET_PRODUCT_DETAILS_FAILED:
+      return {
+        ...state,
+        loading: false,
+        error: true,
       };
     case SET_INITIAL_PRODUCT_DETAILS:
       return {

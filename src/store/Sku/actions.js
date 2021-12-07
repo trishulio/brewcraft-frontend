@@ -6,7 +6,9 @@ import {
     RESET_SKU_DETAILS,
     INVALID_NAME,
     INVALID_DESCRIPTION,
-    DELETE_SKU
+    DELETE_SKU,
+    INVALID_PRODUCT,
+    INVALID_VOLUME
 } from "./actionTypes";
 
 export const setSkuDetails = payload => ({
@@ -39,10 +41,24 @@ export const resetSkuDetails = () => ({
     payload: null
 });
 
-export const setSkuInvalidName = enabled => ({
+export const setSkuInvalidName = value => ({
     type: INVALID_NAME,
     payload: {
-        invalidName: enabled
+        invalidName: value.length > 12 || !value
+    }
+});
+
+export const setSkuInvalidProduct = enabled => ({
+    type: INVALID_PRODUCT,
+    payload: {
+        invalidProduct: enabled
+    }
+});
+
+export const setSkuInvalidVolume = enabled => ({
+    type: INVALID_VOLUME,
+    payload: {
+        invalidVolume: enabled
     }
 });
 

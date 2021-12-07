@@ -1,12 +1,19 @@
 import React from "react";
 import {
   Row,
-  Col
+  Col,
+  Alert
 } from "reactstrap";
 import Toolbar from "./components/toolbar";
 import ProductCategoryDetails from "./components/details";
+import { useSelector } from "react-redux";
 
 export default function ProductCategory({ category, editable, changed, onSave, onEdit, onDelete }) {
+
+    const error = useSelector(state => {
+        return state.ProductCategory.error;
+    });
+
     return (
         <React.Fragment>
             <Toolbar
@@ -19,6 +26,11 @@ export default function ProductCategory({ category, editable, changed, onSave, o
             />
             <Row>
                 <Col lg={8}>
+                    {error &&
+                        <Alert color="info" className="mt-2 mb-4">
+                            <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                        </Alert>
+                    }
                     <ProductCategoryDetails
                         editable={editable}
                     />

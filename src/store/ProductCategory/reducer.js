@@ -4,7 +4,8 @@ import {
   INVALID_TYPE,
   INVALID_STYLE,
   INVALID_DESCRIPTION,
-  SET_PRODUCT_CATEGORY_DETAILS
+  SET_PRODUCT_CATEGORY_DETAILS,
+  SET_PRODUCT_CATEGORY_DETAILS_FAILED
 } from "./actionTypes";
 
 const initialState = {
@@ -48,6 +49,12 @@ const Product = (state = initialState, { type, payload }) => {
         },
         loading: false,
         error: null,
+      };
+    case SET_PRODUCT_CATEGORY_DETAILS_FAILED:
+      return {
+        ...state,
+        loading: false,
+        error: true,
       };
     default:
       return {

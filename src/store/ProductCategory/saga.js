@@ -3,7 +3,8 @@ import {
     FETCH_PRODUCT_CATEGORY,
     CREATE_PRODUCT_CATEGORY,
     UPDATE_PRODUCT_CATEGORY,
-    DELETE_PRODUCT_CATEGORY
+    DELETE_PRODUCT_CATEGORY,
+    SET_PRODUCT_CATEGORY_DETAILS_FAILED
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
@@ -36,7 +37,7 @@ function* createProductCategoryGenerator(action) {
             yield call(action.payload.success, res.data);
         }
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_PRODUCT_CATEGORY_DETAILS_FAILED });
     }
 }
 
@@ -51,7 +52,7 @@ function* udpateProductCategoryGenerator(action) {
             yield call(action.payload.success);
         }
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_PRODUCT_CATEGORY_DETAILS_FAILED });
     }
 }
 

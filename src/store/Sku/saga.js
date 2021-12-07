@@ -3,7 +3,8 @@ import {
     FETCH_SKU,
     CREATE_SKU,
     UPDATE_SKU,
-    DELETE_SKU
+    DELETE_SKU,
+    SET_SKU_DETAILS_FAILED
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
@@ -26,7 +27,7 @@ function* createSkuGenerator(action) {
         yield put({ type: SET_SKU_DETAILS, payload: { data: res.data, initial: res.data } });
         yield put(setGlobalRedirect({ pathname: "/sku/" + res.data.id, search: "" }));
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_SKU_DETAILS_FAILED });
     }
 }
 
@@ -36,7 +37,7 @@ function* udpateSkuGenerator(action) {
         yield put({ type: SET_SKU_DETAILS, payload: { data: res.data, initial: res.data } });
         yield put(setGlobalRedirect({ pathname: "/sku/" + res.data.id, search: "" }));
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_SKU_DETAILS_FAILED });
     }
 }
 
