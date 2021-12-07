@@ -10,7 +10,7 @@ import {
     Col
 } from "reactstrap";
 import {
-    setSkuDetails, setSkuInvalidName, setSkuInvalidProduct, setSkuInvalidVolume
+    setSkuDetails, setSkuInvalidDescription, setSkuInvalidName, setSkuInvalidProduct, setSkuInvalidVolume
 } from "../../../store/actions";
 import {
     Card,
@@ -26,7 +26,7 @@ export default function SkuDetails(props) {
         return state.Sku.data;
     });
 
-    const { invalidName, invalidProduct, invalidVolume } = useSelector(state => {
+    const { invalidName, invalidProduct, invalidVolume, invalidDescription } = useSelector(state => {
         return state.Sku;
     })
 
@@ -49,6 +49,7 @@ export default function SkuDetails(props) {
                 break;
             case "skuDescription":
                 if (sku.description !== e.target.value) {
+                    dispatch(setSkuInvalidDescription(!e.target.value));
                     dispatch(setSkuDetails({
                         data: {
                             ...sku,
@@ -253,6 +254,7 @@ export default function SkuDetails(props) {
                                         onFormInputChange(e);
                                     }}
                                     hidden={!props.editable}
+                                    invalid={invalidDescription}
                                 />
                                 <FormFeedback>Enter a valid sku description.</FormFeedback>
                             </FormGroup>
