@@ -11,7 +11,8 @@ import {
     fetchAllProducts,
     setSkuInvalidName,
     setSkuInvalidProduct,
-    setSkuInvalidVolume
+    setSkuInvalidVolume,
+    setSkuInvalidDescription
 } from "../../store/actions";
 import {
     useQuery
@@ -85,10 +86,11 @@ export default function Sku() {
     }
 
     function onSave() {
-        if (!sku.name || (sku.name && sku.name.length > 12) || !sku.product?.id || !sku.quantity?.value) {
+        if (!sku.name || (sku.name && sku.name.length > 12) || !sku.product?.id || !sku.quantity?.value || !sku.description) {
             dispatch(setSkuInvalidName(sku.name));
             dispatch(setSkuInvalidProduct(!sku.product?.id));
             dispatch(setSkuInvalidVolume(!sku.quantity.value));
+            dispatch(setSkuInvalidDescription(!sku.description))
             return
         }
 
