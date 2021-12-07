@@ -80,7 +80,7 @@ export default function ProductCategoriesModal({ show, setShow, type, parentCate
             title={formatTitle(type)}
         >
             <ModalBody>
-                <AvForm onValidSubmit={onFormSubmit}>
+                <AvForm id={`product-${type}-modal-form`} onValidSubmit={onFormSubmit}>
                     <AvField
                         name="name"
                         type="text"
@@ -91,7 +91,7 @@ export default function ProductCategoriesModal({ show, setShow, type, parentCate
                 </AvForm>
             </ModalBody>
             <ModalFooter>
-                <Button color="primary" type="submit">Save</Button>
+                <Button color="primary" type="submit" form={`product-${type}-modal-form`}>Save</Button>
             </ModalFooter>
         </Modal>
     );
