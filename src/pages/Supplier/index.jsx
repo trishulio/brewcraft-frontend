@@ -39,17 +39,6 @@ export default function Supplier() {
         return state.Supplier.initial;
     });
 
-    const {
-        invalidName,
-        invalidAddressLine1,
-        invalidAddressLine2,
-        invalidCity,
-        invalidProvince,
-        invalidPostalCode,
-        invalidCountry
-    } = useSelector(state => {
-        return state.Supplier
-    });
 
     const isChanged = useCallback(() => {
         return JSON.stringify(
