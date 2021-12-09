@@ -15,7 +15,7 @@ export default function SkusTable() {
                 <tr>
                     <th>Sku</th>
                     <th>Product</th>
-                    <th>Quantity</th>
+                    <th>Volume</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,7 +24,7 @@ export default function SkusTable() {
                         <tr key={key}>
                             <td><Link to={"/sku/" + sku.id}>{sku.name}</Link></td>
                             <td>{sku.product.name}</td>
-                            <td>{sku.quantiy?.value || "-"}</td>
+                            <td>{sku.quantity?.value ? sku.quantity.value + " " + sku.quantity.symbol : "-"}</td>
                         </tr>
                     )
                 }

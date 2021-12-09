@@ -10,7 +10,7 @@ import {
     Col
 } from "reactstrap";
 import {
-    setSkuDetails, setSkuInvalidDescription, setSkuInvalidName, setSkuInvalidProduct, setSkuInvalidVolume
+    setSkuDetails, setSkuInvalidBaseQuantityUnit, setSkuInvalidDescription, setSkuInvalidName, setSkuInvalidProduct, setSkuInvalidVolume
 } from "../../../store/actions";
 import {
     Card,
@@ -26,7 +26,7 @@ export default function SkuDetails(props) {
         return state.Sku.data;
     });
 
-    const { invalidName, invalidProduct, invalidVolume, invalidDescription } = useSelector(state => {
+    const { invalidName, invalidProduct, invalidVolume, invalidDescription, invalidBaseQuantityUnit } = useSelector(state => {
         return state.Sku;
     })
 
@@ -78,7 +78,22 @@ export default function SkuDetails(props) {
                         data: {
                             ...sku,
                             quantity: {
+                                ...sku.quantity,
                                 value: e.target.value
+                            }
+                        }
+                    }));
+                }
+                break;
+            case "skuBaseQuantityUnit":
+                if (sku.quantity?.symbol !== e.target.value) {
+                    dispatch(setSkuInvalidBaseQuantityUnit(!e.target.value));
+                    dispatch(setSkuDetails({
+                        data: {
+                            ...sku,
+                            quantity: {
+                                ...sku.quantity,
+                                symbol: e.target.value
                             }
                         }
                     }));
@@ -199,31 +214,59 @@ export default function SkuDetails(props) {
                             </Label>
                         </Col>
                         <Col xs={8}>
-                            <FormGroup
-                                className="d-inline-block font-size-12 mb-2"
-                                hidden={!props.editable}
-                            >
-                                <Input
-                                    type="text"
-                                    className="waves-effect"
-                                    name="skuQuantity"
-                                    style={{ width: "16rem" }}
-                                    disabled={!props.editable}
-                                    value={sku.quantity?.value || ""}
-                                    onChange={e => {
-                                        onFormInputChange(e);
-                                    }}
+                            <Row className="m-0" xs={8}>
+                                <FormGroup
+                                    className="d-inline-block font-size-12"
                                     hidden={!props.editable}
-                                    invalid={invalidVolume}
-                                />
-                                <FormFeedback>Enter a valid sku quantity.</FormFeedback>
-                            </FormGroup>
-                            <div className="d-inline-block font-size-12 mb-2">
-                                <div hidden={props.editable}>
-                                    {sku.quantity ? sku.quantity.value + " " + sku.quantity.symbol : "-"}
+                                >
+                                    <Input
+                                        type="text"
+                                        className="waves-effect"
+                                        name="skuQuantity"
+                                        style={{ width: "8rem" }}
+                                        disabled={!props.editable}
+                                        value={sku.quantity?.value || ""}
+                                        onChange={e => {
+                                            onFormInputChange(e);
+                                        }}
+                                        hidden={!props.editable}
+                                        invalid={invalidVolume}
+                                    />
+                                    <FormFeedback>Enter a valid sku quantity.</FormFeedback>
+                                </FormGroup>
+                                <FormGroup
+                                    className="d-inline-block font-size-12"
+                                    hidden={!props.editable}
+                                >
+                                    <Input
+                                        type="select"
+                                        className="waves-effect"
+                                        name="skuBaseQuantityUnit"
+                                        style={{ width: "8rem" }}
+                                        disabled={!props.editable}
+                                        invalid={invalidBaseQuantityUnit}
+                                        value={sku.quantity?.symbol || ""}
+                                        hidden={!props.editable}
+                                        onChange={e => {
+                                            onFormInputChange(e);
+                                        }}
+                                    >
+                                        <option value="">Select</option>
+                                        <option value="kg">kg</option>
+                                        <option value="g">g</option>
+                                        <option value="mg">mg</option>
+                                        <option value="l">l</option>
+                                        <option value="ml">ml</option>
+                                    </Input>
+                                    <FormFeedback>Enter a valid unit of measure.</FormFeedback>
+                                </FormGroup>
+                                <div className="d-inline-block font-size-12 mb-2">
+                                    <div hidden={props.editable}>
+                                        {sku.quantity ? sku.quantity.value + " " + sku.quantity.symbol : "-"}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="clearFix"></div>
+                                <div className="clearFix"></div>
+                            </Row>
                         </Col>
                     </Row>
                     <Row>
