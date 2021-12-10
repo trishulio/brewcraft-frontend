@@ -94,6 +94,21 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
             >
                 New Supplier
             </Button>
+            <Button
+                type="button"
+                color="secondary"
+                size="sm"
+                className="waves-effect mr-2 mb-3"
+                hidden={!supplier.id }
+                outline={true}
+                onClick={() => {
+                    history.push({
+                        pathname: "/suppliers/contacts"
+                    });
+                }}
+            >
+                Contacts
+            </Button>
         </React.Fragment>
     );
 }
