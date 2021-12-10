@@ -12,7 +12,8 @@ import {
     setSkuInvalidName,
     setSkuInvalidProduct,
     setSkuInvalidVolume,
-    setSkuInvalidDescription
+    setSkuInvalidDescription,
+    setSkuInvalidBaseQuantityUnit
 } from "../../store/actions";
 import {
     useQuery
@@ -86,11 +87,12 @@ export default function Sku() {
     }
 
     function onSave() {
-        if (!sku.name || (sku.name && sku.name.length > 12) || !sku.product?.id || !sku.quantity?.value || !sku.description) {
+        if (!sku.name || (sku.name && sku.name.length > 12) || !sku.product?.id || !sku.quantity?.value || !sku.description || !sku.quantity?.symbol ) {
             dispatch(setSkuInvalidName(sku.name));
             dispatch(setSkuInvalidProduct(!sku.product?.id));
             dispatch(setSkuInvalidVolume(!sku.quantity.value));
-            dispatch(setSkuInvalidDescription(!sku.description))
+            dispatch(setSkuInvalidDescription(!sku.description));
+            dispatch(setSkuInvalidBaseQuantityUnit(!sku.quantity.symbol))
             return
         }
 
@@ -107,7 +109,7 @@ export default function Sku() {
                         productId: sku.product.id,
                         quantity: {
                             value: parseFloat(sku.quantity.value),
-                            symbol: "l"
+                            symbol: sku.quantity.symbol
                         },
                         materials: [],
                         version: sku.version
@@ -123,7 +125,7 @@ export default function Sku() {
                         productId: sku.product.id,
                         quantity: {
                             value: parseFloat(sku.quantity.value),
-                            symbol: "l"
+                            symbol: sku.quantity.symbol
                         },
                         materials: []
                     }

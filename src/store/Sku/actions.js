@@ -8,7 +8,8 @@ import {
     INVALID_DESCRIPTION,
     DELETE_SKU,
     INVALID_PRODUCT,
-    INVALID_VOLUME
+    INVALID_VOLUME,
+    INVALID_QUANTITY_UNIT
 } from "./actionTypes";
 
 export const setSkuDetails = payload => ({
@@ -66,5 +67,12 @@ export const setSkuInvalidDescription = enabled => ({
     type: INVALID_DESCRIPTION,
     payload: {
         invalidDescription: enabled
+    }
+});
+
+export const setSkuInvalidBaseQuantityUnit = enabled => ({
+    type: INVALID_QUANTITY_UNIT,
+    payload: {
+        invalidBaseQuantityUnit: enabled
     }
 });

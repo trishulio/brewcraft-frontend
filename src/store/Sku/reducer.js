@@ -6,7 +6,8 @@ import {
     SET_SKU_DETAILS_SUCCESS,
     SET_SKU_DETAILS_FAILED,
     INVALID_PRODUCT,
-    INVALID_VOLUME
+    INVALID_VOLUME,
+    INVALID_QUANTITY_UNIT
 } from "./actionTypes";
 
 const initialState = {
@@ -17,7 +18,8 @@ const initialState = {
         product: {},
         materials: [],
         quantity: {
-            value: ""
+            value: "",
+            symbol: "",
         },
         version: null
     },
@@ -28,7 +30,8 @@ const initialState = {
         product: {},
         materials: [],
         quantity: {
-            value: ""
+            value: "",
+            symbol: "",
         },
         version: null
     },
@@ -36,7 +39,8 @@ const initialState = {
     error: null,
     invalidName: null,
     invalidProduct: null,
-    invalidVolume: null
+    invalidVolume: null,
+    invalidBaseQuantityUnit: null,
 };
 
 const Sku = (state = initialState, { type, payload }) => {
@@ -44,6 +48,13 @@ const Sku = (state = initialState, { type, payload }) => {
         case INVALID_DESCRIPTION:
         case INVALID_NAME:
         case INVALID_VOLUME:
+            return {
+                ...state,
+                ...payload,
+                loading: false,
+                error: true,
+            };
+        case INVALID_QUANTITY_UNIT:
             return {
                 ...state,
                 ...payload,
