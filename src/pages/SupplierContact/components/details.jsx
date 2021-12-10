@@ -22,7 +22,6 @@ import {
     CardHeader
 } from "../../../component/Common/Card";
 import { formatPhoneNumber, isValidEmail, isValidPhoneNumber } from "../../../helpers/utils";
-
 export default function SupplierContactDetails({ editable }) {
     const {
         invalidFirstName,

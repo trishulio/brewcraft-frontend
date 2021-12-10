@@ -14,7 +14,7 @@ import {
     SET_SUPPLIER_CONTACT_DETAILS
 } from "./actionTypes";
 import { api } from "./api";
-import { snackSuccess } from "../Snackbar/actions";
+import { snackSuccess  } from "../Snackbar/actions";
 import { setGlobalRedirect } from "../Brewery/actions";
 
 function* fetchSupplierContactByIdGenerator(action) {
