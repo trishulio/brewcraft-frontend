@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from 'react-router-dom';
+import {  useHistory } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useQuery } from "../../../helpers/utils";
 import Table, { Th } from "../../../component/Common/table";
@@ -80,9 +80,15 @@ export default function SupplierContactsTable() {
             <tbody>
                 {
                     contacts.map((supplier, key) =>
-                        <tr key={key}>
-                            <td><Link to={"/suppliers/contacts/" + supplier.id}>{supplier.firstName}</Link></td>
-                            <td><Link to={"/suppliers/contacts/" + supplier.id}>{supplier.lastName}</Link></td>
+                        <tr key={key}
+                        onClick={()=>{
+                            history.push({
+                                pathname : "/suppliers/contacts/" +supplier.id
+                            })
+                }} style={{ cursor : "pointer"}}
+                        >
+                            <td>{supplier.firstName}</td>
+                            <td>{supplier.lastName}</td>
                             <td>{supplier.supplier?.name}</td>
                             <td>{supplier.position}</td>
                             <td>{supplier.phoneNumber}</td>
