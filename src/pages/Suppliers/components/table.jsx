@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from 'react-router-dom';
+import {  useHistory } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useQuery } from "../../../helpers/utils";
 import { formatAddress } from "../../../helpers/textUtils";
@@ -46,11 +46,17 @@ export default function SuppliersTable() {
             <tbody>
                 {
                     suppliers.map((supplier, key) =>
-                        <tr key={key}>
-                            <td><Link to={"/suppliers/" + supplier.id}>{supplier.name}</Link></td>
-                            <td><Link to={"/suppliers/" + supplier.id}>{formatAddress(supplier.address) || "-"}</Link></td>
-                            <td><Link to={"/suppliers/contacts?supplier=" + supplier.id}>{supplier.contacts.length}</Link></td>
+
+                        <tr key={key} onClick={()=>{
+                                    history.push({
+                                        pathname : "/suppliers/" +supplier.id
+                                    })
+                        }} style={{ cursor : "pointer"}}>
+                            <td>{supplier.name}</td>
+                            <td>{formatAddress(supplier.address) || "-"}</td>
+                            <td>{supplier.contacts.length}</td>
                         </tr>
+
                     )
                 }
             </tbody>
