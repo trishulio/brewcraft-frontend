@@ -23,7 +23,7 @@ import { useKeyPress } from "../../../helpers/utils";
 
 const ENTER_KEY = "Enter";
 
-export default function MaterialCategoryDetails({ editable, onSave }) {
+export default function MaterialCategoryDetails({ editable, onSave, changed }) {
 
     const { invalidName, invalidParentCategory } = useSelector(state => {
         return state.MaterialCategory
@@ -43,7 +43,7 @@ export default function MaterialCategoryDetails({ editable, onSave }) {
     const enterKeyPressed = useKeyPress(ENTER_KEY);
 
     function onKeyUp() {
-        if (enterKeyPressed) {
+        if (enterKeyPressed && changed) {
             onSave();
             return;
         }

@@ -32,6 +32,7 @@ export default function MaterialCategory({ editable, changed, onSave, onDelete }
                     <MaterialCategoryDetails
                         editable={editable}
                         onSave={onSave}
+                        changed={changed}
                     />
                 </Col>
             </Row>
