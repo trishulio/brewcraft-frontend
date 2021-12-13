@@ -88,9 +88,6 @@ export default function Ingredient() {
     }
 
     function onSave() {
-        if (invalidName || invalidUpc) {
-            return;
-        }
         if (!ingredient.name || !ingredient.category || !ingredient.baseQuantityUnit || (ingredient.upc && ingredient.upc.length > 12)) {
             dispatch(setIngredientInvalidName(!ingredient.name));
             dispatch(setIngredientInvalidCategory(!ingredient.category));

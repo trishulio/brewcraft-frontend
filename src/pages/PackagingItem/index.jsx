@@ -86,9 +86,6 @@ export default function PackagingItem() {
     }
 
     function onSave() {
-        if (invalidName || invalidUpc || invalidCategory) {
-            return;
-        }
         if (!packagingItem.name || !packagingItem.category || !packagingItem.baseQuantityUnit || (packagingItem.upc && packagingItem.upc.length > 12)) {
             dispatch(setPackagingItemInvalidName(!packagingItem.name));
             dispatch(setPackagingItemInvalidCategory(!packagingItem.category));
