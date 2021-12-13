@@ -138,6 +138,7 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
                                     onKeyUp={onKeyUp}
+                                    style={{ width: "16rem" }}
                                 />
                                 <FormFeedback>Enter a valid ingredient name.</FormFeedback>
                             </FormGroup>
@@ -263,6 +264,7 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidUpc}
+                                    style={{ width: "16rem" }}
                                 />
                                 <FormFeedback>Enter a valid upc.</FormFeedback>
                             </FormGroup>
