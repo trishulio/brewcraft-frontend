@@ -1,6 +1,7 @@
 /* eslint-disable */
 import Axios from "axios";
 import { authenticateUser, getLoggedInUser } from "./authUtils"
+import { Auth } from 'aws-amplify';
 
 const AxiosInstance = Axios.create({
     // timeout: 5000,
@@ -8,9 +9,10 @@ const AxiosInstance = Axios.create({
     crossDomain: true
 });
 
-AxiosInstance.interceptors.request.use(function (config) {
+AxiosInstance.interceptors.request.use(async function (config) {
 
     const user = getLoggedInUser();
+    const getsession = await Auth.currentSession();
 
     if (user) {
 
@@ -18,6 +20,7 @@ AxiosInstance.interceptors.request.use(function (config) {
 
     } else {
 
+        config.headers.common['Authorization'] = `Bearer ${getsession.getAccessToken().getJwtToken()}`;
         authenticateUser();
     }
 
