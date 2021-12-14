@@ -28,7 +28,7 @@ const ADD_NEW = "ADD_NEW";
 const PACKAGING_CATEGORY = "packaging";
 const ENTER_KEY = "Enter"
 
-export default function PackagingItemDetails({ editable, onSave }) {
+export default function PackagingItemDetails({ editable, onSave, changed }) {
     const [showPackageCategoryModal, setShowPackageCategoryModal] = useState(false);
     const [modalPackageType, setModalPackageType] = useState(null);
     const [modalParentCategoryId, setModalParentCategoryId] = useState(null);
@@ -104,7 +104,7 @@ export default function PackagingItemDetails({ editable, onSave }) {
     }
 
     function onKeyUp() {
-        if (enterKeyPressed) {
+        if (enterKeyPressed && changed) {
             onSave();
             return;
         }

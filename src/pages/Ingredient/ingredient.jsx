@@ -34,6 +34,7 @@ export default function Ingredient({ editable, changed, onSave, onDelete }) {
                     <IngredientDetails
                         editable={editable}
                         onSave={onSave}
+                        changed={changed}
                     />
                 </Col>
                 {/* <Col md="3">
