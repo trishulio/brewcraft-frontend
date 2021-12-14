@@ -29,6 +29,12 @@ export default function MaterialCategoriesTable() {
                 }
                 query.append("sort", "name");
                 break;
+            case "materialCategoryParentCategory":
+                if (sort !== "parentCategory") {
+                    order = undefined;
+                }
+                query.append("sort", "parentCategory");
+                break;
             default:
                 break;
         }
@@ -51,7 +57,13 @@ export default function MaterialCategoriesTable() {
                     >
                         Name
                     </Th>
-                    <th>Parent Category</th>
+                    <Th
+                        name="materialCategoryParentCategory"
+                        id="parentCategory"
+                        onSort={onSort}
+                    >
+                        Parent Category
+                    </Th>
                 </tr>
             </thead>
             <tbody>
