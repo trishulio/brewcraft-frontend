@@ -7,7 +7,7 @@ import {
 import {
     useQuery
 } from "../../helpers/utils";
-import UsersInner from "./contacts";
+import UsersInner from "./users";
 
 export default function Users() {
     const dispatch = useDispatch();

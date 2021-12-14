@@ -10,13 +10,17 @@ export default function UsersPagination({ children }) {
 
     const dispatch = useDispatch();
 
-    const { totalItems, totalPages, pageIndex, pageSize , content } = useSelector(state => {
+    const users = useSelector(state => {
+        return state.Users.content;
+    });
+
+    const { totalElements, totalPages, pageIndex, pageSize } = useSelector(state => {
         return state.Users;
     });
 
     const pageProps = {
-        items: content,
-        totalElements: totalItems,
+        items: users,
+        totalElements,
         totalPages,
         pageIndex,
         pageSize,

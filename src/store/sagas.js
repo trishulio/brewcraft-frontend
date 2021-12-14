@@ -34,7 +34,9 @@ import Suppliers from "./Suppliers/saga";
 import SupplierContact from "./SupplierContact/saga";
 import SupplierContacts from "./SupplierContacts/saga";
 import RawMaterials from "./RawMaterials/saga";
+import User from "./User/saga";
 import Users from "./Users/saga";
+import UserRoles from "./UserRoles/saga";
 
 export default function* rootSaga() {
     yield all([
@@ -73,6 +75,8 @@ export default function* rootSaga() {
         Suppliers(),
         SupplierContact(),
         SupplierContacts(),
-        Users()
+        User(),
+        Users(),
+        UserRoles()
     ])
 }

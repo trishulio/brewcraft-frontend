@@ -82,3 +82,12 @@ export function useKeyPress(targetKey) {
     }, []);
     return keyPressed;
 }
+
+export function arrayEquals(a, b) {
+    const aSorted = a ? [...a].sort() : null;
+    const bSorted = b ? [...b].sort() : null;
+    return Array.isArray(aSorted) &&
+        Array.isArray(bSorted) &&
+        aSorted.length === bSorted.length &&
+        aSorted.every((val, index) => val === bSorted[index]);
+}

@@ -30,6 +30,7 @@ import Supplier from "../pages/Supplier";
 import Suppliers from "../pages/Suppliers";
 import SupplierContact from "../pages/SupplierContact";
 import SupplierContacts from "../pages/SupplierContacts";
+import User from "../pages/User";
 import Users from "../pages/Users";
 import NotFound from "../pages/pages-404";
 
@@ -94,6 +95,7 @@ const authProtectedRoutes = [
     { path: "/reports", component: Reports },
 
     // Users
+    { path: "/users/:id", component: User },
     { path: "/users", component: Users },
 
     // Default
