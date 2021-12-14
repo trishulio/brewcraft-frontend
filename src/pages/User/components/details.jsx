@@ -383,12 +383,13 @@ export default function UserDetails({editable, onSave, changed}) {
                                         const changeEvent = {
                                             target: {
                                                 name: "userRoles",
-                                                selectedValues: e ? e.map(selectedRole => {
+                                                selectedValues: e ? e.reduce(function(result, selectedRole) {
                                                     let role = userRoles.find(role => role.id = selectedRole.value);
                                                     if (role) {
-                                                        return role;
+                                                        result.push(role);
                                                     }
-                                                }): []
+                                                    return result;
+                                                  }, []) : []
                                             }
                                         }
                                         onFormInputChange(changeEvent);

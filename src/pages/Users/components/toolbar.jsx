@@ -1,9 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import {
-    Button,
-    Input
-} from "reactstrap";
+import { Button } from "reactstrap";
 import Toolbar from "../../../component/Common/toolbar";
 
 export default function ProductCategoriesToolbar() {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useQuery } from "../../../helpers/utils";
 import Table, { Th } from "../../../component/Common/table";

@@ -8,7 +8,6 @@ import {
     updateUser,
     deleteUser,
     resetUserDetails,
-    setUserDetails,
     setUserInvalidUserName,
     setUserInvalidFirstName,
     setUserInvalidLastName,
