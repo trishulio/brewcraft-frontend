@@ -139,6 +139,7 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
                                     onKeyUp={onKeyUp}
+                                    style={{ width: "16rem" }}
                                 />
                                 <FormFeedback>Enter a valid packagingItem name.</FormFeedback>
                             </FormGroup>
@@ -264,6 +265,7 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
                                     onChange={onFormInputChange}
                                     invalid={invalidUpc}
                                     onKeyUp={onKeyUp}
+                                    style={{ width: "16rem" }}
                                 />
                                 <FormFeedback>Enter a valid upc.</FormFeedback>
                             </FormGroup>

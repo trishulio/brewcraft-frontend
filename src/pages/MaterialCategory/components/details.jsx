@@ -105,6 +105,7 @@ export default function MaterialCategoryDetails({ editable, onSave, changed }) {
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
                                     onKeyUp={onKeyUp}
+                                    style={{ width: "16rem" }}
                                 />
                                 <FormFeedback>Enter a valid material category name.</FormFeedback>
                             </FormGroup>
