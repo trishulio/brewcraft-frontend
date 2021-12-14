@@ -20,15 +20,18 @@ export default function PurchaseInvoiceDetails({ editable }) {
 
     const dispatch = useDispatch();
 
+    const { invoice, purchaseOrder } = useSelector(state => {
+        return state.Procurement.data;
+    })
+
     const {
-        data: invoice,
         invalidSupplier,
         invalidGeneratedOn,
         invalidInvoiceNumber,
         invalidPaymentDueDate,
         invalidPurchaseOrder
     } = useSelector(state => {
-        return state.PurchaseInvoice;
+        return state.Procurement;
     });
 
     const suppliers = useSelector(state => {
@@ -57,7 +60,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             type="text"
                             name="invoiceDetailsPoSo"
                             className="mb-2"
-                            value={invoice.purchaseOrder.orderNumber || ""}
+                            value={purchaseOrder.orderNumber || ""}
                             onChange={e => {
                                 dispatch(setPurchaseInvoicePurchaseOrder(e.target.value));
                             }}
@@ -69,7 +72,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             style={{ lineHeight: "2rem", verticalAlign: "middle" }}
                             width="100%"
                             hidden={editable}>
-                            {invoice.purchaseOrder.orderNumber || "-"}
+                            {purchaseOrder.orderNumber || "-"}
                         </div>
                         <FormFeedback>Invalid purchase invoice field</FormFeedback>
                     </FormGroup>
@@ -181,7 +184,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             type="select"
                             name="invoiceDetailsSupplier"
                             className="mb-2"
-                            value={invoice.purchaseOrder.supplier.id || ""}
+                            value={purchaseOrder.supplier.id || ""}
                             onChange={e => {
                                 const supplier = suppliers.find(s => s.id === parseInt(e.target.value)) || "";
                                 dispatch(setPurchaseInvoiceSupplier(supplier))
@@ -208,10 +211,10 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             }}
                             width="100%"
                             hidden={editable}>
-                            {invoice.purchaseOrder.supplier.name || "-"}
+                            {purchaseOrder.supplier.name || "-"}
                         </div>
                         <FormFeedback>{
-                            !invoice.purchaseOrder.supplier.id
+                            !purchaseOrder.supplier.id
                                 ? "Supplier is required"
                                 : "Invalid purchase invoice field"
                         }

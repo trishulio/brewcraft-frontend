@@ -8,8 +8,8 @@ import {
 export default function Toolbar({ editable, changed, onSave, onDelete }) {
     const history = useHistory();
 
-    const invoice = useSelector(state => {
-        return state.PurchaseInvoice.data;
+    const { shipment, invoice } = useSelector(state => {
+        return state.Procurement.data;
     });
 
     return (
@@ -46,7 +46,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 hidden={!invoice.id || editable}
                 onClick={() => {
                     history.push({
-                        pathname: "/purchases/invoices/" + invoice.id,
+                        pathname: `/purchases/invoices/${shipment.id}/${invoice.id}`,
                         search: "?edit=true"
                     });
                 }}

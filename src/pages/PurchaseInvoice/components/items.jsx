@@ -19,24 +19,24 @@ export default function PurchaseInvoiceItems({ editable }) {
 
     const dispatch = useDispatch();
 
-    const { items } = useSelector(state => {
-        return state.PurchaseInvoice.data;
+    const { procurementItems: items } = useSelector(state => {
+        return state.Procurement.data;
     });
 
     useEffect(() => {
         let amountSubtotal = 0.0,
             amountTax = 0.0,
             amountTotal = 0.0;
-        items.forEach(item => {
-            if (item.quantity.value && item.price.amount ) {
-                const amountItemSubtotalItem = parseFloat(item.quantity.value)
-                    * parseFloat(item.price.amount);
+        items.forEach(({ invoiceItem }) => {
+            if (invoiceItem.quantity.value && invoiceItem.price.amount ) {
+                const amountItemSubtotalItem = parseFloat(invoiceItem.quantity.value)
+                    * parseFloat(invoiceItem.price.amount);
                 if (Number.isInteger(amountItemSubtotalItem) || isFloat(amountItemSubtotalItem)) {
                     amountSubtotal += amountItemSubtotalItem;
                     amountTotal += amountItemSubtotalItem;
-                    if (item.tax.amount.amount) {
+                    if (invoiceItem.tax.amount.amount) {
                         const amountItemTax = amountItemSubtotalItem
-                            * parseFloat(item.tax.amount.amount);
+                            * parseFloat(invoiceItem.tax.amount.amount);
                         if (Number.isInteger(amountItemTax) || isFloat(amountItemTax)) {
                             amountTax += amountItemTax;
                             amountTotal += amountItemTax;
@@ -54,19 +54,21 @@ export default function PurchaseInvoiceItems({ editable }) {
     function addItem() {
         const newItems = [...items];
         newItems.push({
-            description: "",
-            quantity: {
-                value: ""
-            },
-            price: {
-                amount: ""
-            },
-            tax: {
-                amount: {
+            invoiceItem: {
+                description: "",
+                quantity: {
+                    value: ""
+                },
+                price: {
                     amount: ""
-                }
-            },
-            material: ""
+                },
+                tax: {
+                    amount: {
+                        amount: ""
+                    }
+                },
+                material: ""
+            }
         });
         dispatch(setPurchaseInvoiceItems(newItems));
     }

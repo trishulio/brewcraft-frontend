@@ -9,7 +9,7 @@ import {
     FormFeedback
 } from "reactstrap";
 import { isFloat } from "../../../helpers/textUtils";
-import { isValidName, validAmount, validId } from "../../../helpers/utils";
+import { validAmount, validId } from "../../../helpers/utils";
 import {
     setPurchaseInvoiceItems
 } from "../../../store/actions";
@@ -26,12 +26,12 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
 
     const dispatch = useDispatch();
 
-    const { items } = useSelector(state => {
-        return state.PurchaseInvoice.data;
+    const { procurementItems: items } = useSelector(state => {
+        return state.Procurement.data;
     });
 
     const item = useSelector(state => {
-        return state.PurchaseInvoice.data.items[indexv];
+        return state.Procurement.data.procurementItems[indexv];
     });
 
     const materials = useSelector(state => {
@@ -42,24 +42,23 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
         const itemsNew = [...items];
         switch(e.target.name) {
             case "purchaseInvoiceItemMaterial":
-                itemsNew[indexv].material = materials.find(m => m.id === parseInt(e.target.value)) || "";
-                itemsNew[indexv].invalidMaterial = !validId(itemsNew[indexv].material?.id);
+                itemsNew[indexv].invoiceItem.material = materials.find(m => m.id === parseInt(e.target.value)) || "";
+                itemsNew[indexv].invoiceItem.invalidMaterial = !validId(itemsNew[indexv].invoiceItem.material?.id);
                 break;
             case "purchaseInvoiceItemDescription":
-                itemsNew[indexv].description = e.target.value;
-                itemsNew[indexv].invalidDescription = !isValidName(e.target.value.trim);
+                itemsNew[indexv].invoiceItem.description = e.target.value;
                 break;
             case "purchaseInvoiceItemQuantity":
-                itemsNew[indexv].quantity.value = e.target.value;
-                itemsNew[indexv].invalidQuantity = !validAmount(parseFloat(e.target.value));
+                itemsNew[indexv].invoiceItem.quantity.value = e.target.value;
+                itemsNew[indexv].invoiceItem.invalidQuantity = !validAmount(parseFloat(e.target.value));
                 break;
             case "purchaseInvoiceItemPrice":
-                itemsNew[indexv].price.amount = e.target.value;
-                itemsNew[indexv].invalidPrice = !validAmount(parseFloat(e.target.value));
+                itemsNew[indexv].invoiceItem.price.amount = e.target.value;
+                itemsNew[indexv].invoiceItem.invalidPrice = !validAmount(parseFloat(e.target.value));
                 break;
             case "purchaseInvoiceItemTax":
-                itemsNew[indexv].tax.amount.amount = e.target.value;
-                itemsNew[indexv].invalidTax = !validAmount(parseFloat(e.target.value));
+                itemsNew[indexv].invoiceItem.tax.amount.amount = e.target.value;
+                itemsNew[indexv].invoiceItem.invalidTax = !validAmount(parseFloat(e.target.value));
                 break;
             default:
                 return;
@@ -74,10 +73,10 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
     }
 
     function formatAmount() {
-        if (item.quantity.value && item.price.amount && item.tax.amount.amount) {
-            const amount = parseFloat(item.quantity.value)
-            * parseFloat(item.price.amount)
-            * (parseFloat(item.tax.amount.amount) + 1.0);
+        if (item.invoiceItem.quantity.value && item.invoiceItem.price.amount && item.invoiceItem.tax.amount.amount) {
+            const amount = parseFloat(item.invoiceItem.quantity.value)
+            * parseFloat(item.invoiceItem.price.amount)
+            * (parseFloat(item.invoiceItem.tax.amount.amount) + 1.0);
             if (Number.isInteger(amount) || isFloat(amount)) {
                 return amount.toFixed(2);
             }
@@ -93,7 +92,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             <Input
                                 type="select"
                                 name="purchaseInvoiceItemMaterial"
-                                value={item.material.id || ""}
+                                value={item.invoiceItem.material.id || ""}
                                 onChange={changeevent}
                                 hidden={!editable}
                                 invalid={item.invalidMaterial}
@@ -108,14 +107,14 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                 }
                             </Input>
                             <FormFeedback>{
-                                !item.material.id
+                                !item.invoiceItem.material.id
                                     ? "Required invoice field"
                                     : "Invalid invoice field"
                                 }
                             </FormFeedback>
                         </FormGroup>
                         <div hidden={editable}>
-                            {item.material.name || "-"}
+                            {item.invoiceItem.material.name || "-"}
                         </div>
                     </Col>
                     <Col xs="3">
@@ -124,15 +123,15 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                 type="textarea"
                                 name="purchaseInvoiceItemDescription"
                                 rows="1"
-                                value={item.description}
+                                value={item.invoiceItem.description}
                                 onChange={changeevent}
                                 hidden={!editable}
-                                invalid={items.invalidDescription}
+                                invalid={item.invoiceItem.invalidDescription}
                             />
                             <FormFeedback>Invalid invoice field</FormFeedback>
                         </FormGroup>
                         <div hidden={editable}>
-                        {   item.description|| "-"}
+                        {item.invoiceItem.description || "-"}
                         </div>
                     </Col>
                     <Col xs="1">
@@ -151,20 +150,20 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             <Input
                                 type="text"
                                 name="purchaseInvoiceItemQuantity"
-                                value={item.quantity?.value || ""}
+                                value={item.invoiceItem.quantity?.value || ""}
                                 onChange={changeevent}
                                 hidden={!editable}
-                                invalid={item.invalidQuantity}
+                                invalid={item.invoiceItem.invalidQuantity}
                             />
                             <FormFeedback>{
-                                !item.quantity.value && item.quantity.value !== "0"
+                                !item.invoiceItem.quantity.value && item.invoiceItem.quantity.value !== "0"
                                     ? "Required invoice field"
                                     : "Invalid invoice field"
                                 }
                             </FormFeedback>
                         </FormGroup>
                         <div hidden={editable}>
-                            {item.quantity.value || "-"}
+                            {item.invoiceItem.quantity.value || "-"}
                         </div>
                     </Col>
                     <Col xs="1">
@@ -172,20 +171,20 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             <Input
                                 type="text"
                                 name="purchaseInvoiceItemPrice"
-                                value={item.price?.amount || ""}
+                                value={item.invoiceItem.price?.amount || ""}
                                 onChange={changeevent}
                                 hidden={!editable}
-                                invalid={item.invalidPrice}
+                                invalid={item.invoiceItem.invalidPrice}
                             />
                             <FormFeedback>{
-                                !item.price.amount && item.price.amount !== "0"
+                                !item.invoiceItem.price.amount && item.invoiceItem.price.amount !== "0"
                                     ? "Required invoice field"
                                     : "Invalid invoice field"
                                 }
                             </FormFeedback>
                         </FormGroup>
                         <div hidden={editable}>
-                            {item.price.amount || "-"}
+                            {item.invoiceItem.price.amount || "-"}
                         </div>
                     </Col>
                     <Col xs="1">
@@ -193,20 +192,20 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             <Input
                                 type="text"
                                 name="purchaseInvoiceItemTax"
-                                value={item.tax.amount?.amount || ""}
+                                value={item.invoiceItem.tax.amount?.amount || ""}
                                 onChange={changeevent}
                                 hidden={!editable}
-                                invalid={item.invalidTax}
+                                invalid={item.invoiceItem.invalidTax}
                             />
                             <FormFeedback>{
-                                !item.tax.amount.amount && item.tax.amount.amount !== "0"
+                                !item.invoiceItem.tax.amount.amount && item.invoiceItem.tax.amount.amount !== "0"
                                     ? "Required invoice field"
                                     : "Invalid invoice field"
                                 }
                             </FormFeedback>
                         </FormGroup>
                         <div hidden={editable}>
-                            {item.tax.amount.amount || "-"}
+                            {item.invoiceItem.tax.amount.amount || "-"}
                         </div>
                     </Col>
                     <Col xs="1">

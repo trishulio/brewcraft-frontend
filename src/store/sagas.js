@@ -20,7 +20,8 @@ import Mixture from "./Mixture/saga";
 import MixtureRecording from "./MixtureRecording/saga";
 import Packaging from "./Packaging/saga";
 import PackagingItem from "./PackagingItem/saga";
-import PurchaseInvoice from "./PurchaseInvoice/saga";
+import Procurement from "./Procurement/saga";
+import Procurements from "./Procurements/saga";
 import PurchaseInvoices from "./PurchaseInvoices/saga";
 import Product from "./Product/saga";
 import ProductCategories from "./ProductCategories/saga";
@@ -59,12 +60,13 @@ export default function* rootSaga() {
         MixtureRecording(),
         Packaging(),
         PackagingItem(),
-        PurchaseInvoice(),
-        PurchaseInvoices(),
+        Procurement(),
+        Procurements(),
         Product(),
         ProductCategories(),
         ProductCategory(),
         Products(),
+        PurchaseInvoices(),
         RawMaterials(),
         Shipments(),
         Sku(),
