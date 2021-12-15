@@ -41,10 +41,6 @@ export default function PackagingItem() {
         return state.PackagingItem.initial;
     });
 
-    const { invalidName, invalidUpc, invalidCategory } = useSelector(state => {
-        return state.PackagingItem
-    });
-
     useEffect(() => {
         if (id === "new") {
             dispatch(resetPackagingItemDetails());

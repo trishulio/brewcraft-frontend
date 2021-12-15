@@ -39,10 +39,6 @@ export default function MaterialCategory() {
         return state.MaterialCategory.initial;
     });
 
-    const { invalidName, invalidParentCategory } = useSelector(state => {
-        return state.MaterialCategory
-    });
-
     useEffect(() => {
         if (id === "new") {
             dispatch(resetMaterialCategoryDetails());

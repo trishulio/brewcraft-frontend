@@ -41,10 +41,6 @@ export default function Ingredient() {
         return state.Ingredient.initial;
     });
 
-    const { invalidName, invalidUpc } = useSelector(state => {
-        return state.Ingredient
-    });
-
     useEffect(() => {
         if (id === "new" && !editMode) {
             history.replace("/products/new?edit=true");
