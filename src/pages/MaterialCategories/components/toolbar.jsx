@@ -53,6 +53,7 @@ export default function ProductCategoriesToolbar() {
                         if (!value.parentCategoryId) {
                             return <option value={value.id} key={index}>{value.name}</option>
                         }
+                        return null
                     })
                 }
             </Input>
