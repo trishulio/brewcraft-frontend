@@ -83,23 +83,10 @@ export default function Supplier() {
 
     function onSave() {
 
-        if (
-             !isValidName(supplier.name)
-            || !isValidName(supplier.address.addressLine1)
-            || !isValidName(supplier.address.addressLine2)
-            || !isValidName(supplier.address.city)
-            || !isValidName(supplier.address.province)
-            || !isValidPostalCode(supplier.address.postalCode)
-            || !isValidName(supplier.address.country)) {
+        if (!isValidName(supplier.name)) {
             dispatch(setSupplierDetails({
                 error: true,
-                invalidName: !isValidName(supplier.name),
-                invalidAddressLine1: !isValidName(supplier.address.addressLine1),
-                invalidAddressLine2: !isValidName(supplier.address.addressLine2),
-                invalidCity: !isValidName(supplier.address.city),
-                invalidProvince: !isValidName(supplier.address.province),
-                invalidPostalCode: !isValidPostalCode(supplier.address.postalCode),
-                invalidCountry: !isValidName(supplier.address.country)
+                invalidName: !isValidName(supplier.name)
             }));
         } else if (isChanged() && supplier.id) {
             dispatch(
