@@ -78,10 +78,9 @@ export default function UsersTable() {
     }
 
     return (
-        <Table hover>
+        <Table>
             <thead>
                 <tr>
-                    {console.log(users)}
                     <th></th>
                     <Th
                         name="userUserName"

@@ -11,8 +11,7 @@ async function fetchUserRoles(params) {
         }
     };
     return await AxiosInstance.get("/api/v1/users/roles", data)
-        .then((r) => r)
-        .catch(() => {});
+        .then((r) => r);
 }
 
 export const api = {

@@ -25,7 +25,7 @@ import {
     CardBody,
     CardHeader
 } from "../../../component/Common/Card";
-import { formatPhoneNumber, arrayEquals, useKeyPress } from "../../../helpers/utils";
+import { formatPhoneNumber, arrayEquals, useKeyPress, isValidName, isValidEmail, isValidPhoneNumber, isNotEmptyArray } from "../../../helpers/utils";
 
 const ENTER_KEY = "Enter"
 
@@ -51,7 +51,7 @@ export default function UserDetails({editable, onSave, changed}) {
         switch(e.target.name) {
             case "userUserName":
                 if (user.userName !== e.target.value) {
-                    dispatch(setUserInvalidUserName(!e.target.value));
+                    dispatch(setUserInvalidUserName(!isValidName(e.target.value)));
                     dispatch(setUserDetails({
                         data: {
                             ...user,
@@ -62,7 +62,7 @@ export default function UserDetails({editable, onSave, changed}) {
                 break;
             case "userFirstName":
                 if (user.firstName !== e.target.value) {
-                    dispatch(setUserInvalidFirstName(!e.target.value));
+                    dispatch(setUserInvalidFirstName(!isValidName(e.target.value)));
                     dispatch(setUserDetails({
                         data: {
                             ...user,
@@ -73,7 +73,7 @@ export default function UserDetails({editable, onSave, changed}) {
                 break;
             case "userLastName":
                 if (user.lastName !== e.target.value) {
-                    dispatch(setUserInvalidLastName(!e.target.value));
+                    dispatch(setUserInvalidLastName(!isValidName(e.target.value)));
                     dispatch(setUserDetails({
                         data: {
                             ...user,
@@ -84,7 +84,7 @@ export default function UserDetails({editable, onSave, changed}) {
                 break;
             case "userDisplayName":
                 if (user.displayName !== e.target.value) {
-                    dispatch(setUserInvalidDisplayName(!e.target.value));
+                    dispatch(setUserInvalidDisplayName(!isValidName(e.target.value)));
                     dispatch(setUserDetails({
                         data: {
                             ...user,
@@ -95,7 +95,7 @@ export default function UserDetails({editable, onSave, changed}) {
                 break;
             case "userEmail":
                 if (user.email !== e.target.value) {
-                    dispatch(setUserInvalidEmail(!e.target.value));
+                    dispatch(setUserInvalidEmail(!isValidEmail(e.target.value)));
                     dispatch(setUserDetails({
                         data: {
                             ...user,
@@ -106,7 +106,7 @@ export default function UserDetails({editable, onSave, changed}) {
                 break;
                 case "userRoles":
                     if (!arrayEquals(user.roles, e.target.selectedValues)) {
-                        dispatch(setUserInvalidRoles(!e.target.selectedValues || e.target.selectedValues.length <= 0));
+                        dispatch(setUserInvalidRoles(!isNotEmptyArray(e.target.selectedValues)));
                         dispatch(setUserDetails({
                             data: {
                                 ...user,
@@ -117,7 +117,7 @@ export default function UserDetails({editable, onSave, changed}) {
                     break;
             case "userPhoneNumber":
                 if (user.phoneNumber !== e.target.value) {
-                    dispatch(setUserInvalidPhoneNumber(!e.target.value));
+                    dispatch(setUserInvalidPhoneNumber(!isValidPhoneNumber(e.target.value)));
                     dispatch(setUserDetails({
                         data: {
                             ...user,

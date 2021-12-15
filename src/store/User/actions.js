@@ -19,9 +19,9 @@ export const setUserDetails = payload => ({
     payload
 });
 
-export const fetchUserById = ({id, success}) => ({
+export const fetchUserById = id => ({
     type: FETCH_USER,
-    payload: { id, success }
+    payload: { id }
 });
 
 export const createUser = payload => ({

@@ -48,6 +48,9 @@ export function isValidEmail(email){
     //eslint-disable-next-line
     return  isValidName(email) && (/\S+@\S+\.\S+/.exec(email) ? true : false)
 }
+export function isNotEmptyArray(array) {
+    return Array.isArray(array) && array.length > 0;
+}
 export function formatPhoneNumber(phoneNumberString) {
     var cleaned = ('' + phoneNumberString).replace(/\D/g, '');
     //eslint-disable-next-line

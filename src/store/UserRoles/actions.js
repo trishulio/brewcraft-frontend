@@ -11,16 +11,14 @@ export const setUserRoles = userRoles => ({
     payload: userRoles
 });
 
-export const fetchUserRoles = ({pageIndex, pageSize, ids, success}) => ({
+export const fetchUserRoles = ({pageIndex, pageSize, ids}) => ({
     type: FETCH_USER_ROLES,
-    payload: {pageIndex, pageSize, ids, success}
+    payload: {pageIndex, pageSize, ids}
 });
 
 export const fetchAllUserRoles = params => ({
     type: FETCH_ALL_USER_ROLES,
-    payload: {
-        success: params?.success
-    }
+    payload: { }
 });
 
 export const setUserRolesPageIndex = index => ({

@@ -23,7 +23,7 @@ import {
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 import UserInner from "./user";
-import { isValidName, isValidEmail, isValidPhoneNumber } from "../../helpers/utils";
+import { isValidName, isValidEmail, isValidPhoneNumber, isNotEmptyArray } from "../../helpers/utils";
 
 export default function User() {
     const [editable, setEditable] = useState(false);
@@ -52,7 +52,7 @@ export default function User() {
         if (!id || id === "new") {
             history.replace("/users/new?edit=true");
         } else {
-            dispatch(fetchUserById({ id }));
+            dispatch(fetchUserById(id));
         }
 
         if (editMode) {
@@ -162,7 +162,7 @@ export default function User() {
             dispatch(setUserInvalidEmail(true));
             result = false;
         }
-        if(!user.roles || user.roles.length <= 0) {
+        if(!isNotEmptyArray(user.roles)) {
             dispatch(setUserInvalidRoles(true));
             result = false;
         }
