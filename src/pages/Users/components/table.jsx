@@ -78,7 +78,7 @@ export default function UsersTable() {
     }
 
     return (
-        <Table>
+        <Table hover>
             <thead>
                 <tr>
                     <th></th>
