@@ -16,7 +16,7 @@ export const fetchUserRoles = ({pageIndex, pageSize, ids}) => ({
     payload: {pageIndex, pageSize, ids}
 });
 
-export const fetchAllUserRoles = params => ({
+export const fetchAllUserRoles = () => ({
     type: FETCH_ALL_USER_ROLES,
     payload: { }
 });
