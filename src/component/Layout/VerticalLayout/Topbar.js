@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
@@ -82,17 +83,17 @@ class Topbar extends Component {
 
                         <div className="d-flex">
 
-                            <SearchBar/>
+                            {/* <SearchBar/> */}
 
-                            <LanguageMenu class="d-md-block"/>
+                            {/* <LanguageMenu class="d-md-block"/> */}
 
-                            <FullScreen/>
+                            {/* <FullScreen/> */}
 
-                            <NotificationMenu/>
+                            {/* <NotificationMenu/> */}
 
                             <ProfileMenu/>
 
-                            <SettingsButton/>
+                            {/* <SettingsButton/> */}
 
                         </div>
                     </div>
