@@ -7,17 +7,12 @@ const password = Cypress.env("password");
 const userPoolId = Cypress.env("userPoolId");
 const clientId = Cypress.env("clientId");
 
-// const awsconfig = {
-//   aws_user_pools_id: userPoolId,
-//   aws_user_pools_web_client_id: clientId,
-// };
-
 Auth.configure({
-  region: process.env.REACT_APP_USER_POOL_REGION,
-  userPoolId: process.env.REACT_APP_USER_POOL_ID,
-  userPoolWebClientId: process.env.REACT_APP_USER_POOL_WEB_CLIENT_ID,
+  region: 'us-east-1',
+  userPoolId: 'us-east-1_hCtghdWqM',
+  userPoolWebClientId: '4b6444oesahrbgihut7o37jr5f',
   oauth: {
-      domain: process.env.REACT_APP_USER_POOL_DOMAIN,
+      domain: 'brewcraft.auth.us-east-1.amazoncognito.com',
       scope: [
           "phone",
           "email",
@@ -25,20 +20,14 @@ Auth.configure({
           "openid",
           "aws.cognito.signin.user.admin"
       ],
-      redirectSignIn: window.location.origin + "/",
-      redirectSignOut: window.location.origin + "/",
-      responseType: 'code',
+
   }
 });
-
-
-// Auth.configure(awsconfig);
 
 Cypress.Commands.add("signIn", () => {
   cy.then(() => Auth.signIn(username, password)).then((cognitoUser) => {
     const idToken = cognitoUser.signInUserSession.idToken.jwtToken;
     const accessToken = cognitoUser.signInUserSession.accessToken.jwtToken;
-
     const makeKey = (name) =>
       `CognitoIdentityServiceProvider.${cognitoUser.pool.clientId}.${cognitoUser.username}.${name}`;
 
