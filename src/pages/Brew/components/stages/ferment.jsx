@@ -10,7 +10,7 @@ import {
 import Details from "../mixture/details";
 import Ingredients from "../mixture/ingredients";
 import Recordings from "../mixture/recording";
-import FinishedGoods from "../../../Batch/components/mixture/finished-goods";
+import FinishedGoods from "../mixture/finished-goods";
 import { FormFeedback, FormGroup, Input, Label } from "reactstrap";
 
 export default function BatchFerment() {

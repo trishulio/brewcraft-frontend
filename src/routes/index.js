@@ -1,8 +1,6 @@
 /* eslint-disable */
 import React from "react";
 import { Redirect } from "react-router-dom";
-import Batch from "../pages/Batch";
-import Batches from "../pages/Batches";
 import Brew from "../pages/Brew";
 import Brews from "../pages/Brews";
 import Dashboard from "../pages/Dashboard/dashboard";
@@ -42,8 +40,6 @@ const authProtectedRoutes = [
     { path: "/dashboard", component: Dashboard },
 
     // Batches
-    { path: "/batches/:id", component: Batch },
-    { path: "/batches", component: Batches },
     { path: "/brews/:id", component: Brew },
     { path: "/brews", component: Brews },
 

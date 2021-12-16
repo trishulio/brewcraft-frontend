@@ -12,8 +12,8 @@ import Toolbar from "./components/toolbar";
 export default function Skus() {
     return (
         <React.Fragment>
-            <Row>
-                <Col xl="10">
+            <Row style={{ maxWidth: "1024px" }}>
+                <Col>
                     <Toolbar/>
                     <Card>
                         <CardBody className="py-2">

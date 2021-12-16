@@ -10,14 +10,16 @@ import Pagination from "./components/pagination";
 export default function Batches() {
     return (
         <React.Fragment>
-            <Toolbar/>
-            <Card>
-                <CardBody className="py-2">
-                    <Pagination>
-                        <Table/>
-                    </Pagination>
-                </CardBody>
-            </Card>
+            <div style={{ maxWidth: "1024px" }}>
+                <Toolbar/>
+                <Card>
+                    <CardBody className="py-2">
+                        <Pagination>
+                            <Table/>
+                        </Pagination>
+                    </CardBody>
+                </Card>
+            </div>
         </React.Fragment>
     );
 }
