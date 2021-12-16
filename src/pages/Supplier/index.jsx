@@ -12,7 +12,6 @@ import {
 } from "../../store/actions";
 import {
     isValidName,
-    isValidPostalCode,
     useQuery
 } from "../../helpers/utils";
 import SupplierInner from "./supplier";
