@@ -1,5 +1,6 @@
 import {
     SET_USER_DETAILS,
+    SET_USER_DETAILS_ERROR,
     FETCH_USER,
     CREATE_USER,
     UPDATE_USER,
@@ -8,7 +9,6 @@ import {
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
-import { snackFailure } from "../Snackbar/actions";
 import { setGlobalRedirect } from "../Brewery/actions";
 
 function* fetchUserByIdGenerator(action) {
@@ -16,7 +16,7 @@ function* fetchUserByIdGenerator(action) {
         const res = yield call(api.fetchUserById, get(action, "payload.id"));
         yield put({ type: SET_USER_DETAILS, payload: { data: res.data, initial: res.data }});
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_USER_DETAILS_ERROR, payload: { error: true }});
     }
 }
 
@@ -26,7 +26,7 @@ function* createUserGenerator(action) {
         yield put({ type: SET_USER_DETAILS, payload: { data: res.data, initial: res.data } });
         yield put(setGlobalRedirect({ pathname: "/users/" + res.data.id, search: "" }));
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_USER_DETAILS_ERROR, payload: { error: true }});
     }
 }
 
@@ -36,7 +36,7 @@ function* udpateUserGenerator(action) {
         yield put({ type: SET_USER_DETAILS, payload: { data: res.data, initial: res.data } });
         yield put(setGlobalRedirect({ pathname: "/users/" + res.data.id, search: "" }));
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_USER_DETAILS_ERROR, payload: { error: true }});
     }
 }
 
@@ -45,7 +45,7 @@ function* deleteUserGenerator(action) {
         yield call(api.deleteUser, get(action, "payload.id"));
         yield put(setGlobalRedirect({ pathname: "/users" }));
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_USER_DETAILS_ERROR, payload: { error: true }});
     }
 }
 

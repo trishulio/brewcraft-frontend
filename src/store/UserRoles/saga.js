@@ -1,5 +1,6 @@
 import {
     SET_USER_ROLES,
+    SET_USER_ROLES_ERROR,
     SET_ALL_USER_ROLES,
     FETCH_USER_ROLES,
     FETCH_ALL_USER_ROLES
@@ -7,7 +8,6 @@ import {
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
-import { snackFailure } from "../Snackbar/actions";
 
 function* fetchAllUserRoles(action) {
     try {
@@ -17,7 +17,7 @@ function* fetchAllUserRoles(action) {
             yield call(action.payload.success);
         }
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_USER_ROLES_ERROR, payload: { error: true }});
     }
 }
 
@@ -29,7 +29,7 @@ function* fetchUserRoles(action) {
             yield call(action.payload.success);
         }
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: SET_USER_ROLES_ERROR, payload: { error: true }});
     }
 }
 

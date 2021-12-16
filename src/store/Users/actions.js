@@ -1,5 +1,6 @@
 import {
     FETCH_USERS_REQUEST,
+    FETCH_USERS_ERROR,
     FETCH_ALL_USERS_REQUEST,
     SET_USERS_DETAILS,
     SET_USERS_PAGE_INDEX,
@@ -9,6 +10,13 @@ import {
 export const fetchUsers = params => ({
     type: FETCH_USERS_REQUEST,
     payload: { params },
+});
+
+export const fetchUsersError = error => ({
+    type: FETCH_USERS_ERROR,
+    payload: {
+        ...error
+    }
 });
 
 export const fetchAllUsers = () => ({

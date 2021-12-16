@@ -1,5 +1,6 @@
 import {
     SET_USER_ROLES,
+    SET_USER_ROLES_ERROR,
     SET_ALL_USER_ROLES,
     SET_USER_ROLES_PAGE_INDEX,
     SET_USER_ROLES_PAGE_SIZE
@@ -32,6 +33,12 @@ import {
           ...payload,
           loading: false,
           error: null,
+        };
+        case SET_USER_ROLES_ERROR:
+          return {
+              ...state,
+              ...payload,
+              loading: false
         };
       case SET_ALL_USER_ROLES:
         return {

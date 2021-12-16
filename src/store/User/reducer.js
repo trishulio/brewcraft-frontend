@@ -1,6 +1,7 @@
 import {
     SET_USER_DETAILS,
     RESET_USER_DETAILS,
+    SET_USER_DETAILS_ERROR,
     SET_USER_INVALID_USERNAME,
     SET_USER_INVALID_FIRSTNAME,
     SET_USER_INVALID_LASTNAME,
@@ -65,6 +66,12 @@ const User = (state = initialState, { type, payload }) => {
             loading: false,
             error: null,
         };
+        case SET_USER_DETAILS_ERROR:
+            return {
+                ...state,
+                ...payload,
+                loading: false
+            };
         case SET_USER_INVALID_USERNAME:
             return {
                 ...state,

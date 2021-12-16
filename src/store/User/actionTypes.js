@@ -1,4 +1,5 @@
 export const SET_USER_DETAILS = "SET_USER_DETAILS";
+export const SET_USER_DETAILS_ERROR = "SET_USER_DETAILS_ERROR"
 export const FETCH_USER = "FETCH_USER";
 export const CREATE_USER = "CREATE_USER";
 export const UPDATE_USER = "UPDATE_USER";

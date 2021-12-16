@@ -3,6 +3,7 @@ import {
     FETCH_USER,
     UPDATE_USER,
     SET_USER_DETAILS,
+    SET_USER_DETAILS_ERROR,
     RESET_USER_DETAILS,
     DELETE_USER,
     SET_USER_INVALID_USERNAME,
@@ -17,6 +18,13 @@ import {
 export const setUserDetails = payload => ({
     type: SET_USER_DETAILS,
     payload
+});
+
+export const setUserDetailsError = error => ({
+    type: SET_USER_DETAILS_ERROR,
+    payload: {
+        ...error
+    }
 });
 
 export const fetchUserById = id => ({
