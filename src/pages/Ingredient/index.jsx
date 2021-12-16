@@ -15,7 +15,9 @@ import {
     setIngredientInvalidUpc
 } from "../../store/actions";
 import {
-    useQuery
+    isValidName,
+    useQuery,
+    validId
 } from "../../helpers/utils";
 import IngredientInner from "./ingredient";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
@@ -84,9 +86,9 @@ export default function Ingredient() {
     }
 
     function onSave() {
-        if (!ingredient.name || !ingredient.category || !ingredient.baseQuantityUnit || (ingredient.upc && ingredient.upc.length > 12)) {
-            dispatch(setIngredientInvalidName(!ingredient.name));
-            dispatch(setIngredientInvalidCategory(!ingredient.category));
+        if (!isValidName(ingredient.name) || !validId(ingredient.category?.id) || !ingredient.baseQuantityUnit || (ingredient.upc && ingredient.upc.length > 12)) {
+            dispatch(setIngredientInvalidName(!isValidName(ingredient.name)));
+            dispatch(setIngredientInvalidCategory(!validId(ingredient.category?.id)));
             dispatch(setIngredientInvalidBaseQuantityUnit(!ingredient.baseQuantityUnit))
             dispatch(setIngredientInvalidUpc(ingredient.upc))
             return

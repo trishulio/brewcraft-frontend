@@ -15,7 +15,9 @@ import {
     setInvalidPackagingUpc
 } from "../../store/actions";
 import {
-    useQuery
+    isValidName,
+    useQuery,
+    validId
 } from "../../helpers/utils";
 import PackagingItemInner from "./packaging-item";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
@@ -82,9 +84,9 @@ export default function PackagingItem() {
     }
 
     function onSave() {
-        if (!packagingItem.name || !packagingItem.category || !packagingItem.baseQuantityUnit || (packagingItem.upc && packagingItem.upc.length > 12)) {
-            dispatch(setPackagingItemInvalidName(!packagingItem.name));
-            dispatch(setPackagingItemInvalidCategory(!packagingItem.category));
+        if (!isValidName(packagingItem.name) || !validId(packagingItem.category?.id) || !packagingItem.baseQuantityUnit || (packagingItem.upc && packagingItem.upc.length > 12)) {
+            dispatch(setPackagingItemInvalidName(!isValidName(packagingItem.name)));
+            dispatch(setPackagingItemInvalidCategory(!validId(packagingItem.category?.id)));
             dispatch(setPackagingItemInvalidBaseQuantityUnit(!packagingItem.baseQuantityUnit));
             dispatch(setInvalidPackagingUpc(packagingItem.upc));
             return

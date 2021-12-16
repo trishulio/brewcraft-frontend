@@ -13,7 +13,9 @@ import {
     setInvalidMaterialCategoryParentCategory
 } from "../../store/actions";
 import {
-    useQuery
+    isValidName,
+    useQuery,
+    validId
 } from "../../helpers/utils";
 import MaterialCategoryInner from "./material-category";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
@@ -78,9 +80,9 @@ export default function MaterialCategory() {
     }
 
     function onSave() {
-        if (!materialCategory.name || !materialCategory.parentCategory) {
-            dispatch(setInvalidMaterialCategoryName(!materialCategory.name));
-            dispatch(setInvalidMaterialCategoryParentCategory(!materialCategory.parentCategory));
+        if (!isValidName(materialCategory.name) || !validId(materialCategory.parentCategory?.id)) {
+            dispatch(setInvalidMaterialCategoryName(!isValidName(materialCategory.name)));
+            dispatch(setInvalidMaterialCategoryParentCategory(!validId(materialCategory.parentCategory.id)));
             return
         }
         if (!isChanged()) {

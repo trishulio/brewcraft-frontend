@@ -22,7 +22,7 @@ import {
     CardHeader
 } from "../../../component/Common/Card";
 import MaterialCategoriesModal from "../../../component/MaterialCategories/modal";
-import { useKeyPress } from "../../../helpers/utils";
+import { isValidName, useKeyPress, validId } from "../../../helpers/utils";
 
 const ADD_NEW = "ADD_NEW";
 const PACKAGING_CATEGORY = "packaging";
@@ -54,7 +54,7 @@ export default function PackagingItemDetails({ editable, onSave }) {
         switch(e.target.name) {
             case "packagingItemName":
                 if (packagingItem.name !== e.target.value) {
-                    dispatch(setPackagingItemInvalidName(!e.target.value));
+                    dispatch(setPackagingItemInvalidName(!isValidName(e.target.value)));
                     dispatch(setPackagingItemDetails({
                         data: {
                             ...packagingItem,
@@ -64,7 +64,7 @@ export default function PackagingItemDetails({ editable, onSave }) {
                 }
                 break;
             case "packagingItemCategory":
-                dispatch(setPackagingItemInvalidCategory(!e.target.value));
+                dispatch(setPackagingItemInvalidCategory(!validId(e.target.value)));
                 dispatch(setPackagingItemDetails({
                     data: {
                         ...packagingItem,

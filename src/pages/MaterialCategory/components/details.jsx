@@ -19,7 +19,7 @@ import {
     CardBody,
     CardHeader
 } from "../../../component/Common/Card";
-import { useKeyPress } from "../../../helpers/utils";
+import { isValidName, useKeyPress, validId } from "../../../helpers/utils";
 
 const ENTER_KEY = "Enter";
 
@@ -53,7 +53,7 @@ export default function MaterialCategoryDetails({ editable, onSave }) {
         switch(e.target.name) {
             case "materialCategoryName":
                 if (materialCategory.name !== e.target.value) {
-                    dispatch(setInvalidMaterialCategoryName(!e.target.value));
+                    dispatch(setInvalidMaterialCategoryName(!isValidName(e.target.value)));
                     dispatch(setMaterialCategoryDetails({
                         data: {
                             ...materialCategory,
@@ -63,7 +63,7 @@ export default function MaterialCategoryDetails({ editable, onSave }) {
                 }
                 break;
             case "materialCategoryParentCategory":
-                dispatch(setInvalidMaterialCategoryParentCategory(!e.target.value));
+                dispatch(setInvalidMaterialCategoryParentCategory(!validId(e.target.value)));
                 dispatch(setMaterialCategoryDetails({
                     data: {
                         ...materialCategory,
