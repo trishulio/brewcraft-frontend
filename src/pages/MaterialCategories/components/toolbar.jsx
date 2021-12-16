@@ -41,7 +41,7 @@ export default function ProductCategoriesToolbar() {
                 value={parentCategoryId || ""}
                 onChange={e => {
                     query.delete("category");
-                    if (e.target.value) {
+                    if (e.target.value && e.target.value !== "") {
                         query.append("category", e.target.value);
                     }
                     history.push({search: query.toString()});
@@ -49,9 +49,12 @@ export default function ProductCategoriesToolbar() {
             >
                 <option value="">Parent Category</option>
                 {
-                    categories.map((value, index) => (
-                        <option value={value.id} key={index}>{value.name}</option>
-                    ))
+                    categories.map((value, index) => {
+                        if (!value.parentCategoryId) {
+                            return <option value={value.id} key={index}>{value.name}</option>
+                        }
+                        return null
+                    })
                 }
             </Input>
         </Toolbar>
