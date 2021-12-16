@@ -11,18 +11,11 @@ const AxiosInstance = Axios.create({
 
 AxiosInstance.interceptors.request.use(async function (config) {
 
-    const user = getLoggedInUser();
     const getsession = await Auth.currentSession();
 
-    if (user) {
+    if (!getsession) authenticateUser();
 
-        config.headers.common['Authorization'] = `Bearer ${user.accessToken.jwtToken}`;
-
-    } else {
-
-        config.headers.common['Authorization'] = `Bearer ${getsession.getAccessToken().getJwtToken()}`;
-        authenticateUser();
-    }
+    config.headers.common['Authorization'] = `Bearer ${getsession?.getAccessToken().getJwtToken()}`;
 
     return config;
 
