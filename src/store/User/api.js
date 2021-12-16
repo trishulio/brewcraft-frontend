@@ -1,0 +1,27 @@
+import AxiosInstance from "../../helpers/axiosInstance";
+
+async function fetchUserById(id) {
+    return await AxiosInstance.get(`/api/v1/users/${id}`)
+        .then((r) => r)
+        .catch(() => {});
+}
+
+async function postUser(data) {
+    return await AxiosInstance.post("/api/v1/users", data)
+    .then((r) => r);
+}
+async function patchUser(id, data) {
+    return await AxiosInstance.put(`/api/v1/users/${id}`, data)
+    .then((r) => r);
+}
+
+async function deleteUser(id) {
+    return await AxiosInstance.delete(`/api/v1/users/${id}`);
+}
+
+export const api = {
+    fetchUserById: fetchUserById,
+    postUser: postUser,
+    patchUser: patchUser,
+    deleteUser: deleteUser
+};

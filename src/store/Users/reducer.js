@@ -1,9 +1,8 @@
 import {
     FETCH_USERS_REQUEST,
     FETCH_USERS_SUCCESS,
-    FETCH_USERS_FAILURE,
+    FETCH_USERS_ERROR,
     FETCH_ALL_USERS_SUCCESS,
-    FETCH_ALL_USERS_FAILURE,
     FETCH_ALL_USERS_REQUEST,
     SET_USERS_DETAILS,
     SET_USERS_PAGE_INDEX,
@@ -39,7 +38,7 @@ const Users = (state = initialState, { type, payload, data }) => {
                 loading: false,
                 error: null,
             };
-        case FETCH_USERS_FAILURE:
+        case FETCH_USERS_ERROR:
             return {
                 ...state,
                 loading: false,
@@ -50,12 +49,6 @@ const Users = (state = initialState, { type, payload, data }) => {
                 ...state,
                 loading: true,
                 error: null,
-            };
-        case FETCH_ALL_USERS_FAILURE:
-            return {
-                ...state,
-                loading: false,
-                error: payload,
             };
         case SET_USERS_PAGE_INDEX:
         case SET_USERS_PAGE_SIZE:

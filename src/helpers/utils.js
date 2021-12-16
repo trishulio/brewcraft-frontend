@@ -48,6 +48,9 @@ export function isValidEmail(email){
     //eslint-disable-next-line
     return  isValidName(email) && (/\S+@\S+\.\S+/.exec(email) ? true : false)
 }
+export function isNotEmptyArray(array) {
+    return Array.isArray(array) && array.length > 0;
+}
 export function formatPhoneNumber(phoneNumberString) {
     var cleaned = ('' + phoneNumberString).replace(/\D/g, '');
     //eslint-disable-next-line
@@ -81,4 +84,13 @@ export function useKeyPress(targetKey) {
         // eslint-disable-next-line
     }, []);
     return keyPressed;
+}
+
+export function arrayEquals(a, b) {
+    const aSorted = a ? [...a].sort() : null;
+    const bSorted = b ? [...b].sort() : null;
+    return Array.isArray(aSorted) &&
+        Array.isArray(bSorted) &&
+        aSorted.length === bSorted.length &&
+        aSorted.every((val, index) => val === bSorted[index]);
 }

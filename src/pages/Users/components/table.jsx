@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useQuery } from "../../../helpers/utils";
 import Table, { Th } from "../../../component/Common/table";
@@ -18,13 +18,13 @@ export default function UsersTable() {
         const order = query.get("order");
         query.delete("sort");
         query.delete("order");
-        if (name === "userId") {
-            if (sort !== "id" || order !== "asc") {
+        if (name === "userUserName") {
+            if (sort !== "userName" || order !== "asc") {
                 query.append("order", "asc");
             } else {
                 query.append("order", "desc");
             }
-            query.append("sort", "id");
+            query.append("sort", "userName");
             history.push({search: query.toString()});
         } else if (name === "userFirstName") {
             if (sort !== "firstName" || order !== "asc") {
@@ -34,7 +34,6 @@ export default function UsersTable() {
             }
             query.append("sort", "firstName");
             history.push({search: query.toString()});
-
         } else if (name === "userLastName") {
             if (sort !== "lastName" || order !== "asc") {
                 query.append("order", "asc");
@@ -43,16 +42,6 @@ export default function UsersTable() {
             }
             query.append("sort", "lastName");
             history.push({search: query.toString()});
-
-        } else if (name === "userUserName") {
-            if (sort !== "userName" || order !== "asc") {
-                query.append("order", "asc");
-            } else {
-                query.append("order", "desc");
-            }
-            query.append("sort", "userName");
-            history.push({search: query.toString()});
-
         } else if (name === "userDisplayName") {
             if (sort !== "displayName" || order !== "asc") {
                 query.append("order", "asc");
@@ -61,21 +50,44 @@ export default function UsersTable() {
             }
             query.append("sort", "displayName");
             history.push({search: query.toString()});
+        } else if (name === "userEmail") {
+            if (sort !== "email" || order !== "asc") {
+                query.append("order", "asc");
+            } else {
+                query.append("order", "desc");
+            }
+            query.append("sort", "email");
+            history.push({search: query.toString()});
+        } else if (name === "userRoles") {
+            if (sort !== "roles" || order !== "asc") {
+                query.append("order", "asc");
+            } else {
+                query.append("order", "desc");
+            }
+            query.append("sort", "roles");
+            history.push({search: query.toString()});
+        } else if (name === "userPhoneNumber") {
+            if (sort !== "phoneNumber" || order !== "asc") {
+                query.append("order", "asc");
+            } else {
+                query.append("order", "desc");
+            }
+            query.append("sort", "phoneNumber");
+            history.push({search: query.toString()});
         }
     }
 
     return (
-        <Table>
+        <Table hover>
             <thead>
                 <tr>
-                    {console.log(users)}
                     <th></th>
                     <Th
-                        name="userId"
-                        id="id"
+                        name="userUserName"
+                        id="userName"
                         onSort={onSort}
                     >
-                        User ID
+                        User Name
                     </Th>
                     <Th
                         name="userFirstName"
@@ -92,35 +104,47 @@ export default function UsersTable() {
                         Last Name
                     </Th>
                     <Th
-                        name="userUserName"
-                        id="userName"
-                        onSort={onSort}
-                    >
-                        User Name
-                    </Th>
-                    <Th
                         name="userDisplayName"
                         id="displayName"
                         onSort={onSort}
                     >
                         Display Name
                     </Th>
-                    <th>Roles</th>
-                    <th>Pronoun</th>
+                    <Th
+                        name="userEmail"
+                        id="email"
+                        onSort={onSort}
+                    >
+                        Email
+                    </Th>
+                    <Th
+                        name="userRoles"
+                        id="roles"
+                        onSort={onSort}
+                    >
+                        Roles
+                    </Th>
+                    <Th
+                        name="userPhoneNumber"
+                        id="phoneNumber"
+                        onSort={onSort}
+                    >
+                        Phone Number
+                    </Th>
                 </tr>
             </thead>
             <tbody>
                 {
                     users.map((user, key) =>
-                        <tr key={key}>
+                        <tr key={key} onClick={() => history.push("/users/" + user.id)}>
                             <td></td>
-                            <td><Link to={"/users/" + user.id}>{user.id}</Link></td>
+                            <td>{user.userName}</td>
                             <td>{user.firstName}</td>
                             <td>{user.lastName}</td>
-                            <td>{user.userName}</td>
                             <td>{user.displayName}</td>
-                            <td>{users.map(u => u.name).toString()}</td>
-                            <td>{user.salutation}</td>
+                            <td>{user.email}</td>
+                            <td>{user.roles ? user.roles.map(role => role.name).join(", ") : ""}</td>
+                            <td>{user.phoneNumber}</td>
                         </tr>
                     )
                 }
