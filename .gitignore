@@ -106,3 +106,6 @@ dist
 .tern-port
 
 .netlify
+
+package-lock.json
+cypress.env.json

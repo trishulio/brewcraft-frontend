@@ -4,15 +4,17 @@ import "cypress-localstorage-commands";
 
 const username = Cypress.env("username");
 const password = Cypress.env("password");
-const userPoolId = Cypress.env("userPoolId");
-const clientId = Cypress.env("clientId");
+const REACT_APP_USER_POOL_REGION = Cypress.env("REACT_APP_USER_POOL_REGION");
+const REACT_APP_USER_POOL_ID = Cypress.env("REACT_APP_USER_POOL_ID");
+const REACT_APP_USER_POOL_WEB_CLIENT_ID = Cypress.env("REACT_APP_USER_POOL_WEB_CLIENT_ID");
+const REACT_APP_USER_POOL_DOMAIN = Cypress.env("REACT_APP_USER_POOL_DOMAIN");
 
 Auth.configure({
-  region: 'us-east-1',
-  userPoolId: 'us-east-1_hCtghdWqM',
-  userPoolWebClientId: '4b6444oesahrbgihut7o37jr5f',
+  region: REACT_APP_USER_POOL_REGION,
+  userPoolId:REACT_APP_USER_POOL_ID,
+  userPoolWebClientId: REACT_APP_USER_POOL_WEB_CLIENT_ID,
   oauth: {
-      domain: 'brewcraft.auth.us-east-1.amazoncognito.com',
+    domain: REACT_APP_USER_POOL_DOMAIN,
       scope: [
           "phone",
           "email",
@@ -20,7 +22,6 @@ Auth.configure({
           "openid",
           "aws.cognito.signin.user.admin"
       ],
-
   }
 });
 
