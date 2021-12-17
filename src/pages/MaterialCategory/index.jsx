@@ -13,7 +13,9 @@ import {
     setInvalidMaterialCategoryParentCategory
 } from "../../store/actions";
 import {
-    useQuery
+    isValidName,
+    useQuery,
+    validId
 } from "../../helpers/utils";
 import MaterialCategoryInner from "./material-category";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
@@ -37,10 +39,6 @@ export default function MaterialCategory() {
 
     const initialMaterialCategory = useSelector(state => {
         return state.MaterialCategory.initial;
-    });
-
-    const { invalidName, invalidParentCategory } = useSelector(state => {
-        return state.MaterialCategory
     });
 
     useEffect(() => {
@@ -82,8 +80,10 @@ export default function MaterialCategory() {
     }
 
     function onSave() {
-        if (invalidName || invalidParentCategory) {
-            return;
+        if (!isValidName(materialCategory.name) || !validId(materialCategory.parentCategory?.id)) {
+            dispatch(setInvalidMaterialCategoryName(!isValidName(materialCategory.name)));
+            dispatch(setInvalidMaterialCategoryParentCategory(!validId(materialCategory.parentCategory.id)));
+            return
         }
         if (!isChanged()) {
             history.push("/materials/categories/" + id);
@@ -103,11 +103,6 @@ export default function MaterialCategory() {
                 })
             );
         } else {
-            if (!materialCategory.name || !materialCategory.parentCategory) {
-                dispatch(setInvalidMaterialCategoryName(!materialCategory.name));
-                dispatch(setInvalidMaterialCategoryParentCategory(!materialCategory.parentCategory));
-                return
-            }
 
             dispatch(
                 saveMaterialCategory({

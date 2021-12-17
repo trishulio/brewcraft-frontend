@@ -22,7 +22,7 @@ import {
     CardHeader
 } from "../../../component/Common/Card";
 import MaterialCategoriesModal from "../../../component/MaterialCategories/modal";
-import { useKeyPress } from "../../../helpers/utils";
+import { isValidName, useKeyPress, validId } from "../../../helpers/utils";
 
 const ADD_NEW = "ADD_NEW";
 const INGREDIENT_CATEGORY = "ingredient";
@@ -53,7 +53,7 @@ export default function IngredientDetails({ editable, onSave, changed }) {
         switch(e.target.name) {
             case "ingredientName":
                 if (ingredient.name !== e.target.value) {
-                    dispatch(setIngredientInvalidName(!e.target.value));
+                    dispatch(setIngredientInvalidName(!isValidName(e.target.value)));
                     dispatch(setIngredientDetails({
                         data: {
                             ...ingredient,
@@ -63,7 +63,7 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                 }
                 break;
             case "ingredientCategory":
-                dispatch(setIngredientInvalidCategory(!e.target.value));
+                dispatch(setIngredientInvalidCategory(!validId(e.target.value)));
                 dispatch(setIngredientDetails({
                     data: {
                         ...ingredient,
