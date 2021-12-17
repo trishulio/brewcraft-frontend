@@ -67,8 +67,20 @@ export default function ProductsList() {
                             Name
                         </Th>
                         <th>Product Class</th>
-                        <th>Type</th>
-                        <th>Style</th>
+                        <Th
+                            name="productsType"
+                            id="type"
+                            onSort={onSort}
+                        >
+                            Type
+                        </Th>
+                        <Th
+                            name="productsStyle"
+                            id="style"
+                            onSort={onSort}
+                        >
+                            Style
+                        </Th>
                         {/*
                         Waiting for backend to support sorting on product
                         class, type and style.
