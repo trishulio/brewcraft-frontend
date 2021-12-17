@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Table, { Th } from "../../../component/Common/table";
 import { formatCurrency, formatDate } from "../../../helpers/textUtils";
 import { useQuery } from "../../../helpers/utils";
@@ -9,8 +9,8 @@ export default function PurchaseInvoicesTable() {
     const history = useHistory();
     const query = useQuery();
 
-    const invoices = useSelector(state => {
-        return state.PurchaseInvoices.content;
+    const procurements = useSelector(state => {
+        return state.Procurements.content;
     });
 
     function onSort(e) {
@@ -70,7 +70,7 @@ export default function PurchaseInvoicesTable() {
 
     return (
         <React.Fragment>
-            <Table>
+            <Table hover={true}>
                 <thead>
                     <tr>
                         <Th
@@ -118,16 +118,15 @@ export default function PurchaseInvoicesTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {console.log(invoices)}
                     {
-                        invoices.map((invoice, key) =>
-                            <tr key={key}>
-                                <td><Link to={"/purchases/invoices/" + invoice.id}>{invoice.invoiceNumber}</Link></td>
-                                <td>{invoice.purchaseOrder?.supplier.name || "-" /* bug */}</td>
-                                <td>{formatDate(invoice.generatedOn)}</td>
-                                <td>{formatDate(invoice.paymentDueDate)}</td>
-                                <td>{formatCurrency(invoice.amount.amount)}</td>
-                                <td>{invoice.invoiceStatus?.id}</td>
+                        procurements.map((procurement, key) =>
+                            <tr key={key} onClick={() => history.push(`/purchases/invoices/${procurement.shipment.id}/${procurement.invoice.id}`)}>
+                                <td>{procurement.invoice.invoiceNumber}</td>
+                                <td>{procurement.invoice.purchaseOrder.supplier.name || "-" /* bug */}</td>
+                                <td>{formatDate(procurement.invoice.generatedOn)}</td>
+                                <td>{formatDate(procurement.invoice.paymentDueDate)}</td>
+                                <td>{formatCurrency(procurement.invoice.amount.amount)}</td>
+                                <td>{procurement.invoice.invoiceStatus?.id}</td>
                             </tr>
                         )
                     }

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    fetchPurchaseInvoices,
+    fetchProcurements,
     fetchAllSuppliers,
     setBreadcrumbItems
 } from "../../store/actions";
@@ -21,12 +21,12 @@ export default function PurchaseInvoices() {
     const order = query.get("order");
 
     const { pageIndex, pageSize } = useSelector(state => {
-        return state.PurchaseInvoices;
+        return state.Procurements;
     });
 
     useEffect(() => {
         dispatch(
-            setBreadcrumbItems("Purchase Invoices", [
+            setBreadcrumbItems("Invoices", [
                 { title: "Main", link: "#" },
                 { title: "Purchases", link: "#" }
             ])
@@ -45,7 +45,7 @@ export default function PurchaseInvoices() {
             sort,
             order
         };
-        dispatch(fetchPurchaseInvoices({ ...props }));
+        dispatch(fetchProcurements({ ...props }));
         dispatch(fetchAllSuppliers());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageIndex, pageSize, invoiceFrom, invoiceTo, supplierId, status, sort, order]);

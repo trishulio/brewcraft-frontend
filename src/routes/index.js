@@ -74,7 +74,8 @@ const authProtectedRoutes = [
     { path: "/materials/categories", component: MaterialCategories },
 
     // Purchase Invoices
-    { path: "/purchases/invoices/:id", component: PurchaseInvoice },
+    { path: "/purchases/invoices/new", component: PurchaseInvoice },
+    { path: "/purchases/invoices/:shipmentId/:invoiceId", component: PurchaseInvoice },
     { path: "/purchases/invoices", component: PurchaseInvoices },
 
     // Suppliers

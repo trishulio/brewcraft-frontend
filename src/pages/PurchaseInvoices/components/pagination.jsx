@@ -11,7 +11,7 @@ export default function PurchaseInvoicesPagination({ fetchPage, children }) {
     const dispatch = useDispatch();
 
     const { totalElements, totalPages, pageIndex, pageSize , content } = useSelector(state => {
-        return state.PurchaseInvoices;
+        return state.Procurements;
     });
 
     const pageProps = {

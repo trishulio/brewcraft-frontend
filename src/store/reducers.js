@@ -54,7 +54,8 @@ import {
 } from "./MixtureRecording/reducer";
 import Packaging from "./Packaging/reducer";
 import PackagingItem from "./PackagingItem/reducer";
-import PurchaseInvoice from "./PurchaseInvoice/reducer";
+import Procurement from "./Procurement/reducer";
+import Procurements from "./Procurements/reducer";
 import PurchaseInvoices from "./PurchaseInvoices/reducer";
 import Invoice from './Invoice/reducer';
 import RawMaterials from "./RawMaterials/reducer";
@@ -114,13 +115,14 @@ const rootReducer = combineReducers({
   Notifications,
   Packaging,
   PackagingItem,
-  PurchaseInvoice,
-  PurchaseInvoices,
+  Procurement,
+  Procurements,
   Product,
   ProductCategories,
   ProductCategory,
   Products,
   Profile,
+  PurchaseInvoices,
   RawMaterials,
   Shipments,
   Sku,
