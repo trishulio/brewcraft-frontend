@@ -22,7 +22,7 @@ export default function ProductToolbar() {
                 type="select"
                 bsSize="sm"
                 className="waves-effect float-right mb-3 ml-2"
-                style={{ width: 100 }}
+                style={{ maxWidth: "16rem" }}
                 value={materialId || ""}
                 onChange={e => {
                     query.delete("material");
@@ -41,15 +41,6 @@ export default function ProductToolbar() {
                     ))
                 }
             </Input>
-            <Input
-                bsSize="sm"
-                type="search"
-                name="search"
-                id="rawMaterialsSearch"
-                placeholder="Name"
-                className="waves-effect float-right mb-3 ml-2"
-                style={{ width: 170 }}
-            />
         </Toolbar>
     );
 }

@@ -158,11 +158,8 @@ function* createProcurementGenerator(action) {
             params.invoice.purchaseOrderId = res.data[0].id;
             delete params.purchaseOrder;
             delete params.shipment;
-            params.procurementItems.forEach(item => {
-                if (!item.materialLot.lotNumber) {
-                    delete item.materialLot
-                }
-            });
+            // backend requires us to set shipment to empty object {}
+            params.shipment = {};
             res = yield call(api.postProcurements, [params]);
             const purchaseOrder = { ...res.data[0].invoice.purchaseOrder };
             delete res.data[0].invoice.purchaseOrder;
@@ -214,13 +211,7 @@ function* updateProcurementGenerator(action) {
             params = { ...get(action, "payload") };
             params.invoice.purchaseOrderId = params.purchaseOrder.id;
             delete params.purchaseOrder;
-            // delete params.shipment;
-            params.procurementItems.forEach(item => {
-                if (!item.materialLot.lotNumber) {
-                    item.materialLot = {};
-                }
-            });
-            res = yield call(api.postProcurements, [params]);
+            res = yield call(api.putProcurements, [params]);
             const purchaseOrder = { ...res.data[0].invoice.purchaseOrder };
             delete res.data[0].invoice.purchaseOrder;
             const data = {

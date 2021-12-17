@@ -68,7 +68,8 @@ export default function PurchaseInvoiceItems({ editable }) {
                     }
                 },
                 material: ""
-            }
+            },
+            materialLot: {}
         });
         dispatch(setPurchaseInvoiceItems(newItems));
     }

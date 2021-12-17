@@ -1,10 +1,13 @@
 {
+    "editor.rulers": [80],
     "files.trimTrailingWhitespace": true,
-    "editor.rulers": [
-        80
-    ],
+    "prettier.requireConfig": true,
     "search.exclude": {
         "/brewcraft/src/assets/": true,
         "/brewcraft/template/": true
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
     }
 }

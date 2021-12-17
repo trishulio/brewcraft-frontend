@@ -60,6 +60,10 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                 itemsNew[indexv].invoiceItem.tax.amount.amount = e.target.value;
                 itemsNew[indexv].invoiceItem.invalidTax = !validAmount(parseFloat(e.target.value));
                 break;
+            case "purchaseInvoiceItemLot":
+                itemsNew[indexv].materialLot.lotNumber = e.target.value;
+                itemsNew[indexv].materialLot.invalidLotNumber = false;
+                break;
             default:
                 return;
 
@@ -138,11 +142,12 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                         <Input
                             type="text"
                             name="purchaseInvoiceItemLot"
-                            // onChange={changeevent}
+                            onChange={changeevent}
                             hidden={!editable}
+                            value={item.materialLot.lotNumber || ""}
                         />
                         <div hidden={editable}>
-                            -
+                            {item.materialLot.lotNumber || "-"}
                         </div>
                     </Col>
                     <Col xs="1">

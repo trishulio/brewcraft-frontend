@@ -166,11 +166,11 @@ export default function PurchaseInvoice() {
                 },
                 materialLot: {
                     id: materialLot?.id,
-                    lotNumber: materialLot?.lotNumber,
+                    lotNumber: materialLot.lotNumber,
                     storageId: undefined,
                     quantity: {
-                        symbol: materialLot?.quantity.symbol,
-                        value: parseFloat(materialLot?.quantity.value)
+                        symbol: invoiceItem.material.baseQuantityUnit,
+                        value: parseFloat(invoiceItem.quantity.value)
                     },
                     version: materialLot?.id ? materialLot.version : undefined
                 },
