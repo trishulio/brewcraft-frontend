@@ -49,7 +49,7 @@ export default function SkusTable() {
     }
 
     return  (
-        <Table>
+        <Table hover>
             <thead>
                 <tr>
                     <Th

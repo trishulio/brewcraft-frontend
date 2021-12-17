@@ -56,7 +56,7 @@ export default function ProductsList() {
 
     return (
         <React.Fragment>
-            <Table>
+            <Table hover>
                 <thead>
                     <tr>
                         <Th

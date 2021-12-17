@@ -92,7 +92,7 @@ export default function ProductCategoriesTable() {
 
     return (
         <React.Fragment>
-            <Table>
+            <Table hover>
                 <thead>
                     <tr>
                         <Th
