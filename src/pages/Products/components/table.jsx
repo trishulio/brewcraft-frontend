@@ -111,8 +111,8 @@ export default function ProductsList() {
                 <tbody>
                     {
                         products.map((product, key) =>
-                            <tr key={key}>
-                                <td><Link to={"/products/" + product.id}>{product.name && product.name}</Link></td>
+                            <tr key={key} onClick={() => history.push("/products/" + product.id)}>
+                                <td>{product.name && product.name}</td>
                                 <td>{product.productClass ? product.productClass.name : "-"}</td>
                                 <td>{product.type ? product.type.name : "-"}</td>
                                 <td>{product.style ? product.style.name : "-"}</td>

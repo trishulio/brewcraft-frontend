@@ -78,8 +78,8 @@ export default function SkusTable() {
             <tbody>
                 {
                     skus.map((sku, key) =>
-                        <tr key={key}>
-                            <td><Link to={"/sku/" + sku.id}>{sku.name}</Link></td>
+                        <tr key={key} onClick={() => history.push("/sku/" + sku.id)}>
+                            <td>{sku.name}</td>
                             <td>{sku.product.name}</td>
                             <td>{sku.quantity?.value ? sku.quantity.value + " " + sku.quantity.symbol : "-"}</td>
                         </tr>
