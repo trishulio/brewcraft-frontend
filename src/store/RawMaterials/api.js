@@ -8,7 +8,7 @@ async function fetchRawMaterials(params = {}) {
             aggr_fn: "SUM",
             group_by: "MATERIAL",
             material_ids: params.materialId,
-            sort: params.sort || "material.name",
+            sort: "", // params.sort || "material.name",
             order_asc: !params.order || params.order === "asc"
         }
     };
