@@ -114,8 +114,8 @@ export default function ProductCategoriesTable() {
                 <tbody>
                     {
                         tableData.map((category, key) =>
-                            <tr key={key}>
-                                <td><Link to={"/products/categories/" + category.id}>{category.name}</Link></td>
+                            <tr key={key} onClick={() => history.push("/products/categories/" + category.id)}>
+                                <td>{category.name}</td>
                                 <td>{category.parent}</td>
                             </tr>
                         )
