@@ -54,8 +54,8 @@ export const DeleteGuard = ({
                     <p className="main_text">{content}</p>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="secondary" onClick={handleConfirmNavigationClick}>Confirm</Button>
-                    <Button color="primary" onClick={closeModal}>Cancel</Button>
+                    <Button color="secondary" onClick={handleConfirmNavigationClick} data-testid="confirm">Confirm</Button>
+                    <Button color="primary" onClick={closeModal} data-testid="cancel">Cancel</Button>
                 </ModalFooter>
             </Modal>
         </>

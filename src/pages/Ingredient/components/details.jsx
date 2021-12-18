@@ -139,6 +139,7 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                                     invalid={invalidName}
                                     onKeyUp={onKeyUp}
                                     style={{ width: "16rem" }}
+                                    data-testid="ingredient-name"
                                 />
                                 <FormFeedback>Enter a valid ingredient name.</FormFeedback>
                             </FormGroup>
@@ -180,6 +181,7 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                                             setShowPackageCategoryModal(true);
                                         }
                                     }}
+                                    data-testid="ingredient-category"
                                 >
                                     <option value="">Select</option>
                                     {
@@ -224,6 +226,7 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                                     onChange={e => {
                                         onFormInputChange(e);
                                     }}
+                                    data-testid="ingredient-measure"
                                 >
                                     <option value="">Select</option>
                                     <option value="kg">kg</option>
@@ -265,6 +268,7 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                                     onChange={onFormInputChange}
                                     invalid={invalidUpc}
                                     style={{ width: "16rem" }}
+                                    data-testid="ingredient-upc"
                                 />
                                 <FormFeedback>Enter a valid upc.</FormFeedback>
                             </FormGroup>
@@ -291,6 +295,7 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                                 disabled={!editable}
                                 onChange={onFormInputChange}
                                 autoComplete="false"
+                                data-testid="ingredient-description"
                             />
                         </Col>
                     </Row>
