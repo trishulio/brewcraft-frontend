@@ -66,7 +66,13 @@ export default function ProductsList() {
                         >
                             Name
                         </Th>
-                        <th>Product Class</th>
+                        <Th
+                            name="productsClass"
+                            id="class"
+                            onSort={onSort}
+                        >
+                            Product Class
+                        </Th>
                         <Th
                             name="productsType"
                             id="type"
