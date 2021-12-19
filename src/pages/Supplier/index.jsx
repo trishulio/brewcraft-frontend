@@ -8,12 +8,9 @@ import {
     editSupplier,
     deleteSupplier,
     resetSupplierDetails,
-    setSupplierDetails
+    setSupplierDetails,
 } from "../../store/actions";
-import {
-    isValidName,
-    useQuery
-} from "../../helpers/utils";
+import { isValidName, useQuery } from "../../helpers/utils";
 import SupplierInner from "./supplier";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
@@ -30,20 +27,25 @@ export default function Supplier() {
     const editMode = query.get("edit");
     const dispatch = useDispatch();
 
-    const supplier = useSelector(state => {
+    const supplier = useSelector((state) => {
         return state.Supplier.data;
     });
 
-    const initialSupplier = useSelector(state => {
+    const initialSupplier = useSelector((state) => {
         return state.Supplier.initial;
     });
 
-
     const isChanged = useCallback(() => {
-        return JSON.stringify(
-                (({ id, name, address }) => ({ id, name, address }))(initialSupplier))
-            !== JSON.stringify(
-                (({ id, name, address }) => ({ id, name, address }))(supplier))
+        return (
+            JSON.stringify(
+                (({ id, name, address }) => ({ id, name, address }))(
+                    initialSupplier
+                )
+            ) !==
+            JSON.stringify(
+                (({ id, name, address }) => ({ id, name, address }))(supplier)
+            )
+        );
     }, [initialSupplier, supplier]);
 
     useEffect(() => {
@@ -61,17 +63,21 @@ export default function Supplier() {
 
     useEffect(() => {
         if (initialSupplier.id) {
-            dispatch(setBreadcrumbItems(initialSupplier.name, [
-                { title: "Main", link: "#" },
-                { title: "Purchases", link: "#" },
-                { title: "Suppliers", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems(initialSupplier.name, [
+                    { title: "Main", link: "#" },
+                    { title: "Purchases", link: "#" },
+                    { title: "Suppliers", link: "#" },
+                ])
+            );
         } else {
-            dispatch(setBreadcrumbItems("New Supplier", [
-                { title: "Main", link: "#" },
-                { title: "Purchases", link: "#" },
-                { title: "Suppliers", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems("New Supplier", [
+                    { title: "Main", link: "#" },
+                    { title: "Purchases", link: "#" },
+                    { title: "Suppliers", link: "#" },
+                ])
+            );
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [initialSupplier]);
@@ -81,12 +87,13 @@ export default function Supplier() {
     }, [supplier, isChanged]);
 
     function onSave() {
-
         if (!isValidName(supplier.name)) {
-            dispatch(setSupplierDetails({
-                error: true,
-                invalidName: !isValidName(supplier.name)
-            }));
+            dispatch(
+                setSupplierDetails({
+                    error: true,
+                    invalidName: !isValidName(supplier.name),
+                })
+            );
         } else if (isChanged() && supplier.id) {
             dispatch(
                 editSupplier({
@@ -100,11 +107,11 @@ export default function Supplier() {
                             city: supplier.address.city,
                             province: supplier.address.province,
                             postalCode: supplier.address.postalCode,
-                            country: supplier.address.country
+                            country: supplier.address.country,
                         },
                         contacts: supplier.contacts,
-                        version: supplier.version
-                    }
+                        version: supplier.version,
+                    },
                 })
             );
         } else {
@@ -118,10 +125,10 @@ export default function Supplier() {
                             city: supplier.address.city,
                             province: supplier.address.province,
                             postalCode: supplier.address.postalCode,
-                            country: supplier.address.country
+                            country: supplier.address.country,
                         },
-                        contacts: []
-                    }
+                        contacts: [],
+                    },
                 })
             );
         }
@@ -135,7 +142,7 @@ export default function Supplier() {
         editable,
         changed,
         onSave,
-        onDelete
+        onDelete,
     };
 
     return (
@@ -153,7 +160,7 @@ export default function Supplier() {
             />
             <RouteLeavingGuard
                 when={showRouterPrompt}
-                navigate={path => {
+                navigate={(path) => {
                     history.push(path);
                 }}
                 shouldBlockNavigation={() => editMode && isChanged()}

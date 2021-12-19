@@ -3,34 +3,34 @@ import {
     FETCH_ALL_USER_ROLES,
     SET_USER_ROLES,
     SET_USER_ROLES_PAGE_INDEX,
-    SET_USER_ROLES_PAGE_SIZE
+    SET_USER_ROLES_PAGE_SIZE,
 } from "./actionTypes";
 
-export const setUserRoles = userRoles => ({
+export const setUserRoles = (userRoles) => ({
     type: SET_USER_ROLES,
-    payload: userRoles
+    payload: userRoles,
 });
 
-export const fetchUserRoles = ({pageIndex, pageSize, ids}) => ({
+export const fetchUserRoles = ({ pageIndex, pageSize, ids }) => ({
     type: FETCH_USER_ROLES,
-    payload: {pageIndex, pageSize, ids}
+    payload: { pageIndex, pageSize, ids },
 });
 
 export const fetchAllUserRoles = () => ({
     type: FETCH_ALL_USER_ROLES,
-    payload: { }
+    payload: {},
 });
 
-export const setUserRolesPageIndex = index => ({
+export const setUserRolesPageIndex = (index) => ({
     type: SET_USER_ROLES_PAGE_INDEX,
     payload: {
-        pageIndex: index
-    }
+        pageIndex: index,
+    },
 });
 
-export const setUserRolesPageSize = size => ({
+export const setUserRolesPageSize = (size) => ({
     type: SET_USER_ROLES_PAGE_SIZE,
     payload: {
-        pageSize: size
-    }
+        pageSize: size,
+    },
 });

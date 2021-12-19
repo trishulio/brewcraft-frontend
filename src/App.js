@@ -5,10 +5,7 @@ import NonAuthLayout from "./component/NonAuthLayout";
 import { authenticateUser } from "./helpers/authUtils";
 import { setInterceptorHistory } from "./helpers/axiosInstance";
 import { togglePreloader } from "./store/layout/actions";
-import {
-  setProfileLoggedIn,
-  setGlobalRedirect
-} from "./store/actions";
+import { setProfileLoggedIn, setGlobalRedirect } from "./store/actions";
 import "react-toastify/dist/ReactToastify.css";
 import "./theme.scss";
 import "./jadc.scss";
@@ -20,16 +17,16 @@ const App = () => {
 
     setInterceptorHistory(history);
 
-    const { loggedIn } = useSelector(state => {
+    const { loggedIn } = useSelector((state) => {
         return state.Profile;
     });
 
-    const { redirect } = useSelector(state => {
+    const { redirect } = useSelector((state) => {
         return state.Brewery;
     });
 
     useEffect(() => {
-        (async() => {
+        (async () => {
             const isAuth = await authenticateUser();
             dispatch(setProfileLoggedIn(isAuth));
         })();
@@ -43,14 +40,14 @@ const App = () => {
         if (redirect) {
             history.push({
                 pathname: redirect.pathname,
-                search: redirect.search
+                search: redirect.search,
             });
             dispatch(setGlobalRedirect(""));
         }
     }, [redirect, dispatch, history]);
 
     function isAuthLayout() {
-        return window.location.pathname === "/404" || !loggedIn
+        return window.location.pathname === "/404" || !loggedIn;
     }
 
     return (

@@ -1,14 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import {
-    Button
-} from "reactstrap";
+import { Button } from "reactstrap";
 
 export default function Toolbar({ editable, changed, onSave, onDelete }) {
     const history = useHistory();
 
-    const supplier = useSelector(state => {
+    const supplier = useSelector((state) => {
         return state.Supplier.data;
     });
 
@@ -48,7 +46,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 onClick={() => {
                     history.push({
                         pathname: "/suppliers/" + supplier.id,
-                        search: "?edit=true"
+                        search: "?edit=true",
                     });
                 }}
             >
@@ -88,7 +86,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 onClick={() => {
                     history.push({
                         pathname: "/suppliers/new",
-                        search: "?edit=true"
+                        search: "?edit=true",
                     });
                 }}
             >
@@ -99,11 +97,11 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 color="secondary"
                 size="sm"
                 className="waves-effect mr-2 mb-3"
-                hidden={!supplier.id }
+                hidden={!supplier.id}
                 outline={true}
                 onClick={() => {
                     history.push({
-                        pathname: "/suppliers/contacts"
+                        pathname: "/suppliers/contacts",
                     });
                 }}
             >

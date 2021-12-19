@@ -1,4 +1,4 @@
-import { all } from "redux-saga/effects"
+import { all } from "redux-saga/effects";
 import Batch from "./Brew/saga";
 import Batches from "./Batches/saga";
 import BatchStatus from "./BatchStatus/saga";
@@ -79,6 +79,6 @@ export default function* rootSaga() {
         SupplierContacts(),
         User(),
         Users(),
-        UserRoles()
-    ])
+        UserRoles(),
+    ]);
 }

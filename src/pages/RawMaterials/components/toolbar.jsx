@@ -1,9 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-    Input
-} from "reactstrap";
+import { Input } from "reactstrap";
 import Toolbar from "../../../component/Common/toolbar";
 import { useQuery } from "../../../helpers/utils";
 
@@ -12,7 +10,7 @@ export default function ProductToolbar() {
     const query = useQuery();
     const materialId = query.get("material");
 
-    const materials = useSelector(state => {
+    const materials = useSelector((state) => {
         return state.Materials.all;
     });
 
@@ -24,22 +22,20 @@ export default function ProductToolbar() {
                 className="waves-effect float-right mb-3 ml-2"
                 style={{ maxWidth: "16rem" }}
                 value={materialId || ""}
-                onChange={e => {
+                onChange={(e) => {
                     query.delete("material");
                     if (e.target.value) {
                         query.append("material", e.target.value);
                     }
-                    history.push({search: query.toString()});
+                    history.push({ search: query.toString() });
                 }}
             >
                 <option value="">Material</option>
-                {
-                    materials.map((value, index) => (
-                        <option value={value.id} key={index}>
-                            {value.name}
-                        </option>
-                    ))
-                }
+                {materials.map((value, index) => (
+                    <option value={value.id} key={index}>
+                        {value.name}
+                    </option>
+                ))}
             </Input>
         </Toolbar>
     );

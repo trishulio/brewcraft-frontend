@@ -7,12 +7,15 @@ async function fetchProductCategoryById(id) {
 }
 
 async function postProductCategory(data) {
-    return await AxiosInstance.post("/api/v1/products/categories", data)
-    .then((r) => r);
+    return await AxiosInstance.post("/api/v1/products/categories", data).then(
+        (r) => r
+    );
 }
 async function patchProductCategory(id, data) {
-    return await AxiosInstance.patch(`/api/v1/products/categories/${id}`, data)
-    .then((r) => r);
+    return await AxiosInstance.patch(
+        `/api/v1/products/categories/${id}`,
+        data
+    ).then((r) => r);
 }
 
 async function deleteProductCategory(id) {
@@ -23,5 +26,5 @@ export const api = {
     fetchProductCategoryById,
     postProductCategory,
     patchProductCategory,
-    deleteProductCategory
+    deleteProductCategory,
 };

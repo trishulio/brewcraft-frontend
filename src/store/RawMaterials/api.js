@@ -9,8 +9,8 @@ async function fetchRawMaterials(params = {}) {
             group_by: "LOT_NUMBER,MATERIAL",
             material_ids: params.materialId,
             sort: "", // params.sort || "material.name",
-            order_asc: !params.order || params.order === "asc"
-        }
+            order_asc: !params.order || params.order === "asc",
+        },
     };
     if (params.materialId) {
         data.params.material_ids = parseInt(params.materialId);
@@ -21,5 +21,5 @@ async function fetchRawMaterials(params = {}) {
 }
 
 export const api = {
-    fetchRawMaterials
-}
+    fetchRawMaterials,
+};

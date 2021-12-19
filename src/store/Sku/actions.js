@@ -9,70 +9,70 @@ import {
     DELETE_SKU,
     INVALID_PRODUCT,
     INVALID_VOLUME,
-    INVALID_QUANTITY_UNIT
+    INVALID_QUANTITY_UNIT,
 } from "./actionTypes";
 
-export const setSkuDetails = payload => ({
+export const setSkuDetails = (payload) => ({
     type: SET_SKU_DETAILS,
-    payload
+    payload,
 });
 
-export const fetchSkuById = ({id, success}) => ({
+export const fetchSkuById = ({ id, success }) => ({
     type: FETCH_SKU,
-    payload: { id, success }
+    payload: { id, success },
 });
 
-export const createSku = payload => ({
+export const createSku = (payload) => ({
     type: CREATE_SKU,
-    payload
+    payload,
 });
 
-export const updateSku = payload => ({
+export const updateSku = (payload) => ({
     type: UPDATE_SKU,
-    payload
+    payload,
 });
 
-export const deleteSku = id => ({
+export const deleteSku = (id) => ({
     type: DELETE_SKU,
-    payload: { id }
+    payload: { id },
 });
 
 export const resetSkuDetails = () => ({
     type: RESET_SKU_DETAILS,
-    payload: null
+    payload: null,
 });
 
-export const setSkuInvalidName = value => ({
+export const setSkuInvalidName = (value) => ({
     type: INVALID_NAME,
     payload: {
-        invalidName: value.length > 12 || !value
-    }
+        invalidName: value.length > 12 || !value,
+    },
 });
 
-export const setSkuInvalidProduct = enabled => ({
+export const setSkuInvalidProduct = (enabled) => ({
     type: INVALID_PRODUCT,
     payload: {
-        invalidProduct: enabled
-    }
+        invalidProduct: enabled,
+    },
 });
 
-export const setSkuInvalidVolume = enabled => ({
+export const setSkuInvalidVolume = (enabled) => ({
     type: INVALID_VOLUME,
     payload: {
-        invalidVolume: enabled
-    }
+        invalidVolume: enabled,
+    },
 });
 
-export const setSkuInvalidDescription = enabled => ({
+export const setSkuInvalidDescription = (enabled) => ({
     type: INVALID_DESCRIPTION,
     payload: {
-        invalidDescription: enabled
-    }
+        invalidDescription: enabled,
+    },
 });
 
-export const setSkuInvalidBaseQuantityUnit = enabled => ({
+export const setSkuInvalidBaseQuantityUnit = (enabled) => ({
     type: INVALID_QUANTITY_UNIT,
     payload: {
-        invalidBaseQuantityUnit: enabled
-    }
+        invalidBaseQuantityUnit: enabled,
+    },
 });

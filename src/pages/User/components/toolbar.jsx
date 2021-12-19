@@ -1,16 +1,19 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import {
-    Button
-} from "reactstrap";
+import { Button } from "reactstrap";
 import Toolbar from "../../../component/Common/toolbar";
 
-export default function UserToolbar({ editable, changed, onSave, onEdit, onDelete }) {
-
+export default function UserToolbar({
+    editable,
+    changed,
+    onSave,
+    onEdit,
+    onDelete,
+}) {
     const history = useHistory();
 
-    const user = useSelector(state => {
+    const user = useSelector((state) => {
         return state.User.data;
     });
 
@@ -26,14 +29,14 @@ export default function UserToolbar({ editable, changed, onSave, onEdit, onDelet
                     disabled={!changed}
                     hidden={!editable}
                 >
-                        Save
+                    Save
                 </Button>
                 <Button
                     type="button"
                     color="secondary"
                     size="sm"
                     className="waves-effect mr-2 mb-3"
-                    onClick={e => {
+                    onClick={(e) => {
                         history.goBack();
                     }}
                     hidden={!editable}
@@ -60,7 +63,7 @@ export default function UserToolbar({ editable, changed, onSave, onEdit, onDelet
                     onClick={() => {
                         history.push({
                             pathname: "/users/new",
-                            search: "?edit=true"
+                            search: "?edit=true",
                         });
                     }}
                 >

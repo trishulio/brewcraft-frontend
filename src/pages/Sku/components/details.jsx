@@ -1,108 +1,122 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
+import { FormGroup, FormFeedback, Input, Label, Row, Col } from "reactstrap";
 import {
-    FormGroup,
-    FormFeedback,
-    Input,
-    Label,
-    Row,
-    Col
-} from "reactstrap";
-import {
-    setSkuDetails, setSkuInvalidBaseQuantityUnit, setSkuInvalidDescription, setSkuInvalidName, setSkuInvalidProduct, setSkuInvalidVolume
+    setSkuDetails,
+    setSkuInvalidBaseQuantityUnit,
+    setSkuInvalidDescription,
+    setSkuInvalidName,
+    setSkuInvalidProduct,
+    setSkuInvalidVolume,
 } from "../../../store/actions";
-import {
-    Card,
-    CardBody,
-    CardHeader
-} from "../../../component/Common/Card";
+import { Card, CardBody, CardHeader } from "../../../component/Common/Card";
 
 export default function SkuDetails(props) {
-
     const dispatch = useDispatch();
 
-    const sku = useSelector(state => {
+    const sku = useSelector((state) => {
         return state.Sku.data;
     });
 
-    const { invalidName, invalidProduct, invalidVolume, invalidDescription, invalidBaseQuantityUnit } = useSelector(state => {
+    const {
+        invalidName,
+        invalidProduct,
+        invalidVolume,
+        invalidDescription,
+        invalidBaseQuantityUnit,
+    } = useSelector((state) => {
         return state.Sku;
-    })
+    });
 
-    const products = useSelector(state => {
+    const products = useSelector((state) => {
         return state.Products.all;
     });
 
     function onFormInputChange(e) {
-        switch(e.target.name) {
+        switch (e.target.name) {
             case "skuName":
                 if (sku.name !== e.target.value) {
                     dispatch(setSkuInvalidName(e.target.value));
-                    dispatch(setSkuDetails({
-                        data: {
-                            ...sku,
-                            name: e.target.value
-                        }
-                    }));
+                    dispatch(
+                        setSkuDetails({
+                            data: {
+                                ...sku,
+                                name: e.target.value,
+                            },
+                        })
+                    );
                 }
                 break;
             case "skuDescription":
                 if (sku.description !== e.target.value) {
                     dispatch(setSkuInvalidDescription(!e.target.value));
-                    dispatch(setSkuDetails({
-                        data: {
-                            ...sku,
-                            description: e.target.value
-                        }
-                    }));
+                    dispatch(
+                        setSkuDetails({
+                            data: {
+                                ...sku,
+                                description: e.target.value,
+                            },
+                        })
+                    );
                 }
                 break;
             case "skuProduct":
                 if (sku.product?.id !== e.target.value) {
                     dispatch(setSkuInvalidProduct(!e.target.value));
-                    const product = products.find(p => p.id === parseInt(e.target.value));
+                    const product = products.find(
+                        (p) => p.id === parseInt(e.target.value)
+                    );
                     if (e.target.value) {
-                        dispatch(setSkuDetails({
-                            data: {
-                                ...sku, product
-                            }
-                        }));
+                        dispatch(
+                            setSkuDetails({
+                                data: {
+                                    ...sku,
+                                    product,
+                                },
+                            })
+                        );
                     }
                 }
                 break;
             case "skuQuantity":
                 if (sku.quantity?.value !== e.target.value) {
                     dispatch(setSkuInvalidVolume(!e.target.value));
-                    dispatch(setSkuDetails({
-                        data: {
-                            ...sku,
-                            quantity: {
-                                ...sku.quantity,
-                                value: e.target.value
-                            }
-                        }
-                    }));
+                    dispatch(
+                        setSkuDetails({
+                            data: {
+                                ...sku,
+                                quantity: {
+                                    ...sku.quantity,
+                                    value: e.target.value,
+                                },
+                            },
+                        })
+                    );
                 }
                 break;
             case "skuBaseQuantityUnit":
                 if (sku.quantity?.symbol !== e.target.value) {
                     dispatch(setSkuInvalidBaseQuantityUnit(!e.target.value));
-                    dispatch(setSkuDetails({
-                        data: {
-                            ...sku,
-                            quantity: {
-                                ...sku.quantity,
-                                symbol: e.target.value
-                            }
-                        }
-                    }));
+                    dispatch(
+                        setSkuDetails({
+                            data: {
+                                ...sku,
+                                quantity: {
+                                    ...sku.quantity,
+                                    symbol: e.target.value,
+                                },
+                            },
+                        })
+                    );
                 }
                 break;
             default:
-                dispatch(setSkuDetails({
-                    [e.target.name]: e.target.value
-                }));
+                dispatch(
+                    setSkuDetails({
+                        [e.target.name]: e.target.value,
+                    })
+                );
                 break;
         }
     }
@@ -118,7 +132,7 @@ export default function SkuDetails(props) {
                                 for="skuName"
                                 className="d-inline-block font-size-12 mb-3"
                                 style={{
-                                    width: "8rem"
+                                    width: "8rem",
                                 }}
                             >
                                 SKU
@@ -136,13 +150,15 @@ export default function SkuDetails(props) {
                                     style={{ width: "16rem" }}
                                     disabled={!props.editable}
                                     value={sku.name || ""}
-                                    onChange={e => {
+                                    onChange={(e) => {
                                         onFormInputChange(e);
                                     }}
                                     hidden={!props.editable}
                                     invalid={invalidName}
                                 />
-                                <FormFeedback>Enter a valid sku name.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid sku name.
+                                </FormFeedback>
                             </FormGroup>
                             <div className="d-inline-block font-size-12 mb-2">
                                 <div hidden={props.editable}>
@@ -158,7 +174,7 @@ export default function SkuDetails(props) {
                                 for="skuProduct"
                                 className="d-inline-block font-size-12 mb-3"
                                 style={{
-                                    width: "8rem"
+                                    width: "8rem",
                                 }}
                             >
                                 Product
@@ -176,22 +192,22 @@ export default function SkuDetails(props) {
                                     style={{ width: "8rem" }}
                                     disabled={!props.editable}
                                     value={sku.product.id || ""}
-                                    onChange={e => {
+                                    onChange={(e) => {
                                         onFormInputChange(e);
                                     }}
                                     hidden={!props.editable}
                                     invalid={invalidProduct}
                                 >
                                     <option value="">Select</option>
-                                    {
-                                        map(products, (value, index) => (
-                                            <option value={value.id} key={index}>
-                                                {value.name}
-                                            </option>
-                                        ))
-                                    }
+                                    {map(products, (value, index) => (
+                                        <option value={value.id} key={index}>
+                                            {value.name}
+                                        </option>
+                                    ))}
                                 </Input>
-                                <FormFeedback>Enter a valid product.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid product.
+                                </FormFeedback>
                             </FormGroup>
                             <div className="d-inline-block font-size-12 mb-2">
                                 <div hidden={props.editable}>
@@ -207,7 +223,7 @@ export default function SkuDetails(props) {
                                 for="skuQuantity"
                                 className="d-inline-block font-size-12 mb-3"
                                 style={{
-                                    width: "8rem"
+                                    width: "8rem",
                                 }}
                             >
                                 Volume
@@ -226,13 +242,15 @@ export default function SkuDetails(props) {
                                         style={{ width: "8rem" }}
                                         disabled={!props.editable}
                                         value={sku.quantity?.value || ""}
-                                        onChange={e => {
+                                        onChange={(e) => {
                                             onFormInputChange(e);
                                         }}
                                         hidden={!props.editable}
                                         invalid={invalidVolume}
                                     />
-                                    <FormFeedback>Enter a valid sku quantity.</FormFeedback>
+                                    <FormFeedback>
+                                        Enter a valid sku quantity.
+                                    </FormFeedback>
                                 </FormGroup>
                                 <FormGroup
                                     className="d-inline-block font-size-12 m-0"
@@ -247,7 +265,7 @@ export default function SkuDetails(props) {
                                         invalid={invalidBaseQuantityUnit}
                                         value={sku.quantity?.symbol || ""}
                                         hidden={!props.editable}
-                                        onChange={e => {
+                                        onChange={(e) => {
                                             onFormInputChange(e);
                                         }}
                                     >
@@ -258,11 +276,17 @@ export default function SkuDetails(props) {
                                         <option value="l">l</option>
                                         <option value="ml">ml</option>
                                     </Input>
-                                    <FormFeedback>Enter a valid unit of measure.</FormFeedback>
+                                    <FormFeedback>
+                                        Enter a valid unit of measure.
+                                    </FormFeedback>
                                 </FormGroup>
                                 <div className="d-inline-block font-size-12 mb-2">
                                     <div hidden={props.editable}>
-                                        {sku.quantity ? sku.quantity.value + " " + sku.quantity.symbol : "-"}
+                                        {sku.quantity
+                                            ? sku.quantity.value +
+                                              " " +
+                                              sku.quantity.symbol
+                                            : "-"}
                                     </div>
                                 </div>
                                 <div className="clearFix"></div>
@@ -275,7 +299,7 @@ export default function SkuDetails(props) {
                                 for="skuDescription"
                                 className="d-inline-block font-size-12 mb-3"
                                 style={{
-                                    width: "8rem"
+                                    width: "8rem",
                                 }}
                             >
                                 Description
@@ -292,21 +316,22 @@ export default function SkuDetails(props) {
                                     name="skuDescription"
                                     disabled={!props.editable}
                                     value={sku.description || ""}
-                                    onChange={e => {
+                                    onChange={(e) => {
                                         onFormInputChange(e);
                                     }}
                                     hidden={!props.editable}
                                     invalid={invalidDescription}
                                     rows={4}
                                 />
-                                <FormFeedback>Enter a valid sku description.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid sku description.
+                                </FormFeedback>
                             </FormGroup>
                             <div className="d-inline-block font-size-12 mb-2">
                                 <div hidden={props.editable}>
                                     {sku.description ? sku.description : "-"}
                                 </div>
                             </div>
-
                         </Col>
                     </Row>
                 </CardBody>

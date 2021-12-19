@@ -7,8 +7,8 @@ async function fetchIngredients(params = {}) {
             size: params.pageSize || 500,
             categoryIds: params.parentCategoryId || "1",
             sort: params.sort || "name",
-            order_asc: !params.order || params.order === "asc"
-        }
+            order_asc: !params.order || params.order === "asc",
+        },
     };
     return await AxiosInstance.get("/api/v1/materials", data)
         .then((r) => r)
@@ -16,5 +16,5 @@ async function fetchIngredients(params = {}) {
 }
 
 export const api = {
-    fetchIngredients
-}
+    fetchIngredients,
+};

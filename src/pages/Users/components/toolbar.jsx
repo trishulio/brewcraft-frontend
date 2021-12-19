@@ -16,11 +16,11 @@ export default function UsersToolbar() {
                 onClick={() => {
                     history.push({
                         pathname: "/users/new",
-                        search: "?edit=true"
+                        search: "?edit=true",
                     });
                 }}
             >
-                    New User
+                New User
             </Button>
         </Toolbar>
     );

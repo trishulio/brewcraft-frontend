@@ -7,8 +7,8 @@ async function fetchProductCategories(params) {
             size: params.pageSize || 500,
             parent_category_ids: params.parentCategoryId,
             sort: params.sort || "name",
-            order_asc: !params.order || params.order === "asc"
-        }
+            order_asc: !params.order || params.order === "asc",
+        },
     };
     return await AxiosInstance.get("/api/v1/products/categories", data)
         .then((r) => r)
@@ -16,5 +16,5 @@ async function fetchProductCategories(params) {
 }
 
 export const api = {
-    fetchProductCategories
+    fetchProductCategories,
 };

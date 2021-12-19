@@ -1,101 +1,113 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
-import {
-    Row,
-    Col,
-    FormGroup,
-    FormFeedback,
-    Input,
-    Label
-} from "reactstrap";
+import { Row, Col, FormGroup, FormFeedback, Input, Label } from "reactstrap";
 import {
     setIngredientDetails,
     setIngredientInvalidName,
     setIngredientInvalidBaseQuantityUnit,
     setIngredientInvalidCategory,
-    setIngredientInvalidUpc
+    setIngredientInvalidUpc,
 } from "../../../store/actions";
-import {
-    Card,
-    CardBody,
-    CardHeader
-} from "../../../component/Common/Card";
+import { Card, CardBody, CardHeader } from "../../../component/Common/Card";
 import MaterialCategoriesModal from "../../../component/MaterialCategories/modal";
 import { isValidName, useKeyPress, validId } from "../../../helpers/utils";
 
 const ADD_NEW = "ADD_NEW";
 const INGREDIENT_CATEGORY = "ingredient";
-const ENTER_KEY = "Enter"
+const ENTER_KEY = "Enter";
 
 export default function IngredientDetails({ editable, onSave, changed }) {
-    const [showPackageCategoryModal, setShowPackageCategoryModal] = useState(false);
+    const [showPackageCategoryModal, setShowPackageCategoryModal] =
+        useState(false);
     const [modalPackageType, setModalPackageType] = useState(null);
     const [modalParentCategoryId, setModalParentCategoryId] = useState(null);
 
-    const { invalidName, invalidCategory, invalidBaseQuantityUnit, invalidUpc } = useSelector(state => {
-        return state.Ingredient
+    const {
+        invalidName,
+        invalidCategory,
+        invalidBaseQuantityUnit,
+        invalidUpc,
+    } = useSelector((state) => {
+        return state.Ingredient;
     });
     const enterKeyPressed = useKeyPress(ENTER_KEY);
 
-    const categories = useSelector(state => {
-        return state.MaterialCategories.all
-            .filter(c => c.parentCategoryId === 1);
+    const categories = useSelector((state) => {
+        return state.MaterialCategories.all.filter(
+            (c) => c.parentCategoryId === 1
+        );
     });
 
-    const ingredient = useSelector(state => {
+    const ingredient = useSelector((state) => {
         return state.Ingredient.data;
     });
 
     const dispatch = useDispatch();
 
     function onFormInputChange(e) {
-        switch(e.target.name) {
+        switch (e.target.name) {
             case "ingredientName":
                 if (ingredient.name !== e.target.value) {
-                    dispatch(setIngredientInvalidName(!isValidName(e.target.value)));
-                    dispatch(setIngredientDetails({
-                        data: {
-                            ...ingredient,
-                            name: e.target.value
-                        }
-                    }));
+                    dispatch(
+                        setIngredientInvalidName(!isValidName(e.target.value))
+                    );
+                    dispatch(
+                        setIngredientDetails({
+                            data: {
+                                ...ingredient,
+                                name: e.target.value,
+                            },
+                        })
+                    );
                 }
                 break;
             case "ingredientCategory":
-                dispatch(setIngredientInvalidCategory(!validId(e.target.value)));
-                dispatch(setIngredientDetails({
-                    data: {
-                        ...ingredient,
-                        category: categories.find(c => c.id === parseInt(e.target.value))
-                    }
-                }));
+                dispatch(
+                    setIngredientInvalidCategory(!validId(e.target.value))
+                );
+                dispatch(
+                    setIngredientDetails({
+                        data: {
+                            ...ingredient,
+                            category: categories.find(
+                                (c) => c.id === parseInt(e.target.value)
+                            ),
+                        },
+                    })
+                );
                 break;
             case "ingredientBaseQuantityUnit":
                 dispatch(setIngredientInvalidBaseQuantityUnit(!e.target.value));
-                dispatch(setIngredientDetails({
-                    data: {
-                        ...ingredient,
-                        baseQuantityUnit: e.target.value
-                    }
-                }));
+                dispatch(
+                    setIngredientDetails({
+                        data: {
+                            ...ingredient,
+                            baseQuantityUnit: e.target.value,
+                        },
+                    })
+                );
                 break;
             case "ingredientUpc":
-                dispatch(setIngredientInvalidUpc(e.target.value))
-                dispatch(setIngredientDetails({
-                    data: {
-                        ...ingredient,
-                        upc: e.target.value
-                    }
-                }));
+                dispatch(setIngredientInvalidUpc(e.target.value));
+                dispatch(
+                    setIngredientDetails({
+                        data: {
+                            ...ingredient,
+                            upc: e.target.value,
+                        },
+                    })
+                );
                 break;
             case "ingredientDescription":
-                dispatch(setIngredientDetails({
-                    data: {
-                        ...ingredient,
-                        description: e.target.value
-                    }
-                }));
+                dispatch(
+                    setIngredientDetails({
+                        data: {
+                            ...ingredient,
+                            description: e.target.value,
+                        },
+                    })
+                );
                 break;
             default:
                 break;
@@ -116,17 +128,12 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                 <CardBody>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="ingredientName"
-                                className="mb-3"
-                            >
+                            <Label for="ingredientName" className="mb-3">
                                 *Name
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="text"
                                     className="waves-effect"
@@ -140,7 +147,9 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                                     onKeyUp={onKeyUp}
                                     style={{ width: "16rem" }}
                                 />
-                                <FormFeedback>Enter a valid ingredient name.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid ingredient name.
+                                </FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
                                 {ingredient.name ? ingredient.name : "-"}
@@ -149,17 +158,12 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                     </Row>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="ingredientCategory"
-                                className="mb-3"
-                            >
+                            <Label for="ingredientCategory" className="mb-3">
                                 *Category
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="select"
                                     className="waves-effect"
@@ -170,31 +174,39 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                                     invalid={invalidCategory}
                                     value={ingredient.category?.id || ""}
                                     onKeyUp={onKeyUp}
-                                    onChange={e => {
+                                    onChange={(e) => {
                                         if (e.target.value !== ADD_NEW) {
                                             onFormInputChange(e);
-                                        }
-                                        else {
-                                            setModalPackageType(INGREDIENT_CATEGORY);
+                                        } else {
+                                            setModalPackageType(
+                                                INGREDIENT_CATEGORY
+                                            );
                                             setModalParentCategoryId(1);
                                             setShowPackageCategoryModal(true);
                                         }
                                     }}
                                 >
                                     <option value="">Select</option>
-                                    {
-                                        map(categories, (value, index) => (
-                                            <option value={value.id} key={index}>
-                                                {value.name}
-                                            </option>
-                                        ))
-                                    }
-                                    <option key={categories.length} value={ADD_NEW}>+ Add new</option>
+                                    {map(categories, (value, index) => (
+                                        <option value={value.id} key={index}>
+                                            {value.name}
+                                        </option>
+                                    ))}
+                                    <option
+                                        key={categories.length}
+                                        value={ADD_NEW}
+                                    >
+                                        + Add new
+                                    </option>
                                 </Input>
-                                <FormFeedback>Enter a valid ingredient category.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid ingredient category.
+                                </FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
-                                {ingredient.category ? ingredient.category.name : "-"}
+                                {ingredient.category
+                                    ? ingredient.category.name
+                                    : "-"}
                             </div>
                         </Col>
                     </Row>
@@ -208,9 +220,7 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="select"
                                     className="waves-effect"
@@ -221,7 +231,7 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                                     invalid={invalidBaseQuantityUnit}
                                     value={ingredient.baseQuantityUnit || ""}
                                     onKeyUp={onKeyUp}
-                                    onChange={e => {
+                                    onChange={(e) => {
                                         onFormInputChange(e);
                                     }}
                                 >
@@ -233,26 +243,25 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                                     <option value="ml">ml</option>
                                     {/* <option value={ADD_NEW}>+ Add new</option> */}
                                 </Input>
-                                <FormFeedback>Enter a valid unit of measure.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid unit of measure.
+                                </FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
-                                {ingredient.baseQuantityUnit ? ingredient.baseQuantityUnit : "-"}
+                                {ingredient.baseQuantityUnit
+                                    ? ingredient.baseQuantityUnit
+                                    : "-"}
                             </div>
                         </Col>
                     </Row>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="ingredientUpc"
-                                className="mb-3"
-                            >
+                            <Label for="ingredientUpc" className="mb-3">
                                 UPC
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="text"
                                     className="waves-effect"
@@ -275,9 +284,7 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                     </Row>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="ingredientDescription"
-                            >
+                            <Label for="ingredientDescription">
                                 Description
                             </Label>
                         </Col>

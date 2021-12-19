@@ -8,7 +8,7 @@ import {
     SET_USER_INVALID_DISPLAYNAME,
     SET_USER_INVALID_EMAIL,
     SET_USER_INVALID_PHONENUMBER,
-    SET_USER_INVALID_ROLES
+    SET_USER_INVALID_ROLES,
 } from "./actionTypes";
 
 const initialState = {
@@ -24,7 +24,7 @@ const initialState = {
         status: null,
         salutation: null,
         roles: null,
-        version: null
+        version: null,
     },
     initial: {
         id: null,
@@ -38,7 +38,7 @@ const initialState = {
         status: null,
         salutation: null,
         roles: null,
-        version: null
+        version: null,
     },
     invalidUserName: false,
     invalidDisplayName: false,
@@ -48,85 +48,85 @@ const initialState = {
     invalidPhoneNumber: false,
     invalidRoles: false,
     loading: true,
-    error: null
+    error: null,
 };
 
 const User = (state = initialState, { type, payload }) => {
     switch (type) {
         case SET_USER_DETAILS:
-        return {
-            ...state,
-            ...payload,
-            loading: false,
-            error: null,
-        };
+            return {
+                ...state,
+                ...payload,
+                loading: false,
+                error: null,
+            };
         case RESET_USER_DETAILS:
-        return {
-            ...initialState,
-            loading: false,
-            error: null,
-        };
+            return {
+                ...initialState,
+                loading: false,
+                error: null,
+            };
         case SET_USER_DETAILS_ERROR:
             return {
                 ...state,
                 ...payload,
-                loading: false
+                loading: false,
             };
         case SET_USER_INVALID_USERNAME:
             return {
                 ...state,
                 invalidUserName: payload,
                 loading: false,
-                error: true
-        };
+                error: true,
+            };
         case SET_USER_INVALID_FIRSTNAME:
             return {
                 ...state,
                 invalidFirstName: payload,
                 loading: false,
-                error: true
-        };
+                error: true,
+            };
         case SET_USER_INVALID_LASTNAME:
             return {
                 ...state,
                 invalidLastName: payload,
                 loading: false,
-                error: true
-        };
+                error: true,
+            };
         case SET_USER_INVALID_DISPLAYNAME:
             return {
                 ...state,
                 invalidDisplayName: payload,
                 loading: false,
-                error: true
-        };
+                error: true,
+            };
         case SET_USER_INVALID_EMAIL:
             return {
                 ...state,
                 invalidEmail: payload,
                 loading: false,
-                error: true
-        };
+                error: true,
+            };
         case SET_USER_INVALID_PHONENUMBER:
             return {
                 ...state,
                 invalidPhoneNumber: payload,
                 loading: false,
-                error: true
-        };
+                error: true,
+            };
         case SET_USER_INVALID_ROLES:
             return {
                 ...state,
                 invalidRoles: payload,
                 loading: false,
-                error: true
-        };
+                error: true,
+            };
         default:
-        return {
-            ...state,
-            loading: true,
-            error: null,
-        };
+            return {
+                ...state,
+                loading: true,
+                error: null,
+            };
     }
 };
 

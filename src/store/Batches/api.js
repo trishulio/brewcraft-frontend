@@ -13,13 +13,19 @@ async function fetchBatches(params = {}) {
             size: params.pageSize || 500,
             product_ids: params.product,
             stage_task_ids: params.stageTaskId,
-            started_at_from: params.batchFrom ? new Date(params.batchFrom).toISOString() : undefined,
-            started_at_to: batchTo ? new Date(batchTo).toISOString() : undefined,
+            started_at_from: params.batchFrom
+                ? new Date(params.batchFrom).toISOString()
+                : undefined,
+            started_at_to: batchTo
+                ? new Date(batchTo).toISOString()
+                : undefined,
             // ended_at_from: params.endedFrom,
             // ended_at_to: params.endedTo,
             sort: params.sort,
-            order_asc: params.sort ? !params.order || params.order === "asc" : undefined
-        }
+            order_asc: params.sort
+                ? !params.order || params.order === "asc"
+                : undefined,
+        },
     };
     return await AxiosInstance.get("/api/v1/brews", data)
         .then((r) => r)
@@ -27,5 +33,5 @@ async function fetchBatches(params = {}) {
 }
 
 export const api = {
-    fetchBatches
-}
+    fetchBatches,
+};

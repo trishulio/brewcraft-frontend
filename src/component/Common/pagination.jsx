@@ -6,10 +6,19 @@ import {
     Input,
     Pagination,
     PaginationItem,
-    PaginationLink
+    PaginationLink,
 } from "reactstrap";
 
-export default function PageWrapper({ items, totalElements, totalPages, pageIndex, setPageIndex, pageSize, setPageSize, children }) {
+export default function PageWrapper({
+    items,
+    totalElements,
+    totalPages,
+    pageIndex,
+    setPageIndex,
+    pageSize,
+    setPageSize,
+    children,
+}) {
     const [pages, setPages] = useState([]);
 
     useEffect(() => {
@@ -25,7 +34,7 @@ export default function PageWrapper({ items, totalElements, totalPages, pageInde
             if (i >= 0) {
                 pages.push({
                     active: i === pageIndex,
-                    value: i + 1
+                    value: i + 1,
                 });
             }
             if (i + 1 === totalPages) {
@@ -33,7 +42,6 @@ export default function PageWrapper({ items, totalElements, totalPages, pageInde
             }
         }
         setPages(pages);
-
     }, [items, pageIndex, pageSize, totalPages]);
 
     function onChangePageSize(e) {
@@ -76,23 +84,22 @@ export default function PageWrapper({ items, totalElements, totalPages, pageInde
                 </Col>
             </Row>
 
-                {children}
+            {children}
 
             <Row>
                 <Col sm={6}>
-                    <span className="font-size-12 float-left mt-3">{
-                    totalElements ?
-                        `${pageIndex * pageSize + 1} to ${min([pageIndex * pageSize + pageSize, totalElements])} of ${totalElements} results ..`
-                        : "Showing 0 results .."
-                    }
+                    <span className="font-size-12 float-left mt-3">
+                        {totalElements
+                            ? `${pageIndex * pageSize + 1} to ${min([
+                                  pageIndex * pageSize + pageSize,
+                                  totalElements,
+                              ])} of ${totalElements} results ..`
+                            : "Showing 0 results .."}
                     </span>
                 </Col>
                 <Col sm={6}>
                     <Pagination className="float-right mt-3">
-                        <PaginationItem
-                            disabled={!pageIndex}
-                            key="-1"
-                        >
+                        <PaginationItem disabled={!pageIndex} key="-1">
                             <PaginationLink
                                 tabIndex="-1"
                                 onClick={onPagnationItemClick}
@@ -100,23 +107,28 @@ export default function PageWrapper({ items, totalElements, totalPages, pageInde
                                 Previous
                             </PaginationLink>
                         </PaginationItem>
-                        {
-                            pages.map(page =>
-                                <PaginationItem
-                                    active={page.active}
-                                    key={page.value}
+                        {pages.map((page) => (
+                            <PaginationItem
+                                active={page.active}
+                                key={page.value}
+                            >
+                                <PaginationLink
+                                    tabIndex={page.value}
+                                    onClick={onPagnationItemClick}
                                 >
-                                    <PaginationLink
-                                        tabIndex={page.value}
-                                        onClick={onPagnationItemClick}
-                                    >
-                                        {page.value} {page.active && <span className="sr-only">(current)</span>}
-                                    </PaginationLink>
-                                </PaginationItem>
-                            )
-                        }
+                                    {page.value}{" "}
+                                    {page.active && (
+                                        <span className="sr-only">
+                                            (current)
+                                        </span>
+                                    )}
+                                </PaginationLink>
+                            </PaginationItem>
+                        ))}
                         <PaginationItem
-                            disabled={pageIndex * pageSize + pageSize >= totalElements}
+                            disabled={
+                                pageIndex * pageSize + pageSize >= totalElements
+                            }
                             key="-2"
                         >
                             <PaginationLink

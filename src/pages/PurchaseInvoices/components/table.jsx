@@ -9,7 +9,7 @@ export default function PurchaseInvoicesTable() {
     const history = useHistory();
     const query = useQuery();
 
-    const procurements = useSelector(state => {
+    const procurements = useSelector((state) => {
         return state.Procurements.content;
     });
 
@@ -19,7 +19,7 @@ export default function PurchaseInvoicesTable() {
         let order = query.get("order");
         query.delete("sort");
         query.delete("order");
-        switch(name) {
+        switch (name) {
             case "purchaseInvoiceNumber":
                 if (sort !== "invoiceNumber") {
                     order = undefined;
@@ -65,7 +65,7 @@ export default function PurchaseInvoicesTable() {
         } else {
             query.append("order", "desc");
         }
-        history.push({search: query.toString()});
+        history.push({ search: query.toString() });
     }
 
     return (
@@ -118,18 +118,36 @@ export default function PurchaseInvoicesTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        procurements.map((procurement, key) =>
-                            <tr key={key} onClick={() => history.push(`/purchases/invoices/${procurement.shipment.id}/${procurement.invoice.id}`)}>
-                                <td>{procurement.invoice.invoiceNumber}</td>
-                                <td>{procurement.invoice.purchaseOrder.supplier.name || "-" /* bug */}</td>
-                                <td>{formatDate(procurement.invoice.generatedOn)}</td>
-                                <td>{formatDate(procurement.invoice.paymentDueDate)}</td>
-                                <td>{formatCurrency(procurement.invoice.amount.amount)}</td>
-                                <td>{procurement.invoice.invoiceStatus?.id}</td>
-                            </tr>
-                        )
-                    }
+                    {procurements.map((procurement, key) => (
+                        <tr
+                            key={key}
+                            onClick={() =>
+                                history.push(
+                                    `/purchases/invoices/${procurement.shipment.id}/${procurement.invoice.id}`
+                                )
+                            }
+                        >
+                            <td>{procurement.invoice.invoiceNumber}</td>
+                            <td>
+                                {
+                                    procurement.invoice.purchaseOrder.supplier
+                                        .name || "-" /* bug */
+                                }
+                            </td>
+                            <td>
+                                {formatDate(procurement.invoice.generatedOn)}
+                            </td>
+                            <td>
+                                {formatDate(procurement.invoice.paymentDueDate)}
+                            </td>
+                            <td>
+                                {formatCurrency(
+                                    procurement.invoice.amount.amount
+                                )}
+                            </td>
+                            <td>{procurement.invoice.invoiceStatus?.id}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </React.Fragment>

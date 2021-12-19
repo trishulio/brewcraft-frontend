@@ -10,13 +10,9 @@ import {
     fetchAllMaterialCategories,
     resetMaterialCategoryDetails,
     setInvalidMaterialCategoryName,
-    setInvalidMaterialCategoryParentCategory
+    setInvalidMaterialCategoryParentCategory,
 } from "../../store/actions";
-import {
-    isValidName,
-    useQuery,
-    validId
-} from "../../helpers/utils";
+import { isValidName, useQuery, validId } from "../../helpers/utils";
 import MaterialCategoryInner from "./material-category";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
@@ -33,11 +29,11 @@ export default function MaterialCategory() {
     const editMode = query.get("edit");
     const dispatch = useDispatch();
 
-    const materialCategory = useSelector(state => {
+    const materialCategory = useSelector((state) => {
         return state.MaterialCategory.data;
     });
 
-    const initialMaterialCategory = useSelector(state => {
+    const initialMaterialCategory = useSelector((state) => {
         return state.MaterialCategory.initial;
     });
 
@@ -57,15 +53,19 @@ export default function MaterialCategory() {
 
     useEffect(() => {
         if (materialCategory.id) {
-            dispatch(setBreadcrumbItems(materialCategory.name, [
-                { title: "Main", link: "#" },
-                { title: "Material Categories", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems(materialCategory.name, [
+                    { title: "Main", link: "#" },
+                    { title: "Material Categories", link: "#" },
+                ])
+            );
         } else {
-            dispatch(setBreadcrumbItems("New Material Category", [
-                { title: "Main", link: "#" },
-                { title: "Material Categories", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems("New Material Category", [
+                    { title: "Main", link: "#" },
+                    { title: "Material Categories", link: "#" },
+                ])
+            );
         }
         setChanged(isChanged());
 
@@ -73,21 +73,43 @@ export default function MaterialCategory() {
     }, [materialCategory]);
 
     function isChanged() {
-        return JSON.stringify(
-                (({ id, name, parentCategory }) => ({ id, name, parentCategory }))(initialMaterialCategory))
-            !== JSON.stringify(
-                (({ id, name, parentCategory }) => ({ id, name, parentCategory }))(materialCategory))
+        return (
+            JSON.stringify(
+                (({ id, name, parentCategory }) => ({
+                    id,
+                    name,
+                    parentCategory,
+                }))(initialMaterialCategory)
+            ) !==
+            JSON.stringify(
+                (({ id, name, parentCategory }) => ({
+                    id,
+                    name,
+                    parentCategory,
+                }))(materialCategory)
+            )
+        );
     }
 
     function onSave() {
-        if (!isValidName(materialCategory.name) || !validId(materialCategory.parentCategory?.id)) {
-            dispatch(setInvalidMaterialCategoryName(!isValidName(materialCategory.name)));
-            dispatch(setInvalidMaterialCategoryParentCategory(!validId(materialCategory.parentCategory.id)));
-            return
+        if (
+            !isValidName(materialCategory.name) ||
+            !validId(materialCategory.parentCategory?.id)
+        ) {
+            dispatch(
+                setInvalidMaterialCategoryName(
+                    !isValidName(materialCategory.name)
+                )
+            );
+            dispatch(
+                setInvalidMaterialCategoryParentCategory(
+                    !validId(materialCategory.parentCategory.id)
+                )
+            );
+            return;
         }
         if (!isChanged()) {
             history.push("/materials/categories/" + id);
-
         } else if (materialCategory.id) {
             dispatch(
                 editMaterialCategory({
@@ -95,24 +117,27 @@ export default function MaterialCategory() {
                     form: {
                         name: materialCategory.name.trim(),
                         parentCategoryId: materialCategory.parentCategory.id,
-                        version: materialCategory.version
+                        version: materialCategory.version,
                     },
-                    success: materialCategory => {
-                        history.push("/materials/categories/" + materialCategory.id);
-                    }
+                    success: (materialCategory) => {
+                        history.push(
+                            "/materials/categories/" + materialCategory.id
+                        );
+                    },
                 })
             );
         } else {
-
             dispatch(
                 saveMaterialCategory({
                     form: {
                         name: materialCategory.name.trim(),
-                        parentCategoryId: materialCategory.parentCategory.id
+                        parentCategoryId: materialCategory.parentCategory.id,
                     },
-                    success: materialCategory => {
-                        history.push("/materials/categories/" + materialCategory.id);
-                    }
+                    success: (materialCategory) => {
+                        history.push(
+                            "/materials/categories/" + materialCategory.id
+                        );
+                    },
                 })
             );
         }
@@ -137,13 +162,15 @@ export default function MaterialCategory() {
             />
             <RouteLeavingGuard
                 when={showRouterPrompt}
-                navigate={path => {
+                navigate={(path) => {
                     history.push(path);
                 }}
                 shouldBlockNavigation={() => editMode && isChanged()}
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
-            <MaterialCategoryInner {...{editable, changed, onSave, onDelete}} />
+            <MaterialCategoryInner
+                {...{ editable, changed, onSave, onDelete }}
+            />
         </React.Fragment>
     );
 }

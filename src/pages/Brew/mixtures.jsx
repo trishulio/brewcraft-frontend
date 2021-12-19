@@ -5,50 +5,65 @@ import {
     editMashMixture,
     editWhirlpoolMixture,
     editTransferMixture,
-    fetchMixturesByBrewId
+    fetchMixturesByBrewId,
 } from "../../store/actions";
 
 export default function Mixtures(props) {
-
     const dispatch = useDispatch();
 
-    const { data: batch, save } = useSelector(state => {
+    const { data: batch, save } = useSelector((state) => {
         return state.Batch.Batch;
-    })
-
-    const { data: mashMixture, initial: initialMashMixture } = useSelector(state => {
-        return state.Batch.MashMixture;
     });
 
-    const { data: kettleMixture, initial: initialKettleMixture } = useSelector(state => {
-        return state.Batch.KettleMixture;
-    });
+    const { data: mashMixture, initial: initialMashMixture } = useSelector(
+        (state) => {
+            return state.Batch.MashMixture;
+        }
+    );
 
-    const { data: whirlpoolMixture, initial: initialWhirlpoolMixture } = useSelector(state => {
-        return state.Batch.WhirlpoolMixture;
-    });
+    const { data: kettleMixture, initial: initialKettleMixture } = useSelector(
+        (state) => {
+            return state.Batch.KettleMixture;
+        }
+    );
 
-    const { data: transferMixture, initial: initialTransferMixture } = useSelector(state => {
-        return state.Batch.TransferMixture;
-    });
+    const { data: whirlpoolMixture, initial: initialWhirlpoolMixture } =
+        useSelector((state) => {
+            return state.Batch.WhirlpoolMixture;
+        });
+
+    const { data: transferMixture, initial: initialTransferMixture } =
+        useSelector((state) => {
+            return state.Batch.TransferMixture;
+        });
 
     const isChanged = useCallback(() => {
-        return JSON.stringify(
-                (({ quantity }) => ({ quantity }))(initialMashMixture))
-            !== JSON.stringify(
-                (({ quantity }) => ({ quantity }))(mashMixture))
-            || JSON.stringify(
-                (({ quantity }) => ({ quantity }))(initialKettleMixture))
-            !== JSON.stringify(
-                (({ quantity }) => ({ quantity }))(kettleMixture))
-            || JSON.stringify(
-                (({ quantity }) => ({ quantity }))(initialWhirlpoolMixture))
-            !== JSON.stringify(
-                (({ quantity }) => ({ quantity }))(whirlpoolMixture))
-            || JSON.stringify(
-                (({ quantity }) => ({ quantity }))(initialTransferMixture))
-            !== JSON.stringify(
-                (({ quantity }) => ({ quantity }))(transferMixture))
+        return (
+            JSON.stringify(
+                (({ quantity }) => ({ quantity }))(initialMashMixture)
+            ) !==
+                JSON.stringify(
+                    (({ quantity }) => ({ quantity }))(mashMixture)
+                ) ||
+            JSON.stringify(
+                (({ quantity }) => ({ quantity }))(initialKettleMixture)
+            ) !==
+                JSON.stringify(
+                    (({ quantity }) => ({ quantity }))(kettleMixture)
+                ) ||
+            JSON.stringify(
+                (({ quantity }) => ({ quantity }))(initialWhirlpoolMixture)
+            ) !==
+                JSON.stringify(
+                    (({ quantity }) => ({ quantity }))(whirlpoolMixture)
+                ) ||
+            JSON.stringify(
+                (({ quantity }) => ({ quantity }))(initialTransferMixture)
+            ) !==
+                JSON.stringify(
+                    (({ quantity }) => ({ quantity }))(transferMixture)
+                )
+        );
     }, [
         initialMashMixture,
         mashMixture,
@@ -57,7 +72,7 @@ export default function Mixtures(props) {
         initialWhirlpoolMixture,
         whirlpoolMixture,
         initialTransferMixture,
-        transferMixture
+        transferMixture,
     ]);
 
     useEffect(() => {
@@ -74,7 +89,7 @@ export default function Mixtures(props) {
         whirlpoolMixture,
         transferMixture,
         props,
-        isChanged
+        isChanged,
     ]);
 
     useEffect(() => {
@@ -85,11 +100,11 @@ export default function Mixtures(props) {
                     form: {
                         parentMixtureId: mashMixture.parentMixtureId,
                         quantity: {
-                            ...mashMixture.quantity
+                            ...mashMixture.quantity,
                         },
                         brewStageId: mashMixture.brewStage.id,
-                        version: mashMixture.version
-                    }
+                        version: mashMixture.version,
+                    },
                 })
             );
         }
@@ -100,26 +115,29 @@ export default function Mixtures(props) {
                     form: {
                         parentMixtureId: kettleMixture.parentMixtureId,
                         quantity: {
-                            ...kettleMixture.quantity
+                            ...kettleMixture.quantity,
                         },
                         brewStageId: kettleMixture.brewStage.id,
-                        version: kettleMixture.version
-                    }
+                        version: kettleMixture.version,
+                    },
                 })
             );
         }
-        if (save && isMixtureChanged(whirlpoolMixture, initialWhirlpoolMixture)) {
+        if (
+            save &&
+            isMixtureChanged(whirlpoolMixture, initialWhirlpoolMixture)
+        ) {
             dispatch(
                 editWhirlpoolMixture({
                     id: whirlpoolMixture.id,
                     form: {
                         parentMixtureId: whirlpoolMixture.parentMixtureId,
                         quantity: {
-                            ...whirlpoolMixture.quantity
+                            ...whirlpoolMixture.quantity,
                         },
                         brewStageId: whirlpoolMixture.brewStage.id,
-                        version: whirlpoolMixture.version
-                    }
+                        version: whirlpoolMixture.version,
+                    },
                 })
             );
         }
@@ -130,11 +148,11 @@ export default function Mixtures(props) {
                     form: {
                         parentMixtureId: transferMixture.parentMixtureId,
                         quantity: {
-                            ...transferMixture.quantity
+                            ...transferMixture.quantity,
                         },
                         brewStageId: transferMixture.brewStage.id,
-                        version: transferMixture.version
-                    }
+                        version: transferMixture.version,
+                    },
                 })
             );
         }
@@ -142,13 +160,12 @@ export default function Mixtures(props) {
     }, [save]);
 
     function isMixtureChanged(mixture, initialMixture) {
-        return JSON.stringify(
-                (({ quantity }) => ({ quantity }))(initialMixture))
-            !== JSON.stringify(
-                (({ quantity }) => ({ quantity }))(mixture))
+        return (
+            JSON.stringify(
+                (({ quantity }) => ({ quantity }))(initialMixture)
+            ) !== JSON.stringify((({ quantity }) => ({ quantity }))(mixture))
+        );
     }
 
-    return (
-        <React.Fragment>{props.children}</React.Fragment>
-    )
+    return <React.Fragment>{props.children}</React.Fragment>;
 }

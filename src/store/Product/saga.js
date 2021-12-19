@@ -5,7 +5,7 @@ import {
     CREATE_PRODUCT,
     UPDATE_PRODUCT,
     DELETE_PRODUCT,
-    SET_PRODUCT_DETAILS_FAILED
+    SET_PRODUCT_DETAILS_FAILED,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
@@ -29,7 +29,9 @@ function* createProductGenerator(action) {
         yield put({ type: SET_PRODUCT_DETAILS, payload: { ...res } });
         yield put({ type: SET_INITIAL_PRODUCT_DETAILS, payload: { ...res } });
         yield put(setGlobalRedirect({ pathname: "/products/" + res.data.id }));
-        yield put(snackSuccess(`Created product ${get(action, "payload.form.name")}.`));
+        yield put(
+            snackSuccess(`Created product ${get(action, "payload.form.name")}.`)
+        );
     } catch (e) {
         yield put({ type: SET_PRODUCT_DETAILS_FAILED });
     }
@@ -37,11 +39,17 @@ function* createProductGenerator(action) {
 
 function* udpateProductGenerator(action) {
     try {
-        const res = yield call(api.patchProduct, get(action, "payload.id"), get(action, "payload.form"));
+        const res = yield call(
+            api.patchProduct,
+            get(action, "payload.id"),
+            get(action, "payload.form")
+        );
         yield put({ type: SET_PRODUCT_DETAILS, payload: { ...res } });
         yield put({ type: SET_INITIAL_PRODUCT_DETAILS, payload: { ...res } });
         yield put(setGlobalRedirect({ pathname: "/products/" + res.data.id }));
-        yield put(snackSuccess(`Updated product ${get(action, "payload.form.name")}.`));
+        yield put(
+            snackSuccess(`Updated product ${get(action, "payload.form.name")}.`)
+        );
     } catch (e) {
         yield put({ type: SET_PRODUCT_DETAILS_FAILED });
     }

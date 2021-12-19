@@ -1,8 +1,4 @@
-import {
-    FETCH_SKUS,
-    FETCH_ALL_SKUS,
-    SET_SKUS
-} from "./actionTypes";
+import { FETCH_SKUS, FETCH_ALL_SKUS, SET_SKUS } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
@@ -20,7 +16,7 @@ function* fetchSkusGenerator(action) {
 function* fetchAllSkusGenerator() {
     try {
         const res = yield call(api.fetchSkus, {});
-        yield put({ type: SET_SKUS, payload: { all: [ ...res.data.content ] }});
+        yield put({ type: SET_SKUS, payload: { all: [...res.data.content] } });
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
     }

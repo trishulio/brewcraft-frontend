@@ -10,54 +10,58 @@ export default function ProductCategoriesTable() {
     const history = useHistory();
     const query = useQuery();
 
-    const categories = useSelector(state => {
+    const categories = useSelector((state) => {
         return state.ProductCategories.content;
     });
 
-    const allCategories = useSelector(state => {
+    const allCategories = useSelector((state) => {
         return state.ProductCategories.data;
     });
 
     useEffect(() => {
-        setTableData(categories.map(category => {
-            let next = category;
-            const parents = [];
-            while (next) {
-                parents.push(next);
-                // eslint-disable-next-line no-loop-func
-                next = allCategories.find(c => c.id === next.parentCategoryId);
-            }
-            switch(parents.length) {
-                case 1:
-                    return {
-                        id: category.id,
-                        name: category.name,
-                        type: "Class",
-                        parent: "-"
-                    };
-                case 2:
-                    return {
-                        id: category.id,
-                        name: category.name,
-                        type: "Type",
-                        parent: parents[1].name
-                    };
-                case 3:
-                    return {
-                        id: category.id,
-                        name: category.name,
-                        type: "Style",
-                        parent: parents[1].name
-                    };
-                default:
-                    return {
-                        id: category.id,
-                        name: category.name,
-                        type: "",
-                        parent: parents[1].name
-                    };
-            }
-        }));
+        setTableData(
+            categories.map((category) => {
+                let next = category;
+                const parents = [];
+                while (next) {
+                    parents.push(next);
+                    next = allCategories.find(
+                        // eslint-disable-next-line no-loop-func
+                        (c) => c.id === next.parentCategoryId
+                    );
+                }
+                switch (parents.length) {
+                    case 1:
+                        return {
+                            id: category.id,
+                            name: category.name,
+                            type: "Class",
+                            parent: "-",
+                        };
+                    case 2:
+                        return {
+                            id: category.id,
+                            name: category.name,
+                            type: "Type",
+                            parent: parents[1].name,
+                        };
+                    case 3:
+                        return {
+                            id: category.id,
+                            name: category.name,
+                            type: "Style",
+                            parent: parents[1].name,
+                        };
+                    default:
+                        return {
+                            id: category.id,
+                            name: category.name,
+                            type: "",
+                            parent: parents[1].name,
+                        };
+                }
+            })
+        );
     }, [categories, allCategories]);
 
     function onSort(e) {
@@ -112,14 +116,19 @@ export default function ProductCategoriesTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        tableData.map((category, key) =>
-                            <tr key={key} onClick={() => history.push("/products/categories/" + category.id)}>
-                                <td>{category.name}</td>
-                                <td>{category.parent}</td>
-                            </tr>
-                        )
-                    }
+                    {tableData.map((category, key) => (
+                        <tr
+                            key={key}
+                            onClick={() =>
+                                history.push(
+                                    "/products/categories/" + category.id
+                                )
+                            }
+                        >
+                            <td>{category.name}</td>
+                            <td>{category.parent}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </React.Fragment>

@@ -1,6 +1,5 @@
 import AxiosInstance from "../../helpers/axiosInstance";
 
-
 async function fetchMaterialCategories(params = {}) {
     const data = {
         params: {
@@ -8,8 +7,8 @@ async function fetchMaterialCategories(params = {}) {
             size: params.pageSize || 500,
             parentCategoryIds: params.parentCategoryId,
             sort: params.sort || "name",
-            order_asc: !params.order || params.order === "asc"
-        }
+            order_asc: !params.order || params.order === "asc",
+        },
     };
     return await AxiosInstance.get("/api/v1/materials/categories", data)
         .then((r) => r)
@@ -17,10 +16,10 @@ async function fetchMaterialCategories(params = {}) {
 }
 
 async function fetchCategories() {
-    return (await fetchMaterialCategories(null))
+    return await fetchMaterialCategories(null);
 }
 
 export const api = {
     fetchMaterialCategories,
-    fetchCategories
-}
+    fetchCategories,
+};

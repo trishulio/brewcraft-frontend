@@ -8,81 +8,81 @@ import {
     INVALID_TYPE,
     INVALID_STYLE,
     INVALID_DESCRIPTION,
-    DELETE_PRODUCT_CATEGORY
+    DELETE_PRODUCT_CATEGORY,
 } from "./actionTypes";
 
-export const setProductCategoryDetails = product => ({
+export const setProductCategoryDetails = (product) => ({
     type: SET_PRODUCT_CATEGORY_DETAILS,
     payload: {
-        data: product
-    }
+        data: product,
+    },
 });
 
-export const fetchProductCategoryById = ({id, success}) => ({
+export const fetchProductCategoryById = ({ id, success }) => ({
     type: FETCH_PRODUCT_CATEGORY,
-    payload: { id, success }
+    payload: { id, success },
 });
 
-export const createProductCategory = ({data, categoryId, success}) => ({
+export const createProductCategory = ({ data, categoryId, success }) => ({
     type: CREATE_PRODUCT_CATEGORY,
     payload: {
         form: {
             name: data.name,
-            parentCategoryId: categoryId
+            parentCategoryId: categoryId,
         },
-        success: success
-    }
+        success: success,
+    },
 });
 
-export const updateProductCategory = ({data, parentCategoryId, success}) => ({
+export const updateProductCategory = ({ data, parentCategoryId, success }) => ({
     type: UPDATE_PRODUCT_CATEGORY,
     payload: {
         id: data.id,
         form: {
             name: data.name,
             parentCategoryId: parentCategoryId,
-            version: data.version
+            version: data.version,
         },
-        success: success
-    }
+        success: success,
+    },
 });
 
-export const deleteProductCategory = id => ({
+export const deleteProductCategory = (id) => ({
     type: DELETE_PRODUCT_CATEGORY,
-    payload: { id }
+    payload: { id },
 });
 
-export const setProductCategoryInvalidName = enabled => ({
+export const setProductCategoryInvalidName = (enabled) => ({
     type: INVALID_NAME,
     payload: {
-        invalidName: enabled
-    }
+        invalidName: enabled,
+    },
 });
 
-export const setProductCategoryInvalidClass = enabled => ({
+export const setProductCategoryInvalidClass = (enabled) => ({
     type: INVALID_CLASS,
     payload: {
-        invalidClass: enabled
-    }
+        invalidClass: enabled,
+    },
 });
 
-export const setProductCategoryInvalidType = enabled => ({
+export const setProductCategoryInvalidType = (enabled) => ({
     type: INVALID_TYPE,
     payload: {
-        invalidType: enabled
-    }
+        invalidType: enabled,
+    },
 });
 
-export const setProductCategoryInvalidStyle = enabled => ({
+export const setProductCategoryInvalidStyle = (enabled) => ({
     type: INVALID_STYLE,
     payload: {
-        invalidStyle: enabled
-    }
+        invalidStyle: enabled,
+    },
 });
 
-export const setProductCategoryInvalidDescription = enabled => ({
+export const setProductCategoryInvalidDescription = (enabled) => ({
     type: INVALID_DESCRIPTION,
     payload: {
-        invalidDescription: enabled
-    }
+        invalidDescription: enabled,
+    },
 });

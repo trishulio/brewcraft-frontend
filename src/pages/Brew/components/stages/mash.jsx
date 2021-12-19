@@ -5,33 +5,32 @@ import Details from "../mixture/details";
 import {
     setMashMaterialPortionDetails,
     setMashMixtureDetails,
-    setMashStageDetails
+    setMashStageDetails,
 } from "../../../../store/actions";
 
 export default function BrewMash() {
-
     const dispatch = useDispatch();
 
-    const { editable } = useSelector(state => {
+    const { editable } = useSelector((state) => {
         return state.Batch.Batch;
     });
 
-    const stage = useSelector(state => {
+    const stage = useSelector((state) => {
         return state.Batch.MashStage.data;
     });
 
-    const mixture = useSelector(state => {
+    const mixture = useSelector((state) => {
         return state.Batch.MashMixture.data;
     });
 
-    const materialPortions = useSelector(state => {
+    const materialPortions = useSelector((state) => {
         return state.Batch.MashMaterialPortion.content;
     });
 
     function setStage(stage) {
         dispatch(
             setMashStageDetails({
-                data: stage
+                data: stage,
             })
         );
     }
@@ -39,7 +38,7 @@ export default function BrewMash() {
     function setMixture(mixture) {
         dispatch(
             setMashMixtureDetails({
-                data: mixture
+                data: mixture,
             })
         );
     }
@@ -47,7 +46,7 @@ export default function BrewMash() {
     function setMaterialPortions(materialPortions) {
         dispatch(
             setMashMaterialPortionDetails({
-                content: materialPortions
+                content: materialPortions,
             })
         );
     }
@@ -57,24 +56,22 @@ export default function BrewMash() {
         setStage,
         mixture,
         setMixture,
-        editable
+        editable,
     };
 
     const ingredientsProps = {
         mixture,
         editable,
         materialPortions,
-        setMaterialPortions
+        setMaterialPortions,
     };
 
     return (
         <React.Fragment>
-            <Details {...detailsProps}/>
+            <Details {...detailsProps} />
             <div className="clearFix mb-3"></div>
-            <div
-                className="px-2"
-            >
-                <Ingredients {...ingredientsProps}/>
+            <div className="px-2">
+                <Ingredients {...ingredientsProps} />
             </div>
         </React.Fragment>
     );

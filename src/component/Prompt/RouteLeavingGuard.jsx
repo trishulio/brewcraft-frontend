@@ -1,28 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Prompt } from "react-router-dom";
 import { Button } from "reactstrap";
-import {
-    Modal,
-    ModalBody,
-    ModalFooter
-} from "../Common/modal";
+import { Modal, ModalBody, ModalFooter } from "../Common/modal";
 
 export const RouteLeavingGuard = ({
     navigate,
     when,
     shouldBlockNavigation,
-    content
+    content,
 }) => {
     const [modalVisible, updateModalVisible] = useState(false);
     const [lastLocation, updateLastLocation] = useState();
     const [confirmedNavigation, updateConfirmedNavigation] = useState(false);
 
-    const showModal = location => {
+    const showModal = (location) => {
         updateModalVisible(true);
         updateLastLocation(location);
     };
 
-    const closeModal = cb => {
+    const closeModal = (cb) => {
         updateModalVisible(false);
         if (cb) {
             try {
@@ -31,7 +27,7 @@ export const RouteLeavingGuard = ({
         }
     };
 
-    const handleBlockedNavigation = nextLocation => {
+    const handleBlockedNavigation = (nextLocation) => {
         if (!confirmedNavigation && shouldBlockNavigation(nextLocation)) {
             showModal(nextLocation);
             return false;
@@ -55,25 +51,32 @@ export const RouteLeavingGuard = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [confirmedNavigation]);
 
-  return (
-    <>
-      <Prompt when={when} message={handleBlockedNavigation} />
-      <Modal
-        show={modalVisible}
-        onValidSubmit={handleConfirmNavigationClick}
-        close={closeModal}
-        title={"Warning"}
-      >
-        <ModalBody>
-            <p className="main_text">{content}</p>
-        </ModalBody>
-        <ModalFooter>
-            <Button color="secondary" onClick={handleConfirmNavigationClick}>Confirm</Button>
-            <Button color="primary" onClick={closeModal}>Cancel</Button>
-        </ModalFooter>
-      </Modal>
-    </>
-  );
+    return (
+        <>
+            <Prompt when={when} message={handleBlockedNavigation} />
+            <Modal
+                show={modalVisible}
+                onValidSubmit={handleConfirmNavigationClick}
+                close={closeModal}
+                title={"Warning"}
+            >
+                <ModalBody>
+                    <p className="main_text">{content}</p>
+                </ModalBody>
+                <ModalFooter>
+                    <Button
+                        color="secondary"
+                        onClick={handleConfirmNavigationClick}
+                    >
+                        Confirm
+                    </Button>
+                    <Button color="primary" onClick={closeModal}>
+                        Cancel
+                    </Button>
+                </ModalFooter>
+            </Modal>
+        </>
+    );
 };
 
 export default RouteLeavingGuard;

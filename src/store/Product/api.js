@@ -7,12 +7,12 @@ async function fetchProductById(id) {
 }
 
 async function postProduct(data) {
-    return await AxiosInstance.post("/api/v1/products", data)
-    .then((r) => r);
+    return await AxiosInstance.post("/api/v1/products", data).then((r) => r);
 }
 async function patchProduct(id, data) {
-    return await AxiosInstance.patch(`/api/v1/products/${id}`, data)
-    .then((r) => r);
+    return await AxiosInstance.patch(`/api/v1/products/${id}`, data).then(
+        (r) => r
+    );
 }
 
 async function deleteProduct(id) {
@@ -23,5 +23,5 @@ export const api = {
     fetchProductById,
     postProduct,
     patchProduct,
-    deleteProduct
+    deleteProduct,
 };

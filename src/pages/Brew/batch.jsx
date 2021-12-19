@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  TabContent,
-  TabPane,
-  Alert,
-  Row,
-  Col
+    Card,
+    CardHeader,
+    CardBody,
+    TabContent,
+    TabPane,
+    Alert,
+    Row,
+    Col,
 } from "reactstrap";
 import BatchDetails from "./components/details";
 import Nav from "./nav";
@@ -22,7 +22,7 @@ import { useSelector } from "react-redux";
 export default function Batch(props) {
     const [activeTab, setActiveTab] = useState("brew");
 
-    const { data: batch, error } = useSelector(state => {
+    const { data: batch, error } = useSelector((state) => {
         return state.Batch.Batch;
     });
 
@@ -30,31 +30,38 @@ export default function Batch(props) {
         <React.Fragment>
             {console.log(error)}
             <div style={{ maxWidth: "60rem" }}>
-                {error &&
+                {error && (
                     <Alert color="info" className="mt-2 mb-4">
-                        <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                        <strong>Oh snap!</strong> Change a few things up and try
+                        submitting again.
                     </Alert>
-                }
+                )}
                 <div className="mb-3 px-2">
-                    {batch.id && <MiniCard/>}
+                    {batch.id && <MiniCard />}
                     <div className="mb-3">
-                        <Toolbar {...props}/>
+                        <Toolbar {...props} />
                     </div>
-                    <BatchDetails {...props}/>
+                    <BatchDetails {...props} />
                 </div>
-                {batch.id &&
+                {batch.id && (
                     <React.Fragment>
-                        <Nav {...{activeTab, setActiveTab}}/>
+                        <Nav {...{ activeTab, setActiveTab }} />
                         <TabContent activeTab={activeTab}>
                             <TabPane tabId="brew">
                                 <Row className="text-center mt-4 pt-2">
                                     <Col xs="4">
-                                        <h5 className="font-size-20">40.40 hl</h5>
-                                        <p className="text-muted">Wort Volume</p>
+                                        <h5 className="font-size-20">
+                                            40.40 hl
+                                        </h5>
+                                        <p className="text-muted">
+                                            Wort Volume
+                                        </p>
                                     </Col>
                                     <Col xs="4">
                                         <h5 className="font-size-20">1.018</h5>
-                                        <p className="text-muted">Original Gravity (Actual)</p>
+                                        <p className="text-muted">
+                                            Original Gravity (Actual)
+                                        </p>
                                     </Col>
                                     <Col xs="4">
                                         <h5 className="font-size-20">100.0</h5>
@@ -64,31 +71,37 @@ export default function Batch(props) {
                                 <Card className="mb-3">
                                     <CardHeader>
                                         <div className="float-left">
-                                            <h4 className="card-title font-size-14 pt-1">Mash Lauter</h4>
+                                            <h4 className="card-title font-size-14 pt-1">
+                                                Mash Lauter
+                                            </h4>
                                         </div>
                                     </CardHeader>
                                     <CardBody>
-                                        <Mash {...props}/>
+                                        <Mash {...props} />
                                     </CardBody>
                                 </Card>
                                 <Card className="mb-3">
                                     <CardHeader>
                                         <div className="float-left">
-                                            <h4 className="card-title font-size-14 pt-1">Boil</h4>
+                                            <h4 className="card-title font-size-14 pt-1">
+                                                Boil
+                                            </h4>
                                         </div>
                                     </CardHeader>
                                     <CardBody>
-                                        <Kettle {...props}/>
+                                        <Kettle {...props} />
                                     </CardBody>
                                 </Card>
                                 <Card className="mb-3">
                                     <CardHeader>
                                         <div className="float-left">
-                                            <h4 className="card-title font-size-14 pt-1">Whirlpool</h4>
+                                            <h4 className="card-title font-size-14 pt-1">
+                                                Whirlpool
+                                            </h4>
                                         </div>
                                     </CardHeader>
                                     <CardBody>
-                                        <Whirlpool {...props}/>
+                                        <Whirlpool {...props} />
                                     </CardBody>
                                 </Card>
                             </TabPane>
@@ -96,17 +109,19 @@ export default function Batch(props) {
                                 <Card className="mb-3">
                                     <CardHeader>
                                         <div className="float-left">
-                                            <h4 className="card-title font-size-14 pt-1">Ferment</h4>
+                                            <h4 className="card-title font-size-14 pt-1">
+                                                Ferment
+                                            </h4>
                                         </div>
                                     </CardHeader>
                                     <CardBody>
-                                        <Ferment {...props}/>
+                                        <Ferment {...props} />
                                     </CardBody>
                                 </Card>
                             </TabPane>
                         </TabContent>
                     </React.Fragment>
-                }
+                )}
             </div>
         </React.Fragment>
     );

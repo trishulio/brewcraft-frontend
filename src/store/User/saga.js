@@ -4,7 +4,7 @@ import {
     FETCH_USER,
     CREATE_USER,
     UPDATE_USER,
-    DELETE_USER
+    DELETE_USER,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
@@ -14,29 +14,46 @@ import { setGlobalRedirect } from "../Brewery/actions";
 function* fetchUserByIdGenerator(action) {
     try {
         const res = yield call(api.fetchUserById, get(action, "payload.id"));
-        yield put({ type: SET_USER_DETAILS, payload: { data: res.data, initial: res.data }});
+        yield put({
+            type: SET_USER_DETAILS,
+            payload: { data: res.data, initial: res.data },
+        });
     } catch (e) {
-        yield put({ type: SET_USER_DETAILS_ERROR, payload: { error: true }});
+        yield put({ type: SET_USER_DETAILS_ERROR, payload: { error: true } });
     }
 }
 
 function* createUserGenerator(action) {
     try {
         const res = yield call(api.postUser, get(action, "payload.form"));
-        yield put({ type: SET_USER_DETAILS, payload: { data: res.data, initial: res.data } });
-        yield put(setGlobalRedirect({ pathname: "/users/" + res.data.id, search: "" }));
+        yield put({
+            type: SET_USER_DETAILS,
+            payload: { data: res.data, initial: res.data },
+        });
+        yield put(
+            setGlobalRedirect({ pathname: "/users/" + res.data.id, search: "" })
+        );
     } catch (e) {
-        yield put({ type: SET_USER_DETAILS_ERROR, payload: { error: true }});
+        yield put({ type: SET_USER_DETAILS_ERROR, payload: { error: true } });
     }
 }
 
 function* udpateUserGenerator(action) {
     try {
-        const res = yield call(api.patchUser, get(action, "payload.id"), get(action, "payload.form"));
-        yield put({ type: SET_USER_DETAILS, payload: { data: res.data, initial: res.data } });
-        yield put(setGlobalRedirect({ pathname: "/users/" + res.data.id, search: "" }));
+        const res = yield call(
+            api.patchUser,
+            get(action, "payload.id"),
+            get(action, "payload.form")
+        );
+        yield put({
+            type: SET_USER_DETAILS,
+            payload: { data: res.data, initial: res.data },
+        });
+        yield put(
+            setGlobalRedirect({ pathname: "/users/" + res.data.id, search: "" })
+        );
     } catch (e) {
-        yield put({ type: SET_USER_DETAILS_ERROR, payload: { error: true }});
+        yield put({ type: SET_USER_DETAILS_ERROR, payload: { error: true } });
     }
 }
 
@@ -45,7 +62,7 @@ function* deleteUserGenerator(action) {
         yield call(api.deleteUser, get(action, "payload.id"));
         yield put(setGlobalRedirect({ pathname: "/users" }));
     } catch (e) {
-        yield put({ type: SET_USER_DETAILS_ERROR, payload: { error: true }});
+        yield put({ type: SET_USER_DETAILS_ERROR, payload: { error: true } });
     }
 }
 

@@ -1,10 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-    Button,
-    Input
-} from "reactstrap";
+import { Button, Input } from "reactstrap";
 import Toolbar from "../../../component/Common/toolbar";
 import { useQuery } from "../../../helpers/utils";
 
@@ -13,7 +10,7 @@ export default function ProductCategoriesToolbar() {
     const query = useQuery();
     const parentCategoryId = query.get("parent");
 
-    const categories = useSelector(state => {
+    const categories = useSelector((state) => {
         return state.ProductCategories.data;
     });
 
@@ -28,7 +25,7 @@ export default function ProductCategoriesToolbar() {
                     history.push("/products/categories/new");
                 }}
             >
-                    New Category
+                New Category
             </Button>
             <Button
                 type="button"
@@ -40,7 +37,7 @@ export default function ProductCategoriesToolbar() {
                     history.push("/products");
                 }}
             >
-                    Products
+                Products
             </Button>
             <Input
                 type="select"
@@ -48,22 +45,20 @@ export default function ProductCategoriesToolbar() {
                 className="waves-effect float-right mb-3 ml-2"
                 style={{ width: 100 }}
                 value={parentCategoryId || ""}
-                onChange={e => {
+                onChange={(e) => {
                     query.delete("parent");
                     if (e.target.value) {
                         query.append("parent", e.target.value);
                     }
-                    history.push({search: query.toString()});
+                    history.push({ search: query.toString() });
                 }}
             >
                 <option value="">Parent Category</option>
-                {
-                    categories.map((value, index) => (
-                        <option value={value.id} key={index}>
-                            {value.name}
-                        </option>
-                    ))
-                }
+                {categories.map((value, index) => (
+                    <option value={value.id} key={index}>
+                        {value.name}
+                    </option>
+                ))}
             </Input>
         </Toolbar>
     );

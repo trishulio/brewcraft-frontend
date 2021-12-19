@@ -1,24 +1,24 @@
 import React from "react";
-import {
-    Row,
-    Col,
-    Input,
-    Label,
-    FormGroup,
-    FormFeedback
-} from "reactstrap";
+import { Row, Col, Input, Label, FormGroup, FormFeedback } from "reactstrap";
 import { formatDatetime } from "../../../../helpers/textUtils";
 
-
-export default function MixtureDetails({ stage, setStage, mixture, setMixture, mixtureRecords, setMixtureRecords, showSkipCheckbox, editable }) {
-
+export default function MixtureDetails({
+    stage,
+    setStage,
+    mixture,
+    setMixture,
+    mixtureRecords,
+    setMixtureRecords,
+    showSkipCheckbox,
+    editable,
+}) {
     function onFormInputChange(e) {
-        switch(e.target.name) {
+        switch (e.target.name) {
             case "mixtureStartDateTime":
                 if (stage.startedAt !== e.target.value) {
                     setStage({
                         ...stage,
-                        startedAt: e.target.value
+                        startedAt: e.target.value,
                     });
                 }
                 break;
@@ -26,7 +26,7 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, m
                 if (stage.endedAt !== e.target.value) {
                     setStage({
                         ...stage,
-                        endedAt: e.target.value
+                        endedAt: e.target.value,
                     });
                 }
                 break;
@@ -36,8 +36,8 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, m
                         ...mixture,
                         quantity: {
                             ...mixture.quantity,
-                            value: e.target.value === "" ? 0 : e.target.value
-                        }
+                            value: e.target.value === "" ? 0 : e.target.value,
+                        },
                     });
                 }
                 break;
@@ -49,7 +49,9 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, m
                 break;
             case "mixtureGravity":
                 let record;
-                const index = mixtureRecords.findIndex(r => r.measure.id === 5);
+                const index = mixtureRecords.findIndex(
+                    (r) => r.measure.id === 5
+                );
                 if (index >= 0) {
                     record = mixtureRecords.splice(index, 1)[0];
                     record.value = parseInt(e.target.value);
@@ -57,16 +59,13 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, m
                     record = {
                         mixture,
                         measure: {
-                            id: 5
+                            id: 5,
                         },
-                        value: parseInt(e.target.value)
-                    }
+                        value: parseInt(e.target.value),
+                    };
                 }
                 setMixtureRecords({
-                    content: [
-                        ...mixtureRecords,
-                        record
-                    ]
+                    content: [...mixtureRecords, record],
                 });
                 break;
             default:
@@ -82,7 +81,7 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, m
                         for="mixtureStartDateTime"
                         className="d-block d-sm-inline-block font-size-12 mb-3"
                         style={{
-                            width: "5rem"
+                            width: "5rem",
                         }}
                     >
                         Start
@@ -96,26 +95,30 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, m
                             name="mixtureStartDateTime"
                             className="waves-effect"
                             style={{ maxWidth: "14rem" }}
-                            value={showSkipCheckbox && stage.status.id === 3 ? "" : stage.startedAt || ""}
+                            value={
+                                showSkipCheckbox && stage.status.id === 3
+                                    ? ""
+                                    : stage.startedAt || ""
+                            }
                             onChange={onFormInputChange}
                             hidden={!editable}
                             disabled={showSkipCheckbox && stage.status.id === 3}
                         />
                         <FormFeedback>Enter a valid start time.</FormFeedback>
                     </FormGroup>
-                    {
-                        !editable && <div
-                            className="d-sm-inline-block mb-3"
-                        >
-                            {stage.startedAt ? formatDatetime(stage.startedAt) : "-"}
+                    {!editable && (
+                        <div className="d-sm-inline-block mb-3">
+                            {stage.startedAt
+                                ? formatDatetime(stage.startedAt)
+                                : "-"}
                         </div>
-                    }
+                    )}
                     <div className="clearfix"></div>
                     <Label
                         for="mixtureFinishDateTime"
                         className="d-block d-sm-inline-block font-size-12"
                         style={{
-                            width: "5rem"
+                            width: "5rem",
                         }}
                     >
                         Finish
@@ -128,28 +131,32 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, m
                             type="datetime-local"
                             name="mixtureFinishDateTime"
                             className="waves-effect"
-                            style={{maxWidth: "14rem"}}
-                            value={showSkipCheckbox && stage.status.id === 3 ? "" :stage.endedAt || ""}
+                            style={{ maxWidth: "14rem" }}
+                            value={
+                                showSkipCheckbox && stage.status.id === 3
+                                    ? ""
+                                    : stage.endedAt || ""
+                            }
                             onChange={onFormInputChange}
                             hidden={!editable}
                             disabled={showSkipCheckbox && stage.status.id === 3}
                         />
                         <FormFeedback>Enter a valid finish time.</FormFeedback>
                     </FormGroup>
-                    {
-                        !editable && <div
-                            className="d-sm-inline-block mr-4"
-                        >
-                            {stage.endedAt ? formatDatetime(stage.endedAt) : "-"}
+                    {!editable && (
+                        <div className="d-sm-inline-block mr-4">
+                            {stage.endedAt
+                                ? formatDatetime(stage.endedAt)
+                                : "-"}
                         </div>
-                    }
+                    )}
                 </Col>
                 <Col sm="6">
                     <Label
                         for="mixtureQuantityValue"
                         className="d-block d-sm-inline-block font-size-12"
                         style={{
-                            width: "6rem"
+                            width: "6rem",
                         }}
                     >
                         Final volume
@@ -161,8 +168,16 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, m
                         <Input
                             type="text"
                             className="waves-effect"
-                            value={showSkipCheckbox && stage.status.id === 3 ? "" : mixture.quantity.value || ""}
-                            placeholder={showSkipCheckbox && stage.status.id === 3 ? "-" : "Enter"}
+                            value={
+                                showSkipCheckbox && stage.status.id === 3
+                                    ? ""
+                                    : mixture.quantity.value || ""
+                            }
+                            placeholder={
+                                showSkipCheckbox && stage.status.id === 3
+                                    ? "-"
+                                    : "Enter"
+                            }
                             name="mixtureQuantityValue"
                             onChange={onFormInputChange}
                             style={{ width: "8rem" }}
@@ -171,21 +186,21 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, m
                         />
                         <FormFeedback>Enter a valid number.</FormFeedback>
                     </FormGroup>
-                    {
-                        !editable && <div
-                                className="d-sm-inline-block mb-3"
-                            >
-                            {mixture.quantity.value ? `${mixture.quantity.value} ${mixture.quantity.symbol}`  : "-"}
+                    {!editable && (
+                        <div className="d-sm-inline-block mb-3">
+                            {mixture.quantity.value
+                                ? `${mixture.quantity.value} ${mixture.quantity.symbol}`
+                                : "-"}
                         </div>
-                    }
+                    )}
                     <div className="clearFix"></div>
-                    {mixtureRecords &&
+                    {mixtureRecords && (
                         <React.Fragment>
                             <Label
                                 for="mixtureGravity"
                                 className="d-block d-sm-inline-block font-size-12"
                                 style={{
-                                    width: "6rem"
+                                    width: "6rem",
                                 }}
                             >
                                 Actual Gravity
@@ -199,44 +214,60 @@ export default function MixtureDetails({ stage, setStage, mixture, setMixture, m
                                     className="waves-effect"
                                     value={
                                         // eslint-disable-next-line
-                                        showSkipCheckbox && stage.status.id === 3 ? "" : mixtureRecords && mixtureRecords.find(r => r.measure.id === 5)?.value || ""
+                                        showSkipCheckbox &&
+                                        stage.status.id === 3
+                                            ? ""
+                                            : (mixtureRecords &&
+                                                  mixtureRecords.find(
+                                                      (r) => r.measure.id === 5
+                                                  )?.value) ||
+                                              ""
                                     }
-                                    placeholder={showSkipCheckbox && stage.status.id === 3 ? "-" : "Enter"}
+                                    placeholder={
+                                        showSkipCheckbox &&
+                                        stage.status.id === 3
+                                            ? "-"
+                                            : "Enter"
+                                    }
                                     name="mixtureGravity"
                                     onChange={onFormInputChange}
                                     style={{ width: "8rem" }}
                                     hidden={!editable}
-                                    disabled={showSkipCheckbox && stage.status.id === 3}
+                                    disabled={
+                                        showSkipCheckbox &&
+                                        stage.status.id === 3
+                                    }
                                 />
-                                <FormFeedback>Enter a valid number.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid number.
+                                </FormFeedback>
                             </FormGroup>
-                            {
-                                !editable &&
-                                    <div className="d-sm-inline-block align-middle">
-                                        {
-                                            // eslint-disable-next-line
-                                            mixtureRecords && mixtureRecords.find(r => r.measure.id === 5)?.value || "-"
-                                        }
-                                    </div>
-                            }
+                            {!editable && (
+                                <div className="d-sm-inline-block align-middle">
+                                    {
+                                        // eslint-disable-next-line
+                                        (mixtureRecords &&
+                                            mixtureRecords.find(
+                                                (r) => r.measure.id === 5
+                                            )?.value) ||
+                                            "-"
+                                    }
+                                </div>
+                            )}
                             <div className="clearFix"></div>
                         </React.Fragment>
-                    }
-                    <div
-                        hidden={!showSkipCheckbox}
-                    >
+                    )}
+                    <div hidden={!showSkipCheckbox}>
                         <Label
                             for="mixtureCompleteCheckbox"
                             className="d-inline-block font-size-12"
                             style={{
-                                width: "6rem"
+                                width: "6rem",
                             }}
                         >
                             Skip Stage
                         </Label>
-                        <FormGroup
-                            className="d-sm-inline-block"
-                        >
+                        <FormGroup className="d-sm-inline-block">
                             <Input
                                 type="checkbox"
                                 name="mixtureCompleteCheckbox"

@@ -6,11 +6,13 @@ async function fetchProcurementsQuantity(params = {}) {
             page: params.pageIndex || 0,
             size: params.pageSize || 500,
             sort: params.sort || "material.name",
-            order_asc: !params.order || params.order === "asc"
-        }
+            order_asc: !params.order || params.order === "asc",
+        },
     };
-    return await AxiosInstance.get("/api/v1/inventory/procurements/quantity", data)
-        .then((r) => r);
+    return await AxiosInstance.get(
+        "/api/v1/inventory/procurements/quantity",
+        data
+    ).then((r) => r);
 }
 
 async function fetchStockQuantity(params = {}) {
@@ -20,14 +22,16 @@ async function fetchStockQuantity(params = {}) {
             size: params.pageSize || 500,
             group_by: "ID",
             sort: params.sort || "material.name",
-            order_asc: !params.order || params.order === "asc"
-        }
+            order_asc: !params.order || params.order === "asc",
+        },
     };
-    return await AxiosInstance.get("/api/v1/inventory/stock/quantity", data)
-        .then((r) => r);
-  }
+    return await AxiosInstance.get(
+        "/api/v1/inventory/stock/quantity",
+        data
+    ).then((r) => r);
+}
 
 export const api = {
     fetchProcurementsQuantity,
-    fetchStockQuantity
+    fetchStockQuantity,
 };

@@ -6,61 +6,58 @@ import {
     setKettleMaterialPortionDetails,
     setKettleMixtureDetails,
     setKettleMixtureRecords,
-    setKettleStageDetails
+    setKettleStageDetails,
 } from "../../../../store/actions";
 
 export default function BrewKettle() {
-
     const dispatch = useDispatch();
 
-    const { editable } = useSelector(state => {
+    const { editable } = useSelector((state) => {
         return state.Batch.Batch;
     });
 
-    const stage = useSelector(state => {
+    const stage = useSelector((state) => {
         return state.Batch.KettleStage.data;
     });
 
-    const mixture = useSelector(state => {
+    const mixture = useSelector((state) => {
         return state.Batch.KettleMixture.data;
     });
 
-    const materialPortions = useSelector(state => {
+    const materialPortions = useSelector((state) => {
         return state.Batch.KettleMaterialPortion.content;
     });
 
-    const mixtureRecords = useSelector(state => {
+    const mixtureRecords = useSelector((state) => {
         return state.Batch.KettleMixtureRecordings.content;
     });
 
     function setStage(stage) {
         dispatch(
             setKettleStageDetails({
-                data: stage
+                data: stage,
             })
-        )
+        );
     }
 
     function setMixture(mixture) {
         dispatch(
             setKettleMixtureDetails({
-                data: mixture
+                data: mixture,
             })
-        )
+        );
     }
 
     function setMaterialPortions(materialPortions) {
         dispatch(
             setKettleMaterialPortionDetails({
-                content: materialPortions
+                content: materialPortions,
             })
         );
     }
 
     function setMixtureRecords(mixtureRecords) {
-        dispatch(
-            setKettleMixtureRecords(mixtureRecords)
-        );
+        dispatch(setKettleMixtureRecords(mixtureRecords));
     }
 
     const detailsProps = {
@@ -70,22 +67,22 @@ export default function BrewKettle() {
         setMixture,
         mixtureRecords,
         setMixtureRecords,
-        editable
+        editable,
     };
 
     const ingredientsProps = {
         mixture,
         editable,
         materialPortions,
-        setMaterialPortions
+        setMaterialPortions,
     };
 
     return (
         <React.Fragment>
-            <Details {...detailsProps}/>
+            <Details {...detailsProps} />
             <div className="clearFix mb-3"></div>
             <div className="px-2">
-                <Ingredients {...ingredientsProps}/>
+                <Ingredients {...ingredientsProps} />
             </div>
         </React.Fragment>
     );

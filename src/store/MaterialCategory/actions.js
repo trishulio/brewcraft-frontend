@@ -6,17 +6,17 @@ import {
     SET_MATERIAL_CATEGORY_DETAILS,
     RESET_MATERIAL_CATEGORY_DETAILS,
     INVALID_MATERIAL_CATEGORY_NAME,
-    INVALID_MATERIAL_CATEGORY_PARENT_CATEGORY
+    INVALID_MATERIAL_CATEGORY_PARENT_CATEGORY,
 } from "./actionTypes";
 
-export const setMaterialCategoryDetails = payload => ({
+export const setMaterialCategoryDetails = (payload) => ({
     type: SET_MATERIAL_CATEGORY_DETAILS,
-    payload: payload
+    payload: payload,
 });
 
 export const resetMaterialCategoryDetails = () => ({
     type: RESET_MATERIAL_CATEGORY_DETAILS,
-    payload: null
+    payload: null,
 });
 
 export const fetchMaterialCategoryById = (payload) => ({
@@ -28,26 +28,26 @@ export const editMaterialCategory = (payload) => ({
     payload: payload,
 });
 
-export const deleteMaterialCategory = id => ({
+export const deleteMaterialCategory = (id) => ({
     type: DELETE_MATERIAL_CATEGORY_REQUEST,
     payload: { id },
 });
 
-export const saveMaterialCategory = payload => ({
+export const saveMaterialCategory = (payload) => ({
     type: ADD_MATERIAL_CATEGORY_REQUEST,
-    payload: payload
+    payload: payload,
 });
 
-export const setInvalidMaterialCategoryName = enabled => ({
+export const setInvalidMaterialCategoryName = (enabled) => ({
     type: INVALID_MATERIAL_CATEGORY_NAME,
     payload: {
-        invalidName: enabled
-    }
+        invalidName: enabled,
+    },
 });
 
-export const setInvalidMaterialCategoryParentCategory = enabled => ({
+export const setInvalidMaterialCategoryParentCategory = (enabled) => ({
     type: INVALID_MATERIAL_CATEGORY_PARENT_CATEGORY,
     payload: {
-        invalidParentCategory: enabled
-    }
+        invalidParentCategory: enabled,
+    },
 });

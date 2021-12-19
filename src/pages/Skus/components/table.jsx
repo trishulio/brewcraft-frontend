@@ -8,7 +8,7 @@ export default function SkusTable() {
     const history = useHistory();
     const query = useQuery();
 
-    const skus = useSelector(state => {
+    const skus = useSelector((state) => {
         return state.Skus.content;
     });
 
@@ -48,43 +48,36 @@ export default function SkusTable() {
         history.push({ search: query.toString() });
     }
 
-    return  (
+    return (
         <Table hover>
             <thead>
                 <tr>
-                    <Th
-                        name="sku"
-                        id="sku"
-                        onSort={onSort}
-                    >
+                    <Th name="sku" id="sku" onSort={onSort}>
                         Sku
                     </Th>
-                    <Th
-                        name="skuProduct"
-                        id="product"
-                        onSort={onSort}
-                    >
+                    <Th name="skuProduct" id="product" onSort={onSort}>
                         Product
                     </Th>
-                    <Th
-                        name="skuVolume"
-                        id="volume"
-                        onSort={onSort}
-                    >
+                    <Th name="skuVolume" id="volume" onSort={onSort}>
                         Volume
                     </Th>
                 </tr>
             </thead>
             <tbody>
-                {
-                    skus.map((sku, key) =>
-                        <tr key={key} onClick={() => history.push("/sku/" + sku.id)}>
-                            <td>{sku.name}</td>
-                            <td>{sku.product.name}</td>
-                            <td>{sku.quantity?.value ? sku.quantity.value + " " + sku.quantity.symbol : "-"}</td>
-                        </tr>
-                    )
-                }
+                {skus.map((sku, key) => (
+                    <tr
+                        key={key}
+                        onClick={() => history.push("/sku/" + sku.id)}
+                    >
+                        <td>{sku.name}</td>
+                        <td>{sku.product.name}</td>
+                        <td>
+                            {sku.quantity?.value
+                                ? sku.quantity.value + " " + sku.quantity.symbol
+                                : "-"}
+                        </td>
+                    </tr>
+                ))}
             </tbody>
         </Table>
     );

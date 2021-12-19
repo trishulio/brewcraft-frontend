@@ -7,12 +7,10 @@ async function fetchUserById(id) {
 }
 
 async function postUser(data) {
-    return await AxiosInstance.post("/api/v1/users", data)
-    .then((r) => r);
+    return await AxiosInstance.post("/api/v1/users", data).then((r) => r);
 }
 async function patchUser(id, data) {
-    return await AxiosInstance.put(`/api/v1/users/${id}`, data)
-    .then((r) => r);
+    return await AxiosInstance.put(`/api/v1/users/${id}`, data).then((r) => r);
 }
 
 async function deleteUser(id) {
@@ -23,5 +21,5 @@ export const api = {
     fetchUserById: fetchUserById,
     postUser: postUser,
     patchUser: patchUser,
-    deleteUser: deleteUser
+    deleteUser: deleteUser,
 };

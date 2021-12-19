@@ -13,11 +13,9 @@ import {
     setSkuInvalidProduct,
     setSkuInvalidVolume,
     setSkuInvalidDescription,
-    setSkuInvalidBaseQuantityUnit
+    setSkuInvalidBaseQuantityUnit,
 } from "../../store/actions";
-import {
-    useQuery
-} from "../../helpers/utils";
+import { useQuery } from "../../helpers/utils";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 import SkuInner from "./sku";
@@ -35,16 +33,15 @@ export default function Sku() {
 
     const dispatch = useDispatch();
 
-    const sku = useSelector(state => {
+    const sku = useSelector((state) => {
         return state.Sku.data;
     });
 
-    const initialSku = useSelector(state => {
+    const initialSku = useSelector((state) => {
         return state.Sku.initial;
     });
 
     useEffect(() => {
-
         dispatch(resetSkuDetails());
 
         if (!id || id === "new") {
@@ -58,47 +55,74 @@ export default function Sku() {
 
         setEditable(editMode && editMode !== "false");
         setShowRouterPrompt(!!editMode);
-
     }, [id, editMode, dispatch, history]);
 
     useEffect(() => {
         if (sku.id) {
-            dispatch(setBreadcrumbItems(sku.name, [
-                { title: "Main", link: "#" },
-                { title: "Products", link: "#" },
-                { title: "SKU", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems(sku.name, [
+                    { title: "Main", link: "#" },
+                    { title: "Products", link: "#" },
+                    { title: "SKU", link: "#" },
+                ])
+            );
         } else {
-            dispatch(setBreadcrumbItems("New SKU", [
-                { title: "Main", link: "#" },
-                { title: "Products", link: "#" },
-                { title: "SKU", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems("New SKU", [
+                    { title: "Main", link: "#" },
+                    { title: "Products", link: "#" },
+                    { title: "SKU", link: "#" },
+                ])
+            );
         }
         setChanged(isChanged());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sku]);
 
     function isChanged() {
-        return JSON.stringify(
-                (({ id, name, description, product, materials, quantity }) => ({ id, name, description, product, materials, quantity }))(initialSku))
-            !== JSON.stringify(
-                (({ id, name, description, product, materials, quantity }) => ({ id, name, description, product, materials, quantity }))(sku))
+        return (
+            JSON.stringify(
+                (({ id, name, description, product, materials, quantity }) => ({
+                    id,
+                    name,
+                    description,
+                    product,
+                    materials,
+                    quantity,
+                }))(initialSku)
+            ) !==
+            JSON.stringify(
+                (({ id, name, description, product, materials, quantity }) => ({
+                    id,
+                    name,
+                    description,
+                    product,
+                    materials,
+                    quantity,
+                }))(sku)
+            )
+        );
     }
 
     function onSave() {
-        if (!sku.name || (sku.name && sku.name.length > 12) || !sku.product?.id || !sku.quantity?.value || !sku.description || !sku.quantity?.symbol ) {
+        if (
+            !sku.name ||
+            (sku.name && sku.name.length > 12) ||
+            !sku.product?.id ||
+            !sku.quantity?.value ||
+            !sku.description ||
+            !sku.quantity?.symbol
+        ) {
             dispatch(setSkuInvalidName(sku.name));
             dispatch(setSkuInvalidProduct(!sku.product?.id));
             dispatch(setSkuInvalidVolume(!sku.quantity.value));
             dispatch(setSkuInvalidDescription(!sku.description));
-            dispatch(setSkuInvalidBaseQuantityUnit(!sku.quantity.symbol))
-            return
+            dispatch(setSkuInvalidBaseQuantityUnit(!sku.quantity.symbol));
+            return;
         }
 
         if (!isChanged()) {
             history.push("/sku/" + id);
-
         } else if (sku.id) {
             dispatch(
                 updateSku({
@@ -109,11 +133,11 @@ export default function Sku() {
                         productId: sku.product.id,
                         quantity: {
                             value: parseFloat(sku.quantity.value),
-                            symbol: sku.quantity.symbol
+                            symbol: sku.quantity.symbol,
                         },
                         materials: [],
-                        version: sku.version
-                    }
+                        version: sku.version,
+                    },
                 })
             );
         } else {
@@ -125,10 +149,10 @@ export default function Sku() {
                         productId: sku.product.id,
                         quantity: {
                             value: parseFloat(sku.quantity.value),
-                            symbol: sku.quantity.symbol
+                            symbol: sku.quantity.symbol,
                         },
-                        materials: []
-                    }
+                        materials: [],
+                    },
                 })
             );
         }
@@ -137,7 +161,7 @@ export default function Sku() {
     function onEdit() {
         history.push({
             pathname: `/sku/${id}`,
-            search: "?edit=true"
+            search: "?edit=true",
         });
     }
 
@@ -160,13 +184,15 @@ export default function Sku() {
             />
             <RouteLeavingGuard
                 when={showRouterPrompt}
-                navigate={path => {
+                navigate={(path) => {
                     history.push(path);
                 }}
                 shouldBlockNavigation={() => editMode && isChanged()}
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
-            <SkuInner {...{sku, editable, changed, onSave, onEdit, onDelete}} />
+            <SkuInner
+                {...{ sku, editable, changed, onSave, onEdit, onDelete }}
+            />
         </React.Fragment>
     );
 }

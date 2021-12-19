@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
-import {
-    Modal,
-    ModalBody,
-    ModalFooter
-} from "../Common/modal";
+import { Modal, ModalBody, ModalFooter } from "../Common/modal";
 
-export const DeleteGuard = ({
-    when,
-    confirm,
-    close,
-    content
-}) => {
+export const DeleteGuard = ({ when, confirm, close, content }) => {
     const [modalVisible, updateModalVisible] = useState(false);
     const [confirmedNavigation, updateConfirmedNavigation] = useState(false);
 
@@ -19,7 +10,7 @@ export const DeleteGuard = ({
         updateModalVisible(when);
     }, [when]);
 
-    const closeModal = cb => {
+    const closeModal = (cb) => {
         close();
         if (cb) {
             try {
@@ -54,8 +45,15 @@ export const DeleteGuard = ({
                     <p className="main_text">{content}</p>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="secondary" onClick={handleConfirmNavigationClick}>Confirm</Button>
-                    <Button color="primary" onClick={closeModal}>Cancel</Button>
+                    <Button
+                        color="secondary"
+                        onClick={handleConfirmNavigationClick}
+                    >
+                        Confirm
+                    </Button>
+                    <Button color="primary" onClick={closeModal}>
+                        Cancel
+                    </Button>
                 </ModalFooter>
             </Modal>
         </>

@@ -4,7 +4,7 @@
             "name": "Launch App",
             "type": "node-terminal",
             "command": "npm start",
-            "request": "launch",
+            "request": "launch"
         },
         {
             "name": "Launch debug",

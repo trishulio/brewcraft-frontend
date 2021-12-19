@@ -15,74 +15,74 @@ import {
     SET_USER_INVALID_ROLES,
 } from "./actionTypes";
 
-export const setUserDetails = payload => ({
+export const setUserDetails = (payload) => ({
     type: SET_USER_DETAILS,
-    payload
+    payload,
 });
 
-export const setUserDetailsError = error => ({
+export const setUserDetailsError = (error) => ({
     type: SET_USER_DETAILS_ERROR,
     payload: {
-        ...error
-    }
+        ...error,
+    },
 });
 
-export const fetchUserById = id => ({
+export const fetchUserById = (id) => ({
     type: FETCH_USER,
-    payload: { id }
+    payload: { id },
 });
 
-export const createUser = payload => ({
+export const createUser = (payload) => ({
     type: CREATE_USER,
-    payload
+    payload,
 });
 
-export const updateUser = payload => ({
+export const updateUser = (payload) => ({
     type: UPDATE_USER,
-    payload
+    payload,
 });
 
-export const deleteUser = id => ({
+export const deleteUser = (id) => ({
     type: DELETE_USER,
-    payload: { id }
+    payload: { id },
 });
 
 export const resetUserDetails = () => ({
     type: RESET_USER_DETAILS,
-    payload: null
+    payload: null,
 });
 
-export const setUserInvalidUserName = value => ({
+export const setUserInvalidUserName = (value) => ({
     type: SET_USER_INVALID_USERNAME,
-    payload: value
+    payload: value,
 });
 
-export const setUserInvalidDisplayName = value => ({
+export const setUserInvalidDisplayName = (value) => ({
     type: SET_USER_INVALID_DISPLAYNAME,
-    payload: value
+    payload: value,
 });
 
-export const setUserInvalidFirstName = value => ({
+export const setUserInvalidFirstName = (value) => ({
     type: SET_USER_INVALID_FIRSTNAME,
-    payload: value
+    payload: value,
 });
 
-export const setUserInvalidLastName = value => ({
+export const setUserInvalidLastName = (value) => ({
     type: SET_USER_INVALID_LASTNAME,
-    payload: value
+    payload: value,
 });
 
-export const setUserInvalidEmail = value => ({
+export const setUserInvalidEmail = (value) => ({
     type: SET_USER_INVALID_EMAIL,
-    payload: value
+    payload: value,
 });
 
-export const setUserInvalidPhoneNumber = value => ({
+export const setUserInvalidPhoneNumber = (value) => ({
     type: SET_USER_INVALID_PHONENUMBER,
-    payload: value
+    payload: value,
 });
 
-export const setUserInvalidRoles = value => ({
+export const setUserInvalidRoles = (value) => ({
     type: SET_USER_INVALID_ROLES,
-    payload: value
+    payload: value,
 });

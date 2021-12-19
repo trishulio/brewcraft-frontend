@@ -3,7 +3,7 @@ import {
     SET_USER_ROLES_ERROR,
     SET_ALL_USER_ROLES,
     FETCH_USER_ROLES,
-    FETCH_ALL_USER_ROLES
+    FETCH_ALL_USER_ROLES,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
@@ -12,24 +12,27 @@ import { get } from "lodash";
 function* fetchAllUserRoles(action) {
     try {
         const res = yield call(api.fetchUserRoles, {});
-        yield put({ type: SET_ALL_USER_ROLES, payload: { data: res.data.content }});
+        yield put({
+            type: SET_ALL_USER_ROLES,
+            payload: { data: res.data.content },
+        });
         if (action.payload?.success) {
             yield call(action.payload.success);
         }
     } catch (e) {
-        yield put({ type: SET_USER_ROLES_ERROR, payload: { error: true }});
+        yield put({ type: SET_USER_ROLES_ERROR, payload: { error: true } });
     }
 }
 
 function* fetchUserRoles(action) {
     try {
         const res = yield call(api.fetchUserRoles, get(action, "payload"));
-        yield put({ type: SET_USER_ROLES, payload: { ...res.data }});
+        yield put({ type: SET_USER_ROLES, payload: { ...res.data } });
         if (action.payload?.success) {
             yield call(action.payload.success);
         }
     } catch (e) {
-        yield put({ type: SET_USER_ROLES_ERROR, payload: { error: true }});
+        yield put({ type: SET_USER_ROLES_ERROR, payload: { error: true } });
     }
 }
 

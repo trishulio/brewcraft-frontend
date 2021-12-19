@@ -12,13 +12,9 @@ import {
     setPackagingItemInvalidName,
     setPackagingItemInvalidCategory,
     setPackagingItemInvalidBaseQuantityUnit,
-    setInvalidPackagingUpc
+    setInvalidPackagingUpc,
 } from "../../store/actions";
-import {
-    isValidName,
-    useQuery,
-    validId
-} from "../../helpers/utils";
+import { isValidName, useQuery, validId } from "../../helpers/utils";
 import PackagingItemInner from "./packaging-item";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
@@ -35,11 +31,11 @@ export default function PackagingItem() {
     const editMode = query.get("edit");
     const dispatch = useDispatch();
 
-    const packagingItem = useSelector(state => {
+    const packagingItem = useSelector((state) => {
         return state.PackagingItem.data;
     });
 
-    const initialPackagingItem = useSelector(state => {
+    const initialPackagingItem = useSelector((state) => {
         return state.PackagingItem.initial;
     });
 
@@ -61,15 +57,19 @@ export default function PackagingItem() {
 
     useEffect(() => {
         if (packagingItem.id) {
-            dispatch(setBreadcrumbItems(packagingItem.name, [
-                { title: "Main", link: "#" },
-                { title: "Packaging", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems(packagingItem.name, [
+                    { title: "Main", link: "#" },
+                    { title: "Packaging", link: "#" },
+                ])
+            );
         } else {
-            dispatch(setBreadcrumbItems("New Packaging Item", [
-                { title: "Main", link: "#" },
-                { title: "Packaging", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems("New Packaging Item", [
+                    { title: "Main", link: "#" },
+                    { title: "Packaging", link: "#" },
+                ])
+            );
         }
         setChanged(isChanged());
 
@@ -77,23 +77,69 @@ export default function PackagingItem() {
     }, [packagingItem]);
 
     function isChanged() {
-        return JSON.stringify(
-                (({ id, name, description, category, baseQuantityUnit, upc }) => ({ id, name, description, category, baseQuantityUnit, upc }))(initialPackagingItem))
-            !== JSON.stringify(
-                (({ id, name, description, category, baseQuantityUnit, upc }) => ({ id, name, description, category, baseQuantityUnit, upc }))(packagingItem))
+        return (
+            JSON.stringify(
+                (({
+                    id,
+                    name,
+                    description,
+                    category,
+                    baseQuantityUnit,
+                    upc,
+                }) => ({
+                    id,
+                    name,
+                    description,
+                    category,
+                    baseQuantityUnit,
+                    upc,
+                }))(initialPackagingItem)
+            ) !==
+            JSON.stringify(
+                (({
+                    id,
+                    name,
+                    description,
+                    category,
+                    baseQuantityUnit,
+                    upc,
+                }) => ({
+                    id,
+                    name,
+                    description,
+                    category,
+                    baseQuantityUnit,
+                    upc,
+                }))(packagingItem)
+            )
+        );
     }
 
     function onSave() {
-        if (!isValidName(packagingItem.name) || !validId(packagingItem.category?.id) || !packagingItem.baseQuantityUnit || (packagingItem.upc && packagingItem.upc.length > 12)) {
-            dispatch(setPackagingItemInvalidName(!isValidName(packagingItem.name)));
-            dispatch(setPackagingItemInvalidCategory(!validId(packagingItem.category?.id)));
-            dispatch(setPackagingItemInvalidBaseQuantityUnit(!packagingItem.baseQuantityUnit));
+        if (
+            !isValidName(packagingItem.name) ||
+            !validId(packagingItem.category?.id) ||
+            !packagingItem.baseQuantityUnit ||
+            (packagingItem.upc && packagingItem.upc.length > 12)
+        ) {
+            dispatch(
+                setPackagingItemInvalidName(!isValidName(packagingItem.name))
+            );
+            dispatch(
+                setPackagingItemInvalidCategory(
+                    !validId(packagingItem.category?.id)
+                )
+            );
+            dispatch(
+                setPackagingItemInvalidBaseQuantityUnit(
+                    !packagingItem.baseQuantityUnit
+                )
+            );
             dispatch(setInvalidPackagingUpc(packagingItem.upc));
-            return
+            return;
         }
         if (!isChanged()) {
             history.push("/materials/packaging/" + id);
-
         } else if (packagingItem.id) {
             dispatch(
                 editPackagingItem({
@@ -104,16 +150,18 @@ export default function PackagingItem() {
                         categoryId: packagingItem.category.id,
                         baseQuantityUnit: packagingItem.baseQuantityUnit,
                         upc: packagingItem.upc,
-                        imageSrc: "https://media.giphy.com/media/13raYVIdU3Zu48/giphy.gif?cid=ecf05e47f0oz1g60305stwichysuopch345osbr07wf33sb0&rid=giphy.gif&ct=g",
-                        version: packagingItem.version
+                        imageSrc:
+                            "https://media.giphy.com/media/13raYVIdU3Zu48/giphy.gif?cid=ecf05e47f0oz1g60305stwichysuopch345osbr07wf33sb0&rid=giphy.gif&ct=g",
+                        version: packagingItem.version,
                     },
-                    success: packagingItem => {
-                        history.push("/materials/packaging/" + packagingItem.id);
-                    }
+                    success: (packagingItem) => {
+                        history.push(
+                            "/materials/packaging/" + packagingItem.id
+                        );
+                    },
                 })
             );
         } else {
-
             dispatch(
                 savePackagingItem({
                     form: {
@@ -122,18 +170,21 @@ export default function PackagingItem() {
                         categoryId: packagingItem.category.id,
                         baseQuantityUnit: packagingItem.baseQuantityUnit,
                         upc: packagingItem.upc,
-                        imageSrc: "https://media.giphy.com/media/13raYVIdU3Zu48/giphy.gif?cid=ecf05e47f0oz1g60305stwichysuopch345osbr07wf33sb0&rid=giphy.gif&ct=g",
+                        imageSrc:
+                            "https://media.giphy.com/media/13raYVIdU3Zu48/giphy.gif?cid=ecf05e47f0oz1g60305stwichysuopch345osbr07wf33sb0&rid=giphy.gif&ct=g",
                     },
-                    success: packagingItem => {
-                        history.push("/materials/packaging/" + packagingItem.id);
-                    }
+                    success: (packagingItem) => {
+                        history.push(
+                            "/materials/packaging/" + packagingItem.id
+                        );
+                    },
                 })
             );
         }
     }
 
     function onDelete() {
-        setShowDeletePrompt(!!packagingItem.id)
+        setShowDeletePrompt(!!packagingItem.id);
     }
 
     return (
@@ -151,13 +202,13 @@ export default function PackagingItem() {
             />
             <RouteLeavingGuard
                 when={showRouterPrompt}
-                navigate={path => {
+                navigate={(path) => {
                     history.push(path);
                 }}
                 shouldBlockNavigation={() => editMode && isChanged()}
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
-            <PackagingItemInner {...{editable, changed, onSave, onDelete}} />
+            <PackagingItemInner {...{ editable, changed, onSave, onDelete }} />
         </React.Fragment>
     );
 }

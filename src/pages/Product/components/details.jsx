@@ -1,24 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filter, map } from "lodash";
-import {
-    Row,
-    Col,
-    FormGroup,
-    FormFeedback,
-    Input,
-    Label
-} from "reactstrap";
+import { Row, Col, FormGroup, FormFeedback, Input, Label } from "reactstrap";
 import {
     setProductDetails,
     setProductInvalidName,
-    setProductInvalidClass
+    setProductInvalidClass,
 } from "../../../store/actions";
-import {
-    Card,
-    CardBody,
-    CardHeader
-} from "../../../component/Common/Card";
+import { Card, CardBody, CardHeader } from "../../../component/Common/Card";
 import CategoriesModal from "../../../component/ProductCategories/modal";
 
 const ADD_NEW = "ADD_NEW";
@@ -27,60 +16,77 @@ const PRODUCT_CATEGORY_STYLE = "style";
 const PRODUCT_CATEGORY_TYPE = "type";
 
 export default function ProductDetails({ product, editable }) {
-    const [showProductCategoryModal, setShowProductCategoryModal] = useState(false);
+    const [showProductCategoryModal, setShowProductCategoryModal] =
+        useState(false);
     const [modalCategoryType, setModalCategoryType] = useState(null);
     const [modalParentCategoryId, setModalParentCategoryId] = useState(null);
 
-    const { invalidName, invalidClass, invalidType } = useSelector(state => {
-        return state.Product
+    const { invalidName, invalidClass, invalidType } = useSelector((state) => {
+        return state.Product;
     });
 
-    const categories = useSelector(state => {
+    const categories = useSelector((state) => {
         return state.ProductCategories.data;
     });
 
     const dispatch = useDispatch();
 
     function onFormInputChange(e) {
-        switch(e.target.name) {
+        switch (e.target.name) {
             case "productName":
                 if (product.name !== e.target.value) {
                     dispatch(setProductInvalidName(!e.target.value));
-                    dispatch(setProductDetails({
-                        name: e.target.value
-                    }));
+                    dispatch(
+                        setProductDetails({
+                            name: e.target.value,
+                        })
+                    );
                 }
                 break;
             case "productClass":
                 if (product.productClass?.id !== e.target.value) {
                     dispatch(setProductInvalidClass(!e.target.value));
-                    dispatch(setProductDetails({
-                        productClass: categories.find(c => c.id === parseInt(e.target.value)),
-                        type: null,
-                        style: null
-                    }));
+                    dispatch(
+                        setProductDetails({
+                            productClass: categories.find(
+                                (c) => c.id === parseInt(e.target.value)
+                            ),
+                            type: null,
+                            style: null,
+                        })
+                    );
                 }
                 break;
             case "productType":
                 if (product.productType?.id !== e.target.value) {
-                    dispatch(setProductDetails({
-                        type: categories.find(c => c.id === parseInt(e.target.value)),
-                        style: null
-                    }));
+                    dispatch(
+                        setProductDetails({
+                            type: categories.find(
+                                (c) => c.id === parseInt(e.target.value)
+                            ),
+                            style: null,
+                        })
+                    );
                 }
                 break;
             case "productStyle":
                 if (product.productStyle?.id !== e.target.value) {
-                    dispatch(setProductDetails({
-                        style: categories.find(c => c.id === parseInt(e.target.value))
-                    }));
+                    dispatch(
+                        setProductDetails({
+                            style: categories.find(
+                                (c) => c.id === parseInt(e.target.value)
+                            ),
+                        })
+                    );
                 }
                 break;
             case "productDescription":
                 if (product.productStyle?.id !== e.target.value) {
-                    dispatch(setProductDetails({
-                        description: e.target.value
-                    }));
+                    dispatch(
+                        setProductDetails({
+                            description: e.target.value,
+                        })
+                    );
                 }
                 break;
             default:
@@ -95,17 +101,12 @@ export default function ProductDetails({ product, editable }) {
                 <CardBody>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="name"
-                                className="mb-3"
-                            >
+                            <Label for="name" className="mb-3">
                                 Name
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="text"
                                     className="waves-effect"
@@ -118,7 +119,9 @@ export default function ProductDetails({ product, editable }) {
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
                                 />
-                                <FormFeedback>Enter a valid product name.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid product name.
+                                </FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
                                 {product.name ? product.name : "-"}
@@ -127,17 +130,12 @@ export default function ProductDetails({ product, editable }) {
                     </Row>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="productClass"
-                                className="mb-3"
-                            >
+                            <Label for="productClass" className="mb-3">
                                 Class
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="select"
                                     className="waves-effect"
@@ -146,47 +144,59 @@ export default function ProductDetails({ product, editable }) {
                                     style={{ width: "8rem" }}
                                     disabled={!editable}
                                     invalid={invalidClass}
-                                    value={product.productClass ? product.productClass.id : ""}
-                                    onChange={e => {
+                                    value={
+                                        product.productClass
+                                            ? product.productClass.id
+                                            : ""
+                                    }
+                                    onChange={(e) => {
                                         if (e.target.value !== ADD_NEW) {
                                             onFormInputChange(e);
                                         } else {
-                                            setModalCategoryType(PRODUCT_CATEGORY_CLASS);
+                                            setModalCategoryType(
+                                                PRODUCT_CATEGORY_CLASS
+                                            );
                                             setModalParentCategoryId(null);
                                             setShowProductCategoryModal(true);
                                         }
                                     }}
                                 >
                                     <option value="">Select</option>
-                                    {
-                                        map(filter(categories, c => c.parentCategoryId === null), (value, index) => (
-                                            <option value={value.id} key={index}>
+                                    {map(
+                                        filter(
+                                            categories,
+                                            (c) => c.parentCategoryId === null
+                                        ),
+                                        (value, index) => (
+                                            <option
+                                                value={value.id}
+                                                key={index}
+                                            >
                                                 {value.name}
                                             </option>
-                                        ))
-                                    }
+                                        )
+                                    )}
                                     <option value={ADD_NEW}>+ Add new</option>
                                 </Input>
-                                <FormFeedback>Enter a valid product class.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid product class.
+                                </FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
-                                {product.productClass ? product.productClass.name : "-"}
+                                {product.productClass
+                                    ? product.productClass.name
+                                    : "-"}
                             </div>
                         </Col>
                     </Row>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="type"
-                                className="mb-3"
-                            >
+                            <Label for="type" className="mb-3">
                                 Type
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="select"
                                     className="waves-effect"
@@ -196,30 +206,47 @@ export default function ProductDetails({ product, editable }) {
                                     disabled={!editable}
                                     invalid={invalidType}
                                     value={product.type ? product.type.id : ""}
-                                    onChange={e => {
+                                    onChange={(e) => {
                                         if (e.target.value !== ADD_NEW) {
                                             onFormInputChange(e);
                                         } else {
-                                            setModalCategoryType(PRODUCT_CATEGORY_TYPE);
-                                            setModalParentCategoryId(product.productClass.id);
+                                            setModalCategoryType(
+                                                PRODUCT_CATEGORY_TYPE
+                                            );
+                                            setModalParentCategoryId(
+                                                product.productClass.id
+                                            );
                                             setShowProductCategoryModal(true);
                                         }
                                     }}
                                 >
                                     <option value="">Select</option>
-                                    {
-                                        product.productClass &&
-                                        map(filter(categories, c => c.parentCategoryId === product.productClass.id), (value, index) => (
-                                            <option value={value.id} key={index}>
-                                                {value.name}
-                                            </option>
-                                        ))
-                                    } {
-                                        product.productClass &&
-                                        <option value={ADD_NEW}>+ Add new</option>
-                                    }
+                                    {product.productClass &&
+                                        map(
+                                            filter(
+                                                categories,
+                                                (c) =>
+                                                    c.parentCategoryId ===
+                                                    product.productClass.id
+                                            ),
+                                            (value, index) => (
+                                                <option
+                                                    value={value.id}
+                                                    key={index}
+                                                >
+                                                    {value.name}
+                                                </option>
+                                            )
+                                        )}{" "}
+                                    {product.productClass && (
+                                        <option value={ADD_NEW}>
+                                            + Add new
+                                        </option>
+                                    )}
                                 </Input>
-                                <FormFeedback>Enter a valid product style.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid product style.
+                                </FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
                                 {product.type ? product.type.name : "-"}
@@ -228,17 +255,12 @@ export default function ProductDetails({ product, editable }) {
                     </Row>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="style"
-                                className="mb-3"
-                            >
+                            <Label for="style" className="mb-3">
                                 Style
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="select"
                                     className="waves-effect"
@@ -246,31 +268,50 @@ export default function ProductDetails({ product, editable }) {
                                     style={{ width: "8rem" }}
                                     name="productStyle"
                                     disabled={!editable}
-                                    value={product.style ? product.style.id : ""}
-                                    onChange={e => {
+                                    value={
+                                        product.style ? product.style.id : ""
+                                    }
+                                    onChange={(e) => {
                                         if (e.target.value !== ADD_NEW) {
                                             onFormInputChange(e);
                                         } else {
-                                            setModalCategoryType(PRODUCT_CATEGORY_STYLE);
-                                            setModalParentCategoryId(product.type.id);
+                                            setModalCategoryType(
+                                                PRODUCT_CATEGORY_STYLE
+                                            );
+                                            setModalParentCategoryId(
+                                                product.type.id
+                                            );
                                             setShowProductCategoryModal(true);
                                         }
                                     }}
                                 >
                                     <option value="">Select</option>
-                                    {
-                                        product.type &&
-                                        map(filter(categories, c => c.parentCategoryId === product.type.id), (value, index) => (
-                                            <option value={value.id} key={index}>
-                                                {value.name}
-                                            </option>
-                                        ))
-                                    } {
-                                        product.type &&
-                                        <option value={ADD_NEW}>+ Add new</option>
-                                    }
+                                    {product.type &&
+                                        map(
+                                            filter(
+                                                categories,
+                                                (c) =>
+                                                    c.parentCategoryId ===
+                                                    product.type.id
+                                            ),
+                                            (value, index) => (
+                                                <option
+                                                    value={value.id}
+                                                    key={index}
+                                                >
+                                                    {value.name}
+                                                </option>
+                                            )
+                                        )}{" "}
+                                    {product.type && (
+                                        <option value={ADD_NEW}>
+                                            + Add new
+                                        </option>
+                                    )}
                                 </Input>
-                                <FormFeedback>Enter a valid product style.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid product style.
+                                </FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
                                 {product.style ? product.style.name : "-"}
@@ -279,11 +320,7 @@ export default function ProductDetails({ product, editable }) {
                     </Row>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="description"
-                            >
-                                Description
-                            </Label>
+                            <Label for="description">Description</Label>
                         </Col>
                         <Col xs="10">
                             <Input
@@ -293,7 +330,7 @@ export default function ProductDetails({ product, editable }) {
                                 rows={4}
                                 name="productDescription"
                                 disabled={!editable}
-                                onChange={e => {
+                                onChange={(e) => {
                                     onFormInputChange(e);
                                 }}
                                 autoComplete="false"

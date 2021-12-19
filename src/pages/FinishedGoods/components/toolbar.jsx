@@ -1,22 +1,22 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-    Button,
-    Input
-} from "reactstrap";
+import { Button, Input } from "reactstrap";
 import Toolbar from "../../../component/Common/toolbar";
 
 export default function FinishedGoodsToolbar() {
-
     const history = useHistory();
 
-    const products = useSelector(state => {
-        return state.Products.all.sort((e1, e2) => e1.name.localeCompare(e2.name));
+    const products = useSelector((state) => {
+        return state.Products.all.sort((e1, e2) =>
+            e1.name.localeCompare(e2.name)
+        );
     });
 
-    const packaging = useSelector(state => {
-        return state.Packaging.all.sort((e1, e2) => e1.name.localeCompare(e2.name));
+    const packaging = useSelector((state) => {
+        return state.Packaging.all.sort((e1, e2) =>
+            e1.name.localeCompare(e2.name)
+        );
     });
 
     return (
@@ -30,7 +30,7 @@ export default function FinishedGoodsToolbar() {
                     history.push("/finished-goods/new");
                 }}
             >
-                    New SKU
+                New SKU
             </Button>
             <Button
                 type="button"
@@ -39,7 +39,7 @@ export default function FinishedGoodsToolbar() {
                 className="waves-effect mr-2 mb-3"
                 disabled={true}
             >
-                    Group
+                Group
             </Button>
             <Button
                 type="button"
@@ -48,7 +48,7 @@ export default function FinishedGoodsToolbar() {
                 className="waves-effect mr-2 mb-3"
                 disabled={true}
             >
-                    Ungroup
+                Ungroup
             </Button>
             <Input
                 type="select"
@@ -57,13 +57,11 @@ export default function FinishedGoodsToolbar() {
                 style={{ width: 100 }}
             >
                 <option value="">Product</option>
-                {
-                    products.map((value, index) => (
-                        <option value={value.id} key={index}>
-                            {value.name}
-                        </option>
-                    ))
-                }
+                {products.map((value, index) => (
+                    <option value={value.id} key={index}>
+                        {value.name}
+                    </option>
+                ))}
             </Input>
             <Input
                 type="select"
@@ -72,13 +70,11 @@ export default function FinishedGoodsToolbar() {
                 style={{ width: 100 }}
             >
                 <option value="">Packaging</option>
-                {
-                    packaging.map((value, index) => (
-                        <option value={value.id} key={index}>
-                            {value.name}
-                        </option>
-                    ))
-                }
+                {packaging.map((value, index) => (
+                    <option value={value.id} key={index}>
+                        {value.name}
+                    </option>
+                ))}
             </Input>
             <Input
                 bsSize="sm"

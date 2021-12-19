@@ -13,5 +13,5 @@ export {
     TransferStage,
     FermentStage,
     ConditionStage,
-    BriteTankStage
-}
+    BriteTankStage,
+};

@@ -1,24 +1,22 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { map } from "lodash";
-import {
-    Button,
-    FormFeedback,
-    FormGroup,
-    Input,
-    Label
-} from "reactstrap";
+import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
 import { formatDatetime } from "../../../../helpers/textUtils";
 
-export default function BatchRecordings({ mixtureRecordings, setMixtureRecordings, editable }) {
+export default function BatchRecordings({
+    mixtureRecordings,
+    setMixtureRecordings,
+    editable,
+}) {
     const [items, setItems] = useState([]);
     const [measure, setMeasure] = useState("");
     const [quantity, setQuantity] = useState(0);
 
-    const measures = useSelector(state => {
+    const measures = useSelector((state) => {
         return state.Measures.content;
-    })
+    });
 
     return (
         <React.Fragment>
@@ -27,7 +25,7 @@ export default function BatchRecordings({ mixtureRecordings, setMixtureRecording
                 for="mixtureRecording"
                 className="d-block d-inline-block font-size-12 mb-3"
                 style={{
-                    width: "5rem"
+                    width: "5rem",
                 }}
             >
                 Recordings
@@ -43,83 +41,94 @@ export default function BatchRecordings({ mixtureRecordings, setMixtureRecording
                         </tr>
                     </thead>
                     <tbody>
-                    {
-                        !mixtureRecordings.length && (
+                        {!mixtureRecordings.length && (
                             <tr>
-                                <td></td><td>-</td><td>-</td><td>-</td>
+                                <td></td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
                             </tr>
-                        )
-                    }
-                    {
-                        mixtureRecordings && map(mixtureRecordings, (recording, index) => (
-                            <tr key={index}>
-                                <td>
-                                    <div className="d-flex align-items-center vertical-center">
-                                        {editable && <Input
-                                            className="ml-1"
-                                            type="checkbox"
-                                            disabled={!editable}
-                                            onChange={e => {
-                                                if (e.target.checked) {
-                                                    setItems([
-                                                        ...items,
-                                                        recording.measure.id
-                                                    ])
-                                                } else {
-                                                    setItems(items.filter(l => l !== recording.measure.id))
-                                                }
-                                            }}
-                                            checked={items.includes(recording.measure.id) && editable}
-                                        />}
-                                    </div>
-                                </td>
-                                <td>{recording.measure.name}</td>
-                                <td>{recording.value}</td>
-                                <td>{formatDatetime(recording.recordedAt)}</td>
-                            </tr>
-                        ))
-                    }
+                        )}
+                        {mixtureRecordings &&
+                            map(mixtureRecordings, (recording, index) => (
+                                <tr key={index}>
+                                    <td>
+                                        <div className="d-flex align-items-center vertical-center">
+                                            {editable && (
+                                                <Input
+                                                    className="ml-1"
+                                                    type="checkbox"
+                                                    disabled={!editable}
+                                                    onChange={(e) => {
+                                                        if (e.target.checked) {
+                                                            setItems([
+                                                                ...items,
+                                                                recording
+                                                                    .measure.id,
+                                                            ]);
+                                                        } else {
+                                                            setItems(
+                                                                items.filter(
+                                                                    (l) =>
+                                                                        l !==
+                                                                        recording
+                                                                            .measure
+                                                                            .id
+                                                                )
+                                                            );
+                                                        }
+                                                    }}
+                                                    checked={
+                                                        items.includes(
+                                                            recording.measure.id
+                                                        ) && editable
+                                                    }
+                                                />
+                                            )}
+                                        </div>
+                                    </td>
+                                    <td>{recording.measure.name}</td>
+                                    <td>{recording.value}</td>
+                                    <td>
+                                        {formatDatetime(recording.recordedAt)}
+                                    </td>
+                                </tr>
+                            ))}
                     </tbody>
                 </CommonTable>
             </div>
-            <div
-                hidden={!editable}
-            >
-                <FormGroup
-                    className="d-block d-sm-inline-block mr-2"
-                >
+            <div hidden={!editable}>
+                <FormGroup className="d-block d-sm-inline-block mr-2">
                     <Input
                         type="select"
                         name="mixtureRecordingMeasure"
                         className="waves-effect"
                         style={{ width: "14rem" }}
                         value={measure.id || ""}
-                        onChange={e => {
-                            const measure = measures.find (s => s.id === parseInt(e.target.value));
+                        onChange={(e) => {
+                            const measure = measures.find(
+                                (s) => s.id === parseInt(e.target.value)
+                            );
                             setMeasure(measure);
                         }}
                     >
                         <option value="">Recording</option>
-                        {
-                            map(measures, (value, index) => (
-                                <option value={value.id} key={index}>
-                                    {value.name}
-                                </option>
-                            ))
-                        }
+                        {map(measures, (value, index) => (
+                            <option value={value.id} key={index}>
+                                {value.name}
+                            </option>
+                        ))}
                     </Input>
                     <FormFeedback>Enter a valid measure.</FormFeedback>
                 </FormGroup>
-                <FormGroup
-                    className="d-block d-sm-inline-block mr-2"
-                >
+                <FormGroup className="d-block d-sm-inline-block mr-2">
                     <Input
                         type="number"
                         name="MixtureRecordingQuantity"
                         className="waves-effect"
                         style={{ width: "8rem" }}
                         value={quantity || ""}
-                        onChange={e => {
+                        onChange={(e) => {
                             setQuantity(e.target.value);
                         }}
                         disabled={!measure.id}
@@ -131,10 +140,11 @@ export default function BatchRecordings({ mixtureRecordings, setMixtureRecording
                     className="waves-effect mr-2"
                     onClick={() => {
                         setMixtureRecordings([
-                            ...mixtureRecordings, {
+                            ...mixtureRecordings,
+                            {
                                 measure,
-                                value: quantity
-                            }
+                                value: quantity,
+                            },
                         ]);
                     }}
                     hidden={!editable}
@@ -148,7 +158,9 @@ export default function BatchRecordings({ mixtureRecordings, setMixtureRecording
                     className="waves-effect"
                     onClick={() => {
                         setMixtureRecordings(
-                            mixtureRecordings.filter(p => !items.includes(p.measure.id))
+                            mixtureRecordings.filter(
+                                (p) => !items.includes(p.measure.id)
+                            )
                         );
                         setItems([]);
                     }}

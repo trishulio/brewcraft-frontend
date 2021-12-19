@@ -1,24 +1,24 @@
 import {
     FETCH_MEASURE_REQUEST,
     SET_MEASURE_PAGE_INDEX,
-    SET_MEASURE_PAGE_SIZE
+    SET_MEASURE_PAGE_SIZE,
 } from "./actionTypes";
 
-export const fetchMeasures = params => ({
+export const fetchMeasures = (params) => ({
     type: FETCH_MEASURE_REQUEST,
     payload: { params },
 });
 
-export const setMeasuresPageIndex = index => ({
+export const setMeasuresPageIndex = (index) => ({
     type: SET_MEASURE_PAGE_INDEX,
     payload: {
-        pageIndex: index
-    }
+        pageIndex: index,
+    },
 });
 
-export const setMeasuresPageSize = size => ({
+export const setMeasuresPageSize = (size) => ({
     type: SET_MEASURE_PAGE_SIZE,
     payload: {
-        pageSize: size
-    }
+        pageSize: size,
+    },
 });

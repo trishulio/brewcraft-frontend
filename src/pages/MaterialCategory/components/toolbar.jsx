@@ -1,14 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import {
-    Button
-} from "reactstrap";
+import { Button } from "reactstrap";
 
 export default function Toolbar({ editable, changed, onSave, onDelete }) {
     const history = useHistory();
 
-    const materialCategory = useSelector(state => {
+    const materialCategory = useSelector((state) => {
         return state.MaterialCategory.data;
     });
 
@@ -46,8 +44,9 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 hidden={!materialCategory.id || editable}
                 onClick={() => {
                     history.push({
-                        pathname: "/materials/categories/" + materialCategory.id,
-                        search: "?edit=true"
+                        pathname:
+                            "/materials/categories/" + materialCategory.id,
+                        search: "?edit=true",
                     });
                 }}
             >
@@ -62,7 +61,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 onClick={() => {
                     history.push({
                         pathname: "/materials/categories/new",
-                        search: "?edit=true"
+                        search: "?edit=true",
                     });
                 }}
             >

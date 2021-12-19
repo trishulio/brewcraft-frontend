@@ -11,7 +11,7 @@ import {
     SET_INGREDIENT_INVALID_CATEGORY,
     SET_INGREDIENT_INVALID_UNIT,
     SET_INGREDIENT_INVALID_UPC,
-    SET_INGREDIENT_INVALID_NAME
+    SET_INGREDIENT_INVALID_NAME,
 } from "./actionTypes";
 
 const initialState = {
@@ -23,7 +23,7 @@ const initialState = {
         baseQuantityUnit: null,
         upc: "",
         imageSrc: "",
-        version: null
+        version: null,
     },
     initial: {
         id: "",
@@ -33,7 +33,7 @@ const initialState = {
         baseQuantityUnit: null,
         upc: "",
         imageSrc: "",
-        version: null
+        version: null,
     },
     invalidName: false,
     invalidDescription: false,
@@ -42,11 +42,11 @@ const initialState = {
     invalidBaseQuantityUnit: false,
     invalidUpc: false,
     loading: true,
-    error: null
+    error: null,
 };
 
 const Ingredient = (state = initialState, { type, payload }) => {
-    switch(type) {
+    switch (type) {
         case SET_INGREDIENT_DETAILS:
             return {
                 ...state,
@@ -59,7 +59,7 @@ const Ingredient = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
             };
         case ADD_INGREDIENT_SUCCESS:
         case EDIT_INGREDIENT_SUCCESS:
@@ -67,64 +67,64 @@ const Ingredient = (state = initialState, { type, payload }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_INGREDIENT_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: true
+                error: true,
             };
         case DELETE_INGREDIENT_REQUEST:
-        return {
-            ...state,
-            formLoading: { ...state.formLoading, loading: true },
-        };
+            return {
+                ...state,
+                formLoading: { ...state.formLoading, loading: true },
+            };
         case DELETE_INGREDIENT_SUCCESS:
-        return {
-            ...state,
-            data: state.initial
+            return {
+                ...state,
+                data: state.initial,
             };
         case RESET_INGREDIENT_DETAILS:
-        return {
-            ...initialState,
-            loading: false,
-            error: null
-        };
+            return {
+                ...initialState,
+                loading: false,
+                error: null,
+            };
         case SET_INGREDIENT_INVALID_CATEGORY:
             return {
                 ...state,
                 invalidCategory: payload,
                 loading: false,
-                error: true
+                error: true,
             };
         case SET_INGREDIENT_INVALID_NAME:
             return {
                 ...state,
                 invalidName: payload,
                 loading: false,
-                error: true
+                error: true,
             };
         case SET_INGREDIENT_INVALID_UNIT:
             return {
                 ...state,
                 invalidBaseQuantityUnit: payload,
                 loading: false,
-                error: true
+                error: true,
             };
         case SET_INGREDIENT_INVALID_UPC:
             return {
                 ...state,
                 invalidUpc: payload,
                 loading: false,
-                error: true
+                error: true,
             };
         default:
-        return {
-            ...state,
-            loading: false,
-            error: null
-        };
+            return {
+                ...state,
+                loading: false,
+                error: null,
+            };
     }
 };
 

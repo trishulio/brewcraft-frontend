@@ -3,7 +3,7 @@ import {
     FETCH_SHIPMENT,
     CREATE_SHIPMENT,
     UPDATE_SHIPMENT,
-    DELETE_SHIPMENT
+    DELETE_SHIPMENT,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
@@ -25,7 +25,11 @@ function* createShipmentGenerator(action) {
     try {
         const res = yield call(api.postShipment, get(action, "payload.form"));
         yield put({ type: SET_SHIPMENT_DETAILS, payload: { ...res } });
-        yield put(snackSuccess(`Created shipment ${get(action, "payload.form.invoiceNumber")}.`));
+        yield put(
+            snackSuccess(
+                `Created shipment ${get(action, "payload.form.invoiceNumber")}.`
+            )
+        );
     } catch (e) {
         yield put(snackFailure("Failed to create shipment"));
     }
@@ -33,10 +37,18 @@ function* createShipmentGenerator(action) {
 
 function* udpateShipmentGenerator(action) {
     try {
-        const res = yield call(api.putShipment, get(action, "payload.id"), get(action, "payload.form"));
+        const res = yield call(
+            api.putShipment,
+            get(action, "payload.id"),
+            get(action, "payload.form")
+        );
         res.initial = JSON.parse(JSON.stringify(res.data));
         yield put({ type: SET_SHIPMENT_DETAILS, payload: { ...res } });
-        yield put(snackSuccess(`Updated shipment ${get(action, "payload.form.name")}.`));
+        yield put(
+            snackSuccess(
+                `Updated shipment ${get(action, "payload.form.name")}.`
+            )
+        );
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
     }

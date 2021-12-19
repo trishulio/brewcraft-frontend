@@ -12,7 +12,7 @@ import { get } from "lodash";
 function* fetchAllUsersGenerator() {
     try {
         let res = yield call(api.fetchUsers);
-        yield put({ type: FETCH_ALL_USERS_SUCCESS, data: { data: res.data }});
+        yield put({ type: FETCH_ALL_USERS_SUCCESS, data: { data: res.data } });
     } catch (e) {
         yield put({ type: FETCH_USERS_ERROR });
     }
@@ -20,12 +20,12 @@ function* fetchAllUsersGenerator() {
 
 function* fetchUsersGenerator(action) {
     try {
-      const res = yield call(api.fetchUsers, get(action, "payload.params"));
-      yield put({ type: FETCH_USERS_SUCCESS, data: { data: res.data }});
+        const res = yield call(api.fetchUsers, get(action, "payload.params"));
+        yield put({ type: FETCH_USERS_SUCCESS, data: { data: res.data } });
     } catch (e) {
-      yield put({ type: FETCH_USERS_ERROR });
+        yield put({ type: FETCH_USERS_ERROR });
     }
-  }
+}
 
 function* Users() {
     yield takeEvery(FETCH_USERS_REQUEST, fetchUsersGenerator);

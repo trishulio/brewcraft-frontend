@@ -3,11 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     fetchProcurements,
     fetchAllSuppliers,
-    setBreadcrumbItems
+    setBreadcrumbItems,
 } from "../../store/actions";
-import {
-    useQuery
-} from "../../helpers/utils";
+import { useQuery } from "../../helpers/utils";
 import PurchaseInvoicesInner from "./invoices";
 
 export default function PurchaseInvoices() {
@@ -20,7 +18,7 @@ export default function PurchaseInvoices() {
     const sort = query.get("sort");
     const order = query.get("order");
 
-    const { pageIndex, pageSize } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector((state) => {
         return state.Procurements;
     });
 
@@ -28,7 +26,7 @@ export default function PurchaseInvoices() {
         dispatch(
             setBreadcrumbItems("Invoices", [
                 { title: "Main", link: "#" },
-                { title: "Purchases", link: "#" }
+                { title: "Purchases", link: "#" },
             ])
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,14 +41,21 @@ export default function PurchaseInvoices() {
             supplierId,
             status,
             sort,
-            order
+            order,
         };
         dispatch(fetchProcurements({ ...props }));
         dispatch(fetchAllSuppliers());
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageIndex, pageSize, invoiceFrom, invoiceTo, supplierId, status, sort, order]);
+    }, [
+        pageIndex,
+        pageSize,
+        invoiceFrom,
+        invoiceTo,
+        supplierId,
+        status,
+        sort,
+        order,
+    ]);
 
-    return (
-        <PurchaseInvoicesInner />
-    );
+    return <PurchaseInvoicesInner />;
 }

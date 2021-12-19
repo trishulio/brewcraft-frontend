@@ -4,9 +4,7 @@ const initialState = {
     totalElements: 0,
     totalPages: 0,
     loading: true,
-    error: null
+    error: null,
 };
 
-export {
-    initialState
-}
+export { initialState };

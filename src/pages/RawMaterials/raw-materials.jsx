@@ -1,10 +1,5 @@
 import React from "react";
-import {
-    Card,
-    CardBody,
-    Row,
-    Col
-} from "reactstrap";
+import { Card, CardBody, Row, Col } from "reactstrap";
 import Pagination from "./components/pagination";
 import Table from "./components/table";
 import Toolbar from "./components/toolbar";
@@ -14,11 +9,11 @@ export default function RawMaterials() {
         <React.Fragment>
             <Row style={{ maxWidth: "1024px" }}>
                 <Col>
-                    <Toolbar/>
+                    <Toolbar />
                     <Card>
                         <CardBody className="py-2">
                             <Pagination>
-                                <Table/>
+                                <Table />
                             </Pagination>
                         </CardBody>
                     </Card>

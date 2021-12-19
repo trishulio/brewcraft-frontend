@@ -7,13 +7,12 @@ async function fetchUserRoles(params) {
             size: params.pageSize || 500,
             ids: params.userRoleIds,
             sort: params.sort || "name",
-            order_asc: !params.order || params.order === "asc"
-        }
+            order_asc: !params.order || params.order === "asc",
+        },
     };
-    return await AxiosInstance.get("/api/v1/users/roles", data)
-        .then((r) => r);
+    return await AxiosInstance.get("/api/v1/users/roles", data).then((r) => r);
 }
 
 export const api = {
-    fetchUserRoles
+    fetchUserRoles,
 };

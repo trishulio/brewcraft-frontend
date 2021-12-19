@@ -1,6 +1,4 @@
-import {
-    SET_GLOBAL_REDIRECT
-} from "./actionTypes";
+import { SET_GLOBAL_REDIRECT } from "./actionTypes";
 
 const initialState = {
     id: "1",
@@ -10,15 +8,15 @@ const initialState = {
     contact: "",
     email: "",
     phone: "",
-    redirct: ""
+    redirct: "",
 };
 
 const Brewery = (state = initialState, { type, payload }) => {
-    switch(type) {
+    switch (type) {
         case SET_GLOBAL_REDIRECT:
             return {
                 ...state,
-                ...payload
+                ...payload,
             };
         default:
             return state;

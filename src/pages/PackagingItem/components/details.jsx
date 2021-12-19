@@ -1,48 +1,44 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
-import {
-    Row,
-    Col,
-    FormGroup,
-    FormFeedback,
-    Input,
-    Label
-} from "reactstrap";
+import { Row, Col, FormGroup, FormFeedback, Input, Label } from "reactstrap";
 import {
     setPackagingItemDetails,
     setPackagingItemInvalidName,
     setPackagingItemInvalidBaseQuantityUnit,
     setPackagingItemInvalidCategory,
-    setInvalidPackagingUpc
+    setInvalidPackagingUpc,
 } from "../../../store/actions";
-import {
-    Card,
-    CardBody,
-    CardHeader
-} from "../../../component/Common/Card";
+import { Card, CardBody, CardHeader } from "../../../component/Common/Card";
 import MaterialCategoriesModal from "../../../component/MaterialCategories/modal";
 import { isValidName, useKeyPress, validId } from "../../../helpers/utils";
 
 const ADD_NEW = "ADD_NEW";
 const PACKAGING_CATEGORY = "packaging";
-const ENTER_KEY = "Enter"
+const ENTER_KEY = "Enter";
 
 export default function PackagingItemDetails({ editable, onSave, changed }) {
-    const [showPackageCategoryModal, setShowPackageCategoryModal] = useState(false);
+    const [showPackageCategoryModal, setShowPackageCategoryModal] =
+        useState(false);
     const [modalPackageType, setModalPackageType] = useState(null);
     const [modalParentCategoryId, setModalParentCategoryId] = useState(null);
 
-    const { invalidName, invalidCategory, invalidBaseQuantityUnit, invalidUpc } = useSelector(state => {
-        return state.PackagingItem
+    const {
+        invalidName,
+        invalidCategory,
+        invalidBaseQuantityUnit,
+        invalidUpc,
+    } = useSelector((state) => {
+        return state.PackagingItem;
     });
 
-    const categories = useSelector(state => {
-        return state.MaterialCategories.all
-            .filter(c => c.parentCategoryId === 2);
+    const categories = useSelector((state) => {
+        return state.MaterialCategories.all.filter(
+            (c) => c.parentCategoryId === 2
+        );
     });
 
-    const packagingItem = useSelector(state => {
+    const packagingItem = useSelector((state) => {
         return state.PackagingItem.data;
     });
 
@@ -51,52 +47,72 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
     const enterKeyPressed = useKeyPress(ENTER_KEY);
 
     function onFormInputChange(e) {
-        switch(e.target.name) {
+        switch (e.target.name) {
             case "packagingItemName":
                 if (packagingItem.name !== e.target.value) {
-                    dispatch(setPackagingItemInvalidName(!isValidName(e.target.value)));
-                    dispatch(setPackagingItemDetails({
-                        data: {
-                            ...packagingItem,
-                            name: e.target.value
-                        }
-                    }));
+                    dispatch(
+                        setPackagingItemInvalidName(
+                            !isValidName(e.target.value)
+                        )
+                    );
+                    dispatch(
+                        setPackagingItemDetails({
+                            data: {
+                                ...packagingItem,
+                                name: e.target.value,
+                            },
+                        })
+                    );
                 }
                 break;
             case "packagingItemCategory":
-                dispatch(setPackagingItemInvalidCategory(!validId(e.target.value)));
-                dispatch(setPackagingItemDetails({
-                    data: {
-                        ...packagingItem,
-                        category: categories.find(c => c.id === parseInt(e.target.value))
-                    }
-                }));
+                dispatch(
+                    setPackagingItemInvalidCategory(!validId(e.target.value))
+                );
+                dispatch(
+                    setPackagingItemDetails({
+                        data: {
+                            ...packagingItem,
+                            category: categories.find(
+                                (c) => c.id === parseInt(e.target.value)
+                            ),
+                        },
+                    })
+                );
                 break;
             case "packagingItemBaseQuantityUnit":
-                dispatch(setPackagingItemInvalidBaseQuantityUnit(!e.target.value));
-                dispatch(setPackagingItemDetails({
-                    data: {
-                        ...packagingItem,
-                        baseQuantityUnit: e.target.value
-                    }
-                }));
+                dispatch(
+                    setPackagingItemInvalidBaseQuantityUnit(!e.target.value)
+                );
+                dispatch(
+                    setPackagingItemDetails({
+                        data: {
+                            ...packagingItem,
+                            baseQuantityUnit: e.target.value,
+                        },
+                    })
+                );
                 break;
             case "packagingItemUpc":
-                dispatch(setInvalidPackagingUpc(e.target.value))
-                dispatch(setPackagingItemDetails({
-                    data: {
-                        ...packagingItem,
-                        upc: e.target.value
-                    }
-                }));
+                dispatch(setInvalidPackagingUpc(e.target.value));
+                dispatch(
+                    setPackagingItemDetails({
+                        data: {
+                            ...packagingItem,
+                            upc: e.target.value,
+                        },
+                    })
+                );
                 break;
             case "packagingItemDescription":
-                dispatch(setPackagingItemDetails({
-                    data: {
-                        ...packagingItem,
-                        description: e.target.value
-                    }
-                }));
+                dispatch(
+                    setPackagingItemDetails({
+                        data: {
+                            ...packagingItem,
+                            description: e.target.value,
+                        },
+                    })
+                );
                 break;
             default:
                 break;
@@ -117,17 +133,12 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
                 <CardBody>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="packagingItemName"
-                                className="mb-3"
-                            >
+                            <Label for="packagingItemName" className="mb-3">
                                 *Name
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="text"
                                     className="waves-effect"
@@ -141,7 +152,9 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
                                     onKeyUp={onKeyUp}
                                     style={{ width: "16rem" }}
                                 />
-                                <FormFeedback>Enter a valid packagingItem name.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid packagingItem name.
+                                </FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
                                 {packagingItem.name ? packagingItem.name : "-"}
@@ -150,17 +163,12 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
                     </Row>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="packagingItemCategory"
-                                className="mb-3"
-                            >
+                            <Label for="packagingItemCategory" className="mb-3">
                                 *Category
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="select"
                                     className="waves-effect"
@@ -171,31 +179,39 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
                                     invalid={invalidCategory}
                                     value={packagingItem.category.id || ""}
                                     onKeyUp={onKeyUp}
-                                    onChange={e => {
+                                    onChange={(e) => {
                                         if (e.target.value !== ADD_NEW) {
                                             onFormInputChange(e);
-                                        }
-                                        else {
-                                            setModalPackageType(PACKAGING_CATEGORY);
+                                        } else {
+                                            setModalPackageType(
+                                                PACKAGING_CATEGORY
+                                            );
                                             setModalParentCategoryId(2);
                                             setShowPackageCategoryModal(true);
                                         }
                                     }}
                                 >
                                     <option value="">Select</option>
-                                    {
-                                        map(categories, (value, index) => (
-                                            <option value={value.id} key={index}>
-                                                {value.name}
-                                            </option>
-                                        ))
-                                    }
-                                    <option key={categories.length} value={ADD_NEW}>+ Add new</option>
+                                    {map(categories, (value, index) => (
+                                        <option value={value.id} key={index}>
+                                            {value.name}
+                                        </option>
+                                    ))}
+                                    <option
+                                        key={categories.length}
+                                        value={ADD_NEW}
+                                    >
+                                        + Add new
+                                    </option>
                                 </Input>
-                                <FormFeedback>Enter a valid packagingItem category.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid packagingItem category.
+                                </FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
-                                {packagingItem.category ? packagingItem.category.name : "-"}
+                                {packagingItem.category
+                                    ? packagingItem.category.name
+                                    : "-"}
                             </div>
                         </Col>
                     </Row>
@@ -209,9 +225,7 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="select"
                                     className="waves-effect"
@@ -222,7 +236,7 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
                                     invalid={invalidBaseQuantityUnit}
                                     value={packagingItem.baseQuantityUnit || ""}
                                     onKeyUp={onKeyUp}
-                                    onChange={e => {
+                                    onChange={(e) => {
                                         onFormInputChange(e);
                                     }}
                                 >
@@ -234,26 +248,25 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
                                     <option value="ml">ml</option>
                                     {/* <option value={ADD_NEW}>+ Add new</option> */}
                                 </Input>
-                                <FormFeedback>Enter a valid unit of measure.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid unit of measure.
+                                </FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
-                                {packagingItem.baseQuantityUnit ? packagingItem.baseQuantityUnit : "-"}
+                                {packagingItem.baseQuantityUnit
+                                    ? packagingItem.baseQuantityUnit
+                                    : "-"}
                             </div>
                         </Col>
                     </Row>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="packagingItemUpc"
-                                className="mb-3"
-                            >
+                            <Label for="packagingItemUpc" className="mb-3">
                                 UPC
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="text"
                                     className="waves-effect"
@@ -276,9 +289,7 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
                     </Row>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="packagingItemDescription"
-                            >
+                            <Label for="packagingItemDescription">
                                 Description
                             </Label>
                         </Col>

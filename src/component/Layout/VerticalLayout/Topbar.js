@@ -1,9 +1,9 @@
 /* eslint-disable */
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import { connect } from 'react-redux';
-import { toggleSidebar, changeSidebarType } from '../../../store/actions';
+import { connect } from "react-redux";
+import { toggleSidebar, changeSidebarType } from "../../../store/actions";
 
 //Import Menus
 import CreateMenu from "../Menus/create-menu";
@@ -23,7 +23,7 @@ class Topbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isMobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+            isMobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent),
         };
     }
 
@@ -42,7 +42,7 @@ class Topbar extends Component {
         } else if (this.props.leftSideBarType === "condensed") {
             this.props.changeSidebarType("default", this.state.isMobile);
         }
-     }
+    };
 
     render() {
         return (
@@ -50,39 +50,56 @@ class Topbar extends Component {
                 <header id="page-topbar">
                     <div className="navbar-header">
                         <div className="d-flex">
-
                             <div className="navbar-brand-box">
-                                <Link to="/dashboard" className="logo logo-dark">
+                                <Link
+                                    to="/dashboard"
+                                    className="logo logo-dark"
+                                >
                                     <span className="logo-sm">
-                                        <img src={logosm} alt="" height="40"/>
+                                        <img src={logosm} alt="" height="40" />
                                     </span>
                                     <span className="logo-lg">
-                                        <img src={logodark} alt="" height="64"/>
+                                        <img
+                                            src={logodark}
+                                            alt=""
+                                            height="64"
+                                        />
                                     </span>
                                 </Link>
 
-                                <Link to="/dashboard" className="logo logo-light">
+                                <Link
+                                    to="/dashboard"
+                                    className="logo logo-light"
+                                >
                                     <span className="logo-sm">
-                                        <img src={logosm} alt="" height="40"/>
+                                        <img src={logosm} alt="" height="40" />
                                     </span>
                                     <span className="logo-lg">
-                                        <img src={logolight} alt="" height="64"/>
+                                        <img
+                                            src={logolight}
+                                            alt=""
+                                            height="64"
+                                        />
                                     </span>
                                 </Link>
                             </div>
 
-                            <button type="button" onClick={ this.sidebarToggle } className="btn btn-sm px-3 font-size-24 header-item waves-effect" id="vertical-menu-btn">
+                            <button
+                                type="button"
+                                onClick={this.sidebarToggle}
+                                className="btn btn-sm px-3 font-size-24 header-item waves-effect"
+                                id="vertical-menu-btn"
+                            >
                                 <i className="mdi mdi-menu"></i>
                             </button>
 
                             <div className="d-none d-sm-block">
                                 {/* create menu */}
-                                <CreateMenu/>
+                                <CreateMenu />
                             </div>
                         </div>
 
                         <div className="d-flex">
-
                             {/* <SearchBar/> */}
 
                             {/* <LanguageMenu class="d-md-block"/> */}
@@ -91,10 +108,9 @@ class Topbar extends Component {
 
                             {/* <NotificationMenu/> */}
 
-                            <ProfileMenu/>
+                            <ProfileMenu />
 
                             {/* <SettingsButton/> */}
-
                         </div>
                     </div>
                 </header>
@@ -103,9 +119,11 @@ class Topbar extends Component {
     }
 }
 
-const mapStatetoProps = state => {
+const mapStatetoProps = (state) => {
     const { is_toggle, leftSideBarType } = state.Layout;
-    return {  is_toggle, leftSideBarType };
-}
+    return { is_toggle, leftSideBarType };
+};
 
-export default withRouter(connect(mapStatetoProps, { toggleSidebar, changeSidebarType })(Topbar));
+export default withRouter(
+    connect(mapStatetoProps, { toggleSidebar, changeSidebarType })(Topbar)
+);

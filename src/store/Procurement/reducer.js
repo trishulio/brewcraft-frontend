@@ -15,14 +15,14 @@ import {
     INVALID_PURCHASE_INVOICE_PAYMENT_DUE_DATE,
     INVALID_PURCHASE_INVOICE_PURCHASE_ORDER,
     SET_PURCHASE_INVOICE_ERROR,
-    UPDATE_PURCHASE_ORDER_SUCCESS
+    UPDATE_PURCHASE_ORDER_SUCCESS,
 } from "./actionTypes";
 
 const initialState = {
     data: {
         purchaseOrder: {
             orderNumber: "",
-            supplier: ""
+            supplier: "",
         },
         invoice: {
             id: "",
@@ -31,14 +31,14 @@ const initialState = {
             freight: {
                 amount: {
                     currency: "",
-                    amount: 0
-                }
+                    amount: 0,
+                },
             },
             generatedOn: "",
             receivedOn: "",
             paymentDueDate: "",
             invoiceStatus: null,
-            version: null
+            version: null,
         },
         shipment: {
             id: "",
@@ -47,45 +47,47 @@ const initialState = {
             shipmentStatus: "",
             deliveryDueDate: "",
             deliveredDate: "",
-            version: null
+            version: null,
         },
-        procurementItems: [{
-            invoiceItem: {
-                id: "",
-                description: "",
-                quantity: {
-                    symbol: "",
-                    value: 0
-                },
-                price: {
-                    currency: "",
-                    amount: 0
-                },
-                tax: {
-                    amount: {
+        procurementItems: [
+            {
+                invoiceItem: {
+                    id: "",
+                    description: "",
+                    quantity: {
+                        symbol: "",
+                        value: 0,
+                    },
+                    price: {
                         currency: "",
-                        amount: 0
-                    }
+                        amount: 0,
+                    },
+                    tax: {
+                        amount: {
+                            currency: "",
+                            amount: 0,
+                        },
+                    },
+                    material: "",
+                    version: null,
                 },
-                material: "",
-                version: null
+                materialLot: {
+                    id: "",
+                    lotNumber: "",
+                    // storage: undefined,
+                    quantity: {
+                        symbol: "",
+                        value: 0,
+                    },
+                    version: null,
+                },
             },
-            materialLot: {
-                id: "",
-                lotNumber: "",
-                // storage: undefined,
-                quantity: {
-                    symbol: "",
-                    value: 0
-                },
-                version: null
-            }
-        }]
+        ],
     },
     initial: {
         purchaseOrder: {
             orderNumber: "",
-            supplier: ""
+            supplier: "",
         },
         invoice: {
             id: "",
@@ -94,14 +96,14 @@ const initialState = {
             freight: {
                 amount: {
                     currency: "",
-                    amount: 0
-                }
+                    amount: 0,
+                },
             },
             generatedOn: "",
             receivedOn: "",
             paymentDueDate: "",
             invoiceStatus: null,
-            version: null
+            version: null,
         },
         shipment: {
             id: "",
@@ -110,40 +112,42 @@ const initialState = {
             shipmentStatus: "",
             deliveryDueDate: "",
             deliveredDate: "",
-            version: null
+            version: null,
         },
-        procurementItems: [{
-            invoiceItem: {
-                id: "",
-                description: "",
-                quantity: {
-                    symbol: "",
-                    value: 0
-                },
-                price: {
-                    currency: "",
-                    amount: 0
-                },
-                tax: {
-                    amount: {
+        procurementItems: [
+            {
+                invoiceItem: {
+                    id: "",
+                    description: "",
+                    quantity: {
+                        symbol: "",
+                        value: 0,
+                    },
+                    price: {
                         currency: "",
-                        amount: 0
-                    }
+                        amount: 0,
+                    },
+                    tax: {
+                        amount: {
+                            currency: "",
+                            amount: 0,
+                        },
+                    },
+                    material: "",
+                    version: null,
                 },
-                material: "",
-                version: null
+                materialLot: {
+                    id: "",
+                    lotNumber: "",
+                    // storage: undefined,
+                    quantity: {
+                        symbol: "",
+                        value: 0,
+                    },
+                    version: null,
+                },
             },
-            materialLot: {
-                id: "",
-                lotNumber: "",
-                // storage: undefined,
-                quantity: {
-                    symbol: "",
-                    value: 0
-                },
-                version: null
-            }
-        }]
+        ],
     },
     invalidName: false,
     invalidInvoiceNumber: false,
@@ -156,7 +160,7 @@ const initialState = {
     invalidStatusId: false,
     invalidItems: false,
     loading: true,
-    error: null
+    error: null,
 };
 
 const PurchaseInvoice = (state = initialState, { type, payload }) => {
@@ -173,7 +177,7 @@ const PurchaseInvoice = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 ...payload,
-                loading: false
+                loading: false,
             };
         case SET_PURCHASE_INVOICE_INVOICE_DATE:
         case SET_PURCHASE_INVOICE_INVOICE_NUMBER:
@@ -184,10 +188,10 @@ const PurchaseInvoice = (state = initialState, { type, payload }) => {
                     ...state.data,
                     invoice: {
                         ...state.data.invoice,
-                        ...payload
-                    }
+                        ...payload,
+                    },
                 },
-                loading: false
+                loading: false,
             };
         case SET_PURCHASE_INVOICE_SUPPLIER:
         case SET_PURCHASE_INVOICE_PURCHASE_ORDER:
@@ -197,10 +201,10 @@ const PurchaseInvoice = (state = initialState, { type, payload }) => {
                     ...state.data,
                     purchaseOrder: {
                         ...state.data.purchaseOrder,
-                        ...payload
-                    }
+                        ...payload,
+                    },
                 },
-                loading: false
+                loading: false,
             };
         case UPDATE_PURCHASE_ORDER_SUCCESS:
             return {
@@ -209,39 +213,39 @@ const PurchaseInvoice = (state = initialState, { type, payload }) => {
                     ...state.data,
                     purchaseOrder: {
                         ...state.data.purchaseOrder,
-                        ...payload
-                    }
+                        ...payload,
+                    },
                 },
                 ...state,
                 initial: {
                     ...state.initial,
                     purchaseOrder: {
                         ...state.initial.purchaseOrder,
-                        ...payload
-                    }
+                        ...payload,
+                    },
                 },
-                loading: false
-            }
+                loading: false,
+            };
         case SET_PURCHASE_INVOICE_ITEMS:
             return {
                 ...state,
                 data: {
                     ...state.data,
-                    ...payload
+                    ...payload,
                 },
-                loading: false
+                loading: false,
             };
         case RESET_PURCHASE_INVOICE_DETAILS:
             return {
                 ...initialState,
                 loading: false,
-                error: null
+                error: null,
             };
         default:
-        return {
-            ...state,
-            loading: true
-        };
+            return {
+                ...state,
+                loading: true,
+            };
     }
 };
 

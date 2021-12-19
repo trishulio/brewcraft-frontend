@@ -32,9 +32,7 @@ import User from "../pages/User";
 import Users from "../pages/Users";
 import NotFound from "../pages/pages-404";
 
-const publicRoutes = [
-    { path: "/404", component: NotFound }
-];
+const publicRoutes = [{ path: "/404", component: NotFound }];
 
 const authProtectedRoutes = [
     // Dashboard
@@ -75,7 +73,10 @@ const authProtectedRoutes = [
 
     // Purchase Invoices
     { path: "/purchases/invoices/new", component: PurchaseInvoice },
-    { path: "/purchases/invoices/:shipmentId/:invoiceId", component: PurchaseInvoice },
+    {
+        path: "/purchases/invoices/:shipmentId/:invoiceId",
+        component: PurchaseInvoice,
+    },
     { path: "/purchases/invoices", component: PurchaseInvoices },
 
     // Suppliers
@@ -96,7 +97,7 @@ const authProtectedRoutes = [
     { path: "/users", component: Users },
 
     // Default
-    { path: "/", exact: true, component: () => <Redirect to="/brews" /> }
+    { path: "/", exact: true, component: () => <Redirect to="/brews" /> },
 ];
 
 export { authProtectedRoutes, publicRoutes };

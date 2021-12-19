@@ -4,7 +4,7 @@ import { useQuery } from "../../helpers/utils";
 import {
     fetchProductsByCategory,
     setBreadcrumbItems,
-    fetchAllProductCategories
+    fetchAllProductCategories,
 } from "../../store/actions";
 import ProductsInner from "./products";
 
@@ -17,7 +17,7 @@ export default function Products() {
     const sort = query.get("sort");
     const order = query.get("order");
 
-    const { pageIndex, pageSize } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector((state) => {
         return state.Products;
     });
 
@@ -25,8 +25,8 @@ export default function Products() {
         dispatch(
             setBreadcrumbItems("Products", [
                 { title: "Main", link: "#" },
-                { title: "Products", link: "#" }
-            ]),
+                { title: "Products", link: "#" },
+            ])
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -34,14 +34,18 @@ export default function Products() {
     useEffect(() => {
         const categoryId = style || type || productClass;
         const props = {
-            pageIndex, pageSize, categoryId, type, style, sort, order
+            pageIndex,
+            pageSize,
+            categoryId,
+            type,
+            style,
+            sort,
+            order,
         };
         dispatch(fetchProductsByCategory({ ...props }));
         dispatch(fetchAllProductCategories());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageIndex, pageSize, productClass, type, style, sort, order]);
 
-    return (
-        <ProductsInner />
-    );
+    return <ProductsInner />;
 }

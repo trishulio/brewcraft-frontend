@@ -13,7 +13,7 @@ import {
     SET_MATERIAL_CATEGORY_DETAILS,
     RESET_MATERIAL_CATEGORY_DETAILS,
     INVALID_MATERIAL_CATEGORY_NAME,
-    INVALID_MATERIAL_CATEGORY_PARENT_CATEGORY
+    INVALID_MATERIAL_CATEGORY_PARENT_CATEGORY,
 } from "./actionTypes";
 
 const initialState = {
@@ -21,28 +21,28 @@ const initialState = {
         id: null,
         name: "",
         parentCategoryId: null,
-        version: null
+        version: null,
     },
     initial: {
         id: null,
         name: "",
         parentCategoryId: null,
-        version: null
+        version: null,
     },
     invalidName: false,
     invalidParentCategory: false,
     loading: true,
-    error: null
-  };
+    error: null,
+};
 
 const MaterialCategory = (state = initialState, { type, payload, data }) => {
-    switch(type) {
+    switch (type) {
         case SET_MATERIAL_CATEGORY_DETAILS:
             return {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         case FETCH_MATERIAL_CATEGORY_BY_ID_REQUEST:
             return {
@@ -67,7 +67,7 @@ const MaterialCategory = (state = initialState, { type, payload, data }) => {
             return {
                 ...state,
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_CATEGORY_SUCCESS:
         case EDIT_MATERIAL_CATEGORY_SUCCESS:
@@ -75,42 +75,40 @@ const MaterialCategory = (state = initialState, { type, payload, data }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_CATEGORY_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: true
+                error: true,
             };
         case EDIT_MATERIAL_CATEGORY_REQUEST:
             return {
                 ...state,
                 loading: false,
-                error: null
+                error: null,
             };
         case DELETE_MATERIAL_CATEGORY_REQUEST:
             return {
                 ...state,
                 loading: false,
-                error: null
+                error: null,
             };
         case DELETE_MATERIAL_CATEGORY_SUCCESS:
             return {
-            ...state,
-            data: filter([...state.data], (instanceData) => {
-                return (
-                    payload.id!==instanceData.id
-                );
-            }),
-            loading: false,
-            error: null
-        };
+                ...state,
+                data: filter([...state.data], (instanceData) => {
+                    return payload.id !== instanceData.id;
+                }),
+                loading: false,
+                error: null,
+            };
         case RESET_MATERIAL_CATEGORY_DETAILS:
             return {
                 ...initialState,
                 loading: false,
-                error: null
+                error: null,
             };
         case INVALID_MATERIAL_CATEGORY_NAME:
         case INVALID_MATERIAL_CATEGORY_PARENT_CATEGORY:
@@ -118,15 +116,15 @@ const MaterialCategory = (state = initialState, { type, payload, data }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: true
+                error: true,
             };
         default:
             return {
                 ...state,
                 loading: true,
-                error: null
-            }
+                error: null,
+            };
     }
-}
+};
 
 export default MaterialCategory;

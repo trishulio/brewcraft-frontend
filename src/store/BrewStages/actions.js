@@ -38,187 +38,187 @@ import {
     RESET_BRITE_TANK_STAGE_DETAILS,
 } from "./actionTypes";
 
-export const fetchAllBrewStages = id => ({
+export const fetchAllBrewStages = (id) => ({
     type: FETCH_ALL_BREW_STAGE_REQUEST,
-    payload: { id }
+    payload: { id },
 });
 
-export const fetchMashStageById = id => ({
+export const fetchMashStageById = (id) => ({
     type: FETCH_MASH_STAGE_BY_ID_REQUEST,
     payload: { id },
-  });
+});
 
-export const setMashStageDetails = payload => ({
+export const setMashStageDetails = (payload) => ({
     type: SET_MASH_STAGE_DETAILS,
-    payload: payload
+    payload: payload,
 });
 
 export const resetMashStageDetails = () => ({
     type: RESET_MASH_STAGE_DETAILS,
-    payload: null
+    payload: null,
 });
 
-export const saveMashStage = payload => ({
+export const saveMashStage = (payload) => ({
     type: ADD_MASH_STAGE_REQUEST,
     payload: payload,
 });
 
-export const editMashStage = payload => ({
+export const editMashStage = (payload) => ({
     type: EDIT_MASH_STAGE_REQUEST,
     payload: payload,
 });
 
-export const deleteMashStage = payload => ({
+export const deleteMashStage = (payload) => ({
     type: DELETE_MASH_STAGE_REQUEST,
     payload: payload,
 });
 
-export const fetchKettleStageById = id => ({
+export const fetchKettleStageById = (id) => ({
     type: FETCH_KETTLE_STAGE_BY_ID_REQUEST,
     payload: { id },
-  });
+});
 
-export const setKettleStageDetails = payload => ({
+export const setKettleStageDetails = (payload) => ({
     type: SET_KETTLE_STAGE_DETAILS,
-    payload: payload
+    payload: payload,
 });
 
 export const resetKettleStageDetails = () => ({
     type: RESET_KETTLE_STAGE_DETAILS,
-    payload: null
+    payload: null,
 });
 
-export const saveKettleStage = payload => ({
+export const saveKettleStage = (payload) => ({
     type: ADD_KETTLE_STAGE_REQUEST,
     payload: payload,
 });
 
-export const editKettleStage = payload => ({
+export const editKettleStage = (payload) => ({
     type: EDIT_KETTLE_STAGE_REQUEST,
     payload: payload,
 });
 
-export const deleteKettleStage = payload => ({
+export const deleteKettleStage = (payload) => ({
     type: DELETE_KETTLE_STAGE_REQUEST,
     payload: payload,
 });
 
-export const fetchWhirlpoolStageById = id => ({
+export const fetchWhirlpoolStageById = (id) => ({
     type: FETCH_WHIRLPOOL_STAGE_BY_ID_REQUEST,
     payload: { id },
-  });
+});
 
-export const setWhirlpoolStageDetails = payload => ({
+export const setWhirlpoolStageDetails = (payload) => ({
     type: SET_WHIRLPOOL_STAGE_DETAILS,
-    payload: payload
+    payload: payload,
 });
 
 export const resetWhirlpoolStageDetails = () => ({
     type: RESET_WHIRLPOOL_STAGE_DETAILS,
-    payload: null
+    payload: null,
 });
 
-export const saveWhirlpoolStage = payload => ({
+export const saveWhirlpoolStage = (payload) => ({
     type: ADD_WHIRLPOOL_STAGE_REQUEST,
     payload: payload,
 });
 
-export const editWhirlpoolStage = payload => ({
+export const editWhirlpoolStage = (payload) => ({
     type: EDIT_WHIRLPOOL_STAGE_REQUEST,
     payload: payload,
 });
 
-export const deleteWhirlpoolStage = payload => ({
+export const deleteWhirlpoolStage = (payload) => ({
     type: DELETE_WHIRLPOOL_STAGE_REQUEST,
     payload: payload,
 });
 
-export const fetchFermentStageById = id => ({
+export const fetchFermentStageById = (id) => ({
     type: FETCH_FERMENT_STAGE_BY_ID_REQUEST,
     payload: { id },
-  });
+});
 
-export const setFermentStageDetails = payload => ({
+export const setFermentStageDetails = (payload) => ({
     type: SET_FERMENT_STAGE_DETAILS,
-    payload: payload
+    payload: payload,
 });
 
 export const resetFermentStageDetails = () => ({
     type: RESET_FERMENT_STAGE_DETAILS,
-    payload: null
+    payload: null,
 });
 
-export const saveFermentStage = payload => ({
+export const saveFermentStage = (payload) => ({
     type: ADD_FERMENT_STAGE_REQUEST,
     payload: payload,
 });
 
-export const editFermentStage = payload => ({
+export const editFermentStage = (payload) => ({
     type: EDIT_FERMENT_STAGE_REQUEST,
     payload: payload,
 });
 
-export const deleteFermentStage = payload => ({
+export const deleteFermentStage = (payload) => ({
     type: DELETE_FERMENT_STAGE_REQUEST,
     payload: payload,
 });
 
-export const fetchConditionStageById = id => ({
+export const fetchConditionStageById = (id) => ({
     type: FETCH_CONDITION_STAGE_BY_ID_REQUEST,
     payload: { id },
-  });
+});
 
-export const setConditionStageDetails = payload => ({
+export const setConditionStageDetails = (payload) => ({
     type: SET_CONDITION_STAGE_DETAILS,
-    payload: payload
+    payload: payload,
 });
 
 export const resetConditionStageDetails = () => ({
     type: RESET_CONDITION_STAGE_DETAILS,
-    payload: null
+    payload: null,
 });
 
-export const saveConditionStage = payload => ({
+export const saveConditionStage = (payload) => ({
     type: ADD_CONDITION_STAGE_REQUEST,
     payload: payload,
 });
 
-export const editConditionStage = payload => ({
+export const editConditionStage = (payload) => ({
     type: EDIT_CONDITION_STAGE_REQUEST,
     payload: payload,
 });
 
-export const deleteConditionStage = payload => ({
+export const deleteConditionStage = (payload) => ({
     type: DELETE_CONDITION_STAGE_REQUEST,
     payload: payload,
 });
 
-export const fetchBriteTankStageById = id => ({
+export const fetchBriteTankStageById = (id) => ({
     type: FETCH_BRITE_TANK_STAGE_BY_ID_REQUEST,
     payload: { id },
-  });
+});
 
-export const setBriteTankStageDetails = payload => ({
+export const setBriteTankStageDetails = (payload) => ({
     type: SET_BRITE_TANK_STAGE_DETAILS,
-    payload: payload
+    payload: payload,
 });
 
 export const resetBriteTankStageDetails = () => ({
     type: RESET_BRITE_TANK_STAGE_DETAILS,
-    payload: null
+    payload: null,
 });
 
-export const saveBriteTankStage = payload => ({
+export const saveBriteTankStage = (payload) => ({
     type: ADD_BRITE_TANK_STAGE_REQUEST,
     payload: payload,
 });
 
-export const editBriteTankStage = payload => ({
+export const editBriteTankStage = (payload) => ({
     type: EDIT_BRITE_TANK_STAGE_REQUEST,
     payload: payload,
 });
 
-export const deleteBriteTankStage = payload => ({
+export const deleteBriteTankStage = (payload) => ({
     type: DELETE_BRITE_TANK_STAGE_REQUEST,
     payload: payload,
 });

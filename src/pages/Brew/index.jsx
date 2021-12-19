@@ -13,11 +13,9 @@ import {
     fetchBatchTasks,
     fetchMeasures,
     fetchMaterialStockQuantity,
-    setBatchDetails
+    setBatchDetails,
 } from "../../store/actions";
-import {
-    useQuery
-} from "../../helpers/utils";
+import { useQuery } from "../../helpers/utils";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 import BatchInner from "./batch";
@@ -31,8 +29,10 @@ export default function Batch() {
     const [batchChanged, setBatchChanged] = useState(false);
     const [stagesChanged, setStagesChanged] = useState(false);
     const [mixturesChanged, setMixturesChanged] = useState(false);
-    const [materialPortionsChanged, setMaterialPortionsChanged] = useState(false);
-    const [mixtureRecordingsChanged, setMixtureRecordingsChanged] = useState(false);
+    const [materialPortionsChanged, setMaterialPortionsChanged] =
+        useState(false);
+    const [mixtureRecordingsChanged, setMixtureRecordingsChanged] =
+        useState(false);
     const [showDeletePrompt, setShowDeletePrompt] = useState(false);
     const [showRouterPrompt, setShowRouterPrompt] = useState(false);
 
@@ -50,33 +50,72 @@ export default function Batch() {
         invalidBatchEndedAt,
         invalidBatchProduct,
         editable,
-        error
-    } = useSelector(state => {
+        error,
+    } = useSelector((state) => {
         return state.Batch.Batch;
     });
 
     const isBatchChanged = useCallback(() => {
-        return JSON.stringify(
-                (({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }) => ({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }))(initialBatch))
-            !== JSON.stringify(
-                (({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }) => ({ id, name, description, batchId, product, parentBrewId, startedAt, endedAt }))(batch))
-    }, [
-        initialBatch,
-        batch
-    ]);
+        return (
+            JSON.stringify(
+                (({
+                    id,
+                    name,
+                    description,
+                    batchId,
+                    product,
+                    parentBrewId,
+                    startedAt,
+                    endedAt,
+                }) => ({
+                    id,
+                    name,
+                    description,
+                    batchId,
+                    product,
+                    parentBrewId,
+                    startedAt,
+                    endedAt,
+                }))(initialBatch)
+            ) !==
+            JSON.stringify(
+                (({
+                    id,
+                    name,
+                    description,
+                    batchId,
+                    product,
+                    parentBrewId,
+                    startedAt,
+                    endedAt,
+                }) => ({
+                    id,
+                    name,
+                    description,
+                    batchId,
+                    product,
+                    parentBrewId,
+                    startedAt,
+                    endedAt,
+                }))(batch)
+            )
+        );
+    }, [initialBatch, batch]);
 
     const isChanged = useCallback(() => {
-        return batchChanged
-            || stagesChanged
-            || mixturesChanged
-            || materialPortionsChanged
-            || mixtureRecordingsChanged
+        return (
+            batchChanged ||
+            stagesChanged ||
+            mixturesChanged ||
+            materialPortionsChanged ||
+            mixtureRecordingsChanged
+        );
     }, [
         batchChanged,
         stagesChanged,
         mixturesChanged,
         materialPortionsChanged,
-        mixtureRecordingsChanged
+        mixtureRecordingsChanged,
     ]);
 
     useEffect(() => {
@@ -91,9 +130,11 @@ export default function Batch() {
         dispatch(fetchBatchTasks());
         dispatch(fetchMeasures());
         dispatch(fetchMaterialStockQuantity());
-        dispatch(setBatchDetails({
-            editable: editMode && editMode !== "false"
-        }));
+        dispatch(
+            setBatchDetails({
+                editable: editMode && editMode !== "false",
+            })
+        );
         setShowRouterPrompt(!!editMode);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, editMode]);
@@ -104,15 +145,15 @@ export default function Batch() {
                 setBreadcrumbItems(`Brew ${batch.batchId}`, [
                     { title: "Main", link: "#" },
                     { title: "Batches", link: "#" },
-                    { title: "Brews", link: "#"}
-                ]),
+                    { title: "Brews", link: "#" },
+                ])
             );
         } else {
             dispatch(
                 setBreadcrumbItems("New Brew", [
                     { title: "Main", link: "#" },
-                    { title: "Batches", link: "#" }
-                ]),
+                    { title: "Batches", link: "#" },
+                ])
             );
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -126,7 +167,7 @@ export default function Batch() {
         mixturesChanged,
         materialPortionsChanged,
         mixtureRecordingsChanged,
-        isChanged
+        isChanged,
     ]);
 
     useEffect(() => {
@@ -134,15 +175,15 @@ export default function Batch() {
     }, [batch, initialBatch, isBatchChanged]);
 
     function onSave() {
-        if (invalidBatchId
-            || invalidBatchStartedAt
-            || invalidBatchEndedAt
-            || invalidBatchProduct) {
-                dispatch(setBatchDetails({ error: true }));
-
+        if (
+            invalidBatchId ||
+            invalidBatchStartedAt ||
+            invalidBatchEndedAt ||
+            invalidBatchProduct
+        ) {
+            dispatch(setBatchDetails({ error: true }));
         } else if (!batchChanged) {
             dispatch(setBatchDetails({ save: true }));
-
         } else if (batch.id) {
             dispatch(
                 editBatch({
@@ -155,8 +196,8 @@ export default function Batch() {
                         parentBrewId: batch.parentBrewId,
                         startedAt: batch.startedAt,
                         endedAt: batch.endedAt,
-                        version: batch.version
-                    }
+                        version: batch.version,
+                    },
                 })
             );
         } else {
@@ -169,8 +210,8 @@ export default function Batch() {
                         productId: parseInt(batch.product.id),
                         parentBrewId: batch.parentBrewId || null,
                         startedAt: batch.startedAt,
-                        endedAt: batch.endedAt
-                    }
+                        endedAt: batch.endedAt,
+                    },
                 })
             );
         }
@@ -182,7 +223,7 @@ export default function Batch() {
 
     function setEditable() {
         history.push({
-            search: "?edit=true"
+            search: "?edit=true",
         });
     }
 
@@ -198,8 +239,8 @@ export default function Batch() {
         setStagesChanged,
         setMixturesChanged,
         setMaterialPortionsChanged,
-        setMixtureRecordingsChanged
-    }
+        setMixtureRecordingsChanged,
+    };
 
     return (
         <React.Fragment>
@@ -216,16 +257,16 @@ export default function Batch() {
             />
             <RouteLeavingGuard
                 when={showRouterPrompt}
-                navigate={path => {
+                navigate={(path) => {
                     history.push(path);
                 }}
                 shouldBlockNavigation={() => editMode && isChanged()}
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
-            {batch.id && <Stages {...props}/>}
-            {batch.id && <Mixtures {...props}/>}
-            {batch.id && <MaterialPortions {...props}/>}
-            {batch.id && <MixtureRecordings {...props}/>}
+            {batch.id && <Stages {...props} />}
+            {batch.id && <Mixtures {...props} />}
+            {batch.id && <MaterialPortions {...props} />}
+            {batch.id && <MixtureRecordings {...props} />}
             <BatchInner {...props} />
         </React.Fragment>
     );

@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
-import {
-    useQuery
-} from "../../helpers/utils";
+import { useQuery } from "../../helpers/utils";
 import {
     setBreadcrumbItems,
     fetchProcuementByShipmentIdAndInvoiceId,
@@ -17,7 +15,7 @@ import {
     fetchAllSuppliers,
     fetchAllIngredients,
     fetchAllPackaging,
-    updatePurchaseOrder
+    updatePurchaseOrder,
 } from "../../store/actions";
 import PurchaseInvoiceInner from "./invoice";
 
@@ -33,13 +31,20 @@ export default function PurchaseInvoice() {
     const editMode = query.get("edit");
     const dispatch = useDispatch();
 
-    const { invoice, shipment, purchaseOrder, procurementItems: items } = useSelector(state => {
+    const {
+        invoice,
+        shipment,
+        purchaseOrder,
+        procurementItems: items,
+    } = useSelector((state) => {
         return state.Procurement.data;
     });
 
-    const { data: procurement, initial: initialProcurement } = useSelector(state => {
-        return state.Procurement;
-    });
+    const { data: procurement, initial: initialProcurement } = useSelector(
+        (state) => {
+            return state.Procurement;
+        }
+    );
 
     useEffect(() => {
         dispatch(resetPurchaseInvoiceDetails());
@@ -49,10 +54,10 @@ export default function PurchaseInvoice() {
     useEffect(() => {
         if (!shipmentId || !invoiceId) {
             history.replace("/purchases/invoices/new?edit=true");
-
         } else if (shipmentId && invoiceId) {
-            dispatch(fetchProcuementByShipmentIdAndInvoiceId(shipmentId, invoiceId));
-
+            dispatch(
+                fetchProcuementByShipmentIdAndInvoiceId(shipmentId, invoiceId)
+            );
         }
         if (editMode) {
             dispatch(fetchAllMaterialCategories());
@@ -67,15 +72,19 @@ export default function PurchaseInvoice() {
 
     useEffect(() => {
         if (invoice.id) {
-            dispatch(setBreadcrumbItems("Invoice: " + invoice.invoiceNumber, [
-                { title: "Main", link: "#" },
-                { title: "Purchases", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems("Invoice: " + invoice.invoiceNumber, [
+                    { title: "Main", link: "#" },
+                    { title: "Purchases", link: "#" },
+                ])
+            );
         } else {
-            dispatch(setBreadcrumbItems("New Invoice", [
-                { title: "Main", link: "#" },
-                { title: "Purchases", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems("New Invoice", [
+                    { title: "Main", link: "#" },
+                    { title: "Purchases", link: "#" },
+                ])
+            );
         }
         setChanged(isChanged());
 
@@ -83,20 +92,26 @@ export default function PurchaseInvoice() {
     }, [procurement]);
 
     function isChanged() {
-        return JSON.stringify(procurement) !== JSON.stringify(initialProcurement);
+        return (
+            JSON.stringify(procurement) !== JSON.stringify(initialProcurement)
+        );
     }
 
     function isPurchaseOrderChanged() {
-        return JSON.stringify(
-            (({ purchaseOrder }) => ({ purchaseOrder }))(procurement))
-        !== JSON.stringify(
-            (({ purchaseOrder }) => ({ purchaseOrder }))(initialProcurement))
+        return (
+            JSON.stringify(
+                (({ purchaseOrder }) => ({ purchaseOrder }))(procurement)
+            ) !==
+            JSON.stringify(
+                (({ purchaseOrder }) => ({ purchaseOrder }))(initialProcurement)
+            )
+        );
     }
 
     function onSave() {
         if (!isChanged()) {
             history.push({
-                search: ""
+                search: "",
             });
         } else {
             _savePurchaseOrder();
@@ -106,12 +121,14 @@ export default function PurchaseInvoice() {
 
     function _savePurchaseOrder() {
         if (purchaseOrder.id && isPurchaseOrderChanged()) {
-            dispatch(updatePurchaseOrder({
-                id: purchaseOrder.id,
-                orderNumber: purchaseOrder.orderNumber,
-                supplierId: purchaseOrder.supplier.id,
-                version: purchaseOrder.version
-            }))
+            dispatch(
+                updatePurchaseOrder({
+                    id: purchaseOrder.id,
+                    orderNumber: purchaseOrder.orderNumber,
+                    supplierId: purchaseOrder.supplier.id,
+                    version: purchaseOrder.version,
+                })
+            );
         }
     }
 
@@ -124,8 +141,8 @@ export default function PurchaseInvoice() {
                 freight: {
                     amount: {
                         currency: "CAD",
-                        amount: 0
-                    }
+                        amount: 0,
+                    },
                 },
                 generatedOn: invoice.generatedOn + "T00:00:00.001Z",
                 receivedOn: invoice.generatedOn + "T00:00:00.001Z",
@@ -141,7 +158,7 @@ export default function PurchaseInvoice() {
                 shipmentStatusId: shipment.statusId, // delivered
                 deliveryDueDate: shipment.deliveryDueDate,
                 deliveredDate: shipment.deliveredDate,
-                version: shipment.id ? shipment.version : undefined
+                version: shipment.id ? shipment.version : undefined,
             },
             procurementItems: items.map(({ invoiceItem, materialLot }) => ({
                 invoiceItem: {
@@ -149,20 +166,20 @@ export default function PurchaseInvoice() {
                     description: invoiceItem.description,
                     quantity: {
                         symbol: invoiceItem.material.baseQuantityUnit,
-                        value: parseFloat(invoiceItem.quantity.value)
+                        value: parseFloat(invoiceItem.quantity.value),
                     },
                     price: {
                         currency: "CAD",
-                        amount: parseFloat(invoiceItem.price.amount)
+                        amount: parseFloat(invoiceItem.price.amount),
                     },
                     tax: {
                         amount: {
                             currency: "CAD",
-                            amount: parseFloat(invoiceItem.tax.amount.amount)
-                        }
+                            amount: parseFloat(invoiceItem.tax.amount.amount),
+                        },
                     },
                     materialId: invoiceItem.material.id,
-                    version: invoiceItem.id ? invoiceItem.version : undefined
+                    version: invoiceItem.id ? invoiceItem.version : undefined,
                 },
                 materialLot: {
                     id: materialLot?.id,
@@ -170,20 +187,16 @@ export default function PurchaseInvoice() {
                     storageId: undefined,
                     quantity: {
                         symbol: invoiceItem.material.baseQuantityUnit,
-                        value: parseFloat(invoiceItem.quantity.value)
+                        value: parseFloat(invoiceItem.quantity.value),
                     },
-                    version: materialLot?.id ? materialLot.version : undefined
+                    version: materialLot?.id ? materialLot.version : undefined,
                 },
-            }))
+            })),
         };
         if (invoice.id) {
-            dispatch(
-                updateProcurement(params)
-            )
+            dispatch(updateProcurement(params));
         } else {
-            dispatch(
-                createProcurement(params)
-            )
+            dispatch(createProcurement(params));
         }
     }
 
@@ -195,30 +208,30 @@ export default function PurchaseInvoice() {
         editable,
         changed,
         onSave,
-        onDelete
-    }
+        onDelete,
+    };
 
     return (
         <React.Fragment>
             <DeleteGuard
-                    when={showDeletePrompt}
-                    confirm={() => {
-                        dispatch(deletePurchaseInvoice(invoice.id));
-                        setShowRouterPrompt(false);
-                    }}
-                    close={() => {
-                        setShowDeletePrompt(false);
-                    }}
-                    content="This cannot be undone. Are you sure want to delete this invoice?"
-                />
-                <RouteLeavingGuard
-                    when={showRouterPrompt}
-                    navigate={path => {
-                        history.push(path);
-                    }}
-                    shouldBlockNavigation={() => editMode && isChanged()}
-                    content="There are unsaved changes. Are you sure want to leave this page?"
-                />
+                when={showDeletePrompt}
+                confirm={() => {
+                    dispatch(deletePurchaseInvoice(invoice.id));
+                    setShowRouterPrompt(false);
+                }}
+                close={() => {
+                    setShowDeletePrompt(false);
+                }}
+                content="This cannot be undone. Are you sure want to delete this invoice?"
+            />
+            <RouteLeavingGuard
+                when={showRouterPrompt}
+                navigate={(path) => {
+                    history.push(path);
+                }}
+                shouldBlockNavigation={() => editMode && isChanged()}
+                content="There are unsaved changes. Are you sure want to leave this page?"
+            />
             <PurchaseInvoiceInner {...props} />
         </React.Fragment>
     );

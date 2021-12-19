@@ -1,5 +1,5 @@
 import React from "react";
-import {  useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useQuery } from "../../../helpers/utils";
 import Table, { Th } from "../../../component/Common/table";
@@ -8,7 +8,7 @@ export default function SupplierContactsTable() {
     const history = useHistory();
     const query = useQuery();
 
-    const contacts = useSelector(state => {
+    const contacts = useSelector((state) => {
         return state.SupplierContacts.content;
     });
 
@@ -25,8 +25,7 @@ export default function SupplierContactsTable() {
                 query.append("order", "desc");
             }
             query.append("sort", "firstName");
-            history.push({search: query.toString()});
-
+            history.push({ search: query.toString() });
         } else if (name === "supplierContactLastName") {
             if (sort !== "lastName" || order !== "asc") {
                 query.append("order", "asc");
@@ -34,8 +33,7 @@ export default function SupplierContactsTable() {
                 query.append("order", "desc");
             }
             query.append("sort", "lastName");
-            history.push({search: query.toString()});
-
+            history.push({ search: query.toString() });
         } else if (name === "supplierContactSupplierName") {
             if (sort !== "supplierName" || order !== "asc") {
                 query.append("order", "asc");
@@ -43,7 +41,7 @@ export default function SupplierContactsTable() {
                 query.append("order", "desc");
             }
             query.append("sort", "supplierName");
-            history.push({search: query.toString()});
+            history.push({ search: query.toString() });
         }
     }
 
@@ -78,24 +76,28 @@ export default function SupplierContactsTable() {
                 </tr>
             </thead>
             <tbody>
-                {
-                    contacts.map((supplier, key) =>
-                        <tr key={key}
-                        onClick={()=>{
+                {contacts.map((supplier, key) => (
+                    <tr
+                        key={key}
+                        onClick={() => {
                             history.push({
-                                pathname : "/suppliers/contacts/" +supplier.id
-                            })
-                }} style={{ cursor : "pointer"}}
-                        >
-                            <td>{supplier.firstName}</td>
-                            <td>{supplier.lastName}</td>
-                            <td>{supplier.supplier?.name}</td>
-                            <td>{supplier.position}</td>
-                            <td>{supplier.phoneNumber}</td>
-                            <td><a href={`mailto:${supplier.email}`}>{supplier.email}</a></td>
-                        </tr>
-                    )
-                }
+                                pathname: "/suppliers/contacts/" + supplier.id,
+                            });
+                        }}
+                        style={{ cursor: "pointer" }}
+                    >
+                        <td>{supplier.firstName}</td>
+                        <td>{supplier.lastName}</td>
+                        <td>{supplier.supplier?.name}</td>
+                        <td>{supplier.position}</td>
+                        <td>{supplier.phoneNumber}</td>
+                        <td>
+                            <a href={`mailto:${supplier.email}`}>
+                                {supplier.email}
+                            </a>
+                        </td>
+                    </tr>
+                ))}
             </tbody>
         </Table>
     );

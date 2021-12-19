@@ -7,7 +7,7 @@ import {
     FETCH_ALL_RAW_MATERIALS_REQUEST,
     SET_RAW_MATERIALS_DETAILS,
     SET_RAW_MATERIALS_PAGE_INDEX,
-    SET_RAW_MATERIALS_PAGE_SIZE
+    SET_RAW_MATERIALS_PAGE_SIZE,
 } from "./actionTypes";
 
 const initialState = {
@@ -18,7 +18,7 @@ const initialState = {
     totalElements: 0,
     totalPages: 0,
     pageIndex: 0,
-    pageSize: 20
+    pageSize: 20,
 };
 
 const RawMaterials = (state = initialState, { type, payload, data }) => {
@@ -67,7 +67,7 @@ const RawMaterials = (state = initialState, { type, payload, data }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         case SET_RAW_MATERIALS_PAGE_INDEX:
         case SET_RAW_MATERIALS_PAGE_SIZE:
@@ -75,15 +75,15 @@ const RawMaterials = (state = initialState, { type, payload, data }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         default:
             return {
                 ...state,
                 loading: true,
-                error: null
-            }
+                error: null,
+            };
     }
-}
+};
 
 export default RawMaterials;
