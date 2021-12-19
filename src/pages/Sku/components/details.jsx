@@ -173,7 +173,7 @@ export default function SkuDetails(props) {
                                     type="select"
                                     className="waves-effect"
                                     name="skuProduct"
-                                    style={{ width: "16rem" }}
+                                    style={{ width: "8rem" }}
                                     disabled={!props.editable}
                                     value={sku.product.id || ""}
                                     onChange={e => {
@@ -216,7 +216,7 @@ export default function SkuDetails(props) {
                         <Col xs={8}>
                             <Row className="m-0" xs={8}>
                                 <FormGroup
-                                    className="d-inline-block font-size-12"
+                                    className="d-inline-block font-size-12 pr-1"
                                     hidden={!props.editable}
                                 >
                                     <Input
@@ -235,7 +235,7 @@ export default function SkuDetails(props) {
                                     <FormFeedback>Enter a valid sku quantity.</FormFeedback>
                                 </FormGroup>
                                 <FormGroup
-                                    className="d-inline-block font-size-12"
+                                    className="d-inline-block font-size-12 m-0"
                                     hidden={!props.editable}
                                 >
                                     <Input
@@ -281,16 +281,15 @@ export default function SkuDetails(props) {
                                 Description
                             </Label>
                         </Col>
-                        <Col xs={8}>
+                        <Col xs={10}>
                             <FormGroup
-                                className="d-inline-block font-size-12 mb-2"
+                                className="font-size-12 mb-2"
                                 hidden={!props.editable}
                             >
                                 <Input
-                                    type="text"
-                                    className="waves-effect"
+                                    type="textarea"
+                                    className="waves-effect mb-2"
                                     name="skuDescription"
-                                    style={{ width: "16rem" }}
                                     disabled={!props.editable}
                                     value={sku.description || ""}
                                     onChange={e => {
@@ -298,6 +297,7 @@ export default function SkuDetails(props) {
                                     }}
                                     hidden={!props.editable}
                                     invalid={invalidDescription}
+                                    rows={4}
                                 />
                                 <FormFeedback>Enter a valid sku description.</FormFeedback>
                             </FormGroup>

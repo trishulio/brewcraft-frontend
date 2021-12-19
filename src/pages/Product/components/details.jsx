@@ -143,7 +143,7 @@ export default function ProductDetails({ product, editable }) {
                                     className="waves-effect"
                                     bsSize="sm"
                                     name="productClass"
-                                    style={{ width: "16rem" }}
+                                    style={{ width: "8rem" }}
                                     disabled={!editable}
                                     invalid={invalidClass}
                                     value={product.productClass ? product.productClass.id : ""}
@@ -191,7 +191,7 @@ export default function ProductDetails({ product, editable }) {
                                     type="select"
                                     className="waves-effect"
                                     bsSize="sm"
-                                    style={{ width: "16rem" }}
+                                    style={{ width: "8rem" }}
                                     name="productType"
                                     disabled={!editable}
                                     invalid={invalidType}
@@ -243,7 +243,7 @@ export default function ProductDetails({ product, editable }) {
                                     type="select"
                                     className="waves-effect"
                                     bsSize="sm"
-                                    style={{ width: "16rem" }}
+                                    style={{ width: "8rem" }}
                                     name="productStyle"
                                     disabled={!editable}
                                     value={product.style ? product.style.id : ""}
@@ -285,7 +285,7 @@ export default function ProductDetails({ product, editable }) {
                                 Description
                             </Label>
                         </Col>
-                        <Col xs="8">
+                        <Col xs="10">
                             <Input
                                 type="textarea"
                                 className="waves-effect mb-2"

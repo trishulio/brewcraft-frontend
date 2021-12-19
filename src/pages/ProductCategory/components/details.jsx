@@ -138,6 +138,7 @@ export default function ProductCategoryDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
+                                    style={{ width: "16rem" }}
                                 />
                                 <FormFeedback>Enter a valid category name.</FormFeedback>
                             </FormGroup>
