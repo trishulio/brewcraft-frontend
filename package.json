@@ -83,13 +83,15 @@
     },
     "scripts": {
         "clean": "rm -fr node_modules package-lock.json build",
-        "start": "react-scripts start",
         "build": "react-scripts --max-old-space-size=8000 build",
+        "start": "react-scripts start",
+        "cypress": "node node_modules/cypress/bin/cypress",
+        "cypress:open": "node node_modules/cypress/bin/cypress open",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "eslint": "node ./node_modules/eslint/bin/eslint ./src",
-        "cypress": "npx cypress open",
-        "cypress:open": "cypress open"
+        "prettier": "node ./node_modules/prettier/bin-prettier --write .",
+        "prettier:warn": "node ./node_modules/prettier/bin-prettier --check ."
     },
     "eslintConfig": {
         "extends": "react-app"

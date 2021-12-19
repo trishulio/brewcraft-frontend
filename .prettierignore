@@ -4,5 +4,6 @@
 
 # but not
 !/.vscode
+!/.github
 !/src
 !/cypress
