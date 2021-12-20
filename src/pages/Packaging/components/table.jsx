@@ -8,16 +8,16 @@ export default function PackagingTable() {
     const history = useHistory();
     const query = useQuery();
 
-    const packaging = useSelector(state => {
+    const packaging = useSelector((state) => {
         return state.Packaging.content;
     });
-function onSort(e) {
+    function onSort(e) {
         const name = e.target.getAttribute("name");
         const sort = query.get("sort");
         let order = query.get("order");
         query.delete("sort");
         query.delete("order");
-        switch(name) {
+        switch (name) {
             case "packagingName":
                 if (sort !== "name") {
                     order = undefined;
@@ -38,52 +38,49 @@ function onSort(e) {
         } else {
             query.append("order", "desc");
         }
-        history.push({search: query.toString()});
+        history.push({ search: query.toString() });
     }
 
-    return  (
+    return (
         <Table hover>
             <thead>
                 <tr>
-                    <Th
-                        name="packagingName"
-                        id="name"
-                        onSort={onSort}
-                    >
+                    <Th name="packagingName" id="name" onSort={onSort}>
                         Name
                     </Th>
                     <th>Class</th>
                     <th>Category</th>
                     <th>Measure</th>
-                    <Th
-                        name="packagingUpc"
-                        id="upc"
-                        onSort={onSort}
-                    >
+                    <Th name="packagingUpc" id="upc" onSort={onSort}>
                         UPC
                     </Th>
                 </tr>
             </thead>
             <tbody>
-                {
-                    packaging.map((packagingItem, key) =>
-                        <tr key={key} onClick={() => history.push("/materials/packaging/" + packagingItem.id)}>
-                            <td>{packagingItem.name || "-"}</td>
-                            <td>{packagingItem.materialClass?.name ?
-                                packagingItem.materialClass.name
-                                : "-"
-                                }
-                            </td>
-                            <td>{packagingItem.category?.name ?
-                                packagingItem.category.name
-                                : "-"
-                                }
-                            </td>
-                            <td>{packagingItem.baseQuantityUnit || "-"}</td>
-                            <td>{packagingItem.upc || "-"}</td>
-                        </tr>
-                    )
-                }
+                {packaging.map((packagingItem, key) => (
+                    <tr
+                        key={key}
+                        onClick={() =>
+                            history.push(
+                                "/materials/packaging/" + packagingItem.id
+                            )
+                        }
+                    >
+                        <td>{packagingItem.name || "-"}</td>
+                        <td>
+                            {packagingItem.materialClass?.name
+                                ? packagingItem.materialClass.name
+                                : "-"}
+                        </td>
+                        <td>
+                            {packagingItem.category?.name
+                                ? packagingItem.category.name
+                                : "-"}
+                        </td>
+                        <td>{packagingItem.baseQuantityUnit || "-"}</td>
+                        <td>{packagingItem.upc || "-"}</td>
+                    </tr>
+                ))}
             </tbody>
         </Table>
     );

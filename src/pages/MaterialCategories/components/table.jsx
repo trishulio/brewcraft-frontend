@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useQuery } from "../../../helpers/utils";
 import Table, { Th } from "../../../component/Common/table";
@@ -8,11 +8,11 @@ export default function MaterialCategoriesTable() {
     const history = useHistory();
     const query = useQuery();
 
-    const categories = useSelector(state => {
+    const categories = useSelector((state) => {
         return state.MaterialCategories.content;
     });
 
-    const allCategories = useSelector(state => {
+    const allCategories = useSelector((state) => {
         return state.MaterialCategories.all;
     });
 
@@ -22,12 +22,18 @@ export default function MaterialCategoriesTable() {
         let order = query.get("order");
         query.delete("sort");
         query.delete("order");
-        switch(name) {
+        switch (name) {
             case "materialCategoryName":
                 if (sort !== "name") {
                     order = undefined;
                 }
                 query.append("sort", "name");
+                break;
+            case "materialCategoryParentCategory":
+                if (sort !== "parentCategory") {
+                    order = undefined;
+                }
+                query.append("sort", "parentCategory");
                 break;
             default:
                 break;
@@ -37,34 +43,41 @@ export default function MaterialCategoriesTable() {
         } else {
             query.append("order", "desc");
         }
-        history.push({search: query.toString()});
+        history.push({ search: query.toString() });
     }
 
     return (
         <Table hover>
             <thead>
                 <tr>
-                    <Th
-                        name="materialCategoryName"
-                        id="name"
-                        onSort={onSort}
-                    >
+                    <Th name="materialCategoryName" id="name" onSort={onSort}>
                         Name
                     </Th>
-                    <th>Parent Category</th>
+                    <Th
+                        name="materialCategoryParentCategory"
+                        id="parentCategory"
+                        onSort={onSort}
+                    >
+                        Parent Category
+                    </Th>
                 </tr>
             </thead>
             <tbody>
-                {
-                    categories.map((category, key) =>
-                        <tr key={key} onClick={() => history.push("/materials/categories/" + category.id)}>
-                            <td>{category.name}</td>
-                            <td>
-                                {allCategories.find(c => c.id === category.parentCategoryId)?.name || "-"}
-                            </td>
-                        </tr>
-                    )
-                }
+                {categories.map((category, key) => (
+                    <tr
+                        key={key}
+                        onClick={() =>
+                            history.push("/materials/categories/" + category.id)
+                        }
+                    >
+                        <td>{category.name}</td>
+                        <td>
+                            {allCategories.find(
+                                (c) => c.id === category.parentCategoryId
+                            )?.name || "-"}
+                        </td>
+                    </tr>
+                ))}
             </tbody>
         </Table>
     );

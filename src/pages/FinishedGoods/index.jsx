@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     setBreadcrumbItems,
     fetchFinishedGoods,
-    fetchAllProducts
+    fetchAllProducts,
 } from "../../store/actions";
 import FinishedGoodsInner from "./finished-goods";
 
 export default function FinshedGoods() {
     const dispatch = useDispatch();
 
-    const { pageIndex, pageSize } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector((state) => {
         return state.FinishedGoods;
     });
 
@@ -30,7 +30,5 @@ export default function FinshedGoods() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageIndex, pageSize]);
 
-    return (
-        <FinishedGoodsInner />
-    );
+    return <FinishedGoodsInner />;
 }

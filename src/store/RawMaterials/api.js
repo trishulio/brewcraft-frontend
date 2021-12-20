@@ -6,11 +6,11 @@ async function fetchRawMaterials(params = {}) {
             page: params.pageIndex || 0,
             size: params.pageSize || 500,
             aggr_fn: "SUM",
-            group_by: "MATERIAL",
+            group_by: "LOT_NUMBER,MATERIAL",
             material_ids: params.materialId,
-            sort: params.sort || "material.name",
-            order_asc: !params.order || params.order === "asc"
-        }
+            sort: "", // params.sort || "material.name",
+            order_asc: !params.order || params.order === "asc",
+        },
     };
     if (params.materialId) {
         data.params.material_ids = parseInt(params.materialId);
@@ -21,5 +21,5 @@ async function fetchRawMaterials(params = {}) {
 }
 
 export const api = {
-    fetchRawMaterials
-}
+    fetchRawMaterials,
+};

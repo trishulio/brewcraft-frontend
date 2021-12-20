@@ -1,14 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import {
-    Button
-} from "reactstrap";
+import { Button } from "reactstrap";
 
-export default function SupplierContactToolbar({ editable, changed, onSave, onDelete }) {
+export default function SupplierContactToolbar({
+    editable,
+    changed,
+    onSave,
+    onDelete,
+}) {
     const history = useHistory();
 
-    const contact = useSelector(state => {
+    const contact = useSelector((state) => {
         return state.SupplierContact.data;
     });
 
@@ -23,7 +26,7 @@ export default function SupplierContactToolbar({ editable, changed, onSave, onDe
                 disabled={!changed}
                 hidden={!editable}
             >
-                    Save
+                Save
             </Button>
             <Button
                 type="button"
@@ -47,7 +50,7 @@ export default function SupplierContactToolbar({ editable, changed, onSave, onDe
                 onClick={() => {
                     history.push({
                         pathname: "/suppliers/contacts/" + contact.id,
-                        search: "?edit=true"
+                        search: "?edit=true",
                     });
                 }}
             >
@@ -62,7 +65,7 @@ export default function SupplierContactToolbar({ editable, changed, onSave, onDe
                 onClick={() => {
                     history.push({
                         pathname: "/suppliers/contacts/new",
-                        search: "?edit=true"
+                        search: "?edit=true",
                     });
                 }}
             >

@@ -2,7 +2,7 @@ import {
     SET_PRODUCT_CATEGORIES,
     SET_ALL_PRODUCT_CATEGORIES,
     FETCH_PRODUCT_CATEGORIES,
-    FETCH_ALL_PRODUCT_CATEGORIES
+    FETCH_ALL_PRODUCT_CATEGORIES,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
@@ -12,7 +12,10 @@ import { snackFailure } from "../Snackbar/actions";
 function* fetchAllProductCategories(action) {
     try {
         const res = yield call(api.fetchProductCategories, {});
-        yield put({ type: SET_ALL_PRODUCT_CATEGORIES, payload: { data: res.data.content }});
+        yield put({
+            type: SET_ALL_PRODUCT_CATEGORIES,
+            payload: { data: res.data.content },
+        });
         if (action?.payload?.success) {
             yield call(action.payload.success);
         }
@@ -23,8 +26,11 @@ function* fetchAllProductCategories(action) {
 
 function* fetchProductCategories(action) {
     try {
-        const res = yield call(api.fetchProductCategories, get(action, "payload"));
-        yield put({ type: SET_PRODUCT_CATEGORIES, payload: { ...res.data }});
+        const res = yield call(
+            api.fetchProductCategories,
+            get(action, "payload")
+        );
+        yield put({ type: SET_PRODUCT_CATEGORIES, payload: { ...res.data } });
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
     }

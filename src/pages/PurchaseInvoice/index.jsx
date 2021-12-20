@@ -3,20 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
-import {
-    useQuery
-} from "../../helpers/utils";
+import { useQuery } from "../../helpers/utils";
 import {
     setBreadcrumbItems,
-    fetchPurchaseInvoiceById,
-    createPurchaseInvoice,
-    updatePurchaseInvoice,
+    fetchProcuementByShipmentIdAndInvoiceId,
+    createProcurement,
+    updateProcurement,
     deletePurchaseInvoice,
     fetchAllMaterialCategories,
     resetPurchaseInvoiceDetails,
     fetchAllSuppliers,
     fetchAllIngredients,
-    fetchAllPackaging
+    fetchAllPackaging,
+    updatePurchaseOrder,
 } from "../../store/actions";
 import PurchaseInvoiceInner from "./invoice";
 
@@ -26,164 +25,178 @@ export default function PurchaseInvoice() {
     const [showDeletePrompt, setShowDeletePrompt] = useState(false);
     const [showRouterPrompt, setShowRouterPrompt] = useState(false);
 
-    const { id } = useParams();
+    const { shipmentId, invoiceId } = useParams();
     const history = useHistory();
     const query = useQuery();
     const editMode = query.get("edit");
     const dispatch = useDispatch();
 
     const {
-        data: invoice,
-        initial: initialInvoice
-    } = useSelector(state => {
-        return state.PurchaseInvoice;
+        invoice,
+        shipment,
+        purchaseOrder,
+        procurementItems: items,
+    } = useSelector((state) => {
+        return state.Procurement.data;
     });
 
+    const { data: procurement, initial: initialProcurement } = useSelector(
+        (state) => {
+            return state.Procurement;
+        }
+    );
+
     useEffect(() => {
-
         dispatch(resetPurchaseInvoiceDetails());
+        // eslint-disable-next-line
+    }, []);
 
-        if (id === "new") {
+    useEffect(() => {
+        if (!shipmentId || !invoiceId) {
             history.replace("/purchases/invoices/new?edit=true");
-        } else {
-            dispatch(fetchPurchaseInvoiceById(id));
+        } else if (shipmentId && invoiceId) {
+            dispatch(
+                fetchProcuementByShipmentIdAndInvoiceId(shipmentId, invoiceId)
+            );
         }
         if (editMode) {
             dispatch(fetchAllMaterialCategories());
             dispatch(fetchAllSuppliers());
-
             dispatch(fetchAllIngredients());
             dispatch(fetchAllPackaging());
         }
         setEditable(editMode && editMode !== "false");
         setShowRouterPrompt(!!editMode);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id, editMode]);
+        // eslint-disable-next-line
+    }, [shipmentId, invoiceId, editMode]);
 
     useEffect(() => {
         if (invoice.id) {
-            dispatch(setBreadcrumbItems("Invoice: " + invoice.invoiceNumber, [
-                { title: "Main", link: "#" },
-                { title: "Purchase Invoices", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems("Invoice: " + invoice.invoiceNumber, [
+                    { title: "Main", link: "#" },
+                    { title: "Purchases", link: "#" },
+                ])
+            );
         } else {
-            dispatch(setBreadcrumbItems("New Invoice", [
-                { title: "Main", link: "#" },
-                { title: "Purchase Invoices", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems("New Invoice", [
+                    { title: "Main", link: "#" },
+                    { title: "Purchases", link: "#" },
+                ])
+            );
         }
         setChanged(isChanged());
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [invoice]);
+    }, [procurement]);
 
     function isChanged() {
-        return JSON.stringify(
-                (({ id, invoiceNumber, purchaseOrder, description, freight, generatedOn, receivedOn, paymentDueDate, statusId, selectedSupplier, items, version  }) => ({ id, invoiceNumber, purchaseOrder, description, freight, generatedOn, receivedOn, paymentDueDate, statusId, selectedSupplier, items, version }))(initialInvoice))
-            !== JSON.stringify(
-                (({ id, invoiceNumber, purchaseOrder, description, freight, generatedOn, receivedOn, paymentDueDate, statusId, selectedSupplier, items, version }) => ({ id, invoiceNumber, purchaseOrder, description, freight, generatedOn, receivedOn, paymentDueDate, statusId, selectedSupplier, items, version }))(invoice))
+        return (
+            JSON.stringify(procurement) !== JSON.stringify(initialProcurement)
+        );
+    }
+
+    function isPurchaseOrderChanged() {
+        return (
+            JSON.stringify(
+                (({ purchaseOrder }) => ({ purchaseOrder }))(procurement)
+            ) !==
+            JSON.stringify(
+                (({ purchaseOrder }) => ({ purchaseOrder }))(initialProcurement)
+            )
+        );
     }
 
     function onSave() {
         if (!isChanged()) {
             history.push({
-                search: ""
+                search: "",
             });
         } else {
-            _save();
+            _savePurchaseOrder();
+            _saveProcurement();
         }
     }
 
-    function _save() {
+    function _savePurchaseOrder() {
+        if (purchaseOrder.id && isPurchaseOrderChanged()) {
+            dispatch(
+                updatePurchaseOrder({
+                    id: purchaseOrder.id,
+                    orderNumber: purchaseOrder.orderNumber,
+                    supplierId: purchaseOrder.supplier.id,
+                    version: purchaseOrder.version,
+                })
+            );
+        }
+    }
+
+    function _saveProcurement() {
         const params = {
-            purchaseOrder: {
-                orderNumber: invoice.purchaseOrder.orderNumber || undefined,
-                supplierId: invoice.purchaseOrder.supplier.id
+            invoice: {
+                id: invoice.id || undefined,
+                invoiceNumber: invoice.invoiceNumber,
+                description: invoice.description,
+                freight: {
+                    amount: {
+                        currency: "CAD",
+                        amount: 0,
+                    },
+                },
+                generatedOn: invoice.generatedOn + "T00:00:00.001Z",
+                receivedOn: invoice.generatedOn + "T00:00:00.001Z",
+                paymentDueDate: invoice.paymentDueDate + "T00:00:00.001Z",
+                invoiceStatusId: 1, // paid
+                version: invoice.id ? invoice.version : undefined,
             },
-            procurementItems: invoice.items.map(item => {
-                return {
-                    description: item.description,
+            purchaseOrder: purchaseOrder,
+            shipment: {
+                id: shipment.id || undefined,
+                shipmentNumber: shipment.shipmentNumber,
+                description: shipment.description,
+                shipmentStatusId: shipment.statusId, // delivered
+                deliveryDueDate: shipment.deliveryDueDate,
+                deliveredDate: shipment.deliveredDate,
+                version: shipment.id ? shipment.version : undefined,
+            },
+            procurementItems: items.map(({ invoiceItem, materialLot }) => ({
+                invoiceItem: {
+                    id: invoiceItem.id || undefined,
+                    description: invoiceItem.description,
                     quantity: {
-                        symbol: item.material.baseQuantityUnit,
-                        value: parseFloat(item.quantity.value)
+                        symbol: invoiceItem.material.baseQuantityUnit,
+                        value: parseFloat(invoiceItem.quantity.value),
                     },
                     price: {
                         currency: "CAD",
-                        amount: parseFloat(item.price.amount)
+                        amount: parseFloat(invoiceItem.price.amount),
                     },
                     tax: {
                         amount: {
                             currency: "CAD",
-                            amount: parseFloat(item.tax.amount.amount)
-                        }
+                            amount: parseFloat(invoiceItem.tax.amount.amount),
+                        },
                     },
-                    materialId: item.material.id,
-                    lotNumber: item.lotNumber || undefined
-                }
-            }),
-            shipmentStatusId: 1, // delivered
-            shipmentNumber: invoice.shipmentNumber || undefined,
-            invoiceStatusId: 1, // paid
-            description: invoice.description,
-            invoiceNumber: invoice.invoiceNumber,
-            freight: {
-                amount: {
-                    currency: "CAD",
-                    amount: 0
-                }
-            },
-            generatedOn: invoice.generatedOn + "T00:00:00.001Z",
-            paymentDueDate: invoice.paymentDueDate + "T00:00:00.001Z",
+                    materialId: invoiceItem.material.id,
+                    version: invoiceItem.id ? invoiceItem.version : undefined,
+                },
+                materialLot: {
+                    id: materialLot?.id,
+                    lotNumber: materialLot.lotNumber,
+                    storageId: undefined,
+                    quantity: {
+                        symbol: invoiceItem.material.baseQuantityUnit,
+                        value: parseFloat(invoiceItem.quantity.value),
+                    },
+                    version: materialLot?.id ? materialLot.version : undefined,
+                },
+            })),
         };
         if (invoice.id) {
-            dispatch(
-                updatePurchaseInvoice({
-                    form: [{
-                        id: invoice.id,
-                        invoiceNumber: invoice.invoiceNumber,
-                        description: invoice.description,
-                        freight: {
-                            amount: {
-                                currency: "CAD",
-                                amount: 0
-                            }
-                        },
-                        generatedOn: invoice.generatedOn + "T00:00:00.001Z",
-                        receivedOn: null,
-                        paymentDueDate: invoice.paymentDueDate + "T00:00:00.001Z",
-                        statusId: 1,
-                        invoiceItems: invoice.items.map(item => {
-                            return {
-                                id: item.id,
-                                description: item.description,
-                                quantity: {
-                                    symbol: item.material.baseQuantityUnit,
-                                    value: parseFloat(item.quantity.value)
-                                },
-                                price: {
-                                    currency: "CAD",
-                                    amount: parseFloat(item.price.amount)
-                                },
-                                tax: {
-                                    amount: {
-                                        currency: "CAD",
-                                        amount: parseFloat(item.tax.amount.amount)
-                                    }
-                                },
-                                materialId: item.material.id,
-                                version: item.version
-                            }
-                        }),
-                        purchaseOrderId: invoice.purchaseOrder.id,
-                        version: invoice.version
-                    }]
-                })
-            );
+            dispatch(updateProcurement(params));
         } else {
-            dispatch(createPurchaseInvoice({
-                form: [params]
-            }));
+            dispatch(createProcurement(params));
         }
     }
 
@@ -195,30 +208,30 @@ export default function PurchaseInvoice() {
         editable,
         changed,
         onSave,
-        onDelete
-    }
+        onDelete,
+    };
 
     return (
         <React.Fragment>
             <DeleteGuard
-                    when={showDeletePrompt}
-                    confirm={() => {
-                        dispatch(deletePurchaseInvoice(invoice.id));
-                        setShowRouterPrompt(false);
-                    }}
-                    close={() => {
-                        setShowDeletePrompt(false);
-                    }}
-                    content="This cannot be undone. Are you sure want to delete this invoice?"
-                />
-                <RouteLeavingGuard
-                    when={showRouterPrompt}
-                    navigate={path => {
-                        history.push(path);
-                    }}
-                    shouldBlockNavigation={() => editMode && isChanged()}
-                    content="There are unsaved changes. Are you sure want to leave this page?"
-                />
+                when={showDeletePrompt}
+                confirm={() => {
+                    dispatch(deletePurchaseInvoice(invoice.id));
+                    setShowRouterPrompt(false);
+                }}
+                close={() => {
+                    setShowDeletePrompt(false);
+                }}
+                content="This cannot be undone. Are you sure want to delete this invoice?"
+            />
+            <RouteLeavingGuard
+                when={showRouterPrompt}
+                navigate={(path) => {
+                    history.push(path);
+                }}
+                shouldBlockNavigation={() => editMode && isChanged()}
+                content="There are unsaved changes. Are you sure want to leave this page?"
+            />
             <PurchaseInvoiceInner {...props} />
         </React.Fragment>
     );

@@ -2,17 +2,17 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     setPurchaseInvoicesPageIndex,
-    setPurchaseInvoicesPageSize
+    setPurchaseInvoicesPageSize,
 } from "../../../store/actions";
 import Pagination from "../../../component/Common/pagination";
 
 export default function PurchaseInvoicesPagination({ fetchPage, children }) {
-
     const dispatch = useDispatch();
 
-    const { totalElements, totalPages, pageIndex, pageSize , content } = useSelector(state => {
-        return state.PurchaseInvoices;
-    });
+    const { totalElements, totalPages, pageIndex, pageSize, content } =
+        useSelector((state) => {
+            return state.Procurements;
+        });
 
     const pageProps = {
         items: content,
@@ -21,19 +21,17 @@ export default function PurchaseInvoicesPagination({ fetchPage, children }) {
         pageIndex,
         pageSize,
         fetchItems: fetchPage,
-        setPageIndex: index => {
+        setPageIndex: (index) => {
             dispatch(setPurchaseInvoicesPageIndex(index));
         },
-        setPageSize: size => {
+        setPageSize: (size) => {
             dispatch(setPurchaseInvoicesPageSize(size));
-        }
+        },
     };
 
     return (
         <React.Fragment>
-            <Pagination {...pageProps}>
-                {children}
-            </Pagination>
+            <Pagination {...pageProps}>{children}</Pagination>
         </React.Fragment>
     );
 }

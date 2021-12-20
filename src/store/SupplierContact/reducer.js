@@ -19,7 +19,7 @@ import {
     INVALID_SUPPLIER_CONTACT_EMAIL,
     INVALID_SUPPLIER_CONTACT_PHONE_NUMBER,
     EDIT_SUPPLIER_CONTACT_FAILURE,
-    DELETE_SUPPLIER_CONTACT_FAILURE
+    DELETE_SUPPLIER_CONTACT_FAILURE,
 } from "./actionTypes";
 
 const initialState = {
@@ -30,8 +30,8 @@ const initialState = {
         supplier: "",
         position: "",
         email: "",
-    phoneNumber: "",
-        version: null
+        phoneNumber: "",
+        version: null,
     },
     initial: {
         id: "",
@@ -41,7 +41,7 @@ const initialState = {
         position: "",
         email: "",
         phoneNumber: "",
-        version: null
+        version: null,
     },
     invalidFirstName: false,
     invalidLastName: false,
@@ -50,16 +50,16 @@ const initialState = {
     invalidPhoneNumber: false,
     invalidCompany: false,
     loading: true,
-    error: null
-  };
+    error: null,
+};
 
 const SupplierContact = (state = initialState, { type, payload, data }) => {
-    switch(type) {
+    switch (type) {
         case SET_SUPPLIER_CONTACT_DETAILS:
             return {
                 ...state,
                 ...payload,
-                loading: false
+                loading: false,
             };
         case FETCH_SUPPLIER_CONTACT_BY_ID_REQUEST:
             return {
@@ -84,7 +84,7 @@ const SupplierContact = (state = initialState, { type, payload, data }) => {
             return {
                 ...state,
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_SUPPLIER_CONTACT_SUCCESS:
         case EDIT_SUPPLIER_CONTACT_SUCCESS:
@@ -93,10 +93,10 @@ const SupplierContact = (state = initialState, { type, payload, data }) => {
                 ...payload,
                 data: {
                     ...state.data,
-                    ...payload.data
+                    ...payload.data,
                 },
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_SUPPLIER_CONTACT_FAILURE:
         case EDIT_SUPPLIER_CONTACT_FAILURE:
@@ -104,36 +104,34 @@ const SupplierContact = (state = initialState, { type, payload, data }) => {
             return {
                 ...state,
                 loading: false,
-                error: true
+                error: true,
             };
         case EDIT_SUPPLIER_CONTACT_REQUEST:
             return {
                 ...state,
                 loading: false,
-                error: null
+                error: null,
             };
         case DELETE_SUPPLIER_CONTACT_REQUEST:
             return {
                 ...state,
                 loading: false,
-                error: null
+                error: null,
             };
         case DELETE_SUPPLIER_CONTACT_SUCCESS:
             return {
-            ...state,
-            data: filter([...state.data], (instanceData) => {
-                return (
-                    payload.id!==instanceData.id
-                );
-            }),
-            loading: false,
-            error: null
-        };
+                ...state,
+                data: filter([...state.data], (instanceData) => {
+                    return payload.id !== instanceData.id;
+                }),
+                loading: false,
+                error: null,
+            };
         case RESET_SUPPLIER_CONTACT_DETAILS:
             return {
                 ...initialState,
                 loading: false,
-                error: null
+                error: null,
             };
         case INVALID_SUPPLIER_CONTACT_FIRST_NAME:
         case INVALID_SUPPLIER_CONTACT_LAST_NAME:
@@ -145,15 +143,15 @@ const SupplierContact = (state = initialState, { type, payload, data }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         default:
             return {
                 ...state,
                 loading: true,
-                error: null
-            }
+                error: null,
+            };
     }
-}
+};
 
 export default SupplierContact;

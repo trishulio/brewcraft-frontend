@@ -5,25 +5,25 @@ import {
     EDIT_WHIRLPOOL_STAGE_SUCCESS,
     ADD_WHIRLPOOL_STAGE_SUCCESS,
     SET_WHIRLPOOL_STAGE_DETAILS,
-    RESET_WHIRLPOOL_STAGE_DETAILS
+    RESET_WHIRLPOOL_STAGE_DETAILS,
 } from "./actionTypes";
 import { initialState } from "./initial";
 
 const WhirlpoolStage = (state = initialState, { type, payload }) => {
-    switch(type) {
+    switch (type) {
         case SET_WHIRLPOOL_STAGE_DETAILS:
             return {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_WHIRLPOOL_STAGE_REQUEST:
         case EDIT_WHIRLPOOL_STAGE_REQUEST:
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
             };
         case ADD_WHIRLPOOL_STAGE_SUCCESS:
         case EDIT_WHIRLPOOL_STAGE_SUCCESS:
@@ -31,25 +31,25 @@ const WhirlpoolStage = (state = initialState, { type, payload }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_WHIRLPOOL_STAGE_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: true
+                error: true,
             };
         case RESET_WHIRLPOOL_STAGE_DETAILS:
             return {
                 ...initialState,
                 loading: false,
-                error: null
+                error: null,
             };
         default:
             return {
                 ...state,
                 loading: false,
-                error: null
+                error: null,
             };
     }
 };

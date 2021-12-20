@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import { Bar } from 'react-chartjs-2';
+import React, { Component } from "react";
+import { Bar } from "react-chartjs-2";
 
 class InProcessBarChart extends Component {
-
     render() {
         const option = {
             tootlbar: {
-                show: false
+                show: false,
             },
             tooltips: {
                 callbacks: {
@@ -15,19 +14,26 @@ class InProcessBarChart extends Component {
                         var meta = dataset._meta[Object.keys(dataset._meta)[0]];
                         var total = meta.total;
                         var currentValue = dataset.data[tooltipItem.index];
-                        var percentage = parseFloat((currentValue / total * 100).toFixed(1));
-                        return currentValue + ' (' + percentage + '%)';
+                        var percentage = parseFloat(
+                            ((currentValue / total) * 100).toFixed(1)
+                        );
+                        return currentValue + " (" + percentage + "%)";
                     },
                     title: function (tooltipItem, data) {
                         return data.labels[tooltipItem[0].index];
-                    }
-                }
-            }
-        }
+                    },
+                },
+            },
+        };
 
         return (
             <React.Fragment>
-                <Bar width={4} height={4} data={this.props.data} options={option} />
+                <Bar
+                    width={4}
+                    height={4}
+                    data={this.props.data}
+                    options={option}
+                />
             </React.Fragment>
         );
     }

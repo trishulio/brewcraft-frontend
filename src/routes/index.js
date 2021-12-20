@@ -1,8 +1,6 @@
 /* eslint-disable */
 import React from "react";
 import { Redirect } from "react-router-dom";
-import Batch from "../pages/Batch";
-import Batches from "../pages/Batches";
 import Brew from "../pages/Brew";
 import Brews from "../pages/Brews";
 import Dashboard from "../pages/Dashboard/dashboard";
@@ -30,20 +28,17 @@ import Supplier from "../pages/Supplier";
 import Suppliers from "../pages/Suppliers";
 import SupplierContact from "../pages/SupplierContact";
 import SupplierContacts from "../pages/SupplierContacts";
+import User from "../pages/User";
 import Users from "../pages/Users";
 import NotFound from "../pages/pages-404";
 
-const publicRoutes = [
-    { path: "/404", component: NotFound }
-];
+const publicRoutes = [{ path: "/404", component: NotFound }];
 
 const authProtectedRoutes = [
     // Dashboard
     { path: "/dashboard", component: Dashboard },
 
     // Batches
-    { path: "/batches/:id", component: Batch },
-    { path: "/batches", component: Batches },
     { path: "/brews/:id", component: Brew },
     { path: "/brews", component: Brews },
 
@@ -77,7 +72,11 @@ const authProtectedRoutes = [
     { path: "/materials/categories", component: MaterialCategories },
 
     // Purchase Invoices
-    { path: "/purchases/invoices/:id", component: PurchaseInvoice },
+    { path: "/purchases/invoices/new", component: PurchaseInvoice },
+    {
+        path: "/purchases/invoices/:shipmentId/:invoiceId",
+        component: PurchaseInvoice,
+    },
     { path: "/purchases/invoices", component: PurchaseInvoices },
 
     // Suppliers
@@ -94,10 +93,11 @@ const authProtectedRoutes = [
     { path: "/reports", component: Reports },
 
     // Users
+    { path: "/users/:id", component: User },
     { path: "/users", component: Users },
 
     // Default
-    { path: "/", exact: true, component: () => <Redirect to="/brews" /> }
+    { path: "/", exact: true, component: () => <Redirect to="/brews" /> },
 ];
 
 export { authProtectedRoutes, publicRoutes };

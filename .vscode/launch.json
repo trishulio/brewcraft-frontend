@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "Launch App",
+            "type": "node-terminal",
+            "command": "npm start",
+            "request": "launch"
+        },
+        {
+            "name": "Launch debug",
+            "type": "pwa-chrome",
+            "request": "launch",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}

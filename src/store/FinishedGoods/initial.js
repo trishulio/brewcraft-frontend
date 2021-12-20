@@ -1,8 +1,6 @@
 const initialState = {
     content: [],
-    initial: []
+    initial: [],
 };
 
-export {
-    initialState
-};
+export { initialState };

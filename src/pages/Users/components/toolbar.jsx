@@ -1,19 +1,10 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import {
-    Button,
-    Input
-} from "reactstrap";
+import { Button } from "reactstrap";
 import Toolbar from "../../../component/Common/toolbar";
 
-export default function ProductCategoriesToolbar() {
+export default function UsersToolbar() {
     const history = useHistory();
-    // const query = useQuery();
-    // const supplierId = query.get("supplier");
-
-    // const users = useSelector(state => {
-    //     return state.Users.all;
-    // });
 
     return (
         <Toolbar>
@@ -25,20 +16,12 @@ export default function ProductCategoriesToolbar() {
                 onClick={() => {
                     history.push({
                         pathname: "/users/new",
-                        search: "?edit=true"
+                        search: "?edit=true",
                     });
                 }}
             >
-                    New User
+                New User
             </Button>
-            <Input
-                name="usersSearch"
-                type="search"
-                bsSize="sm"
-                placeholder="Search"
-                className="waves-effect float-right mb-3 ml-2"
-                style={{ width: 170 }}
-            />
         </Toolbar>
     );
 }

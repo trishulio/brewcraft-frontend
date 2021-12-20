@@ -7,7 +7,7 @@ import {
     SET_SHIPMENT_INVOICE_DATE,
     SET_SHIPMENT_ITEMS,
     SET_SHIPMENT_SUPPLIER,
-    RESET_SHIPMENT_DETAILS
+    RESET_SHIPMENT_DETAILS,
 } from "./actionTypes";
 
 const initialState = {
@@ -18,16 +18,18 @@ const initialState = {
         statusId: 0,
         deliveryDueDate: "",
         deliveredDate: "",
-        lots: [{
-            lotNumber: "",
-            invoiceItemId: 0,
-            storageId: 0,
-            quantity: {
-                symbol: "",
-                value: 0
-            }
-        }],
-        version: null
+        lots: [
+            {
+                lotNumber: "",
+                invoiceItemId: 0,
+                storageId: 0,
+                quantity: {
+                    symbol: "",
+                    value: 0,
+                },
+            },
+        ],
+        version: null,
     },
     initial: {
         id: "",
@@ -36,19 +38,21 @@ const initialState = {
         statusId: 0,
         deliveryDueDate: "",
         deliveredDate: "",
-        lots: [{
-            lotNumber: "",
-            invoiceItemId: 0,
-            storageId: 0,
-            quantity: {
-                symbol: "",
-                value: 0
-            }
-        }],
-        version: null
+        lots: [
+            {
+                lotNumber: "",
+                invoiceItemId: 0,
+                storageId: 0,
+                quantity: {
+                    symbol: "",
+                    value: 0,
+                },
+            },
+        ],
+        version: null,
     },
     loading: true,
-    error: null
+    error: null,
 };
 
 const Shipment = (state = initialState, { type, payload }) => {
@@ -70,8 +74,8 @@ const Shipment = (state = initialState, { type, payload }) => {
                 ...state,
                 data: {
                     ...state.data,
-                    ...payload
-                }
+                    ...payload,
+                },
             };
         case SET_SHIPMENT_SUPPLIER:
             return {
@@ -80,22 +84,22 @@ const Shipment = (state = initialState, { type, payload }) => {
                     ...state.data,
                     purchaseOrder: {
                         ...state.data.purchaseOrder,
-                        ...payload
-                    }
-                }
+                        ...payload,
+                    },
+                },
             };
         case RESET_SHIPMENT_DETAILS:
             return {
                 ...initialState,
                 loading: false,
-                error: null
+                error: null,
             };
         default:
-        return {
-            ...state,
-            loading: true,
-            error: null,
-        };
+            return {
+                ...state,
+                loading: true,
+                error: null,
+            };
     }
 };
 

@@ -1,10 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-    Button,
-    Input
-} from "reactstrap";
+import { Button, Input } from "reactstrap";
 import Toolbar from "../../../component/Common/toolbar";
 import { useQuery } from "../../../helpers/utils";
 
@@ -13,7 +10,7 @@ export default function ProductCategoriesToolbar() {
     const query = useQuery();
     const parentCategoryId = query.get("category");
 
-    const categories = useSelector(state => {
+    const categories = useSelector((state) => {
         return state.MaterialCategories.all;
     });
 
@@ -27,11 +24,11 @@ export default function ProductCategoriesToolbar() {
                 onClick={() => {
                     history.push({
                         pathname: "/materials/categories/new",
-                        search: "?edit=true"
+                        search: "?edit=true",
                     });
                 }}
             >
-                    New Category
+                New Category
             </Button>
             <Input
                 type="select"
@@ -39,20 +36,25 @@ export default function ProductCategoriesToolbar() {
                 className="waves-effect float-right mb-3 ml-2"
                 style={{ width: 100 }}
                 value={parentCategoryId || ""}
-                onChange={e => {
+                onChange={(e) => {
                     query.delete("category");
-                    if (e.target.value) {
+                    if (e.target.value && e.target.value !== "") {
                         query.append("category", e.target.value);
                     }
-                    history.push({search: query.toString()});
+                    history.push({ search: query.toString() });
                 }}
             >
                 <option value="">Parent Category</option>
-                {
-                    categories.map((value, index) => (
-                        <option value={value.id} key={index}>{value.name}</option>
-                    ))
-                }
+                {categories.map((value, index) => {
+                    if (!value.parentCategoryId) {
+                        return (
+                            <option value={value.id} key={index}>
+                                {value.name}
+                            </option>
+                        );
+                    }
+                    return null;
+                })}
             </Input>
         </Toolbar>
     );

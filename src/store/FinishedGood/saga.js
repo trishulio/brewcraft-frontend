@@ -3,7 +3,7 @@ import {
     FETCH_FINISHED_GOOD,
     CREATE_FINISHED_GOOD,
     UPDATE_FINISHED_GOOD,
-    DELETE_FINISHED_GOOD
+    DELETE_FINISHED_GOOD,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
@@ -14,7 +14,10 @@ import { SET_BATCH_DETAILS } from "../Brew/actionTypes";
 
 function* fetchFinishedGoodByIdGenerator(action) {
     try {
-        const res = yield call(api.fetchFinishedGoodById, get(action, "payload.id"));
+        const res = yield call(
+            api.fetchFinishedGoodById,
+            get(action, "payload.id")
+        );
         res.initialFinishedGood = JSON.parse(JSON.stringify(res.data));
         yield put({ type: SET_FINISHED_GOOD_DETAILS, payload: { ...res } });
     } catch (e) {
@@ -25,7 +28,7 @@ function* fetchFinishedGoodByIdGenerator(action) {
 function* createFinishedGoodGenerator(action) {
     try {
         yield call(api.addFinishedGood, get(action, "payload.form"));
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false }});
+        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
     }
@@ -33,13 +36,21 @@ function* createFinishedGoodGenerator(action) {
 
 function* udpateFinishedGoodGenerator(action) {
     try {
-        const res = yield call(api.updateFinishedGood, get(action, "payload.id"), get(action, "payload.form"));
+        const res = yield call(
+            api.updateFinishedGood,
+            get(action, "payload.id"),
+            get(action, "payload.form")
+        );
         res.initialFinishedGood = JSON.parse(JSON.stringify(res.data));
         yield put({ type: SET_FINISHED_GOOD_DETAILS, payload: { ...res } });
         if (action.payload.success) {
             action.payload.success(res.data.id);
         }
-        yield put(snackSuccess(`Updated finished good ${get(action, "payload.form.name")}.`));
+        yield put(
+            snackSuccess(
+                `Updated finished good ${get(action, "payload.form.name")}.`
+            )
+        );
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
     }

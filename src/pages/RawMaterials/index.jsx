@@ -4,7 +4,7 @@ import { useQuery } from "../../helpers/utils";
 import {
     fetchRawMaterials,
     fetchAllMaterials,
-    setBreadcrumbItems
+    setBreadcrumbItems,
 } from "../../store/actions";
 import RawMaterialsInner from "./raw-materials";
 
@@ -15,7 +15,7 @@ export default function RawMaterials() {
     const sort = query.get("sort");
     const order = query.get("order");
 
-    const { pageIndex, pageSize } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector((state) => {
         return state.RawMaterials;
     });
 
@@ -23,22 +23,24 @@ export default function RawMaterials() {
         dispatch(
             setBreadcrumbItems("Raw Materials", [
                 { title: "Main", link: "#" },
-                { title: "Raw Materials", link: "#" }
-            ]),
+                { title: "Raw Materials", link: "#" },
+            ])
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         const props = {
-            pageIndex, pageSize, materialId, sort, order
+            pageIndex,
+            pageSize,
+            materialId,
+            sort,
+            order,
         };
         dispatch(fetchRawMaterials({ ...props }));
         dispatch(fetchAllMaterials());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageIndex, pageSize, materialId, sort, order]);
 
-    return (
-        <RawMaterialsInner />
-    );
+    return <RawMaterialsInner />;
 }

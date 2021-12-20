@@ -1,10 +1,16 @@
 {
+    "editor.rulers": [80],
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "files.trimTrailingWhitespace": true,
-    "editor.rulers": [
-        80
-    ],
+    "prettier.requireConfig": true,
     "search.exclude": {
-        "/brewcraft/src/assets/": true,
-        "/brewcraft/template/": true
+        "src/assets/": true,
+        "template/": true
+    },
+    "[javascript]": {
+        "editor.formatOnSave": true
     }
 }

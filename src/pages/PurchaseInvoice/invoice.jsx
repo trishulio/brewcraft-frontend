@@ -1,14 +1,19 @@
 import React from "react";
-import Toolbar from "./components/toolbar";
-import Invoice from "./components/invoice";
-import { Alert } from "reactstrap";
 import { useSelector } from "react-redux";
+import { Alert, Card, CardBody, CardHeader, Col, Row } from "reactstrap";
+import Details from "./components/details";
+import Items from "./components/items";
+import Toolbar from "./components/toolbar";
 
-export default function PurchaseInvoice({ editable, changed, onSave, onDelete }) {
-
-    const error = useSelector(state => {
-        return state.PurchaseInvoice.error;
-    })
+export default function PurchaseInvoice({
+    editable,
+    changed,
+    onSave,
+    onDelete,
+}) {
+    const error = useSelector((state) => {
+        return state.Procurement.error;
+    });
 
     return (
         <React.Fragment>
@@ -19,12 +24,23 @@ export default function PurchaseInvoice({ editable, changed, onSave, onDelete })
                 onDelete={onDelete}
             />
             <div style={{ maxWidth: "1200px" }}>
-                {error &&
+                {error && (
                     <Alert color="info" className="mt-2 mb-4">
-                        <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                        <strong>Oh snap!</strong> Change a few things up and try
+                        submitting again.
                     </Alert>
-                }
-                <Invoice editable={editable} />
+                )}
+                <Row>
+                    <Col>
+                        <Card>
+                            <CardHeader>Purchase Invoice</CardHeader>
+                            <CardBody>
+                                <Details editable={editable} />
+                                <Items editable={editable} />
+                            </CardBody>
+                        </Card>
+                    </Col>
+                </Row>
             </div>
         </React.Fragment>
     );

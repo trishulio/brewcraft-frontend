@@ -1,15 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import {
-    Button
-} from "reactstrap";
+import { Button } from "reactstrap";
 
-export default function Toolbar({ editable, setEditable, changed, onSave, onDelete }) {
-
+export default function Toolbar({
+    editable,
+    setEditable,
+    changed,
+    onSave,
+    onDelete,
+}) {
     const history = useHistory();
 
-    const batch = useSelector(state => {
+    const batch = useSelector((state) => {
         return state.Batch.Batch.data;
     });
 
@@ -36,7 +39,7 @@ export default function Toolbar({ editable, setEditable, changed, onSave, onDele
                 disabled={!changed}
                 hidden={!editable}
             >
-                    Save
+                Save
             </Button>
             <Button
                 type="button"
@@ -46,9 +49,9 @@ export default function Toolbar({ editable, setEditable, changed, onSave, onDele
                 onClick={() => {
                     history.goBack();
                 }}
-                hidden={!editable || !batch.id}
+                hidden={!editable}
             >
-                Cancel
+                {batch.id ? "Cancel" : "Back"}
             </Button>
             <Button
                 type="button"
@@ -97,7 +100,7 @@ export default function Toolbar({ editable, setEditable, changed, onSave, onDele
                 hidden={editable}
                 disabled={true} // not supported yet
             >
-                    Print Batch
+                Print Batch
             </Button>
         </React.Fragment>
     );

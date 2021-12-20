@@ -1,16 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-    Button, FormGroup, Input
-} from "reactstrap";
-import {
-    Modal,
-    ModalBody,
-    ModalFooter
-} from "../Common/modal";
-import {
-    saveMixtureRecording
-} from "../../store/actions"
+import { Button, FormGroup, Input } from "reactstrap";
+import { Modal, ModalBody, ModalFooter } from "../Common/modal";
+import { saveMixtureRecording } from "../../store/actions";
 
 export default function MixtureRecordingModal(props) {
     const [recordValue, setRecordValue] = useState("");
@@ -24,13 +16,15 @@ export default function MixtureRecordingModal(props) {
     function onFormSubmit() {
         dispatch(
             saveMixtureRecording({
-                form: [{
-                    mixtureId: props.mixture.id,
-                    measureId: props.measureId,
-                    value: recordValue,
-                    recordedAt: recordRecordedAt
-                }],
-                batchId: props.batchId
+                form: [
+                    {
+                        mixtureId: props.mixture.id,
+                        measureId: props.measureId,
+                        value: recordValue,
+                        recordedAt: recordRecordedAt,
+                    },
+                ],
+                batchId: props.batchId,
             })
         );
         close();
@@ -46,9 +40,7 @@ export default function MixtureRecordingModal(props) {
         >
             <ModalBody>
                 <h4 className="font-size-14">New Record</h4>
-                <FormGroup
-                    className="d-sm-inline-block mr-2 mb-3"
-                >
+                <FormGroup className="d-sm-inline-block mr-2 mb-3">
                     <Input
                         type="datetime-local"
                         name="batchStartDateTime"
@@ -56,7 +48,7 @@ export default function MixtureRecordingModal(props) {
                         // bsSize="sm"
                         style={{ width: "16rem" }}
                         value={recordRecordedAt}
-                        onChange={e => {
+                        onChange={(e) => {
                             setRecordRecordedAt(e.target.value);
                         }}
                     />
@@ -72,7 +64,7 @@ export default function MixtureRecordingModal(props) {
                         style={{ width: "4rem" }}
                         hidden={!props.editable}
                         value={recordValue !== "" ? recordValue : ""}
-                        onChange={e => {
+                        onChange={(e) => {
                             const value = parseInt(e.target.value);
                             if (Number.isInteger(value)) {
                                 setRecordValue(value);
@@ -81,16 +73,16 @@ export default function MixtureRecordingModal(props) {
                             }
                         }}
                     />
-                    <span
-                        className="d-sm-inline-block font-size-14 mr-2 mb-3"
-                    >
+                    <span className="d-sm-inline-block font-size-14 mr-2 mb-3">
                         {props.unit}
                     </span>
                 </FormGroup>
             </ModalBody>
             <ModalFooter>
-                <Button color="primary" type="submit" onClick={onFormSubmit}>Save</Button>
+                <Button color="primary" type="submit" onClick={onFormSubmit}>
+                    Save
+                </Button>
             </ModalFooter>
         </Modal>
     );
-};
+}

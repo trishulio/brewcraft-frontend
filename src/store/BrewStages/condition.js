@@ -5,25 +5,25 @@ import {
     EDIT_CONDITION_STAGE_SUCCESS,
     ADD_CONDITION_STAGE_SUCCESS,
     SET_CONDITION_STAGE_DETAILS,
-    RESET_CONDITION_STAGE_DETAILS
+    RESET_CONDITION_STAGE_DETAILS,
 } from "./actionTypes";
 import { initialState } from "./initial";
 
 const ConditionStage = (state = initialState, { type, payload }) => {
-    switch(type) {
+    switch (type) {
         case SET_CONDITION_STAGE_DETAILS:
             return {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_CONDITION_STAGE_REQUEST:
         case EDIT_CONDITION_STAGE_REQUEST:
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
             };
         case ADD_CONDITION_STAGE_SUCCESS:
         case EDIT_CONDITION_STAGE_SUCCESS:
@@ -31,25 +31,25 @@ const ConditionStage = (state = initialState, { type, payload }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_CONDITION_STAGE_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: true
+                error: true,
             };
         case RESET_CONDITION_STAGE_DETAILS:
             return {
                 ...initialState,
                 loading: false,
-                error: null
+                error: null,
             };
         default:
             return {
                 ...state,
                 loading: false,
-                error: null
+                error: null,
             };
     }
 };

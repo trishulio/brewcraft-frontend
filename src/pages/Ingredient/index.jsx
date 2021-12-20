@@ -12,11 +12,9 @@ import {
     setIngredientInvalidName,
     setIngredientInvalidCategory,
     setIngredientInvalidBaseQuantityUnit,
-    setIngredientInvalidUpc
+    setIngredientInvalidUpc,
 } from "../../store/actions";
-import {
-    useQuery
-} from "../../helpers/utils";
+import { isValidName, useQuery, validId } from "../../helpers/utils";
 import IngredientInner from "./ingredient";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
@@ -33,16 +31,12 @@ export default function Ingredient() {
     const editMode = query.get("edit");
     const dispatch = useDispatch();
 
-    const ingredient = useSelector(state => {
+    const ingredient = useSelector((state) => {
         return state.Ingredient.data;
     });
 
-    const initialIngredient = useSelector(state => {
+    const initialIngredient = useSelector((state) => {
         return state.Ingredient.initial;
-    });
-
-    const { invalidName, invalidUpc } = useSelector(state => {
-        return state.Ingredient
     });
 
     useEffect(() => {
@@ -65,15 +59,19 @@ export default function Ingredient() {
 
     useEffect(() => {
         if (ingredient.id) {
-            dispatch(setBreadcrumbItems(ingredient.name, [
-                { title: "Main", link: "#" },
-                { title: "Ingredients", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems(ingredient.name, [
+                    { title: "Main", link: "#" },
+                    { title: "Ingredients", link: "#" },
+                ])
+            );
         } else {
-            dispatch(setBreadcrumbItems("New Ingredient", [
-                { title: "Main", link: "#" },
-                { title: "Ingredients", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems("New Ingredient", [
+                    { title: "Main", link: "#" },
+                    { title: "Ingredients", link: "#" },
+                ])
+            );
         }
         setChanged(isChanged());
 
@@ -81,26 +79,65 @@ export default function Ingredient() {
     }, [ingredient]);
 
     function isChanged() {
-        return JSON.stringify(
-                (({ id, name, description, category, baseQuantityUnit, upc }) => ({ id, name, description, category, baseQuantityUnit, upc }))(initialIngredient))
-            !== JSON.stringify(
-                (({ id, name, description, category, baseQuantityUnit, upc }) => ({ id, name, description, category, baseQuantityUnit, upc }))(ingredient))
+        return (
+            JSON.stringify(
+                (({
+                    id,
+                    name,
+                    description,
+                    category,
+                    baseQuantityUnit,
+                    upc,
+                }) => ({
+                    id,
+                    name,
+                    description,
+                    category,
+                    baseQuantityUnit,
+                    upc,
+                }))(initialIngredient)
+            ) !==
+            JSON.stringify(
+                (({
+                    id,
+                    name,
+                    description,
+                    category,
+                    baseQuantityUnit,
+                    upc,
+                }) => ({
+                    id,
+                    name,
+                    description,
+                    category,
+                    baseQuantityUnit,
+                    upc,
+                }))(ingredient)
+            )
+        );
     }
 
     function onSave() {
-        if (invalidName || invalidUpc) {
+        if (
+            !isValidName(ingredient.name) ||
+            !validId(ingredient.category?.id) ||
+            !ingredient.baseQuantityUnit ||
+            (ingredient.upc && ingredient.upc.length > 12)
+        ) {
+            dispatch(setIngredientInvalidName(!isValidName(ingredient.name)));
+            dispatch(
+                setIngredientInvalidCategory(!validId(ingredient.category?.id))
+            );
+            dispatch(
+                setIngredientInvalidBaseQuantityUnit(
+                    !ingredient.baseQuantityUnit
+                )
+            );
+            dispatch(setIngredientInvalidUpc(ingredient.upc));
             return;
-        }
-        if (!ingredient.name || !ingredient.category || !ingredient.baseQuantityUnit || (ingredient.upc && ingredient.upc.length > 12)) {
-            dispatch(setIngredientInvalidName(!ingredient.name));
-            dispatch(setIngredientInvalidCategory(!ingredient.category));
-            dispatch(setIngredientInvalidBaseQuantityUnit(!ingredient.baseQuantityUnit))
-            dispatch(setIngredientInvalidUpc(ingredient.upc))
-            return
         }
         if (!isChanged()) {
             history.push("/materials/ingredients/" + id);
-
         } else if (ingredient.id) {
             dispatch(
                 editIngredient({
@@ -111,9 +148,10 @@ export default function Ingredient() {
                         categoryId: ingredient.category.id,
                         baseQuantityUnit: ingredient.baseQuantityUnit,
                         upc: ingredient.upc,
-                        imageSrc: "https://media.giphy.com/media/13raYVIdU3Zu48/giphy.gif?cid=ecf05e47f0oz1g60305stwichysuopch345osbr07wf33sb0&rid=giphy.gif&ct=g",
-                        version: ingredient.version
-                    }
+                        imageSrc:
+                            "https://media.giphy.com/media/13raYVIdU3Zu48/giphy.gif?cid=ecf05e47f0oz1g60305stwichysuopch345osbr07wf33sb0&rid=giphy.gif&ct=g",
+                        version: ingredient.version,
+                    },
                 })
             );
         } else {
@@ -124,9 +162,10 @@ export default function Ingredient() {
                         description: ingredient.description,
                         categoryId: ingredient.category.id,
                         baseQuantityUnit: ingredient.baseQuantityUnit,
-                        imageSrc: "https://media.giphy.com/media/13raYVIdU3Zu48/giphy.gif?cid=ecf05e47f0oz1g60305stwichysuopch345osbr07wf33sb0&rid=giphy.gif&ct=g",
-                        upc: ingredient.upc
-                    }
+                        imageSrc:
+                            "https://media.giphy.com/media/13raYVIdU3Zu48/giphy.gif?cid=ecf05e47f0oz1g60305stwichysuopch345osbr07wf33sb0&rid=giphy.gif&ct=g",
+                        upc: ingredient.upc,
+                    },
                 })
             );
         }
@@ -151,13 +190,13 @@ export default function Ingredient() {
             />
             <RouteLeavingGuard
                 when={showRouterPrompt}
-                navigate={path => {
+                navigate={(path) => {
                     history.push(path);
                 }}
                 shouldBlockNavigation={() => editMode && isChanged()}
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
-            <IngredientInner {...{editable, changed, onSave, onDelete}} />
+            <IngredientInner {...{ editable, changed, onSave, onDelete }} />
         </React.Fragment>
     );
 }

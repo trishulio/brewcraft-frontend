@@ -1,22 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-    Button,
-    FormGroup,
-    Input,
-    Label
-} from "reactstrap";
-import {
-    useQuery
-} from "../../../helpers/utils";
+import { Button, FormGroup, Input, Label } from "reactstrap";
+import { useQuery } from "../../../helpers/utils";
 import Toolbar from "../../../component/Common/toolbar";
 
 export default function PurchaseInvoicesToolbar() {
     const history = useHistory();
     const query = useQuery();
 
-    const suppliers = useSelector(state => {
+    const suppliers = useSelector((state) => {
         return state.Suppliers.all;
     });
 
@@ -31,11 +24,11 @@ export default function PurchaseInvoicesToolbar() {
                     onClick={() => {
                         history.push({
                             pathname: "/purchases/invoices/new",
-                            search: "?edit=true"
+                            search: "?edit=true",
                         });
                     }}
                 >
-                        New Invoice
+                    New Invoice
                 </Button>
                 <Button
                     type="button"
@@ -47,10 +40,15 @@ export default function PurchaseInvoicesToolbar() {
                         history.push("/suppliers");
                     }}
                 >
-                        Suppliers
+                    Suppliers
                 </Button>
                 <FormGroup className="waves-effect float-right mb-2">
-                    <Label for="purchaseInvoicesFromDate" className="waves-effect float-left mt-1 mr-1">Invoice from</Label>
+                    <Label
+                        for="purchaseInvoicesFromDate"
+                        className="waves-effect float-left mt-1 mr-1"
+                    >
+                        Invoice from
+                    </Label>
                     <Input
                         bsSize="sm"
                         type="date"
@@ -58,15 +56,20 @@ export default function PurchaseInvoicesToolbar() {
                         className="waves-effect float-left"
                         style={{ width: 170 }}
                         value={query.get("invoiceFrom") || ""}
-                        onChange={e => {
+                        onChange={(e) => {
                             query.delete("invoiceFrom");
                             if (e.target.value) {
                                 query.append("invoiceFrom", e.target.value);
                             }
-                            history.push({search: query.toString()});
+                            history.push({ search: query.toString() });
                         }}
                     />
-                    <Label for="purchaseInvoicesToDate" className="waves-effect float-left mt-1 mr-1 ml-2">Invoice to</Label>
+                    <Label
+                        for="purchaseInvoicesToDate"
+                        className="waves-effect float-left mt-1 mr-1 ml-2"
+                    >
+                        Invoice to
+                    </Label>
                     <Input
                         bsSize="sm"
                         type="date"
@@ -74,12 +77,12 @@ export default function PurchaseInvoicesToolbar() {
                         className="waves-effect float-left"
                         style={{ width: 170 }}
                         value={query.get("invoiceTo") || ""}
-                        onChange={e => {
+                        onChange={(e) => {
                             query.delete("invoiceTo");
                             if (e.target.value) {
                                 query.append("invoiceTo", e.target.value);
                             }
-                            history.push({search: query.toString()});
+                            history.push({ search: query.toString() });
                         }}
                     />
                     <Button
@@ -87,14 +90,19 @@ export default function PurchaseInvoicesToolbar() {
                         color="primary"
                         size="sm"
                         className="waves-effect float-left ml-2"
-                        disabled={!(query.get("invoiceTo") || query.get("invoiceFrom"))}
+                        disabled={
+                            !(
+                                query.get("invoiceTo") ||
+                                query.get("invoiceFrom")
+                            )
+                        }
                         onClick={() => {
                             query.delete("invoiceTo");
                             query.delete("invoiceFrom");
-                            history.push({search: query.toString()});
+                            history.push({ search: query.toString() });
                         }}
                     >
-                            Reset
+                        Reset
                     </Button>
                 </FormGroup>
             </div>
@@ -105,12 +113,12 @@ export default function PurchaseInvoicesToolbar() {
                     className="waves-effect float-right mb-3 ml-2"
                     style={{ width: 100 }}
                     value={query.get("status") || ""}
-                    onChange={e => {
+                    onChange={(e) => {
                         query.delete("status");
                         if (e.target.value) {
                             query.append("status", e.target.value);
                         }
-                        history.push({search: query.toString()});
+                        history.push({ search: query.toString() });
                     }}
                 >
                     <option value="">Status</option>
@@ -123,20 +131,20 @@ export default function PurchaseInvoicesToolbar() {
                     className="waves-effect float-right mb-3 ml-2"
                     style={{ width: 100 }}
                     value={query.get("supplier") || ""}
-                    onChange={e => {
+                    onChange={(e) => {
                         query.delete("supplier");
                         if (e.target.value) {
                             query.append("supplier", e.target.value);
                         }
-                        history.push({search: query.toString()});
+                        history.push({ search: query.toString() });
                     }}
                 >
                     <option value="">Supplier</option>
-                    {
-                        suppliers.map((value, index) =>
-                            <option key={index} value={value.id}>{value.name}</option>
-                        )
-                    }
+                    {suppliers.map((value, index) => (
+                        <option key={index} value={value.id}>
+                            {value.name}
+                        </option>
+                    ))}
                 </Input>
             </div>
         </Toolbar>

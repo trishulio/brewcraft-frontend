@@ -20,3 +20,12 @@
     white-space: nowrap;
   }
 }
+
+.table-hover {
+  tbody tr {
+    @include hover {
+      background-color: #CBC3E3;
+      color: #ffffff;
+    }
+  }
+}

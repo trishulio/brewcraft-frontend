@@ -4,7 +4,7 @@ import { useQuery } from "../../helpers/utils";
 import {
     setBreadcrumbItems,
     fetchAllProducts,
-    fetchSkus
+    fetchSkus,
 } from "../../store/actions";
 import SkusInner from "./skus";
 
@@ -15,7 +15,7 @@ export default function Skus() {
     const sort = query.get("sort");
     const order = query.get("order");
 
-    const { pageIndex, pageSize } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector((state) => {
         return state.Skus;
     });
 
@@ -30,19 +30,14 @@ export default function Skus() {
 
     useEffect(() => {
         const params = {
-            pageIndex, pageSize, sort, order
+            pageIndex,
+            pageSize,
+            sort,
+            order,
         };
         dispatch(fetchSkus(params));
         dispatch(fetchAllProducts());
-    }, [
-        pageIndex,
-        pageSize,
-        order,
-        sort,
-        dispatch
-    ]);
+    }, [pageIndex, pageSize, order, sort, dispatch]);
 
-    return (
-        <SkusInner />
-    );
+    return <SkusInner />;
 }

@@ -1,18 +1,15 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    setSkusPageIndex,
-    setSkusPageSize
-} from "../../../store/actions";
+import { setSkusPageIndex, setSkusPageSize } from "../../../store/actions";
 import Pagination from "../../../component/Common/pagination";
 
 export default function SkusPagination({ fetchPage, children }) {
-
     const dispatch = useDispatch();
 
-    const { totalElements, totalPages, pageIndex, pageSize , content } = useSelector(state => {
-        return state.Skus;
-    });
+    const { totalElements, totalPages, pageIndex, pageSize, content } =
+        useSelector((state) => {
+            return state.Skus;
+        });
 
     const pageProps = {
         items: content,
@@ -21,19 +18,17 @@ export default function SkusPagination({ fetchPage, children }) {
         pageIndex,
         pageSize,
         fetchItems: fetchPage,
-        setPageIndex: index => {
+        setPageIndex: (index) => {
             dispatch(setSkusPageIndex(index));
         },
-        setPageSize: size => {
+        setPageSize: (size) => {
             dispatch(setSkusPageSize(size));
-        }
+        },
     };
 
     return (
         <React.Fragment>
-            <Pagination {...pageProps}>
-                {children}
-            </Pagination>
+            <Pagination {...pageProps}>{children}</Pagination>
         </React.Fragment>
     );
 }

@@ -1,10 +1,5 @@
 import React from "react";
-import {
-    Card,
-    CardBody,
-    Row,
-    Col
-} from "reactstrap";
+import { Card, CardBody, Row, Col } from "reactstrap";
 import Table from "./components/table";
 import Toolbar from "./components/toolbar";
 import Pagination from "./components/pagination";
@@ -12,13 +7,13 @@ import Pagination from "./components/pagination";
 export default function Ingredients() {
     return (
         <React.Fragment>
-            <Row>
-                <Col xl="10">
-                    <Toolbar/>
+            <Row style={{ maxWidth: "1024px" }}>
+                <Col>
+                    <Toolbar />
                     <Card>
                         <CardBody className="py-2">
                             <Pagination>
-                                <Table/>
+                                <Table />
                             </Pagination>
                         </CardBody>
                     </Card>

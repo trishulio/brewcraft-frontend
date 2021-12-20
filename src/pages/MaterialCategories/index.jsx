@@ -4,7 +4,7 @@ import { useQuery } from "../../helpers/utils";
 import {
     fetchMaterialCategories,
     fetchAllMaterialCategories,
-    setBreadcrumbItems
+    setBreadcrumbItems,
 } from "../../store/actions";
 import MaterialCategoriesInner from "./categories";
 
@@ -15,11 +15,11 @@ export default function MaterialCategories() {
     const sort = query.get("sort");
     const order = query.get("order");
 
-    const categories = useSelector(state => {
+    const categories = useSelector((state) => {
         return state.MaterialCategories.content;
     });
 
-    const { pageIndex, pageSize } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector((state) => {
         return state.MaterialCategories;
     });
 
@@ -27,7 +27,7 @@ export default function MaterialCategories() {
         dispatch(
             setBreadcrumbItems("Material Categories", [
                 { title: "Main", link: "#" },
-                { title: "Materials", link: "#" }
+                { title: "Materials", link: "#" },
             ])
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,16 +35,16 @@ export default function MaterialCategories() {
 
     useEffect(() => {
         const props = {
-            pageIndex, pageSize, parentCategoryId, sort, order
+            pageIndex,
+            pageSize,
+            parentCategoryId,
+            sort,
+            order,
         };
-        dispatch(fetchMaterialCategories({ ...props }))
+        dispatch(fetchMaterialCategories({ ...props }));
         dispatch(fetchAllMaterialCategories());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageIndex, pageSize, parentCategoryId, sort, order]);
 
-    return (
-        <MaterialCategoriesInner
-            categories={categories}
-        />
-    );
+    return <MaterialCategoriesInner categories={categories} />;
 }

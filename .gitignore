@@ -1,6 +1,9 @@
 # Local Scripts
 *.sh
 
+# package-lock.json
+package-lock.json
+
 # Logs
 logs
 *.log
@@ -106,3 +109,6 @@ dist
 .tern-port
 
 .netlify
+
+package-lock.json
+cypress.env.json

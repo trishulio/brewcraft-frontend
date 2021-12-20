@@ -16,24 +16,24 @@ const initialState = {
     pageIndex: 0,
     pageSize: 20,
     loading: true,
-    error: null
+    error: null,
 };
 
 const MashMaterialPortion = (state = initialState, { type, payload }) => {
-    switch(type) {
+    switch (type) {
         case SET_MASH_MATERIAL_PORTION_DETAILS:
             return {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_MASH_MATERIAL_PORTION_REQUEST:
         case EDIT_MASH_MATERIAL_PORTION_REQUEST:
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
             };
         case ADD_MASH_MATERIAL_PORTION_SUCCESS:
         case EDIT_MASH_MATERIAL_PORTION_SUCCESS:
@@ -41,26 +41,26 @@ const MashMaterialPortion = (state = initialState, { type, payload }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_MASH_MATERIAL_PORTION_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: true
+                error: true,
             };
         case RESET_MASH_MATERIAL_PORTION_DETAILS:
             return {
                 ...initialState,
                 loading: false,
-                error: null
+                error: null,
             };
         default:
-        return {
-            ...state,
-            loading: false,
-            error: null
-        };
+            return {
+                ...state,
+                loading: false,
+                error: null,
+            };
     }
 };
 

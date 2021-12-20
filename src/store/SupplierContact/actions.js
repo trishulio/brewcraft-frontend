@@ -10,17 +10,17 @@ import {
     INVALID_SUPPLIER_CONTACT_COMPANY,
     INVALID_SUPPLIER_CONTACT_POSITION,
     INVALID_SUPPLIER_CONTACT_EMAIL,
-    INVALID_SUPPLIER_CONTACT_PHONE_NUMBER
+    INVALID_SUPPLIER_CONTACT_PHONE_NUMBER,
 } from "./actionTypes";
 
-export const setSupplierContactDetails = payload => ({
+export const setSupplierContactDetails = (payload) => ({
     type: SET_SUPPLIER_CONTACT_DETAILS,
-    payload: payload
+    payload: payload,
 });
 
 export const resetSupplierContactDetails = () => ({
     type: RESET_SUPPLIER_CONTACT_DETAILS,
-    payload: null
+    payload: null,
 });
 
 export const fetchSupplierContactById = (payload) => ({
@@ -33,54 +33,54 @@ export const editSupplierContact = (payload) => ({
     payload: payload,
 });
 
-export const deleteSupplierContact = id => ({
+export const deleteSupplierContact = (id) => ({
     type: DELETE_SUPPLIER_CONTACT_REQUEST,
     payload: { id },
 });
 
-export const saveSupplierContact = payload => ({
+export const saveSupplierContact = (payload) => ({
     type: ADD_SUPPLIER_CONTACT_REQUEST,
-    payload: payload
+    payload: payload,
 });
 
-export const setInvalidSupplierContactFirstName = enabled => ({
+export const setInvalidSupplierContactFirstName = (enabled) => ({
     type: INVALID_SUPPLIER_CONTACT_FIRST_NAME,
     payload: {
-        invalidFirstName: enabled
-    }
+        invalidFirstName: enabled,
+    },
 });
 
-export const setInvalidSupplierContactLastName = enabled => ({
+export const setInvalidSupplierContactLastName = (enabled) => ({
     type: INVALID_SUPPLIER_CONTACT_LAST_NAME,
     payload: {
-        invalidLastName: enabled
-    }
+        invalidLastName: enabled,
+    },
 });
 
-export const setInvalidSupplierContactCompany = enabled => ({
+export const setInvalidSupplierContactCompany = (enabled) => ({
     type: INVALID_SUPPLIER_CONTACT_COMPANY,
     payload: {
-        invalidCompany: enabled
-    }
+        invalidCompany: enabled,
+    },
 });
 
-export const setInvalidSupplierContactPosition = enabled => ({
+export const setInvalidSupplierContactPosition = (enabled) => ({
     type: INVALID_SUPPLIER_CONTACT_POSITION,
     payload: {
-        invalidPosition: enabled
-    }
+        invalidPosition: enabled,
+    },
 });
 
-export const setInvalidSupplierContactEmail = enabled => ({
+export const setInvalidSupplierContactEmail = (enabled) => ({
     type: INVALID_SUPPLIER_CONTACT_EMAIL,
     payload: {
-        invalidEmail: enabled
-    }
+        invalidEmail: enabled,
+    },
 });
 
-export const setInvalidSupplierContactPhoneNumber = enabled => ({
+export const setInvalidSupplierContactPhoneNumber = (enabled) => ({
     type: INVALID_SUPPLIER_CONTACT_PHONE_NUMBER,
     payload: {
-        invalidPhoneNumber: enabled
-    }
+        invalidPhoneNumber: enabled,
+    },
 });

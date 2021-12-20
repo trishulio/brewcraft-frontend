@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
 import { connect } from "react-redux";
 
@@ -18,14 +18,14 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            breadcrumbItems : [
-                { title : "Main", link : "#" },
-                { title : "Dashboard", link : "#" }
-            ]
-        }
+            breadcrumbItems: [
+                { title: "Main", link: "#" },
+                { title: "Dashboard", link: "#" },
+            ],
+        };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.setBreadcrumbItems("Dashboard", this.state.breadcrumbItems);
     }
 
@@ -42,7 +42,7 @@ class Dashboard extends Component {
                     </Col>
                     <Col xl="6">
                         <DailyVolume />
-                        <DailyRoundDown/>
+                        <DailyRoundDown />
                         <LatestOrders />
                     </Col>
                     <Col xl="3">

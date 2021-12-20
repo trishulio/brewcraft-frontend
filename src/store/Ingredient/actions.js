@@ -8,55 +8,55 @@ import {
     SET_INGREDIENT_INVALID_NAME,
     SET_INGREDIENT_INVALID_CATEGORY,
     SET_INGREDIENT_INVALID_UNIT,
-    SET_INGREDIENT_INVALID_UPC
+    SET_INGREDIENT_INVALID_UPC,
 } from "./actionTypes";
 
-export const fetchIngredientById = id => ({
+export const fetchIngredientById = (id) => ({
     type: FETCH_INGREDIENT_BY_ID_REQUEST,
     payload: { id },
-  });
+});
 
-export const setIngredientDetails = payload => ({
+export const setIngredientDetails = (payload) => ({
     type: SET_INGREDIENT_DETAILS,
-    payload: payload
+    payload: payload,
 });
 
 export const resetIngredientDetails = () => ({
     type: RESET_INGREDIENT_DETAILS,
-    payload: null
+    payload: null,
 });
 
-export const saveIngredient = payload => ({
+export const saveIngredient = (payload) => ({
     type: ADD_INGREDIENT_REQUEST,
     payload: payload,
 });
 
-export const editIngredient = payload => ({
+export const editIngredient = (payload) => ({
     type: EDIT_INGREDIENT_REQUEST,
     payload: payload,
 });
 
-export const deleteIngredient = id => ({
+export const deleteIngredient = (id) => ({
     type: DELETE_INGREDIENT_REQUEST,
     payload: { id },
 });
 
-export const setIngredientInvalidName = value => ({
+export const setIngredientInvalidName = (value) => ({
     type: SET_INGREDIENT_INVALID_NAME,
-    payload: value
+    payload: value,
 });
 
-export const setIngredientInvalidCategory = value => ({
+export const setIngredientInvalidCategory = (value) => ({
     type: SET_INGREDIENT_INVALID_CATEGORY,
-    payload: value
+    payload: value,
 });
 
-export const setIngredientInvalidBaseQuantityUnit = value => ({
+export const setIngredientInvalidBaseQuantityUnit = (value) => ({
     type: SET_INGREDIENT_INVALID_UNIT,
-    payload: value
+    payload: value,
 });
 
-export const setIngredientInvalidUpc = value => ({
+export const setIngredientInvalidUpc = (value) => ({
     type: SET_INGREDIENT_INVALID_UPC,
-    payload: value.length > 12
+    payload: value.length > 12,
 });

@@ -1,7 +1,7 @@
 import {
     FETCH_PRODUCTS,
     FETCH_ALL_PRODUCTS,
-    SET_PRODUCTS
+    SET_PRODUCTS,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
@@ -20,7 +20,10 @@ function* fetchProductsGenerator(action) {
 function* fetchAllProductsGenerator() {
     try {
         const res = yield call(api.fetchProducts, {});
-        yield put({ type: SET_PRODUCTS, payload: { all: [ ...res.data.content ] }});
+        yield put({
+            type: SET_PRODUCTS,
+            payload: { all: [...res.data.content] },
+        });
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
     }

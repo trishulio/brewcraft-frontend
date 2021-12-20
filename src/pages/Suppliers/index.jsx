@@ -1,12 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    fetchSuppliers,
-    setBreadcrumbItems
-} from "../../store/actions";
-import {
-    useQuery
-} from "../../helpers/utils";
+import { fetchSuppliers, setBreadcrumbItems } from "../../store/actions";
+import { useQuery } from "../../helpers/utils";
 import SuppliersInner from "./suppliers";
 
 export default function Suppliers() {
@@ -15,7 +10,7 @@ export default function Suppliers() {
     const sort = query.get("sort");
     const order = query.get("order");
 
-    const { pageIndex, pageSize } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector((state) => {
         return state.Suppliers;
     });
 
@@ -23,7 +18,7 @@ export default function Suppliers() {
         dispatch(
             setBreadcrumbItems("Suppliers", [
                 { title: "Main", link: "#" },
-                { title: "Suppliers", link: "#" }
+                { title: "Suppliers", link: "#" },
             ])
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -31,13 +26,14 @@ export default function Suppliers() {
 
     useEffect(() => {
         const props = {
-            pageIndex, pageSize, sort, order
+            pageIndex,
+            pageSize,
+            sort,
+            order,
         };
         dispatch(fetchSuppliers({ ...props }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageIndex, pageSize, sort, order]);
 
-    return (
-        <SuppliersInner />
-    );
+    return <SuppliersInner />;
 }

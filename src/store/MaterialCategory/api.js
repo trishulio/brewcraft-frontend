@@ -1,28 +1,36 @@
 import AxiosInstance from "../../helpers/axiosInstance";
 
 async function fetchMaterialCategoryById(id) {
-    return await AxiosInstance.get(`/api/v1/materials/categories/${id}`)
-    .then((r) => r)
+    return await AxiosInstance.get(`/api/v1/materials/categories/${id}`).then(
+        (r) => r
+    );
 }
 
 async function patchMaterialCategory(id, payload) {
-    return await AxiosInstance.patch(`/api/v1/materials/categories/${id}`, payload)
-    .then((r) => r)
+    return await AxiosInstance.patch(
+        `/api/v1/materials/categories/${id}`,
+        payload
+    ).then((r) => r);
 }
 
 async function updateMaterialCategory(id, payload) {
-    return await AxiosInstance.put(`/api/v1/materials/categories/${id}`, payload)
-    .then((r) => r)
+    return await AxiosInstance.put(
+        `/api/v1/materials/categories/${id}`,
+        payload
+    ).then((r) => r);
 }
 
 async function deleteMaterialCategory(id) {
-    return await AxiosInstance.delete(`/api/v1/materials/categories/${id}`)
-    .then((r) => r)
+    return await AxiosInstance.delete(
+        `/api/v1/materials/categories/${id}`
+    ).then((r) => r);
 }
 
 async function addMaterialCategory(payload) {
-    return await AxiosInstance.post("/api/v1/materials/categories", payload)
-    .then((r) => r)
+    return await AxiosInstance.post(
+        "/api/v1/materials/categories",
+        payload
+    ).then((r) => r);
 }
 
 export const api = {
@@ -30,5 +38,5 @@ export const api = {
     updateMaterialCategory,
     deleteMaterialCategory,
     fetchMaterialCategoryById,
-    addMaterialCategory
+    addMaterialCategory,
 };

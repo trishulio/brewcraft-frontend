@@ -6,7 +6,7 @@ import {
     ADD_BATCH_SUCCESS,
     SET_BATCH_DETAILS,
     RESET_BATCH_DETAILS,
-    SET_INITIAL_BATCH_DETAILS
+    SET_INITIAL_BATCH_DETAILS,
 } from "./actionTypes";
 
 const initialState = {
@@ -16,12 +16,12 @@ const initialState = {
         description: "",
         batchId: "",
         product: {
-            id: ""
+            id: "",
         },
         startedAt: "",
         endedAt: "",
         createdAt: null,
-        version: null
+        version: null,
     },
     initial: {
         id: "",
@@ -29,12 +29,12 @@ const initialState = {
         description: "",
         batchId: "",
         product: {
-            id: ""
+            id: "",
         },
         startedAt: "",
         endedAt: "",
         createdAt: null,
-        version: null
+        version: null,
     },
     invalidName: false,
     invalidBatchId: false,
@@ -44,16 +44,16 @@ const initialState = {
     invalidStartedAt: false,
     invalidEndedAt: false,
     loading: true,
-    error: null
+    error: null,
 };
 
 const Batch = (state = initialState, { type, payload }) => {
-    switch(type) {
+    switch (type) {
         case SET_BATCH_DETAILS:
             return {
                 ...state,
                 ...payload,
-                loading: false
+                loading: false,
             };
         case SET_INITIAL_BATCH_DETAILS:
             return {
@@ -63,14 +63,14 @@ const Batch = (state = initialState, { type, payload }) => {
                     ...payload,
                 },
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_BATCH_REQUEST:
         case EDIT_BATCH_REQUEST:
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
             };
         case ADD_BATCH_SUCCESS:
         case EDIT_BATCH_SUCCESS:
@@ -78,26 +78,26 @@ const Batch = (state = initialState, { type, payload }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_BATCH_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: true
+                error: true,
             };
         case RESET_BATCH_DETAILS:
-        return {
-            ...initialState,
-            loading: false,
-            error: null
-        };
+            return {
+                ...initialState,
+                loading: false,
+                error: null,
+            };
         default:
-        return {
-            ...state,
-            loading: false,
-            error: null
-        };
+            return {
+                ...state,
+                loading: false,
+                error: null,
+            };
     }
 };
 

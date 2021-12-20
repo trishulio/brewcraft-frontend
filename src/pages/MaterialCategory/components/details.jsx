@@ -1,40 +1,29 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
-import {
-    Row,
-    Col,
-    FormGroup,
-    FormFeedback,
-    Input,
-    Label
-} from "reactstrap";
+import { Row, Col, FormGroup, FormFeedback, Input, Label } from "reactstrap";
 import {
     setMaterialCategoryDetails,
     setInvalidMaterialCategoryName,
-    setInvalidMaterialCategoryParentCategory
+    setInvalidMaterialCategoryParentCategory,
 } from "../../../store/actions";
-import {
-    Card,
-    CardBody,
-    CardHeader
-} from "../../../component/Common/Card";
-import { useKeyPress } from "../../../helpers/utils";
+import { Card, CardBody, CardHeader } from "../../../component/Common/Card";
+import { isValidName, useKeyPress, validId } from "../../../helpers/utils";
 
 const ENTER_KEY = "Enter";
 
-export default function MaterialCategoryDetails({ editable, onSave }) {
-
-    const { invalidName, invalidParentCategory } = useSelector(state => {
-        return state.MaterialCategory
+export default function MaterialCategoryDetails({ editable, onSave, changed }) {
+    const { invalidName, invalidParentCategory } = useSelector((state) => {
+        return state.MaterialCategory;
     });
 
-    const categories = useSelector(state => {
-        return state.MaterialCategories.all
-            .filter(c => c.parentCategoryId === null);
+    const categories = useSelector((state) => {
+        return state.MaterialCategories.all.filter(
+            (c) => c.parentCategoryId === null
+        );
     });
 
-    const materialCategory = useSelector(state => {
+    const materialCategory = useSelector((state) => {
         return state.MaterialCategory.data;
     });
 
@@ -43,33 +32,47 @@ export default function MaterialCategoryDetails({ editable, onSave }) {
     const enterKeyPressed = useKeyPress(ENTER_KEY);
 
     function onKeyUp() {
-        if (enterKeyPressed) {
+        if (enterKeyPressed && changed) {
             onSave();
             return;
         }
     }
 
     function onFormInputChange(e) {
-        switch(e.target.name) {
+        switch (e.target.name) {
             case "materialCategoryName":
                 if (materialCategory.name !== e.target.value) {
-                    dispatch(setInvalidMaterialCategoryName(!e.target.value));
-                    dispatch(setMaterialCategoryDetails({
-                        data: {
-                            ...materialCategory,
-                            name: e.target.value
-                        }
-                    }));
+                    dispatch(
+                        setInvalidMaterialCategoryName(
+                            !isValidName(e.target.value)
+                        )
+                    );
+                    dispatch(
+                        setMaterialCategoryDetails({
+                            data: {
+                                ...materialCategory,
+                                name: e.target.value,
+                            },
+                        })
+                    );
                 }
                 break;
             case "materialCategoryParentCategory":
-                dispatch(setInvalidMaterialCategoryParentCategory(!e.target.value));
-                dispatch(setMaterialCategoryDetails({
-                    data: {
-                        ...materialCategory,
-                        parentCategory: categories.find(c => c.id === parseInt(e.target.value))
-                    }
-                }));
+                dispatch(
+                    setInvalidMaterialCategoryParentCategory(
+                        !validId(e.target.value)
+                    )
+                );
+                dispatch(
+                    setMaterialCategoryDetails({
+                        data: {
+                            ...materialCategory,
+                            parentCategory: categories.find(
+                                (c) => c.id === parseInt(e.target.value)
+                            ),
+                        },
+                    })
+                );
                 break;
             default:
                 break;
@@ -83,17 +86,12 @@ export default function MaterialCategoryDetails({ editable, onSave }) {
                 <CardBody>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="materialCategoryName"
-                                className="mb-3"
-                            >
+                            <Label for="materialCategoryName" className="mb-3">
                                 *Name
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="text"
                                     className="waves-effect"
@@ -105,11 +103,16 @@ export default function MaterialCategoryDetails({ editable, onSave }) {
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
                                     onKeyUp={onKeyUp}
+                                    style={{ width: "16rem" }}
                                 />
-                                <FormFeedback>Enter a valid material category name.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid material category name.
+                                </FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
-                                {materialCategory.name ? materialCategory.name : "-"}
+                                {materialCategory.name
+                                    ? materialCategory.name
+                                    : "-"}
                             </div>
                         </Col>
                     </Row>
@@ -123,9 +126,7 @@ export default function MaterialCategoryDetails({ editable, onSave }) {
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="select"
                                     className="waves-effect"
@@ -134,25 +135,30 @@ export default function MaterialCategoryDetails({ editable, onSave }) {
                                     style={{ width: "8rem" }}
                                     disabled={!editable}
                                     invalid={invalidParentCategory}
-                                    value={materialCategory.parentCategory?.id || ""}
+                                    value={
+                                        materialCategory.parentCategory?.id ||
+                                        ""
+                                    }
                                     onKeyUp={onKeyUp}
-                                    onChange={e => {
+                                    onChange={(e) => {
                                         onFormInputChange(e);
                                     }}
                                 >
                                     <option value="">Select</option>
-                                    {
-                                        map(categories, (value, index) => (
-                                            <option value={value.id} key={index}>
-                                                {value.name}
-                                            </option>
-                                        ))
-                                    }
+                                    {map(categories, (value, index) => (
+                                        <option value={value.id} key={index}>
+                                            {value.name}
+                                        </option>
+                                    ))}
                                 </Input>
-                                <FormFeedback>Enter a valid material category.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid material category.
+                                </FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
-                                {materialCategory.parentCategory ? materialCategory.parentCategory.name : "-"}
+                                {materialCategory.parentCategory
+                                    ? materialCategory.parentCategory.name
+                                    : "-"}
                             </div>
                         </Col>
                     </Row>

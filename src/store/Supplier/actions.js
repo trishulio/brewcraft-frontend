@@ -5,82 +5,82 @@ import {
     EDIT_SUPPLIER_REQUEST,
     DELETE_SUPPLIER_REQUEST,
     RESET_SUPPLIER_DETAILS,
-    SET_SUPPLIER_ADDRESS_DETAILS
+    SET_SUPPLIER_ADDRESS_DETAILS,
 } from "./actionTypes";
 
-export const fetchSupplierById = payload => ({
+export const fetchSupplierById = (payload) => ({
     type: FETCH_SUPPLIER_BY_ID_REQUEST,
     payload: payload,
-  });
-
-export const setSupplierDetails = payload => ({
-    type: SET_SUPPLIER_DETAILS,
-    payload: payload
 });
 
-export const setSupplierAddressDetails = payload => ({
+export const setSupplierDetails = (payload) => ({
+    type: SET_SUPPLIER_DETAILS,
+    payload: payload,
+});
+
+export const setSupplierAddressDetails = (payload) => ({
     type: SET_SUPPLIER_ADDRESS_DETAILS,
-    payload: payload
+    payload: payload,
 });
 
 export const resetSupplierDetails = () => ({
     type: RESET_SUPPLIER_DETAILS,
-    payload: null
+    payload: null,
 });
 
-export const saveSupplier = payload => ({
+export const saveSupplier = (payload) => ({
     type: ADD_SUPPLIER_REQUEST,
     payload: payload,
 });
 
-export const editSupplier = payload => ({
+export const editSupplier = (payload) => ({
     type: EDIT_SUPPLIER_REQUEST,
     payload: payload,
 });
 
-export const deleteSupplier = id => ({
+export const deleteSupplier = (id) => ({
     type: DELETE_SUPPLIER_REQUEST,
     payload: { id },
 });
 
-export const setInvalidSupplierName = value => ({
+export const setInvalidSupplierName = (value) => ({
     type: SET_SUPPLIER_DETAILS,
     payload: {
-        invalidName: value
-    }
+        invalidName: value,
+    },
 });
 
-export const setInvalidSupplierAddressLine1 = value => ({
+export const setInvalidSupplierAddressLine1 = (value) => ({
     type: SET_SUPPLIER_DETAILS,
     payload: {
-        invalidAddressLine1: value
-    }
+        invalidAddressLine1: value,
+    },
 });
 
-export const setInvalidSupplierCity = value => ({
+export const setInvalidSupplierCity = (value) => ({
     type: SET_SUPPLIER_DETAILS,
     payload: {
-        city: value
-    }
+        city: value,
+    },
 });
 
-export const setInvalidSupplierProvince = value => ({
+export const setInvalidSupplierProvince = (value) => ({
     type: SET_SUPPLIER_DETAILS,
     payload: {
-        province: value
-    }
+        province: value,
+    },
 });
 
-export const setInvalidSupplierPostalCode = value => ({
+export const setInvalidSupplierPostalCode = (value) => ({
     type: SET_SUPPLIER_DETAILS,
     payload: {
-        postalCode: value
-    }
+        postalCode: value,
+    },
 });
 
-export const setInvalidSupplierCountry = value => ({
+export const setInvalidSupplierCountry = (value) => ({
     type: SET_SUPPLIER_DETAILS,
     payload: {
-        country: value
-    }
+        country: value,
+    },
 });

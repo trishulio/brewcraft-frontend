@@ -8,7 +8,7 @@ import {
     SET_SUPPLIER_CONTACTS_DETAILS,
     SET_SUPPLIER_CONTACTS_PAGE_INDEX,
     SET_SUPPLIER_CONTACTS_PAGE_SIZE,
-    SET_SUPPLIER_CONTACTS_SELECTED_COMPANY
+    SET_SUPPLIER_CONTACTS_SELECTED_COMPANY,
 } from "./actionTypes";
 
 const initialState = {
@@ -19,7 +19,7 @@ const initialState = {
     totalElements: 0,
     totalItems: 0,
     pageIndex: 0,
-    pageSize: 20
+    pageSize: 20,
 };
 
 const SupplierContacts = (state = initialState, { type, payload, data }) => {
@@ -65,15 +65,15 @@ const SupplierContacts = (state = initialState, { type, payload, data }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         default:
             return {
                 ...state,
                 loading: true,
-                error: null
-            }
+                error: null,
+            };
     }
-}
+};
 
 export default SupplierContacts;

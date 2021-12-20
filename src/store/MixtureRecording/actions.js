@@ -27,132 +27,132 @@ import {
     RESET_FERMENT_MIXTURE_RECORDING_DETAILS,
 } from "./actionTypes";
 
-export const fetchTransferMixtureRecordsById = id => ({
+export const fetchTransferMixtureRecordsById = (id) => ({
     type: FETCH_MIXTURE_RECORDING_BY_ID_REQUEST,
     payload: { id },
 });
 
-export const fetchMixtureRecordingsByBrewId = id => ({
+export const fetchMixtureRecordingsByBrewId = (id) => ({
     type: FETCH_MIXTURE_RECORDING_BY_BREW_ID_REQUEST,
-    payload: { id }
+    payload: { id },
 });
 
-export const fetchTransferMixtureRecordsByMixtureId = id => ({
+export const fetchTransferMixtureRecordsByMixtureId = (id) => ({
     type: FETCH_TRANSFER_MIXTURE_RECORDING_BY_MIXTURE_ID_REQUEST,
     payload: { id },
 });
 
-export const setTransferMixtureRecords = payload => ({
+export const setTransferMixtureRecords = (payload) => ({
     type: SET_TRANSFER_MIXTURE_RECORDING_DETAILS,
-    payload: payload
+    payload: payload,
 });
 
 export const resetTransferMixtureRecordsDetails = () => ({
     type: RESET_TRANSFER_MIXTURE_RECORDING_DETAILS,
-    payload: null
+    payload: null,
 });
 
-export const saveTransferMixtureRecords = payload => ({
+export const saveTransferMixtureRecords = (payload) => ({
     type: ADD_TRANSFER_MIXTURE_RECORDING_REQUEST,
     payload: payload,
 });
 
-export const editTransferMixtureRecords = payload => ({
+export const editTransferMixtureRecords = (payload) => ({
     type: EDIT_TRANSFER_MIXTURE_RECORDING_REQUEST,
     payload: payload,
 });
 
-export const deleteTransferMixtureRecords = payload => ({
+export const deleteTransferMixtureRecords = (payload) => ({
     type: DELETE_TRANSFER_MIXTURE_RECORDING_REQUEST,
     payload: payload,
 });
 
-export const fetchKettleMixtureRecordsByMixtureId = id => ({
+export const fetchKettleMixtureRecordsByMixtureId = (id) => ({
     type: FETCH_KETTLE_MIXTURE_RECORDING_BY_MIXTURE_ID_REQUEST,
     payload: { id },
 });
 
-export const setKettleMixtureRecords = payload => ({
+export const setKettleMixtureRecords = (payload) => ({
     type: SET_KETTLE_MIXTURE_RECORDING_DETAILS,
-    payload: payload
+    payload: payload,
 });
 
 export const resetKettleMixtureRecordsDetails = () => ({
     type: RESET_KETTLE_MIXTURE_RECORDING_DETAILS,
-    payload: null
+    payload: null,
 });
 
-export const saveKettleMixtureRecords = payload => ({
+export const saveKettleMixtureRecords = (payload) => ({
     type: ADD_KETTLE_MIXTURE_RECORDING_REQUEST,
     payload: payload,
 });
 
-export const editKettleMixtureRecords = payload => ({
+export const editKettleMixtureRecords = (payload) => ({
     type: EDIT_KETTLE_MIXTURE_RECORDING_REQUEST,
     payload: payload,
 });
 
-export const deleteKettleMixtureRecords = payload => ({
+export const deleteKettleMixtureRecords = (payload) => ({
     type: DELETE_KETTLE_MIXTURE_RECORDING_REQUEST,
     payload: payload,
 });
 
-export const fetchWhirlpoolMixtureRecordsByMixtureId = id => ({
+export const fetchWhirlpoolMixtureRecordsByMixtureId = (id) => ({
     type: FETCH_WHIRLPOOL_MIXTURE_RECORDING_BY_MIXTURE_ID_REQUEST,
     payload: { id },
 });
 
-export const setWhirlpoolMixtureRecords = payload => ({
+export const setWhirlpoolMixtureRecords = (payload) => ({
     type: SET_WHIRLPOOL_MIXTURE_RECORDING_DETAILS,
-    payload: payload
+    payload: payload,
 });
 
 export const resetWhirlpoolMixtureRecordsDetails = () => ({
     type: RESET_WHIRLPOOL_MIXTURE_RECORDING_DETAILS,
-    payload: null
+    payload: null,
 });
 
-export const saveWhirlpoolMixtureRecords = payload => ({
+export const saveWhirlpoolMixtureRecords = (payload) => ({
     type: ADD_WHIRLPOOL_MIXTURE_RECORDING_REQUEST,
     payload: payload,
 });
 
-export const editWhirlpoolMixtureRecords = payload => ({
+export const editWhirlpoolMixtureRecords = (payload) => ({
     type: EDIT_WHIRLPOOL_MIXTURE_RECORDING_REQUEST,
     payload: payload,
 });
 
-export const deleteWhirlpoolMixtureRecords = payload => ({
+export const deleteWhirlpoolMixtureRecords = (payload) => ({
     type: DELETE_WHIRLPOOL_MIXTURE_RECORDING_REQUEST,
     payload: payload,
 });
 
-export const fetchFermentMixtureRecordsByMixtureId = id => ({
+export const fetchFermentMixtureRecordsByMixtureId = (id) => ({
     type: FETCH_FERMENT_MIXTURE_RECORDING_BY_MIXTURE_ID_REQUEST,
     payload: { id },
 });
 
-export const setFermentMixtureRecords = payload => ({
+export const setFermentMixtureRecords = (payload) => ({
     type: SET_FERMENT_MIXTURE_RECORDING_DETAILS,
-    payload: payload
+    payload: payload,
 });
 
 export const resetFermentMixtureRecordsDetails = () => ({
     type: RESET_FERMENT_MIXTURE_RECORDING_DETAILS,
-    payload: null
+    payload: null,
 });
 
-export const saveFermentMixtureRecords = payload => ({
+export const saveFermentMixtureRecords = (payload) => ({
     type: ADD_FERMENT_MIXTURE_RECORDING_REQUEST,
     payload: payload,
 });
 
-export const editFermentMixtureRecords = payload => ({
+export const editFermentMixtureRecords = (payload) => ({
     type: EDIT_FERMENT_MIXTURE_RECORDING_REQUEST,
     payload: payload,
 });
 
-export const deleteFermentMixtureRecords = payload => ({
+export const deleteFermentMixtureRecords = (payload) => ({
     type: DELETE_FERMENT_MIXTURE_RECORDING_REQUEST,
     payload: payload,
 });
