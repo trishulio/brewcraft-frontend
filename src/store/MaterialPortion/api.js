@@ -25,7 +25,7 @@ async function fetchMaterialPortionsByMixtureId(id) {
 async function fetchMaterialPortionsByBrewId(id) {
     const data = {
         params: {
-            // brew_ids: id,
+            brew_ids: id,
             // group_by: "ID",
             page: 0,
             size: 5000,
