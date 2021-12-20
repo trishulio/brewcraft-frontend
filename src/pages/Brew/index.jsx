@@ -40,7 +40,8 @@ export default function Batch() {
     const { id } = useParams();
     const history = useHistory();
     const query = useQuery();
-    const editMode = query.get("edit");
+    const editMode = query.get("edit"),
+        tab = query.get("tab");
     const dispatch = useDispatch();
 
     const {
@@ -135,6 +136,14 @@ export default function Batch() {
     useEffect(() => {
         setBatchChanged(isBatchChanged());
     }, [batch, initialBatch, isBatchChanged]);
+
+    useEffect(() => {
+        if (!tab) {
+            setActiveTab("details");
+        } else {
+            setActiveTab(tab);
+        }
+    }, [tab]);
 
     function onSave() {
         if (

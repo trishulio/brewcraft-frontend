@@ -1,8 +1,19 @@
 import React from "react";
 import { Nav, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
+import { useHistory } from "react-router";
+import { useQuery } from "../../helpers/utils";
 
-export default function BrewNav({ activeTab, setActiveTab }) {
+export default function BrewNav({ activeTab }) {
+    const history = useHistory();
+    const query = useQuery();
+
+    function navToTab(tab) {
+        query.delete("tab");
+        query.append("tab", tab);
+        history.push({ search: query.toString() });
+    }
+
     return (
         <div style={{ maxWidth: "70rem" }} className="mb-3">
             {/* <Nav pills justified> */}
@@ -14,7 +25,7 @@ export default function BrewNav({ activeTab, setActiveTab }) {
                             active: activeTab === "details",
                         })}
                         onClick={() => {
-                            setActiveTab("details");
+                            navToTab("details");
                         }}
                     >
                         <span>Overview</span>
@@ -27,7 +38,7 @@ export default function BrewNav({ activeTab, setActiveTab }) {
                             active: activeTab === "brew",
                         })}
                         onClick={() => {
-                            setActiveTab("brew");
+                            navToTab("brew");
                         }}
                     >
                         <span>Brew House</span>
@@ -40,7 +51,7 @@ export default function BrewNav({ activeTab, setActiveTab }) {
                             active: activeTab === "batch",
                         })}
                         onClick={() => {
-                            setActiveTab("batch");
+                            navToTab("batch");
                         }}
                     >
                         <span className="d-block d-sm-none">
@@ -56,7 +67,7 @@ export default function BrewNav({ activeTab, setActiveTab }) {
                             active: activeTab === "condition",
                         })}
                         onClick={() => {
-                            setActiveTab("condition");
+                            navToTab("condition");
                         }}
                     >
                         <span className="d-block d-sm-none">
@@ -72,7 +83,7 @@ export default function BrewNav({ activeTab, setActiveTab }) {
                             active: activeTab === "store",
                         })}
                         onClick={() => {
-                            setActiveTab("store");
+                            navToTab("store");
                         }}
                     >
                         <span className="d-block d-sm-none">
@@ -88,7 +99,7 @@ export default function BrewNav({ activeTab, setActiveTab }) {
                             active: activeTab === "summary",
                         })}
                         onClick={() => {
-                            setActiveTab("summary");
+                            navToTab("summary");
                         }}
                     >
                         <span className="d-block d-sm-none">
