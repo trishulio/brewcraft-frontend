@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert, Button } from "reactstrap";
+import { Button } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Modal, ModalBody, ModalFooter } from "../Common/modal";
 import {
@@ -98,12 +98,6 @@ export default function ProductCategoriesModal({
                         validate={{ required: { value: true } }}
                     />
                 </AvForm>
-                {error && (
-                    <Alert color="info" className="mt-2 mb-4">
-                        <strong>Oh snap!</strong> Change a few things up and try
-                        submitting again.
-                    </Alert>
-                )}
             </ModalBody>
             <ModalFooter>
                 <Button
