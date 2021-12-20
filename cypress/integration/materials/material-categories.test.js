@@ -20,7 +20,9 @@ describe("Categories", () => {
   it("Create an Categories", () => {
     cy.fixture("ingredient").then((ingredientsJson) => {
       cy.intercept("/api/v1/materials/categories?**").as("categories");
-      cy.intercept("POST", "/api/v1/materials/categories").as("categoriesCreated");
+      cy.intercept("POST", "/api/v1/materials/categories").as(
+        "categoriesCreated"
+      );
       cy.visit("/materials/categories");
       cy.get("[data-testid=newCategory]").should("exist").click();
 
@@ -36,7 +38,9 @@ describe("Categories", () => {
             ingredientsJson.IngredientsName
         )
         .should("have.value", ingredientsJson.IngredientsName);
-      cy.get("[data-testid=materialCategoryParentCategory]").should("exist").select(1);
+      cy.get("[data-testid=materialCategoryParentCategory]")
+        .should("exist")
+        .select(1);
       cy.get("[data-testid=categorySave]").should("exist").click();
       cy.wait("@categoriesCreated").then(({ response }) => {
         expect(response.statusCode).to.eq(201);
@@ -46,29 +50,32 @@ describe("Categories", () => {
 
   it("Edit/delete an Categories", () => {
     cy.fixture("ingredient").then((ingredientsJson) => {
-
-      cy.intercept("DELETE","/api/v1/materials/categories/**").as("categoriesDelete");
+      cy.intercept("DELETE", "/api/v1/materials/categories/**").as(
+        "categoriesDelete"
+      );
       cy.intercept("/api/v1/materials/categories?**").as("categories");
-      cy.intercept("PATCH","/api/v1/materials/categories/**").as("categoriesEdit");
+      cy.intercept("PATCH", "/api/v1/materials/categories/**").as(
+        "categoriesEdit"
+      );
       cy.visit("/materials/categories");
       cy.wait("@categories").then(({ response }) => {
-          expect(response.statusCode).to.eq(200);
-          expect(response.body).to.not.be.null;
-          expect(response.body.content).to.have.length.of.at.least(1);
+        expect(response.statusCode).to.eq(200);
+        expect(response.body).to.not.be.null;
+        expect(response.body.content).to.have.length.of.at.least(1);
       });
 
-      cy.get('[data-testid=paginationLink]').each((e)=>{
-        if(!e.hasClass('active')){
+      cy.get("[data-testid=paginationLink]").each((e) => {
+        if (!e.hasClass("active")) {
           e.click();
           cy.wait("@categories").then(({ response }) => {
             expect(response.statusCode).to.eq(200);
             expect(response.body).to.not.be.null;
             expect(response.body.content).to.have.length.of.at.least(1);
-        });
-           cy.contains('td',ingredientsJson.IngredientsName).click();
-           return false;
+          });
+          cy.contains("td", ingredientsJson.IngredientsName).click();
+          return false;
         }
-      })
+      });
 
       cy.wait("@categories").then(({ response }) => {
         expect(response.statusCode).to.eq(200);
@@ -89,18 +96,18 @@ describe("Categories", () => {
       });
 
       cy.visit("/materials/categories");
-      cy.get('[data-testid=paginationLink]').each((e)=>{
-        if(!e.hasClass('active')){
+      cy.get("[data-testid=paginationLink]").each((e) => {
+        if (!e.hasClass("active")) {
           e.click();
           cy.wait("@categories").then(({ response }) => {
             expect(response.statusCode).to.eq(200);
             expect(response.body).to.not.be.null;
             expect(response.body.content).to.have.length.of.at.least(1);
-        });
-           cy.contains('td',ingredientsJson.IngredientsNameEdit).click();
-           return false;
+          });
+          cy.contains("td", ingredientsJson.IngredientsNameEdit).click();
+          return false;
         }
-      })
+      });
       cy.contains(ingredientsJson.IngredientsNameEdit);
       cy.get("[data-testid=categoryEdit]").click();
       cy.get("[data-testid=categoryDelete]").click();

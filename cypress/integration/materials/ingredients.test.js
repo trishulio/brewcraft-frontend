@@ -60,18 +60,18 @@ describe("ingredients", () => {
       cy.wait("@ingredientLoad").then(({ response }) => {
         expect(response.statusCode).to.eq(200);
       });
-      cy.get('[data-testid=paginationLink]').each((e)=>{
-        if(!e.hasClass('active')){
+      cy.get("[data-testid=paginationLink]").each((e) => {
+        if (!e.hasClass("active")) {
           e.click();
           cy.wait("@categories").then(({ response }) => {
             expect(response.statusCode).to.eq(200);
             expect(response.body).to.not.be.null;
             expect(response.body.content).to.have.length.of.at.least(1);
-        });
-           cy.contains('td',ingredientsJson.IngredientsName).click();
-           return false;
+          });
+          cy.contains("td", ingredientsJson.IngredientsName).click();
+          return false;
         }
-      })
+      });
 
       cy.wait("@ingredientLoad").then(({ response }) => {
         expect(response.statusCode).to.eq(200);
@@ -86,18 +86,18 @@ describe("ingredients", () => {
       });
 
       cy.visit("/materials/ingredients");
-      cy.get('[data-testid=paginationLink]').each((e)=>{
-        if(!e.hasClass('active')){
+      cy.get("[data-testid=paginationLink]").each((e) => {
+        if (!e.hasClass("active")) {
           e.click();
           cy.wait("@categories").then(({ response }) => {
             expect(response.statusCode).to.eq(200);
             expect(response.body).to.not.be.null;
             expect(response.body.content).to.have.length.of.at.least(1);
-        });
-           cy.contains('td',ingredientsJson.IngredientsNameEdit).click();
-           return false;
+          });
+          cy.contains("td", ingredientsJson.IngredientsNameEdit).click();
+          return false;
         }
-      })
+      });
 
       cy.get("[data-testid=ingredient-edit]").click();
       cy.get("[data-testid=ingredient-delete]").click();
