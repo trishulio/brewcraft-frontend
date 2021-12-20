@@ -6,6 +6,7 @@ import {
     INVALID_DESCRIPTION,
     SET_PRODUCT_CATEGORY_DETAILS,
     SET_PRODUCT_CATEGORY_DETAILS_FAILED,
+    RESET_PRODUCT_CATEGORY,
 } from "./actionTypes";
 
 const initialState = {
@@ -30,6 +31,7 @@ const initialState = {
     invalidDescription: false,
     loading: true,
     error: null,
+    testValue: true,
 };
 
 const Product = (state = initialState, { type, payload }) => {
@@ -40,6 +42,7 @@ const Product = (state = initialState, { type, payload }) => {
         case INVALID_STYLE:
         case INVALID_DESCRIPTION:
         case SET_PRODUCT_CATEGORY_DETAILS:
+            console.log(`error sukses`, state)
             return {
                 ...state,
                 ...payload,
@@ -55,6 +58,12 @@ const Product = (state = initialState, { type, payload }) => {
                 ...state,
                 loading: false,
                 error: true,
+            };
+        case RESET_PRODUCT_CATEGORY:
+            return {
+                ...state,
+                loading: false,
+                error: null,
             };
         default:
             return {

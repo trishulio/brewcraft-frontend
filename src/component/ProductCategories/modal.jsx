@@ -1,12 +1,13 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { Button } from "reactstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Alert, Button } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Modal, ModalBody, ModalFooter } from "../Common/modal";
 import {
     fetchAllProductCategories,
     createProductCategory,
     setProductDetails,
+    resetProductCategory,
 } from "../../store/actions";
 
 export default function ProductCategoriesModal({
@@ -15,10 +16,13 @@ export default function ProductCategoriesModal({
     type,
     parentCategoryId,
 }) {
+    const { error } = useSelector((state) => state.ProductCategory);
+
     const dispatch = useDispatch();
 
     function close() {
         setShow(false);
+        dispatch(resetProductCategory());
     }
 
     function onFormSubmit(e, values) {
@@ -79,6 +83,7 @@ export default function ProductCategoriesModal({
             onValidSubmit={onFormSubmit}
             close={close}
             title={formatTitle(type)}
+            onError={error}
         >
             <ModalBody>
                 <AvForm
@@ -93,6 +98,12 @@ export default function ProductCategoriesModal({
                         validate={{ required: { value: true } }}
                     />
                 </AvForm>
+                {error && (
+                    <Alert color="info" className="mt-2 mb-4">
+                        <strong>Oh snap!</strong> Change a few things up and try
+                        submitting again.
+                    </Alert>
+                )}
             </ModalBody>
             <ModalFooter>
                 <Button

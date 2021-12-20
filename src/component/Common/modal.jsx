@@ -9,7 +9,7 @@ export const ModalFooter = (props) => {
     return <ReactStrap.ModalFooter>{props.children}</ReactStrap.ModalFooter>;
 };
 
-export const Modal = ({ show, close, title, size, children }) => {
+export const Modal = ({ show, close, title, size, children, onError }) => {
     function onToggle() {
         close && close(false);
     }
@@ -21,6 +21,7 @@ export const Modal = ({ show, close, title, size, children }) => {
         autoFocus: true,
         size,
         fade: false,
+        className: onError && "shake_anim",
     };
 
     return (
