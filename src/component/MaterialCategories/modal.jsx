@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Modal, ModalBody, ModalFooter } from "../Common/modal";
@@ -14,6 +14,7 @@ export default function MaterialCategoriesModal({
     type,
     parentCategoryId,
 }) {
+    const { error } = useSelector((state) => state.MaterialCategory);
     const dispatch = useDispatch();
 
     function close() {
@@ -53,6 +54,7 @@ export default function MaterialCategoriesModal({
             onValidSubmit={onFormSubmit}
             close={close}
             title={formatTitle(type)}
+            onError={error}
         >
             <ModalBody>
                 <AvForm
