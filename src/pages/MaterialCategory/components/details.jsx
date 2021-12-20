@@ -106,6 +106,7 @@ export default function MaterialCategoryDetails({ editable, onSave, changed }) {
                                     invalid={invalidName}
                                     onKeyUp={onKeyUp}
                                     style={{ width: "16rem" }}
+                                    data-testid="materialCategoryName"
                                 />
                                 <FormFeedback>Enter a valid material category name.</FormFeedback>
                             </FormGroup>
@@ -140,6 +141,7 @@ export default function MaterialCategoryDetails({ editable, onSave, changed }) {
                                     onChange={e => {
                                         onFormInputChange(e);
                                     }}
+                                    data-testid="materialCategoryParentCategory"
                                 >
                                     <option value="">Select</option>
                                     {

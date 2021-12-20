@@ -69,7 +69,7 @@ export default function MaterialCategoriesTable() {
             <tbody>
                 {
                     categories.map((category, key) =>
-                        <tr key={key} onClick={() => history.push("/materials/categories/" + category.id)}>
+                        <tr key={key} onClick={() => history.push("/materials/categories/" + category.id)} data-testid="tabledata">
                             <td>{category.name}</td>
                             <td>
                                 {allCategories.find(c => c.id === category.parentCategoryId)?.name || "-"}

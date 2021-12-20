@@ -109,6 +109,7 @@ export default function PageWrapper({ items, totalElements, totalPages, pageInde
                                     <PaginationLink
                                         tabIndex={page.value}
                                         onClick={onPagnationItemClick}
+                                        data-testid="paginationLink"
                                     >
                                         {page.value} {page.active && <span className="sr-only">(current)</span>}
                                     </PaginationLink>
