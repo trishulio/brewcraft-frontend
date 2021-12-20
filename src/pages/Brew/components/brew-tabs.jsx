@@ -1,13 +1,5 @@
-import React, { useState } from "react";
-import {
-    Card,
-    CardHeader,
-    CardBody,
-    TabContent,
-    TabPane,
-    Row,
-    Col,
-} from "reactstrap";
+import React from "react";
+import { Card, CardHeader, CardBody, TabContent, TabPane } from "reactstrap";
 import Mash from "./stages/mash";
 import Kettle from "./stages/kettle";
 import Whirlpool from "./stages/whirlpool";

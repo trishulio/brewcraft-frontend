@@ -62,7 +62,7 @@ export default function BatchesTable() {
     }
 
     return (
-        <Table>
+        <Table hover>
             <thead>
                 <tr>
                     <Th name="batchesBatchId" id="batchId" onSort={onSort}>
