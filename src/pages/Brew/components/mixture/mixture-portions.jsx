@@ -7,8 +7,8 @@ import { fetchSkus } from "../../../../store/actions";
 
 export default function BatchIngredients({
     mixture,
-    finishedGoods,
-    setFinishedGoods,
+    mixturePortions,
+    setMixturePortions,
     editable,
 }) {
     const [selectedListItems, setSelectedListItems] = useState([]);
@@ -51,22 +51,20 @@ export default function BatchIngredients({
                             <th>Description</th>
                             <th>Lot Number</th>
                             <th>Quantity</th>
-                            <th>Cost / Unit</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {!finishedGoods.length && (
+                        {!mixturePortions.length && (
                             <tr>
                                 <td></td>
                                 <td>-</td>
                                 <td>-</td>
                                 <td>-</td>
                                 <td>-</td>
-                                <td>-</td>
                             </tr>
                         )}
-                        {finishedGoods &&
-                            map(finishedGoods, (finishedGood, index) => (
+                        {mixturePortions &&
+                            map(mixturePortions, (mixturePortion, index) => (
                                 <tr key={index}>
                                     <td style={{ width: "2rem" }}>
                                         <div className="d-flex align-items-center vertical-center">
@@ -102,20 +100,14 @@ export default function BatchIngredients({
                                             )}
                                         </div>
                                     </td>
-                                    <td>{finishedGood.sku.name}</td>
-                                    <td>{finishedGood.sku.description}</td>
-                                    <td>{finishedGood.lotNumber || "-"}</td>
+                                    <td>{mixturePortion.sku.name}</td>
+                                    <td>{mixturePortion.sku.description}</td>
+                                    <td>{mixturePortion.lotNumber || "-"}</td>
                                     <td>
-                                        {
-                                            finishedGood.mixturePortions[0]
-                                                .quantity.value
-                                        }{" "}
-                                        {
-                                            finishedGood.mixturePortions[0]
-                                                .quantity.symbol
-                                        }
+                                        {mixturePortion.quantity.value +
+                                            " " +
+                                            mixturePortion.quantity.symbol}
                                     </td>
-                                    <td>-</td>
                                 </tr>
                             ))}
                     </tbody>
@@ -161,15 +153,17 @@ export default function BatchIngredients({
                     size="sm"
                     className="waves-effect mr-2"
                     onClick={() => {
-                        setFinishedGoods([
-                            ...finishedGoods,
+                        setMixturePortions([
+                            ...mixturePortions,
                             {
                                 sku,
                                 mixturePortions: [
                                     {
                                         mixture,
                                         quantity: {
-                                            value: quantity,
+                                            value:
+                                                mixture.quantity.value *
+                                                quantity,
                                             symbol: "ml",
                                         },
                                     },
@@ -190,7 +184,7 @@ export default function BatchIngredients({
                     onClick={() => {
                         debugger;
                         // setFinishedGoods(
-                        //     finishedGoods.filter(p => !selectedListItems.includes(p.materialLot.id))
+                        //     mixturePortions.filter(p => !selectedListItems.includes(p.materialLot.id))
                         // );
                         // setSelectedListItems([]);
                     }}

@@ -37,6 +37,11 @@ export default function Mixtures(props) {
             return state.Batch.TransferMixture;
         });
 
+    const { data: fermentMixture, initial: initialFermentMixture } =
+        useSelector((state) => {
+            return state.Batch.TransferMixture;
+        });
+
     const isChanged = useCallback(() => {
         return (
             JSON.stringify(
@@ -62,6 +67,12 @@ export default function Mixtures(props) {
             ) !==
                 JSON.stringify(
                     (({ quantity }) => ({ quantity }))(transferMixture)
+                ) ||
+            JSON.stringify(
+                (({ quantity }) => ({ quantity }))(initialFermentMixture)
+            ) !==
+                JSON.stringify(
+                    (({ quantity }) => ({ quantity }))(fermentMixture)
                 )
         );
     }, [
@@ -73,6 +84,8 @@ export default function Mixtures(props) {
         whirlpoolMixture,
         initialTransferMixture,
         transferMixture,
+        initialFermentMixture,
+        fermentMixture,
     ]);
 
     useEffect(() => {

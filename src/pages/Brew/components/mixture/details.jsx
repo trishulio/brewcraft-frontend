@@ -7,8 +7,9 @@ export default function MixtureDetails({
     setStage,
     mixture,
     setMixture,
-    mixtureRecords,
+    mixtureRecordings,
     setMixtureRecords,
+    showOriginalGravityCheckbox,
     showSkipCheckbox,
     editable,
 }) {
@@ -49,11 +50,11 @@ export default function MixtureDetails({
                 break;
             case "mixtureGravity":
                 let record;
-                const index = mixtureRecords.findIndex(
+                const index = mixtureRecordings.findIndex(
                     (r) => r.measure.id === 5
                 );
                 if (index >= 0) {
-                    record = mixtureRecords.splice(index, 1)[0];
+                    record = mixtureRecordings.splice(index, 1)[0];
                     record.value = parseInt(e.target.value);
                 } else {
                     record = {
@@ -65,7 +66,7 @@ export default function MixtureDetails({
                     };
                 }
                 setMixtureRecords({
-                    content: [...mixtureRecords, record],
+                    content: [...mixtureRecordings, record],
                 });
                 break;
             default:
@@ -185,6 +186,7 @@ export default function MixtureDetails({
                             disabled={showSkipCheckbox && stage.status.id === 3}
                         />
                         <FormFeedback>Enter a valid number.</FormFeedback>
+                        &nbsp;<span>{mixture.quantity.symbol}</span>
                     </FormGroup>
                     {!editable && (
                         <div className="d-sm-inline-block mb-3">
@@ -194,7 +196,55 @@ export default function MixtureDetails({
                         </div>
                     )}
                     <div className="clearFix"></div>
-                    {mixtureRecords && (
+                    {showOriginalGravityCheckbox && (
+                        <React.Fragment>
+                            <Label
+                                for="transferMixtureGravity"
+                                className="d-sm-inline-block align-top font-size-12"
+                                style={{
+                                    width: "8rem",
+                                }}
+                            >
+                                Original Gravity
+                            </Label>
+                            {editable && (
+                                <FormGroup className="d-sm-inline-block align-middle font-size-12">
+                                    <Input
+                                        type="text"
+                                        className="waves-effect"
+                                        value={
+                                            (mixtureRecordings &&
+                                                mixtureRecordings.find(
+                                                    (r) => r.measure.id === 5
+                                                )?.value) ||
+                                            ""
+                                        }
+                                        placeholder="Enter"
+                                        name="transferMixtureGravity"
+                                        disabled={!editable}
+                                        onChange={(e) => {
+                                            // onFormInputChange
+                                        }}
+                                        style={{ width: "8rem" }}
+                                    />
+                                    <FormFeedback>
+                                        Enter a valid gravity value.
+                                    </FormFeedback>
+                                </FormGroup>
+                            )}
+                            {!editable && (
+                                <div className="d-sm-inline-block align-middle font-size-12 mb-2">
+                                    {(mixtureRecordings &&
+                                        mixtureRecordings.find(
+                                            (r) => r.measure.id === 5
+                                        )?.value) ||
+                                        "-"}
+                                </div>
+                            )}
+                            <div className="clearFix"></div>
+                        </React.Fragment>
+                    )}
+                    {mixtureRecordings && (
                         <React.Fragment>
                             <Label
                                 for="mixtureGravity"
@@ -217,8 +267,8 @@ export default function MixtureDetails({
                                         showSkipCheckbox &&
                                         stage.status.id === 3
                                             ? ""
-                                            : (mixtureRecords &&
-                                                  mixtureRecords.find(
+                                            : (mixtureRecordings &&
+                                                  mixtureRecordings.find(
                                                       (r) => r.measure.id === 5
                                                   )?.value) ||
                                               ""
@@ -246,8 +296,8 @@ export default function MixtureDetails({
                                 <div className="d-sm-inline-block align-middle">
                                     {
                                         // eslint-disable-next-line
-                                        (mixtureRecords &&
-                                            mixtureRecords.find(
+                                        (mixtureRecordings &&
+                                            mixtureRecordings.find(
                                                 (r) => r.measure.id === 5
                                             )?.value) ||
                                             "-"
