@@ -25,12 +25,12 @@ async function fetchMaterialPortionsByMixtureId(id) {
 async function fetchMaterialPortionsByBrewId(id) {
     const data = {
         params: {
-            brew_ids: id,
-            group_by: "ID",
+            // brew_ids: id,
+            // group_by: "ID",
             page: 0,
             size: 5000,
-            sort: "materialLot.invoiceItem.material.name",
-            order_asc: true,
+            // sort: "materialLot.invoiceItem.material.name",
+            // order_asc: true,
         },
     };
     return await AxiosInstance.get(

@@ -33,7 +33,6 @@ export default function BatchIngredients({
 
     return (
         <React.Fragment>
-            {console.log(finishedGoods)}
             <Label
                 for="mixtureStartDateTime"
                 className="d-block d-sm-inline-block font-size-12 mb-3"

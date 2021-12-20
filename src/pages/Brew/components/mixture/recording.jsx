@@ -20,7 +20,6 @@ export default function BatchRecordings({
 
     return (
         <React.Fragment>
-            {console.log(mixtureRecordings)}
             <Label
                 for="mixtureRecording"
                 className="d-block d-inline-block font-size-12 mb-3"

@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import {
     setFermentFinishedGoodsDetails,
     setFermentMaterialPortionDetails,
@@ -11,7 +12,6 @@ import Details from "../mixture/details";
 import Ingredients from "../mixture/ingredients";
 import Recordings from "../mixture/recording";
 import FinishedGoods from "../mixture/finished-goods";
-import { FormFeedback, FormGroup, Input, Label } from "reactstrap";
 
 export default function BatchFerment() {
     const dispatch = useDispatch();

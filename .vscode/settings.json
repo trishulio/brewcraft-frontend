@@ -7,8 +7,8 @@
     "files.trimTrailingWhitespace": true,
     "prettier.requireConfig": true,
     "search.exclude": {
-        "/brewcraft/src/assets/": true,
-        "/brewcraft/template/": true
+        "src/assets/": true,
+        "template/": true
     },
     "[javascript]": {
         "editor.formatOnSave": true

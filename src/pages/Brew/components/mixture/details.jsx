@@ -156,7 +156,7 @@ export default function MixtureDetails({
                         for="mixtureQuantityValue"
                         className="d-block d-sm-inline-block font-size-12"
                         style={{
-                            width: "6rem",
+                            width: "8rem",
                         }}
                     >
                         Final volume
@@ -200,7 +200,7 @@ export default function MixtureDetails({
                                 for="mixtureGravity"
                                 className="d-block d-sm-inline-block font-size-12"
                                 style={{
-                                    width: "6rem",
+                                    width: "8rem",
                                 }}
                             >
                                 Actual Gravity
@@ -262,7 +262,7 @@ export default function MixtureDetails({
                             for="mixtureCompleteCheckbox"
                             className="d-inline-block font-size-12"
                             style={{
-                                width: "6rem",
+                                width: "8rem",
                             }}
                         >
                             Skip Stage

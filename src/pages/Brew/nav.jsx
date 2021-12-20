@@ -11,14 +11,26 @@ export default function BrewNav({ activeTab, setActiveTab }) {
                     <NavLink
                         style={{ cursor: "pointer" }}
                         className={classnames({
+                            active: activeTab === "details",
+                        })}
+                        onClick={() => {
+                            setActiveTab("details");
+                        }}
+                    >
+                        <span>Overview</span>
+                    </NavLink>
+                </NavItem>
+                <NavItem className="waves-effect waves-light">
+                    <NavLink
+                        style={{ cursor: "pointer" }}
+                        className={classnames({
                             active: activeTab === "brew",
-                            "nav-item-sm": true,
                         })}
                         onClick={() => {
                             setActiveTab("brew");
                         }}
                     >
-                        <span>Brew</span>
+                        <span>Brew House</span>
                     </NavLink>
                 </NavItem>
                 <NavItem className="waves-effect waves-light">
@@ -34,7 +46,7 @@ export default function BrewNav({ activeTab, setActiveTab }) {
                         <span className="d-block d-sm-none">
                             <i className="fas fa-home"></i>
                         </span>
-                        <span className="d-none d-sm-block">Batch</span>
+                        <span className="d-none d-sm-block">Batch Tanks</span>
                     </NavLink>
                 </NavItem>
                 <NavItem className="waves-effect waves-light">
@@ -50,7 +62,7 @@ export default function BrewNav({ activeTab, setActiveTab }) {
                         <span className="d-block d-sm-none">
                             <i className="fas fa-home"></i>
                         </span>
-                        <span className="d-none d-sm-block">Condition</span>
+                        <span className="d-none d-sm-block">Conditioners</span>
                     </NavLink>
                 </NavItem>
                 <NavItem className="waves-effect waves-light">
@@ -66,7 +78,7 @@ export default function BrewNav({ activeTab, setActiveTab }) {
                         <span className="d-block d-sm-none">
                             <i className="fas fa-home"></i>
                         </span>
-                        <span className="d-none d-sm-block">Store</span>
+                        <span className="d-none d-sm-block">Brite Tanks</span>
                     </NavLink>
                 </NavItem>
                 <NavItem className="waves-effect waves-light">
@@ -82,7 +94,7 @@ export default function BrewNav({ activeTab, setActiveTab }) {
                         <span className="d-block d-sm-none">
                             <i className="fas fa-home"></i>
                         </span>
-                        <span className="d-none d-sm-block">Summary</span>
+                        <span className="d-none d-sm-block">Report</span>
                     </NavLink>
                 </NavItem>
             </Nav>

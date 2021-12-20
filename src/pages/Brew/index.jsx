@@ -8,7 +8,7 @@ import {
     saveBatch,
     deleteBatch,
     resetBatchDetails,
-    fetchAllProducts,
+    fetchProducts,
     fetchBatchStatuses,
     fetchBatchTasks,
     fetchMeasures,
@@ -25,6 +25,7 @@ import MaterialPortions from "./material-portions";
 import MixtureRecordings from "./mixture-recordings";
 
 export default function Batch() {
+    const [activeTab, setActiveTab] = useState("details");
     const [changed, setChanged] = useState(false);
     const [batchChanged, setBatchChanged] = useState(false);
     const [stagesChanged, setStagesChanged] = useState(false);
@@ -56,50 +57,7 @@ export default function Batch() {
     });
 
     const isBatchChanged = useCallback(() => {
-        return (
-            JSON.stringify(
-                (({
-                    id,
-                    name,
-                    description,
-                    batchId,
-                    product,
-                    parentBrewId,
-                    startedAt,
-                    endedAt,
-                }) => ({
-                    id,
-                    name,
-                    description,
-                    batchId,
-                    product,
-                    parentBrewId,
-                    startedAt,
-                    endedAt,
-                }))(initialBatch)
-            ) !==
-            JSON.stringify(
-                (({
-                    id,
-                    name,
-                    description,
-                    batchId,
-                    product,
-                    parentBrewId,
-                    startedAt,
-                    endedAt,
-                }) => ({
-                    id,
-                    name,
-                    description,
-                    batchId,
-                    product,
-                    parentBrewId,
-                    startedAt,
-                    endedAt,
-                }))(batch)
-            )
-        );
+        return JSON.stringify(initialBatch) !== JSON.stringify(batch);
     }, [initialBatch, batch]);
 
     const isChanged = useCallback(() => {
@@ -125,7 +83,11 @@ export default function Batch() {
         } else {
             dispatch(fetchBatchById(id));
         }
-        dispatch(fetchAllProducts());
+        dispatch(
+            fetchProducts({
+                pageSize: 1000,
+            })
+        );
         dispatch(fetchBatchStatuses());
         dispatch(fetchBatchTasks());
         dispatch(fetchMeasures());
@@ -228,6 +190,8 @@ export default function Batch() {
     }
 
     const props = {
+        activeTab,
+        setActiveTab,
         editable,
         setEditable,
         changed,

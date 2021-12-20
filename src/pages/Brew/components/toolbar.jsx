@@ -49,9 +49,9 @@ export default function Toolbar({
                 onClick={() => {
                     history.goBack();
                 }}
-                hidden={!editable || !batch.id}
+                hidden={!editable}
             >
-                Cancel
+                {batch.id ? "Cancel" : "Back"}
             </Button>
             <Button
                 type="button"
