@@ -42,7 +42,6 @@ const Product = (state = initialState, { type, payload }) => {
         case INVALID_STYLE:
         case INVALID_DESCRIPTION:
         case SET_PRODUCT_CATEGORY_DETAILS:
-            console.log(`error sukses`, state)
             return {
                 ...state,
                 ...payload,
