@@ -47,9 +47,9 @@ describe("Categories", () => {
   it("Edit/delete an Categories", () => {
     cy.fixture("ingredient").then((ingredientsJson) => {
 
-      cy.intercept("DELETE","/api/v1/materials/categories?**").as("categoriesDelete");
+      cy.intercept("DELETE","/api/v1/materials/categories/**").as("categoriesDelete");
       cy.intercept("/api/v1/materials/categories?**").as("categories");
-      cy.intercept("PATCH","/api/v1/materials/categories?**").as("categoriesEdit");
+      cy.intercept("PATCH","/api/v1/materials/categories/**").as("categoriesEdit");
       cy.visit("/materials/categories");
       cy.wait("@categories").then(({ response }) => {
           expect(response.statusCode).to.eq(200);
@@ -101,7 +101,7 @@ describe("Categories", () => {
            return false;
         }
       })
-      cy.contains(ingredientsJson.IngredientsName+ingredientsJson.IngredientsNameEdit);
+      cy.contains(ingredientsJson.IngredientsNameEdit);
       cy.get("[data-testid=categoryEdit]").click();
       cy.get("[data-testid=categoryDelete]").click();
       cy.get("[data-testid=confirm]").click();

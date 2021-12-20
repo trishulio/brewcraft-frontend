@@ -54,18 +54,29 @@ describe("ingredients", () => {
       cy.intercept("DELETE", "/api/v1/materials/**").as("ingredientDelete");
       cy.intercept("/api/v1/materials/categories?**").as("categories");
       cy.intercept("PATCH", "/api/v1/materials/**").as("materialEdit");
+
       cy.visit("/materials/ingredients");
-      cy.contains(ingredientsJson.IngredientsName).click();
+      // cy.contains(ingredientsJson.IngredientsName).click();
       cy.wait("@ingredientLoad").then(({ response }) => {
         expect(response.statusCode).to.eq(200);
       });
-      cy.contains(ingredientsJson.IngredientsName);
-      cy.get("[data-testid=ingredient-edit]").click();
-      cy.wait("@categories").then(({ response }) => {
+      cy.get('[data-testid=paginationLink]').each((e)=>{
+        if(!e.hasClass('active')){
+          e.click();
+          cy.wait("@categories").then(({ response }) => {
+            expect(response.statusCode).to.eq(200);
+            expect(response.body).to.not.be.null;
+            expect(response.body.content).to.have.length.of.at.least(1);
+        });
+           cy.contains('td',ingredientsJson.IngredientsName).click();
+           return false;
+        }
+      })
+
+      cy.wait("@ingredientLoad").then(({ response }) => {
         expect(response.statusCode).to.eq(200);
-        expect(response.body).to.not.be.null;
-        expect(response.body.content).to.have.length.of.at.least(1);
       });
+      cy.get("[data-testid=ingredient-edit]").click();
       cy.get("[data-testid=ingredient-name]").type("Hi!").clear();
       cy.focused().clear();
       cy.wait(500).focused().type(ingredientsJson.IngredientsNameEdit);
@@ -73,7 +84,21 @@ describe("ingredients", () => {
       cy.wait("@materialEdit").then(({ response }) => {
         expect(response.statusCode).to.eq(200);
       });
-      cy.contains(ingredientsJson.IngredientsNameEdit);
+
+      cy.visit("/materials/ingredients");
+      cy.get('[data-testid=paginationLink]').each((e)=>{
+        if(!e.hasClass('active')){
+          e.click();
+          cy.wait("@categories").then(({ response }) => {
+            expect(response.statusCode).to.eq(200);
+            expect(response.body).to.not.be.null;
+            expect(response.body.content).to.have.length.of.at.least(1);
+        });
+           cy.contains('td',ingredientsJson.IngredientsNameEdit).click();
+           return false;
+        }
+      })
+
       cy.get("[data-testid=ingredient-edit]").click();
       cy.get("[data-testid=ingredient-delete]").click();
       cy.get("[data-testid=confirm]").click();

@@ -140,6 +140,7 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
                                     invalid={invalidName}
                                     onKeyUp={onKeyUp}
                                     style={{ width: "16rem" }}
+                                    data-testid="packagingNname"
                                 />
                                 <FormFeedback>Enter a valid packagingItem name.</FormFeedback>
                             </FormGroup>
@@ -181,6 +182,7 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
                                             setShowPackageCategoryModal(true);
                                         }
                                     }}
+                                    data-testid="packagingCategory"
                                 >
                                     <option value="">Select</option>
                                     {
@@ -225,6 +227,7 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
                                     onChange={e => {
                                         onFormInputChange(e);
                                     }}
+                                    data-testid="packagingMeasure"
                                 >
                                     <option value="">Select</option>
                                     <option value="kg">kg</option>
@@ -266,6 +269,7 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
                                     invalid={invalidUpc}
                                     onKeyUp={onKeyUp}
                                     style={{ width: "16rem" }}
+                                    data-testid="packagingUpc"
                                 />
                                 <FormFeedback>Enter a valid upc.</FormFeedback>
                             </FormGroup>
@@ -292,6 +296,7 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
                                 disabled={!editable}
                                 onChange={onFormInputChange}
                                 autoComplete="false"
+                                data-testid="packagingDescription"
                             />
                         </Col>
                     </Row>
