@@ -2,6 +2,8 @@
 describe("ingredients", () => {
   before(() => {
     cy.signIn();
+    const dateTIme = (Math.random() + 1).toString(36).substring(7);
+    cy.wrap(dateTIme).as("getUnieId")
   });
 
   after(() => {
@@ -17,8 +19,9 @@ describe("ingredients", () => {
     cy.saveLocalStorage();
   });
 
-  it("Create an Ingredient", () => {
-    cy.fixture("ingredient").then((ingredientsJson) => {
+  it("Create an Ingredient", function() {
+
+    cy.fixture("ingredient").then(function(ingredientsJson)  {
       cy.intercept("/api/v1/materials/categories?**").as("categories");
       cy.intercept("POST", "/api/v1/materials").as("materialCreated");
       cy.visit("/materials/ingredients");
@@ -31,10 +34,9 @@ describe("ingredients", () => {
       cy.get("[data-testid=ingredient-name]")
         .should("exist")
         .type(
-          "{selectall}{backspace}{selectall}{backspace}" +
-            ingredientsJson.IngredientsName
+          "{selectall}{backspace}{selectall}{backspace}"+ingredientsJson.IngredientsName+this['getUnieId']
         )
-        .should("have.value", ingredientsJson.IngredientsName);
+        .should("have.value", ingredientsJson.IngredientsName+this['getUnieId']);
       cy.get("[data-testid=ingredient-category]").should("exist").select("5");
       cy.get("[data-testid=ingredient-measure]").should("exist").select("kg");
       cy.get("[data-testid=ingredient-upc]").should("exist").type("T123");
@@ -48,8 +50,9 @@ describe("ingredients", () => {
     });
   });
 
-  it("Edit/delete an Ingredient", () => {
-    cy.fixture("ingredient").then((ingredientsJson) => {
+  it("Edit/delete an Ingredient", function() {
+    cy.fixture("ingredient").then(function(ingredientsJson) {
+
       cy.intercept("/api/v1/materials/**").as("ingredientLoad");
       cy.intercept("DELETE", "/api/v1/materials/**").as("ingredientDelete");
       cy.intercept("/api/v1/materials/categories?**").as("categories");
@@ -60,7 +63,7 @@ describe("ingredients", () => {
       cy.wait("@ingredientLoad").then(({ response }) => {
         expect(response.statusCode).to.eq(200);
       });
-      cy.get("[data-testid=paginationLink]").each((e) => {
+      cy.get("[data-testid=paginationLink]").each(function(e) {
         if (!e.hasClass("active")) {
           e.click();
           cy.wait("@categories").then(({ response }) => {
@@ -68,7 +71,7 @@ describe("ingredients", () => {
             expect(response.body).to.not.be.null;
             expect(response.body.content).to.have.length.of.at.least(1);
           });
-          cy.contains("td", ingredientsJson.IngredientsName).click();
+          cy.contains("td", ingredientsJson.IngredientsName+this['getUnieId']).click();
           return false;
         }
       });
@@ -79,14 +82,14 @@ describe("ingredients", () => {
       cy.get("[data-testid=ingredient-edit]").click();
       cy.get("[data-testid=ingredient-name]").type("Hi!").clear();
       cy.focused().clear();
-      cy.wait(500).focused().type(ingredientsJson.IngredientsNameEdit);
+      cy.wait(500).focused().type(ingredientsJson.IngredientsNameEdit+this['getUnieId']);
       cy.get("[data-testid=ingredient-save]").should("exist").click();
       cy.wait("@materialEdit").then(({ response }) => {
         expect(response.statusCode).to.eq(200);
       });
 
       cy.visit("/materials/ingredients");
-      cy.get("[data-testid=paginationLink]").each((e) => {
+      cy.get("[data-testid=paginationLink]").each(function(e)  {
         if (!e.hasClass("active")) {
           e.click();
           cy.wait("@categories").then(({ response }) => {
@@ -94,7 +97,7 @@ describe("ingredients", () => {
             expect(response.body).to.not.be.null;
             expect(response.body.content).to.have.length.of.at.least(1);
           });
-          cy.contains("td", ingredientsJson.IngredientsNameEdit).click();
+          cy.contains("td", ingredientsJson.IngredientsNameEdit+this['getUnieId']).click();
           return false;
         }
       });
