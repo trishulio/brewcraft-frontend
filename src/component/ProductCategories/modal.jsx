@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Modal, ModalBody, ModalFooter } from "../Common/modal";
@@ -7,6 +7,7 @@ import {
     fetchAllProductCategories,
     createProductCategory,
     setProductDetails,
+    resetProductCategory,
 } from "../../store/actions";
 
 export default function ProductCategoriesModal({
@@ -15,10 +16,13 @@ export default function ProductCategoriesModal({
     type,
     parentCategoryId,
 }) {
+    const { error } = useSelector((state) => state.ProductCategory);
+
     const dispatch = useDispatch();
 
     function close() {
         setShow(false);
+        dispatch(resetProductCategory());
     }
 
     function onFormSubmit(e, values) {
@@ -79,6 +83,7 @@ export default function ProductCategoriesModal({
             onValidSubmit={onFormSubmit}
             close={close}
             title={formatTitle(type)}
+            onError={error}
         >
             <ModalBody>
                 <AvForm

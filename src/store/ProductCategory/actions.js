@@ -9,6 +9,7 @@ import {
     INVALID_STYLE,
     INVALID_DESCRIPTION,
     DELETE_PRODUCT_CATEGORY,
+    RESET_PRODUCT_CATEGORY,
 } from "./actionTypes";
 
 export const setProductCategoryDetails = (product) => ({
@@ -85,4 +86,8 @@ export const setProductCategoryInvalidDescription = (enabled) => ({
     payload: {
         invalidDescription: enabled,
     },
+});
+
+export const resetProductCategory = () => ({
+    type: RESET_PRODUCT_CATEGORY,
 });
