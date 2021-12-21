@@ -6,7 +6,6 @@ describe("ingredients", () => {
     cy.wrap(dateTIme).as("getUnieId")
   });
 
-
   after(() => {
     cy.clearLocalStorageSnapshot();
     cy.clearLocalStorage();

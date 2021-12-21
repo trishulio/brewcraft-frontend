@@ -6,7 +6,6 @@ describe("Categories", () => {
     cy.wrap(dateTIme).as("getUnieId")
   });
 
-
   after(() => {
     cy.clearLocalStorageSnapshot();
     cy.clearLocalStorage();
