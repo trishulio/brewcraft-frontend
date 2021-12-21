@@ -102,7 +102,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 onClick={() => {
                     history.push({
                         pathname: "/suppliers/contacts/new",
-                        search: `?edit=true`
+                        search: `?edit=true`,
                     });
                 }}
             >
