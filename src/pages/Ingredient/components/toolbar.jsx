@@ -20,6 +20,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 onClick={onSave}
                 disabled={!changed}
                 hidden={!editable}
+                data-testid="ingredient-save"
             >
                 Save
             </Button>
@@ -32,6 +33,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                     history.goBack();
                 }}
                 hidden={!editable}
+                data-testid="ingredient-cancel"
             >
                 Cancel
             </Button>
@@ -48,6 +50,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                         search: "?edit=true",
                     });
                 }}
+                data-testid="ingredient-edit"
             >
                 Edit Ingredient
             </Button>
@@ -73,6 +76,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 className="waves-effect mr-2 mb-3"
                 onClick={onDelete}
                 hidden={!ingredient.id || !editable}
+                data-testid="ingredient-delete"
             >
                 Delete Ingredient
             </Button>
@@ -86,6 +90,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 onClick={() => {
                     history.push("/materials/ingredients");
                 }}
+                data-testid="ingredient-Ingredients"
             >
                 Ingredients
             </Button>

@@ -29,6 +29,7 @@ export default function IngredientsToolbar() {
                         search: "?edit=true",
                     });
                 }}
+                data-testid="newIngredient"
             >
                 New Ingredient
             </Button>

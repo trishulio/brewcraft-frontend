@@ -115,6 +115,7 @@ export default function PageWrapper({
                                 <PaginationLink
                                     tabIndex={page.value}
                                     onClick={onPagnationItemClick}
+                                    data-testid="paginationLink"
                                 >
                                     {page.value}{" "}
                                     {page.active && (

@@ -27,6 +27,7 @@ export default function ProductCategoriesToolbar() {
                         search: "?edit=true",
                     });
                 }}
+                data-testid="newCategory"
             >
                 New Category
             </Button>

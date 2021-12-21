@@ -20,6 +20,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 onClick={onSave}
                 disabled={!changed}
                 hidden={!editable}
+                data-testid="packagingSave"
             >
                 Save
             </Button>
@@ -48,6 +49,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                         search: "?edit=true",
                     });
                 }}
+                data-testid="packagingEdit"
             >
                 Edit Item
             </Button>
@@ -70,6 +72,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 className="waves-effect mr-2 mb-3"
                 onClick={onDelete}
                 hidden={!packagingItem.id || !editable}
+                data-testid="packagingDelete"
             >
                 Delete Item
             </Button>

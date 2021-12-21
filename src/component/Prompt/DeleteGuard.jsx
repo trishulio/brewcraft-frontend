@@ -47,6 +47,7 @@ export const DeleteGuard = ({ when, confirm, close, content }) => {
                 <ModalFooter>
                     <Button
                         color="secondary"
+                        data-testid="confirm"
                         onClick={handleConfirmNavigationClick}
                     >
                         Confirm

@@ -29,6 +29,7 @@ export default function PackagingToolbar() {
                         search: "?edit=true",
                     });
                 }}
+                data-testid="newPackaging"
             >
                 New Item
             </Button>

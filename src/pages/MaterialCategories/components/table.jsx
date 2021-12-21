@@ -69,6 +69,7 @@ export default function MaterialCategoriesTable() {
                         onClick={() =>
                             history.push("/materials/categories/" + category.id)
                         }
+                        data-testid="tabledata"
                     >
                         <td>{category.name}</td>
                         <td>
