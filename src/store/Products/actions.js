@@ -2,34 +2,34 @@ import {
     FETCH_PRODUCTS,
     FETCH_ALL_PRODUCTS,
     SET_PRODUCTS_PAGE_INDEX,
-    SET_PRODUCTS_PAGE_SIZE
+    SET_PRODUCTS_PAGE_SIZE,
 } from "./actionTypes";
 
-export const fetchProducts = ({pageIndex, pageSize}) => ({
+export const fetchProducts = ({ pageIndex, pageSize }) => ({
     type: FETCH_PRODUCTS,
-    payload: {pageIndex, pageSize}
+    payload: { pageIndex, pageSize },
 });
 
 export const fetchAllProducts = () => ({
     type: FETCH_ALL_PRODUCTS,
-    payload: {}
+    payload: {},
 });
 
-export const fetchProductsByCategory = params => ({
+export const fetchProductsByCategory = (params) => ({
     type: FETCH_PRODUCTS,
-    payload: params
+    payload: params,
 });
 
-export const setProductsPageIndex = index => ({
+export const setProductsPageIndex = (index) => ({
     type: SET_PRODUCTS_PAGE_INDEX,
     payload: {
-        pageIndex: index
-    }
+        pageIndex: index,
+    },
 });
 
-export const setProductsPageSize = size => ({
+export const setProductsPageSize = (size) => ({
     type: SET_PRODUCTS_PAGE_SIZE,
     payload: {
-        pageSize: size
-    }
+        pageSize: size,
+    },
 });

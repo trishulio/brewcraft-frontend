@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filter, map } from "lodash";
-import {
-    Row,
-    Col,
-    FormGroup,
-    FormFeedback,
-    Input,
-    Label
-} from "reactstrap";
+import { Row, Col, FormGroup, FormFeedback, Input, Label } from "reactstrap";
 import {
     fetchAllProductCategories,
     setProductCategoryDetails,
-    setProductCategoryInvalidName
+    setProductCategoryInvalidName,
 } from "../../../store/actions";
-import {
-    Card,
-    CardBody,
-    CardHeader
-} from "../../../component/Common/Card";
+import { Card, CardBody, CardHeader } from "../../../component/Common/Card";
 import CategoriesModal from "../../../component/ProductCategories/modal";
 
 const ADD_NEW = "ADD_NEW";
@@ -26,7 +15,8 @@ const PRODUCT_CATEGORY_CLASS = "class";
 const PRODUCT_CATEGORY_TYPE = "type";
 
 export default function ProductCategoryDetails({ editable }) {
-    const [showProductCategoryModal, setShowProductCategoryModal] = useState(false);
+    const [showProductCategoryModal, setShowProductCategoryModal] =
+        useState(false);
     const [modalCategoryType, setModalCategoryType] = useState(null);
     const [modalParentCategoryId, setModalParentCategoryId] = useState(null);
 
@@ -35,25 +25,32 @@ export default function ProductCategoryDetails({ editable }) {
 
     const dispatch = useDispatch();
 
-    const category = useSelector(state => {
+    const category = useSelector((state) => {
         return state.ProductCategory.data;
     });
 
-    const categories = useSelector(state => {
+    const categories = useSelector((state) => {
         return state.ProductCategories.data;
     });
 
-    const { loading, invalidName, invalidClass, invalidType } = useSelector(state => {
-        return state.ProductCategory
-    });
+    const { loading, invalidName, invalidClass, invalidType } = useSelector(
+        (state) => {
+            return state.ProductCategory;
+        }
+    );
 
     useEffect(() => {
-        let parentClass = "", parentType = "";
+        let parentClass = "",
+            parentType = "";
         if (category.parentCategoryId && categories.length) {
-            const parent = categories.find(c => c.id === category.parentCategoryId);
+            const parent = categories.find(
+                (c) => c.id === category.parentCategoryId
+            );
             if (parent.parentCategoryId) {
                 parentType = parent;
-                parentClass = categories.find(c => c.id === parent.parentCategoryId);
+                parentClass = categories.find(
+                    (c) => c.id === parent.parentCategoryId
+                );
             } else {
                 parentType = "";
                 parentClass = parent;
@@ -65,47 +62,63 @@ export default function ProductCategoryDetails({ editable }) {
     }, [loading]);
 
     useEffect(() => {
-        dispatch(setProductCategoryDetails({
-            parentCategoryId: parentClass ? parentClass.id : null
-        }));
+        dispatch(
+            setProductCategoryDetails({
+                parentCategoryId: parentClass ? parentClass.id : null,
+            })
+        );
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parentClass]);
 
     useEffect(() => {
-        dispatch(setProductCategoryDetails({
-            parentCategoryId: parentType ? parentType.id : null
-        }));
+        dispatch(
+            setProductCategoryDetails({
+                parentCategoryId: parentType ? parentType.id : null,
+            })
+        );
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parentType]);
 
     function onFormInputChange(e) {
-        switch(e.target.name) {
+        switch (e.target.name) {
             case "productCategoryName":
                 if (category.name !== e.target.value) {
                     dispatch(setProductCategoryInvalidName(!e.target.value));
-                    dispatch(setProductCategoryDetails({
-                        name: e.target.value
-                    }));
+                    dispatch(
+                        setProductCategoryDetails({
+                            name: e.target.value,
+                        })
+                    );
                 }
                 break;
             case "productCategoryClass":
                 if (e.target.value) {
-                    setParentClass(categories.find(c => c.id === parseInt(e.target.value)));
+                    setParentClass(
+                        categories.find(
+                            (c) => c.id === parseInt(e.target.value)
+                        )
+                    );
                 } else {
                     setParentClass("");
                 }
                 break;
             case "productCategoryType":
                 if (e.target.value) {
-                    setParentType(categories.find(c => c.id === parseInt(e.target.value)));
+                    setParentType(
+                        categories.find(
+                            (c) => c.id === parseInt(e.target.value)
+                        )
+                    );
                 } else {
                     setParentType("");
                 }
                 break;
             default:
-                dispatch(setProductCategoryDetails({
-                    [e.target.name]: e.target.value
-                }));
+                dispatch(
+                    setProductCategoryDetails({
+                        [e.target.name]: e.target.value,
+                    })
+                );
                 break;
         }
     }
@@ -117,17 +130,12 @@ export default function ProductCategoryDetails({ editable }) {
                 <CardBody>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="name"
-                                className="mb-3"
-                            >
+                            <Label for="name" className="mb-3">
                                 Name
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="text"
                                     className="waves-effect"
@@ -138,8 +146,11 @@ export default function ProductCategoryDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
+                                    style={{ width: "16rem" }}
                                 />
-                                <FormFeedback>Enter a valid category name.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid category name.
+                                </FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
                                 {category.name ? category.name : "-"}
@@ -148,17 +159,12 @@ export default function ProductCategoryDetails({ editable }) {
                     </Row>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="productCategoryClass"
-                                className="mb-3"
-                            >
+                            <Label for="productCategoryClass" className="mb-3">
                                 Parent Class
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="select"
                                     className="waves-effect"
@@ -168,7 +174,7 @@ export default function ProductCategoryDetails({ editable }) {
                                     disabled={!editable}
                                     invalid={invalidClass}
                                     value={parentClass ? parentClass.id : ""}
-                                    onChange={e => {
+                                    onChange={(e) => {
                                         if (e.target.value !== ADD_NEW) {
                                             onFormInputChange(e);
                                         } else {
@@ -176,26 +182,41 @@ export default function ProductCategoryDetails({ editable }) {
                                             dispatch(
                                                 fetchAllProductCategories({
                                                     success: () => {
-                                                        setModalCategoryType(PRODUCT_CATEGORY_CLASS);
-                                                        setModalParentCategoryId(null);
-                                                        setShowProductCategoryModal(true);
-                                                    }
+                                                        setModalCategoryType(
+                                                            PRODUCT_CATEGORY_CLASS
+                                                        );
+                                                        setModalParentCategoryId(
+                                                            null
+                                                        );
+                                                        setShowProductCategoryModal(
+                                                            true
+                                                        );
+                                                    },
                                                 })
                                             );
                                         }
                                     }}
                                 >
                                     <option value="">Select</option>
-                                    {
-                                        map(filter(categories, c => c.parentCategoryId === null), (value, index) => (
-                                            <option value={value.id} key={index}>
+                                    {map(
+                                        filter(
+                                            categories,
+                                            (c) => c.parentCategoryId === null
+                                        ),
+                                        (value, index) => (
+                                            <option
+                                                value={value.id}
+                                                key={index}
+                                            >
                                                 {value.name}
                                             </option>
-                                        ))
-                                    }
+                                        )
+                                    )}
                                     <option value={ADD_NEW}>+ Add new</option>
                                 </Input>
-                                <FormFeedback>Enter a valid category class.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid category class.
+                                </FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
                                 {parentClass ? parentClass.name : "-"}
@@ -204,17 +225,12 @@ export default function ProductCategoryDetails({ editable }) {
                     </Row>
                     <Row>
                         <Col xs="2">
-                            <Label
-                                for="productCategoryType"
-                                className="mb-3"
-                            >
+                            <Label for="productCategoryType" className="mb-3">
                                 Parent Type
                             </Label>
                         </Col>
                         <Col xs="8">
-                            <FormGroup
-                                hidden={!editable}
-                            >
+                            <FormGroup hidden={!editable}>
                                 <Input
                                     type="select"
                                     className="waves-effect"
@@ -224,36 +240,55 @@ export default function ProductCategoryDetails({ editable }) {
                                     disabled={!editable}
                                     invalid={invalidType}
                                     value={parentType ? parentType.id : ""}
-                                    onChange={e => {
+                                    onChange={(e) => {
                                         if (e.target.value !== ADD_NEW) {
                                             onFormInputChange(e);
                                         } else {
                                             dispatch(
                                                 fetchAllProductCategories({
                                                     success: () => {
-                                                        setModalCategoryType(PRODUCT_CATEGORY_TYPE);
-                                                        setModalParentCategoryId(parentClass.id);
-                                                        setShowProductCategoryModal(true);
-                                                    }
+                                                        setModalCategoryType(
+                                                            PRODUCT_CATEGORY_TYPE
+                                                        );
+                                                        setModalParentCategoryId(
+                                                            parentClass.id
+                                                        );
+                                                        setShowProductCategoryModal(
+                                                            true
+                                                        );
+                                                    },
                                                 })
                                             );
                                         }
                                     }}
                                 >
                                     <option value="">Select</option>
-                                    {
-                                        parentClass &&
-                                        map(filter(categories, c => c.parentCategoryId === parentClass.id), (value, index) => (
-                                            <option value={value.id} key={index}>
-                                                {value.name}
-                                            </option>
-                                        ))
-                                    } {
-                                        category.productClass &&
-                                        <option value={ADD_NEW}>+ Add new</option>
-                                    }
+                                    {parentClass &&
+                                        map(
+                                            filter(
+                                                categories,
+                                                (c) =>
+                                                    c.parentCategoryId ===
+                                                    parentClass.id
+                                            ),
+                                            (value, index) => (
+                                                <option
+                                                    value={value.id}
+                                                    key={index}
+                                                >
+                                                    {value.name}
+                                                </option>
+                                            )
+                                        )}{" "}
+                                    {category.productClass && (
+                                        <option value={ADD_NEW}>
+                                            + Add new
+                                        </option>
+                                    )}
                                 </Input>
-                                <FormFeedback>Enter a valid category type.</FormFeedback>
+                                <FormFeedback>
+                                    Enter a valid category type.
+                                </FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
                                 {parentType ? parentType.name : "-"}

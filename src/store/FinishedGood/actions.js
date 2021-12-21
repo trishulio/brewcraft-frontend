@@ -9,29 +9,29 @@ import {
     INVALID_STYLE,
     INVALID_DESCRIPTION,
     RESET_FINISHED_GOOD_DETAILS,
-    DELETE_FINISHED_GOOD
+    DELETE_FINISHED_GOOD,
 } from "./actionTypes";
 
-export const setFinishedGoodDetails = finishedGood => ({
+export const setFinishedGoodDetails = (finishedGood) => ({
     type: SET_FINISHED_GOOD_DETAILS,
     payload: {
-        data: finishedGood
-    }
+        data: finishedGood,
+    },
 });
 
 export const fetchFinishedGoodById = (id) => ({
     type: FETCH_FINISHED_GOOD,
-    payload: { id }
+    payload: { id },
 });
 
-export const createFinishedGood = params => ({
+export const createFinishedGood = (params) => ({
     type: CREATE_FINISHED_GOOD,
     payload: {
-        ...params
-    }
+        ...params,
+    },
 });
 
-export const updateFinishedGood = ({data, categoryId, success}) => ({
+export const updateFinishedGood = ({ data, categoryId, success }) => ({
     type: UPDATE_FINISHED_GOOD,
     payload: {
         id: data.id,
@@ -39,53 +39,53 @@ export const updateFinishedGood = ({data, categoryId, success}) => ({
             name: data.name,
             description: data.description || "",
             categoryId: categoryId,
-            version: data.version
+            version: data.version,
         },
-        success: success
-    }
+        success: success,
+    },
 });
 
 export const deleteFinishedGood = (id) => ({
     type: DELETE_FINISHED_GOOD,
-    payload: { id }
+    payload: { id },
 });
 
-export const setFinishedGoodInvalidName = enabled => ({
+export const setFinishedGoodInvalidName = (enabled) => ({
     type: INVALID_NAME,
     payload: {
-        invalidName: enabled
-    }
+        invalidName: enabled,
+    },
 });
 
-export const setFinishedGoodInvalidClass = enabled => ({
+export const setFinishedGoodInvalidClass = (enabled) => ({
     type: INVALID_CLASS,
     payload: {
-        invalidClass: enabled
-    }
+        invalidClass: enabled,
+    },
 });
 
-export const setFinishedGoodInvalidType = enabled => ({
+export const setFinishedGoodInvalidType = (enabled) => ({
     type: INVALID_TYPE,
     payload: {
-        invalidType: enabled
-    }
+        invalidType: enabled,
+    },
 });
 
-export const setFinishedGoodInvalidStyle = enabled => ({
+export const setFinishedGoodInvalidStyle = (enabled) => ({
     type: INVALID_STYLE,
     payload: {
-        invalidStyle: enabled
-    }
+        invalidStyle: enabled,
+    },
 });
 
-export const setFinishedGoodInvalidDescription = enabled => ({
+export const setFinishedGoodInvalidDescription = (enabled) => ({
     type: INVALID_DESCRIPTION,
     payload: {
-        invalidDescription: enabled
-    }
+        invalidDescription: enabled,
+    },
 });
 
-export const resetFinishedGoodDetails = success => ({
+export const resetFinishedGoodDetails = (success) => ({
     type: RESET_FINISHED_GOOD_DETAILS,
-    payload: success
+    payload: success,
 });

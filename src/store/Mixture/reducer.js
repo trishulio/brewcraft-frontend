@@ -9,5 +9,5 @@ export {
     KettleMixture,
     WhirlpoolMixture,
     TransferMixture,
-    FermentMixture
+    FermentMixture,
 };

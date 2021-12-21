@@ -1,9 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import {
-    Button,
-    Input
-} from "reactstrap";
+import { Button, Input } from "reactstrap";
 import Toolbar from "../../../component/Common/toolbar";
 
 export default function ProductCategoriesToolbar() {
@@ -19,11 +16,11 @@ export default function ProductCategoriesToolbar() {
                 onClick={() => {
                     history.push({
                         pathname: "/suppliers/new",
-                        search: "?edit=true"
+                        search: "?edit=true",
                     });
                 }}
             >
-                    New Supplier
+                New Supplier
             </Button>
             <Button
                 type="button"
@@ -35,7 +32,7 @@ export default function ProductCategoriesToolbar() {
                     history.push("/suppliers/contacts");
                 }}
             >
-                    Contacts
+                Contacts
             </Button>
             <Input
                 bsSize="sm"

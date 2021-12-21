@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Table, { Th } from "../../../component/Common/table";
 import { useQuery } from "../../../helpers/utils";
 
@@ -8,7 +8,7 @@ export default function ProductsList() {
     const history = useHistory();
     const query = useQuery();
 
-    const products = useSelector(state => {
+    const products = useSelector((state) => {
         return state.Products.content;
     });
 
@@ -18,7 +18,7 @@ export default function ProductsList() {
         let order = query.get("order");
         query.delete("sort");
         query.delete("order");
-        switch(name) {
+        switch (name) {
             case "productsName":
                 if (sort !== "name") {
                     order = undefined;
@@ -51,24 +51,26 @@ export default function ProductsList() {
         } else {
             query.append("order", "desc");
         }
-        history.push({search: query.toString()});
+        history.push({ search: query.toString() });
     }
 
     return (
         <React.Fragment>
-            <Table>
+            <Table hover>
                 <thead>
                     <tr>
-                        <Th
-                            name="productsName"
-                            id="name"
-                            onSort={onSort}
-                        >
+                        <Th name="productsName" id="name" onSort={onSort}>
                             Name
                         </Th>
-                        <th>Product Class</th>
-                        <th>Type</th>
-                        <th>Style</th>
+                        <Th name="productsClass" id="class" onSort={onSort}>
+                            Product Class
+                        </Th>
+                        <Th name="productsType" id="type" onSort={onSort}>
+                            Type
+                        </Th>
+                        <Th name="productsStyle" id="style" onSort={onSort}>
+                            Style
+                        </Th>
                         {/*
                         Waiting for backend to support sorting on product
                         class, type and style.
@@ -97,16 +99,23 @@ export default function ProductsList() {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        products.map((product, key) =>
-                            <tr key={key}>
-                                <td><Link to={"/products/" + product.id}>{product.name && product.name}</Link></td>
-                                <td>{product.productClass ? product.productClass.name : "-"}</td>
-                                <td>{product.type ? product.type.name : "-"}</td>
-                                <td>{product.style ? product.style.name : "-"}</td>
-                            </tr>
-                        )
-                    }
+                    {products.map((product, key) => (
+                        <tr
+                            key={key}
+                            onClick={() =>
+                                history.push("/products/" + product.id)
+                            }
+                        >
+                            <td>{product.name && product.name}</td>
+                            <td>
+                                {product.productClass
+                                    ? product.productClass.name
+                                    : "-"}
+                            </td>
+                            <td>{product.type ? product.type.name : "-"}</td>
+                            <td>{product.style ? product.style.name : "-"}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </React.Fragment>

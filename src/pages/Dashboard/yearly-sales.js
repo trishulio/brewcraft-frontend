@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Row, Col, Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
-import ReactApexChart from 'react-apexcharts';
+import ReactApexChart from "react-apexcharts";
 
 class YearlySales extends Component {
     constructor(props) {
@@ -14,52 +14,53 @@ class YearlySales extends Component {
                         show: false,
                     },
                 },
-                colors: ['#7A6FBE', '#28BBE3'],
+                colors: ["#7A6FBE", "#28BBE3"],
                 plotOptions: {
                     bar: {
-                        columnWidth: '70%',
+                        columnWidth: "70%",
                         dataLabels: {
-                            show: false
+                            show: false,
                         },
-
                     },
                 },
                 legend: {
-                    show: false
+                    show: false,
                 },
                 dataLabels: {
                     enabled: false,
                 },
                 grid: {
-                    show : false,
+                    show: false,
                     row: {
-                        colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
-                        opacity: 0.5
+                        colors: ["transparent", "transparent"], // takes an array which will be repeated on columns
+                        opacity: 0.5,
                     },
                 },
                 xaxis: {
-                    labels : {
-                        show : false
+                    labels: {
+                        show: false,
                     },
                     categories: [],
                     axisBorder: {
-                        show: false
+                        show: false,
                     },
                     axisTicks: {
-                        show: false
-                    }
+                        show: false,
+                    },
                 },
-                yaxis : {
-                    labels : {
-                        show : false
+                yaxis: {
+                    labels: {
+                        show: false,
                     },
                 },
             },
-            series: [{
-                name: 'month / period',
-                data: [8, 6, 4, 7, 10, 12, 7, 4, 9, 12, 13, 11, 12]
-            },],
-        }
+            series: [
+                {
+                    name: "month / period",
+                    data: [8, 6, 4, 7, 10, 12, 7, 4, 9, 12, 13, 11, 12],
+                },
+            ],
+        };
     }
     render() {
         return (
@@ -72,12 +73,20 @@ class YearlySales extends Component {
                                 <div>
                                     <h3 className="text-nowrap">$52,345</h3>
                                     <p className="text-muted">YTD Revenue</p>
-                                    <Link to="#" className="text-primary">Learn more <i className="mdi mdi-chevron-double-right"></i></Link>
+                                    <Link to="#" className="text-primary">
+                                        Learn more{" "}
+                                        <i className="mdi mdi-chevron-double-right"></i>
+                                    </Link>
                                 </div>
                             </Col>
                             <Col md="8">
                                 <div id="sparkline">
-                                    <ReactApexChart options={this.state.options} series={this.state.series} type="bar" height="130" />
+                                    <ReactApexChart
+                                        options={this.state.options}
+                                        series={this.state.series}
+                                        type="bar"
+                                        height="130"
+                                    />
                                 </div>
                             </Col>
                         </Row>

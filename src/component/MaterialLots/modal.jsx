@@ -1,24 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
-import {
-    Button, FormGroup, Input
-} from "reactstrap";
-import {
-    Modal,
-    ModalBody,
-    ModalFooter
-} from "../Common/modal";
-import {
-    saveMashMaterialPortion
-} from "../../store/actions"
+import { Button, FormGroup, Input } from "reactstrap";
+import { Modal, ModalBody, ModalFooter } from "../Common/modal";
+import { saveMashMaterialPortion } from "../../store/actions";
 
 export default function MaterialLotsModal(props) {
     const [materialLot, setMaterialLot] = useState("");
     const [quantity, setQuantity] = useState("");
     const dispatch = useDispatch();
 
-    const materialLots = useSelector(state => {
+    const materialLots = useSelector((state) => {
         return state.MaterialLots;
     });
 
@@ -33,8 +25,8 @@ export default function MaterialLotsModal(props) {
                 materialLotId: materialLot.id,
                 quantity: {
                     symbol: materialLot.quantity.symbol,
-                    value: quantity
-                }
+                    value: quantity,
+                },
             })
         );
     }
@@ -52,7 +44,7 @@ export default function MaterialLotsModal(props) {
                     hidden={!props.editable}
                     className="d-sm-inline-block mt-0 mb-3"
                     style={{
-                        width: "100%"
+                        width: "100%",
                     }}
                 >
                     <Input
@@ -61,19 +53,20 @@ export default function MaterialLotsModal(props) {
                         style={{ width: "16rem" }}
                         hidden={!props.editable}
                         value={materialLot.id || ""}
-                        onChange={e => {
-                            const materialLot = materialLots.stock.find (s => s.id === parseInt(e.target.value));
+                        onChange={(e) => {
+                            const materialLot = materialLots.stock.find(
+                                (s) => s.id === parseInt(e.target.value)
+                            );
                             setMaterialLot(materialLot);
                         }}
                     >
                         <option value="">Select</option>
-                        {
-                            map(materialLots.stock, (value, index) => (
-                                <option value={value.id} key={index}>
-                                    {value.material.name} ({value.quantity.value}{value.quantity.symbol})
-                                </option>
-                            ))
-                        }
+                        {map(materialLots.stock, (value, index) => (
+                            <option value={value.id} key={index}>
+                                {value.material.name} ({value.quantity.value}
+                                {value.quantity.symbol})
+                            </option>
+                        ))}
                     </Input>
                     <Input
                         type="text"
@@ -82,7 +75,7 @@ export default function MaterialLotsModal(props) {
                         style={{ width: "4rem" }}
                         hidden={!props.editable}
                         value={quantity !== "" ? quantity : ""}
-                        onChange={e => {
+                        onChange={(e) => {
                             const value = parseInt(e.target.value);
                             if (Number.isInteger(value)) {
                                 setQuantity(value);
@@ -94,8 +87,10 @@ export default function MaterialLotsModal(props) {
                 </FormGroup>
             </ModalBody>
             <ModalFooter>
-                <Button color="primary" type="submit" onClick={onFormSubmit}>Save</Button>
+                <Button color="primary" type="submit" onClick={onFormSubmit}>
+                    Save
+                </Button>
             </ModalFooter>
         </Modal>
     );
-};
+}

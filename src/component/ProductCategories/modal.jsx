@@ -1,32 +1,35 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import {
-    Button
-} from "reactstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Button } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
-import {
-    Modal,
-    ModalBody,
-    ModalFooter
-} from "../Common/modal";
+import { Modal, ModalBody, ModalFooter } from "../Common/modal";
 import {
     fetchAllProductCategories,
     createProductCategory,
-    setProductDetails
-} from "../../store/actions"
+    setProductDetails,
+    resetProductCategory,
+} from "../../store/actions";
 
-export default function ProductCategoriesModal({ show, setShow, type, parentCategoryId }) {
+export default function ProductCategoriesModal({
+    show,
+    setShow,
+    type,
+    parentCategoryId,
+}) {
+    const { error } = useSelector((state) => state.ProductCategory);
+
     const dispatch = useDispatch();
 
     function close() {
         setShow(false);
+        dispatch(resetProductCategory());
     }
 
     function onFormSubmit(e, values) {
         dispatch(
             createProductCategory({
                 data: {
-                    name: values.name
+                    name: values.name,
                 },
                 categoryId: parentCategoryId,
                 success: (category) => {
@@ -35,31 +38,33 @@ export default function ProductCategoriesModal({ show, setShow, type, parentCate
                         payload = {
                             productClass: category,
                             type: null,
-                            style: null
+                            style: null,
                         };
                     } else if (type === "type") {
                         payload = {
                             type: category,
-                            style: null
+                            style: null,
                         };
                     } else {
                         payload = {
-                            style: category
+                            style: category,
                         };
                     }
-                    dispatch(fetchAllProductCategories({
-                        success: () => {
-                            dispatch(setProductDetails(payload));
-                            close();
-                        }
-                    }));
-                }
+                    dispatch(
+                        fetchAllProductCategories({
+                            success: () => {
+                                dispatch(setProductDetails(payload));
+                                close();
+                            },
+                        })
+                    );
+                },
             })
         );
     }
 
     function formatTitle(type) {
-        switch(type) {
+        switch (type) {
             case "class":
                 return "Product Class";
             case "type":
@@ -67,7 +72,7 @@ export default function ProductCategoriesModal({ show, setShow, type, parentCate
             case "style":
                 return "Product Style";
             default:
-                break
+                break;
         }
     }
 
@@ -78,9 +83,13 @@ export default function ProductCategoriesModal({ show, setShow, type, parentCate
             onValidSubmit={onFormSubmit}
             close={close}
             title={formatTitle(type)}
+            onError={error}
         >
             <ModalBody>
-                <AvForm id={`product-${type}-modal-form`} onValidSubmit={onFormSubmit}>
+                <AvForm
+                    id={`product-${type}-modal-form`}
+                    onValidSubmit={onFormSubmit}
+                >
                     <AvField
                         name="name"
                         type="text"
@@ -91,8 +100,14 @@ export default function ProductCategoriesModal({ show, setShow, type, parentCate
                 </AvForm>
             </ModalBody>
             <ModalFooter>
-                <Button color="primary" type="submit" form={`product-${type}-modal-form`}>Save</Button>
+                <Button
+                    color="primary"
+                    type="submit"
+                    form={`product-${type}-modal-form`}
+                >
+                    Save
+                </Button>
             </ModalFooter>
         </Modal>
     );
-};
+}

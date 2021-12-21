@@ -4,7 +4,7 @@ import { useQuery } from "../../helpers/utils";
 import {
     fetchPackaging,
     setBreadcrumbItems,
-    fetchAllMaterialCategories
+    fetchAllMaterialCategories,
 } from "../../store/actions";
 import PackagingInner from "./packaging";
 
@@ -15,11 +15,11 @@ export default function Packaging() {
     const sort = query.get("sort");
     const order = query.get("order");
 
-    const packaging = useSelector(state => {
+    const packaging = useSelector((state) => {
         return state.Packaging.content;
     });
 
-    const { pageIndex, pageSize } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector((state) => {
         return state.Packaging;
     });
 
@@ -27,7 +27,7 @@ export default function Packaging() {
         dispatch(
             setBreadcrumbItems("Packaging", [
                 { title: "Main", link: "#" },
-                { title: "Materials", link: "#" }
+                { title: "Materials", link: "#" },
             ])
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,16 +35,16 @@ export default function Packaging() {
 
     useEffect(() => {
         const props = {
-            pageIndex, pageSize, parentCategoryId, sort, order
+            pageIndex,
+            pageSize,
+            parentCategoryId,
+            sort,
+            order,
         };
         dispatch(fetchPackaging({ ...props }));
         dispatch(fetchAllMaterialCategories());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageIndex, pageSize, parentCategoryId, sort, order]);
 
-    return (
-        <PackagingInner
-            packaging={packaging}
-        />
-    );
+    return <PackagingInner packaging={packaging} />;
 }

@@ -1,4 +1,4 @@
-import { all } from "redux-saga/effects"
+import { all } from "redux-saga/effects";
 import Batch from "./Brew/saga";
 import Batches from "./Batches/saga";
 import BatchStatus from "./BatchStatus/saga";
@@ -20,7 +20,8 @@ import Mixture from "./Mixture/saga";
 import MixtureRecording from "./MixtureRecording/saga";
 import Packaging from "./Packaging/saga";
 import PackagingItem from "./PackagingItem/saga";
-import PurchaseInvoice from "./PurchaseInvoice/saga";
+import Procurement from "./Procurement/saga";
+import Procurements from "./Procurements/saga";
 import PurchaseInvoices from "./PurchaseInvoices/saga";
 import Product from "./Product/saga";
 import ProductCategories from "./ProductCategories/saga";
@@ -34,7 +35,9 @@ import Suppliers from "./Suppliers/saga";
 import SupplierContact from "./SupplierContact/saga";
 import SupplierContacts from "./SupplierContacts/saga";
 import RawMaterials from "./RawMaterials/saga";
+import User from "./User/saga";
 import Users from "./Users/saga";
+import UserRoles from "./UserRoles/saga";
 
 export default function* rootSaga() {
     yield all([
@@ -59,12 +62,13 @@ export default function* rootSaga() {
         MixtureRecording(),
         Packaging(),
         PackagingItem(),
-        PurchaseInvoice(),
-        PurchaseInvoices(),
+        Procurement(),
+        Procurements(),
         Product(),
         ProductCategories(),
         ProductCategory(),
         Products(),
+        PurchaseInvoices(),
         RawMaterials(),
         Shipments(),
         Sku(),
@@ -73,6 +77,8 @@ export default function* rootSaga() {
         Suppliers(),
         SupplierContact(),
         SupplierContacts(),
-        Users()
-    ])
+        User(),
+        Users(),
+        UserRoles(),
+    ]);
 }

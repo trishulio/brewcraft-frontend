@@ -7,7 +7,7 @@ import {
     SET_SKU_DETAILS_FAILED,
     INVALID_PRODUCT,
     INVALID_VOLUME,
-    INVALID_QUANTITY_UNIT
+    INVALID_QUANTITY_UNIT,
 } from "./actionTypes";
 
 const initialState = {
@@ -21,7 +21,7 @@ const initialState = {
             value: "",
             symbol: "",
         },
-        version: null
+        version: null,
     },
     initial: {
         id: "",
@@ -33,7 +33,7 @@ const initialState = {
             value: "",
             symbol: "",
         },
-        version: null
+        version: null,
     },
     loading: true,
     error: null,
@@ -69,38 +69,38 @@ const Sku = (state = initialState, { type, payload }) => {
                 error: true,
             };
         case SET_SKU_DETAILS:
-        return {
-            ...state,
-            ...payload,
-            loading: false,
-            error: null,
-        };
+            return {
+                ...state,
+                ...payload,
+                loading: false,
+                error: null,
+            };
         case SET_SKU_DETAILS_SUCCESS:
-        return {
-            ...state,
-            ...payload,
-            loading: false,
-            error: null,
-        };
+            return {
+                ...state,
+                ...payload,
+                loading: false,
+                error: null,
+            };
         case SET_SKU_DETAILS_FAILED:
-        return {
-            ...state,
-            ...payload,
-            loading: false,
-            error: true,
-        };
+            return {
+                ...state,
+                ...payload,
+                loading: false,
+                error: true,
+            };
         case RESET_SKU_DETAILS:
-        return {
-            ...initialState,
-            loading: false,
-            error: null,
-        };
+            return {
+                ...initialState,
+                loading: false,
+                error: null,
+            };
         default:
-        return {
-            ...state,
-            loading: true,
-            error: null,
-        };
+            return {
+                ...state,
+                loading: true,
+                error: null,
+            };
     }
 };
 

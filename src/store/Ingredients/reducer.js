@@ -7,7 +7,7 @@ import {
     FETCH_ALL_INGREDIENTS_REQUEST,
     SET_INGREDIENTS_DETAILS,
     SET_INGREDIENTS_PAGE_INDEX,
-    SET_INGREDIENTS_PAGE_SIZE
+    SET_INGREDIENTS_PAGE_SIZE,
 } from "./actionTypes";
 
 const initialState = {
@@ -18,72 +18,72 @@ const initialState = {
     totalElements: 0,
     totalPages: 0,
     pageIndex: 0,
-    pageSize: 20
+    pageSize: 20,
 };
 
 const MaterialCategories = (state = initialState, { type, payload, data }) => {
     switch (type) {
-      case FETCH_INGREDIENTS_REQUEST:
-        return {
-          ...state,
-          data: null,
-          loading: true,
-          error: null,
-        };
-      case FETCH_INGREDIENTS_SUCCESS:
-        return {
-          ...state,
-          ...data.data,
-          loading: false,
-          error: null,
-        };
-      case FETCH_INGREDIENTS_FAILURE:
-        return {
-          ...state,
-          loading: false,
-          error: payload,
-        };
-    case FETCH_ALL_INGREDIENTS_REQUEST:
-        return {
-            ...state,
-            loading: true,
-            error: null,
-        };
-    case FETCH_ALL_INGREDIENTS_SUCCESS:
-        return {
-            ...state,
-            all: data.data.content,
-            loading: false,
-            error: null,
-        };
-    case FETCH_ALL_INGREDIENTS_FAILURE:
-        return {
-            ...state,
-            loading: false,
-            error: payload,
-        };
-    case SET_INGREDIENTS_DETAILS:
-      return {
-        ...state,
-        ...payload,
-        loading: false,
-        error: null
-      };
-    case SET_INGREDIENTS_PAGE_INDEX:
-    case SET_INGREDIENTS_PAGE_SIZE:
-        return {
-          ...state,
-          ...payload,
-          loading: false,
-          error: null
-        };
-    default:
-        return {
-            ...state,
-            loading: true,
-            error: null
-        }
+        case FETCH_INGREDIENTS_REQUEST:
+            return {
+                ...state,
+                data: null,
+                loading: true,
+                error: null,
+            };
+        case FETCH_INGREDIENTS_SUCCESS:
+            return {
+                ...state,
+                ...data.data,
+                loading: false,
+                error: null,
+            };
+        case FETCH_INGREDIENTS_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: payload,
+            };
+        case FETCH_ALL_INGREDIENTS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: null,
+            };
+        case FETCH_ALL_INGREDIENTS_SUCCESS:
+            return {
+                ...state,
+                all: data.data.content,
+                loading: false,
+                error: null,
+            };
+        case FETCH_ALL_INGREDIENTS_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: payload,
+            };
+        case SET_INGREDIENTS_DETAILS:
+            return {
+                ...state,
+                ...payload,
+                loading: false,
+                error: null,
+            };
+        case SET_INGREDIENTS_PAGE_INDEX:
+        case SET_INGREDIENTS_PAGE_SIZE:
+            return {
+                ...state,
+                ...payload,
+                loading: false,
+                error: null,
+            };
+        default:
+            return {
+                ...state,
+                loading: true,
+                error: null,
+            };
     }
-}
+};
 
 export default MaterialCategories;

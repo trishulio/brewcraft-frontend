@@ -1,9 +1,8 @@
-
 import {
     SET_INVENTORY_PROCUREMENTS_QUANTITY_DETAILS,
     SET_INVENTORY_STOCK_QUANTITY_DETAILS,
     SET_MATERIALS_PAGE_INDEX,
-    SET_MATERIALS_PAGE_SIZE
+    SET_MATERIALS_PAGE_SIZE,
 } from "./actionTypes";
 
 const initialState = {
@@ -14,7 +13,7 @@ const initialState = {
     totalElements: 0,
     totalPages: 0,
     pageIndex: 0,
-    pageSize: 20
+    pageSize: 20,
 };
 
 const MaterialLots = (state = initialState, { type, payload }) => {
@@ -22,20 +21,16 @@ const MaterialLots = (state = initialState, { type, payload }) => {
         case SET_INVENTORY_PROCUREMENTS_QUANTITY_DETAILS:
             return {
                 ...state,
-                procurements: [
-                    ...payload
-                ],
+                procurements: [...payload],
                 loading: false,
-                error: null
+                error: null,
             };
         case SET_INVENTORY_STOCK_QUANTITY_DETAILS:
             return {
                 ...state,
-                stock: [
-                    ...payload
-                ],
+                stock: [...payload],
                 loading: false,
-                error: null
+                error: null,
             };
         case SET_MATERIALS_PAGE_INDEX:
         case SET_MATERIALS_PAGE_SIZE:
@@ -43,15 +38,15 @@ const MaterialLots = (state = initialState, { type, payload }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         default:
             return {
                 ...state,
                 loading: true,
-                error: null
-            }
+                error: null,
+            };
     }
-}
+};
 
 export default MaterialLots;

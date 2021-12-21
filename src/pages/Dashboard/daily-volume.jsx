@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Row, Col, Card, CardBody } from "reactstrap";
-import ReactApexChart from 'react-apexcharts';
+import ReactApexChart from "react-apexcharts";
 
 class DailyVolume extends Component {
     constructor(props) {
@@ -8,50 +8,56 @@ class DailyVolume extends Component {
 
         this.state = {
             options: {
-                colors: ['#28BBE3', '#7A6FBE'],
+                colors: ["#28BBE3", "#7A6FBE"],
                 chart: {
                     toolbar: {
                         show: false,
                     },
                 },
                 dataLabels: {
-                    enabled: false
+                    enabled: false,
                 },
                 stroke: {
-                    curve: 'smooth',
+                    curve: "smooth",
                     width: 0.1,
                 },
                 grid: {
-                    borderColor: '#f8f8fa',
+                    borderColor: "#f8f8fa",
                     row: {
-                        colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
-                        opacity: 0.5
+                        colors: ["transparent", "transparent"], // takes an array which will be repeated on columns
+                        opacity: 0.5,
                     },
                 },
                 xaxis: {
-                    categories: ['Week 0', 'Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    categories: [
+                        "Week 0",
+                        "Week 1",
+                        "Week 2",
+                        "Week 3",
+                        "Week 4",
+                    ],
                     axisBorder: {
-                        show: false
+                        show: false,
                     },
                     axisTicks: {
-                        show: false
-                    }
+                        show: false,
+                    },
                 },
                 legend: {
-                    show: true
+                    show: true,
                 },
             },
             series: [
                 {
-                    name: 'Last period',
-                    data: [0, 150, 60, 180, 90]
+                    name: "Last period",
+                    data: [0, 150, 60, 180, 90],
                 },
                 {
-                    name: 'This Period',
-                    data: [0, 45, 150]
-                }
+                    name: "This Period",
+                    data: [0, 45, 150],
+                },
             ],
-        }
+        };
     }
     render() {
         return (
@@ -75,8 +81,17 @@ class DailyVolume extends Component {
                             </Col>
                         </Row>
 
-                        <div id="morris-area-example" className="morris-charts morris-charts-height" dir="ltr">
-                            <ReactApexChart options={this.state.options} series={this.state.series} type="area" height="300" />
+                        <div
+                            id="morris-area-example"
+                            className="morris-charts morris-charts-height"
+                            dir="ltr"
+                        >
+                            <ReactApexChart
+                                options={this.state.options}
+                                series={this.state.series}
+                                type="area"
+                                height="300"
+                            />
                         </div>
                     </CardBody>
                 </Card>

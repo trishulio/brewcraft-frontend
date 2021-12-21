@@ -12,7 +12,7 @@ import {
     PACKAGING_ITEM_INVALID_NAME,
     PACKAGING_ITEM_INVALID_CATEGORY,
     PACKAGING_ITEM_INVALID_BASE_QUANTITY_UNIT,
-    PACKAGING_ITEM_INVALID_UPC
+    PACKAGING_ITEM_INVALID_UPC,
 } from "./actionTypes";
 
 const initialState = {
@@ -24,7 +24,7 @@ const initialState = {
         baseQuantityUnit: null,
         upc: "",
         imageSrc: "",
-        version: null
+        version: null,
     },
     initial: {
         id: "",
@@ -34,7 +34,7 @@ const initialState = {
         baseQuantityUnit: null,
         upc: "",
         imageSrc: "",
-        version: null
+        version: null,
     },
     invalidName: false,
     invalidDescription: false,
@@ -43,11 +43,11 @@ const initialState = {
     invalidBaseQuantityUnit: false,
     invalidUpc: false,
     loading: true,
-    error: null
+    error: null,
 };
 
 const PackagingItem = (state = initialState, { type, payload }) => {
-    switch(type) {
+    switch (type) {
         case SET_PACKAGING_ITEM_DETAILS:
             return {
                 ...state,
@@ -61,7 +61,7 @@ const PackagingItem = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
             };
         case ADD_PACKAGING_ITEM_SUCCESS:
         case EDIT_PACKAGING_ITEM_SUCCESS:
@@ -69,30 +69,28 @@ const PackagingItem = (state = initialState, { type, payload }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_PACKAGING_ITEM_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: true
+                error: true,
             };
         case DELETE_PACKAGING_ITEM_SUCCESS:
-        return {
-            ...state,
-            data: filter([...state.data], (instanceData) => {
-                return (
-                    payload.id!==instanceData.id
-                    );
+            return {
+                ...state,
+                data: filter([...state.data], (instanceData) => {
+                    return payload.id !== instanceData.id;
                 }),
                 formLoading: { ...state.formLoading, loading: false },
             };
         case RESET_PACKAGING_ITEM_DETAILS:
-        return {
-            ...initialState,
-            loading: false,
-            error: null
-        };
+            return {
+                ...initialState,
+                loading: false,
+                error: null,
+            };
         case PACKAGING_ITEM_INVALID_NAME:
         case PACKAGING_ITEM_INVALID_CATEGORY:
         case PACKAGING_ITEM_INVALID_BASE_QUANTITY_UNIT:
@@ -101,14 +99,14 @@ const PackagingItem = (state = initialState, { type, payload }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: true
+                error: true,
             };
         default:
-        return {
-            ...state,
-            loading: false,
-            error: null
-        };
+            return {
+                ...state,
+                loading: false,
+                error: null,
+            };
     }
 };
 

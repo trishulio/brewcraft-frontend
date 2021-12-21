@@ -8,11 +8,9 @@ import {
     updateProductCategory,
     deleteProductCategory,
     fetchAllProductCategories,
-    setProductCategoryDetails
+    setProductCategoryDetails,
 } from "../../store/actions";
-import {
-    useQuery
-} from "../../helpers/utils";
+import { useQuery } from "../../helpers/utils";
 import ProductCategoryInner from "./category";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
@@ -31,16 +29,16 @@ export default function ProductCategory() {
 
     const dispatch = useDispatch();
 
-    const category = useSelector(state => {
+    const category = useSelector((state) => {
         return state.ProductCategory.data;
     });
 
-    const initialProductCategory = useSelector(state => {
+    const initialProductCategory = useSelector((state) => {
         return state.ProductCategory.initial;
     });
 
-    const { invalidName, invalidClass, invalidType } = useSelector(state => {
-        return state.ProductCategory
+    const { invalidName, invalidClass, invalidType } = useSelector((state) => {
+        return state.ProductCategory;
     });
 
     useEffect(() => {
@@ -60,17 +58,21 @@ export default function ProductCategory() {
 
     useEffect(() => {
         if (category.id) {
-            dispatch(setBreadcrumbItems(category.name, [
-                { title: "Main", link: "#" },
-                { title: "Products", link: "#" },
-                { title: "Product Categories", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems(category.name, [
+                    { title: "Main", link: "#" },
+                    { title: "Products", link: "#" },
+                    { title: "Product Categories", link: "#" },
+                ])
+            );
         } else {
-            dispatch(setBreadcrumbItems("New Category", [
-                { title: "Main", link: "#" },
-                { title: "Products", link: "#" },
-                { title: "Product Categories", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems("New Category", [
+                    { title: "Main", link: "#" },
+                    { title: "Products", link: "#" },
+                    { title: "Product Categories", link: "#" },
+                ])
+            );
         }
         setChanged(isChanged());
 
@@ -78,17 +80,29 @@ export default function ProductCategory() {
     }, [category]);
 
     function isChanged() {
-        return initialProductCategory
-            && JSON.stringify(
-                (({ id, name, parentCategoryId }) => ({ id, name, parentCategoryId }))(initialProductCategory))
-            !== JSON.stringify(
-                (({ id, name, parentCategoryId }) => ({ id, name, parentCategoryId }))(category))
+        return (
+            initialProductCategory &&
+            JSON.stringify(
+                (({ id, name, parentCategoryId }) => ({
+                    id,
+                    name,
+                    parentCategoryId,
+                }))(initialProductCategory)
+            ) !==
+                JSON.stringify(
+                    (({ id, name, parentCategoryId }) => ({
+                        id,
+                        name,
+                        parentCategoryId,
+                    }))(category)
+                )
+        );
     }
 
     function onChange(e) {
         dispatch(
             setProductCategoryDetails({
-                [e.target.name]: e.target.value
+                [e.target.name]: e.target.value,
             })
         );
     }
@@ -96,14 +110,13 @@ export default function ProductCategory() {
     function onSave() {
         if (!category.name) {
             dispatch(setProductCategoryInvalidName(!category.name));
-            return
+            return;
         }
         if (invalidName || invalidClass || invalidType) {
             return;
         }
         if (!isChanged()) {
             history.push("/products/categories/" + id);
-
         } else if (category.id) {
             dispatch(
                 updateProductCategory({
@@ -111,7 +124,7 @@ export default function ProductCategory() {
                     parentCategoryId: category.parentCategoryId,
                     success: () => {
                         history.push(`/products/categories/${category.id}`);
-                    }
+                    },
                 })
             );
         } else {
@@ -119,9 +132,9 @@ export default function ProductCategory() {
                 createProductCategory({
                     data: category,
                     categoryId: category.parentCategoryId,
-                    success: category => {
+                    success: (category) => {
                         history.push(`/products/categories/${category.id}`);
-                    }
+                    },
                 })
             );
         }
@@ -130,7 +143,7 @@ export default function ProductCategory() {
     function onEdit() {
         history.push({
             pathname: `/products/categories/${id}`,
-            search: "?edit=true"
+            search: "?edit=true",
         });
     }
 
@@ -153,13 +166,23 @@ export default function ProductCategory() {
             />
             <RouteLeavingGuard
                 when={showRouterPrompt}
-                navigate={path => {
+                navigate={(path) => {
                     history.push(path);
                 }}
                 shouldBlockNavigation={() => editMode && isChanged()}
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
-            <ProductCategoryInner {...{category, editable, changed, onChange, onSave, onEdit, onDelete}} />
+            <ProductCategoryInner
+                {...{
+                    category,
+                    editable,
+                    changed,
+                    onChange,
+                    onSave,
+                    onEdit,
+                    onDelete,
+                }}
+            />
         </React.Fragment>
     );
 }

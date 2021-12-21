@@ -8,11 +8,9 @@ import {
     updateFinishedGood,
     deleteFinishedGood,
     fetchAllProductCategories,
-    resetFinishedGoodDetails
+    resetFinishedGoodDetails,
 } from "../../store/actions";
-import {
-    useQuery
-} from "../../helpers/utils";
+import { useQuery } from "../../helpers/utils";
 import FinishedGoodInner from "./finished-good";
 
 export default function FinishedGood() {
@@ -25,16 +23,16 @@ export default function FinishedGood() {
     const editMode = query.get("edit");
     const dispatch = useDispatch();
 
-    const finishedGood = useSelector(state => {
+    const finishedGood = useSelector((state) => {
         return state.FinishedGood.data;
     });
 
-    const initialFinishedGood = useSelector(state => {
+    const initialFinishedGood = useSelector((state) => {
         return state.FinishedGood.initialFinishedGood;
     });
 
-    const { invalidName } = useSelector(state => {
-        return state.FinishedGood
+    const { invalidName } = useSelector((state) => {
+        return state.FinishedGood;
     });
 
     useEffect(() => {
@@ -54,15 +52,19 @@ export default function FinishedGood() {
 
     useEffect(() => {
         if (finishedGood.id) {
-            dispatch(setBreadcrumbItems(finishedGood.name, [
-                { title: "Main", link: "#" },
-                { title: "Finished Goods", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems(finishedGood.name, [
+                    { title: "Main", link: "#" },
+                    { title: "Finished Goods", link: "#" },
+                ])
+            );
         } else {
-            dispatch(setBreadcrumbItems("New Finished Good", [
-                { title: "Main", link: "#" },
-                { title: "Finished Goods", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems("New Finished Good", [
+                    { title: "Main", link: "#" },
+                    { title: "Finished Goods", link: "#" },
+                ])
+            );
         }
         setChanged(isChanged());
 
@@ -70,10 +72,18 @@ export default function FinishedGood() {
     }, [finishedGood]);
 
     function isChanged() {
-        return JSON.stringify(
-                (({ id, name, description }) => ({ id, name, description }))(initialFinishedGood))
-            !== JSON.stringify(
-                (({ id, name, description }) => ({ id, name, description }))(finishedGood))
+        return (
+            JSON.stringify(
+                (({ id, name, description }) => ({ id, name, description }))(
+                    initialFinishedGood
+                )
+            ) !==
+            JSON.stringify(
+                (({ id, name, description }) => ({ id, name, description }))(
+                    finishedGood
+                )
+            )
+        );
     }
 
     function onSave() {
@@ -82,23 +92,22 @@ export default function FinishedGood() {
         }
         if (!isChanged()) {
             history.push("/finished-goods/" + id);
-
         } else if (finishedGood.id) {
             dispatch(
                 updateFinishedGood({
                     data: finishedGood,
-                    success: id => {
+                    success: (id) => {
                         history.push("/finished-goods/" + id);
-                    }
+                    },
                 })
             );
         } else {
             dispatch(
                 createFinishedGood({
                     data: finishedGood,
-                    success: id => {
+                    success: (id) => {
                         history.push("/finished-goods/" + id);
-                    }
+                    },
                 })
             );
         }
@@ -110,7 +119,5 @@ export default function FinishedGood() {
         }
     }
 
-    return (
-        <FinishedGoodInner {...{editable, changed, onSave, onDelete}} />
-    );
+    return <FinishedGoodInner {...{ editable, changed, onSave, onDelete }} />;
 }

@@ -9,97 +9,97 @@ import {
     CHANGE_SIDEBAR_TYPE,
     CHANGE_TOPBAR_THEME,
     CHANGE_PRELOADER,
-    TOGGLE_PRELOADER
-} from './actionTypes';
+    TOGGLE_PRELOADER,
+} from "./actionTypes";
 
-const initialState={
+const initialState = {
     layoutType: "vertical",
     topbarTheme: "dark",
     leftSideBarTheme: "dark",
     layoutWidth: "fluid",
     leftSideBarType: "condensed",
     // leftSideBarType: "default",
-    isPreloader : true,
-    is_toggle : false,
-    show_rightsidebar : false,
-    isMobile: false
-}
+    isPreloader: true,
+    is_toggle: false,
+    show_rightsidebar: false,
+    isMobile: false,
+};
 
-const layout = (state=initialState,action) => {
-    switch(action.type){
+const layout = (state = initialState, action) => {
+    switch (action.type) {
         case CHANGE_LAYOUT:
             return {
-              ...state,
-              layoutType: action.payload
+                ...state,
+                layoutType: action.payload,
             };
 
         case CHANGE_SIDEBAR_THEME:
             return {
                 ...state,
-                leftSideBarTheme: action.payload
+                leftSideBarTheme: action.payload,
             };
 
         case CHANGE_PRELOADER:
             return {
-                ...state
+                ...state,
             };
         case TOGGLE_PRELOADER:
             return {
                 ...state,
-                isPreloader: action.payload
+                isPreloader: action.payload,
             };
 
         case CHANGE_LAYOUT_WIDTH:
             return {
                 ...state,
-                layoutWidth: action.payload.width
+                layoutWidth: action.payload.width,
             };
 
         case CHANGE_SIDEBAR_TYPE:
             return {
                 ...state,
-                leftSideBarType: action.payload.sidebarType
+                leftSideBarType: action.payload.sidebarType,
             };
 
         case CHANGE_TOPBAR_THEME:
             return {
                 ...state,
-                topbarTheme: action.payload
+                topbarTheme: action.payload,
             };
 
         case ACTIVATE_NON_AUTH_LAYOUT:
             state = {
                 ...state,
-                ...action.payload
-            }
+                ...action.payload,
+            };
             break;
 
         case TOGGLE:
             state = {
                 ...state,
-                is_toggle : action.payload
-            }
+                is_toggle: action.payload,
+            };
             break;
 
         case TOGGLE_RIGHT_SIDEBAR:
             state = {
                 ...state,
-                show_rightsidebar : action.payload
-            }
+                show_rightsidebar: action.payload,
+            };
             break;
 
         case HIDE_RIGHT_SIDEBAR:
             state = {
                 ...state,
-                show_rightsidebar : false
-            }
+                show_rightsidebar: false,
+            };
             break;
 
         default:
-            state = {...state};
+            state = { ...state };
             break;
     }
     return state;
-}
+};
 
 export default layout;

@@ -1,13 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-    Button,
-    Input
-} from "reactstrap";
-import {
-    useQuery
-} from "../../../helpers/utils";
+import { Button, Input } from "reactstrap";
+import { useQuery } from "../../../helpers/utils";
 import Toolbar from "../../../component/Common/toolbar";
 
 export default function ProductCategoriesToolbar() {
@@ -15,7 +10,7 @@ export default function ProductCategoriesToolbar() {
     const query = useQuery();
     const supplierId = query.get("supplier");
 
-    const suppliers = useSelector(state => {
+    const suppliers = useSelector((state) => {
         return state.Suppliers.all;
     });
 
@@ -29,11 +24,11 @@ export default function ProductCategoriesToolbar() {
                 onClick={() => {
                     history.push({
                         pathname: "/suppliers/contacts/new",
-                        search: "?edit=true"
+                        search: "?edit=true",
                     });
                 }}
             >
-                    New Contact
+                New Contact
             </Button>
             <Button
                 type="button"
@@ -45,7 +40,7 @@ export default function ProductCategoriesToolbar() {
                     history.push("/suppliers");
                 }}
             >
-                    Suppliers
+                Suppliers
             </Button>
             <Input
                 name="supplierContactSearch"
@@ -61,20 +56,22 @@ export default function ProductCategoriesToolbar() {
                 className="waves-effect float-right mb-3 ml-2"
                 style={{ width: 100 }}
                 value={supplierId || ""}
-                onChange={e => {
+                onChange={(e) => {
                     if (e.target.value) {
-                        history.push("/suppliers/contacts?supplier=" + e.target.value);
+                        history.push(
+                            "/suppliers/contacts?supplier=" + e.target.value
+                        );
                     } else {
                         history.push("/suppliers/contacts");
                     }
                 }}
             >
                 <option value="">Select</option>
-                {
-                    suppliers.map((value, index) =>
-                        <option key={index} value={value.id}>{value.name}</option>
-                    )
-                }
+                {suppliers.map((value, index) => (
+                    <option key={index} value={value.id}>
+                        {value.name}
+                    </option>
+                ))}
             </Input>
         </Toolbar>
     );

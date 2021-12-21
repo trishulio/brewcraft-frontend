@@ -1,14 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import {
-  Alert
-} from "reactstrap";
+import { Alert } from "reactstrap";
 import Toolbar from "./components/toolbar";
 import SupplierDetails from "./components/details";
 
 export default function Supplier({ editable, changed, onSave, onDelete }) {
-
-    const error = useSelector(state => {
+    const error = useSelector((state) => {
         return state.Supplier.error;
     });
     return (
@@ -21,14 +18,13 @@ export default function Supplier({ editable, changed, onSave, onDelete }) {
                 onDelete={onDelete}
             />
             <div style={{ maxWidth: "576px" }}>
-                {error &&
+                {error && (
                     <Alert color="info" className="mt-2 mb-4">
-                        <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                        <strong>Oh snap!</strong> Change a few things up and try
+                        submitting again.
                     </Alert>
-                }
-                <SupplierDetails
-                    editable={editable}
-                />
+                )}
+                <SupplierDetails editable={editable} />
             </div>
         </React.Fragment>
     );

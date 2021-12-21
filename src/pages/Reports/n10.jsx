@@ -7,7 +7,7 @@ export default function FormsN10() {
     useEffect(() => {
         dispatch(
             setBreadcrumbItems("N10 - Application for Refund/Drawback", [
-                { title: "Dashboard", link: "/dashboard" }
+                { title: "Dashboard", link: "/dashboard" },
             ])
         );
     });

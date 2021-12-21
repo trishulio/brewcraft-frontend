@@ -3,20 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../../component/Common/pagination";
 import {
     setProductsPageIndex,
-    setProductsPageSize
+    setProductsPageSize,
 } from "../../../store/actions";
 
 export default function ProductsPagination({ children }) {
-
     const dispatch = useDispatch();
 
-    const products = useSelector(state => {
+    const products = useSelector((state) => {
         return state.Products.content;
     });
 
-    const { totalElements, totalPages, pageIndex, pageSize } = useSelector(state => {
-        return state.Products;
-    });
+    const { totalElements, totalPages, pageIndex, pageSize } = useSelector(
+        (state) => {
+            return state.Products;
+        }
+    );
 
     const pageProps = {
         items: products,
@@ -24,19 +25,17 @@ export default function ProductsPagination({ children }) {
         totalPages,
         pageIndex,
         pageSize,
-        setPageIndex: index => {
+        setPageIndex: (index) => {
             dispatch(setProductsPageIndex(index));
         },
-        setPageSize: size => {
+        setPageSize: (size) => {
             dispatch(setProductsPageSize(size));
-        }
+        },
     };
 
     return (
         <React.Fragment>
-            <Pagination {...pageProps}>
-                {children}
-            </Pagination>
+            <Pagination {...pageProps}>{children}</Pagination>
         </React.Fragment>
     );
 }

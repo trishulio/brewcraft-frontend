@@ -10,7 +10,6 @@
 // @import "./assets/scss/bootstrap.scss";
 // @import "./assets/scss/app-rtl.scss";
 
-
 //Icons
 @import "./assets/scss/icons.scss";
 
@@ -18,31 +17,25 @@
 @import "./assets/scss/custom-style.scss";
 
 .DragHandler {
-
-    cursor:move;
-
+    cursor: move;
 }
 .pointer {
-
     cursor: pointer;
-
 }
 .iconhover {
-    opacity: .75;
+    opacity: 0.75;
 }
 .iconhover:hover {
     opacity: 1;
 }
 .iconfont {
-    font-size: 1rem,
+    font-size: 1rem;
 }
 .btnParent {
     cursor: pointer;
-
-  }
-  @media screen and (max-width: 768px) {
-
-    .mobileMenuScroll{
-            overflow-y: scroll;
-        }
-  }
+}
+@media screen and (max-width: 768px) {
+    .mobileMenuScroll {
+        overflow-y: scroll;
+    }
+}

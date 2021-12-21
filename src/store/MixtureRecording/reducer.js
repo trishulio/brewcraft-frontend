@@ -7,5 +7,5 @@ export {
     KettleMixtureRecordings,
     WhirlpoolMixtureRecordings,
     TransferMixtureRecordings,
-    FermentMixtureRecordings
+    FermentMixtureRecordings,
 };

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Row, Col, Card, CardBody } from "reactstrap";
-import ReactApexChart from 'react-apexcharts';
+import ReactApexChart from "react-apexcharts";
 
 class DailyVolume extends Component {
     constructor(props) {
@@ -8,62 +8,70 @@ class DailyVolume extends Component {
 
         this.state = {
             options: {
-                colors: ['#7A6FBE', '#28BBE3'],
+                colors: ["#7A6FBE", "#28BBE3"],
                 chart: {
                     zoom: {
-                        enabled: false
+                        enabled: false,
                     },
                     toolbar: {
                         show: false,
-                    }
+                    },
                 },
                 legend: {
-                    show: true
+                    show: true,
                 },
 
                 dataLabels: {
-                    enabled: false
+                    enabled: false,
                 },
                 stroke: {
-                    curve: 'smooth',
+                    curve: "smooth",
                     width: 2,
                 },
                 grid: {
-                    borderColor: '#f8f8fa',
+                    borderColor: "#f8f8fa",
                     row: {
-                        colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
-                        opacity: 0.5
+                        colors: ["transparent", "transparent"], // takes an array which will be repeated on columns
+                        opacity: 0.5,
                     },
                 },
                 xaxis: {
-                    categories: ['Jun 23', 'Jun 24', 'Jun 25', 'Jun 26', 'Jun 27', 'Jun 28', 'Jun 29', 'Jun 30'],
+                    categories: [
+                        "Jun 23",
+                        "Jun 24",
+                        "Jun 25",
+                        "Jun 26",
+                        "Jun 27",
+                        "Jun 28",
+                        "Jun 29",
+                        "Jun 30",
+                    ],
                     axisBorder: {
-                        show: true
+                        show: true,
                     },
                     axisTicks: {
-                        show: false
-                    }
-                }
+                        show: false,
+                    },
+                },
             },
 
             series: [
                 {
-                    name: 'month-to-date',
-                    data: [500, 130, 0, 0, 180]
+                    name: "month-to-date",
+                    data: [500, 130, 0, 0, 180],
                 },
                 {
-                    name: 'last month',
-                    data: [800, 100, 600, 200, 140, 100, 150, 420]
-                }
+                    name: "last month",
+                    data: [800, 100, 600, 200, 140, 100, 150, 420],
+                },
             ],
-        }
+        };
     }
     render() {
         return (
             <React.Fragment>
                 <Card>
                     <CardBody>
-
                         <h4 className="card-title mb-4">Daily Round-Down</h4>
 
                         <Row className="text-center mt-4">
@@ -78,9 +86,13 @@ class DailyVolume extends Component {
                         </Row>
 
                         <div dir="ltr">
-                            <ReactApexChart options={this.state.options} series={this.state.series} type="line" height="290" />
+                            <ReactApexChart
+                                options={this.state.options}
+                                series={this.state.series}
+                                type="line"
+                                height="290"
+                            />
                         </div>
-
                     </CardBody>
                 </Card>
                 {/* <Card>

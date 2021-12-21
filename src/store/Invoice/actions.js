@@ -3,7 +3,7 @@ import {
     EDIT_INVOICE_REQUEST,
     DELETE_INVOICE_REQUEST,
     FETCH_INVOICES_REQUEST,
-    FETCH_INVOICE_BY_ID_REQUEST
+    FETCH_INVOICE_BY_ID_REQUEST,
 } from "./actionTypes";
 
 export const saveInvoice = (payload) => ({

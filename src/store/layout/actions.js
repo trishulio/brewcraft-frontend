@@ -9,40 +9,39 @@ import {
     CHANGE_SIDEBAR_TYPE,
     CHANGE_PRELOADER,
     CHANGE_TOPBAR_THEME,
-    TOGGLE_PRELOADER
-} from './actionTypes';
+    TOGGLE_PRELOADER,
+} from "./actionTypes";
 
-export const changeLayout = layout => ({
+export const changeLayout = (layout) => ({
     type: CHANGE_LAYOUT,
-    payload: layout
+    payload: layout,
 });
 
-export const changePreloader = layout => ({
+export const changePreloader = (layout) => ({
     type: CHANGE_PRELOADER,
-    payload: layout
+    payload: layout,
 });
 
-export const changeSidebarTheme = theme => ({
+export const changeSidebarTheme = (theme) => ({
     type: CHANGE_SIDEBAR_THEME,
-    payload: theme
+    payload: theme,
 });
 
 export const changeLayoutWidth = (width, layoutType) => ({
     type: CHANGE_LAYOUT_WIDTH,
-    payload: { width, layoutType }
+    payload: { width, layoutType },
 });
 
 export const changeSidebarType = (sidebarType, isMobile) => {
     return {
-      type: CHANGE_SIDEBAR_TYPE,
-      payload: { sidebarType, isMobile }
+        type: CHANGE_SIDEBAR_TYPE,
+        payload: { sidebarType, isMobile },
     };
 };
 
-export const changeTopbarTheme = topbarTheme => (
-    {
+export const changeTopbarTheme = (topbarTheme) => ({
     type: CHANGE_TOPBAR_THEME,
-    payload: topbarTheme
+    payload: topbarTheme,
 });
 
 export const activateNonAuthLayout = () => {
@@ -52,34 +51,33 @@ export const activateNonAuthLayout = () => {
             topbar: false,
             sidebar: false,
             footer: false,
-            layoutType: 'NonAuth'
-        }
-    }
-}
+            layoutType: "NonAuth",
+        },
+    };
+};
 
-export const togglePreloader = is_show => ({
+export const togglePreloader = (is_show) => ({
     type: TOGGLE_PRELOADER,
-    payload: is_show
-})
+    payload: is_show,
+});
 
-export const toggleSidebar = is_toggle => {
+export const toggleSidebar = (is_toggle) => {
     return {
         type: TOGGLE,
-            payload: { is_toggle }
+        payload: { is_toggle },
+    };
+};
 
-    }
-}
-
-export const toggleRightSidebar = is_toggle => {
+export const toggleRightSidebar = (is_toggle) => {
     return {
-        type : TOGGLE_RIGHT_SIDEBAR,
-        payload : {is_toggle}
-    }
-}
+        type: TOGGLE_RIGHT_SIDEBAR,
+        payload: { is_toggle },
+    };
+};
 
 export const hideRightSidebar = () => {
     return {
-        type : HIDE_RIGHT_SIDEBAR,
-        payload : null
-    }
-}
+        type: HIDE_RIGHT_SIDEBAR,
+        payload: null,
+    };
+};

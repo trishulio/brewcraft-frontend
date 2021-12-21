@@ -3,33 +3,42 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     fetchMaterialPortionsByBrewId,
     saveKettleMaterialPortion,
-    saveMashMaterialPortion
+    saveMashMaterialPortion,
 } from "../../store/actions";
 
 export default function MaterialPortions(props) {
-
     const dispatch = useDispatch();
 
-    const { data: batch, save } = useSelector(state => {
+    const { data: batch, save } = useSelector((state) => {
         return state.Batch.Batch;
     });
 
-    const { content: mashMaterialPortions, initial: mashInitialMaterialPortions } = useSelector(state => {
+    const {
+        content: mashMaterialPortions,
+        initial: mashInitialMaterialPortions,
+    } = useSelector((state) => {
         return state.Batch.MashMaterialPortion;
     });
 
-    const { content: kettleMaterialPortions, initial: kettleInitialMaterialPortions } = useSelector(state => {
+    const {
+        content: kettleMaterialPortions,
+        initial: kettleInitialMaterialPortions,
+    } = useSelector((state) => {
         return state.Batch.KettleMaterialPortion;
     });
 
     const isChanged = useCallback(() => {
-        return JSON.stringify(mashMaterialPortions) !== JSON.stringify(mashInitialMaterialPortions)
-            || JSON.stringify(kettleMaterialPortions) !== JSON.stringify(kettleInitialMaterialPortions);
+        return (
+            JSON.stringify(mashMaterialPortions) !==
+                JSON.stringify(mashInitialMaterialPortions) ||
+            JSON.stringify(kettleMaterialPortions) !==
+                JSON.stringify(kettleInitialMaterialPortions)
+        );
     }, [
         mashInitialMaterialPortions,
         mashMaterialPortions,
         kettleInitialMaterialPortions,
-        kettleMaterialPortions
+        kettleMaterialPortions,
     ]);
 
     useEffect(() => {
@@ -40,41 +49,58 @@ export default function MaterialPortions(props) {
 
     useEffect(() => {
         props.setMaterialPortionsChanged(isChanged());
-    }, [
-        mashMaterialPortions,
-        kettleMaterialPortions,
-        props,
-        isChanged
-    ]);
+    }, [mashMaterialPortions, kettleMaterialPortions, props, isChanged]);
 
     useEffect(() => {
-        if (save && isMaterialPortionsChanged(mashMaterialPortions, mashInitialMaterialPortions)) {
+        if (
+            save &&
+            isMaterialPortionsChanged(
+                mashMaterialPortions,
+                mashInitialMaterialPortions
+            )
+        ) {
             dispatch(
                 saveMashMaterialPortion({
                     brewId: batch.id,
                     form: mashMaterialPortions
-                        .filter(mp => !mashInitialMaterialPortions.map(imp => imp.materialLot.id).includes(mp.materialLot.id))
-                        .map(mp => ({
+                        .filter(
+                            (mp) =>
+                                !mashInitialMaterialPortions
+                                    .map((imp) => imp.materialLot.id)
+                                    .includes(mp.materialLot.id)
+                        )
+                        .map((mp) => ({
                             materialLotId: mp.materialLot.id,
                             quantity: mp.quantity,
                             mixtureId: mp.mixture.id,
                             // addedAt: "2021-11-03T02:59:16.053Z"
-                        }))
+                        })),
                 })
             );
         }
-        if (save && isMaterialPortionsChanged(kettleMaterialPortions, kettleInitialMaterialPortions)) {
+        if (
+            save &&
+            isMaterialPortionsChanged(
+                kettleMaterialPortions,
+                kettleInitialMaterialPortions
+            )
+        ) {
             dispatch(
                 saveKettleMaterialPortion({
                     brewId: batch.id,
                     form: kettleMaterialPortions
-                        .filter(mp => !kettleInitialMaterialPortions.map(imp => imp.materialLot.id).includes(mp.materialLot.id))
-                        .map(mp => ({
+                        .filter(
+                            (mp) =>
+                                !kettleInitialMaterialPortions
+                                    .map((imp) => imp.materialLot.id)
+                                    .includes(mp.materialLot.id)
+                        )
+                        .map((mp) => ({
                             materialLotId: mp.materialLot.id,
                             quantity: mp.quantity,
                             mixtureId: mp.mixture.id,
                             // addedAt: "2021-11-03T02:59:16.053Z"
-                        }))
+                        })),
                 })
             );
         }
@@ -82,10 +108,11 @@ export default function MaterialPortions(props) {
     }, [save]);
 
     function isMaterialPortionsChanged(materialPortion, intialMaterialPortion) {
-        return JSON.stringify(materialPortion) !== JSON.stringify(intialMaterialPortion)
+        return (
+            JSON.stringify(materialPortion) !==
+            JSON.stringify(intialMaterialPortion)
+        );
     }
 
-    return (
-        <React.Fragment>{props.children}</React.Fragment>
-    );
+    return <React.Fragment>{props.children}</React.Fragment>;
 }

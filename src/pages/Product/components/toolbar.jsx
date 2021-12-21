@@ -1,10 +1,14 @@
 import React from "react";
 import { useHistory } from "react-router";
-import {
-    Button
-} from "reactstrap";
+import { Button } from "reactstrap";
 
-export default function Toolbar({ product, editable, changed, onSave, onDelete }) {
+export default function Toolbar({
+    product,
+    editable,
+    changed,
+    onSave,
+    onDelete,
+}) {
     const history = useHistory();
 
     return (
@@ -18,14 +22,14 @@ export default function Toolbar({ product, editable, changed, onSave, onDelete }
                 disabled={!changed}
                 hidden={!editable}
             >
-                    Save
+                Save
             </Button>
             <Button
                 type="button"
                 color="secondary"
                 size="sm"
                 className="waves-effect mr-2 mb-3"
-                onClick={async() => {
+                onClick={async () => {
                     history.goBack();
                 }}
                 hidden={!editable}
@@ -42,7 +46,7 @@ export default function Toolbar({ product, editable, changed, onSave, onDelete }
                 onClick={() => {
                     history.push({
                         pathname: "/products/" + product.id,
-                        search: "?edit=true"
+                        search: "?edit=true",
                     });
                 }}
             >
@@ -57,7 +61,7 @@ export default function Toolbar({ product, editable, changed, onSave, onDelete }
                 onClick={() => {
                     history.push({
                         pathname: "/products/new",
-                        search: "?edit=true"
+                        search: "?edit=true",
                     });
                 }}
             >

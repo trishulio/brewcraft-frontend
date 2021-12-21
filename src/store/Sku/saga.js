@@ -4,7 +4,7 @@ import {
     CREATE_SKU,
     UPDATE_SKU,
     DELETE_SKU,
-    SET_SKU_DETAILS_FAILED
+    SET_SKU_DETAILS_FAILED,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
@@ -15,7 +15,10 @@ import { setGlobalRedirect } from "../Brewery/actions";
 function* fetchSkuByIdGenerator(action) {
     try {
         const res = yield call(api.fetchSkuById, get(action, "payload.id"));
-        yield put({ type: SET_SKU_DETAILS, payload: { data: res.data, initial: res.data }});
+        yield put({
+            type: SET_SKU_DETAILS,
+            payload: { data: res.data, initial: res.data },
+        });
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
     }
@@ -24,8 +27,13 @@ function* fetchSkuByIdGenerator(action) {
 function* createSkuGenerator(action) {
     try {
         const res = yield call(api.postSku, get(action, "payload.form"));
-        yield put({ type: SET_SKU_DETAILS, payload: { data: res.data, initial: res.data } });
-        yield put(setGlobalRedirect({ pathname: "/sku/" + res.data.id, search: "" }));
+        yield put({
+            type: SET_SKU_DETAILS,
+            payload: { data: res.data, initial: res.data },
+        });
+        yield put(
+            setGlobalRedirect({ pathname: "/sku/" + res.data.id, search: "" })
+        );
     } catch (e) {
         yield put({ type: SET_SKU_DETAILS_FAILED });
     }
@@ -33,9 +41,18 @@ function* createSkuGenerator(action) {
 
 function* udpateSkuGenerator(action) {
     try {
-        const res = yield call(api.patchSku, get(action, "payload.id"), get(action, "payload.form"));
-        yield put({ type: SET_SKU_DETAILS, payload: { data: res.data, initial: res.data } });
-        yield put(setGlobalRedirect({ pathname: "/sku/" + res.data.id, search: "" }));
+        const res = yield call(
+            api.patchSku,
+            get(action, "payload.id"),
+            get(action, "payload.form")
+        );
+        yield put({
+            type: SET_SKU_DETAILS,
+            payload: { data: res.data, initial: res.data },
+        });
+        yield put(
+            setGlobalRedirect({ pathname: "/sku/" + res.data.id, search: "" })
+        );
     } catch (e) {
         yield put({ type: SET_SKU_DETAILS_FAILED });
     }

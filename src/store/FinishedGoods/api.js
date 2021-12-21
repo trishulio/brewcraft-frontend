@@ -8,13 +8,14 @@ async function fetchFinishedGoods(params) {
             sort: "sku.id",
             order_asc: true,
             page: 0,
-            size: 500
-        }
+            size: 500,
+        },
     };
-    return await AxiosInstance.get("/api/v1/finished-goods", data)
-        .then((r) => r)
+    return await AxiosInstance.get("/api/v1/finished-goods", data).then(
+        (r) => r
+    );
 }
 
 export const api = {
-    fetchFinishedGoods
+    fetchFinishedGoods,
 };

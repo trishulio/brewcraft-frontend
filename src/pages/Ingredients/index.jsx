@@ -4,7 +4,7 @@ import { useQuery } from "../../helpers/utils";
 import {
     fetchIngredients,
     setBreadcrumbItems,
-    fetchAllMaterialCategories
+    fetchAllMaterialCategories,
 } from "../../store/actions";
 import IngredientsInner from "./ingredients";
 
@@ -15,11 +15,11 @@ export default function Ingredients() {
     const sort = query.get("sort");
     const order = query.get("order");
 
-    const ingredients = useSelector(state => {
+    const ingredients = useSelector((state) => {
         return state.Ingredients.content;
     });
 
-    const { pageIndex, pageSize } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector((state) => {
         return state.Ingredients;
     });
 
@@ -27,7 +27,7 @@ export default function Ingredients() {
         dispatch(
             setBreadcrumbItems("Ingredients", [
                 { title: "Main", link: "#" },
-                { title: "Materials", link: "#" }
+                { title: "Materials", link: "#" },
             ])
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,16 +35,16 @@ export default function Ingredients() {
 
     useEffect(() => {
         const props = {
-            pageIndex, pageSize, parentCategoryId, sort, order
+            pageIndex,
+            pageSize,
+            parentCategoryId,
+            sort,
+            order,
         };
         dispatch(fetchIngredients({ ...props }));
         dispatch(fetchAllMaterialCategories());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageIndex, pageSize, parentCategoryId, sort, order]);
 
-    return (
-        <IngredientsInner
-            ingredients={ingredients}
-        />
-    );
+    return <IngredientsInner ingredients={ingredients} />;
 }

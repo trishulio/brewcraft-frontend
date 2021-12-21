@@ -7,16 +7,15 @@ async function fetchProducts(params) {
             size: params.pageSize || 100,
             category_ids: params.categoryId,
             sort: params.name || "name",
-            order_asc: !params.order || params.order === "asc"
-        }
+            order_asc: !params.order || params.order === "asc",
+        },
     };
     if (params.categoryId) {
-        data.params.category_ids = params.categoryId
+        data.params.category_ids = params.categoryId;
     }
-    return await AxiosInstance.get("/api/v1/products", data)
-        .then((r) => r)
+    return await AxiosInstance.get("/api/v1/products", data).then((r) => r);
 }
 
 export const api = {
-    fetchProducts
-}
+    fetchProducts,
+};

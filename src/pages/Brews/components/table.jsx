@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Table, { Th } from "../../../component/Common/table";
 import { formatDatetime } from "../../../helpers/textUtils";
@@ -9,7 +9,7 @@ export default function BatchesTable() {
     const history = useHistory();
     const query = useQuery();
 
-    const batches = useSelector(state => {
+    const batches = useSelector((state) => {
         return state.Batches.content;
     });
 
@@ -19,7 +19,7 @@ export default function BatchesTable() {
         let order = query.get("order");
         query.delete("sort");
         query.delete("order");
-        switch(name) {
+        switch (name) {
             case "batchesBatchId":
                 if (sort !== "batchId") {
                     order = undefined;
@@ -58,56 +58,54 @@ export default function BatchesTable() {
         } else {
             query.append("order", "desc");
         }
-        history.push({search: query.toString()});
+        history.push({ search: query.toString() });
     }
 
     return (
-        <Table>
+        <Table hover>
             <thead>
                 <tr>
-                    <Th
-                        name="batchesBatchId"
-                        id="batchId"
-                        onSort={onSort}
-                    >
+                    <Th name="batchesBatchId" id="batchId" onSort={onSort}>
                         Batch ID
                     </Th>
-                    <Th
-                        name="batchesProduct"
-                        id="product"
-                        onSort={onSort}
-                    >
+                    <Th name="batchesProduct" id="product" onSort={onSort}>
                         Product
                     </Th>
-                    <Th
-                        name="batchesStartedAt"
-                        id="startedAt"
-                        onSort={onSort}
-                    >
+                    <Th name="batchesStartedAt" id="startedAt" onSort={onSort}>
                         Started
                     </Th>
-                    <Th
-                        name="batchesEndedAt"
-                        id="endedAt"
-                        onSort={onSort}
-                    >
+                    <Th name="batchesEndedAt" id="endedAt" onSort={onSort}>
                         Ended
                     </Th>
                     <th>Parent Batch</th>
                 </tr>
             </thead>
             <tbody>
-                {
-                    batches.map((batch, key) =>
-                        <tr key={key}>
-                            <td><Link to={"/brews/" + batch.id}>{batch.batchId}</Link></td>
-                            <td><Link to={"/brews/" + batch.id}>{batch.product.name}</Link></td>
-                            <td>{formatDatetime(batch.startedAt)}</td>
-                            <td>{batch.endedAt ? formatDatetime(batch.endedAt) : "-"}</td>
-                            <td>{batch.parentBatch ? batch.parentBatch.batchId : "-"}</td>
-                        </tr>
-                    )
-                }
+                {batches.map((batch, key) => (
+                    <tr key={key}>
+                        <td>
+                            <Link to={"/brews/" + batch.id}>
+                                {batch.batchId}
+                            </Link>
+                        </td>
+                        <td>
+                            <Link to={"/brews/" + batch.id}>
+                                {batch.product.name}
+                            </Link>
+                        </td>
+                        <td>{formatDatetime(batch.startedAt)}</td>
+                        <td>
+                            {batch.endedAt
+                                ? formatDatetime(batch.endedAt)
+                                : "-"}
+                        </td>
+                        <td>
+                            {batch.parentBatch
+                                ? batch.parentBatch.batchId
+                                : "-"}
+                        </td>
+                    </tr>
+                ))}
             </tbody>
         </Table>
     );

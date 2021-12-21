@@ -1,17 +1,20 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import {
-    Button
-} from "reactstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Button } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
+import { Modal, ModalBody, ModalFooter } from "../Common/modal";
 import {
-    Modal,
-    ModalBody,
-    ModalFooter
-} from "../Common/modal";
-import { fetchAllMaterialCategories, saveMaterialCategory } from "../../store/actions";
+    fetchAllMaterialCategories,
+    saveMaterialCategory,
+} from "../../store/actions";
 
-export default function MaterialCategoriesModal({ show, setShow, type, parentCategoryId }) {
+export default function MaterialCategoriesModal({
+    show,
+    setShow,
+    type,
+    parentCategoryId,
+}) {
+    const { error } = useSelector((state) => state.MaterialCategory);
     const dispatch = useDispatch();
 
     function close() {
@@ -23,24 +26,24 @@ export default function MaterialCategoriesModal({ show, setShow, type, parentCat
             saveMaterialCategory({
                 form: {
                     name: values.materialCategoryName.trim(),
-                    parentCategoryId: parentCategoryId
+                    parentCategoryId: parentCategoryId,
                 },
                 success: () => {
                     dispatch(fetchAllMaterialCategories());
                     close();
-                }
-            }),
+                },
+            })
         );
     }
 
     function formatTitle(type) {
-        switch(type) {
+        switch (type) {
             case "ingredient":
                 return "Ingredient Category";
             case "packaging":
                 return "Packaging Category";
             default:
-                break
+                break;
         }
     }
 
@@ -51,9 +54,13 @@ export default function MaterialCategoriesModal({ show, setShow, type, parentCat
             onValidSubmit={onFormSubmit}
             close={close}
             title={formatTitle(type)}
+            onError={error}
         >
             <ModalBody>
-                <AvForm id="material-categories-modal-form" onValidSubmit={onFormSubmit}>
+                <AvForm
+                    id="material-categories-modal-form"
+                    onValidSubmit={onFormSubmit}
+                >
                     <AvField
                         name="materialCategoryName"
                         type="text"
@@ -64,8 +71,14 @@ export default function MaterialCategoriesModal({ show, setShow, type, parentCat
                 </AvForm>
             </ModalBody>
             <ModalFooter>
-                <Button color="primary" type="submit" form="material-categories-modal-form">Save</Button>
+                <Button
+                    color="primary"
+                    type="submit"
+                    form="material-categories-modal-form"
+                >
+                    Save
+                </Button>
             </ModalFooter>
         </Modal>
     );
-};
+}

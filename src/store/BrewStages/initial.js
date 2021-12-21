@@ -6,7 +6,7 @@ const state = {
         task: {},
         startedAt: "",
         endedAt: "",
-        version: null
+        version: null,
     },
     initial: {
         id: "",
@@ -15,12 +15,10 @@ const state = {
         task: {},
         startedAt: "",
         endedAt: "",
-        version: null
+        version: null,
     },
     loading: true,
-    error: null
+    error: null,
 };
 
-export {
-    state as initialState
-};
+export { state as initialState };

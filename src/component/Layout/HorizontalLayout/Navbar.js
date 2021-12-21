@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Collapse } from "reactstrap";
 import { Link, withRouter } from "react-router-dom";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 import {
     changeLayout,
     changeLayoutWidth,
-    changePreloader
-} from '../../../store/actions';
+    changePreloader,
+} from "../../../store/actions";
 
 class Navbar extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -25,7 +24,7 @@ class Navbar extends Component {
             // isReports: false,
             layoutType: this.props.layoutType,
             layoutWidth: this.props.layoutWidth,
-            isPreloader: this.props.isPreloader
+            isPreloader: this.props.isPreloader,
         };
         this.changeLayout = this.changeLayout.bind(this);
         this.changeLayoutWidth = this.changeLayoutWidth.bind(this);
@@ -40,14 +39,13 @@ class Navbar extends Component {
     changeLayoutWidth() {
         if (this.state.layoutWidth === "boxed")
             this.props.changeLayoutWidth("fluid", this.state.layoutType);
-        else
-            this.props.changeLayoutWidth("boxed", this.state.layoutType);
+        else this.props.changeLayoutWidth("boxed", this.state.layoutType);
     }
 
     //theme preloader
     changeThemePreloader = () => {
         this.props.changePreloader(!this.props.isPreloader);
-    }
+    };
 
     componentDidMount() {
         var matchingMenuItem = null;
@@ -70,7 +68,7 @@ class Navbar extends Component {
             this.setState({
                 layoutType: this.props.layoutType,
                 layoutWidth: this.props.layoutWidth,
-                isPreloader: this.props.isPreloader
+                isPreloader: this.props.isPreloader,
             });
         }
 
@@ -79,7 +77,7 @@ class Navbar extends Component {
         }
     }
 
-    activateParentDropdown = item => {
+    activateParentDropdown = (item) => {
         item.classList.add("active");
         const parent = item.parentElement;
         if (parent) {
@@ -111,17 +109,34 @@ class Navbar extends Component {
             <React.Fragment>
                 <div className="container-fluid">
                     <div className="topnav">
-                        <nav className="navbar navbar-light navbar-expand-lg topnav-menu" id="navigation">
-                            <Collapse isOpen={this.props.menuOpen} className="navbar-collapse" id="topnav-menu-content">
+                        <nav
+                            className="navbar navbar-light navbar-expand-lg topnav-menu"
+                            id="navigation"
+                        >
+                            <Collapse
+                                isOpen={this.props.menuOpen}
+                                className="navbar-collapse"
+                                id="topnav-menu-content"
+                            >
                                 <ul className="navbar-nav">
                                     <li className="nav-item">
-                                        <Link className="nav-link" to="/dashboard">
-                                            <i className="ti-dashboard"></i>Dashboard
-                                    </Link>
+                                        <Link
+                                            className="nav-link"
+                                            to="/dashboard"
+                                        >
+                                            <i className="ti-dashboard"></i>
+                                            Dashboard
+                                        </Link>
                                     </li>
                                     <li className="nav-item dropdown">
                                         <Link
-                                            onClick={e => { e.preventDefault(); this.setState({ isMaterials: !this.state.isMaterials }); }}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                this.setState({
+                                                    isMaterials:
+                                                        !this.state.isMaterials,
+                                                });
+                                            }}
                                             className="nav-link dropdown-toggle arrow-none"
                                             to="/#"
                                             id="topnav-raw-materials"
@@ -129,19 +144,49 @@ class Navbar extends Component {
                                             data-toggle="dropdown"
                                             aria-haspopup="true"
                                         >
-                                            <i className="ti-package"></i>Materials
-                                    </Link>
-                                        <div className={this.state.isMaterials ? "dropdown-menu dropdown-menu-left show" : "dropdown-menu dropdown-menu-left"} aria-labelledby="topnav-raw-materials">
-                                            <Link to="/ingredients" className="dropdown-item">Ingredients</Link>
-                                            <Link to="/packaging" className="dropdown-item">Packaging</Link>
-                                            <Link to="/materials/categories" className="dropdown-item">Categories</Link>
+                                            <i className="ti-package"></i>
+                                            Materials
+                                        </Link>
+                                        <div
+                                            className={
+                                                this.state.isMaterials
+                                                    ? "dropdown-menu dropdown-menu-left show"
+                                                    : "dropdown-menu dropdown-menu-left"
+                                            }
+                                            aria-labelledby="topnav-raw-materials"
+                                        >
+                                            <Link
+                                                to="/ingredients"
+                                                className="dropdown-item"
+                                            >
+                                                Ingredients
+                                            </Link>
+                                            <Link
+                                                to="/packaging"
+                                                className="dropdown-item"
+                                            >
+                                                Packaging
+                                            </Link>
+                                            <Link
+                                                to="/materials/categories"
+                                                className="dropdown-item"
+                                            >
+                                                Categories
+                                            </Link>
                                             {/* <Link to="/materials/in-process" className="dropdown-item">In-Process</Link>
                                             <Link to="/materials/records" className="dropdown-item">Records</Link> */}
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">
                                         <Link
-                                            onClick={e => { e.preventDefault(); this.setState({ isFacilities: !this.state.isFacilities }); }}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                this.setState({
+                                                    isFacilities:
+                                                        !this.state
+                                                            .isFacilities,
+                                                });
+                                            }}
                                             className="nav-link dropdown-toggle arrow-none"
                                             to="/#"
                                             id="topnav-facilities"
@@ -149,18 +194,52 @@ class Navbar extends Component {
                                             data-toggle="dropdown"
                                             aria-haspopup="true"
                                         >
-                                            <i className="ti-flag-alt"></i>Facilities
-                                    </Link>
-                                        <div className={this.state.isFacilities ? "dropdown-menu dropdown-menu-left show" : "dropdown-menu dropdown-menu-left"} aria-labelledby="topnav-facilities">
-                                            <Link to="/facilities/" className="dropdown-item">Facilities List</Link>
-                                            <Link to="/facilities/locations" className="dropdown-item">Locations</Link>
-                                            <Link to="/equipment/" className="dropdown-item">Equipment</Link>
-                                            <Link to="/floor-view/" className="dropdown-item">Floor View</Link>
+                                            <i className="ti-flag-alt"></i>
+                                            Facilities
+                                        </Link>
+                                        <div
+                                            className={
+                                                this.state.isFacilities
+                                                    ? "dropdown-menu dropdown-menu-left show"
+                                                    : "dropdown-menu dropdown-menu-left"
+                                            }
+                                            aria-labelledby="topnav-facilities"
+                                        >
+                                            <Link
+                                                to="/facilities/"
+                                                className="dropdown-item"
+                                            >
+                                                Facilities List
+                                            </Link>
+                                            <Link
+                                                to="/facilities/locations"
+                                                className="dropdown-item"
+                                            >
+                                                Locations
+                                            </Link>
+                                            <Link
+                                                to="/equipment/"
+                                                className="dropdown-item"
+                                            >
+                                                Equipment
+                                            </Link>
+                                            <Link
+                                                to="/floor-view/"
+                                                className="dropdown-item"
+                                            >
+                                                Floor View
+                                            </Link>
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">
                                         <Link
-                                            onClick={e => { e.preventDefault(); this.setState({ isSuppliers: !this.state.isSuppliers }); }}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                this.setState({
+                                                    isSuppliers:
+                                                        !this.state.isSuppliers,
+                                                });
+                                            }}
                                             className="nav-link dropdown-toggle arrow-none"
                                             to="/#"
                                             id="topnav-suppliers"
@@ -169,15 +248,38 @@ class Navbar extends Component {
                                             aria-haspopup="true"
                                         >
                                             <i className="ti-user"></i>Suppliers
-                                    </Link>
-                                        <div className={this.state.isSuppliers ? "dropdown-menu dropdown-menu-left show" : "dropdown-menu dropdown-menu-left"} aria-labelledby="topnav-suppliers">
-                                            <Link to="/suppliers" className="dropdown-item">List Suppliers</Link>
-                                            <Link to="/purchases" className="dropdown-item">Purchase Invoices</Link>
+                                        </Link>
+                                        <div
+                                            className={
+                                                this.state.isSuppliers
+                                                    ? "dropdown-menu dropdown-menu-left show"
+                                                    : "dropdown-menu dropdown-menu-left"
+                                            }
+                                            aria-labelledby="topnav-suppliers"
+                                        >
+                                            <Link
+                                                to="/suppliers"
+                                                className="dropdown-item"
+                                            >
+                                                List Suppliers
+                                            </Link>
+                                            <Link
+                                                to="/purchases"
+                                                className="dropdown-item"
+                                            >
+                                                Purchase Invoices
+                                            </Link>
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">
                                         <Link
-                                            onClick={e => { e.preventDefault(); this.setState({ isCustomers: !this.state.isCustomers }); }}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                this.setState({
+                                                    isCustomers:
+                                                        !this.state.isCustomers,
+                                                });
+                                            }}
                                             className="nav-link dropdown-toggle arrow-none"
                                             to="/#"
                                             id="topnav-customers"
@@ -185,18 +287,48 @@ class Navbar extends Component {
                                             data-toggle="dropdown"
                                             aria-haspopup="true"
                                         >
-                                            <i className="ti-thumb-up"></i>Customers
-                                    </Link>
-                                        <div className={this.state.isCustomers ? "dropdown-menu dropdown-menu-left show" : "dropdown-menu dropdown-menu-left"} aria-labelledby="topnav-customers">
+                                            <i className="ti-thumb-up"></i>
+                                            Customers
+                                        </Link>
+                                        <div
+                                            className={
+                                                this.state.isCustomers
+                                                    ? "dropdown-menu dropdown-menu-left show"
+                                                    : "dropdown-menu dropdown-menu-left"
+                                            }
+                                            aria-labelledby="topnav-customers"
+                                        >
                                             {/* <Link to="/customers/dashboard" className="dropdown-item">Dashboard</Link> */}
-                                            <Link to="/customers/list" className="dropdown-item">List Customers</Link>
-                                            <Link to="/customers/invoices" className="dropdown-item">Sales Invoices</Link>
-                                            <Link to="/customers/invoice/new" className="dropdown-item">New Invoice</Link>
+                                            <Link
+                                                to="/customers/list"
+                                                className="dropdown-item"
+                                            >
+                                                List Customers
+                                            </Link>
+                                            <Link
+                                                to="/customers/invoices"
+                                                className="dropdown-item"
+                                            >
+                                                Sales Invoices
+                                            </Link>
+                                            <Link
+                                                to="/customers/invoice/new"
+                                                className="dropdown-item"
+                                            >
+                                                New Invoice
+                                            </Link>
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">
                                         <Link
-                                            onClick={e => { e.preventDefault(); this.setState({ isFinishedGoods: !this.state.isFinishedGoods }); }}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                this.setState({
+                                                    isFinishedGoods:
+                                                        !this.state
+                                                            .isFinishedGoods,
+                                                });
+                                            }}
                                             className="nav-link dropdown-toggle arrow-none"
                                             to="/#"
                                             id="topnav-finished-goods"
@@ -204,12 +336,35 @@ class Navbar extends Component {
                                             data-toggle="dropdown"
                                             aria-haspopup="true"
                                         >
-                                            <i className="ti-truck"></i>Finished Goods
-                                    </Link>
-                                        <div className={this.state.isFinishedGoods ? "dropdown-menu dropdown-menu-left show" : "dropdown-menu dropdown-menu-left"} aria-labelledby="topnav-finished-goods">
-                                            <Link to="/finished-goods/inventory" className="dropdown-item">Inventory</Link>
-                                            <Link to="/deliveries" className="dropdown-item">Deliveries</Link>
-                                            <Link to="/delivery-drivers" className="dropdown-item">Delivery Drivers</Link>
+                                            <i className="ti-truck"></i>Finished
+                                            Goods
+                                        </Link>
+                                        <div
+                                            className={
+                                                this.state.isFinishedGoods
+                                                    ? "dropdown-menu dropdown-menu-left show"
+                                                    : "dropdown-menu dropdown-menu-left"
+                                            }
+                                            aria-labelledby="topnav-finished-goods"
+                                        >
+                                            <Link
+                                                to="/finished-goods/inventory"
+                                                className="dropdown-item"
+                                            >
+                                                Inventory
+                                            </Link>
+                                            <Link
+                                                to="/deliveries"
+                                                className="dropdown-item"
+                                            >
+                                                Deliveries
+                                            </Link>
+                                            <Link
+                                                to="/delivery-drivers"
+                                                className="dropdown-item"
+                                            >
+                                                Delivery Drivers
+                                            </Link>
                                         </div>
                                     </li>
                                     {/* <li className="nav-item dropdown">
@@ -273,13 +428,31 @@ class Navbar extends Component {
         );
     }
 }
-const mapStatetoProps = state => {
-    const { is_toggle, leftSideBarType, layoutType, leftSideBarTheme, layoutWidth, topbarTheme, isPreloader } = state.Layout;
-    return { is_toggle, leftSideBarType, layoutType, leftSideBarTheme, layoutWidth, topbarTheme, isPreloader };
-}
+const mapStatetoProps = (state) => {
+    const {
+        is_toggle,
+        leftSideBarType,
+        layoutType,
+        leftSideBarTheme,
+        layoutWidth,
+        topbarTheme,
+        isPreloader,
+    } = state.Layout;
+    return {
+        is_toggle,
+        leftSideBarType,
+        layoutType,
+        leftSideBarTheme,
+        layoutWidth,
+        topbarTheme,
+        isPreloader,
+    };
+};
 
-export default withRouter(connect(mapStatetoProps, {
-    changeLayout,
-    changeLayoutWidth,
-    changePreloader
-})(Navbar));
+export default withRouter(
+    connect(mapStatetoProps, {
+        changeLayout,
+        changeLayoutWidth,
+        changePreloader,
+    })(Navbar)
+);

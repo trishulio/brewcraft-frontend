@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "../../helpers/utils";
 import {
     fetchProductCategories,
-    setBreadcrumbItems
+    setBreadcrumbItems,
 } from "../../store/actions";
 import ProductCategoriesInner from "./categories";
 
@@ -14,7 +14,7 @@ export default function ProductCategories() {
     const sort = query.get("sort");
     const order = query.get("order");
 
-    const { pageIndex, pageSize } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector((state) => {
         return state.ProductCategories;
     });
 
@@ -22,7 +22,7 @@ export default function ProductCategories() {
         dispatch(
             setBreadcrumbItems("Product Categories", [
                 { title: "Main", link: "#" },
-                { title: "Products", link: "/products" }
+                { title: "Products", link: "/products" },
             ])
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -30,14 +30,16 @@ export default function ProductCategories() {
 
     useEffect(() => {
         const props = {
-            pageIndex, pageSize, parentCategoryId, sort, order
+            pageIndex,
+            pageSize,
+            parentCategoryId,
+            sort,
+            order,
         };
         dispatch(fetchProductCategories({ ...props }));
         // dispatch(fetchAllProductCategories());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageIndex, pageSize, parentCategoryId, sort, order]);
 
-    return (
-        <ProductCategoriesInner />
-    );
+    return <ProductCategoriesInner />;
 }

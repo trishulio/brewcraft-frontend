@@ -4,7 +4,7 @@ import BriteTankFinishedGoods from "./brite-tank";
 import {
     SET_FINISHED_GOODS,
     SET_FINISHED_GOODS_PAGE_INDEX,
-    SET_FINISHED_GOODS_PAGE_SIZE
+    SET_FINISHED_GOODS_PAGE_SIZE,
 } from "./actionTypes";
 
 const initialState = {
@@ -14,11 +14,11 @@ const initialState = {
     pageIndex: 0,
     pageSize: 20,
     loading: true,
-    error: null
-}
+    error: null,
+};
 
 const FinishedGoods = (state = initialState, { type, payload }) => {
-    switch(type) {
+    switch (type) {
         case SET_FINISHED_GOODS:
         case SET_FINISHED_GOODS_PAGE_INDEX:
         case SET_FINISHED_GOODS_PAGE_SIZE:
@@ -26,20 +26,20 @@ const FinishedGoods = (state = initialState, { type, payload }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         default:
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
             };
     }
-}
+};
 
 export {
     FinishedGoods,
     FermentFinishedGoods,
     ConditionFinishedGoods,
-    BriteTankFinishedGoods
-}
+    BriteTankFinishedGoods,
+};

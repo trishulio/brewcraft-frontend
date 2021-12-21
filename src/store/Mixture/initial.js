@@ -4,27 +4,25 @@ const state = {
         parentMixtureId: "",
         quantity: {
             symbol: "",
-            value: 0
+            value: 0,
         },
         equipment: {},
         brewStage: {},
-        version: null
+        version: null,
     },
     initial: {
         id: "",
         parentMixtureId: "",
         quantity: {
             symbol: "",
-            value: 0
+            value: 0,
         },
         equipment: {},
         brewStage: {},
-        version: null
+        version: null,
     },
     loading: true,
-    error: null
+    error: null,
 };
 
-export {
-    state as initialState
-};
+export { state as initialState };

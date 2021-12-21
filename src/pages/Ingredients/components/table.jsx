@@ -8,7 +8,7 @@ export default function IngredientsTable() {
     const history = useHistory();
     const query = useQuery();
 
-    const ingredients = useSelector(state => {
+    const ingredients = useSelector((state) => {
         return state.Ingredients.content;
     });
 
@@ -18,7 +18,7 @@ export default function IngredientsTable() {
         let order = query.get("order");
         query.delete("sort");
         query.delete("order");
-        switch(name) {
+        switch (name) {
             case "ingredientsName":
                 if (sort !== "name") {
                     order = undefined;
@@ -39,52 +39,49 @@ export default function IngredientsTable() {
         } else {
             query.append("order", "desc");
         }
-        history.push({search: query.toString()});
+        history.push({ search: query.toString() });
     }
 
-    return  (
+    return (
         <Table hover>
             <thead>
                 <tr>
-                    <Th
-                        name="ingredientsName"
-                        id="name"
-                        onSort={onSort}
-                    >
+                    <Th name="ingredientsName" id="name" onSort={onSort}>
                         Name
                     </Th>
                     <th>Class</th>
                     <th>Category</th>
                     <th>Measure</th>
-                    <Th
-                        name="ingredientsUpc"
-                        id="upc"
-                        onSort={onSort}
-                    >
+                    <Th name="ingredientsUpc" id="upc" onSort={onSort}>
                         UPC
                     </Th>
                 </tr>
             </thead>
             <tbody>
-                {
-                    ingredients.map((ingredient, key) =>
-                        <tr key={key} onClick={() => history.push("/materials/ingredients/" + ingredient.id)}>
-                            <td>{ingredient.name || "-"}</td>
-                            <td>{ingredient.materialClass?.name ?
-                                ingredient.materialClass.name
-                                : "-"
-                                }
-                            </td>
-                            <td>{ingredient.category?.name ?
-                                ingredient.category.name
-                                : "-"
-                                }
-                            </td>
-                            <td>{ingredient.baseQuantityUnit || "-"}</td>
-                            <td>{ingredient.upc || "-"}</td>
-                        </tr>
-                    )
-                }
+                {ingredients.map((ingredient, key) => (
+                    <tr
+                        key={key}
+                        onClick={() =>
+                            history.push(
+                                "/materials/ingredients/" + ingredient.id
+                            )
+                        }
+                    >
+                        <td>{ingredient.name || "-"}</td>
+                        <td>
+                            {ingredient.materialClass?.name
+                                ? ingredient.materialClass.name
+                                : "-"}
+                        </td>
+                        <td>
+                            {ingredient.category?.name
+                                ? ingredient.category.name
+                                : "-"}
+                        </td>
+                        <td>{ingredient.baseQuantityUnit || "-"}</td>
+                        <td>{ingredient.upc || "-"}</td>
+                    </tr>
+                ))}
             </tbody>
         </Table>
     );

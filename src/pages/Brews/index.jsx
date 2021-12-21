@@ -4,7 +4,7 @@ import { useQuery } from "../../helpers/utils";
 import {
     fetchBatches,
     fetchAllProducts,
-    setBreadcrumbItems
+    setBreadcrumbItems,
 } from "../../store/actions";
 import BrewsInner from "./brews";
 
@@ -17,11 +17,11 @@ export default function Batches() {
     const sort = query.get("sort");
     const order = query.get("order");
 
-    const batches = useSelector(state => {
+    const batches = useSelector((state) => {
         return state.Batches.content;
     });
 
-    const { pageIndex, pageSize } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector((state) => {
         return state.Batches;
     });
 
@@ -29,23 +29,33 @@ export default function Batches() {
         dispatch(
             setBreadcrumbItems("Brews", [
                 { title: "Main", link: "#" },
-                { title: "Batches", link: "#" }
+                { title: "Batches", link: "#" },
             ])
         );
     }, [dispatch]);
 
     useEffect(() => {
         const props = {
-            pageIndex, pageSize, product, batchFrom, batchTo, sort, order
+            pageIndex,
+            pageSize,
+            product,
+            batchFrom,
+            batchTo,
+            sort,
+            order,
         };
         dispatch(fetchBatches({ ...props }));
         dispatch(fetchAllProducts());
+    }, [
+        pageIndex,
+        pageSize,
+        product,
+        batchFrom,
+        batchTo,
+        sort,
+        order,
+        dispatch,
+    ]);
 
-    }, [pageIndex, pageSize, product, batchFrom, batchTo, sort, order, dispatch]);
-
-    return (
-        <BrewsInner
-            batches={batches}
-        />
-    );
+    return <BrewsInner batches={batches} />;
 }

@@ -2,17 +2,17 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     setSuppliersPageIndex,
-    setSuppliersPageSize
+    setSuppliersPageSize,
 } from "../../../store/actions";
 import Pagination from "../../../component/Common/pagination";
 
 export default function SuppliersPagination({ fetchPage, children }) {
-
     const dispatch = useDispatch();
 
-    const { totalItems, totalPages, pageIndex, pageSize , content } = useSelector(state => {
-        return state.Suppliers;
-    });
+    const { totalItems, totalPages, pageIndex, pageSize, content } =
+        useSelector((state) => {
+            return state.Suppliers;
+        });
 
     const pageProps = {
         items: content,
@@ -21,19 +21,17 @@ export default function SuppliersPagination({ fetchPage, children }) {
         pageIndex,
         pageSize,
         fetchItems: fetchPage,
-        setPageIndex: index => {
+        setPageIndex: (index) => {
             dispatch(setSuppliersPageIndex(index));
         },
-        setPageSize: size => {
+        setPageSize: (size) => {
             dispatch(setSuppliersPageSize(size));
-        }
+        },
     };
 
     return (
         <React.Fragment>
-            <Pagination {...pageProps}>
-                {children}
-            </Pagination>
+            <Pagination {...pageProps}>{children}</Pagination>
         </React.Fragment>
     );
 }

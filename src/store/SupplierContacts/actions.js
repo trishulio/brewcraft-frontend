@@ -3,10 +3,10 @@ import {
     FETCH_ALL_SUPPLIER_CONTACTS_REQUEST,
     SET_SUPPLIER_CONTACTS_DETAILS,
     SET_SUPPLIER_CONTACTS_PAGE_INDEX,
-    SET_SUPPLIER_CONTACTS_PAGE_SIZE
+    SET_SUPPLIER_CONTACTS_PAGE_SIZE,
 } from "./actionTypes";
 
-export const fetchSupplierContacts = params => ({
+export const fetchSupplierContacts = (params) => ({
     type: FETCH_SUPPLIER_CONTACTS_REQUEST,
     payload: { params },
 });
@@ -15,58 +15,58 @@ export const fetchAllSupplierContacts = () => ({
     type: FETCH_ALL_SUPPLIER_CONTACTS_REQUEST,
 });
 
-export const setSupplierContactsPageIndex = index => ({
+export const setSupplierContactsPageIndex = (index) => ({
     type: SET_SUPPLIER_CONTACTS_PAGE_INDEX,
     payload: {
-        pageIndex: index
-    }
+        pageIndex: index,
+    },
 });
 
-export const setSupplierContactsPageSize = size => ({
+export const setSupplierContactsPageSize = (size) => ({
     type: SET_SUPPLIER_CONTACTS_PAGE_SIZE,
     payload: {
-        pageSize: size
-    }
+        pageSize: size,
+    },
 });
 
-export const setInvalidSupplierFirstName = value => ({
+export const setInvalidSupplierFirstName = (value) => ({
     type: SET_SUPPLIER_CONTACTS_DETAILS,
     payload: {
-        invalidSupplierFirstName: value
-    }
+        invalidSupplierFirstName: value,
+    },
 });
 
-export const setInvalidSupplierLastName = value => ({
+export const setInvalidSupplierLastName = (value) => ({
     type: SET_SUPPLIER_CONTACTS_DETAILS,
     payload: {
-        invalidSupplierLastName: value
-    }
+        invalidSupplierLastName: value,
+    },
 });
 
-export const setInvalidSupplierPosition = value => ({
+export const setInvalidSupplierPosition = (value) => ({
     type: SET_SUPPLIER_CONTACTS_DETAILS,
     payload: {
-        invalidSupplierPosition: value
-    }
+        invalidSupplierPosition: value,
+    },
 });
 
-export const setInvalidSupplierEmail = value => ({
+export const setInvalidSupplierEmail = (value) => ({
     type: SET_SUPPLIER_CONTACTS_DETAILS,
     payload: {
-        invalidSupplierEmail: value
-    }
+        invalidSupplierEmail: value,
+    },
 });
 
-export const setInvalidSupplierPhoneNumber = value => ({
+export const setInvalidSupplierPhoneNumber = (value) => ({
     type: SET_SUPPLIER_CONTACTS_DETAILS,
     payload: {
-        invalidSupplierPhoneNumber: value
-    }
+        invalidSupplierPhoneNumber: value,
+    },
 });
 
-export const setInvalidSupplierCompany = value => ({
+export const setInvalidSupplierCompany = (value) => ({
     type: SET_SUPPLIER_CONTACTS_DETAILS,
     payload: {
-        invalidSupplierCompany: value
-    }
+        invalidSupplierCompany: value,
+    },
 });

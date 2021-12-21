@@ -1,47 +1,42 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    Col,
-    Row,
-    FormGroup,
-    Label,
-    Input,
-    FormFeedback
-} from "reactstrap";
+import { Col, Row, FormGroup, Label, Input, FormFeedback } from "reactstrap";
 import {
     setPurchaseInvoiceSupplier,
     setPurchaseInvoiceInvoiceDate,
     setPurchaseInvoiceInvoiceNumber,
     setPurchaseInvoiceDueDate,
-    setPurchaseInvoicePurchaseOrder
+    setPurchaseInvoicePurchaseOrder,
 } from "../../../store/actions";
 
 export default function PurchaseInvoiceDetails({ editable }) {
-
     const dispatch = useDispatch();
 
+    const { invoice, purchaseOrder } = useSelector((state) => {
+        return state.Procurement.data;
+    });
+
     const {
-        data: invoice,
         invalidSupplier,
         invalidGeneratedOn,
         invalidInvoiceNumber,
         invalidPaymentDueDate,
-        invalidPurchaseOrder
-    } = useSelector(state => {
-        return state.PurchaseInvoice;
+        invalidPurchaseOrder,
+    } = useSelector((state) => {
+        return state.Procurement;
     });
 
-    const suppliers = useSelector(state => {
+    const suppliers = useSelector((state) => {
         return state.Suppliers.all;
     });
 
     return (
         <React.Fragment>
             <Row className="mb-2">
-            <Col sm="4">
+                <Col sm="4">
                     <Label
                         for="invoiceDetailsPoSo"
-                        style={{width: "6rem"}}
+                        style={{ width: "6rem" }}
                         className="col-form-label float-left"
                     >
                         P.O./S.O.
@@ -50,34 +45,44 @@ export default function PurchaseInvoiceDetails({ editable }) {
                         className="float-left"
                         style={{
                             width: "100%",
-                            maxWidth: "16rem"
+                            maxWidth: "16rem",
                         }}
                     >
                         <Input
                             type="text"
                             name="invoiceDetailsPoSo"
                             className="mb-2"
-                            value={invoice.purchaseOrder.orderNumber || ""}
-                            onChange={e => {
-                                dispatch(setPurchaseInvoicePurchaseOrder(e.target.value));
+                            value={purchaseOrder.orderNumber || ""}
+                            onChange={(e) => {
+                                dispatch(
+                                    setPurchaseInvoicePurchaseOrder(
+                                        e.target.value
+                                    )
+                                );
                             }}
                             hidden={!editable}
                             invalid={invalidPurchaseOrder}
                         />
                         <div
                             className="float-left"
-                            style={{ lineHeight: "2rem", verticalAlign: "middle" }}
+                            style={{
+                                lineHeight: "2rem",
+                                verticalAlign: "middle",
+                            }}
                             width="100%"
-                            hidden={editable}>
-                            {invoice.purchaseOrder.orderNumber || "-"}
+                            hidden={editable}
+                        >
+                            {purchaseOrder.orderNumber || "-"}
                         </div>
-                        <FormFeedback>Invalid purchase invoice field</FormFeedback>
+                        <FormFeedback>
+                            Invalid purchase invoice field
+                        </FormFeedback>
                     </FormGroup>
                 </Col>
                 <Col sm="4">
                     <Label
                         for="invoiceDetailsInvoiceDate"
-                        style={{width: "6rem"}}
+                        style={{ width: "6rem" }}
                         className="col-form-label float-left"
                     >
                         * Invoice Date
@@ -86,7 +91,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                         className="float-left"
                         style={{
                             width: "100%",
-                            maxWidth: "16rem"
+                            maxWidth: "16rem",
                         }}
                     >
                         <Input
@@ -95,31 +100,38 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             placeholder="Enter Date"
                             className="mb-2"
                             value={invoice.generatedOn}
-                            onChange={e => {
-                                dispatch(setPurchaseInvoiceInvoiceDate(e.target.value));
+                            onChange={(e) => {
+                                dispatch(
+                                    setPurchaseInvoiceInvoiceDate(
+                                        e.target.value
+                                    )
+                                );
                             }}
                             hidden={!editable}
                             invalid={invalidGeneratedOn}
                         />
                         <div
                             className="float-left"
-                            style={{ lineHeight: "2rem", verticalAlign: "middle" }}
+                            style={{
+                                lineHeight: "2rem",
+                                verticalAlign: "middle",
+                            }}
                             width="100%"
-                            hidden={editable}>
+                            hidden={editable}
+                        >
                             {invoice.generatedOn || "-"}
                         </div>
-                        <FormFeedback>{
-                            !invoice.generatedOn
+                        <FormFeedback>
+                            {!invoice.generatedOn
                                 ? "Invoice date must not be empty"
-                                : "Invalid purchase invoice field"
-                        }
+                                : "Invalid purchase invoice field"}
                         </FormFeedback>
                     </FormGroup>
                 </Col>
                 <Col sm="4">
                     <Label
                         for="invoiceDetailsInvoiceNumber"
-                        style={{width: "6rem"}}
+                        style={{ width: "6rem" }}
                         className="col-form-label float-left"
                     >
                         * Invoice #
@@ -128,7 +140,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                         className="float-left"
                         style={{
                             width: "100%",
-                            maxWidth: "16rem"
+                            maxWidth: "16rem",
                         }}
                     >
                         <Input
@@ -137,34 +149,41 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             required={true}
                             className="mb-2"
                             value={invoice.invoiceNumber}
-                            onChange={e => {
-                                dispatch(setPurchaseInvoiceInvoiceNumber(e.target.value));
+                            onChange={(e) => {
+                                dispatch(
+                                    setPurchaseInvoiceInvoiceNumber(
+                                        e.target.value
+                                    )
+                                );
                             }}
                             hidden={!editable}
                             invalid={invalidInvoiceNumber}
                         />
                         <div
                             className="float-left"
-                            style={{ lineHeight: "2rem", verticalAlign: "middle" }}
+                            style={{
+                                lineHeight: "2rem",
+                                verticalAlign: "middle",
+                            }}
                             width="100%"
-                            hidden={editable}>
+                            hidden={editable}
+                        >
                             {invoice.invoiceNumber || "-"}
                         </div>
-                        <FormFeedback>{
-                            !invoice.invoiceNumber.length
+                        <FormFeedback>
+                            {!invoice.invoiceNumber.length
                                 ? "Invoice number must not be empty"
-                                : "Invalid purchase invoice field"
-                        }
+                                : "Invalid purchase invoice field"}
                         </FormFeedback>
                     </FormGroup>
                 </Col>
             </Row>
             <Row className="mb-4">
-            <Col sm="4">
+                <Col sm="4">
                     <Label
                         for="invoiceDetailsSupplier"
                         style={{
-                            width: "6rem"
+                            width: "6rem",
                         }}
                         className="col-form-label float-left"
                     >
@@ -174,54 +193,55 @@ export default function PurchaseInvoiceDetails({ editable }) {
                         className="float-left"
                         style={{
                             width: "100%",
-                            maxWidth: "16rem"
+                            maxWidth: "16rem",
                         }}
                     >
                         <Input
                             type="select"
                             name="invoiceDetailsSupplier"
                             className="mb-2"
-                            value={invoice.purchaseOrder.supplier.id || ""}
-                            onChange={e => {
-                                const supplier = suppliers.find(s => s.id === parseInt(e.target.value)) || "";
-                                dispatch(setPurchaseInvoiceSupplier(supplier))
+                            value={purchaseOrder.supplier.id || ""}
+                            onChange={(e) => {
+                                const supplier =
+                                    suppliers.find(
+                                        (s) => s.id === parseInt(e.target.value)
+                                    ) || "";
+                                dispatch(setPurchaseInvoiceSupplier(supplier));
                             }}
                             hidden={!editable}
                             invalid={invalidSupplier}
                         >
                             <option value="">Select</option>
-                            {
-                                suppliers.map((value, index) => {
-                                    return (
-                                        <option value={value.id} key={index}>
-                                            {value.name}
-                                        </option>
-                                    );
-                                })
-                            }
+                            {suppliers.map((value, index) => {
+                                return (
+                                    <option value={value.id} key={index}>
+                                        {value.name}
+                                    </option>
+                                );
+                            })}
                         </Input>
                         <div
                             className="float-left"
                             style={{
                                 lineHeight: "2rem",
-                                verticalAlign: "middle"
+                                verticalAlign: "middle",
                             }}
                             width="100%"
-                            hidden={editable}>
-                            {invoice.purchaseOrder.supplier.name || "-"}
+                            hidden={editable}
+                        >
+                            {purchaseOrder.supplier.name || "-"}
                         </div>
-                        <FormFeedback>{
-                            !invoice.purchaseOrder.supplier.id
+                        <FormFeedback>
+                            {!purchaseOrder.supplier.id
                                 ? "Supplier is required"
-                                : "Invalid purchase invoice field"
-                        }
+                                : "Invalid purchase invoice field"}
                         </FormFeedback>
                     </FormGroup>
                 </Col>
                 <Col sm="4">
                     <Label
                         for="invoiceDetailsDueDate"
-                        style={{width: "6rem"}}
+                        style={{ width: "6rem" }}
                         className="col-form-label float-left"
                     >
                         * Due Date
@@ -230,7 +250,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                         className="float-left"
                         style={{
                             width: "100%",
-                            maxWidth: "16rem"
+                            maxWidth: "16rem",
                         }}
                     >
                         <Input
@@ -240,24 +260,29 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             required={true}
                             className="mb-2"
                             value={invoice.paymentDueDate}
-                            onChange={e => {
-                                dispatch(setPurchaseInvoiceDueDate(e.target.value));
+                            onChange={(e) => {
+                                dispatch(
+                                    setPurchaseInvoiceDueDate(e.target.value)
+                                );
                             }}
                             hidden={!editable}
                             invalid={invalidPaymentDueDate}
                         />
                         <div
                             className="float-left"
-                            style={{ lineHeight: "2rem", verticalAlign: "middle" }}
+                            style={{
+                                lineHeight: "2rem",
+                                verticalAlign: "middle",
+                            }}
                             width="100%"
-                            hidden={editable}>
+                            hidden={editable}
+                        >
                             {invoice.paymentDueDate || "-"}
                         </div>
-                        <FormFeedback>{
-                            !invoice.paymentDueDate
+                        <FormFeedback>
+                            {!invoice.paymentDueDate
                                 ? "Due date must not be empty"
-                                : "Invalid purchase invoice field"
-                        }
+                                : "Invalid purchase invoice field"}
                         </FormFeedback>
                     </FormGroup>
                 </Col>

@@ -6,8 +6,8 @@ async function fetchMeasures() {
             sort: "id",
             order_asc: true,
             page: 0,
-            size: 500
-        }
+            size: 500,
+        },
     };
     return await AxiosInstance.get("/api/v1/measures", data)
         .then((r) => r)
@@ -15,5 +15,5 @@ async function fetchMeasures() {
 }
 
 export const api = {
-    fetchMeasures
-}
+    fetchMeasures,
+};

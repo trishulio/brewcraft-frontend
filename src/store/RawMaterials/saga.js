@@ -14,7 +14,10 @@ import { snackFailure } from "../Snackbar/actions";
 function* fetchAllRawMaterialsGenerator() {
     try {
         const res = yield call(api.fetchRawMaterials);
-        yield put({ type: FETCH_ALL_RAW_MATERIALS_SUCCESS, data: { data: res.data }});
+        yield put({
+            type: FETCH_ALL_RAW_MATERIALS_SUCCESS,
+            data: { data: res.data },
+        });
     } catch (e) {
         yield put(snackFailure("Failed to fetch raw materials."));
         yield put({ type: FETCH_ALL_RAW_MATERIALS_FAILURE });
@@ -23,8 +26,14 @@ function* fetchAllRawMaterialsGenerator() {
 
 function* fetchRawMaterialsGenerator(action) {
     try {
-        const res = yield call(api.fetchRawMaterials,get(action, "payload.params"));
-        yield put({ type: FETCH_RAW_MATERIALS_SUCCESS, data: { data: res.data }});
+        const res = yield call(
+            api.fetchRawMaterials,
+            get(action, "payload.params")
+        );
+        yield put({
+            type: FETCH_RAW_MATERIALS_SUCCESS,
+            data: { data: res.data },
+        });
     } catch (e) {
         yield put(snackFailure("Failed to fetch raw materials."));
         yield put({ type: FETCH_RAW_MATERIALS_FAILURE });
@@ -33,7 +42,10 @@ function* fetchRawMaterialsGenerator(action) {
 
 function* RawMaterials() {
     yield takeEvery(FETCH_RAW_MATERIALS_REQUEST, fetchRawMaterialsGenerator);
-    yield takeEvery(FETCH_ALL_RAW_MATERIALS_REQUEST, fetchAllRawMaterialsGenerator);
+    yield takeEvery(
+        FETCH_ALL_RAW_MATERIALS_REQUEST,
+        fetchAllRawMaterialsGenerator
+    );
 }
 
 export default RawMaterials;

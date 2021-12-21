@@ -1,17 +1,16 @@
-import React from 'react';
-import { Line } from 'react-chartjs-2';
+import React from "react";
+import { Line } from "react-chartjs-2";
 
 export default function LineChart(props) {
-
     const dataset = {
         fill: false,
         lineTension: 0.5,
         backgroundColor: "rgba(60, 76, 207, 0.2)",
         borderColor: "#7a6fbe",
-        borderCapStyle: 'butt',
+        borderCapStyle: "butt",
         borderDash: [],
         borderDashOffset: 0.0,
-        borderJoinStyle: 'miter',
+        borderJoinStyle: "miter",
         pointBorderColor: "#3c4ccf",
         pointBackgroundColor: "#fff",
         pointBorderWidth: 1,
@@ -20,14 +19,14 @@ export default function LineChart(props) {
         pointHoverBorderColor: "#fff",
         pointHoverBorderWidth: 2,
         pointRadius: 3,
-        pointHitRadius: 10
+        pointHitRadius: 10,
     };
 
     const data = {
         labels: props.labels,
-        datasets: props.datasets?.map(d => ({
+        datasets: props.datasets?.map((d) => ({
             ...dataset,
-            ...d
+            ...d,
         })),
     };
 
@@ -44,12 +43,17 @@ export default function LineChart(props) {
         // bezierCurve : false,
         scaleShowHorizontalLines: true,
         legend: false,
-        ...props.option
+        ...props.option,
     };
 
     return (
         <React.Fragment>
-            <Line width={props.width || 479} height={props.height || 300} data={data} options={option} />
+            <Line
+                width={props.width || 479}
+                height={props.height || 300}
+                data={data}
+                options={option}
+            />
         </React.Fragment>
     );
 }

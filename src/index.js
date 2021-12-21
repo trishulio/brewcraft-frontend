@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './store';
-import { Auth } from 'aws-amplify';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store";
+import { Auth } from "aws-amplify";
 
 // https://aws-amplify.github.io/docs/js/authentication#manual-setup
 Auth.configure({
@@ -20,12 +20,12 @@ Auth.configure({
             "email",
             "profile",
             "openid",
-            "aws.cognito.signin.user.admin"
+            "aws.cognito.signin.user.admin",
         ],
         redirectSignIn: window.location.origin + "/",
         redirectSignOut: window.location.origin + "/",
-        responseType: 'code',
-    }
+        responseType: "code",
+    },
 });
 
 const app = (
@@ -36,5 +36,5 @@ const app = (
     </Provider>
 );
 
-ReactDOM.render(app, document.getElementById('root'));
+ReactDOM.render(app, document.getElementById("root"));
 serviceWorker.unregister();

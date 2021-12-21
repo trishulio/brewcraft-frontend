@@ -9,19 +9,19 @@ import {
     INVALID_STYLE,
     INVALID_DESCRIPTION,
     RESET_PRODUCT_DETAILS,
-    DELETE_PRODUCT
+    DELETE_PRODUCT,
 } from "./actionTypes";
 
-export const setProductDetails = product => ({
+export const setProductDetails = (product) => ({
     type: SET_PRODUCT_DETAILS,
     payload: {
-        data: product
-    }
+        data: product,
+    },
 });
 
 export const fetchProductById = (id) => ({
     type: FETCH_PRODUCT,
-    payload: { id }
+    payload: { id },
 });
 
 export const createProduct = ({ data, categoryId }) => ({
@@ -30,9 +30,9 @@ export const createProduct = ({ data, categoryId }) => ({
         form: {
             name: data.name,
             description: data.description || "",
-            categoryId: categoryId
-        }
-    }
+            categoryId: categoryId,
+        },
+    },
 });
 
 export const updateProduct = ({ data, categoryId }) => ({
@@ -43,52 +43,52 @@ export const updateProduct = ({ data, categoryId }) => ({
             name: data.name,
             description: data.description || "",
             categoryId: categoryId,
-            version: data.version
-        }
-    }
+            version: data.version,
+        },
+    },
 });
 
 export const deleteProduct = (id) => ({
     type: DELETE_PRODUCT,
-    payload: { id }
+    payload: { id },
 });
 
-export const setProductInvalidName = enabled => ({
+export const setProductInvalidName = (enabled) => ({
     type: INVALID_NAME,
     payload: {
-        invalidName: enabled
-    }
+        invalidName: enabled,
+    },
 });
 
-export const setProductInvalidClass = enabled => ({
+export const setProductInvalidClass = (enabled) => ({
     type: INVALID_CLASS,
     payload: {
-        invalidClass: enabled
-    }
+        invalidClass: enabled,
+    },
 });
 
-export const setProductInvalidType = enabled => ({
+export const setProductInvalidType = (enabled) => ({
     type: INVALID_TYPE,
     payload: {
-        invalidType: enabled
-    }
+        invalidType: enabled,
+    },
 });
 
-export const setProductInvalidStyle = enabled => ({
+export const setProductInvalidStyle = (enabled) => ({
     type: INVALID_STYLE,
     payload: {
-        invalidStyle: enabled
-    }
+        invalidStyle: enabled,
+    },
 });
 
-export const setProductInvalidDescription = enabled => ({
+export const setProductInvalidDescription = (enabled) => ({
     type: INVALID_DESCRIPTION,
     payload: {
-        invalidDescription: enabled
-    }
+        invalidDescription: enabled,
+    },
 });
 
-export const resetProductDetails = success => ({
+export const resetProductDetails = (success) => ({
     type: RESET_PRODUCT_DETAILS,
-    payload: success
+    payload: success,
 });

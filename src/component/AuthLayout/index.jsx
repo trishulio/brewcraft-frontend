@@ -7,7 +7,7 @@ import { authProtectedRoutes } from "../../routes/";
 import AppRoute from "../../routes/route";
 
 export default function AuthLayout() {
-    const layout = useSelector(state => {
+    const layout = useSelector((state) => {
         return state.Layout;
     });
 

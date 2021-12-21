@@ -1,13 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    fetchUsers,
-    setBreadcrumbItems
-} from "../../store/actions";
-import {
-    useQuery
-} from "../../helpers/utils";
-import UsersInner from "./contacts";
+import { fetchUsers, setBreadcrumbItems } from "../../store/actions";
+import { useQuery } from "../../helpers/utils";
+import UsersInner from "./users";
 
 export default function Users() {
     const dispatch = useDispatch();
@@ -15,7 +10,7 @@ export default function Users() {
     const sort = query.get("sort");
     const order = query.get("order");
 
-    const { pageIndex, pageSize } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector((state) => {
         return state.Users;
     });
 
@@ -23,7 +18,7 @@ export default function Users() {
         dispatch(
             setBreadcrumbItems("Users", [
                 { title: "Main", link: "#" },
-                { title: "Users", link: "#" }
+                { title: "Users", link: "#" },
             ])
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -31,13 +26,14 @@ export default function Users() {
 
     useEffect(() => {
         const props = {
-            pageIndex, pageSize, sort, order
+            pageIndex,
+            pageSize,
+            sort,
+            order,
         };
         dispatch(fetchUsers({ ...props }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageIndex, pageSize, sort, order]);
 
-    return (
-        <UsersInner />
-    );
+    return <UsersInner />;
 }

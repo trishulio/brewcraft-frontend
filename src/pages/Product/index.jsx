@@ -8,15 +8,16 @@ import {
     updateProduct,
     deleteProduct,
     fetchAllProductCategories,
-    resetProductDetails
+    resetProductDetails,
 } from "../../store/actions";
-import {
-    useQuery
-} from "../../helpers/utils";
+import { useQuery } from "../../helpers/utils";
 import ProductInner from "./product";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
-import { setProductInvalidName, setProductInvalidClass } from "../../store/Product/actions"
+import {
+    setProductInvalidName,
+    setProductInvalidClass,
+} from "../../store/Product/actions";
 
 export default function Product() {
     const [editable, setEditable] = useState(false);
@@ -30,16 +31,16 @@ export default function Product() {
     const editMode = query.get("edit");
     const dispatch = useDispatch();
 
-    const product = useSelector(state => {
+    const product = useSelector((state) => {
         return state.Product.data;
     });
 
-    const initialProduct = useSelector(state => {
+    const initialProduct = useSelector((state) => {
         return state.Product.initialProduct;
     });
 
-    const { invalidName, invalidClass, invalidType } = useSelector(state => {
-        return state.Product
+    const { invalidName, invalidClass, invalidType } = useSelector((state) => {
+        return state.Product;
     });
 
     useEffect(() => {
@@ -53,7 +54,6 @@ export default function Product() {
             }
             if (editMode && editMode !== "false") {
                 dispatch(fetchAllProductCategories());
-
             }
             setEditable(!!editMode);
             setShowRouterPrompt(!!editMode);
@@ -62,25 +62,47 @@ export default function Product() {
 
     useEffect(() => {
         if (product.id) {
-            dispatch(setBreadcrumbItems(product.name, [
-                { title: "Main", link: "#" },
-                { title: "Products", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems(product.name, [
+                    { title: "Main", link: "#" },
+                    { title: "Products", link: "#" },
+                ])
+            );
         } else {
-            dispatch(setBreadcrumbItems("New Product", [
-                { title: "Main", link: "#" },
-                { title: "Products", link: "#" }]
-            ));
+            dispatch(
+                setBreadcrumbItems("New Product", [
+                    { title: "Main", link: "#" },
+                    { title: "Products", link: "#" },
+                ])
+            );
         }
         setChanged(isChanged());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [product, dispatch]);
 
     function isChanged() {
-        return JSON.stringify(
-                (({ id, name, description, productClass, type, style }) => ({ id, name, description, productClass, type, style }))(initialProduct))
-            !== JSON.stringify(
-                (({ id, name, description, productClass, type, style }) => ({ id, name, description, productClass, type, style }))(product))
+        return (
+            JSON.stringify(
+                (({ id, name, description, productClass, type, style }) => ({
+                    id,
+                    name,
+                    description,
+                    productClass,
+                    type,
+                    style,
+                }))(initialProduct)
+            ) !==
+            JSON.stringify(
+                (({ id, name, description, productClass, type, style }) => ({
+                    id,
+                    name,
+                    description,
+                    productClass,
+                    type,
+                    style,
+                }))(product)
+            )
+        );
     }
 
     function getCategoryId() {
@@ -100,26 +122,25 @@ export default function Product() {
         if (!product.name || !product.productClass?.id) {
             dispatch(setProductInvalidName(!product.name));
             dispatch(setProductInvalidClass(!product.productClass?.id));
-            return
+            return;
         }
         if (invalidName || invalidClass || invalidType) {
             return;
         }
         if (!isChanged()) {
             history.push("/products/" + id);
-
         } else if (product.id) {
             dispatch(
                 updateProduct({
                     data: product,
-                    categoryId: getCategoryId()
+                    categoryId: getCategoryId(),
                 })
             );
         } else {
             dispatch(
                 createProduct({
                     data: product,
-                    categoryId: getCategoryId()
+                    categoryId: getCategoryId(),
                 })
             );
         }
@@ -144,13 +165,15 @@ export default function Product() {
             />
             <RouteLeavingGuard
                 when={showRouterPrompt}
-                navigate={path => {
+                navigate={(path) => {
                     history.push(path);
                 }}
                 shouldBlockNavigation={() => editMode && isChanged()}
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
-            <ProductInner {...{product, editable, changed, onSave, onDelete}} />
+            <ProductInner
+                {...{ product, editable, changed, onSave, onDelete }}
+            />
         </React.Fragment>
     );
 }

@@ -1,14 +1,13 @@
 import {
     FETCH_USERS_REQUEST,
     FETCH_USERS_SUCCESS,
-    FETCH_USERS_FAILURE,
+    FETCH_USERS_ERROR,
     FETCH_ALL_USERS_SUCCESS,
-    FETCH_ALL_USERS_FAILURE,
     FETCH_ALL_USERS_REQUEST,
     SET_USERS_DETAILS,
     SET_USERS_PAGE_INDEX,
     SET_USERS_PAGE_SIZE,
-    SET_USERS_SELECTED_COMPANY
+    SET_USERS_SELECTED_COMPANY,
 } from "./actionTypes";
 
 const initialState = {
@@ -19,7 +18,7 @@ const initialState = {
     totalElements: 0,
     totalItems: 0,
     pageIndex: 0,
-    pageSize: 20
+    pageSize: 20,
 };
 
 const Users = (state = initialState, { type, payload, data }) => {
@@ -39,7 +38,7 @@ const Users = (state = initialState, { type, payload, data }) => {
                 loading: false,
                 error: null,
             };
-        case FETCH_USERS_FAILURE:
+        case FETCH_USERS_ERROR:
             return {
                 ...state,
                 loading: false,
@@ -51,12 +50,6 @@ const Users = (state = initialState, { type, payload, data }) => {
                 loading: true,
                 error: null,
             };
-        case FETCH_ALL_USERS_FAILURE:
-            return {
-                ...state,
-                loading: false,
-                error: payload,
-            };
         case SET_USERS_PAGE_INDEX:
         case SET_USERS_PAGE_SIZE:
         case SET_USERS_DETAILS:
@@ -65,15 +58,15 @@ const Users = (state = initialState, { type, payload, data }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         default:
             return {
                 ...state,
                 loading: true,
-                error: null
-            }
+                error: null,
+            };
     }
-}
+};
 
 export default Users;

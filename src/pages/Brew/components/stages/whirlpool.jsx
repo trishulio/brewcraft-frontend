@@ -4,26 +4,25 @@ import Details from "../mixture/details";
 import {
     setTransferMixtureRecords,
     setWhirlpoolMixtureDetails,
-    setWhirlpoolStageDetails
+    setWhirlpoolStageDetails,
 } from "../../../../store/actions";
 
 export default function BrewWhirlpool() {
-
     const dispatch = useDispatch();
 
-    const { editable } = useSelector(state => {
+    const { editable } = useSelector((state) => {
         return state.Batch.Batch;
     });
 
-    const stage = useSelector(state => {
+    const stage = useSelector((state) => {
         return state.Batch.WhirlpoolStage.data;
     });
 
-    const mixture = useSelector(state => {
+    const mixture = useSelector((state) => {
         return state.Batch.WhirlpoolMixture.data;
     });
 
-    const mixtureRecords = useSelector(state => {
+    const mixtureRecords = useSelector((state) => {
         return state.Batch.TransferMixtureRecordings.content;
     });
 
@@ -31,23 +30,21 @@ export default function BrewWhirlpool() {
         debugger;
         dispatch(
             setWhirlpoolStageDetails({
-                data: stage
+                data: stage,
             })
-        )
+        );
     }
 
     function setMixture(mixture) {
         dispatch(
             setWhirlpoolMixtureDetails({
-                data: mixture
+                data: mixture,
             })
-        )
+        );
     }
 
     function setMixtureRecords(mixtureRecords) {
-        dispatch(
-            setTransferMixtureRecords(mixtureRecords)
-        );
+        dispatch(setTransferMixtureRecords(mixtureRecords));
     }
 
     const detailsProps = {
@@ -58,12 +55,12 @@ export default function BrewWhirlpool() {
         mixtureRecords,
         setMixtureRecords,
         editable,
-        showSkipCheckbox: true
+        showSkipCheckbox: true,
     };
 
     return (
         <React.Fragment>
-            <Details {...detailsProps}/>
+            <Details {...detailsProps} />
         </React.Fragment>
     );
 }

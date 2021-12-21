@@ -1,23 +1,23 @@
 import {
     FETCH_BATCH_STATUS_REQUEST,
     SET_BATCH_STATUS_PAGE_INDEX,
-    SET_BATCH_STATUS_PAGE_SIZE
+    SET_BATCH_STATUS_PAGE_SIZE,
 } from "./actionTypes";
 
 export const fetchBatchStatuses = () => ({
-    type: FETCH_BATCH_STATUS_REQUEST
+    type: FETCH_BATCH_STATUS_REQUEST,
 });
 
-export const setBatchStatusesPageIndex = index => ({
+export const setBatchStatusesPageIndex = (index) => ({
     type: SET_BATCH_STATUS_PAGE_INDEX,
     payload: {
-        pageIndex: index
-    }
+        pageIndex: index,
+    },
 });
 
-export const setBatchStatusesPageSize = size => ({
+export const setBatchStatusesPageSize = (size) => ({
     type: SET_BATCH_STATUS_PAGE_SIZE,
     payload: {
-        pageSize: size
-    }
+        pageSize: size,
+    },
 });

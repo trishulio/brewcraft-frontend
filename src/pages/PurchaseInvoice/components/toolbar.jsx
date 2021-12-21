@@ -1,15 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import {
-    Button
-} from "reactstrap";
+import { Button } from "reactstrap";
 
 export default function Toolbar({ editable, changed, onSave, onDelete }) {
     const history = useHistory();
 
-    const invoice = useSelector(state => {
-        return state.PurchaseInvoice.data;
+    const { shipment, invoice } = useSelector((state) => {
+        return state.Procurement.data;
     });
 
     return (
@@ -23,7 +21,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 disabled={!changed}
                 hidden={!editable}
             >
-                    Save
+                Save
             </Button>
             <Button
                 type="button"
@@ -46,8 +44,8 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 hidden={!invoice.id || editable}
                 onClick={() => {
                     history.push({
-                        pathname: "/purchases/invoices/" + invoice.id,
-                        search: "?edit=true"
+                        pathname: `/purchases/invoices/${shipment.id}/${invoice.id}`,
+                        search: "?edit=true",
                     });
                 }}
             >
@@ -73,7 +71,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 onClick={() => {
                     history.push({
                         pathname: "/purchases/invoices/new",
-                        search: "?edit=true"
+                        search: "?edit=true",
                     });
                 }}
             >

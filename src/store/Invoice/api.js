@@ -23,13 +23,11 @@
 //     .catch((error) => console.log(error));
 // }
 
-
 // async function deleteInvoice(id) {
 //   return await AxiosInstance.delete(`${INVOICES()}/${id}`)
 //     .then((r) => r)
 //     .catch((error) => console.log(error));
 // }
-
 
 // export const api = {
 //   fetchInvoices,

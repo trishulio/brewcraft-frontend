@@ -8,7 +8,7 @@ export default function RawMaterialsList() {
     const history = useHistory();
     const query = useQuery();
 
-    const rawMaterials = useSelector(state => {
+    const rawMaterials = useSelector((state) => {
         return state.RawMaterials.content;
     });
 
@@ -18,7 +18,7 @@ export default function RawMaterialsList() {
         let order = query.get("order");
         query.delete("sort");
         query.delete("order");
-        switch(name) {
+        switch (name) {
             case "rawMaterialsName":
                 if (sort !== "name") {
                     order = undefined;
@@ -57,7 +57,7 @@ export default function RawMaterialsList() {
         } else {
             query.append("order", "desc");
         }
-        history.push({search: query.toString()});
+        history.push({ search: query.toString() });
     }
 
     return (
@@ -65,11 +65,7 @@ export default function RawMaterialsList() {
             <Table>
                 <thead>
                     <tr>
-                        <Th
-                            name="rawMaterialsName"
-                            id="name"
-                            onSort={onSort}
-                        >
+                        <Th name="rawMaterialsName" id="name" onSort={onSort}>
                             Name
                         </Th>
                         <th>Lot Num.</th>
@@ -88,11 +84,7 @@ export default function RawMaterialsList() {
                         >
                             Category
                         </Th>
-                        <Th
-                            name="rawMaterialsUpc"
-                            id="upc"
-                            onSort={onSort}
-                        >
+                        <Th name="rawMaterialsUpc" id="upc" onSort={onSort}>
                             UPC
                         </Th>
                         <Th
@@ -105,19 +97,31 @@ export default function RawMaterialsList() {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        rawMaterials.map((rawMaterial, key) =>
-                            <tr key={key}>
-                                <td><Link to={"/raw-materials/" + rawMaterial.material.id}>{rawMaterial.material.name}</Link></td>
-                                <td>{rawMaterial.lotNumber}</td>
-                                <td>-</td>
-                                <td>{rawMaterial.material.materialClass.name}</td>
-                                <td>{rawMaterial.material.category?.name || "-"}</td>
-                                <td>{rawMaterial.material.upc || "-"}</td>
-                                <td>{rawMaterial.quantity.value} {rawMaterial.quantity.symbol}</td>
-                            </tr>
-                        )
-                    }
+                    {rawMaterials.map((rawMaterial, key) => (
+                        <tr key={key}>
+                            <td>
+                                <Link
+                                    to={
+                                        "/raw-materials/" +
+                                        rawMaterial.material.id
+                                    }
+                                >
+                                    {rawMaterial.material.name}
+                                </Link>
+                            </td>
+                            <td>{rawMaterial.lotNumber}</td>
+                            <td>-</td>
+                            <td>{rawMaterial.material.materialClass.name}</td>
+                            <td>
+                                {rawMaterial.material.category?.name || "-"}
+                            </td>
+                            <td>{rawMaterial.material.upc || "-"}</td>
+                            <td>
+                                {rawMaterial.quantity.value}{" "}
+                                {rawMaterial.quantity.symbol}
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </React.Fragment>

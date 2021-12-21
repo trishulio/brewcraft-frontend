@@ -8,7 +8,7 @@ import {
     ADD_SUPPLIER_SUCCESS,
     SET_SUPPLIER_DETAILS,
     SET_SUPPLIER_ADDRESS_DETAILS,
-    RESET_SUPPLIER_DETAILS
+    RESET_SUPPLIER_DETAILS,
 } from "./actionTypes";
 
 const initialState = {
@@ -22,9 +22,9 @@ const initialState = {
             country: "",
             province: "",
             city: "",
-            postalCode: ""
+            postalCode: "",
         },
-        version: null
+        version: null,
     },
     initial: {
         id: "",
@@ -36,9 +36,9 @@ const initialState = {
             country: "",
             province: "",
             city: "",
-            postalCode: ""
+            postalCode: "",
         },
-        version: null
+        version: null,
     },
     invalidName: false,
     invalidAddressLine1: false,
@@ -48,16 +48,16 @@ const initialState = {
     invalidCity: false,
     inalidPostalCode: false,
     loading: true,
-    error: true
+    error: true,
 };
 
 const Supplier = (state = initialState, { type, payload }) => {
-    switch(type) {
+    switch (type) {
         case SET_SUPPLIER_DETAILS:
             return {
                 ...state,
                 ...payload,
-                loading: false
+                loading: false,
             };
         case SET_SUPPLIER_ADDRESS_DETAILS:
             return {
@@ -66,18 +66,18 @@ const Supplier = (state = initialState, { type, payload }) => {
                     ...state.data,
                     address: {
                         ...state.data.address,
-                        ...payload
-                    }
+                        ...payload,
+                    },
                 },
-                loading: false
-            }
+                loading: false,
+            };
         case ADD_SUPPLIER_REQUEST:
         case EDIT_SUPPLIER_REQUEST:
         case DELETE_SUPPLIER_REQUEST:
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
             };
         case ADD_SUPPLIER_SUCCESS:
         case EDIT_SUPPLIER_SUCCESS:
@@ -85,32 +85,32 @@ const Supplier = (state = initialState, { type, payload }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         case ADD_SUPPLIER_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: true
+                error: true,
             };
         case DELETE_SUPPLIER_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                error: null
+                error: null,
             };
         case RESET_SUPPLIER_DETAILS:
-        return {
-            ...initialState,
-            loading: false,
-            error: null
-        };
+            return {
+                ...initialState,
+                loading: false,
+                error: null,
+            };
         default:
-        return {
-            ...state,
-            loading: false,
-            error: null
-        };
+            return {
+                ...state,
+                loading: false,
+                error: null,
+            };
     }
 };
 
