@@ -141,6 +141,7 @@ export default function SupplierDetails({ editable }) {
                         {supplier.id ? supplier.id : "-"}
                     </div>
                     <div className="clearfix"></div>
+                    <div style={{ display : "flex" , alignItems : "flex-start"}}>
                     <Label
                         for="supplierName"
                         className="d-inline-block mb-3"
@@ -182,6 +183,7 @@ export default function SupplierDetails({ editable }) {
                             {supplier.name ? supplier.name : "-"}
                         </div>
                     )}
+                    </div>
                     <div className="clearfix"></div>
                     <Label
                         for="supplierAddressLine1"
