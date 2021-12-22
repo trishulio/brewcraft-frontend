@@ -141,7 +141,7 @@ export default function SupplierDetails({ editable }) {
                         {supplier.id ? supplier.id : "-"}
                     </div>
                     <div className="clearfix"></div>
-                    <div style={{ display : "flex" , alignItems : "flex-start"}}>
+                    <div style={{ display : "flex" , alignItems : "center"}}>
                     <Label
                         for="supplierName"
                         className="d-inline-block mb-3"
