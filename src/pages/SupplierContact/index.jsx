@@ -33,7 +33,6 @@ export default function SupplierContact() {
     const query = useQuery();
     const editMode = query.get("edit");
     const dispatch = useDispatch();
-
     const contact = useSelector((state) => {
         return state.SupplierContact.data;
     });
@@ -208,8 +207,8 @@ export default function SupplierContact() {
                 navigate={(path) => {
                     history.push(path);
                 }}
-                shouldBlockNavigation={() => {
-                    return editMode && isChanged();
+                shouldBlockNavigation={(location) => {
+                    return editMode && !location.pathname.includes("suppliers")  && isChanged();
                 }}
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
