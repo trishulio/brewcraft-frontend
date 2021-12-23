@@ -143,6 +143,7 @@ export default function SupplierContactDetails({ editable }) {
             <Card>
                 <CardHeader>Contact Details</CardHeader>
                 <CardBody>
+                <div className="form-group-validation">
                     <Label
                         for="contactFirstName"
                         className="d-inline-block mb-3"
@@ -184,7 +185,9 @@ export default function SupplierContactDetails({ editable }) {
                             {contact.firstName ? contact.firstName : "-"}
                         </div>
                     )}
+                    </div>
                     <div className="clearfix"></div>
+                    <div className="form-group-validation">
                     <Label
                         for="contactLastName"
                         className="d-inline-block mb-3"
@@ -225,7 +228,9 @@ export default function SupplierContactDetails({ editable }) {
                             {contact.lastName ? contact.lastName : "-"}
                         </div>
                     )}
+                    </div>
                     <div className="clearfix"></div>
+                    <div className="form-group-validation">
                     <Label
                         for="contactCompany"
                         className="d-inline-block mb-3"
@@ -277,7 +282,9 @@ export default function SupplierContactDetails({ editable }) {
                             {contact.supplier ? contact.supplier.name : "-"}
                         </div>
                     )}
+                    </div>
                     <div className="clearfix"></div>
+                    <div className="form-group-validation">
                     <Label
                         for="contactPosition"
                         className="d-inline-block mb-3"
@@ -318,7 +325,9 @@ export default function SupplierContactDetails({ editable }) {
                             {contact.position ? contact.position : "-"}
                         </div>
                     )}
+                    </div>
                     <div className="clearfix"></div>
+                    <div className="form-group-validation">
                     <Label
                         for="contactEmail"
                         className="d-inline-block mb-3"
@@ -359,7 +368,9 @@ export default function SupplierContactDetails({ editable }) {
                             {contact.email ? contact.email : "-"}
                         </div>
                     )}
+                    </div>
                     <div className="clearfix"></div>
+                    <div className="form-group-validation">
                     <Label
                         for="contactPhoneNumber"
                         className="d-inline-block mb-3"
@@ -407,6 +418,7 @@ export default function SupplierContactDetails({ editable }) {
                             )}
                         </div>
                     )}
+                    </div>
                 </CardBody>
             </Card>
         </React.Fragment>

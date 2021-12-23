@@ -141,7 +141,7 @@ export default function SupplierDetails({ editable }) {
                         {supplier.id ? supplier.id : "-"}
                     </div>
                     <div className="clearfix"></div>
-                    <div style={{ display : "flex" , alignItems : "center"}}>
+                    <div className="form-group-validation">
                     <Label
                         for="supplierName"
                         className="d-inline-block mb-3"
@@ -185,6 +185,7 @@ export default function SupplierDetails({ editable }) {
                     )}
                     </div>
                     <div className="clearfix"></div>
+                    <div className="form-group-validation">
                     <Label
                         for="supplierAddressLine1"
                         className="d-inline-block mb-3"
@@ -225,7 +226,9 @@ export default function SupplierDetails({ editable }) {
                             {supplier.address.addressLine1 || "-"}
                         </div>
                     )}
+                    </div>
                     <div className="clearfix"></div>
+                    <div className="form-group-validation">
                     <Label
                         for="supplierAddressLine2"
                         className="d-inline-block mb-3"
@@ -264,7 +267,9 @@ export default function SupplierDetails({ editable }) {
                             {supplier.address.addressLine2 || "-"}
                         </div>
                     )}
+                    </div>
                     <div className="clearfix"></div>
+                    <div className="form-group-validation">
                     <Label
                         for="supplierAddressCity"
                         className="d-inline-block mb-3"
@@ -305,7 +310,9 @@ export default function SupplierDetails({ editable }) {
                             {supplier.address.city || "-"}
                         </div>
                     )}
+                    </div>
                     <div className="clearfix"></div>
+                    <div className="form-group-validation">
                     <Label
                         for="supplierAddressProvince"
                         className="d-inline-block mb-3"
@@ -346,7 +353,9 @@ export default function SupplierDetails({ editable }) {
                             {supplier.address.province || "-"}
                         </div>
                     )}
+                    </div>
                     <div className="clearfix"></div>
+                    <div className="form-group-validation">
                     <Label
                         for="supplierAddressPostalCode"
                         className="d-inline-block mb-3"
@@ -387,7 +396,9 @@ export default function SupplierDetails({ editable }) {
                             {supplier.address.postalCode || "-"}
                         </div>
                     )}
+                    </div>
                     <div className="clearfix"></div>
+                    <div className="form-group-validation">
                     <Label
                         for="supplierAddressCountry"
                         className="d-inline-block mb-3"
@@ -428,6 +439,7 @@ export default function SupplierDetails({ editable }) {
                             {supplier.address.country || "-"}
                         </div>
                     )}
+                    </div>
                 </CardBody>
             </Card>
         </React.Fragment>
