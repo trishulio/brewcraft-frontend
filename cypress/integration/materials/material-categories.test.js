@@ -12,6 +12,9 @@ describe("Categories", () => {
         cy.intercept("POST", "/api/v1/materials/categories").as(
             "categoriesCreated"
         );
+
+        /* Create an Categories */
+
         cy.visit("/materials/categories");
         cy.get("[data-testid=newCategory]").should("exist").click();
 
@@ -31,89 +34,77 @@ describe("Categories", () => {
         cy.wait("@categoriesCreated").then(({ response }) => {
             expect(response.statusCode).to.eq(201);
         });
-    });
 
-    it("Edit/delete an Categories", function () {
-        cy.fixture("ingredient").then((ingredientsJson) => {
-            cy.intercept("DELETE", "/api/v1/materials/categories/**").as(
-                "categoriesDelete"
-            );
-            cy.intercept("/api/v1/materials/categories?**").as("categories");
-            cy.intercept("PATCH", "/api/v1/materials/categories/**").as(
-                "categoriesEdit"
-            );
-            cy.visit("/materials/categories");
-            cy.wait("@categories").then(({ response }) => {
-                expect(response.statusCode).to.eq(200);
-                expect(response.body).to.not.be.null;
-                expect(response.body.content).to.have.length.of.at.least(1);
-            });
+        cy.intercept("DELETE", "/api/v1/materials/categories/**").as(
+            "categoriesDelete"
+        );
+        cy.intercept("/api/v1/materials/categories?**").as("categories");
+        cy.intercept("PATCH", "/api/v1/materials/categories/**").as(
+            "categoriesEdit"
+        );
+        cy.visit("/materials/categories");
+        cy.wait("@categories").then(({ response }) => {
+            expect(response.statusCode).to.eq(200);
+            expect(response.body).to.not.be.null;
+            expect(response.body.content).to.have.length.of.at.least(1);
+        });
 
-            cy.get("[data-testid=paginationLink]").each(function (e) {
-                if (!e.hasClass("active")) {
-                    e.click();
-                    cy.wait("@categories").then(({ response }) => {
-                        expect(response.statusCode).to.eq(200);
-                        expect(response.body).to.not.be.null;
-                        expect(
-                            response.body.content
-                        ).to.have.length.of.at.least(1);
-                    });
-                    cy.contains(
-                        "td",
-                        ingredientsJson.IngredientsName + this["getUnieId"]
-                    ).click();
-                    return false;
-                }
-            });
+        /* Edit same Categories */
 
-            cy.wait("@categories").then(({ response }) => {
-                expect(response.statusCode).to.eq(200);
-            });
-            cy.contains(ingredientsJson.IngredientsName + this["getUnieId"]);
-            cy.get("[data-testid=categoryEdit]").click();
-            cy.wait("@categories").then(({ response }) => {
-                expect(response.statusCode).to.eq(200);
-                expect(response.body).to.not.be.null;
-                expect(response.body.content).to.have.length.of.at.least(1);
-            });
-            cy.get("[data-testid=materialCategoryName]")
-                .click()
-                .focused()
-                .clear()
-                .type(ingredientsJson.IngredientsNameEdit + this["getUnieId"]);
-            cy.get("[data-testid=categorySave]").should("exist").click();
-            cy.wait("@categoriesEdit").then(({ response }) => {
-                expect(response.statusCode).to.eq(200);
-            });
+        cy.get("[data-testid=paginationLink]").each(function (e) {
+            if (!e.hasClass("active")) {
+                e.click();
+                cy.wait("@categories").then(({ response }) => {
+                    expect(response.statusCode).to.eq(200);
+                    expect(response.body).to.not.be.null;
+                    expect(response.body.content).to.have.length.of.at.least(1);
+                });
+                cy.contains("td", name).click();
+                return false;
+            }
+        });
 
-            cy.visit("/materials/categories");
-            cy.get("[data-testid=paginationLink]").each(function (e) {
-                if (!e.hasClass("active")) {
-                    e.click();
-                    cy.wait("@categories").then(({ response }) => {
-                        expect(response.statusCode).to.eq(200);
-                        expect(response.body).to.not.be.null;
-                        expect(
-                            response.body.content
-                        ).to.have.length.of.at.least(1);
-                    });
-                    cy.contains(
-                        "td",
-                        ingredientsJson.IngredientsNameEdit + this["getUnieId"]
-                    ).click();
-                    return false;
-                }
-            });
-            cy.contains(
-                ingredientsJson.IngredientsNameEdit + this["getUnieId"]
-            );
-            cy.get("[data-testid=categoryEdit]").click();
-            cy.get("[data-testid=categoryDelete]").click();
-            cy.get("[data-testid=confirm]").click();
-            cy.wait("@categoriesDelete").then(({ response }) => {
-                expect(response.statusCode).to.eq(200);
-            });
+        cy.wait("@categories").then(({ response }) => {
+            expect(response.statusCode).to.eq(200);
+        });
+        cy.contains(name);
+        cy.get("[data-testid=categoryEdit]").click();
+        cy.wait("@categories").then(({ response }) => {
+            expect(response.statusCode).to.eq(200);
+            expect(response.body).to.not.be.null;
+            expect(response.body.content).to.have.length.of.at.least(1);
+        });
+        cy.get("[data-testid=materialCategoryName]")
+            .click()
+            .focused()
+            .clear()
+            .type(name + " edit");
+        cy.get("[data-testid=categorySave]").should("exist").click();
+        cy.wait("@categoriesEdit").then(({ response }) => {
+            expect(response.statusCode).to.eq(200);
+        });
+
+        /* Delete same Categories */
+
+        cy.visit("/materials/categories");
+        cy.get("[data-testid=paginationLink]").each(function (e) {
+            if (!e.hasClass("active")) {
+                e.click();
+                cy.wait("@categories").then(({ response }) => {
+                    expect(response.statusCode).to.eq(200);
+                    expect(response.body).to.not.be.null;
+                    expect(response.body.content).to.have.length.of.at.least(1);
+                });
+                cy.contains("td", name + " edit").click();
+                return false;
+            }
+        });
+        cy.contains(name + " edit");
+        cy.get("[data-testid=categoryEdit]").click();
+        cy.get("[data-testid=categoryDelete]").click();
+        cy.get("[data-testid=confirm]").click();
+        cy.wait("@categoriesDelete").then(({ response }) => {
+            expect(response.statusCode).to.eq(200);
         });
     });
 });
