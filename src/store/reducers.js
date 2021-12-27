@@ -14,6 +14,7 @@ import {
     ConditionStage,
     BriteTankStage,
 } from "./BrewStages/reducer";
+import FilterBar from "./FilterBar/reducer";
 import FinishedGood from "./FinishedGood/reducer";
 import Ingredient from "./Ingredient/reducer";
 import Ingredients from "./Ingredients/reducer";
@@ -96,6 +97,7 @@ const rootReducer = combineReducers({
     BatchTask,
     Breadcrumb,
     Brewery,
+    FilterBar,
     FinishedGood,
     Ingredient,
     Ingredients,

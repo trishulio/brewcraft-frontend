@@ -1,0 +1,3 @@
+export const SHOW_FILTER_BAR = "SHOW_FILTER_BAR";
+export const HIDE_FILTER_BAR = "HIDE_FILTER_BAR";
+export const TOGGLE_FILTER_BAR = "TOGGLE_FILTER_BAR";

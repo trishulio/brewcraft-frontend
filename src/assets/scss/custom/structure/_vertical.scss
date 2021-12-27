@@ -1,6 +1,6 @@
 //
 // _menu.scss
-// 
+//
 
 .metismenu {
     margin: 0;
@@ -42,6 +42,33 @@
     position: fixed;
     top: $header-height;
     box-shadow: $box-shadow;
+}
+
+.filter-bar-menu {
+    width: 280px;
+    z-index: 1001;
+    background: $sidebar-bg;
+    bottom: 0;
+    right: 0;
+    margin-top: 0;
+    position: fixed;
+    top: $header-height;
+    box-shadow: $box-shadow;
+    transition: all .3s ease-in-out;
+    margin-right: -280px,
+}
+
+.filter-open {
+    margin-right: 0;
+
+    @media (max-width: 580px) {
+        padding-left: 10px;
+    }
+}
+
+.filter-bar-top-content {
+    background-color: $sidebar-menu-item-active-color;
+    color: $white;
 }
 
 .main-content {
@@ -180,6 +207,18 @@
     }
 }
 
+@media (max-width: 750px) {
+    .filter-bar-menu {
+        width: 100vw;
+        margin-right: -100vw,
+
+    }
+
+    .filter-open {
+        margin-right: 0;
+    }
+}
+
 // Enlarge menu
 .vertical-collpsed {
 
@@ -248,7 +287,7 @@
                         padding: 15px 20px;
                         min-height: 55px;
                         transition: none;
-                        
+
                         &:hover,
                         &:active,
                         &:focus {
@@ -358,7 +397,7 @@ body[data-sidebar="dark"] {
     }
 
     #sidebar-menu {
-    
+
         ul {
             li {
                 a {
@@ -367,7 +406,7 @@ body[data-sidebar="dark"] {
                     i {
                         color: $sidebar-dark-menu-item-icon-color;
                     }
-    
+
                     &:hover {
                         color: $sidebar-dark-menu-item-hover-color;
 
@@ -412,7 +451,7 @@ body[data-sidebar="dark"] {
 
                 > ul {
                     > li {
-                        
+
                         &:hover {
                             > a {
                                 background: lighten($sidebar-dark-bg, 2%);
@@ -436,11 +475,11 @@ body[data-sidebar="dark"] {
                     ul{
                         background-color: $sidebar-dark-bg;
                     }
-                    
+
                 }
 
                 ul{
-                    
+
                     li{
                         &.mm-active .active{
                             color: $sidebar-menu-item-active-color !important;
