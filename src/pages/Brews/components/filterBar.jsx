@@ -110,7 +110,7 @@ function FilterBarBrews() {
                 <FilterBar
                     data={productCategoriesFilterData}
                     onSubmitFilter={saveFilter}
-                    label="ProductSkus"
+                    label="Brews"
                 />
             </Col>
         </React.Fragment>
