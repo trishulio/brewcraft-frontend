@@ -5,7 +5,8 @@ async function fetchProcurements(params = {}) {
         params: {
             shipment_ids: params.shipmentIds,
             shipment_exclude_ids: params.shipmentExcludeIds,
-            supplier_ids: params.supplierId?.length > 0 ? params.supplierId : undefined,
+            supplier_ids:
+                params.supplierId?.length > 0 ? params.supplierId : undefined,
             generated_on_from: params.invoiceFrom
                 ? new Date(params.invoiceFrom).toISOString()
                 : undefined,
@@ -21,7 +22,8 @@ async function fetchProcurements(params = {}) {
                 : undefined,
             amt_from: params.amountFrom ? Number(params.amountFrom) : undefined,
             amt_to: params.amountTo ? Number(params.amountTo) : undefined,
-            material_ids: params.materialIds?.length > 0 ? params.materialIds : undefined,
+            material_ids:
+                params.materialIds?.length > 0 ? params.materialIds : undefined,
             page: params.pageIndex || 0,
             size: params.pageSize || 500,
             sort: params.sort || "id",

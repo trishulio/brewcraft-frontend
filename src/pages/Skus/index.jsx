@@ -35,7 +35,7 @@ export default function Skus() {
             pageSize,
             sort,
             order,
-            productId
+            productId,
         };
         dispatch(fetchSkus(params));
         dispatch(fetchAllProducts());

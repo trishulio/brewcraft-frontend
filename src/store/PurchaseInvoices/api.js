@@ -30,10 +30,14 @@ async function fetchPurchaseInvoices(params = {}) {
         data.params.amt_to = Number(params.amountTo);
     }
     if (params.paymentFrom) {
-        data.params.payment_due_date_from = new Date(params.paymentFrom).toISOString();
+        data.params.payment_due_date_from = new Date(
+            params.paymentFrom
+        ).toISOString();
     }
     if (params.paymentTo) {
-        data.params.payment_due_date_to = new Date(params.paymentTo).toISOString();
+        data.params.payment_due_date_to = new Date(
+            params.paymentTo
+        ).toISOString();
     }
     if (params.materialIds && params.materialIds.length > 0) {
         data.params.material_ids = params.materialIds;

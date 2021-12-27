@@ -38,7 +38,7 @@ export default function RawMaterials() {
             materialId,
             sort,
             order,
-            category
+            category,
         };
         dispatch(fetchRawMaterials({ ...props }));
         dispatch(fetchAllMaterials());

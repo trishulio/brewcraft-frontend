@@ -21,8 +21,8 @@ function FilterBarProductCategories() {
             value: c.id,
             label: c.name,
             checked: Number(parentCategoryId) === c.id,
-            onChange: (e) => setParentCategoryId(e.target.value)
-        }
+            onChange: (e) => setParentCategoryId(e.target.value),
+        };
     });
 
     const placeHolder = {
@@ -30,8 +30,8 @@ function FilterBarProductCategories() {
         value: "",
         label: "All",
         checked: !parentCategoryId,
-        onChange: (e) => setParentCategoryId("")
-    }
+        onChange: (e) => setParentCategoryId(""),
+    };
 
     allProductCategories.unshift(placeHolder);
 

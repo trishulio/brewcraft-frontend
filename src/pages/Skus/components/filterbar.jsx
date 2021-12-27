@@ -23,8 +23,8 @@ function FilterBarSkus() {
             value: c.id,
             label: c.name,
             checked: Number(productId) === c.id,
-            onChange: (e) => setProductId(e.target.value)
-        }
+            onChange: (e) => setProductId(e.target.value),
+        };
     });
 
     const placeHolder = {
@@ -32,10 +32,10 @@ function FilterBarSkus() {
         value: "",
         label: "All products",
         checked: !productId,
-        onChange: (e) => setProductId("")
-    }
+        onChange: (e) => setProductId(""),
+    };
 
-    allProducts.unshift(placeHolder)
+    allProducts.unshift(placeHolder);
 
     const productCategoriesFilterData = [
         {

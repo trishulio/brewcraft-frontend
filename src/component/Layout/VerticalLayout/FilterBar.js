@@ -9,7 +9,7 @@ import {
     Input,
     Label,
     Nav,
-    Row
+    Row,
 } from "reactstrap";
 import { toggleFilterBar } from "../../../store/FilterBar/actions";
 
@@ -210,27 +210,38 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
                     &nbsp;{data.label}
                 </Label>
                 <Collapse isOpen={collapsed[fieldType]} id={fieldType}>
-                    {data.inputType === "radio" && data.options?.map((o) => {
-                        return (
-                            <Row
-                                key={`${o.id}`}
-                                className="row px-3 mb-1 align-items-center"
-                            >
-                                <input
-                                    id={`${o.value}0${o.id + 1}`}
-                                    value={o.value}
-                                    name={o.label}
-                                    type="radio"
-                                    onChange={o.onChange}
-                                    checked={o.checked}
-                                />
-                                <span className="pl-2" style={{ maxWidth: '90%' }}>{o.label}</span>
-                            </Row>
-                        );
-                    })}
+                    {data.inputType === "radio" &&
+                        data.options?.map((o) => {
+                            return (
+                                <Row
+                                    key={`${o.id}`}
+                                    className="row px-3 mb-1 align-items-center"
+                                >
+                                    <input
+                                        id={`${o.value}0${o.id + 1}`}
+                                        value={o.value}
+                                        name={o.label}
+                                        type="radio"
+                                        onChange={o.onChange}
+                                        checked={o.checked}
+                                    />
+                                    <span
+                                        className="pl-2"
+                                        style={{ maxWidth: "90%" }}
+                                    >
+                                        {o.label}
+                                    </span>
+                                </Row>
+                            );
+                        })}
 
                     {data.inputType === "text" && (
-                        <Input value={data.value} name={data.label} onChange={data.onChange} placeholder={`${label} ${data.label.toLowerCase()}`} />
+                        <Input
+                            value={data.value}
+                            name={data.label}
+                            onChange={data.onChange}
+                            placeholder={`${label} ${data.label.toLowerCase()}`}
+                        />
                     )}
                 </Collapse>
             </Col>
@@ -299,7 +310,9 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
             <Nav
                 key={`sidebar-filter-${label}`}
                 vertical
-                className={visible ? `filter-bar-menu filter-open` : `filter-bar-menu`}
+                className={
+                    visible ? `filter-bar-menu filter-open` : `filter-bar-menu`
+                }
                 style={{ backgroundColor: "whitesmoke" }}
             >
                 <div className="d-flex flex-column h-100">

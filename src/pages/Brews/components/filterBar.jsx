@@ -11,7 +11,7 @@ function FilterBarBrews() {
         startFrom: "",
         startTo: "",
         endFrom: "",
-        endTo: ""
+        endTo: "",
     });
 
     const query = useQuery();
@@ -92,7 +92,7 @@ function FilterBarBrews() {
             startedFrom: dates.startFrom,
             startedTo: dates.startTo,
             endedFrom: dates.endFrom,
-            endedTo: dates.endTo
+            endedTo: dates.endTo,
         };
 
         for (const key in queryData) {

@@ -4,10 +4,7 @@ const initialState = {
     visible: false,
 };
 
-export default function FilterBar(
-    state = initialState,
-    { type }
-) {
+export default function FilterBar(state = initialState, { type }) {
     switch (type) {
         case TOGGLE_FILTER_BAR:
             return {

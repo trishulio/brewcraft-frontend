@@ -9,7 +9,9 @@ function FilterBarIngredients() {
     const query = useQuery();
     const history = useHistory();
 
-    const [parentCategoryId, setParentCategoryId] = useState(query.get('category'));
+    const [parentCategoryId, setParentCategoryId] = useState(
+        query.get("category")
+    );
 
     const categories = useSelector((state) => {
         return state.MaterialCategories.all.filter(
@@ -23,8 +25,8 @@ function FilterBarIngredients() {
             value: c.id,
             label: c.name,
             checked: Number(parentCategoryId) === c.id,
-            onChange: (e) => setParentCategoryId(e.target.value)
-        }
+            onChange: (e) => setParentCategoryId(e.target.value),
+        };
     });
 
     const placeHolder = {
@@ -32,8 +34,8 @@ function FilterBarIngredients() {
         value: "",
         label: "All",
         checked: !parentCategoryId,
-        onChange: (e) => setParentCategoryId("")
-    }
+        onChange: (e) => setParentCategoryId(""),
+    };
 
     allMaterialtCategories.unshift(placeHolder);
 
