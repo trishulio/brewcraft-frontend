@@ -1,6 +1,7 @@
 import AxiosInstance from "../../helpers/axiosInstance";
 
 async function fetchPurchaseInvoices(params = {}) {
+    console.log(`params masuk`)
     const data = {
         params: {
             page: params.pageIndex || 0,
@@ -9,7 +10,7 @@ async function fetchPurchaseInvoices(params = {}) {
             order_asc: !params.order || params.order === "asc",
         },
     };
-    if (params.supplierId.length > 0) {
+    if (params.supplierId?.length > 0) {
         data.params.supplier_ids = params.supplierId;
     }
     if (params.invoiceFrom) {
