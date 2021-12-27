@@ -12,8 +12,10 @@ export default function Batches() {
     const dispatch = useDispatch();
     const query = useQuery();
     const product = query.get("product");
-    const batchFrom = query.get("batchFrom");
-    const batchTo = query.get("batchTo");
+    const batchFrom = query.get("startedFrom");
+    const batchTo = query.get("startedTo");
+    const endedFrom = query.get("endedFrom");
+    const endedTo = query.get("endedTo");
     const sort = query.get("sort");
     const order = query.get("order");
 
@@ -43,6 +45,8 @@ export default function Batches() {
             batchTo,
             sort,
             order,
+            endedFrom,
+            endedTo,
         };
         dispatch(fetchBatches({ ...props }));
         dispatch(fetchAllProducts());
@@ -54,6 +58,8 @@ export default function Batches() {
         batchTo,
         sort,
         order,
+        endedFrom,
+        endedTo,
         dispatch,
     ]);
 
