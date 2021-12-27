@@ -3,12 +3,13 @@ import { Card, CardBody, Row, Col } from "reactstrap";
 import Table from "./components/table";
 import Toolbar from "./components/toolbar";
 import Pagination from "./components/pagination";
+import FilterBarPackaging from "./components/filterBar";
 
 export default function Packaging({ fetchPage }) {
     return (
         <React.Fragment>
-            <Row style={{ maxWidth: "1024px" }}>
-                <Col>
+            <Row>
+                <Col style={{ maxWidth: "1024px" }}>
                     <Toolbar />
                     <Card>
                         <CardBody className="py-2">
@@ -18,6 +19,7 @@ export default function Packaging({ fetchPage }) {
                         </CardBody>
                     </Card>
                 </Col>
+                <FilterBarPackaging />
             </Row>
         </React.Fragment>
     );

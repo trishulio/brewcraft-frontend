@@ -5,53 +5,53 @@ import { Col } from "reactstrap";
 import { FilterBar } from "../../../component/Layout/VerticalLayout/FilterBar";
 import { useQuery } from "../../../helpers/utils";
 
-function FilterBarSkus() {
-    const [productId, setProductId] = useState("");
-
+function FilterBarMaterialCategories() {
     const query = useQuery();
     const history = useHistory();
 
-    const products = useSelector((state) => {
-        return state.Products.all.sort((e1, e2) =>
-            e1.name.localeCompare(e2.name)
-        );
+    const [parentCategoryId, setParentCategoryId] = useState(query.get('category'));
+
+    const categories = useSelector((state) => {
+        return state.MaterialCategories.all;
     });
 
-    let allProducts = products.map((c, i) => {
+    const materialCategories = categories.filter(mc => mc.parentCategoryId === null);
+
+    let allProductCategories = materialCategories.map((c, i) => {
         return {
             id: i + 1,
             value: c.id,
             label: c.name,
-            checked: Number(productId) === c.id,
-            onChange: (e) => setProductId(e.target.value)
+            checked: Number(parentCategoryId) === c.id,
+            onChange: (e) => setParentCategoryId(e.target.value)
         }
     });
 
     const placeHolder = {
         id: 0,
         value: "",
-        label: "All products",
-        checked: !productId,
-        onChange: (e) => setProductId("")
+        label: "All",
+        checked: !parentCategoryId,
+        onChange: (e) => setParentCategoryId("")
     }
 
-    allProducts.unshift(placeHolder)
+    allProductCategories.unshift(placeHolder);
 
     const productCategoriesFilterData = [
         {
             id: 0,
-            label: "Product",
-            options: allProducts,
+            label: "Parent Category",
+            options: allProductCategories,
             type: "input",
             inputType: "radio",
         },
     ];
 
     function saveFilter() {
-        query.delete("productId");
+        query.delete("category");
 
         let queryData = {
-            productId,
+            category: parentCategoryId,
         };
 
         for (const key in queryData) {
@@ -69,11 +69,11 @@ function FilterBarSkus() {
                 <FilterBar
                     data={productCategoriesFilterData}
                     onSubmitFilter={saveFilter}
-                    label="ProductSkus"
+                    label="ProductCategories"
                 />
             </Col>
         </React.Fragment>
     );
 }
 
-export default FilterBarSkus;
+export default FilterBarMaterialCategories;

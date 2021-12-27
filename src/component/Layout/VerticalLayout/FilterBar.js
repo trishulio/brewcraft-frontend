@@ -122,6 +122,7 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
                         isMulti
                         name={fieldType}
                         value={data.value}
+                        defaultValue={data.defaultValue && data.defaultValue}
                         placeholder={`Select ${data.label.toLowerCase()}`}
                         options={data.options}
                         onChange={data.onChange}
@@ -223,7 +224,7 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
                                     onChange={o.onChange}
                                     checked={o.checked}
                                 />
-                                <span className="pl-2">{o.label}</span>
+                                <span className="pl-2" style={{ maxWidth: '90%' }}>{o.label}</span>
                             </Row>
                         );
                     })}
