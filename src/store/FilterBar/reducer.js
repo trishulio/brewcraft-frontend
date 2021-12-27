@@ -6,7 +6,7 @@ const initialState = {
 
 export default function FilterBar(
     state = initialState,
-    { type, payload, data }
+    { type }
 ) {
     switch (type) {
         case TOGGLE_FILTER_BAR:
