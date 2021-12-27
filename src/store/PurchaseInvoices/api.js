@@ -1,7 +1,6 @@
 import AxiosInstance from "../../helpers/axiosInstance";
 
 async function fetchPurchaseInvoices(params = {}) {
-    console.log(`params masuk`)
     const data = {
         params: {
             page: params.pageIndex || 0,

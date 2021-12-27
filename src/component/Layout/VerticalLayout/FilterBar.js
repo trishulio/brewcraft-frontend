@@ -210,7 +210,7 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
                     &nbsp;{data.label}
                 </Label>
                 <Collapse isOpen={collapsed[fieldType]} id={fieldType}>
-                    {data.options.map((o) => {
+                    {data.inputType === "radio" && data.options?.map((o) => {
                         return (
                             <Row
                                 key={`${o.id}`}
@@ -228,6 +228,10 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
                             </Row>
                         );
                     })}
+
+                    {data.inputType === "text" && (
+                        <Input value={data.value} name={data.label} onChange={data.onChange} placeholder={`${label} ${data.label.toLowerCase()}`} />
+                    )}
                 </Collapse>
             </Col>
         );

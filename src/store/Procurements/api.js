@@ -1,7 +1,6 @@
 import AxiosInstance from "../../helpers/axiosInstance";
 
 async function fetchProcurements(params = {}) {
-    console.log(`params`, params)
     const data = {
         params: {
             shipment_ids: params.shipmentIds,
