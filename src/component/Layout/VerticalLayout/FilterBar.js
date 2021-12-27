@@ -253,28 +253,28 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
                     <Row>
                         <Col>
                             <Label
-                                for="purchaseInvoicesFromDate"
+                                for={`${data.label}FromDate`}
                                 className="waves-effect mb-1"
                             >
                                 From
                             </Label>
                             <Input
                                 type={data.inputType}
-                                name="purchaseInvoicesFromDate"
+                                name={`${data.label}FromDate`}
                                 value={data.valueFrom}
                                 onChange={data.onChangeFrom}
                             />
                         </Col>
                         <Col>
                             <Label
-                                for="purchaseInvoicesToDate"
+                                for={`${data.label}ToDate`}
                                 className="waves-effect mb-1"
                             >
                                 To
                             </Label>
                             <Input
                                 type={data.inputType}
-                                name="purchaseInvoicesToDate"
+                                name={`${data.label}ToDate`}
                                 className="waves-effect"
                                 value={data.valueTo}
                                 onChange={data.onChangeTo}
@@ -292,6 +292,7 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
     return (
         <React.Fragment>
             <Nav
+                key={`sidebar-filter-${label}`}
                 vertical
                 className={visible ? `filter-bar-menu filter-open` : `filter-bar-menu`}
                 style={{ backgroundColor: "whitesmoke" }}

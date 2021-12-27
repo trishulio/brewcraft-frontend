@@ -1,18 +1,10 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Button, Input } from "reactstrap";
+import { Button } from "reactstrap";
 import Toolbar from "../../../component/Common/toolbar";
-import { useQuery } from "../../../helpers/utils";
 
 export default function ProductCategoriesToolbar() {
     const history = useHistory();
-    const query = useQuery();
-    const parentCategoryId = query.get("parent");
-
-    const categories = useSelector((state) => {
-        return state.ProductCategories.data;
-    });
 
     return (
         <Toolbar>
@@ -39,27 +31,6 @@ export default function ProductCategoriesToolbar() {
             >
                 Products
             </Button>
-            <Input
-                type="select"
-                bsSize="sm"
-                className="waves-effect float-right mb-3 ml-2"
-                style={{ width: 100 }}
-                value={parentCategoryId || ""}
-                onChange={(e) => {
-                    query.delete("parent");
-                    if (e.target.value) {
-                        query.append("parent", e.target.value);
-                    }
-                    history.push({ search: query.toString() });
-                }}
-            >
-                <option value="">Parent Category</option>
-                {categories.map((value, index) => (
-                    <option value={value.id} key={index}>
-                        {value.name}
-                    </option>
-                ))}
-            </Input>
         </Toolbar>
     );
 }

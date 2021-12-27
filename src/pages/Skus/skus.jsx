@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, Row, Card, CardBody } from "reactstrap";
+import FilterBarSkus from "./components/filterbar";
 import Pagination from "./components/pagination";
 import Table from "./components/table";
 import Toolbar from "./components/toolbar";
@@ -7,8 +8,8 @@ import Toolbar from "./components/toolbar";
 export default function Skus() {
     return (
         <React.Fragment>
-            <Row style={{ maxWidth: "1024px" }}>
-                <Col>
+            <Row>
+                <Col style={{ maxWidth: "1024px" }}>
                     <Toolbar />
                     <Card>
                         <CardBody className="py-2">
@@ -18,6 +19,7 @@ export default function Skus() {
                         </CardBody>
                     </Card>
                 </Col>
+                <FilterBarSkus />
             </Row>
         </React.Fragment>
     );

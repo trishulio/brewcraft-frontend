@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "../../helpers/utils";
 import {
+    fetchAllProductCategories,
     fetchProductCategories,
     setBreadcrumbItems,
 } from "../../store/actions";
@@ -37,7 +38,7 @@ export default function ProductCategories() {
             order,
         };
         dispatch(fetchProductCategories({ ...props }));
-        // dispatch(fetchAllProductCategories());
+        dispatch(fetchAllProductCategories());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageIndex, pageSize, parentCategoryId, sort, order]);
 
