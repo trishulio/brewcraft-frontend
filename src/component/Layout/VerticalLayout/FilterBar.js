@@ -93,7 +93,7 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
                         value={data.value}
                         placeholder={`Select ${data.label.toLowerCase()}`}
                         options={data.options}
-                    // onChange={data.onChange}
+                        onChange={data.onChange}
                     />
                 </Collapse>
             </Col>

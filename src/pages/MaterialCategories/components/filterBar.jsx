@@ -9,13 +9,17 @@ function FilterBarMaterialCategories() {
     const query = useQuery();
     const history = useHistory();
 
-    const [parentCategoryId, setParentCategoryId] = useState(query.get('category'));
+    const [parentCategoryId, setParentCategoryId] = useState(
+        query.get("category")
+    );
 
     const categories = useSelector((state) => {
         return state.MaterialCategories.all;
     });
 
-    const materialCategories = categories.filter(mc => mc.parentCategoryId === null);
+    const materialCategories = categories.filter(
+        (mc) => mc.parentCategoryId === null
+    );
 
     let allProductCategories = materialCategories.map((c, i) => {
         return {
@@ -23,8 +27,8 @@ function FilterBarMaterialCategories() {
             value: c.id,
             label: c.name,
             checked: Number(parentCategoryId) === c.id,
-            onChange: (e) => setParentCategoryId(e.target.value)
-        }
+            onChange: (e) => setParentCategoryId(e.target.value),
+        };
     });
 
     const placeHolder = {
@@ -32,8 +36,8 @@ function FilterBarMaterialCategories() {
         value: "",
         label: "All",
         checked: !parentCategoryId,
-        onChange: (e) => setParentCategoryId("")
-    }
+        onChange: (e) => setParentCategoryId(""),
+    };
 
     allProductCategories.unshift(placeHolder);
 
