@@ -208,7 +208,11 @@ export default function SupplierContact() {
                     history.push(path);
                 }}
                 shouldBlockNavigation={(location) => {
-                    return editMode && !location.pathname.includes("suppliers")  && isChanged();
+                    return (
+                        editMode &&
+                        !location.pathname.includes("suppliers") &&
+                        isChanged()
+                    );
                 }}
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
