@@ -111,10 +111,11 @@
     "devDependencies": {
         "@babel/eslint-parser": "^7.16.3",
         "@babel/preset-react": "^7.16.0",
-        "eslint": "6.8.0",
-        "prettier": "2.5.1",
         "cypress": "^9.1.1",
-        "cypress-localstorage-commands": "^1.6.1"
+        "cypress-localstorage-commands": "^1.6.1",
+        "eslint": "6.8.0",
+        "eslint-plugin-cypress": "^2.12.1",
+        "prettier": "2.5.1"
     },
     "prettier": {
         "semi": true,
