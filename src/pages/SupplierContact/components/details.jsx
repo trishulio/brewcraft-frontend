@@ -398,10 +398,13 @@ export default function SupplierContactDetails({ editable }) {
                     )}
                     {!editable && (
                         <div className="d-inline-block mb-2">
-                            {contact.phoneNumber ?
-                            <a href={`tel:${contact.phoneNumber}`}>
-                        {contact.phoneNumber}
-                            </a>  : "-"}
+                            {contact.phoneNumber ? (
+                                <a href={`tel:${contact.phoneNumber}`}>
+                                    {contact.phoneNumber}
+                                </a>
+                            ) : (
+                                "-"
+                            )}
                         </div>
                     )}
                 </CardBody>

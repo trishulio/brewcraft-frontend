@@ -91,10 +91,10 @@ export default function SupplierContactsTable() {
                         <td>{supplier.supplier?.name}</td>
                         <td>{supplier.position}</td>
                         <td>
-                        <a href={`tel:${supplier.phoneNumber}`}>
-                        {supplier.phoneNumber}
+                            <a href={`tel:${supplier.phoneNumber}`}>
+                                {supplier.phoneNumber}
                             </a>
-                            </td>
+                        </td>
                         <td>
                             <a href={`mailto:${supplier.email}`}>
                                 {supplier.email}
