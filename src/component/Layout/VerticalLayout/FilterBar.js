@@ -306,7 +306,13 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
         dispatch(toggleFilterBar());
     }
     return (
-        <React.Fragment>
+        <Col
+            xs={12}
+            style={{
+                maxWidth: visible && "280px",
+                position: !visible && "fixed",
+            }}
+        >
             <Nav
                 key={`sidebar-filter-${label}`}
                 vertical
@@ -365,6 +371,6 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
                     </Col>
                 </div>
             </Nav>
-        </React.Fragment>
+        </Col>
     );
 };

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Col } from "reactstrap";
 import { FilterBar } from "../../../component/Layout/VerticalLayout/FilterBar";
 import { useQuery } from "../../../helpers/utils";
 
@@ -190,12 +189,7 @@ function FilterBarInvoices() {
 
     return (
         <React.Fragment>
-            <Col style={{ maxWidth: "280px" }}>
-                <FilterBar
-                    data={invoicesFilterData}
-                    onSubmitFilter={saveFilter}
-                />
-            </Col>
+            <FilterBar data={invoicesFilterData} onSubmitFilter={saveFilter} />
         </React.Fragment>
     );
 }

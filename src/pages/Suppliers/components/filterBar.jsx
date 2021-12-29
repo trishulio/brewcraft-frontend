@@ -1,6 +1,5 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Col } from "reactstrap";
 import { FilterBar } from "../../../component/Layout/VerticalLayout/FilterBar";
 import { useQuery } from "../../../helpers/utils";
 
@@ -26,13 +25,11 @@ function FilterBarSupplier() {
 
     return (
         <React.Fragment>
-            <Col style={{ maxWidth: "280px" }}>
-                <FilterBar
-                    data={SupplierFilterData}
-                    onSubmitFilter={saveFilter}
-                    label="Supplier"
-                />
-            </Col>
+            <FilterBar
+                data={SupplierFilterData}
+                onSubmitFilter={saveFilter}
+                label="Supplier"
+            />
         </React.Fragment>
     );
 }

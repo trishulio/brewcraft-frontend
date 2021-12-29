@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Col } from "reactstrap";
 import { FilterBar } from "../../../component/Layout/VerticalLayout/FilterBar";
 import { useQuery } from "../../../helpers/utils";
 
@@ -65,13 +64,11 @@ function FilterBarSkus() {
 
     return (
         <React.Fragment>
-            <Col style={{ maxWidth: "280px" }}>
-                <FilterBar
-                    data={productCategoriesFilterData}
-                    onSubmitFilter={saveFilter}
-                    label="ProductSkus"
-                />
-            </Col>
+            <FilterBar
+                data={productCategoriesFilterData}
+                onSubmitFilter={saveFilter}
+                label="ProductSkus"
+            />
         </React.Fragment>
     );
 }
