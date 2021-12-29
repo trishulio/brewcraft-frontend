@@ -16,11 +16,11 @@ export default function FinishedGoodsInventoryToolbar() {
                 onClick={() => {
                     history.push({
                         pathname: "/finishedgoods/new",
-                        search: "?edit=true"
+                        search: "?edit=true",
                     });
                 }}
             >
-                    New Finished Good
+                New Finished Good
             </Button>
         </Toolbar>
     );

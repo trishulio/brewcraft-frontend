@@ -2,11 +2,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     fetchFinishedGoodsInventory,
-    setBreadcrumbItems
+    setBreadcrumbItems,
 } from "../../store/actions";
-import {
-    useQuery
-} from "../../helpers/utils";
+import { useQuery } from "../../helpers/utils";
 import FinishedGoodsInventoryInner from "./finishedgoodsinventory";
 
 export default function FinishedGoodsInventory() {
@@ -15,7 +13,7 @@ export default function FinishedGoodsInventory() {
     const sort = query.get("sort");
     const order = query.get("order");
 
-    const { pageIndex, pageSize } = useSelector(state => {
+    const { pageIndex, pageSize } = useSelector((state) => {
         return state.FinishedGoodsInventory;
     });
 
@@ -23,7 +21,7 @@ export default function FinishedGoodsInventory() {
         dispatch(
             setBreadcrumbItems("Finished Goods Inventory", [
                 { title: "Main", link: "#" },
-                { title: "Finished Goods Inventory", link: "#" }
+                { title: "Finished Goods Inventory", link: "#" },
             ])
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -31,13 +29,14 @@ export default function FinishedGoodsInventory() {
 
     useEffect(() => {
         const props = {
-            pageIndex, pageSize, sort, order
+            pageIndex,
+            pageSize,
+            sort,
+            order,
         };
         dispatch(fetchFinishedGoodsInventory({ ...props }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageIndex, pageSize, sort, order]);
 
-    return (
-        <FinishedGoodsInventoryInner />
-    );
+    return <FinishedGoodsInventoryInner />;
 }

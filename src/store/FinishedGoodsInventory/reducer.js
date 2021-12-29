@@ -16,10 +16,13 @@ const initialState = {
     totalElements: 0,
     totalItems: 0,
     pageIndex: 0,
-    pageSize: 20
+    pageSize: 20,
 };
 
-const FinishedGoodsInventory = (state = initialState, { type, payload, data }) => {
+const FinishedGoodsInventory = (
+    state = initialState,
+    { type, payload, data }
+) => {
     switch (type) {
         case FETCH_FINISHED_GOODS_INVENTORY_REQUEST:
             return {
@@ -54,15 +57,15 @@ const FinishedGoodsInventory = (state = initialState, { type, payload, data }) =
                 ...state,
                 ...payload,
                 loading: false,
-                error: null
+                error: null,
             };
         default:
             return {
                 ...state,
                 loading: true,
-                error: null
-            }
+                error: null,
+            };
     }
-}
+};
 
 export default FinishedGoodsInventory;
