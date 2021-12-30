@@ -33,9 +33,10 @@ function FilterBarMaterialCategories() {
     const placeHolder = {
         id: 0,
         value: "",
-        label: "All",
+        label: allProductCategories.length > 0 ? "All" : "No option",
         checked: !parentCategoryId,
         onChange: (e) => setParentCategoryId(""),
+        disabled: allProductCategories.length === 0,
     };
 
     allProductCategories.unshift(placeHolder);

@@ -240,6 +240,7 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data, submitDisab
                                         type="radio"
                                         onChange={o.onChange}
                                         checked={o.checked}
+                                        disabled={o.disabled}
                                     />
                                     <span
                                         className="pl-2"
