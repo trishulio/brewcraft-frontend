@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import Select from "react-select";
 import {
     Button,
@@ -19,6 +20,9 @@ const ARROW_DOWN_ICON = "ion ion-ios-arrow-down";
 export const FilterBarIcon = () => {
     const { visible } = useSelector((state) => state.FilterBar);
     const dispatch = useDispatch();
+    const location = useLocation();
+    const pagesKey = location.pathname.replace(/\//g, "");
+
     return (
         <Button
             type="button"
@@ -26,11 +30,12 @@ export const FilterBarIcon = () => {
             className="waves-effect float-right mr-2 my-2 "
             outline={true}
             onClick={() => {
-                dispatch(toggleFilterBar());
+                dispatch(toggleFilterBar(pagesKey));
             }}
             style={{
-                backgroundColor: visible && "#7a6fbe",
-                color: visible && "#FFFFFF",
+                backgroundColor: visible[pagesKey] && "#7a6fbe",
+                color: visible[pagesKey] && "#FFFFFF",
+                borderColor: "#ced4da",
             }}
         >
             <i className="mdi mdi-filter font-size-12 p-0" />
@@ -38,9 +43,11 @@ export const FilterBarIcon = () => {
     );
 };
 
-export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
+export const FilterBar = ({ label = "Invoice", onSubmitFilter, data, submitDisabled }) => {
     const [collapsed, setCollapsed] = useState({});
     const { visible } = useSelector((state) => state.FilterBar);
+    const location = useLocation();
+    const pagesKey = location.pathname.replace(/\//g, "");
 
     const dispatch = useDispatch();
 
@@ -126,6 +133,15 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
                         placeholder={`Select ${data.label.toLowerCase()}`}
                         options={data.options}
                         onChange={data.onChange}
+                        styles={{
+                            control: (styles) => ({
+                                ...styles,
+                                width: "240px",
+                                "@media screen and (max-width: 750px)": {
+                                    width: "100%",
+                                },
+                            }),
+                        }}
                     />
                 </Collapse>
             </Col>
@@ -309,15 +325,15 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
         <Col
             xs={12}
             style={{
-                maxWidth: visible && "280px",
-                position: !visible && "fixed",
+                maxWidth: visible[pagesKey] && "280px",
+                position: !visible[pagesKey] && "fixed",
             }}
         >
             <Nav
                 key={`sidebar-filter-${label}`}
                 vertical
                 className={
-                    visible ? `filter-bar-menu filter-open` : `filter-bar-menu`
+                    visible[pagesKey] ? `filter-bar-menu filter-open` : `filter-bar-menu`
                 }
                 style={{ backgroundColor: "whitesmoke" }}
             >
@@ -328,14 +344,14 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
                         onClick={toggleSidebar}
                     >
                         <div type="button" className="float-right px-2 py-3">
-                            Hide sidebar <i className="ion ion-md-close" />
+                            Hide <i className="ion ion-md-close" />
                         </div>
                         <div>
                             <Label
                                 className="d-flex py-2 bottom-0"
                                 style={{ position: "absolute", bottom: 0 }}
                             >
-                                Add sidebar filters
+                                Add filters
                             </Label>
                         </div>
                     </Col>
@@ -359,10 +375,9 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
                                 color="primary"
                                 className="d-inline-block waves-effect m-2 float-bottom"
                                 style={{
-                                    // position: "absolute",
-                                    // bottom: 10,
                                     width: "200px",
                                 }}
+                                disabled={submitDisabled}
                                 onClick={onSubmitFilter}
                             >
                                 Apply Filters
@@ -374,3 +389,12 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data }) => {
         </Col>
     );
 };
+
+export const stateToOptionsMultiple = (array) => {
+    return array.map(x => {
+        return {
+            value: x.id,
+            label: x.name,
+        }
+    })
+}

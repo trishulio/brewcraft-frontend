@@ -1,15 +1,17 @@
 import { TOGGLE_FILTER_BAR } from "./actionTypes";
 
 const initialState = {
-    visible: false,
+    visible: {},
 };
 
-export default function FilterBar(state = initialState, { type }) {
+export default function FilterBar(state = initialState, { type, payload }) {
     switch (type) {
         case TOGGLE_FILTER_BAR:
             return {
                 ...state,
-                visible: !state.visible,
+                visible: {
+                    [payload]: !state.visible[payload]
+                },
             };
         default:
             state = { ...state };
