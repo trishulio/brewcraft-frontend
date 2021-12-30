@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { FilterBar } from "../../../component/Layout/VerticalLayout/FilterBar";
 import { useQuery } from "../../../helpers/utils";
 
 function FilterBarInvoices() {
-    const [status, setStatus] = useState("");
+    const [status, setStatus] = useState(null);
     const [supplierIds, setSupplierIds] = useState(null);
     const [dates, setDates] = useState({
         from: "",
@@ -20,6 +20,7 @@ function FilterBarInvoices() {
         to: "",
     });
     const [materialIds, setMaterials] = useState(null);
+    const [isFormChanged, setIsFormChanged] = useState(false);
 
     const query = useQuery();
     const history = useHistory();
@@ -31,6 +32,29 @@ function FilterBarInvoices() {
     const materials = useSelector((state) => {
         return state.Materials.all;
     });
+
+    useEffect(() => {
+        validationFilterFields();
+        // eslint-disable-next-line
+    }, [status, supplierIds, dates, amounts, payments, materialIds]);
+
+    function validationFilterFields() {
+        if (
+            status ||
+            supplierIds ||
+            dates.from ||
+            dates.to ||
+            amounts.from ||
+            amounts.to ||
+            payments.from ||
+            payments.to ||
+            materialIds
+        ) {
+            setIsFormChanged(true);
+        } else {
+            setIsFormChanged(false);
+        }
+    }
 
     const invoicesFilterData = [
         {
@@ -189,7 +213,11 @@ function FilterBarInvoices() {
 
     return (
         <React.Fragment>
-            <FilterBar data={invoicesFilterData} onSubmitFilter={saveFilter} />
+            <FilterBar
+                data={invoicesFilterData}
+                onSubmitFilter={saveFilter}
+                submitDisabled={!isFormChanged}
+            />
         </React.Fragment>
     );
 }
