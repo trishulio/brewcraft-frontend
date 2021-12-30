@@ -15,6 +15,7 @@ import {
     BriteTankStage,
 } from "./BrewStages/reducer";
 import FinishedGood from "./FinishedGood/reducer";
+import FinishedGoodsInventory from "./FinishedGoodsInventory/reducer";
 import Ingredient from "./Ingredient/reducer";
 import Ingredients from "./Ingredients/reducer";
 import Layout from "./layout/reducer";
@@ -97,6 +98,7 @@ const rootReducer = combineReducers({
     Breadcrumb,
     Brewery,
     FinishedGood,
+    FinishedGoodsInventory,
     Ingredient,
     Ingredients,
     Invoice,
