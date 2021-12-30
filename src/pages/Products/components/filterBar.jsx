@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { FilterBar, stateToOptionsMultiple } from "../../../component/Layout/VerticalLayout/FilterBar";
+import {
+    FilterBar,
+    stateToOptionsMultiple,
+} from "../../../component/Layout/VerticalLayout/FilterBar";
 import { useQuery } from "../../../helpers/utils";
 
 function FilterBarProducts() {
@@ -20,16 +23,18 @@ function FilterBarProducts() {
     useEffect(() => {
         validationFilterFields();
         // eslint-disable-next-line
-    }, [productClassIds, productTypeIds, productStyleIds])
+    }, [productClassIds, productTypeIds, productStyleIds]);
 
     let produtClass = categories.filter((x) => x.parentCategoryId === null);
     let productType = productClassIds
-        ? categories.filter(
-              (pc) => productClassIds.includes(pc.parentCategoryId)
+        ? categories.filter((pc) =>
+              productClassIds.includes(pc.parentCategoryId)
           )
         : [];
     let productStyle = productTypeIds
-        ? categories.filter((pc) => productTypeIds.includes(pc.parentCategoryId))
+        ? categories.filter((pc) =>
+              productTypeIds.includes(pc.parentCategoryId)
+          )
         : [];
 
     const productCategoriesFilterData = [
@@ -84,7 +89,7 @@ function FilterBarProducts() {
         if (productClassIds || productTypeIds || productStyleIds) {
             setIsFormChanged(true);
         } else {
-            setIsFormChanged(false)
+            setIsFormChanged(false);
         }
     }
 

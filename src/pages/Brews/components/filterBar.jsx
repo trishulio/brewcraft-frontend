@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { FilterBar, stateToOptionsMultiple } from "../../../component/Layout/VerticalLayout/FilterBar";
+import {
+    FilterBar,
+    stateToOptionsMultiple,
+} from "../../../component/Layout/VerticalLayout/FilterBar";
 import { useQuery } from "../../../helpers/utils";
 
 function FilterBarBrews() {
@@ -20,7 +23,7 @@ function FilterBarBrews() {
     useEffect(() => {
         validationFilterFields();
         // eslint-disable-next-line
-    }, [productIds, dates])
+    }, [productIds, dates]);
 
     let products = useSelector((state) => {
         return state.Products.all.sort((e1, e2) =>
@@ -74,10 +77,16 @@ function FilterBarBrews() {
     }
 
     function validationFilterFields() {
-        if (productIds || dates.startFrom || dates.endFrom || dates.endTo || dates.endFrom) {
+        if (
+            productIds ||
+            dates.startFrom ||
+            dates.endFrom ||
+            dates.endTo ||
+            dates.endFrom
+        ) {
             setIsFormChanged(true);
         } else {
-            setIsFormChanged(false)
+            setIsFormChanged(false);
         }
     }
 

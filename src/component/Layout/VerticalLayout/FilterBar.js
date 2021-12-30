@@ -43,7 +43,12 @@ export const FilterBarIcon = () => {
     );
 };
 
-export const FilterBar = ({ label = "Invoice", onSubmitFilter, data, submitDisabled }) => {
+export const FilterBar = ({
+    label = "Invoice",
+    onSubmitFilter,
+    data,
+    submitDisabled,
+}) => {
     const [collapsed, setCollapsed] = useState({});
     const { visible } = useSelector((state) => state.FilterBar);
     const location = useLocation();
@@ -334,7 +339,9 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data, submitDisab
                 key={`sidebar-filter-${label}`}
                 vertical
                 className={
-                    visible[pagesKey] ? `filter-bar-menu filter-open` : `filter-bar-menu`
+                    visible[pagesKey]
+                        ? `filter-bar-menu filter-open`
+                        : `filter-bar-menu`
                 }
                 style={{ backgroundColor: "whitesmoke" }}
             >
@@ -392,10 +399,10 @@ export const FilterBar = ({ label = "Invoice", onSubmitFilter, data, submitDisab
 };
 
 export const stateToOptionsMultiple = (array) => {
-    return array.map(x => {
+    return array.map((x) => {
         return {
             value: x.id,
             label: x.name,
-        }
-    })
-}
+        };
+    });
+};

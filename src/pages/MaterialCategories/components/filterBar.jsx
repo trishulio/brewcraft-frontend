@@ -24,14 +24,13 @@ function FilterBarMaterialCategories() {
     useEffect(() => {
         validationFilterFields();
         // eslint-disable-next-line
-    }, [parentCategoryId])
-
+    }, [parentCategoryId]);
 
     function validationFilterFields() {
         if (parentCategoryId) {
             setIsFormChanged(true);
         } else {
-            setIsFormChanged(false)
+            setIsFormChanged(false);
         }
     }
 

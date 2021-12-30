@@ -10,7 +10,7 @@ export default function FilterBar(state = initialState, { type, payload }) {
             return {
                 ...state,
                 visible: {
-                    [payload]: !state.visible[payload]
+                    [payload]: !state.visible[payload],
                 },
             };
         default:

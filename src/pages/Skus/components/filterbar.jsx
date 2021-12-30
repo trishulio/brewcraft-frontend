@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { FilterBar, stateToOptionsMultiple } from "../../../component/Layout/VerticalLayout/FilterBar";
+import {
+    FilterBar,
+    stateToOptionsMultiple,
+} from "../../../component/Layout/VerticalLayout/FilterBar";
 import { useQuery } from "../../../helpers/utils";
 
 function FilterBarSkus() {
@@ -20,7 +23,7 @@ function FilterBarSkus() {
     useEffect(() => {
         validationFilterFields();
         // eslint-disable-next-line
-    }, [productIds])
+    }, [productIds]);
 
     const productCategoriesFilterData = [
         {
@@ -44,7 +47,7 @@ function FilterBarSkus() {
         if (productIds) {
             setIsFormChanged(true);
         } else {
-            setIsFormChanged(false)
+            setIsFormChanged(false);
         }
     }
 
