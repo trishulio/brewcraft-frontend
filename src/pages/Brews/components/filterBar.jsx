@@ -1,54 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { FilterBar } from "../../../component/Layout/VerticalLayout/FilterBar";
+import { FilterBar, stateToOptionsMultiple } from "../../../component/Layout/VerticalLayout/FilterBar";
 import { useQuery } from "../../../helpers/utils";
 
 function FilterBarBrews() {
-    const [productId, setProductId] = useState("");
+    const [productIds, setProductIds] = useState(null);
     const [dates, setDates] = useState({
         startFrom: "",
         startTo: "",
         endFrom: "",
         endTo: "",
     });
+    const [isFormChanged, setIsFormChanged] = useState(false);
 
     const query = useQuery();
     const history = useHistory();
 
-    const products = useSelector((state) => {
+    useEffect(() => {
+        validationFilterFields();
+        // eslint-disable-next-line
+    }, [productIds, dates])
+
+    let products = useSelector((state) => {
         return state.Products.all.sort((e1, e2) =>
             e1.name.localeCompare(e2.name)
         );
     });
 
-    let allProducts = products.map((c, i) => {
-        return {
-            id: i + 1,
-            value: c.id,
-            label: c.name,
-            checked: Number(productId) === c.id,
-            onChange: (e) => setProductId(e.target.value),
-        };
-    });
-
-    const placeHolder = {
-        id: 0,
-        value: "",
-        label: "All products",
-        checked: !productId,
-        onChange: (e) => setProductId(""),
-    };
-
-    allProducts.unshift(placeHolder);
-
     const productCategoriesFilterData = [
         {
             id: 0,
             label: "Product",
-            options: allProducts,
-            type: "input",
-            inputType: "radio",
+            options: stateToOptionsMultiple(products),
+            type: "select-multiple",
+            onChange: (e) => onProductChanges(e),
         },
         {
             id: 1,
@@ -79,6 +65,22 @@ function FilterBarBrews() {
         setDates(currentDates);
     }
 
+    function onProductChanges(event) {
+        if (event) {
+            setProductIds(event.map((x) => x.value));
+        } else {
+            setProductIds(null);
+        }
+    }
+
+    function validationFilterFields() {
+        if (productIds || dates.startFrom || dates.endFrom || dates.endTo || dates.endFrom) {
+            setIsFormChanged(true);
+        } else {
+            setIsFormChanged(false)
+        }
+    }
+
     function saveFilter() {
         query.delete("product");
         query.delete("startedFrom");
@@ -87,7 +89,7 @@ function FilterBarBrews() {
         query.delete("endedTo");
 
         let queryData = {
-            product: productId,
+            product: productIds,
             startedFrom: dates.startFrom,
             startedTo: dates.startTo,
             endedFrom: dates.endFrom,
@@ -109,6 +111,7 @@ function FilterBarBrews() {
                 data={productCategoriesFilterData}
                 onSubmitFilter={saveFilter}
                 label="Brews"
+                submitDisabled={!isFormChanged}
             />
         </React.Fragment>
     );

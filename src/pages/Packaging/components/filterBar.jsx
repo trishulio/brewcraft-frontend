@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { FilterBar } from "../../../component/Layout/VerticalLayout/FilterBar";
+import { FilterBar, stateToOptionsMultiple } from "../../../component/Layout/VerticalLayout/FilterBar";
 import { useQuery } from "../../../helpers/utils";
 
 function FilterBarPackaging() {
     const query = useQuery();
     const history = useHistory();
 
-    const [parentCategoryId, setParentCategoryId] = useState(
+    const [parentCategoryIds, setParentCategoryId] = useState(
         query.get("category")
     );
+    const [isFormChanged, setIsFormChanged] = useState(false);
 
     const categories = useSelector((state) => {
         return state.MaterialCategories.all.filter(
@@ -18,41 +19,42 @@ function FilterBarPackaging() {
         );
     });
 
-    let allMaterialtCategories = categories.map((c, i) => {
-        return {
-            id: i + 1,
-            value: c.id,
-            label: c.name,
-            checked: Number(parentCategoryId) === c.id,
-            onChange: (e) => setParentCategoryId(e.target.value),
-        };
-    });
+    useEffect(() => {
+        validationFilterFields();
+        // eslint-disable-next-line
+    }, [parentCategoryIds]);
 
-    const placeHolder = {
-        id: 0,
-        value: "",
-        label: "All",
-        checked: !parentCategoryId,
-        onChange: (e) => setParentCategoryId(""),
-    };
-
-    allMaterialtCategories.unshift(placeHolder);
+    function validationFilterFields() {
+        if (parentCategoryIds) {
+            setIsFormChanged(true);
+        } else {
+            setIsFormChanged(false);
+        }
+    }
 
     const MaterialPackagingFilterData = [
         {
             id: 0,
             label: "Category",
-            options: allMaterialtCategories,
-            type: "input",
-            inputType: "radio",
+            options: stateToOptionsMultiple(categories),
+            type: "select-multiple",
+            onChange: (e) => onMaterialCategoriesChanges(e),
         },
     ];
+
+    function onMaterialCategoriesChanges(event) {
+        if (event) {
+            setParentCategoryId(event.map((x) => x.value));
+        } else {
+            setParentCategoryId(null);
+        }
+    }
 
     function saveFilter() {
         query.delete("category");
 
         let queryData = {
-            category: parentCategoryId,
+            category: parentCategoryIds,
         };
 
         for (const key in queryData) {
@@ -70,6 +72,7 @@ function FilterBarPackaging() {
                 data={MaterialPackagingFilterData}
                 onSubmitFilter={saveFilter}
                 label="MaterialPackaging"
+                submitDisabled={!isFormChanged}
             />
         </React.Fragment>
     );

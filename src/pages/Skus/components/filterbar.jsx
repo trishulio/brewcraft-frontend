@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { FilterBar } from "../../../component/Layout/VerticalLayout/FilterBar";
+import { FilterBar, stateToOptionsMultiple } from "../../../component/Layout/VerticalLayout/FilterBar";
 import { useQuery } from "../../../helpers/utils";
 
 function FilterBarSkus() {
-    const [productId, setProductId] = useState("");
+    const [productIds, setProductIds] = useState(null);
+    const [isFormChanged, setIsFormChanged] = useState(false);
 
     const query = useQuery();
     const history = useHistory();
@@ -16,41 +17,42 @@ function FilterBarSkus() {
         );
     });
 
-    let allProducts = products.map((c, i) => {
-        return {
-            id: i + 1,
-            value: c.id,
-            label: c.name,
-            checked: Number(productId) === c.id,
-            onChange: (e) => setProductId(e.target.value),
-        };
-    });
-
-    const placeHolder = {
-        id: 0,
-        value: "",
-        label: "All products",
-        checked: !productId,
-        onChange: (e) => setProductId(""),
-    };
-
-    allProducts.unshift(placeHolder);
+    useEffect(() => {
+        validationFilterFields();
+        // eslint-disable-next-line
+    }, [productIds])
 
     const productCategoriesFilterData = [
         {
             id: 0,
             label: "Product",
-            options: allProducts,
-            type: "input",
-            inputType: "radio",
+            options: stateToOptionsMultiple(products),
+            type: "select-multiple",
+            onChange: (e) => onProductChanges(e),
         },
     ];
 
+    function onProductChanges(event) {
+        if (event) {
+            setProductIds(event.map((x) => x.value));
+        } else {
+            setProductIds(null);
+        }
+    }
+
+    function validationFilterFields() {
+        if (productIds) {
+            setIsFormChanged(true);
+        } else {
+            setIsFormChanged(false)
+        }
+    }
+
     function saveFilter() {
-        query.delete("productId");
+        query.delete("product");
 
         let queryData = {
-            productId,
+            product: productIds,
         };
 
         for (const key in queryData) {
@@ -68,6 +70,7 @@ function FilterBarSkus() {
                 data={productCategoriesFilterData}
                 onSubmitFilter={saveFilter}
                 label="ProductSkus"
+                submitDisabled={!isFormChanged}
             />
         </React.Fragment>
     );

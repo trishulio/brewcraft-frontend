@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { FilterBar } from "../../../component/Layout/VerticalLayout/FilterBar";
+import { FilterBar, stateToOptionsMultiple } from "../../../component/Layout/VerticalLayout/FilterBar";
 import { useQuery } from "../../../helpers/utils";
 
 function FilterBarProductCategories() {
-    const [parentCategoryId, setParentCategoryId] = useState("");
+    const [parentCategoryIds, setParentCategoryId] = useState(null);
+    const [isFormChanged, setIsFormChanged] = useState(false);
 
     const query = useQuery();
     const history = useHistory();
@@ -14,41 +15,42 @@ function FilterBarProductCategories() {
         return state.ProductCategories.data;
     });
 
-    let allProductCategories = categories.map((c, i) => {
-        return {
-            id: i + 1,
-            value: c.id,
-            label: c.name,
-            checked: Number(parentCategoryId) === c.id,
-            onChange: (e) => setParentCategoryId(e.target.value),
-        };
-    });
+    useEffect(() => {
+        validationFilterFields();
+        // eslint-disable-next-line
+    }, [parentCategoryIds])
 
-    const placeHolder = {
-        id: 0,
-        value: "",
-        label: "All",
-        checked: !parentCategoryId,
-        onChange: (e) => setParentCategoryId(""),
-    };
-
-    allProductCategories.unshift(placeHolder);
+    function validationFilterFields() {
+        if (parentCategoryIds) {
+            setIsFormChanged(true);
+        } else {
+            setIsFormChanged(false)
+        }
+    }
 
     const productCategoriesFilterData = [
         {
             id: 0,
             label: "Parent Category",
-            options: allProductCategories,
-            type: "input",
-            inputType: "radio",
+            options: stateToOptionsMultiple(categories),
+            type: "select-multiple",
+            onChange: (e) => onCategoriesChange(e),
         },
     ];
+
+    function onCategoriesChange(event) {
+        if (event) {
+            setParentCategoryId(event.map((x) => x.value));
+        } else {
+            setParentCategoryId(null);
+        }
+    }
 
     function saveFilter() {
         query.delete("parent");
 
         let queryData = {
-            parent: parentCategoryId,
+            parent: parentCategoryIds,
         };
 
         for (const key in queryData) {
@@ -66,6 +68,7 @@ function FilterBarProductCategories() {
                 data={productCategoriesFilterData}
                 onSubmitFilter={saveFilter}
                 label="ProductsCategories"
+                submitDisabled={!isFormChanged}
             />
         </React.Fragment>
     );

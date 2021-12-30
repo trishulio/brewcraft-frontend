@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { FilterBar } from "../../../component/Layout/VerticalLayout/FilterBar";
@@ -11,6 +11,7 @@ function FilterBarMaterialCategories() {
     const [parentCategoryId, setParentCategoryId] = useState(
         query.get("category")
     );
+    const [isFormChanged, setIsFormChanged] = useState(false);
 
     const categories = useSelector((state) => {
         return state.MaterialCategories.all;
@@ -19,6 +20,20 @@ function FilterBarMaterialCategories() {
     const materialCategories = categories.filter(
         (mc) => mc.parentCategoryId === null
     );
+
+    useEffect(() => {
+        validationFilterFields();
+        // eslint-disable-next-line
+    }, [parentCategoryId])
+
+
+    function validationFilterFields() {
+        if (parentCategoryId) {
+            setIsFormChanged(true);
+        } else {
+            setIsFormChanged(false)
+        }
+    }
 
     let allProductCategories = materialCategories.map((c, i) => {
         return {
@@ -73,6 +88,7 @@ function FilterBarMaterialCategories() {
                 data={productCategoriesFilterData}
                 onSubmitFilter={saveFilter}
                 label="ProductCategories"
+                submitDisabled={!isFormChanged}
             />
         </React.Fragment>
     );

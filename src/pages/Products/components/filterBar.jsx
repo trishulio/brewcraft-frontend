@@ -1,108 +1,92 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { FilterBar } from "../../../component/Layout/VerticalLayout/FilterBar";
+import { FilterBar, stateToOptionsMultiple } from "../../../component/Layout/VerticalLayout/FilterBar";
 import { useQuery } from "../../../helpers/utils";
 
 function FilterBarProducts() {
     const query = useQuery();
     const history = useHistory();
 
-    const [productClassId, setProductClass] = useState(query.get("class"));
-    const [productTypeId, setProductType] = useState(query.get("type"));
-    const [productStyleId, setProductStyle] = useState(query.get("style"));
+    const [productClassIds, setProductClass] = useState(query.get("class"));
+    const [productTypeIds, setProductType] = useState(query.get("type"));
+    const [productStyleIds, setProductStyle] = useState(query.get("style"));
+    const [isFormChanged, setIsFormChanged] = useState(false);
 
     const categories = useSelector((state) => {
         return state.ProductCategories.data;
     });
 
+    useEffect(() => {
+        validationFilterFields();
+        // eslint-disable-next-line
+    }, [productClassIds, productTypeIds, productStyleIds])
+
     let produtClass = categories.filter((x) => x.parentCategoryId === null);
-    let productType = productClassId
+    let productType = productClassIds
         ? categories.filter(
-              (pc) => pc.parentCategoryId === Number(productClassId)
+              (pc) => productClassIds.includes(pc.parentCategoryId)
           )
         : [];
-    let productStyle = productTypeId
-        ? categories.filter((pc) => pc.parentCategoryId === productStyleId)
+    let productStyle = productTypeIds
+        ? categories.filter((pc) => productTypeIds.includes(pc.parentCategoryId))
         : [];
-
-    let allProductClass = produtClass.map((c, i) => {
-        return {
-            id: i + 1,
-            value: c.id,
-            label: c.name,
-            checked: Number(productClassId) === c.id,
-            onChange: (e) => setProductClass(e.target.value),
-        };
-    });
-
-    let allProductType = productType.map((t, i) => {
-        return {
-            id: i + 1,
-            value: t.id,
-            label: t.name,
-            checked: Number(productTypeId) === t.id,
-            onChange: (e) => setProductType(e.target.value),
-        };
-    });
-
-    let allProductStyle = productStyle.map((t, i) => {
-        return {
-            id: i + 1,
-            value: t.id,
-            label: t.name,
-            checked: Number(productStyleId) === t.id,
-            onChange: (e) => setProductStyle(e.target.value),
-        };
-    });
-
-    const placeHolder = (label, value, setValue) => ({
-        id: 0,
-        value: "",
-        label: `All ${label}`,
-        checked: !value,
-        onChange: () => {
-            if (label === "Class") {
-                setProductType("");
-                setProductStyle("");
-            } else if (label === "Type") {
-                setProductStyle("");
-            }
-            setValue("");
-        },
-    });
-
-    allProductClass.unshift(
-        placeHolder("Class", productClassId, setProductClass)
-    );
-    allProductType.unshift(placeHolder("Type", productTypeId, setProductType));
-    allProductStyle.unshift(
-        placeHolder("Style", productStyleId, setProductStyle)
-    );
 
     const productCategoriesFilterData = [
         {
             id: 0,
             label: "Class",
-            options: allProductClass,
-            type: "input",
-            inputType: "radio",
+            options: stateToOptionsMultiple(produtClass),
+            type: "select-multiple",
+            onChange: (e) => onProductClassChanges(e),
         },
         {
             id: 1,
             label: "Type",
-            options: allProductType,
-            type: "input",
-            inputType: "radio",
+            options: stateToOptionsMultiple(productType),
+            type: "select-multiple",
+            onChange: (e) => onProductTypeChanges(e),
         },
         {
             id: 2,
             label: "Style",
-            options: allProductStyle,
-            type: "input",
-            inputType: "radio",
+            options: stateToOptionsMultiple(productStyle),
+            type: "select-multiple",
+            onChange: (e) => onProductStyleChanges(e),
         },
     ];
+
+    function onProductClassChanges(event) {
+        if (event) {
+            setProductClass(event.map((x) => x.value));
+        } else {
+            setProductClass(null);
+        }
+    }
+
+    function onProductTypeChanges(event) {
+        if (event) {
+            setProductType(event.map((x) => x.value));
+        } else {
+            setProductType(null);
+        }
+    }
+
+    function onProductStyleChanges(event) {
+        if (event) {
+            setProductStyle(event.map((x) => x.value));
+        } else {
+            setProductStyle(null);
+        }
+    }
+
+    function validationFilterFields() {
+        if (productClassIds || productTypeIds || productStyleIds) {
+            setIsFormChanged(true);
+        } else {
+            setIsFormChanged(false)
+        }
+    }
 
     function saveFilter() {
         query.delete("categoryId");
@@ -111,9 +95,9 @@ function FilterBarProducts() {
         query.delete("style");
 
         let queryData = {
-            class: productClassId,
-            type: productTypeId,
-            style: productStyleId,
+            class: productClassIds,
+            type: productTypeIds,
+            style: productStyleIds,
         };
 
         for (const key in queryData) {
@@ -131,6 +115,7 @@ function FilterBarProducts() {
                 data={productCategoriesFilterData}
                 onSubmitFilter={saveFilter}
                 label="ProductCategories"
+                submitDisabled={!isFormChanged}
             />
         </React.Fragment>
     );
