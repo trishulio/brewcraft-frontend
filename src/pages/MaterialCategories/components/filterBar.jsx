@@ -78,7 +78,7 @@ function FilterBarMaterialCategories() {
             }
         }
 
-        history.push({ search: query.toString() });
+        history.push({ search: decodeURIComponent(query.toString()) });
     }
 
     return (

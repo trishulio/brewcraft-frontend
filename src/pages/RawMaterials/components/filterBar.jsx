@@ -80,7 +80,7 @@ function FilterBarRawMaterials() {
             }
         }
 
-        history.push({ search: query.toString() });
+        history.push({ search: decodeURIComponent(query.toString()) });
     }
 
     return (
