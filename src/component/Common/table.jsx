@@ -32,7 +32,7 @@ export default function CommonTable(props) {
                 <Table
                     hover={props.hover}
                     style={{ cursor: props.hover ? "pointer" : null }}
-                    className="table-centered table-vertical table-nowrap jadc-effect mb-1"
+                    className="table-centered table-vertical jadc-effect mb-1"
                 >
                     {props.children}
                 </Table>
