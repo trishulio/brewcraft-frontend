@@ -26,16 +26,12 @@ function FilterBarProducts() {
     }, [productClassIds, productTypeIds, productStyleIds]);
 
     let produtClass = categories.filter((x) => x.parentCategoryId === null);
-    let productType = productClassIds
-        ? categories.filter((pc) =>
-              productClassIds.includes(pc.parentCategoryId)
-          )
-        : [];
-    let productStyle = productTypeIds
-        ? categories.filter((pc) =>
-              productTypeIds.includes(pc.parentCategoryId)
-          )
-        : [];
+    let productType = categories.filter((pc) =>
+        produtClass.map((cl) => cl.id).includes(pc.parentCategoryId)
+    );
+    let productStyle = categories.filter((ps) =>
+        productType.map((ty) => ty.id).includes(ps.parentCategoryId)
+    );
 
     const productCategoriesFilterData = [
         {
