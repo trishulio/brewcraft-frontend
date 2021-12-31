@@ -30,6 +30,7 @@ function FilterBarSkus() {
             id: 0,
             label: "Product",
             options: stateToOptionsMultiple(products),
+            value: productIds,
             type: "select-multiple",
             onChange: (e) => onProductChanges(e),
         },
@@ -37,7 +38,7 @@ function FilterBarSkus() {
 
     function onProductChanges(event) {
         if (event) {
-            setProductIds(event.map((x) => x.value));
+            setProductIds(event.map((x) => x));
         } else {
             setProductIds(null);
         }
@@ -51,11 +52,17 @@ function FilterBarSkus() {
         }
     }
 
+    function clearFilter() {
+        setProductIds(null);
+
+        history.push(history.location.pathname);
+    }
+
     function saveFilter() {
         query.delete("product");
 
         let queryData = {
-            product: productIds,
+            product: productIds?.map((p) => p.value),
         };
 
         for (const key in queryData) {
@@ -74,6 +81,7 @@ function FilterBarSkus() {
                 onSubmitFilter={saveFilter}
                 label="ProductSkus"
                 submitDisabled={!isFormChanged}
+                clearFilter={clearFilter}
             />
         </React.Fragment>
     );

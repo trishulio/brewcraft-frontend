@@ -39,12 +39,14 @@ function FilterBarProducts() {
             label: "Class",
             options: stateToOptionsMultiple(produtClass),
             type: "select-multiple",
+            value: productClassIds,
             onChange: (e) => onProductClassChanges(e),
         },
         {
             id: 1,
             label: "Type",
             options: stateToOptionsMultiple(productType),
+            value: productTypeIds,
             type: "select-multiple",
             onChange: (e) => onProductTypeChanges(e),
         },
@@ -52,6 +54,7 @@ function FilterBarProducts() {
             id: 2,
             label: "Style",
             options: stateToOptionsMultiple(productStyle),
+            value: productStyleIds,
             type: "select-multiple",
             onChange: (e) => onProductStyleChanges(e),
         },
@@ -59,7 +62,7 @@ function FilterBarProducts() {
 
     function onProductClassChanges(event) {
         if (event) {
-            setProductClass(event.map((x) => x.value));
+            setProductClass(event.map((x) => x));
         } else {
             setProductClass(null);
         }
@@ -67,7 +70,7 @@ function FilterBarProducts() {
 
     function onProductTypeChanges(event) {
         if (event) {
-            setProductType(event.map((x) => x.value));
+            setProductType(event.map((x) => x));
         } else {
             setProductType(null);
         }
@@ -75,7 +78,7 @@ function FilterBarProducts() {
 
     function onProductStyleChanges(event) {
         if (event) {
-            setProductStyle(event.map((x) => x.value));
+            setProductStyle(event.map((x) => x));
         } else {
             setProductStyle(null);
         }
@@ -89,6 +92,14 @@ function FilterBarProducts() {
         }
     }
 
+    function clearFilter() {
+        setProductClass(null);
+        setProductType(null);
+        setProductStyle(null);
+
+        history.push(history.location.pathname);
+    }
+
     function saveFilter() {
         query.delete("categoryId");
         query.delete("class");
@@ -96,9 +107,9 @@ function FilterBarProducts() {
         query.delete("style");
 
         let queryData = {
-            class: productClassIds,
-            type: productTypeIds,
-            style: productStyleIds,
+            class: productClassIds?.map((c) => c.value),
+            type: productTypeIds?.map((t) => t.value),
+            style: productStyleIds?.map((s) => s.value),
         };
 
         for (const key in queryData) {
@@ -117,6 +128,7 @@ function FilterBarProducts() {
                 onSubmitFilter={saveFilter}
                 label="ProductCategories"
                 submitDisabled={!isFormChanged}
+                clearFilter={clearFilter}
             />
         </React.Fragment>
     );

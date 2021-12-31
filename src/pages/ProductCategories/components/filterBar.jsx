@@ -36,6 +36,7 @@ function FilterBarProductCategories() {
             id: 0,
             label: "Parent Category",
             options: stateToOptionsMultiple(categories),
+            value: parentCategoryIds,
             type: "select-multiple",
             onChange: (e) => onCategoriesChange(e),
         },
@@ -43,17 +44,23 @@ function FilterBarProductCategories() {
 
     function onCategoriesChange(event) {
         if (event) {
-            setParentCategoryId(event.map((x) => x.value));
+            setParentCategoryId(event.map((x) => x));
         } else {
             setParentCategoryId(null);
         }
+    }
+
+    function clearFilter() {
+        setParentCategoryId(null);
+
+        history.push(history.location.pathname);
     }
 
     function saveFilter() {
         query.delete("parent");
 
         let queryData = {
-            parent: parentCategoryIds,
+            parent: parentCategoryIds?.map((pc) => pc.value),
         };
 
         for (const key in queryData) {
@@ -72,6 +79,7 @@ function FilterBarProductCategories() {
                 onSubmitFilter={saveFilter}
                 label="ProductsCategories"
                 submitDisabled={!isFormChanged}
+                clearFilter={clearFilter}
             />
         </React.Fragment>
     );

@@ -65,6 +65,12 @@ function FilterBarMaterialCategories() {
         },
     ];
 
+    function clearFilter() {
+        setParentCategoryId(false);
+
+        history.push(history.location.pathname);
+    }
+
     function saveFilter() {
         query.delete("category");
 
@@ -88,6 +94,7 @@ function FilterBarMaterialCategories() {
                 onSubmitFilter={saveFilter}
                 label="ProductCategories"
                 submitDisabled={!isFormChanged}
+                clearFilter={clearFilter}
             />
         </React.Fragment>
     );

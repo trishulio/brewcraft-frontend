@@ -48,6 +48,7 @@ export const FilterBar = ({
     onSubmitFilter,
     data,
     submitDisabled,
+    clearFilter,
 }) => {
     const [collapsed, setCollapsed] = useState({});
     const { visible } = useSelector((state) => state.FilterBar);
@@ -231,7 +232,8 @@ export const FilterBar = ({
                     &nbsp;{data.label}
                 </Label>
                 <Collapse isOpen={collapsed[fieldType]} id={fieldType}>
-                    {data.inputType === "radio" &&
+                    {(data.inputType === "radio" ||
+                        data.inputType === "checkbox") &&
                         data.options?.map((o) => {
                             return (
                                 <Row
@@ -242,7 +244,7 @@ export const FilterBar = ({
                                         id={`${o.value}0${o.id + 1}`}
                                         value={o.value}
                                         name={o.label}
-                                        type="radio"
+                                        type={data.inputType}
                                         onChange={o.onChange}
                                         checked={o.checked}
                                         disabled={o.disabled}
@@ -383,12 +385,25 @@ export const FilterBar = ({
                                 color="primary"
                                 className="d-inline-block waves-effect m-2 float-bottom"
                                 style={{
-                                    width: "200px",
+                                    flex: 3,
+                                    maxWidth: "200px",
                                 }}
                                 disabled={submitDisabled}
                                 onClick={onSubmitFilter}
                             >
                                 Apply Filters
+                            </Button>
+                            <Button
+                                type="button"
+                                color="secondary"
+                                className="d-inline-block waves-effect m-2 float-bottom"
+                                style={{
+                                    flex: 1,
+                                    maxWidth: "200px",
+                                }}
+                                onClick={clearFilter}
+                            >
+                                Clear
                             </Button>
                         </div>
                     </Col>

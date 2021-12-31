@@ -37,6 +37,7 @@ function FilterBarBrews() {
             label: "Product",
             options: stateToOptionsMultiple(products),
             type: "select-multiple",
+            value: productIds,
             onChange: (e) => onProductChanges(e),
         },
         {
@@ -70,7 +71,7 @@ function FilterBarBrews() {
 
     function onProductChanges(event) {
         if (event) {
-            setProductIds(event.map((x) => x.value));
+            setProductIds(event.map((x) => x));
         } else {
             setProductIds(null);
         }
@@ -90,6 +91,18 @@ function FilterBarBrews() {
         }
     }
 
+    function clearFilter() {
+        setProductIds(null);
+        setDates({
+            startFrom: "",
+            startTo: "",
+            endFrom: "",
+            endTo: "",
+        });
+
+        history.push(history.location.pathname);
+    }
+
     function saveFilter() {
         query.delete("product");
         query.delete("startedFrom");
@@ -98,7 +111,7 @@ function FilterBarBrews() {
         query.delete("endedTo");
 
         let queryData = {
-            product: productIds,
+            product: productIds?.map((p) => p.value),
             startedFrom: dates.startFrom,
             startedTo: dates.startTo,
             endedFrom: dates.endFrom,
@@ -121,6 +134,7 @@ function FilterBarBrews() {
                 onSubmitFilter={saveFilter}
                 label="Brews"
                 submitDisabled={!isFormChanged}
+                clearFilter={clearFilter}
             />
         </React.Fragment>
     );
