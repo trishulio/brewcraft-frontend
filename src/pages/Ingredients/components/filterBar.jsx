@@ -40,6 +40,7 @@ function FilterBarIngredients() {
             id: 0,
             label: "Category",
             options: stateToOptionsMultiple(categories),
+            value: parentCategoryIds,
             type: "select-multiple",
             onChange: (e) => onMaterialCategoriesChanges(e),
         },
@@ -47,17 +48,23 @@ function FilterBarIngredients() {
 
     function onMaterialCategoriesChanges(event) {
         if (event) {
-            setParentCategoryId(event.map((x) => x.value));
+            setParentCategoryId(event.map((x) => x));
         } else {
             setParentCategoryId(null);
         }
+    }
+
+    function clearFilter() {
+        setParentCategoryId(null);
+
+        history.push(history.location.pathname);
     }
 
     function saveFilter() {
         query.delete("category");
 
         let queryData = {
-            category: parentCategoryIds,
+            category: parentCategoryIds?.map((pc) => pc.value),
         };
 
         for (const key in queryData) {
@@ -76,6 +83,7 @@ function FilterBarIngredients() {
                 onSubmitFilter={saveFilter}
                 label="MaterialIngredients"
                 submitDisabled={!isFormChanged}
+                clearFilter={clearFilter}
             />
         </React.Fragment>
     );

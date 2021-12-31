@@ -1,9 +1,11 @@
 import React from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { FilterBar } from "../../../component/Layout/VerticalLayout/FilterBar";
 import { useQuery } from "../../../helpers/utils";
 
 function FilterBarSupplier() {
+    const [name, setName] = useState("");
     const query = useQuery();
     const history = useHistory();
 
@@ -12,9 +14,17 @@ function FilterBarSupplier() {
             id: 0,
             label: "Name",
             type: "input",
+            value: name,
             inputType: "text",
+            onChange: (e) => setName(e.target.value),
         },
     ];
+
+    function clearFilter() {
+        setName("");
+
+        history.push(history.location.pathname);
+    }
 
     function saveFilter() {
         query.delete("category");
@@ -29,6 +39,7 @@ function FilterBarSupplier() {
                 data={SupplierFilterData}
                 onSubmitFilter={saveFilter}
                 label="Supplier"
+                clearFilter={clearFilter}
             />
         </React.Fragment>
     );

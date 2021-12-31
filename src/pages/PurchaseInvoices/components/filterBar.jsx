@@ -5,7 +5,7 @@ import { FilterBar } from "../../../component/Layout/VerticalLayout/FilterBar";
 import { useQuery } from "../../../helpers/utils";
 
 function FilterBarInvoices() {
-    const [status, setStatus] = useState(null);
+    const [status, setStatus] = useState(["paid", "unpaid"]);
     const [supplierIds, setSupplierIds] = useState(null);
     const [dates, setDates] = useState({
         from: "",
@@ -63,28 +63,21 @@ function FilterBarInvoices() {
             options: [
                 {
                     id: 0,
-                    value: "allStatus",
-                    label: "All Status",
-                    checked: status === "allStatus",
-                    onChange: (e) => setStatus(e.target.value),
+                    value: "unpaid",
+                    label: "Unpaid",
+                    checked: status.includes("unpaid"),
+                    onChange: (e) => onChangeStatus(e.target.value),
                 },
                 {
                     id: 1,
-                    value: "unpaid",
-                    label: "Unpaid",
-                    checked: status === "unpaid",
-                    onChange: (e) => setStatus(e.target.value),
-                },
-                {
-                    id: 2,
                     value: "paid",
                     label: "Paid",
-                    checked: status === "paid",
-                    onChange: (e) => setStatus(e.target.value),
+                    checked: status.includes("paid"),
+                    onChange: (e) => onChangeStatus(e.target.value),
                 },
             ],
             type: "input",
-            inputType: "radio",
+            inputType: "checkbox",
         },
         {
             id: 2,
@@ -95,6 +88,7 @@ function FilterBarInvoices() {
                     label: s.name,
                 };
             }),
+            value: supplierIds,
             type: "select-multiple",
             onChange: (e) => onSupplierChanges(e),
         },
@@ -107,6 +101,7 @@ function FilterBarInvoices() {
                     label: s.name,
                 };
             }),
+            value: materialIds,
             type: "select-multiple",
             onChange: (e) => onMaterialChanges(e),
         },
@@ -142,6 +137,16 @@ function FilterBarInvoices() {
         },
     ];
 
+    function onChangeStatus(value) {
+        let currentState = [...status];
+        if (currentState.includes(value)) {
+            currentState = currentState.filter((s) => s !== value);
+        } else {
+            currentState.push(value);
+        }
+        setStatus(currentState);
+    }
+
     function onDateChanged(value, type) {
         let currentDates = { ...dates };
         currentDates[type] = value;
@@ -165,7 +170,7 @@ function FilterBarInvoices() {
 
     function onMaterialChanges(event) {
         if (event) {
-            setMaterials(event.map((x) => x.value));
+            setMaterials(event.map((x) => x));
         } else {
             setMaterials(null);
         }
@@ -173,10 +178,30 @@ function FilterBarInvoices() {
 
     function onSupplierChanges(event) {
         if (event) {
-            setSupplierIds(event.map((x) => x.value));
+            setSupplierIds(event.map((x) => x));
         } else {
             setSupplierIds(null);
         }
+    }
+
+    function clearFilter() {
+        setStatus(["paid", "unpaid"]);
+        setDates({
+            from: "",
+            to: "",
+        });
+        setAmounts({
+            from: "",
+            to: "",
+        });
+        setPayments({
+            from: "",
+            to: "",
+        });
+        setSupplierIds(null);
+        setMaterials(null);
+
+        history.push(history.location.pathname);
     }
 
     function saveFilter() {
@@ -191,15 +216,15 @@ function FilterBarInvoices() {
         query.delete("materialIds");
 
         let queryData = {
-            status: status,
+            status: status && status.length > 0 && status,
             invoiceFrom: dates.from,
             invoiceTo: dates.to,
-            supplierId: supplierIds,
+            supplierId: supplierIds?.map((s) => s.value),
             amountFrom: amounts.from,
             amountTo: amounts.to,
             paymentFrom: payments.from,
             paymentTo: payments.to,
-            materialIds: materialIds,
+            materialIds: materialIds?.map((m) => m.value),
         };
 
         for (const key in queryData) {
@@ -217,6 +242,7 @@ function FilterBarInvoices() {
                 data={invoicesFilterData}
                 onSubmitFilter={saveFilter}
                 submitDisabled={!isFormChanged}
+                clearFilter={clearFilter}
             />
         </React.Fragment>
     );
