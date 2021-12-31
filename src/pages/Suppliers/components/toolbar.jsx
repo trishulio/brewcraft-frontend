@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Input } from "reactstrap";
+import { Button } from "reactstrap";
 import Toolbar from "../../../component/Common/toolbar";
 
 export default function ProductCategoriesToolbar() {
@@ -34,15 +34,6 @@ export default function ProductCategoriesToolbar() {
             >
                 Contacts
             </Button>
-            <Input
-                bsSize="sm"
-                type="search"
-                name="search"
-                id="suppliersSearch"
-                placeholder="Name"
-                className="waves-effect float-right mb-3 ml-2"
-                style={{ width: 170 }}
-            />
         </Toolbar>
     );
 }

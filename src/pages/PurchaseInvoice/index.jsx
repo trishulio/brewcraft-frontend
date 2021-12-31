@@ -88,7 +88,7 @@ export default function PurchaseInvoice() {
         }
         setChanged(isChanged());
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, [procurement]);
 
     function isChanged() {

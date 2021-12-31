@@ -8,6 +8,7 @@ import {
     PaginationItem,
     PaginationLink,
 } from "reactstrap";
+import { FilterBarIcon } from "../Layout/VerticalLayout/FilterBar";
 
 export default function PageWrapper({
     items,
@@ -81,6 +82,7 @@ export default function PageWrapper({
                         <option>50</option>
                         <option>100</option>
                     </Input>
+                    <FilterBarIcon />
                 </Col>
             </Row>
 

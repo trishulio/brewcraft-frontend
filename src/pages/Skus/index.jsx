@@ -12,6 +12,7 @@ export default function Skus() {
     const dispatch = useDispatch();
 
     const query = useQuery();
+    const productId = query.get("product");
     const sort = query.get("sort");
     const order = query.get("order");
 
@@ -34,10 +35,11 @@ export default function Skus() {
             pageSize,
             sort,
             order,
+            productId,
         };
         dispatch(fetchSkus(params));
         dispatch(fetchAllProducts());
-    }, [pageIndex, pageSize, order, sort, dispatch]);
+    }, [pageIndex, pageSize, order, sort, productId, dispatch]);
 
     return <SkusInner />;
 }

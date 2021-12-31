@@ -7,13 +7,15 @@ async function fetchRawMaterials(params = {}) {
             size: params.pageSize || 500,
             aggr_fn: "SUM",
             group_by: "LOT_NUMBER,MATERIAL",
-            material_ids: params.materialId,
             sort: "", // params.sort || "material.name",
             order_asc: !params.order || params.order === "asc",
         },
     };
-    if (params.materialId) {
-        data.params.material_ids = parseInt(params.materialId);
+    if (params.materialId && params.materialId.length > 0) {
+        data.params.material_ids = params.materialId;
+    }
+    if (params.category && params.category.length > 0) {
+        data.params.material_category_ids = params.category;
     }
     return await AxiosInstance.get("/api/v1/inventory/stock/quantity", data)
         .then((r) => r)

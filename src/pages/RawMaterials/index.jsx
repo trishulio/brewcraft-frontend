@@ -5,6 +5,7 @@ import {
     fetchRawMaterials,
     fetchAllMaterials,
     setBreadcrumbItems,
+    fetchAllMaterialCategories,
 } from "../../store/actions";
 import RawMaterialsInner from "./raw-materials";
 
@@ -12,6 +13,7 @@ export default function RawMaterials() {
     const dispatch = useDispatch();
     const query = useQuery();
     const materialId = query.get("material");
+    const category = query.get("category");
     const sort = query.get("sort");
     const order = query.get("order");
 
@@ -36,11 +38,13 @@ export default function RawMaterials() {
             materialId,
             sort,
             order,
+            category,
         };
         dispatch(fetchRawMaterials({ ...props }));
         dispatch(fetchAllMaterials());
+        dispatch(fetchAllMaterialCategories());
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageIndex, pageSize, materialId, sort, order]);
+    }, [pageIndex, pageSize, materialId, sort, order, category]);
 
     return <RawMaterialsInner />;
 }
