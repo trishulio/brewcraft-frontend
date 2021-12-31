@@ -143,270 +143,282 @@ export default function SupplierContactDetails({ editable }) {
             <Card>
                 <CardHeader>Contact Details</CardHeader>
                 <CardBody>
-                    <Label
-                        for="contactFirstName"
-                        className="d-inline-block mb-3"
-                        style={{
-                            width: "6rem",
-                        }}
-                    >
-                        First Name
-                    </Label>
-                    {editable && (
-                        <FormGroup
+                    <div className="form-group-validation">
+                        <Label
+                            for="contactFirstName"
                             className="d-inline-block mb-3"
-                            hidden={!editable}
                             style={{
-                                maxWidth: "20rem",
-                                width: "100%",
+                                width: "6rem",
                             }}
                         >
-                            <Input
-                                type="text"
-                                className="faves-effect"
-                                width="20rem"
-                                value={contact.firstName}
-                                placeholder="Enter"
-                                name="contactFirstName"
-                                disabled={!editable}
-                                onChange={onFormInputChange}
-                                invalid={invalidFirstName}
-                            />
-                            <FormFeedback>
-                                {contact.firstName.length > 0
-                                    ? "Invalid contact name field"
-                                    : "Contact name field must not be empty"}
-                            </FormFeedback>
-                        </FormGroup>
-                    )}
-                    {!editable && (
-                        <div className="d-inline-block mb-2">
-                            {contact.firstName ? contact.firstName : "-"}
-                        </div>
-                    )}
-                    <div className="clearfix"></div>
-                    <Label
-                        for="contactLastName"
-                        className="d-inline-block mb-3"
-                        style={{
-                            width: "6rem",
-                        }}
-                    >
-                        Last Name
-                    </Label>
-                    {editable && (
-                        <FormGroup
-                            className="d-inline-block mb-3"
-                            hidden={!editable}
-                            style={{
-                                maxWidth: "20rem",
-                                width: "100%",
-                            }}
-                        >
-                            <Input
-                                type="text"
-                                className="waves-effect"
-                                value={contact.lastName}
-                                placeholder="Enter"
-                                name="contactLastName"
-                                disabled={!editable}
-                                onChange={onFormInputChange}
-                                invalid={invalidLastName}
-                            />
-                            <FormFeedback>
-                                {contact.lastName.length > 0
-                                    ? "Invalid contact name field"
-                                    : "Contact name field must not be empty"}
-                            </FormFeedback>
-                        </FormGroup>
-                    )}
-                    {!editable && (
-                        <div className="d-inline-block mb-2">
-                            {contact.lastName ? contact.lastName : "-"}
-                        </div>
-                    )}
-                    <div className="clearfix"></div>
-                    <Label
-                        for="contactCompany"
-                        className="d-inline-block mb-3"
-                        style={{
-                            width: "6rem",
-                        }}
-                    >
-                        Supplier
-                    </Label>
-                    {editable && (
-                        <FormGroup
-                            className="d-inline-block mb-3"
-                            hidden={!editable}
-                            style={{
-                                maxWidth: "20rem",
-                                width: "100%",
-                            }}
-                        >
-                            <Input
-                                type="select"
-                                className="waves-effect"
-                                name="contactCompany"
-                                style={{ width: "8rem" }}
-                                disabled={!editable}
-                                invalid={invalidCompany}
-                                value={contact.supplier.id || ""}
-                                onChange={(e) => {
-                                    onFormInputChange(e);
+                            First Name
+                        </Label>
+                        {editable && (
+                            <FormGroup
+                                className="d-inline-block mb-3"
+                                hidden={!editable}
+                                style={{
+                                    maxWidth: "20rem",
+                                    width: "100%",
                                 }}
                             >
-                                <option value="" disabled={true}>
-                                    Select
-                                </option>
-                                {map(companies, (value, index) => (
-                                    <option value={value.id} key={index}>
-                                        {value.name}
+                                <Input
+                                    type="text"
+                                    className="faves-effect"
+                                    width="20rem"
+                                    value={contact.firstName}
+                                    placeholder="Enter"
+                                    name="contactFirstName"
+                                    disabled={!editable}
+                                    onChange={onFormInputChange}
+                                    invalid={invalidFirstName}
+                                />
+                                <FormFeedback>
+                                    {contact.firstName.length > 0
+                                        ? "Invalid contact name field"
+                                        : "Contact name field must not be empty"}
+                                </FormFeedback>
+                            </FormGroup>
+                        )}
+                        {!editable && (
+                            <div className="d-inline-block mb-2">
+                                {contact.firstName ? contact.firstName : "-"}
+                            </div>
+                        )}
+                    </div>
+                    <div className="clearfix"></div>
+                    <div className="form-group-validation">
+                        <Label
+                            for="contactLastName"
+                            className="d-inline-block mb-3"
+                            style={{
+                                width: "6rem",
+                            }}
+                        >
+                            Last Name
+                        </Label>
+                        {editable && (
+                            <FormGroup
+                                className="d-inline-block mb-3"
+                                hidden={!editable}
+                                style={{
+                                    maxWidth: "20rem",
+                                    width: "100%",
+                                }}
+                            >
+                                <Input
+                                    type="text"
+                                    className="waves-effect"
+                                    value={contact.lastName}
+                                    placeholder="Enter"
+                                    name="contactLastName"
+                                    disabled={!editable}
+                                    onChange={onFormInputChange}
+                                    invalid={invalidLastName}
+                                />
+                                <FormFeedback>
+                                    {contact.lastName.length > 0
+                                        ? "Invalid contact name field"
+                                        : "Contact name field must not be empty"}
+                                </FormFeedback>
+                            </FormGroup>
+                        )}
+                        {!editable && (
+                            <div className="d-inline-block mb-2">
+                                {contact.lastName ? contact.lastName : "-"}
+                            </div>
+                        )}
+                    </div>
+                    <div className="clearfix"></div>
+                    <div className="form-group-validation">
+                        <Label
+                            for="contactCompany"
+                            className="d-inline-block mb-3"
+                            style={{
+                                width: "6rem",
+                            }}
+                        >
+                            Supplier
+                        </Label>
+                        {editable && (
+                            <FormGroup
+                                className="d-inline-block mb-3"
+                                hidden={!editable}
+                                style={{
+                                    maxWidth: "20rem",
+                                    width: "100%",
+                                }}
+                            >
+                                <Input
+                                    type="select"
+                                    className="waves-effect"
+                                    name="contactCompany"
+                                    style={{ width: "8rem" }}
+                                    disabled={!editable}
+                                    invalid={invalidCompany}
+                                    value={contact.supplier.id || ""}
+                                    onChange={(e) => {
+                                        onFormInputChange(e);
+                                    }}
+                                >
+                                    <option value="" disabled={true}>
+                                        Select
                                     </option>
-                                ))}
-                            </Input>
-                            <FormFeedback>
-                                {contact.supplier !== ""
-                                    ? "Invalid supplier field"
-                                    : "Contact supplier field must not be empty"}
-                            </FormFeedback>
-                        </FormGroup>
-                    )}
-                    {!editable && (
-                        <div className="d-inline-block mb-2">
-                            {contact.supplier ? contact.supplier.name : "-"}
-                        </div>
-                    )}
+                                    {map(companies, (value, index) => (
+                                        <option value={value.id} key={index}>
+                                            {value.name}
+                                        </option>
+                                    ))}
+                                </Input>
+                                <FormFeedback>
+                                    {contact.supplier !== ""
+                                        ? "Invalid supplier field"
+                                        : "Contact supplier field must not be empty"}
+                                </FormFeedback>
+                            </FormGroup>
+                        )}
+                        {!editable && (
+                            <div className="d-inline-block mb-2">
+                                {contact.supplier ? contact.supplier.name : "-"}
+                            </div>
+                        )}
+                    </div>
                     <div className="clearfix"></div>
-                    <Label
-                        for="contactPosition"
-                        className="d-inline-block mb-3"
-                        style={{
-                            width: "6rem",
-                        }}
-                    >
-                        Position
-                    </Label>
-                    {editable && (
-                        <FormGroup
+                    <div className="form-group-validation">
+                        <Label
+                            for="contactPosition"
                             className="d-inline-block mb-3"
-                            hidden={!editable}
                             style={{
-                                maxWidth: "20rem",
-                                width: "100%",
+                                width: "6rem",
                             }}
                         >
-                            <Input
-                                type="text"
-                                className="waves-effect"
-                                value={contact.position}
-                                placeholder="Enter"
-                                name="contactPosition"
-                                disabled={!editable}
-                                onChange={onFormInputChange}
-                                invalid={invalidPosition}
-                            />
-                            <FormFeedback>
-                                {contact.position.length > 0
-                                    ? "Invalid contact position field"
-                                    : "Contact position field must not be empty"}
-                            </FormFeedback>
-                        </FormGroup>
-                    )}
-                    {!editable && (
-                        <div className="d-inline-block mb-2">
-                            {contact.position ? contact.position : "-"}
-                        </div>
-                    )}
+                            Position
+                        </Label>
+                        {editable && (
+                            <FormGroup
+                                className="d-inline-block mb-3"
+                                hidden={!editable}
+                                style={{
+                                    maxWidth: "20rem",
+                                    width: "100%",
+                                }}
+                            >
+                                <Input
+                                    type="text"
+                                    className="waves-effect"
+                                    value={contact.position}
+                                    placeholder="Enter"
+                                    name="contactPosition"
+                                    disabled={!editable}
+                                    onChange={onFormInputChange}
+                                    invalid={invalidPosition}
+                                />
+                                <FormFeedback>
+                                    {contact.position.length > 0
+                                        ? "Invalid contact position field"
+                                        : "Contact position field must not be empty"}
+                                </FormFeedback>
+                            </FormGroup>
+                        )}
+                        {!editable && (
+                            <div className="d-inline-block mb-2">
+                                {contact.position ? contact.position : "-"}
+                            </div>
+                        )}
+                    </div>
                     <div className="clearfix"></div>
-                    <Label
-                        for="contactEmail"
-                        className="d-inline-block mb-3"
-                        style={{
-                            width: "6rem",
-                        }}
-                    >
-                        Email
-                    </Label>
-                    {editable && (
-                        <FormGroup
+                    <div className="form-group-validation">
+                        <Label
+                            for="contactEmail"
                             className="d-inline-block mb-3"
-                            hidden={!editable}
                             style={{
-                                maxWidth: "20rem",
-                                width: "100%",
+                                width: "6rem",
                             }}
                         >
-                            <Input
-                                type="text"
-                                className="waves-effect"
-                                value={contact.email}
-                                placeholder="Enter"
-                                name="contactEmail"
-                                disabled={!editable}
-                                onChange={onFormInputChange}
-                                invalid={invalidEmail}
-                            />
-                            <FormFeedback>
-                                {contact.email.length > 0
-                                    ? "Invalid contact email field"
-                                    : "Contact email field must not be empty"}
-                            </FormFeedback>
-                        </FormGroup>
-                    )}
-                    {!editable && (
-                        <div className="d-inline-block mb-2">
-                            {contact.email ? contact.email : "-"}
-                        </div>
-                    )}
+                            Email
+                        </Label>
+                        {editable && (
+                            <FormGroup
+                                className="d-inline-block mb-3"
+                                hidden={!editable}
+                                style={{
+                                    maxWidth: "20rem",
+                                    width: "100%",
+                                }}
+                            >
+                                <Input
+                                    type="text"
+                                    className="waves-effect"
+                                    value={contact.email}
+                                    placeholder="Enter"
+                                    name="contactEmail"
+                                    disabled={!editable}
+                                    onChange={onFormInputChange}
+                                    invalid={invalidEmail}
+                                />
+                                <FormFeedback>
+                                    {contact.email.length > 0
+                                        ? "Invalid contact email field"
+                                        : "Contact email field must not be empty"}
+                                </FormFeedback>
+                            </FormGroup>
+                        )}
+                        {!editable && (
+                            <div className="d-inline-block mb-2">
+                                {contact.email ? contact.email : "-"}
+                            </div>
+                        )}
+                    </div>
                     <div className="clearfix"></div>
-                    <Label
-                        for="contactPhoneNumber"
-                        className="d-inline-block mb-3"
-                        style={{
-                            width: "6rem",
-                        }}
-                    >
-                        Phone
-                    </Label>
-                    {editable && (
-                        <FormGroup
+                    <div className="form-group-validation">
+                        <Label
+                            for="contactPhoneNumber"
                             className="d-inline-block mb-3"
-                            hidden={!editable}
                             style={{
-                                maxWidth: "20rem",
-                                width: "100%",
+                                width: "6rem",
                             }}
                         >
-                            <Input
-                                type="text"
-                                className="waves-effect"
-                                value={contact.phoneNumber}
-                                placeholder="Enter"
-                                name="contactPhoneNumber"
-                                disabled={!editable}
-                                onChange={onFormInputChange}
-                                invalid={invalidPhoneNumber}
-                            />
+                            Phone
+                        </Label>
+                        {editable && (
+                            <FormGroup
+                                className="d-inline-block mb-3"
+                                hidden={!editable}
+                                style={{
+                                    maxWidth: "20rem",
+                                    width: "100%",
+                                }}
+                            >
+                                <Input
+                                    type="text"
+                                    className="waves-effect"
+                                    value={contact.phoneNumber}
+                                    placeholder="Enter"
+                                    name="contactPhoneNumber"
+                                    disabled={!editable}
+                                    onChange={onFormInputChange}
+                                    invalid={invalidPhoneNumber}
+                                />
 
-                            <FormFeedback>
-                                {contact.phoneNumber.length > 0
-                                    ? "Invalid contact phone field"
-                                    : "Contact phone field must not be empty"}
-                            </FormFeedback>
-                        </FormGroup>
-                    )}
-                    {!editable && (
-                        <div className="d-inline-block mb-2">
-                            {contact.phoneNumber ? (
-                                <a href={`tel:${contact.phoneNumber}`}>
-                                    {contact.phoneNumber}
-                                </a>
-                            ) : (
-                                "-"
-                            )}
-                        </div>
-                    )}
+                                <FormFeedback>
+                                    {contact.phoneNumber.length > 0
+                                        ? "Invalid contact phone field"
+                                        : "Contact phone field must not be empty"}
+                                </FormFeedback>
+                            </FormGroup>
+                        )}
+                        {!editable && (
+                            <div className="d-inline-block mb-2">
+                                {contact.phoneNumber ? (
+                                    <a href={`tel:${contact.phoneNumber}`}>
+                                        {contact.phoneNumber}
+                                    </a>
+                                ) : (
+                                    "-"
+                                )}
+                            </div>
+                        )}
+                    </div>
                 </CardBody>
             </Card>
         </React.Fragment>
