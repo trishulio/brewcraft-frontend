@@ -5,7 +5,7 @@ import { FilterBar } from "../../../component/Layout/VerticalLayout/FilterBar";
 import { useQuery } from "../../../helpers/utils";
 
 function FilterBarInvoices() {
-    const [status, setStatus] = useState(["paid", "unpaid"]);
+    const [status, setStatus] = useState([1, 2]);
     const [supplierIds, setSupplierIds] = useState(null);
     const [dates, setDates] = useState({
         from: "",
@@ -40,7 +40,7 @@ function FilterBarInvoices() {
 
     function validationFilterFields() {
         if (
-            status ||
+            (status && status.length !== 2) ||
             supplierIds ||
             dates.from ||
             dates.to ||
@@ -63,16 +63,16 @@ function FilterBarInvoices() {
             options: [
                 {
                     id: 0,
-                    value: "unpaid",
+                    value: 1,
                     label: "Unpaid",
-                    checked: status.includes("unpaid"),
+                    checked: status.includes(1),
                     onChange: (e) => onChangeStatus(e.target.value),
                 },
                 {
                     id: 1,
-                    value: "paid",
+                    value: 2,
                     label: "Paid",
-                    checked: status.includes("paid"),
+                    checked: status.includes(2),
                     onChange: (e) => onChangeStatus(e.target.value),
                 },
             ],
@@ -139,10 +139,10 @@ function FilterBarInvoices() {
 
     function onChangeStatus(value) {
         let currentState = [...status];
-        if (currentState.includes(value)) {
-            currentState = currentState.filter((s) => s !== value);
+        if (currentState.includes(Number(value))) {
+            currentState = currentState.filter((s) => s !== Number(value));
         } else {
-            currentState.push(value);
+            currentState.push(Number(value));
         }
         setStatus(currentState);
     }
@@ -185,7 +185,7 @@ function FilterBarInvoices() {
     }
 
     function clearFilter() {
-        setStatus(["paid", "unpaid"]);
+        setStatus([1, 2]);
         setDates({
             from: "",
             to: "",
