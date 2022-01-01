@@ -7,6 +7,7 @@ export * from "./BrewStages/actions";
 export * from "./Brewery/actions";
 export * from "./FinishedGood/actions";
 export * from "./FinishedGoods/actions";
+export * from "./FinishedGoodsInventory/actions";
 export * from "./Ingredient/actions";
 export * from "./Ingredients/actions";
 export * from "./layout/actions";

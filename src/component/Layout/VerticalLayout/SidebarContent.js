@@ -167,7 +167,7 @@ class SidebarContent extends Component {
                         </li>
                         <li>
                             <Link
-                                to="//inventory/finished-goods"
+                                to="/inventory/finished-goods"
                                 className="waves-effect"
                             >
                                 <i className="mdi mdi-chart-pie"></i>
