@@ -40,7 +40,6 @@ export default function SupplierContact() {
     const initialContact = useSelector((state) => {
         return state.SupplierContact.initial;
     });
-
     useEffect(() => {
         if (id === "new") {
             dispatch(resetSupplierContactDetails());
@@ -126,6 +125,8 @@ export default function SupplierContact() {
         );
     }
     function onSave() {
+        console.log("1", initialContact);
+        console.log("2", contact);
         dispatch(
             setSupplierContactDetails({
                 error: true,
@@ -208,11 +209,7 @@ export default function SupplierContact() {
                     history.push(path);
                 }}
                 shouldBlockNavigation={(location) => {
-                    return (
-                        editMode &&
-                        !location.pathname.includes("suppliers") &&
-                        isChanged()
-                    );
+                    return editMode && isChanged();
                 }}
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />

@@ -39,9 +39,10 @@ function* addSupplierContactGenerator(action) {
             get(action, "payload.supplierId"),
             get(action, "payload.form")
         );
+        const data = { ...res.data };
         yield put({
             type: ADD_SUPPLIER_CONTACT_SUCCESS,
-            payload: { data: res.data, initial: res.data },
+            payload: { data: data, initial: data },
         });
         yield put(
             setGlobalRedirect({
