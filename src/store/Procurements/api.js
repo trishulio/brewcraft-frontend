@@ -13,7 +13,7 @@ async function fetchProcurements(params = {}) {
             generated_on_to: params.invoiceTo
                 ? new Date(params.invoiceTo).toISOString()
                 : undefined,
-            status_ids: params.status,
+            invoice_status_ids: params.status,
             payment_due_date_from: params.paymentFrom
                 ? new Date(params.paymentFrom).toISOString()
                 : undefined,
