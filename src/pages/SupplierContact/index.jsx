@@ -33,7 +33,6 @@ export default function SupplierContact() {
     const query = useQuery();
     const editMode = query.get("edit");
     const dispatch = useDispatch();
-
     const contact = useSelector((state) => {
         return state.SupplierContact.data;
     });
@@ -41,7 +40,6 @@ export default function SupplierContact() {
     const initialContact = useSelector((state) => {
         return state.SupplierContact.initial;
     });
-
     useEffect(() => {
         if (id === "new") {
             dispatch(resetSupplierContactDetails());
@@ -85,46 +83,7 @@ export default function SupplierContact() {
     }, [contact]);
 
     function isChanged() {
-        return (
-            JSON.stringify(
-                (({
-                    id,
-                    firstName,
-                    lastName,
-                    supplier,
-                    position,
-                    email,
-                    phoneNumber,
-                }) => ({
-                    id,
-                    firstName,
-                    lastName,
-                    supplier,
-                    position,
-                    email,
-                    phoneNumber,
-                }))(initialContact)
-            ) !==
-            JSON.stringify(
-                (({
-                    id,
-                    firstName,
-                    lastName,
-                    supplier,
-                    position,
-                    email,
-                    phoneNumber,
-                }) => ({
-                    id,
-                    firstName,
-                    lastName,
-                    supplier,
-                    position,
-                    email,
-                    phoneNumber,
-                }))(contact)
-            )
-        );
+        return JSON.stringify(initialContact) !== JSON.stringify(contact);
     }
     function onSave() {
         dispatch(

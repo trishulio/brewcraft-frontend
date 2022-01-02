@@ -65,6 +65,11 @@ function* editSupplierContactGenerator(action) {
             type: EDIT_SUPPLIER_CONTACT_SUCCESS,
             payload: { data: res.data, initial: res.data },
         });
+        yield put(
+            setGlobalRedirect({
+                pathname: "/suppliers/contacts/" + res.data.id,
+            })
+        );
         yield put(snackSuccess("Supplier Contact saved!"));
     } catch (e) {
         yield put({ type: EDIT_SUPPLIER_CONTACT_FAILURE });

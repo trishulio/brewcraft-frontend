@@ -256,7 +256,7 @@ export default function SupplierContactDetails({ editable }) {
                                     style={{ width: "8rem" }}
                                     disabled={!editable}
                                     invalid={invalidCompany}
-                                    value={contact.supplier.id || ""}
+                                    value={contact.supplier?.id || ""}
                                     onChange={(e) => {
                                         onFormInputChange(e);
                                     }}
@@ -365,7 +365,13 @@ export default function SupplierContactDetails({ editable }) {
                         )}
                         {!editable && (
                             <div className="d-inline-block mb-2">
-                                {contact.email ? contact.email : "-"}
+                                {contact.email ? (
+                                    <a href={`mailto:${contact.email}`}>
+                                        {contact.email}
+                                    </a>
+                                ) : (
+                                    "-"
+                                )}
                             </div>
                         )}
                     </div>
