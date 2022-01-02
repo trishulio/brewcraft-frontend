@@ -145,7 +145,7 @@ export default function PurchaseInvoicesTable() {
                                     procurement.invoice.amount.amount
                                 )}
                             </td>
-                            <td>{procurement.invoice.invoiceStatus?.id}</td>
+                            <td>{procurement.invoice.invoiceStatus?.name}</td>
                         </tr>
                     ))}
                 </tbody>
