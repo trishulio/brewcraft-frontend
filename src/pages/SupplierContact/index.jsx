@@ -83,50 +83,9 @@ export default function SupplierContact() {
     }, [contact]);
 
     function isChanged() {
-        return (
-            JSON.stringify(
-                (({
-                    id,
-                    firstName,
-                    lastName,
-                    supplier,
-                    position,
-                    email,
-                    phoneNumber,
-                }) => ({
-                    id,
-                    firstName,
-                    lastName,
-                    supplier,
-                    position,
-                    email,
-                    phoneNumber,
-                }))(initialContact)
-            ) !==
-            JSON.stringify(
-                (({
-                    id,
-                    firstName,
-                    lastName,
-                    supplier,
-                    position,
-                    email,
-                    phoneNumber,
-                }) => ({
-                    id,
-                    firstName,
-                    lastName,
-                    supplier,
-                    position,
-                    email,
-                    phoneNumber,
-                }))(contact)
-            )
-        );
+        return JSON.stringify(initialContact) !== JSON.stringify(contact);
     }
     function onSave() {
-        console.log("1", initialContact);
-        console.log("2", contact);
         dispatch(
             setSupplierContactDetails({
                 error: true,
@@ -208,7 +167,7 @@ export default function SupplierContact() {
                 navigate={(path) => {
                     history.push(path);
                 }}
-                shouldBlockNavigation={(location) => {
+                shouldBlockNavigation={() => {
                     return editMode && isChanged();
                 }}
                 content="There are unsaved changes. Are you sure want to leave this page?"

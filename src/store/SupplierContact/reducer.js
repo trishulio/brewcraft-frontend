@@ -91,11 +91,6 @@ const SupplierContact = (state = initialState, { type, payload, data }) => {
             return {
                 ...state,
                 ...payload,
-                initial: { ...state.data, ...payload.data },
-                data: {
-                    ...state.data,
-                    ...payload.data,
-                },
                 loading: false,
                 error: null,
             };
