@@ -7,6 +7,7 @@ import {
     setPurchaseInvoiceInvoiceNumber,
     setPurchaseInvoiceDueDate,
     setPurchaseInvoicePurchaseOrder,
+    setPurchaseInvoiceStatus,
 } from "../../../store/actions";
 
 export default function PurchaseInvoiceDetails({ editable }) {
@@ -22,6 +23,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
         invalidInvoiceNumber,
         invalidPaymentDueDate,
         invalidPurchaseOrder,
+        invalidStatus,
     } = useSelector((state) => {
         return state.Procurement;
     });
@@ -282,6 +284,62 @@ export default function PurchaseInvoiceDetails({ editable }) {
                         <FormFeedback>
                             {!invoice.paymentDueDate
                                 ? "Due date must not be empty"
+                                : "Invalid purchase invoice field"}
+                        </FormFeedback>
+                    </FormGroup>
+                </Col>
+                <Col sm="4">
+                    <Label
+                        for="invoiceDetailsStatus"
+                        style={{
+                            width: "6rem",
+                        }}
+                        className="col-form-label float-left"
+                    >
+                        * Status
+                    </Label>
+                    <FormGroup
+                        className="float-left"
+                        style={{
+                            width: "100%",
+                            maxWidth: "16rem",
+                        }}
+                    >
+                        <Input
+                            type="select"
+                            name="invoiceDetailsStatus"
+                            className="mb-2"
+                            value={invoice.invoiceStatus?.id || ""}
+                            onChange={(e) => {
+                                dispatch(
+                                    setPurchaseInvoiceStatus(e.target.value)
+                                );
+                            }}
+                            hidden={!editable}
+                            invalid={invalidStatus}
+                        >
+                            <option value="">Select</option>
+                            <option value={"1"} key={"1"}>
+                                Unpaid
+                            </option>
+                            <option value={"2"} key={"2"}>
+                                Paid
+                            </option>
+                        </Input>
+                        <div
+                            className="float-left"
+                            style={{
+                                lineHeight: "2rem",
+                                verticalAlign: "middle",
+                            }}
+                            width="100%"
+                            hidden={editable}
+                        >
+                            {invoice.invoiceStatus?.name || "-"}
+                        </div>
+                        <FormFeedback>
+                            {!invoice.invoiceStatus?.id
+                                ? "Status is required"
                                 : "Invalid purchase invoice field"}
                         </FormFeedback>
                     </FormGroup>
