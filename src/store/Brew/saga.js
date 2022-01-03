@@ -167,13 +167,12 @@ function* editBatchGenerator(action) {
         );
         yield put({
             type: SET_BATCH_DETAILS,
-            payload: { save: true, data: res.data, initial: res.data },
+            payload: { data: res.data, initial: res.data },
         });
         yield put(setGlobalRedirect({ pathname: "/brews/" + res.data.id }));
         yield put(snackSuccess());
     } catch (e) {
         yield put({ type: EDIT_BATCH_FAILURE });
-        yield put(snackFailure(e.message));
     }
 }
 

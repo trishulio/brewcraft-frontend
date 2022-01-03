@@ -1,36 +1,71 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Ingredients from "../mixture/ingredients";
 import Details from "../mixture/details";
 import {
+    deleteKettleMaterialPortion,
+    editKettleMaterialPortion,
+    editKettleMixture,
+    editKettleStage,
     setKettleMaterialPortionDetails,
     setKettleMixtureDetails,
-    setKettleMixtureRecords,
     setKettleStageDetails,
 } from "../../../../store/actions";
+import {
+    Alert,
+    Button,
+    Card,
+    CardBody,
+    CardFooter,
+    CardHeader,
+} from "reactstrap";
 
 export default function BrewKettle() {
     const dispatch = useDispatch();
 
-    const { editable } = useSelector((state) => {
-        return state.Batch.Batch;
+    const {
+        data: stage,
+        initial: initialStage,
+        changed,
+        editable,
+        stageError,
+    } = useSelector((state) => {
+        return state.Batch.KettleStage;
     });
 
-    const stage = useSelector((state) => {
-        return state.Batch.KettleStage.data;
+    const {
+        data: mixture,
+        initial: initialMixture,
+        mixtureError,
+    } = useSelector((state) => {
+        return state.Batch.KettleMixture;
     });
 
-    const mixture = useSelector((state) => {
-        return state.Batch.KettleMixture.data;
+    const {
+        content: materialPortions,
+        initial: initialMaterialPortions,
+        materialPortionError,
+    } = useSelector((state) => {
+        return state.Batch.KettleMaterialPortion;
     });
 
-    const materialPortions = useSelector((state) => {
-        return state.Batch.KettleMaterialPortion.content;
-    });
+    useEffect(() => {
+        dispatch(
+            setKettleStageDetails({
+                changed: isChanged(),
+            })
+        );
+        // eslint-disable-next-line
+    }, [stage, mixture, materialPortions]);
 
-    const mixtureRecords = useSelector((state) => {
-        return state.Batch.KettleMixtureRecordings.content;
-    });
+    function isChanged() {
+        return (
+            JSON.stringify(initialStage) !== JSON.stringify(stage) ||
+            JSON.stringify(initialMixture) !== JSON.stringify(mixture) ||
+            JSON.stringify(initialMaterialPortions) !==
+                JSON.stringify(materialPortions)
+        );
+    }
 
     function setStage(stage) {
         dispatch(
@@ -56,8 +91,60 @@ export default function BrewKettle() {
         );
     }
 
-    function setMixtureRecords(mixtureRecords) {
-        dispatch(setKettleMixtureRecords(mixtureRecords));
+    function onSave() {
+        if (changed) {
+            dispatch(
+                editKettleStage({
+                    id: stage.id,
+                    form: {
+                        statusId: stage.status.id,
+                        taskId: stage.task.id,
+                        startedAt: stage.startedAt,
+                        endedAt: stage.endedAt,
+                        version: stage.version,
+                    },
+                })
+            );
+            dispatch(
+                editKettleMixture({
+                    id: mixture.id,
+                    form: {
+                        parentMixtureId: mixture.parentMixtureId,
+                        quantity: {
+                            ...mixture.quantity,
+                        },
+                        brewStageId: mixture.brewStage.id,
+                        version: mixture.version,
+                    },
+                })
+            );
+            if (materialPortions.length) {
+                dispatch(
+                    editKettleMaterialPortion({
+                        form: materialPortions.map((mp) => ({
+                            id: mp.id,
+                            materialLotId: mp.materialLot.id,
+                            quantity: mp.quantity,
+                            mixtureId: mp.mixture.id,
+                            // addedAt: "2021-11-03T02:59:16.053Z",
+                            version: mp.version,
+                        })),
+                    })
+                );
+            }
+            // delete material portions
+            const map = materialPortions.map((mp) => mp.id);
+            const mp = initialMaterialPortions
+                .filter((imp) => !map.includes(imp.id))
+                .map((mp) => mp.id);
+            if (mp.length) {
+                dispatch(
+                    deleteKettleMaterialPortion({
+                        form: mp,
+                    })
+                );
+            }
+        }
     }
 
     const detailsProps = {
@@ -65,8 +152,6 @@ export default function BrewKettle() {
         setStage,
         mixture,
         setMixture,
-        mixtureRecords,
-        setMixtureRecords,
         editable,
     };
 
@@ -79,11 +164,70 @@ export default function BrewKettle() {
 
     return (
         <React.Fragment>
-            <Details {...detailsProps} />
-            <div className="clearFix mb-3"></div>
-            <div className="px-2">
-                <Ingredients {...ingredientsProps} />
-            </div>
+            {(stageError || mixtureError || materialPortionError) && (
+                <Alert color="info" className="mt-2 mb-4">
+                    <strong>Oh snap!</strong> Change a few things up and try
+                    submitting again.
+                </Alert>
+            )}
+            <Card className="mb-3">
+                <CardHeader>Kettle Lauter</CardHeader>
+                <CardBody>
+                    <Details {...detailsProps} />
+                    <div className="clearFix mb-3"></div>
+                    <div className="px-2">
+                        <Ingredients {...ingredientsProps} />
+                    </div>
+                    <Button
+                        type="button"
+                        color="secondary"
+                        size="sm"
+                        className="waves-effect"
+                        onClick={() => {
+                            dispatch(
+                                setKettleStageDetails({
+                                    editable: true,
+                                })
+                            );
+                        }}
+                        hidden={editable}
+                    >
+                        Edit
+                    </Button>
+                </CardBody>
+                {editable && (
+                    <CardFooter>
+                        <Button
+                            type="button"
+                            color="primary"
+                            size="sm"
+                            className="waves-effect mr-2"
+                            onClick={onSave}
+                            disabled={!changed}
+                        >
+                            Save
+                        </Button>
+                        <Button
+                            type="button"
+                            color="secondary"
+                            size="sm"
+                            className="waves-effect mr-2"
+                            onClick={() => {
+                                dispatch(
+                                    setKettleStageDetails({
+                                        data: {
+                                            ...initialStage,
+                                        },
+                                        editable: false,
+                                    })
+                                );
+                            }}
+                        >
+                            Done
+                        </Button>
+                    </CardFooter>
+                )}
+            </Card>
         </React.Fragment>
     );
 }

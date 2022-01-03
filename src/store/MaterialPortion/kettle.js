@@ -6,6 +6,8 @@ import {
     ADD_KETTLE_MATERIAL_PORTION_SUCCESS,
     SET_KETTLE_MATERIAL_PORTION_DETAILS,
     RESET_KETTLE_MATERIAL_PORTION_DETAILS,
+    EDIT_KETTLE_MATERIAL_PORTION_FAILURE,
+    DELETE_KETTLE_MATERIAL_PORTION_FAILURE,
 } from "./actionTypes";
 
 const initialState = {
@@ -26,7 +28,6 @@ const KettleMaterialPortion = (state = initialState, { type, payload }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null,
             };
         case ADD_KETTLE_MATERIAL_PORTION_REQUEST:
         case EDIT_KETTLE_MATERIAL_PORTION_REQUEST:
@@ -44,6 +45,8 @@ const KettleMaterialPortion = (state = initialState, { type, payload }) => {
                 error: null,
             };
         case ADD_KETTLE_MATERIAL_PORTION_FAILURE:
+        case EDIT_KETTLE_MATERIAL_PORTION_FAILURE:
+        case DELETE_KETTLE_MATERIAL_PORTION_FAILURE:
             return {
                 ...state,
                 loading: false,
