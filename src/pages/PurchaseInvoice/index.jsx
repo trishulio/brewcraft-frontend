@@ -147,7 +147,7 @@ export default function PurchaseInvoice() {
                 generatedOn: invoice.generatedOn + "T00:00:00.001Z",
                 receivedOn: invoice.generatedOn + "T00:00:00.001Z",
                 paymentDueDate: invoice.paymentDueDate + "T00:00:00.001Z",
-                invoiceStatusId: 1, // paid
+                invoiceStatusId: invoice.invoiceStatus.id,
                 version: invoice.id ? invoice.version : undefined,
             },
             purchaseOrder: purchaseOrder,
