@@ -48,6 +48,8 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                 break;
             case "purchaseInvoiceItemDescription":
                 itemsNew[indexv].invoiceItem.description = e.target.value;
+                itemsNew[indexv].invoiceItem.invalidDescription =
+                    e.target.value.length === 0;
                 break;
             case "purchaseInvoiceItemQuantity":
                 itemsNew[indexv].invoiceItem.quantity.value = e.target.value;
@@ -69,7 +71,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                 break;
             case "purchaseInvoiceItemLot":
                 itemsNew[indexv].materialLot.lotNumber = e.target.value;
-                itemsNew[indexv].materialLot.invalidLotNumber = false;
+                itemsNew[indexv].materialLot.invalidLotNumber = !e.target.value;
                 break;
             default:
                 return;
@@ -107,7 +109,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             <Input
                                 type="select"
                                 name="purchaseInvoiceItemMaterial"
-                                value={item.invoiceItem.material.id || ""}
+                                value={item.invoiceItem.material?.id || ""}
                                 onChange={changeevent}
                                 hidden={!editable}
                                 invalid={item.invalidMaterial}
@@ -120,13 +122,13 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                 ))}
                             </Input>
                             <FormFeedback>
-                                {!item.invoiceItem.material.id
+                                {!item.invoiceItem.material?.id
                                     ? "Required invoice field"
                                     : "Invalid invoice field"}
                             </FormFeedback>
                         </FormGroup>
                         <div hidden={editable}>
-                            {item.invoiceItem.material.name || "-"}
+                            {item.invoiceItem.material?.name || "-"}
                         </div>
                     </Col>
                     <Col xs="3">
@@ -153,10 +155,12 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             onChange={changeevent}
                             hidden={!editable}
                             value={item.materialLot.lotNumber || ""}
+                            invalid={item.materialLot.invalidLotNumber}
                         />
                         <div hidden={editable}>
                             {item.materialLot.lotNumber || "-"}
                         </div>
+                        <FormFeedback>Invalid invoice field</FormFeedback>
                     </Col>
                     <Col xs="1">
                         <FormGroup>
