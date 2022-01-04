@@ -98,10 +98,7 @@ describe("<Supplier />", () => {
                     </BrowserRouter>
                 </Provider>
             );
-            const buttons = wrapper
-                .find({ children: "Save" })
-                .at(1)
-                .simulate("click");
+            wrapper.find({ children: "Save" }).at(1).simulate("click");
             expect(mockDispatch).toHaveBeenNthCalledWith(9, {
                 type: "SET_SUPPLIER_DETAILS",
                 payload: {
@@ -130,10 +127,7 @@ describe("<Supplier />", () => {
                     </BrowserRouter>
                 </Provider>
             );
-            const buttons = wrapper
-                .find({ children: "Save" })
-                .at(1)
-                .simulate("click");
+            wrapper.find({ children: "Save" }).at(1).simulate("click");
             expect(mockDispatch).toHaveBeenNthCalledWith(15, {
                 type: "EDIT_SUPPLIER_REQUEST",
                 payload: {
