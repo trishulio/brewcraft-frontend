@@ -89,6 +89,8 @@
         "cypress:open": "node node_modules/cypress/bin/cypress open",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
+        "test:watch": "npm run test --watch",
+        "test:coverage": "npm run test -- --coverage",
         "eslint": "node ./node_modules/eslint/bin/eslint ./src && node ./node_modules/eslint/bin/eslint ./cypress",
         "prettier": "node ./node_modules/prettier/bin-prettier --write .",
         "prettier:warn": "node ./node_modules/prettier/bin-prettier --check ."
@@ -115,7 +117,15 @@
         "cypress-localstorage-commands": "^1.6.1",
         "eslint": "6.8.0",
         "eslint-plugin-cypress": "^2.12.1",
-        "prettier": "2.5.1"
+        "prettier": "2.5.1",
+        "@types/jest": "^27.4.0",
+        "babel-jest": "^24.9.0",
+        "enzyme": "^3.11.0",
+        "enzyme-adapter-react-16": "^1.15.6",
+        "enzyme-to-json": "^3.6.2",
+        "redux-mock-store": "^1.5.4",
+        "eslint-plugin-jest": "^25.3.4",
+        "jest": "24.9.0",
     },
     "prettier": {
         "semi": true,
@@ -130,6 +140,11 @@
                     "semi": true
                 }
             }
+        ]
+    },
+    "jest": {
+        "coveragePathIgnorePatterns": [
+            "<rootDir>/src/assets/*"
         ]
     }
 }
