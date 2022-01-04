@@ -96,7 +96,11 @@ function* fetchPurchaseInvoiceByIdGenerator(action) {
         delete data.invoiceItems;
         yield put({
             type: SET_PURCHASE_INVOICE_DETAILS,
-            payload: { data: data, initial: data },
+            payload: {
+                data: data,
+                initial: data,
+                initialInvoiceItems: data.procurementItems,
+            },
         });
     } catch (e) {
         yield put({
@@ -382,7 +386,11 @@ function* fetchProcurementGenerator(action) {
         };
         yield put({
             type: SET_PURCHASE_INVOICE_DETAILS,
-            payload: { data: data, initial: data },
+            payload: {
+                data: data,
+                initial: data,
+                initialInvoiceItems: data.procurementItems,
+            },
         });
     } catch (e) {
         yield put({

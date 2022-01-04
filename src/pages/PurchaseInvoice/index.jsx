@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
@@ -40,11 +41,26 @@ export default function PurchaseInvoice() {
         return state.Procurement.data;
     });
 
-    const { data: procurement, initial: initialProcurement } = useSelector(
-        (state) => {
-            return state.Procurement;
-        }
-    );
+    const {
+        data: procurement,
+        initial: initialProcurement,
+        initialInvoiceItems = [],
+    } = useSelector((state) => {
+        return state.Procurement;
+    });
+
+    let invoiceItems = {
+        currentItem: useMemo(() => {
+            return procurement.procurementItems.map((x) => ({
+                ...x.invoiceItem,
+            }));
+        }, [procurement]),
+        oldItems: useMemo(() => {
+            return initialInvoiceItems.map((x) => ({
+                ...x.invoiceItem,
+            }));
+        }, [initialInvoiceItems]),
+    };
 
     useEffect(() => {
         dispatch(resetPurchaseInvoiceDetails());
@@ -93,7 +109,10 @@ export default function PurchaseInvoice() {
 
     function isChanged() {
         return (
-            JSON.stringify(procurement) !== JSON.stringify(initialProcurement)
+            JSON.stringify(procurement) !==
+                JSON.stringify(initialProcurement) ||
+            JSON.stringify(invoiceItems.currentItem) !==
+                JSON.stringify(invoiceItems.oldItems)
         );
     }
 
