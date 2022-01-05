@@ -103,7 +103,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
     return (
         <React.Fragment>
             <ListGroupItem>
-                <Row>
+                <Row className="align-items-center">
                     <Col xs="3">
                         <FormGroup>
                             <Input
@@ -149,80 +149,89 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                         </div>
                     </Col>
                     <Col xs="1">
-                        <Input
-                            type="text"
-                            name="purchaseInvoiceItemLot"
-                            onChange={changeevent}
-                            hidden={!editable}
-                            value={item.materialLot.lotNumber || ""}
-                            invalid={item.materialLot.invalidLotNumber}
-                        />
+                        {editable && (
+                            <FormGroup>
+                                <Input
+                                    type="text"
+                                    name="purchaseInvoiceItemLot"
+                                    onChange={changeevent}
+                                    value={item.materialLot.lotNumber || ""}
+                                    invalid={item.materialLot.invalidLotNumber}
+                                />
+                            </FormGroup>
+                        )}
                         <div hidden={editable}>
                             {item.materialLot.lotNumber || "-"}
                         </div>
                         <FormFeedback>Invalid invoice field</FormFeedback>
                     </Col>
                     <Col xs="1">
-                        <FormGroup>
-                            <Input
-                                type="text"
-                                name="purchaseInvoiceItemQuantity"
-                                value={item.invoiceItem.quantity?.value || ""}
-                                onChange={changeevent}
-                                hidden={!editable}
-                                invalid={item.invoiceItem.invalidQuantity}
-                            />
-                            <FormFeedback>
-                                {!item.invoiceItem.quantity.value &&
-                                item.invoiceItem.quantity.value !== "0"
-                                    ? "Required invoice field"
-                                    : "Invalid invoice field"}
-                            </FormFeedback>
-                        </FormGroup>
+                        {editable && (
+                            <FormGroup>
+                                <Input
+                                    type="text"
+                                    name="purchaseInvoiceItemQuantity"
+                                    value={
+                                        item.invoiceItem.quantity?.value || ""
+                                    }
+                                    onChange={changeevent}
+                                    invalid={item.invoiceItem.invalidQuantity}
+                                />
+                                <FormFeedback>
+                                    {!item.invoiceItem.quantity.value &&
+                                    item.invoiceItem.quantity.value !== "0"
+                                        ? "Required invoice field"
+                                        : "Invalid invoice field"}
+                                </FormFeedback>
+                            </FormGroup>
+                        )}
                         <div hidden={editable}>
                             {item.invoiceItem.quantity.value || "-"}
                         </div>
                     </Col>
                     <Col xs="1">
-                        <FormGroup>
-                            <Input
-                                type="text"
-                                name="purchaseInvoiceItemPrice"
-                                value={item.invoiceItem.price?.amount || ""}
-                                onChange={changeevent}
-                                hidden={!editable}
-                                invalid={item.invoiceItem.invalidPrice}
-                            />
-                            <FormFeedback>
-                                {!item.invoiceItem.price.amount &&
-                                item.invoiceItem.price.amount !== "0"
-                                    ? "Required invoice field"
-                                    : "Invalid invoice field"}
-                            </FormFeedback>
-                        </FormGroup>
+                        {editable && (
+                            <FormGroup>
+                                <Input
+                                    type="text"
+                                    name="purchaseInvoiceItemPrice"
+                                    value={item.invoiceItem.price?.amount || ""}
+                                    onChange={changeevent}
+                                    invalid={item.invoiceItem.invalidPrice}
+                                />
+                                <FormFeedback>
+                                    {!item.invoiceItem.price.amount &&
+                                    item.invoiceItem.price.amount !== "0"
+                                        ? "Required invoice field"
+                                        : "Invalid invoice field"}
+                                </FormFeedback>
+                            </FormGroup>
+                        )}
                         <div hidden={editable}>
                             {item.invoiceItem.price.amount || "-"}
                         </div>
                     </Col>
                     <Col xs="1">
-                        <FormGroup>
-                            <Input
-                                type="text"
-                                name="purchaseInvoiceItemTax"
-                                value={
-                                    item.invoiceItem.tax.amount?.amount || ""
-                                }
-                                onChange={changeevent}
-                                hidden={!editable}
-                                invalid={item.invoiceItem.invalidTax}
-                            />
-                            <FormFeedback>
-                                {!item.invoiceItem.tax.amount.amount &&
-                                item.invoiceItem.tax.amount.amount !== "0"
-                                    ? "Required invoice field"
-                                    : "Invalid invoice field"}
-                            </FormFeedback>
-                        </FormGroup>
+                        {editable && (
+                            <FormGroup>
+                                <Input
+                                    type="text"
+                                    name="purchaseInvoiceItemTax"
+                                    value={
+                                        item.invoiceItem.tax.amount?.amount ||
+                                        ""
+                                    }
+                                    onChange={changeevent}
+                                    invalid={item.invoiceItem.invalidTax}
+                                />
+                                <FormFeedback>
+                                    {!item.invoiceItem.tax.amount.amount &&
+                                    item.invoiceItem.tax.amount.amount !== "0"
+                                        ? "Required invoice field"
+                                        : "Invalid invoice field"}
+                                </FormFeedback>
+                            </FormGroup>
+                        )}
                         <div hidden={editable}>
                             {item.invoiceItem.tax.amount.amount || "-"}
                         </div>
