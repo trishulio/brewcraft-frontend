@@ -153,7 +153,6 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                     type="text"
                                     name="purchaseInvoiceItemLot"
                                     onChange={changeevent}
-                                    hidden={!editable}
                                     value={item.materialLot.lotNumber || ""}
                                 />
                             </FormGroup>
@@ -172,7 +171,6 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                         item.invoiceItem.quantity?.value || ""
                                     }
                                     onChange={changeevent}
-                                    hidden={!editable}
                                     invalid={item.invoiceItem.invalidQuantity}
                                 />
                                 <FormFeedback>
@@ -195,7 +193,6 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                     name="purchaseInvoiceItemPrice"
                                     value={item.invoiceItem.price?.amount || ""}
                                     onChange={changeevent}
-                                    hidden={!editable}
                                     invalid={item.invoiceItem.invalidPrice}
                                 />
                                 <FormFeedback>
@@ -221,7 +218,6 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                         ""
                                     }
                                     onChange={changeevent}
-                                    hidden={editable}
                                     invalid={item.invoiceItem.invalidTax}
                                 />
                                 <FormFeedback>
