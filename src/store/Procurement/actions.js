@@ -23,6 +23,8 @@ import {
     RESET_PURCHASE_INVOICE_DETAILS,
     DELETE_PURCHASE_INVOICE,
     FETCH_PROCUREMENT_BY_SHIPMENT_ID_AND_INVOICE_ID,
+    SET_PURCHASE_INVOICE_STATUS,
+    INVALID_PURCHASE_INVOICE_STATUS,
 } from "./actionTypes";
 
 export const createProcurement = ({
@@ -133,6 +135,13 @@ export const setPurchaseInvoiceDueDate = (paymentDueDate) => ({
     },
 });
 
+export const setPurchaseInvoiceStatus = (id) => ({
+    type: SET_PURCHASE_INVOICE_STATUS,
+    payload: {
+        id,
+    },
+});
+
 export const setPurchaseInvoicePurchaseOrder = (orderNumber) => ({
     type: SET_PURCHASE_INVOICE_PURCHASE_ORDER,
     payload: { orderNumber },
@@ -170,6 +179,13 @@ export const setInvalidDueDate = (enabled) => ({
     type: INVALID_PURCHASE_INVOICE_PAYMENT_DUE_DATE,
     payload: {
         invalidPaymentDueDate: enabled,
+    },
+});
+
+export const setInvalidStatus = (enabled) => ({
+    type: INVALID_PURCHASE_INVOICE_STATUS,
+    payload: {
+        invalidStatus: enabled,
     },
 });
 

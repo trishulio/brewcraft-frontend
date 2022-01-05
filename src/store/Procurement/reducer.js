@@ -16,6 +16,8 @@ import {
     INVALID_PURCHASE_INVOICE_PURCHASE_ORDER,
     SET_PURCHASE_INVOICE_ERROR,
     UPDATE_PURCHASE_ORDER_SUCCESS,
+    INVALID_PURCHASE_INVOICE_STATUS,
+    SET_PURCHASE_INVOICE_STATUS,
 } from "./actionTypes";
 
 const initialState = {
@@ -172,6 +174,7 @@ const PurchaseInvoice = (state = initialState, { type, payload }) => {
         case INVALID_PURCHASE_INVOICE_SUPPLIER:
         case INVALID_PURCHASE_INVOICE_INVOICE_NUMBER:
         case INVALID_PURCHASE_INVOICE_PAYMENT_DUE_DATE:
+        case INVALID_PURCHASE_INVOICE_STATUS:
         case INVALID_PURCHASE_INVOICE_PURCHASE_ORDER:
         case SET_PURCHASE_INVOICE_ERROR:
             return {
@@ -202,6 +205,20 @@ const PurchaseInvoice = (state = initialState, { type, payload }) => {
                     purchaseOrder: {
                         ...state.data.purchaseOrder,
                         ...payload,
+                    },
+                },
+                loading: false,
+            };
+        case SET_PURCHASE_INVOICE_STATUS:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    invoice: {
+                        ...state.data.invoice,
+                        invoiceStatus: {
+                            ...payload,
+                        },
                     },
                 },
                 loading: false,
