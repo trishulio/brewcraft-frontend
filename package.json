@@ -90,7 +90,7 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "test:watch": "npm run test --watch",
-        "test:coverage": "npm run test -- --coverage",
+        "test:coverage": "npm run test -- --coverage --watchAll",
         "eslint": "node ./node_modules/eslint/bin/eslint ./src && node ./node_modules/eslint/bin/eslint ./cypress",
         "prettier": "node ./node_modules/prettier/bin-prettier --write .",
         "prettier:warn": "node ./node_modules/prettier/bin-prettier --check ."
