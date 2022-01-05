@@ -5,6 +5,8 @@ import Table, { Th } from "../../../component/Common/table";
 import { formatCurrency, formatDate } from "../../../helpers/textUtils";
 import { useQuery } from "../../../helpers/utils";
 
+let INVOICE_STATUS = ["Unpaid", "Paid"];
+
 export default function PurchaseInvoicesTable() {
     const history = useHistory();
     const query = useQuery();
@@ -145,7 +147,13 @@ export default function PurchaseInvoicesTable() {
                                     procurement.invoice.amount.amount
                                 )}
                             </td>
-                            <td>{procurement.invoice.invoiceStatus?.name}</td>
+                            <td>
+                                {
+                                    INVOICE_STATUS[
+                                        procurement.invoice.invoiceStatus.id - 1
+                                    ]
+                                }
+                            </td>
                         </tr>
                     ))}
                 </tbody>

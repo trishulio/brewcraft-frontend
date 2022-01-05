@@ -10,6 +10,8 @@ import {
     setPurchaseInvoiceStatus,
 } from "../../../store/actions";
 
+let INVOICE_STATUS = ["Unpaid", "Paid"];
+
 export default function PurchaseInvoiceDetails({ editable }) {
     const dispatch = useDispatch();
 
@@ -335,7 +337,8 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             width="100%"
                             hidden={editable}
                         >
-                            {invoice.invoiceStatus?.name || "-"}
+                            {INVOICE_STATUS[invoice.invoiceStatus?.id - 1] ||
+                                "-"}
                         </div>
                         <FormFeedback>
                             {!invoice.invoiceStatus?.id
