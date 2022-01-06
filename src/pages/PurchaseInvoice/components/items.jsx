@@ -41,6 +41,7 @@ export default function PurchaseInvoiceItems({ editable }) {
                         ) {
                             amountTax += amountItemTax;
                             amountTotal += amountItemTax;
+                            invoiceItem.taxAmount = amountItemTax;
                         }
                     }
                 }

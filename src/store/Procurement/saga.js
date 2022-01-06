@@ -25,6 +25,7 @@ import {
 import { call, put, takeEvery } from "redux-saga/effects";
 import { get, map } from "lodash";
 import {
+    calculatedTaxRate,
     validAmount,
     validDate,
     validId,
@@ -105,6 +106,14 @@ function* fetchPurchaseInvoiceByIdGenerator(action) {
             items: res.data.invoiceItems,
         };
         delete data.invoiceItems;
+        data.items.forEach(({ invoiceItem }) => {
+            const { tax, price, quantity } = invoiceItem;
+            invoiceItem.tax.amount.amount = calculatedTaxRate(
+                quantity.value,
+                price.amount,
+                tax.amount.amount
+            );
+        });
         yield put({
             type: SET_PURCHASE_INVOICE_DETAILS,
             payload: {
@@ -422,6 +431,14 @@ function* fetchProcurementGenerator(action) {
             },
             purchaseOrder,
         };
+        data.procurementItems.forEach(({ invoiceItem }) => {
+            const { tax, price, quantity } = invoiceItem;
+            invoiceItem.tax.amount.amount = calculatedTaxRate(
+                quantity.value,
+                price.amount,
+                tax.amount.amount
+            );
+        });
         yield put({
             type: SET_PURCHASE_INVOICE_DETAILS,
             payload: {

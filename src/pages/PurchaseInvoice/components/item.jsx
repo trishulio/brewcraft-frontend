@@ -103,7 +103,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
     return (
         <React.Fragment>
             <ListGroupItem>
-                <Row className="align-items-center">
+                <Row>
                     <Col xs="3">
                         <FormGroup>
                             <Input
@@ -158,12 +158,14 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                     value={item.materialLot.lotNumber || ""}
                                     invalid={item.materialLot.invalidLotNumber}
                                 />
+                                <FormFeedback>
+                                    Invalid invoice field
+                                </FormFeedback>
                             </FormGroup>
                         )}
                         <div hidden={editable}>
                             {item.materialLot.lotNumber || "-"}
                         </div>
-                        <FormFeedback>Invalid invoice field</FormFeedback>
                     </Col>
                     <Col xs="1">
                         {editable && (
