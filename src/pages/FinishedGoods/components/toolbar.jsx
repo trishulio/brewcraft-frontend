@@ -5,8 +5,5 @@ import Toolbar from "../../../component/Common/toolbar";
 
 export default function FinishedGoodsToolbar() {
     const history = useHistory();
-    return (
-        <Toolbar>
-        </Toolbar>
-    );
+    return <Toolbar></Toolbar>;
 }

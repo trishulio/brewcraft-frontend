@@ -13,7 +13,9 @@ function FilterBarFinishedGoods() {
 
     const [skuIds, setSkus] = useState(query.get("sku_ids"));
     const [productIds, setProducts] = useState(query.get("product_ids"));
-    const [brewBatchIds, setBrewBatches] = useState(query.get("brew_batch_ids"));
+    const [brewBatchIds, setBrewBatches] = useState(
+        query.get("brew_batch_ids")
+    );
     const [isFormChanged, setIsFormChanged] = useState(false);
 
     const skus = useSelector((state) => {
@@ -62,7 +64,7 @@ function FilterBarFinishedGoods() {
             value: brewBatchIds,
             type: "select-multiple",
             onChange: (e) => onBrewBatchChanges(e),
-        }
+        },
     ];
 
     function onSkuChanges(event) {

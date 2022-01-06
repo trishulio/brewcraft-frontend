@@ -6,7 +6,7 @@ import {
     fetchFinishedGoods,
     fetchAllProducts,
     fetchAllSkus,
-    fetchAllBatches
+    fetchAllBatches,
 } from "../../store/actions";
 import FinishedGoodsInner from "./finished-goods";
 
@@ -48,15 +48,7 @@ export default function FinshedGoods() {
         dispatch(fetchAllProducts());
         dispatch(fetchAllBatches());
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [
-        pageIndex,
-        pageSize,
-        skuIds,
-        productIds,
-        brewBatchIds,
-        sort,
-        order
-    ]);
+    }, [pageIndex, pageSize, skuIds, productIds, brewBatchIds, sort, order]);
 
     return <FinishedGoodsInner />;
 }

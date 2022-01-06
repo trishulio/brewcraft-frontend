@@ -76,7 +76,11 @@ export default function FinishedGoodsInventoryTable() {
                 {finishedGoodsInventory.map((finishedGood, key) => (
                     <tr
                         key={key}
-                        onClick={() => history.push("/finished-goods?sku_ids=" + finishedGood.sku.id)}
+                        onClick={() =>
+                            history.push(
+                                "/finished-goods?sku_ids=" + finishedGood.sku.id
+                            )
+                        }
                     >
                         <td></td>
                         <td>{finishedGood.sku.name}</td>

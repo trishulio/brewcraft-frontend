@@ -76,14 +76,22 @@ export default function FinishedGoodsTable() {
                 {finishedGoods.map((finishedGood, key) => (
                     <tr
                         key={key}
-                        onClick={() => history.push("/finished-goods/" + finishedGood.id)}
+                        onClick={() =>
+                            history.push("/finished-goods/" + finishedGood.id)
+                        }
                     >
                         <td></td>
                         <td>{finishedGood.sku.name}</td>
                         <td>{finishedGood.sku.product.name}</td>
                         <td>
                             {finishedGood.mixturePortions
-                                ? finishedGood.mixturePortions.map((mixturePortion) => mixturePortion.mixture.brewStage.brew.batchId).join(", ")
+                                ? finishedGood.mixturePortions
+                                      .map(
+                                          (mixturePortion) =>
+                                              mixturePortion.mixture.brewStage
+                                                  .brew.batchId
+                                      )
+                                      .join(", ")
                                 : ""}
                         </td>
                         <td>{finishedGood.packagedOn}</td>

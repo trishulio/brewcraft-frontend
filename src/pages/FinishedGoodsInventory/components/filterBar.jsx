@@ -44,7 +44,7 @@ function FilterBarFinishedGoodsInventory() {
             value: productIds,
             type: "select-multiple",
             onChange: (e) => onProductChanges(e),
-        }
+        },
     ];
 
     function onSkuChanges(event) {
