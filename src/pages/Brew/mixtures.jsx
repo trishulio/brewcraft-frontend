@@ -2,7 +2,6 @@ import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     editKettleMixture,
-    editMashMixture,
     editWhirlpoolMixture,
     editTransferMixture,
     fetchMixturesByBrewId,
@@ -106,21 +105,6 @@ export default function Mixtures(props) {
     ]);
 
     useEffect(() => {
-        if (save && isMixtureChanged(mashMixture, initialMashMixture)) {
-            dispatch(
-                editMashMixture({
-                    id: mashMixture.id,
-                    form: {
-                        parentMixtureId: mashMixture.parentMixtureId,
-                        quantity: {
-                            ...mashMixture.quantity,
-                        },
-                        brewStageId: mashMixture.brewStage.id,
-                        version: mashMixture.version,
-                    },
-                })
-            );
-        }
         if (save && isMixtureChanged(kettleMixture, initialKettleMixture)) {
             dispatch(
                 editKettleMixture({

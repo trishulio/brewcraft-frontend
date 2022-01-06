@@ -7,6 +7,7 @@ import {
     SET_BATCH_DETAILS,
     RESET_BATCH_DETAILS,
     SET_INITIAL_BATCH_DETAILS,
+    EDIT_BATCH_FAILURE,
 } from "./actionTypes";
 
 const initialState = {
@@ -47,7 +48,7 @@ const initialState = {
     error: null,
 };
 
-const Batch = (state = initialState, { type, payload }) => {
+const Brew = (state = initialState, { type, payload }) => {
     switch (type) {
         case SET_BATCH_DETAILS:
             return {
@@ -81,6 +82,7 @@ const Batch = (state = initialState, { type, payload }) => {
                 error: null,
             };
         case ADD_BATCH_FAILURE:
+        case EDIT_BATCH_FAILURE:
             return {
                 ...state,
                 loading: false,
@@ -88,9 +90,13 @@ const Batch = (state = initialState, { type, payload }) => {
             };
         case RESET_BATCH_DETAILS:
             return {
-                ...initialState,
+                data: {
+                    ...initialState.data,
+                },
+                initial: {
+                    ...initialState.initial,
+                },
                 loading: false,
-                error: null,
             };
         default:
             return {
@@ -101,4 +107,4 @@ const Batch = (state = initialState, { type, payload }) => {
     }
 };
 
-export default Batch;
+export default Brew;

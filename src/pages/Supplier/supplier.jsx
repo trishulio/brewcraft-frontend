@@ -10,7 +10,6 @@ export default function Supplier({ editable, changed, onSave, onDelete }) {
     });
     return (
         <React.Fragment>
-            {console.log(error)}
             <Toolbar
                 editable={editable}
                 changed={changed}

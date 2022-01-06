@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     editKettleStage,
-    editMashStage,
     editWhirlpoolStage,
     fetchAllBrewStages,
 } from "../../store/actions";
@@ -102,20 +101,6 @@ export default function Stages(props) {
     }, [mashStage, kettleStage, whirlpoolStage, props, isChanged]);
 
     useEffect(() => {
-        if (save && isStageChanged(mashStage, initialMashStage)) {
-            dispatch(
-                editMashStage({
-                    id: mashStage.id,
-                    form: {
-                        statusId: mashStage.status.id,
-                        taskId: mashStage.task.id,
-                        startedAt: mashStage.startedAt,
-                        endedAt: mashStage.endedAt,
-                        version: mashStage.version,
-                    },
-                })
-            );
-        }
         if (save && isStageChanged(kettleStage, initialKettleStage)) {
             dispatch(
                 editKettleStage({

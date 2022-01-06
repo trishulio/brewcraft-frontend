@@ -14,6 +14,7 @@ import {
     ConditionStage,
     BriteTankStage,
 } from "./BrewStages/reducer";
+import { FermentFinishedGoods } from "./FinishedGoods/reducer";
 import FilterBar from "./FilterBar/reducer";
 import FinishedGood from "./FinishedGood/reducer";
 import FinishedGoodsInventory from "./FinishedGoodsInventory/reducer";
@@ -43,7 +44,6 @@ import {
     TransferMixture,
     FermentMixture,
 } from "./Mixture/reducer";
-import { FermentMixturePortions } from "./MixturePortion/reducer";
 import {
     KettleMixtureRecordings,
     WhirlpoolMixtureRecordings,
@@ -89,7 +89,7 @@ const rootReducer = combineReducers({
         FermentMixture,
         FermentMaterialPortion,
         FermentMixtureRecordings,
-        FermentMixturePortions,
+        FermentFinishedGoods,
         ConditionStage,
         BriteTankStage,
     }),

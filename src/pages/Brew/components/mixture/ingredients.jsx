@@ -44,7 +44,6 @@ export default function BatchIngredients({
                     <tbody>
                         {!materialPortions.length && (
                             <tr>
-                                {/* <td></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td> */}
                                 <td></td>
                                 <td>-</td>
                                 <td>-</td>
@@ -66,27 +65,21 @@ export default function BatchIngredients({
                                                         if (e.target.checked) {
                                                             setLots([
                                                                 ...lots,
-                                                                portion
-                                                                    .materialLot
-                                                                    .id,
+                                                                index,
                                                             ]);
                                                         } else {
                                                             setLots(
                                                                 lots.filter(
                                                                     (l) =>
                                                                         l !==
-                                                                        portion
-                                                                            .materialLot
-                                                                            .id
+                                                                        index
                                                                 )
                                                             );
                                                         }
                                                     }}
                                                     checked={
-                                                        lots.includes(
-                                                            portion.materialLot
-                                                                .id
-                                                        ) && editable
+                                                        lots.includes(index) &&
+                                                        editable
                                                     }
                                                 />
                                             )}
@@ -114,86 +107,101 @@ export default function BatchIngredients({
                     </tbody>
                 </CommonTable>
             </div>
-            <div hidden={!editable}>
-                <FormGroup className="d-block d-sm-inline-block mr-2">
-                    <Input
-                        type="select"
-                        className="waves-effect"
-                        style={{ width: "14rem" }}
-                        value={selectedLot.id || ""}
-                        onChange={(e) => {
-                            const materialLot = materialLots.find(
-                                (s) => s.id === parseInt(e.target.value)
-                            );
-                            setSelectedLot(materialLot);
-                        }}
-                    >
-                        <option value="">Ingredient</option>
-                        {false &&
-                            map(materialLots, (value, index) => (
-                                <option value={value.id} key={index}>
+            {editable && (
+                <div>
+                    <FormGroup className="d-block d-sm-inline-block mr-2">
+                        <Input
+                            type="select"
+                            className="waves-effect"
+                            style={{ width: "14rem" }}
+                            value={selectedLot.materialLot?.id || ""}
+                            onChange={(e) => {
+                                const materialLot = materialLots.find((s) => {
+                                    return (
+                                        s.materialLot.id ===
+                                        parseInt(e.target.value)
+                                    );
+                                });
+                                setSelectedLot(materialLot || "");
+                            }}
+                        >
+                            <option value="">Ingredient</option>
+                            {map(materialLots, (value, index) => (
+                                <option
+                                    value={value.materialLot.id}
+                                    key={index}
+                                >
                                     {value.material.name} (
                                     {value.quantity.value}
                                     {value.quantity.symbol})
                                 </option>
                             ))}
-                    </Input>
-                    <FormFeedback>Enter a valid ingredient.</FormFeedback>
-                </FormGroup>
-                <FormGroup className="d-block d-sm-inline-block mr-2">
-                    <Input
-                        type="number"
-                        className="waves-effect"
-                        style={{ width: "8rem" }}
-                        value={selectedLotQuantity || ""}
-                        onChange={(e) => {
-                            setSelectedLotQuantity(e.target.value);
+                        </Input>
+                        <FormFeedback>Enter a valid ingredient.</FormFeedback>
+                    </FormGroup>
+                    <FormGroup className="d-block d-sm-inline-block mr-2">
+                        <Input
+                            type="text"
+                            className="waves-effect"
+                            style={{ width: "8rem" }}
+                            value={selectedLotQuantity}
+                            onChange={(e) => {
+                                setSelectedLotQuantity(e.target.value);
+                            }}
+                        />
+                        <FormFeedback>Enter a valid number.</FormFeedback>
+                    </FormGroup>
+                    <Button
+                        size="sm"
+                        className="waves-effect mr-2"
+                        onClick={() => {
+                            const materialPortion = materialPortions.find(
+                                (mp) =>
+                                    mp.materialLot.id ===
+                                    selectedLot.materialLot.id
+                            );
+                            if (materialPortion) {
+                                materialPortion.quantity.value +=
+                                    parseFloat(selectedLotQuantity);
+                                setMaterialPortions([...materialPortions]);
+                            } else {
+                                setMaterialPortions([
+                                    ...materialPortions,
+                                    {
+                                        ...selectedLot,
+                                        quantity: {
+                                            symbol: selectedLot.quantity.symbol,
+                                            value: parseFloat(
+                                                selectedLotQuantity
+                                            ),
+                                        },
+                                        mixture: mixture,
+                                    },
+                                ]);
+                            }
                         }}
-                        disabled={!selectedLot.id}
-                    />
-                    <FormFeedback>Enter a valid number.</FormFeedback>
-                </FormGroup>
-                <Button
-                    size="sm"
-                    className="waves-effect mr-2"
-                    onClick={() => {
-                        setMaterialPortions([
-                            ...materialPortions,
-                            {
-                                materialLot: {
-                                    ...selectedLot,
-                                },
-                                quantity: {
-                                    symbol: selectedLot.quantity.symbol,
-                                    value: selectedLotQuantity,
-                                },
-                                mixture: mixture,
-                            },
-                        ]);
-                    }}
-                    hidden={!editable}
-                    disabled={!selectedLot.id || !selectedLotQuantity}
-                >
-                    Enter
-                </Button>
-                <Button
-                    size="sm"
-                    color="warning"
-                    className="waves-effect"
-                    onClick={() => {
-                        setMaterialPortions(
-                            materialPortions.filter(
-                                (p) => !lots.includes(p.materialLot.id)
-                            )
-                        );
-                        setLots([]);
-                    }}
-                    hidden={!editable}
-                    disabled={!lots.length}
-                >
-                    Remove
-                </Button>
-            </div>
+                        disabled={!selectedLot || !selectedLotQuantity}
+                    >
+                        Enter
+                    </Button>
+                    <Button
+                        size="sm"
+                        color="warning"
+                        className="waves-effect"
+                        onClick={() => {
+                            setMaterialPortions(
+                                materialPortions.filter(
+                                    (_, index) => !lots.includes(index)
+                                )
+                            );
+                            setLots([]);
+                        }}
+                        disabled={!lots.length}
+                    >
+                        Remove
+                    </Button>
+                </div>
+            )}
         </React.Fragment>
     );
 }

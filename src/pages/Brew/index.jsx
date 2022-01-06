@@ -27,7 +27,6 @@ import MixtureRecordings from "./mixture-recordings";
 export default function Batch() {
     const [activeTab, setActiveTab] = useState("details");
     const [changed, setChanged] = useState(false);
-    const [batchChanged, setBatchChanged] = useState(false);
     const [stagesChanged, setStagesChanged] = useState(false);
     const [mixturesChanged, setMixturesChanged] = useState(false);
     const [materialPortionsChanged, setMaterialPortionsChanged] =
@@ -40,8 +39,7 @@ export default function Batch() {
     const { id } = useParams();
     const history = useHistory();
     const query = useQuery();
-    const editMode = query.get("edit"),
-        tab = query.get("tab");
+    const tab = query.get("tab");
     const dispatch = useDispatch();
 
     const {
@@ -63,14 +61,12 @@ export default function Batch() {
 
     const isChanged = useCallback(() => {
         return (
-            batchChanged ||
             stagesChanged ||
             mixturesChanged ||
             materialPortionsChanged ||
             mixtureRecordingsChanged
         );
     }, [
-        batchChanged,
         stagesChanged,
         mixturesChanged,
         materialPortionsChanged,
@@ -79,9 +75,7 @@ export default function Batch() {
 
     useEffect(() => {
         dispatch(resetBatchDetails());
-        if (id === "new") {
-            history.replace("/brews/new?edit=true");
-        } else {
+        if (id !== "new") {
             dispatch(fetchBatchById(id));
         }
         dispatch(
@@ -93,14 +87,9 @@ export default function Batch() {
         dispatch(fetchBatchTasks());
         dispatch(fetchMeasures());
         dispatch(fetchMaterialStockQuantity());
-        dispatch(
-            setBatchDetails({
-                editable: editMode && editMode !== "false",
-            })
-        );
-        setShowRouterPrompt(!!editMode);
+        // setShowRouterPrompt(!!editMode);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id, editMode]);
+    }, [id]);
 
     useEffect(() => {
         if (batch.id) {
@@ -125,7 +114,6 @@ export default function Batch() {
     useEffect(() => {
         setChanged(isChanged());
     }, [
-        batchChanged,
         stagesChanged,
         mixturesChanged,
         materialPortionsChanged,
@@ -134,8 +122,8 @@ export default function Batch() {
     ]);
 
     useEffect(() => {
-        setBatchChanged(isBatchChanged());
-    }, [batch, initialBatch, isBatchChanged]);
+        dispatch(setBatchDetails({ changed: isBatchChanged() }));
+    }, [batch, initialBatch, isBatchChanged, dispatch]);
 
     useEffect(() => {
         if (!tab) {
@@ -153,7 +141,7 @@ export default function Batch() {
             invalidBatchProduct
         ) {
             dispatch(setBatchDetails({ error: true }));
-        } else if (!batchChanged) {
+        } else if (!isBatchChanged()) {
             dispatch(setBatchDetails({ save: true }));
         } else if (batch.id) {
             dispatch(
@@ -233,7 +221,7 @@ export default function Batch() {
                 navigate={(path) => {
                     history.push(path);
                 }}
-                shouldBlockNavigation={() => editMode && isChanged()}
+                shouldBlockNavigation={() => isChanged()}
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
             {batch.id && <Stages {...props} />}

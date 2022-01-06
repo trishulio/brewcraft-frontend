@@ -162,32 +162,32 @@ export default function MixtureDetails({
                     >
                         Final volume
                     </Label>
-                    <FormGroup
-                        className="d-block d-sm-inline-block mb-3"
-                        hidden={editable}
-                    >
-                        <Input
-                            type="text"
-                            className="waves-effect"
-                            value={
-                                showSkipCheckbox && stage.status.id === 3
-                                    ? ""
-                                    : mixture.quantity.value || ""
-                            }
-                            placeholder={
-                                showSkipCheckbox && stage.status.id === 3
-                                    ? "-"
-                                    : "Enter"
-                            }
-                            name="mixtureQuantityValue"
-                            onChange={onFormInputChange}
-                            style={{ width: "8rem" }}
-                            hidden={!editable}
-                            disabled={showSkipCheckbox && stage.status.id === 3}
-                        />
-                        <FormFeedback>Enter a valid number.</FormFeedback>
-                        &nbsp;<span>{mixture.quantity.symbol}</span>
-                    </FormGroup>
+                    {editable && (
+                        <FormGroup className="d-block d-sm-inline-block mb-3">
+                            <Input
+                                type="text"
+                                className="waves-effect"
+                                value={
+                                    showSkipCheckbox && stage.status.id === 3
+                                        ? ""
+                                        : mixture.quantity.value || ""
+                                }
+                                placeholder={
+                                    showSkipCheckbox && stage.status.id === 3
+                                        ? "-"
+                                        : "Enter"
+                                }
+                                name="mixtureQuantityValue"
+                                onChange={onFormInputChange}
+                                style={{ width: "8rem" }}
+                                disabled={
+                                    showSkipCheckbox && stage.status.id === 3
+                                }
+                            />
+                            <FormFeedback>Enter a valid number.</FormFeedback>
+                            &nbsp;<span>{mixture.quantity.symbol}</span>
+                        </FormGroup>
+                    )}
                     {!editable && (
                         <div className="d-sm-inline-block mb-3">
                             {mixture.quantity.value

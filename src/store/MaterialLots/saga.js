@@ -33,7 +33,15 @@ function* fetchStockQuantity(action) {
         );
         yield put({
             type: SET_INVENTORY_STOCK_QUANTITY_DETAILS,
-            payload: res.data.content,
+            payload: res.data.content.map((lot) => ({
+                materialLot: {
+                    id: lot.id,
+                    lotNumber: lot.lotNumber,
+                    invoiceItem: lot.invoiceItem,
+                },
+                material: lot.material,
+                quantity: lot.quantity,
+            })),
         });
     } catch (e) {
         console.log(e);

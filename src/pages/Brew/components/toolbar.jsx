@@ -22,38 +22,14 @@ export default function Toolbar({
                 type="button"
                 color="secondary"
                 size="sm"
-                className="waves-effect mr-2 mb-2"
-                onClick={() => {
-                    setEditable(true);
-                }}
-                hidden={editable}
-            >
-                Edit
-            </Button>
-            <Button
-                type="button"
-                color="primary"
-                size="sm"
-                className="waves-effect mr-2 mb-2"
-                onClick={onSave}
-                disabled={!changed}
-                hidden={!editable}
-            >
-                Save
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
                 className="waves-effect mr-2  mb-2"
                 onClick={() => {
                     history.goBack();
                 }}
-                hidden={!editable}
             >
-                {batch.id ? "Cancel" : "Back"}
+                Back
             </Button>
-            <Button
+            {/* <Button
                 type="button"
                 color="danger"
                 size="sm"
@@ -62,7 +38,7 @@ export default function Toolbar({
                 hidden={!batch.id || !editable}
             >
                 Delete Brew
-            </Button>
+            </Button> */}
             {/* <Button
                 type="button"
                 color="secondary"
@@ -97,7 +73,7 @@ export default function Toolbar({
                 color="secondary"
                 size="sm"
                 className="waves-effect mr-2  mb-2"
-                hidden={editable}
+                hidden={!batch.id}
                 disabled={true} // not supported yet
             >
                 Print Batch

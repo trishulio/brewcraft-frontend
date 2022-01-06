@@ -21,7 +21,7 @@ async function fetchStockQuantity(params = {}) {
             page: params.pageIndex || 0,
             size: params.pageSize || 5000,
             aggr_fn: "SUM",
-            group_by: "LOT_NUMBER,MATERIAL",
+            group_by: "ID",
             material_ids: params.materialId,
             sort: "", // params.sort || "material.name",
             order_asc: !params.order || params.order === "asc",
