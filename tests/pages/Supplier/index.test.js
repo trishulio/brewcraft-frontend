@@ -1,11 +1,11 @@
 import React from "react";
 import { mount } from "enzyme";
 import { shallowToJson } from "enzyme-to-json";
-import Supplier from "../../../pages/Supplier/index";
+import Supplier from "../../../src/pages/Supplier/index";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import { BrowserRouter } from "react-router-dom";
-import { useQuery } from "../../../helpers/utils";
+import { useQuery } from "../../../src/helpers/utils";
 
 const initialState = {
     Supplier: {
@@ -60,8 +60,8 @@ jest.mock("react-redux", () => ({
     useDispatch: () => mockDispatch,
 }));
 
-jest.mock("../../../helpers/utils", () => ({
-    ...jest.requireActual("../../../helpers/utils"),
+jest.mock("../../../src/helpers/utils", () => ({
+    ...jest.requireActual("../../../src/helpers/utils"),
     useQuery: jest.fn().mockReturnValue({
         get: () => {
             return false;
