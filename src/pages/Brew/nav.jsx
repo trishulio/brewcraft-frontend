@@ -57,7 +57,7 @@ export default function BrewNav({ activeTab }) {
                         <span className="d-block d-sm-none">
                             <i className="fas fa-home"></i>
                         </span>
-                        <span className="d-none d-sm-block">Batch Tanks</span>
+                        <span className="d-none d-sm-block">Ferment</span>
                     </NavLink>
                 </NavItem>
                 <NavItem className="waves-effect waves-light">
@@ -73,7 +73,7 @@ export default function BrewNav({ activeTab }) {
                         <span className="d-block d-sm-none">
                             <i className="fas fa-home"></i>
                         </span>
-                        <span className="d-none d-sm-block">Conditioners</span>
+                        <span className="d-none d-sm-block">Condition</span>
                     </NavLink>
                 </NavItem>
                 <NavItem className="waves-effect waves-light">
@@ -89,7 +89,7 @@ export default function BrewNav({ activeTab }) {
                         <span className="d-block d-sm-none">
                             <i className="fas fa-home"></i>
                         </span>
-                        <span className="d-none d-sm-block">Brite Tanks</span>
+                        <span className="d-none d-sm-block">Brite Tank</span>
                     </NavLink>
                 </NavItem>
                 <NavItem className="waves-effect waves-light">

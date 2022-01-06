@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Table, { Th } from "../../../component/Common/table";
 import { formatDatetime } from "../../../helpers/textUtils";
@@ -82,17 +82,12 @@ export default function BatchesTable() {
             </thead>
             <tbody>
                 {batches.map((batch, key) => (
-                    <tr key={key}>
-                        <td>
-                            <Link to={"/brews/" + batch.id}>
-                                {batch.batchId}
-                            </Link>
-                        </td>
-                        <td>
-                            <Link to={"/brews/" + batch.id}>
-                                {batch.product.name}
-                            </Link>
-                        </td>
+                    <tr
+                        key={key}
+                        onClick={() => history.push("/brews/" + batch.id)}
+                    >
+                        <td>{batch.batchId}</td>
+                        <td>{batch.product.name}</td>
                         <td>{formatDatetime(batch.startedAt)}</td>
                         <td>
                             {batch.endedAt

@@ -7,8 +7,8 @@ import { fetchSkus } from "../../../../store/actions";
 
 export default function BatchIngredients({
     mixture,
-    mixturePortions,
-    setMixturePortions,
+    finishedGoods,
+    setFinishedGoods,
     editable,
 }) {
     const [selectedListItems, setSelectedListItems] = useState([]);
@@ -40,7 +40,7 @@ export default function BatchIngredients({
                     width: "10rem",
                 }}
             >
-                Packaged Items
+                Finished Goods Items
             </Label>
             <div className="mb-3">
                 <CommonTable>
@@ -48,23 +48,19 @@ export default function BatchIngredients({
                         <tr>
                             <th></th>
                             <th>SKU</th>
-                            <th>Description</th>
-                            <th>Lot Number</th>
                             <th>Quantity</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {!mixturePortions.length && (
+                        {!finishedGoods.length && (
                             <tr>
                                 <td></td>
                                 <td>-</td>
                                 <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
                             </tr>
                         )}
-                        {mixturePortions &&
-                            map(mixturePortions, (mixturePortion, index) => (
+                        {finishedGoods &&
+                            map(finishedGoods, (finishedGood, index) => (
                                 <tr key={index}>
                                     <td style={{ width: "2rem" }}>
                                         <div className="d-flex align-items-center vertical-center">
@@ -100,13 +96,19 @@ export default function BatchIngredients({
                                             )}
                                         </div>
                                     </td>
-                                    <td>{mixturePortion.sku.name}</td>
-                                    <td>{mixturePortion.sku.description}</td>
-                                    <td>{mixturePortion.lotNumber || "-"}</td>
                                     <td>
-                                        {mixturePortion.quantity.value +
-                                            " " +
-                                            mixturePortion.quantity.symbol}
+                                        {finishedGood.sku.name} -{" "}
+                                        {finishedGood.sku.description}
+                                    </td>
+                                    <td>
+                                        {
+                                            finishedGood.mixturePortions[0]
+                                                .quantity.value
+                                        }
+                                        {
+                                            finishedGood.mixturePortions[0]
+                                                .quantity.symbol
+                                        }
                                     </td>
                                 </tr>
                             ))}
@@ -149,50 +151,49 @@ export default function BatchIngredients({
                     />
                     <FormFeedback>Enter a valid number.</FormFeedback>
                 </FormGroup>
-                <Button
-                    size="sm"
-                    className="waves-effect mr-2"
-                    onClick={() => {
-                        setMixturePortions([
-                            ...mixturePortions,
-                            {
-                                sku,
-                                mixturePortions: [
-                                    {
-                                        mixture,
-                                        quantity: {
-                                            value:
-                                                mixture.quantity.value *
-                                                quantity,
-                                            symbol: "ml",
+                {editable && (
+                    <Button
+                        size="sm"
+                        className="waves-effect mr-2"
+                        onClick={() => {
+                            setFinishedGoods([
+                                ...finishedGoods,
+                                {
+                                    sku,
+                                    mixturePortions: [
+                                        {
+                                            mixture,
+                                            quantity: {
+                                                value: quantity,
+                                                symbol: mixture.quantity.symbol,
+                                            },
                                         },
-                                    },
-                                ],
-                                materialPortions: [],
-                            },
-                        ]);
-                    }}
-                    hidden={!editable}
-                    disabled={!sku.id || !quantity}
-                >
-                    Enter
-                </Button>
-                <Button
-                    size="sm"
-                    color="warning"
-                    className="waves-effect"
-                    onClick={() => {
-                        debugger;
-                        // setFinishedGoods(
-                        //     mixturePortions.filter(p => !selectedListItems.includes(p.materialLot.id))
-                        // );
-                        // setSelectedListItems([]);
-                    }}
-                    hidden={!editable}
-                    disabled={!selectedListItems.length}
-                >
-                    Remove
-                </Button>
+                                    ],
+                                    materialPortions: [],
+                                },
+                            ]);
+                        }}
+                        disabled={!sku.id || !quantity}
+                    >
+                        Enter
+                    </Button>
+                )}
+                {editable && (
+                    <Button
+                        size="sm"
+                        color="warning"
+                        className="waves-effect"
+                        onClick={() => {
+                            // setFinishedGoods(
+                            //     finishedGoods.filter(p => !selectedListItems.includes(p.materialLot.id))
+                            // );
+                            // setSelectedListItems([]);
+                        }}
+                        disabled={!selectedListItems.length}
+                    >
+                        Remove
+                    </Button>
+                )}
             </div>
         </React.Fragment>
     );

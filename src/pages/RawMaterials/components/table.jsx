@@ -62,6 +62,7 @@ export default function RawMaterialsList() {
 
     return (
         <React.Fragment>
+            {console.log(rawMaterials)}
             <Table>
                 <thead>
                     <tr>
@@ -69,7 +70,7 @@ export default function RawMaterialsList() {
                             Name
                         </Th>
                         <th>Lot Num.</th>
-                        <th>Invoice</th>
+                        {/* <th>Invoice</th> */}
                         <Th
                             name="rawMaterialsMaterialClass"
                             id="class"
@@ -110,7 +111,7 @@ export default function RawMaterialsList() {
                                 </Link>
                             </td>
                             <td>{rawMaterial.lotNumber}</td>
-                            <td>-</td>
+                            {/* <td>{rawMaterial.invoice.invoiceNumber}</td> */}
                             <td>{rawMaterial.material.materialClass.name}</td>
                             <td>
                                 {rawMaterial.material.category?.name || "-"}

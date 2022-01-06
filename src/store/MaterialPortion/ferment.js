@@ -6,6 +6,8 @@ import {
     ADD_FERMENT_MATERIAL_PORTION_SUCCESS,
     SET_FERMENT_MATERIAL_PORTION_DETAILS,
     RESET_FERMENT_MATERIAL_PORTION_DETAILS,
+    EDIT_FERMENT_MATERIAL_PORTION_FAILURE,
+    DELETE_FERMENT_MATERIAL_PORTION_FAILURE,
 } from "./actionTypes";
 
 const initialState = {
@@ -26,7 +28,6 @@ const FermentMaterialPortion = (state = initialState, { type, payload }) => {
                 ...state,
                 ...payload,
                 loading: false,
-                error: null,
             };
         case ADD_FERMENT_MATERIAL_PORTION_REQUEST:
         case EDIT_FERMENT_MATERIAL_PORTION_REQUEST:
@@ -44,6 +45,8 @@ const FermentMaterialPortion = (state = initialState, { type, payload }) => {
                 error: null,
             };
         case ADD_FERMENT_MATERIAL_PORTION_FAILURE:
+        case EDIT_FERMENT_MATERIAL_PORTION_FAILURE:
+        case DELETE_FERMENT_MATERIAL_PORTION_FAILURE:
             return {
                 ...state,
                 loading: false,
