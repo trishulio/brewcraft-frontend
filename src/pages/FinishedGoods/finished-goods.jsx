@@ -1,11 +1,11 @@
 import React from "react";
-import { Card, CardBody, Row, Col } from "reactstrap";
+import { Row, Col, Card, CardBody } from "reactstrap";
+import Pagination from "./components/pagination";
 import Table from "./components/table";
 import Toolbar from "./components/toolbar";
-import Pagination from "./components/pagination";
-import FilterBarFinishedGoodsInventory from "./components/filterBar";
+import FilterBarFinishedGoods from "./components/filterBar";
 
-export default function FinishedGoodsInventory() {
+export default function FinshedGoods() {
     return (
         <React.Fragment>
             <Row>
@@ -19,7 +19,7 @@ export default function FinishedGoodsInventory() {
                         </CardBody>
                     </Card>
                 </Col>
-                <FilterBarFinishedGoodsInventory />
+                <FilterBarFinishedGoods />
             </Row>
         </React.Fragment>
     );

@@ -4,12 +4,12 @@ import { useSelector } from "react-redux";
 import { useQuery } from "../../../helpers/utils";
 import Table, { Th } from "../../../component/Common/table";
 
-export default function FinishedGoodsInventoryTable() {
+export default function FinishedGoodsTable() {
     const history = useHistory();
     const query = useQuery();
 
-    const finishedGoodsInventory = useSelector((state) => {
-        return state.FinishedGoodsInventory.content;
+    const finishedGoods = useSelector((state) => {
+        return state.FinishedGoods.content;
     });
 
     function onSort(e) {
@@ -18,37 +18,37 @@ export default function FinishedGoodsInventoryTable() {
         const order = query.get("order");
         query.delete("sort");
         query.delete("order");
-        if (name === "fgSkuName") {
-            if (sort !== "skuName" || order !== "asc") {
+        if (name === "fgSku") {
+            if (sort !== "sku" || order !== "asc") {
                 query.append("order", "asc");
             } else {
                 query.append("order", "desc");
             }
-            query.append("sort", "skuName");
+            query.append("sort", "sku");
             history.push({ search: query.toString() });
-        } else if (name === "fgDescription") {
-            if (sort !== "description" || order !== "asc") {
+        } else if (name === "fgProduct") {
+            if (sort !== "product" || order !== "asc") {
                 query.append("order", "asc");
             } else {
                 query.append("order", "desc");
             }
-            query.append("sort", "description");
+            query.append("sort", "product");
             history.push({ search: query.toString() });
-        } else if (name === "fgProductName") {
-            if (sort !== "productName" || order !== "asc") {
+        } else if (name === "fgBatches") {
+            if (sort !== "batches" || order !== "asc") {
                 query.append("order", "asc");
             } else {
                 query.append("order", "desc");
             }
-            query.append("sort", "productName");
+            query.append("sort", "batches");
             history.push({ search: query.toString() });
-        } else if (name === "fgQuantity") {
-            if (sort !== "quantity" || order !== "asc") {
+        } else if (name === "fgPackagedOn") {
+            if (sort !== "packagedOn" || order !== "asc") {
                 query.append("order", "asc");
             } else {
                 query.append("order", "desc");
             }
-            query.append("sort", "quantity");
+            query.append("sort", "packagedOn");
             history.push({ search: query.toString() });
         }
     }
@@ -58,31 +58,35 @@ export default function FinishedGoodsInventoryTable() {
             <thead>
                 <tr>
                     <th></th>
-                    <Th name="fgSkuName" id="skuName" onSort={onSort}>
+                    <Th name="fgSku" id="sku" onSort={onSort}>
                         SKU
                     </Th>
-                    <Th name="fgDescription" id="description" onSort={onSort}>
-                        Description
-                    </Th>
-                    <Th name="fgProductName" id="productName" onSort={onSort}>
+                    <Th name="fgProduct" id="product" onSort={onSort}>
                         Product
                     </Th>
-                    <Th name="fgQuantity" id="quantity" onSort={onSort}>
-                        Quantity
+                    <Th name="fgBatches" id="batches" onSort={onSort}>
+                        Packaged From Batch ID
+                    </Th>
+                    <Th name="fgPackagedOn" id="packagedOn" onSort={onSort}>
+                        Packaged On
                     </Th>
                 </tr>
             </thead>
             <tbody>
-                {finishedGoodsInventory.map((finishedGood, key) => (
+                {finishedGoods.map((finishedGood, key) => (
                     <tr
                         key={key}
-                        onClick={() => history.push("/finished-goods?sku_ids=" + finishedGood.sku.id)}
+                        onClick={() => history.push("/finished-goods/" + finishedGood.id)}
                     >
                         <td></td>
                         <td>{finishedGood.sku.name}</td>
-                        <td>{finishedGood.sku.description}</td>
                         <td>{finishedGood.sku.product.name}</td>
-                        <td>{finishedGood.quantity.value}</td>
+                        <td>
+                            {finishedGood.mixturePortions
+                                ? finishedGood.mixturePortions.map((mixturePortion) => mixturePortion.mixture.brewStage.brew.batchId).join(", ")
+                                : ""}
+                        </td>
+                        <td>{finishedGood.packagedOn}</td>
                     </tr>
                 ))}
             </tbody>

@@ -6,9 +6,9 @@ import {
     SET_FERMENT_FINISHED_GOODS,
 } from "./actionTypes";
 
-export const fetchFinishedGoods = (payload) => ({
+export const fetchFinishedGoods = (params) => ({
     type: FETCH_FINISHED_GOODS,
-    payload: { ...payload },
+    payload: { params },
 });
 
 export const fetchFermentFinishedGoods = (payload) => ({

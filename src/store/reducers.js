@@ -17,6 +17,7 @@ import {
 import { FermentFinishedGoods } from "./FinishedGoods/reducer";
 import FilterBar from "./FilterBar/reducer";
 import FinishedGood from "./FinishedGood/reducer";
+import { FinishedGoods } from "./FinishedGoods/reducer";
 import FinishedGoodsInventory from "./FinishedGoodsInventory/reducer";
 import Ingredient from "./Ingredient/reducer";
 import Ingredients from "./Ingredients/reducer";
@@ -100,6 +101,7 @@ const rootReducer = combineReducers({
     Brewery,
     FilterBar,
     FinishedGood,
+    FinishedGoods,
     FinishedGoodsInventory,
     Ingredient,
     Ingredients,
