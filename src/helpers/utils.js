@@ -107,3 +107,9 @@ export function arrayEquals(a, b) {
         aSorted.every((val, index) => val === bSorted[index])
     );
 }
+
+export function calculatedTaxRate(qty, price, taxAmount) {
+    let taxRate = 0;
+    taxRate = taxAmount / (qty * price);
+    return taxRate;
+}
