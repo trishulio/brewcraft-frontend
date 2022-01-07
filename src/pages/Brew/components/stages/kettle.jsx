@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Ingredients from "../mixture/ingredients";
 import Details from "../mixture/details";
@@ -11,24 +11,26 @@ import {
     setKettleMixtureDetails,
     setKettleStageDetails,
 } from "../../../../store/actions";
+import { Alert, Button } from "reactstrap";
 import {
-    Alert,
-    Button,
     Card,
     CardBody,
     CardFooter,
     CardHeader,
-} from "reactstrap";
+} from "../../../../component/Common/Card";
+import { Badge } from "../badge";
 
 export default function BrewKettle() {
+    const [isOpen, setIsOpen] = useState(true);
     const dispatch = useDispatch();
 
     const {
         data: stage,
         initial: initialStage,
         changed,
+        loading: stageLoading,
         editable,
-        stageError,
+        error: stageError,
     } = useSelector((state) => {
         return state.Batch.KettleStage;
     });
@@ -36,7 +38,8 @@ export default function BrewKettle() {
     const {
         data: mixture,
         initial: initialMixture,
-        mixtureError,
+        loading: mixtureLoading,
+        error: mixtureError,
     } = useSelector((state) => {
         return state.Batch.KettleMixture;
     });
@@ -44,7 +47,8 @@ export default function BrewKettle() {
     const {
         content: materialPortions,
         initial: initialMaterialPortions,
-        materialPortionError,
+        loading: materialPortionsLoading,
+        error: materialPortionError,
     } = useSelector((state) => {
         return state.Batch.KettleMaterialPortion;
     });
@@ -171,8 +175,30 @@ export default function BrewKettle() {
                 </Alert>
             )}
             <Card className="mb-3">
-                <CardHeader>Kettle Lauter</CardHeader>
-                <CardBody>
+                <CardHeader>
+                    <div
+                        className="d-inline-block mr-2"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        <i
+                            className={`fa fa-caret-right font-size-14 mr-2 ${
+                                isOpen ? " rotate-down" : ""
+                            }`}
+                        ></i>
+                        Kettle Lauter
+                    </div>
+                    <div className="d-inline-block">
+                        <Badge stage={stage} />
+                    </div>
+                </CardHeader>
+                <CardBody
+                    isLoading={
+                        stageLoading ||
+                        mixtureLoading ||
+                        materialPortionsLoading
+                    }
+                    isOpen={isOpen}
+                >
                     <Details {...detailsProps} />
                     <div className="clearFix mb-3"></div>
                     <div className="px-2">

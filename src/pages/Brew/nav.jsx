@@ -3,10 +3,22 @@ import { Nav, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
 import { useHistory } from "react-router";
 import { useQuery } from "../../helpers/utils";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    fetchFinishedGoodsByBrewId,
+    fetchMaterialPortionsByBrewId,
+    fetchMixtureRecordingsByBrewId,
+    fetchProducts,
+} from "../../store/actions";
 
 export default function BrewNav({ activeTab }) {
+    const dispatch = useDispatch();
     const history = useHistory();
     const query = useQuery();
+
+    const batch = useSelector((state) => {
+        return state.Batch.Batch.data;
+    });
 
     function navToTab(tab) {
         query.delete("tab");
@@ -25,6 +37,13 @@ export default function BrewNav({ activeTab }) {
                             active: activeTab === "details",
                         })}
                         onClick={() => {
+                            setTimeout(() => {
+                                dispatch(
+                                    fetchProducts({
+                                        pageSize: 1000,
+                                    })
+                                );
+                            });
                             navToTab("details");
                         }}
                     >
@@ -38,6 +57,20 @@ export default function BrewNav({ activeTab }) {
                             active: activeTab === "brew",
                         })}
                         onClick={() => {
+                            setTimeout(() => {
+                                dispatch(
+                                    fetchMaterialPortionsByBrewId(batch.id)
+                                );
+                                dispatch(
+                                    fetchMixtureRecordingsByBrewId(batch.id)
+                                );
+                                dispatch(
+                                    fetchFinishedGoodsByBrewId({
+                                        brewId: batch.id,
+                                        pageSize: 500,
+                                    })
+                                );
+                            });
                             navToTab("brew");
                         }}
                     >

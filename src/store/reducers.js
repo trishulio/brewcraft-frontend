@@ -45,6 +45,7 @@ import {
     TransferMixture,
     FermentMixture,
 } from "./Mixture/reducer";
+import MiniCards from "./MiniCards/reducer";
 import {
     KettleMixtureRecordings,
     WhirlpoolMixtureRecordings,
@@ -112,6 +113,7 @@ const rootReducer = combineReducers({
     MaterialCategories,
     MaterialCategory,
     Measures,
+    MiniCards,
     Notifications,
     Packaging,
     PackagingItem,

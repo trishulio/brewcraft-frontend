@@ -27,7 +27,23 @@ async function postFinishedGoods(data) {
     );
 }
 
+async function updateFinishedGoods(data) {
+    return await AxiosInstance.put("/api/v1/finished-goods", data).then(
+        (r) => r
+    );
+}
+
+async function deleteFinishedGoods(ids) {
+    return await AxiosInstance.delete("/api/v1/finished-goods", {
+        params: {
+            ids: ids.toString(),
+        },
+    }).then((r) => r);
+}
+
 export const api = {
     fetchFinishedGoods,
     postFinishedGoods,
+    updateFinishedGoods,
+    deleteFinishedGoods,
 };
