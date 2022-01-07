@@ -1,0 +1,23 @@
+{
+    "setupFiles": ["<rootDir>/tests/setupTests.js"],
+    "roots": ["<rootDir>/tests/", "<rootDir>/src/"],
+    "testRegex": "/*.test.js$",
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "coverageThreshold": {
+     "global": {
+     "branches": 0,
+     "functions": 0,
+     "lines": 0,
+     "statements": 0
+     }
+    },
+    "collectCoverageFrom": ["src/**/*.{js,jsx}"],
+    "coveragePathIgnorePatterns": [
+        "<rootDir>/src/assets/*"
+    ],
+    "transform": {
+        "^.+\\.jsx?$": "babel-jest"
+    },
+    "moduleDirectories": ["node_modules", "src"]
+}

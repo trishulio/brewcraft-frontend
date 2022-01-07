@@ -30,7 +30,8 @@ export * from "./Procurement/actions";
 export * from "./Procurements/actions";
 export * from "./PurchaseInvoices/actions";
 export * from "./RawMaterials/actions";
-export * from "./Shipments/actions";
+//temporarly commenting it out for duplicated function names
+//export * from "./Shipments/actions";
 export * from "./Sku/actions";
 export * from "./Skus/actions";
 export * from "./Supplier/actions";
