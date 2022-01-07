@@ -105,45 +105,52 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
             <ListGroupItem>
                 <Row>
                     <Col xs="3">
-                        <FormGroup>
-                            <Input
-                                type="select"
-                                name="purchaseInvoiceItemMaterial"
-                                value={item.invoiceItem.material?.id || ""}
-                                onChange={changeevent}
-                                hidden={!editable}
-                                invalid={item.invalidMaterial}
-                            >
-                                <option value="">Select item</option>
-                                {materials.map((value, index) => (
-                                    <option key={index} value={value.id}>
-                                        {value.name} ({value.baseQuantityUnit})
-                                    </option>
-                                ))}
-                            </Input>
-                            <FormFeedback>
-                                {!item.invoiceItem.material?.id
-                                    ? "Required invoice field"
-                                    : "Invalid invoice field"}
-                            </FormFeedback>
-                        </FormGroup>
+                        {editable && (
+                            <FormGroup>
+                                <Input
+                                    type="select"
+                                    name="purchaseInvoiceItemMaterial"
+                                    value={item.invoiceItem.material?.id || ""}
+                                    onChange={changeevent}
+                                    invalid={item.invalidMaterial}
+                                >
+                                    <option value="">Select item</option>
+                                    {materials.map((value, index) => (
+                                        <option key={index} value={value.id}>
+                                            {value.name} (
+                                            {value.baseQuantityUnit})
+                                        </option>
+                                    ))}
+                                </Input>
+                                <FormFeedback>
+                                    {!item.invoiceItem.material?.id
+                                        ? "Required invoice field"
+                                        : "Invalid invoice field"}
+                                </FormFeedback>
+                            </FormGroup>
+                        )}
                         <div hidden={editable}>
                             {item.invoiceItem.material?.name || "-"}
                         </div>
                     </Col>
                     <Col xs="3">
-                        <FormGroup>
-                            <Input
-                                type="textarea"
-                                name="purchaseInvoiceItemDescription"
-                                rows="1"
-                                value={item.invoiceItem.description}
-                                onChange={changeevent}
-                                hidden={!editable}
-                                invalid={item.invoiceItem.invalidDescription}
-                            />
-                            <FormFeedback>Invalid invoice field</FormFeedback>
-                        </FormGroup>
+                        {editable && (
+                            <FormGroup>
+                                <Input
+                                    type="textarea"
+                                    name="purchaseInvoiceItemDescription"
+                                    rows="1"
+                                    value={item.invoiceItem.description}
+                                    onChange={changeevent}
+                                    invalid={
+                                        item.invoiceItem.invalidDescription
+                                    }
+                                />
+                                <FormFeedback>
+                                    Invalid invoice field
+                                </FormFeedback>
+                            </FormGroup>
+                        )}
                         <div hidden={editable}>
                             {item.invoiceItem.description || "-"}
                         </div>
