@@ -4,7 +4,7 @@ async function fetchFinishedGoods(params = {}) {
     const data = {
         params: {
             exclude_ids: params?.exclude_ids,
-            sku_ids: params?.skudIds,
+            sku_ids: params?.skuIds,
             brew_ids: params.brewId,
             brew_stage_ids: params.stageId,
             mixture_ids: params.mixtureId,
