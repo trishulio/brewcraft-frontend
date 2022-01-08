@@ -1,0 +1,1436 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Supplier -> Components -> <Toolbar> render() History.goback button should be called on cancel 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Toolbar
+        editable={true}
+      >
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="primary"
+          disabled={true}
+          hidden={false}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-primary btn-sm disabled"
+            disabled={true}
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Save
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          disabled={true}
+          hidden={true}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm disabled"
+            disabled={true}
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Edit
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="danger"
+          hidden={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Delete Supplier
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={true}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Suppliers
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={true}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            New Supplier
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={true}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            New Contact
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={true}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Contacts
+          </button>
+        </Button>
+      </Toolbar>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`Supplier -> Components -> <Toolbar> render() History.push button should be called on Contacts 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Toolbar
+        editable={false}
+      >
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="primary"
+          disabled={true}
+          hidden={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-primary btn-sm disabled"
+            disabled={true}
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Save
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={true}
+          onClick={[Function]}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          disabled={false}
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            disabled={false}
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Edit
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="danger"
+          hidden={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Delete Supplier
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Suppliers
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            New Supplier
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            New Contact
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Contacts
+          </button>
+        </Button>
+      </Toolbar>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`Supplier -> Components -> <Toolbar> render() History.push button should be called on New Contact 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Toolbar
+        editable={false}
+      >
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="primary"
+          disabled={true}
+          hidden={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-primary btn-sm disabled"
+            disabled={true}
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Save
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={true}
+          onClick={[Function]}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          disabled={false}
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            disabled={false}
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Edit
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="danger"
+          hidden={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Delete Supplier
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Suppliers
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            New Supplier
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            New Contact
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Contacts
+          </button>
+        </Button>
+      </Toolbar>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`Supplier -> Components -> <Toolbar> render() History.push button should be called on Suppliers 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Toolbar
+        editable={false}
+      >
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="primary"
+          disabled={true}
+          hidden={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-primary btn-sm disabled"
+            disabled={true}
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Save
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={true}
+          onClick={[Function]}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          disabled={false}
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            disabled={false}
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Edit
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="danger"
+          hidden={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Delete Supplier
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Suppliers
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            New Supplier
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            New Contact
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Contacts
+          </button>
+        </Button>
+      </Toolbar>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`Supplier -> Components -> <Toolbar> render() History.push button should be called on edit 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Toolbar
+        editable={false}
+      >
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="primary"
+          disabled={true}
+          hidden={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-primary btn-sm disabled"
+            disabled={true}
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Save
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={true}
+          onClick={[Function]}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          disabled={false}
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            disabled={false}
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Edit
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="danger"
+          hidden={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Delete Supplier
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Suppliers
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            New Supplier
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            New Contact
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Contacts
+          </button>
+        </Button>
+      </Toolbar>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`Supplier -> Components -> <Toolbar> render() History.push button should be called on new Supplier 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Toolbar
+        editable={false}
+      >
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="primary"
+          disabled={true}
+          hidden={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-primary btn-sm disabled"
+            disabled={true}
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Save
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={true}
+          onClick={[Function]}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          disabled={false}
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            disabled={false}
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Edit
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="danger"
+          hidden={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Delete Supplier
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Suppliers
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            New Supplier
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            New Contact
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={false}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Contacts
+          </button>
+        </Button>
+      </Toolbar>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`Supplier -> Components -> <Toolbar> render() renders the toolbar component 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Toolbar
+        changed={false}
+        editable={false}
+        onDelete={[MockFunction]}
+        onSave={[MockFunction]}
+      >
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="primary"
+          disabled={true}
+          hidden={true}
+          onClick={[MockFunction]}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-primary btn-sm disabled"
+            disabled={true}
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Save
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={true}
+          onClick={[Function]}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          disabled={false}
+          hidden={true}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            disabled={false}
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Edit
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="danger"
+          disabled={false}
+          hidden={true}
+          onClick={[MockFunction]}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+            disabled={false}
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Delete Supplier
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={true}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Suppliers
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={true}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            New Supplier
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={true}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            New Contact
+          </button>
+        </Button>
+        <Button
+          className="waves-effect mr-2 mb-3"
+          color="secondary"
+          hidden={true}
+          onClick={[Function]}
+          outline={true}
+          size="sm"
+          tag="button"
+          type="button"
+        >
+          <button
+            aria-label={null}
+            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            hidden={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Contacts
+          </button>
+        </Button>
+      </Toolbar>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
