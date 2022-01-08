@@ -25,6 +25,7 @@ export default function PurchaseInvoice() {
     const [changed, setChanged] = useState(false);
     const [showDeletePrompt, setShowDeletePrompt] = useState(false);
     const [showRouterPrompt, setShowRouterPrompt] = useState(false);
+    const [isSaving, setSaving] = useState(false);
 
     const { shipmentId, invoiceId } = useParams();
     const history = useHistory();
@@ -139,6 +140,7 @@ export default function PurchaseInvoice() {
     }
 
     function _savePurchaseOrder() {
+        setSaving(true);
         if (purchaseOrder.id && isPurchaseOrderChanged()) {
             dispatch(
                 updatePurchaseOrder({
@@ -152,6 +154,7 @@ export default function PurchaseInvoice() {
     }
 
     function _saveProcurement() {
+        setSaving(true);
         const params = {
             invoice: {
                 id: invoice.id || undefined,
@@ -194,7 +197,7 @@ export default function PurchaseInvoice() {
                     tax: {
                         amount: {
                             currency: "CAD",
-                            amount: parseFloat(invoiceItem.tax.amount.amount),
+                            amount: parseFloat(invoiceItem.taxAmount),
                         },
                     },
                     materialId: invoiceItem.material.id,
@@ -248,7 +251,9 @@ export default function PurchaseInvoice() {
                 navigate={(path) => {
                     history.push(path);
                 }}
-                shouldBlockNavigation={() => editMode && isChanged()}
+                shouldBlockNavigation={() =>
+                    !isSaving && editMode && isChanged()
+                }
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
             <PurchaseInvoiceInner {...props} />

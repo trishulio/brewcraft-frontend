@@ -19,10 +19,13 @@ import {
     UPDATE_PROCUREMENT,
     FETCH_PROCUREMENT_BY_SHIPMENT_ID_AND_INVOICE_ID,
     UPDATE_PURCHASE_ORDER_SUCCESS,
+    SET_PURCHASE_INVOICE_STATUS,
+    INVALID_PURCHASE_INVOICE_STATUS,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { get, map } from "lodash";
 import {
+    calculatedTaxRate,
     validAmount,
     validDate,
     validId,
@@ -81,6 +84,15 @@ function* validatePurchaseInvoicePaymentDateDueGenerator(action) {
     });
 }
 
+function* validatePurchaseInvoiceStatusGenerator(action) {
+    yield put({
+        type: INVALID_PURCHASE_INVOICE_STATUS,
+        payload: {
+            invalidStatus: !validId(get(action, "payload.id")),
+        },
+    });
+}
+
 function* fetchPurchaseInvoiceByIdGenerator(action) {
     try {
         const res = yield call(
@@ -94,6 +106,14 @@ function* fetchPurchaseInvoiceByIdGenerator(action) {
             items: res.data.invoiceItems,
         };
         delete data.invoiceItems;
+        data.items.forEach(({ invoiceItem }) => {
+            const { tax, price, quantity } = invoiceItem;
+            invoiceItem.tax.amount.amount = calculatedTaxRate(
+                quantity.value,
+                price.amount,
+                tax.amount.amount
+            );
+        });
         yield put({
             type: SET_PURCHASE_INVOICE_DETAILS,
             payload: {
@@ -139,6 +159,7 @@ function* createPurchaseInvoiceGenerator(action) {
                     invalidQuantity: !validAmount(value.quantity.value),
                     invalidPrice: !validAmount(value.price.amount),
                     invalidTax: !validAmount(value.tax.amount.amount),
+                    invalidLotNumber: !validAmount(value.materialLot.lotNumber),
                 };
             });
             yield put({ type: SET_PURCHASE_INVOICE_ITEMS, payload: { items } });
@@ -278,6 +299,7 @@ function* createProcurementGenerator(action) {
                     invalidQuantity: !validAmount(value.quantity.value),
                     invalidPrice: !validAmount(value.price.amount),
                     invalidTax: !validAmount(value.tax.amount.amount),
+                    invalidLotNumber: !validAmount(value.materialLot.lotNumber),
                 };
             });
             yield put({ type: SET_PURCHASE_INVOICE_ITEMS, payload: { items } });
@@ -328,31 +350,56 @@ function* updateProcurementGenerator(action) {
                 type: SET_PURCHASE_INVOICE_ERROR,
                 payload: {
                     invalidInvoiceNumber: !validInvoiceNumber(
-                        get(action, "payload.form[0].invoice.invoiceNumber")
+                        get(action, "payload.invoice.invoiceNumber")
                     ),
                     invalidSupplier: !validId(
-                        get(action, "payload.form[0].purchaseOrder.supplierId")
+                        get(action, "payload.purchaseOrder.supplier.id")
                     ),
                     invalidGeneratedOn: !validDate(
-                        get(action, "payload.form[0].invoice.generatedOn")
+                        get(action, "payload.invoice.generatedOn")
                     ),
                     invalidPaymentDueDate: !validDate(
-                        get(action, "payload.form[0].invoice.paymentDueDate")
+                        get(action, "payload.invoice.paymentDueDate")
+                    ),
+                    invalidStatus: !get(
+                        action,
+                        "payload.invoice.invoiceStatusId"
                     ),
                 },
             });
-            const temp = get(action, "payload.form[0].procurementItems");
+            const temp = get(action, "payload.procurementItems");
             const items = [...temp];
             map(items, (value, index) => {
                 items[index] = {
                     ...items[index],
-                    invalidMaterial: !validId(value.material.id),
-                    invalidQuantity: !validAmount(value.quantity.value),
-                    invalidPrice: !validAmount(value.price.amount),
-                    invalidTax: !validAmount(value.tax.amount.amount),
+                    invoiceItem: {
+                        ...items[index].invoiceItem,
+                        material: {
+                            id: value.invoiceItem.materialId,
+                        },
+                        invalidDescription:
+                            value.invoiceItem.description.length === 0,
+                        invalidMaterial: !validId(value.invoiceItem.materialId),
+                        invalidQuantity: !validAmount(
+                            value.invoiceItem.quantity.value
+                        ),
+                        invalidPrice: !validAmount(
+                            value.invoiceItem.price.amount
+                        ),
+                        invalidTax: !validAmount(
+                            value.invoiceItem.tax.amount.amount
+                        ),
+                    },
+                    materialLot: {
+                        ...items[index].materialLot,
+                        invalidLotNumber: !value.materialLot.lotNumber,
+                    },
                 };
             });
-            yield put({ type: SET_PURCHASE_INVOICE_ITEMS, payload: { items } });
+            yield put({
+                type: SET_PURCHASE_INVOICE_ITEMS,
+                payload: { procurementItems: items },
+            });
             yield put({
                 type: SET_PURCHASE_INVOICE_ERROR,
                 payload: { error: true },
@@ -384,6 +431,14 @@ function* fetchProcurementGenerator(action) {
             },
             purchaseOrder,
         };
+        data.procurementItems.forEach(({ invoiceItem }) => {
+            const { tax, price, quantity } = invoiceItem;
+            invoiceItem.tax.amount.amount = calculatedTaxRate(
+                quantity.value,
+                price.amount,
+                tax.amount.amount
+            );
+        });
         yield put({
             type: SET_PURCHASE_INVOICE_DETAILS,
             payload: {
@@ -435,6 +490,10 @@ function* Procurement() {
     yield takeEvery(
         SET_PURCHASE_INVOICE_DUE_DATE,
         validatePurchaseInvoicePaymentDateDueGenerator
+    );
+    yield takeEvery(
+        SET_PURCHASE_INVOICE_STATUS,
+        validatePurchaseInvoiceStatusGenerator
     );
     yield takeEvery(CREATE_PROCUREMENT, createProcurementGenerator);
     yield takeEvery(UPDATE_PROCUREMENT, updateProcurementGenerator);
