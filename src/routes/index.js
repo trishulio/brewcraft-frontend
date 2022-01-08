@@ -5,6 +5,7 @@ import Brew from "../pages/Brew";
 import Brews from "../pages/Brews";
 import Dashboard from "../pages/Dashboard/dashboard";
 import FinishedGood from "../pages/FinishedGood";
+import FinishedGoods from "../pages/FinishedGoods";
 import FinishedGoodsInventory from "../pages/FinishedGoodsInventory";
 import Ingredient from "../pages/Ingredient";
 import Ingredients from "../pages/Ingredients";
@@ -47,6 +48,7 @@ const authProtectedRoutes = [
 
     // Finished Goods
     { path: "/finished-goods/:id", component: FinishedGood },
+    { path: "/finished-goods", component: FinishedGoods },
     { path: "/inventory/finished-goods", component: FinishedGoodsInventory },
 
     // Product Categories

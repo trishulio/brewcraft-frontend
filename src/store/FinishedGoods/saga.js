@@ -1,6 +1,7 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import { get } from "lodash";
 import {
+    SET_FINISHED_GOODS,
     SET_FERMENT_FINISHED_GOODS,
     SET_CONDITION_FINISHED_GOODS,
     SET_BRITE_TANK_FINISHED_GOODS,
@@ -17,6 +18,10 @@ function* fetchFinishedGoods(action) {
             api.fetchFinishedGoods,
             get(action, "payload.params")
         );
+        yield put({
+            type: SET_FINISHED_GOODS,
+            payload: { ...res.data },
+        });
         yield put({
             type: SET_FERMENT_FINISHED_GOODS,
             payload: { content: res.data.content, initial: res.data.content },
