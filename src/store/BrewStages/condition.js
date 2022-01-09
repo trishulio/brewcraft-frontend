@@ -6,6 +6,7 @@ import {
     ADD_CONDITION_STAGE_SUCCESS,
     SET_CONDITION_STAGE_DETAILS,
     RESET_CONDITION_STAGE_DETAILS,
+    FETCH_ALL_BREW_STAGE_REQUEST,
 } from "./actionTypes";
 import { initialState } from "./initial";
 
@@ -18,6 +19,7 @@ const ConditionStage = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: null,
             };
+        case FETCH_ALL_BREW_STAGE_REQUEST:
         case ADD_CONDITION_STAGE_REQUEST:
         case EDIT_CONDITION_STAGE_REQUEST:
             return {
@@ -48,7 +50,6 @@ const ConditionStage = (state = initialState, { type, payload }) => {
         default:
             return {
                 ...state,
-                loading: false,
                 error: null,
             };
     }

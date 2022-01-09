@@ -54,7 +54,6 @@ const Brew = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 ...payload,
-                loading: false,
             };
         case SET_INITIAL_BATCH_DETAILS:
             return {
@@ -63,7 +62,6 @@ const Brew = (state = initialState, { type, payload }) => {
                     ...initialState.initial,
                     ...payload,
                 },
-                loading: false,
                 error: null,
             };
         case ADD_BATCH_REQUEST:
@@ -96,12 +94,11 @@ const Brew = (state = initialState, { type, payload }) => {
                 initial: {
                     ...initialState.initial,
                 },
-                loading: false,
+                error: null,
             };
         default:
             return {
                 ...state,
-                loading: false,
                 error: null,
             };
     }

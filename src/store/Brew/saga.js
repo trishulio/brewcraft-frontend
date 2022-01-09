@@ -10,6 +10,8 @@ import {
     EDIT_BATCH_REQUEST,
     DELETE_BATCH_REQUEST,
     EDIT_BATCH_FAILURE,
+    EDIT_BATCH_SUCCESS,
+    ADD_BATCH_SUCCESS,
 } from "./actionTypes";
 import { isValidName, validDate, validId } from "../../helpers/utils";
 
@@ -35,7 +37,6 @@ function* fetchBatchByIdGenerator(action) {
 }
 
 function* addBatchGenerator(action) {
-    // eslint-disable-next-line
     let resStage, resMixture;
     try {
         const batch = get(action, "payload.form");
@@ -63,32 +64,32 @@ function* addBatchGenerator(action) {
                 {
                     brewId: res.data.id,
                     taskId: 2, // kettle
-                    statusId: 1,
+                    statusId: 4,
                 },
                 {
                     brewId: res.data.id,
                     taskId: 3, // whirlpool
-                    statusId: 1,
+                    statusId: 4,
                 },
                 {
                     brewId: res.data.id,
                     taskId: 6, // transfer
-                    statusId: 1,
+                    statusId: 4,
                 },
                 {
                     brewId: res.data.id,
                     taskId: 7, // ferment
-                    statusId: 1,
+                    statusId: 4,
                 },
                 {
                     brewId: res.data.id,
                     taskId: 5, // condition
-                    statusId: 1,
+                    statusId: 4,
                 },
                 {
                     brewId: res.data.id,
                     taskId: 8, // storage
-                    statusId: 1,
+                    statusId: 4,
                 },
             ]);
             resMixture = yield call(api.addMixture, {
@@ -151,6 +152,7 @@ function* addBatchGenerator(action) {
                 payload: { data: res.data, initial: res.data },
             });
             yield put(setGlobalRedirect({ pathname: "/brews/" + res.data.id }));
+            yield put({ type: ADD_BATCH_SUCCESS });
         }
     } catch (e) {
         console.log(e);
@@ -170,7 +172,7 @@ function* editBatchGenerator(action) {
             payload: { data: res.data, initial: res.data },
         });
         yield put(setGlobalRedirect({ pathname: "/brews/" + res.data.id }));
-        yield put(snackSuccess());
+        yield put({ type: EDIT_BATCH_SUCCESS });
     } catch (e) {
         yield put({ type: EDIT_BATCH_FAILURE });
     }

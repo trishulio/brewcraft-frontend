@@ -8,6 +8,8 @@ import {
     RESET_KETTLE_MATERIAL_PORTION_DETAILS,
     EDIT_KETTLE_MATERIAL_PORTION_FAILURE,
     DELETE_KETTLE_MATERIAL_PORTION_FAILURE,
+    FETCH_MATERIAL_PORTION_BY_BREW_ID_REQUEST,
+    DELETE_KETTLE_MATERIAL_PORTION_REQUEST,
 } from "./actionTypes";
 
 const initialState = {
@@ -29,8 +31,10 @@ const KettleMaterialPortion = (state = initialState, { type, payload }) => {
                 ...payload,
                 loading: false,
             };
+        case FETCH_MATERIAL_PORTION_BY_BREW_ID_REQUEST:
         case ADD_KETTLE_MATERIAL_PORTION_REQUEST:
         case EDIT_KETTLE_MATERIAL_PORTION_REQUEST:
+        case DELETE_KETTLE_MATERIAL_PORTION_REQUEST:
             return {
                 ...state,
                 loading: true,
@@ -49,19 +53,16 @@ const KettleMaterialPortion = (state = initialState, { type, payload }) => {
         case DELETE_KETTLE_MATERIAL_PORTION_FAILURE:
             return {
                 ...state,
-                loading: false,
                 error: true,
             };
         case RESET_KETTLE_MATERIAL_PORTION_DETAILS:
             return {
                 ...initialState,
-                loading: false,
                 error: null,
             };
         default:
             return {
                 ...state,
-                loading: false,
                 error: null,
             };
     }

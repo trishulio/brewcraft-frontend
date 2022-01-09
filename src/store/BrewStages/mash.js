@@ -6,6 +6,7 @@ import {
     ADD_MASH_STAGE_SUCCESS,
     SET_MASH_STAGE_DETAILS,
     RESET_MASH_STAGE_DETAILS,
+    FETCH_ALL_BREW_STAGE_REQUEST,
 } from "./actionTypes";
 import { initialState } from "./initial";
 
@@ -18,6 +19,7 @@ const MashStage = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: null,
             };
+        case FETCH_ALL_BREW_STAGE_REQUEST:
         case ADD_MASH_STAGE_REQUEST:
         case EDIT_MASH_STAGE_REQUEST:
             return {
@@ -48,7 +50,6 @@ const MashStage = (state = initialState, { type, payload }) => {
         default:
             return {
                 ...state,
-                loading: false,
                 error: null,
             };
     }

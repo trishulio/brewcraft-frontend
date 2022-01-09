@@ -6,6 +6,8 @@ import {
     ADD_TRANSFER_MIXTURE_RECORDING_SUCCESS,
     SET_TRANSFER_MIXTURE_RECORDING_DETAILS,
     RESET_TRANSFER_MIXTURE_RECORDING_DETAILS,
+    FETCH_MIXTURE_RECORDING_BY_BREW_ID_REQUEST,
+    DELETE_TRANSFER_MIXTURE_RECORDING_REQUEST,
 } from "./actionTypes";
 import { initialState } from "./initial";
 
@@ -21,8 +23,10 @@ const TransferMixtureRecordings = (
                 loading: false,
                 error: null,
             };
+        case FETCH_MIXTURE_RECORDING_BY_BREW_ID_REQUEST:
         case ADD_TRANSFER_MIXTURE_RECORDING_REQUEST:
         case EDIT_TRANSFER_MIXTURE_RECORDING_REQUEST:
+        case DELETE_TRANSFER_MIXTURE_RECORDING_REQUEST:
             return {
                 ...state,
                 loading: true,
