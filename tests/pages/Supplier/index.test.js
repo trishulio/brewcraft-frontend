@@ -3,7 +3,7 @@ import { mount } from "enzyme";
 import { shallowToJson } from "enzyme-to-json";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
-import { BrowserRouter,useParams } from "react-router-dom";
+import { BrowserRouter, useParams } from "react-router-dom";
 import { useQuery } from "../../../src/helpers/utils";
 import Supplier from "../../../src/pages/Supplier/index";
 
@@ -55,22 +55,22 @@ const mockStore = configureStore(middlewares);
 const store = mockStore(initialState);
 const mockDispatch = jest.fn();
 
-const mockHistory = ({
-    replace: jest.fn()
-})
+const mockHistory = {
+    replace: jest.fn(),
+};
 
 jest.mock("react-redux", () => ({
     ...jest.requireActual("react-redux"),
     useDispatch: () => mockDispatch,
 }));
 
-jest.mock("react-router-dom", ()=> ({
+jest.mock("react-router-dom", () => ({
     ...jest.requireActual("react-router-dom"),
     useParams: jest.fn().mockReturnValue({
-        id: ""
+        id: "",
     }),
-    useHistory: () => mockHistory
-}))
+    useHistory: () => mockHistory,
+}));
 
 jest.mock("../../../src/helpers/utils", () => ({
     ...jest.requireActual("../../../src/helpers/utils"),
@@ -209,7 +209,7 @@ describe("Supplier -> <Index>", () => {
                 },
             });
             useParams.mockReturnValueOnce({
-                id: "new"
+                id: "new",
             });
             initialState.Supplier.data.id = "";
             const store = mockStore(initialState);
@@ -241,7 +241,9 @@ describe("Supplier -> <Index>", () => {
                     },
                 },
             });
-            expect(mockHistory.replace).toHaveBeenCalledWith("/suppliers/new?edit=true")
+            expect(mockHistory.replace).toHaveBeenCalledWith(
+                "/suppliers/new?edit=true"
+            );
         });
 
         test("Whenever initial Supplier Id is having value setBreadcrumbItems should gets called with initial Supplier name", () => {
@@ -251,7 +253,7 @@ describe("Supplier -> <Index>", () => {
                 },
             });
             useParams.mockReturnValueOnce({
-                id: "new"
+                id: "new",
             });
             initialState.Supplier.data.id = "";
             initialState.Supplier.initial.id = 1;
@@ -287,29 +289,30 @@ describe("Supplier -> <Index>", () => {
                     },
                 },
             });
-            expect(mockDispatch).toHaveBeenNthCalledWith(28,{
+            expect(mockDispatch).toHaveBeenNthCalledWith(28, {
                 type: "SET_BREADCRUMB_ITEMS",
                 payload: {
                     title: "dummy",
-                    "backButton": false,
-                    "items": [
-                     {
-                        "link": "#",
-                        "title": "Main",
-                      },
-                     {
-                        "link": "#",
-                        "title": "Purchases",
-                      },
-                     {
-                        "link": "#",
-                        "title": "Suppliers",
-                      },
+                    backButton: false,
+                    items: [
+                        {
+                            link: "#",
+                            title: "Main",
+                        },
+                        {
+                            link: "#",
+                            title: "Purchases",
+                        },
+                        {
+                            link: "#",
+                            title: "Suppliers",
+                        },
                     ],
                 },
-            })
-            expect(mockHistory.replace).toHaveBeenCalledWith("/suppliers/new?edit=true")
+            });
+            expect(mockHistory.replace).toHaveBeenCalledWith(
+                "/suppliers/new?edit=true"
+            );
         });
     });
 });
-
