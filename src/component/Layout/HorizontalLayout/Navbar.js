@@ -336,8 +336,8 @@ class Navbar extends Component {
                                             data-toggle="dropdown"
                                             aria-haspopup="true"
                                         >
-                                            <i className="ti-truck"></i>Finished
-                                            Goods
+                                            <i className="ti-package"></i>
+                                            Finished Goods
                                         </Link>
                                         <div
                                             className={
@@ -348,22 +348,16 @@ class Navbar extends Component {
                                             aria-labelledby="topnav-finished-goods"
                                         >
                                             <Link
-                                                to="/finished-goods/inventory"
+                                                to="/sku"
+                                                className="dropdown-item"
+                                            >
+                                                Skus
+                                            </Link>
+                                            <Link
+                                                to="/inventory/finished-goods"
                                                 className="dropdown-item"
                                             >
                                                 Inventory
-                                            </Link>
-                                            <Link
-                                                to="/deliveries"
-                                                className="dropdown-item"
-                                            >
-                                                Deliveries
-                                            </Link>
-                                            <Link
-                                                to="/delivery-drivers"
-                                                className="dropdown-item"
-                                            >
-                                                Delivery Drivers
                                             </Link>
                                         </div>
                                     </li>

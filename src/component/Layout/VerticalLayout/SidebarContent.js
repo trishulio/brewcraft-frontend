@@ -168,11 +168,21 @@ class SidebarContent extends Component {
                         <li>
                             <Link
                                 to="/inventory/finished-goods"
-                                className="waves-effect"
+                                className="has-arrow waves-effect"
                             >
-                                <i className="mdi mdi-chart-pie"></i>
+                                <i className="mdi mdi-crown"></i>
                                 <span>Finished Goods</span>
                             </Link>
+                            <ul className="sub-menu" aria-expanded="false">
+                                <li>
+                                    <Link to="/sku">SKUs</Link>
+                                </li>
+                                <li>
+                                    <Link to="/inventory/finished-goods">
+                                        Inventory
+                                    </Link>
+                                </li>
+                            </ul>
                         </li>
                         <li>
                             <Link
@@ -185,9 +195,6 @@ class SidebarContent extends Component {
                             <ul className="sub-menu" aria-expanded="false">
                                 <li>
                                     <Link to="/products">Products</Link>
-                                </li>
-                                <li>
-                                    <Link to="/sku">SKU</Link>
                                 </li>
                                 <li>
                                     <Link to="/products/categories">
