@@ -46,11 +46,13 @@ export default function Product() {
         return state.Measures.data;
     });
 
-    const abv = measures?.find(measure => measure.name === 'abv');
+    const abv = measures?.find((measure) => measure.name === "abv");
 
-    const { invalidName, invalidClass, invalidType, invalidAbv } = useSelector((state) => {
-        return state.Product;
-    });
+    const { invalidName, invalidClass, invalidType, invalidAbv } = useSelector(
+        (state) => {
+            return state.Product;
+        }
+    );
 
     useEffect(() => {
         dispatch(fetchMeasures());
@@ -93,25 +95,41 @@ export default function Product() {
     function isChanged() {
         return (
             JSON.stringify(
-                (({ id, name, description, productClass, type, style, targetMeasures }) => ({
+                (({
                     id,
                     name,
                     description,
                     productClass,
                     type,
                     style,
-                    targetMeasures
+                    targetMeasures,
+                }) => ({
+                    id,
+                    name,
+                    description,
+                    productClass,
+                    type,
+                    style,
+                    targetMeasures,
                 }))(initialProduct)
             ) !==
             JSON.stringify(
-                (({ id, name, description, productClass, type, style, targetMeasures }) => ({
+                (({
                     id,
                     name,
                     description,
                     productClass,
                     type,
                     style,
-                    targetMeasures
+                    targetMeasures,
+                }) => ({
+                    id,
+                    name,
+                    description,
+                    productClass,
+                    type,
+                    style,
+                    targetMeasures,
                 }))(product)
             )
         );
@@ -131,18 +149,27 @@ export default function Product() {
     }
 
     function getTargetMeasures() {
-        return product.targetMeasures ? product.targetMeasures.map(x => {
-            return {
-                id: x.id,
-                measureId: x.measure.id,
-                value: x.value,
-            };
-        }) : []
+        return product.targetMeasures
+            ? product.targetMeasures.map((x) => {
+                  return {
+                      id: x.id,
+                      measureId: x.measure.id,
+                      value: x.value,
+                  };
+              })
+            : [];
     }
 
     function onSave() {
-        const abvValue = parseFloat(product.targetMeasures?.find(elem => elem.measure?.id === abv?.id)?.value);
-        if (!product.name || !product.productClass?.id || !validAmount(abvValue)) {
+        const abvValue = parseFloat(
+            product.targetMeasures?.find((elem) => elem.measure?.id === abv?.id)
+                ?.value
+        );
+        if (
+            !product.name ||
+            !product.productClass?.id ||
+            !validAmount(abvValue)
+        ) {
             dispatch(setProductInvalidName(!product.name));
             dispatch(setProductInvalidClass(!product.productClass?.id));
             dispatch(setProductInvalidAbv(!validAmount(abvValue)));
@@ -158,7 +185,7 @@ export default function Product() {
                 updateProduct({
                     data: product,
                     categoryId: getCategoryId(),
-                    targetMeasures: getTargetMeasures()
+                    targetMeasures: getTargetMeasures(),
                 })
             );
         } else {
@@ -166,7 +193,7 @@ export default function Product() {
                 createProduct({
                     data: product,
                     categoryId: getCategoryId(),
-                    targetMeasures: getTargetMeasures()
+                    targetMeasures: getTargetMeasures(),
                 })
             );
         }

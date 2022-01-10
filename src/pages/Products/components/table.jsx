@@ -123,7 +123,15 @@ export default function ProductsList() {
                             </td>
                             <td>{product.type ? product.type.name : "-"}</td>
                             <td>{product.style ? product.style.name : "-"}</td>
-                            <td>{product.targetMeasures?.find(elem => elem.measure?.name === 'abv')?.value ? product.targetMeasures?.find(elem => elem.measure.name === 'abv')?.value : "-"}</td>
+                            <td>
+                                {product.targetMeasures?.find(
+                                    (elem) => elem.measure?.name === "abv"
+                                )?.value
+                                    ? product.targetMeasures?.find(
+                                          (elem) => elem.measure.name === "abv"
+                                      )?.value
+                                    : "-"}
+                            </td>
                         </tr>
                     ))}
                 </tbody>

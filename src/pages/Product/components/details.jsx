@@ -6,7 +6,7 @@ import {
     setProductDetails,
     setProductInvalidName,
     setProductInvalidClass,
-    setProductInvalidAbv
+    setProductInvalidAbv,
 } from "../../../store/actions";
 import { Card, CardBody, CardHeader } from "../../../component/Common/Card";
 import CategoriesModal from "../../../component/ProductCategories/modal";
@@ -23,9 +23,11 @@ export default function ProductDetails({ product, editable }) {
     const [modalCategoryType, setModalCategoryType] = useState(null);
     const [modalParentCategoryId, setModalParentCategoryId] = useState(null);
 
-    const { invalidName, invalidClass, invalidType, invalidAbv } = useSelector((state) => {
-        return state.Product;
-    });
+    const { invalidName, invalidClass, invalidType, invalidAbv } = useSelector(
+        (state) => {
+            return state.Product;
+        }
+    );
 
     const categories = useSelector((state) => {
         return state.ProductCategories.data;
@@ -35,7 +37,7 @@ export default function ProductDetails({ product, editable }) {
         return state.Measures.data;
     });
 
-    const abv = measures?.find(measure => measure.name === 'abv');
+    const abv = measures?.find((measure) => measure.name === "abv");
 
     const dispatch = useDispatch();
 
@@ -89,22 +91,32 @@ export default function ProductDetails({ product, editable }) {
                 }
                 break;
             case "productTargetMeasuresAbv":
-                let abvIndex = product.targetMeasures?.findIndex(measure => measure.measure.id === abv.id);
-                let updatedTargetMeasures = product.targetMeasures ? JSON.parse(JSON.stringify(product.targetMeasures)) : [];
+                let abvIndex = product.targetMeasures?.findIndex(
+                    (measure) => measure.measure.id === abv.id
+                );
+                let updatedTargetMeasures = product.targetMeasures
+                    ? JSON.parse(JSON.stringify(product.targetMeasures))
+                    : [];
                 if (abvIndex < 0) {
                     let productAbv = {
                         id: null,
                         measure: abv,
-                        value: null
+                        value: null,
                     };
                     updatedTargetMeasures.push(productAbv);
                 }
-                if (product.targetMeasures[abvIndex]?.value !== e.target.value) {
+                if (
+                    product.targetMeasures[abvIndex]?.value !== e.target.value
+                ) {
                     updatedTargetMeasures[abvIndex].value = e.target.value;
-                    dispatch(setProductInvalidAbv(!validAmount(parseFloat(e.target.value))));
+                    dispatch(
+                        setProductInvalidAbv(
+                            !validAmount(parseFloat(e.target.value))
+                        )
+                    );
                     dispatch(
                         setProductDetails({
-                            targetMeasures: updatedTargetMeasures
+                            targetMeasures: updatedTargetMeasures,
                         })
                     );
                 }
@@ -359,7 +371,12 @@ export default function ProductDetails({ product, editable }) {
                                     type="text"
                                     className="waves-effect"
                                     bsSize="sm"
-                                    value={product.targetMeasures?.find(elem => elem.measure?.id === abv?.id)?.value}
+                                    value={
+                                        product.targetMeasures?.find(
+                                            (elem) =>
+                                                elem.measure?.id === abv?.id
+                                        )?.value
+                                    }
                                     style={{ width: "16rem" }}
                                     placeholder="Enter"
                                     name="productTargetMeasuresAbv"
@@ -372,7 +389,13 @@ export default function ProductDetails({ product, editable }) {
                                 </FormFeedback>
                             </FormGroup>
                             <div hidden={editable}>
-                                {product.targetMeasures?.find(elem => elem.measure?.id === abv?.id)?.value ? product.targetMeasures?.find(elem => elem.measure.id === abv?.id)?.value : "-"}
+                                {product.targetMeasures?.find(
+                                    (elem) => elem.measure?.id === abv?.id
+                                )?.value
+                                    ? product.targetMeasures?.find(
+                                          (elem) => elem.measure.id === abv?.id
+                                      )?.value
+                                    : "-"}
                             </div>
                         </Col>
                     </Row>
