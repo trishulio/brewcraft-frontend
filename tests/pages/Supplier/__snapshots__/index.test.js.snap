@@ -390,6 +390,7 @@ exports[`Supplier -> <Index> render() On Save isValid Name is false 1`] = `
             >
               <Card>
                 <Card
+                  className=""
                   tag="div"
                 >
                   <div
@@ -408,349 +409,354 @@ exports[`Supplier -> <Index> render() On Save isValid Name is false 1`] = `
                       </CardHeader>
                     </CardHeader>
                     <CardBody>
-                      <CardBody
-                        tag="div"
-                      >
-                        <div
-                          className="card-body"
-                        >
-                          <Label
-                            className="d-inline-block mb-3"
-                            style={
-                              Object {
-                                "width": "10rem",
-                              }
-                            }
-                            tag="label"
-                            widths={
-                              Array [
-                                "xs",
-                                "sm",
-                                "md",
-                                "lg",
-                                "xl",
-                              ]
-                            }
+                      <ContentLoader>
+                        <div>
+                          <CardBody
+                            className=""
+                            tag="div"
                           >
-                            <label
-                              className="d-inline-block mb-3"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
+                            <div
+                              className="card-body"
                             >
-                              ID
-                            </label>
-                          </Label>
-                          <div
-                            className="d-inline-block mb-2"
-                          >
-                            1
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierName"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
+                              <Label
                                 className="d-inline-block mb-3"
-                                htmlFor="supplierName"
                                 style={
                                   Object {
                                     "width": "10rem",
                                   }
                                 }
-                              >
-                                Name
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressLine1"
-                              style={
-                                Object {
-                                  "width": "10rem",
+                                tag="label"
+                                widths={
+                                  Array [
+                                    "xs",
+                                    "sm",
+                                    "md",
+                                    "lg",
+                                    "xl",
+                                  ]
                                 }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressLine1"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                              >
+                                <label
+                                  className="d-inline-block mb-3"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
+                                >
+                                  ID
+                                </label>
+                              </Label>
+                              <div
+                                className="d-inline-block mb-2"
                               >
-                                Address Line 1
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressLine2"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressLine2"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                1
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierName"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
-                              >
-                                Address Line 2
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressCity"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressCity"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
                                   }
-                                }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierName"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Name
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                City
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressProvince"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressProvince"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressLine1"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
-                              >
-                                Province / State
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressPostalCode"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressPostalCode"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
                                   }
-                                }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressLine1"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Address Line 1
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                Postal / Zip code
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressCountry"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressCountry"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressLine2"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressLine2"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Address Line 2
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                Country
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressCity"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressCity"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    City
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressProvince"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressProvince"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Province / State
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressPostalCode"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressPostalCode"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Postal / Zip code
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressCountry"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressCountry"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Country
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
                             </div>
-                          </div>
+                          </CardBody>
                         </div>
-                      </CardBody>
+                      </ContentLoader>
                     </CardBody>
                   </div>
                 </Card>
@@ -1154,6 +1160,7 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
             >
               <Card>
                 <Card
+                  className=""
                   tag="div"
                 >
                   <div
@@ -1172,349 +1179,354 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
                       </CardHeader>
                     </CardHeader>
                     <CardBody>
-                      <CardBody
-                        tag="div"
-                      >
-                        <div
-                          className="card-body"
-                        >
-                          <Label
-                            className="d-inline-block mb-3"
-                            style={
-                              Object {
-                                "width": "10rem",
-                              }
-                            }
-                            tag="label"
-                            widths={
-                              Array [
-                                "xs",
-                                "sm",
-                                "md",
-                                "lg",
-                                "xl",
-                              ]
-                            }
+                      <ContentLoader>
+                        <div>
+                          <CardBody
+                            className=""
+                            tag="div"
                           >
-                            <label
-                              className="d-inline-block mb-3"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
+                            <div
+                              className="card-body"
                             >
-                              ID
-                            </label>
-                          </Label>
-                          <div
-                            className="d-inline-block mb-2"
-                          >
-                            1
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierName"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
+                              <Label
                                 className="d-inline-block mb-3"
-                                htmlFor="supplierName"
                                 style={
                                   Object {
                                     "width": "10rem",
                                   }
                                 }
-                              >
-                                Name
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              dummy
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressLine1"
-                              style={
-                                Object {
-                                  "width": "10rem",
+                                tag="label"
+                                widths={
+                                  Array [
+                                    "xs",
+                                    "sm",
+                                    "md",
+                                    "lg",
+                                    "xl",
+                                  ]
                                 }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressLine1"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                              >
+                                <label
+                                  className="d-inline-block mb-3"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
+                                >
+                                  ID
+                                </label>
+                              </Label>
+                              <div
+                                className="d-inline-block mb-2"
                               >
-                                Address Line 1
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressLine2"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressLine2"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                1
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierName"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
-                              >
-                                Address Line 2
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressCity"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressCity"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
                                   }
-                                }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierName"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Name
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  dummy
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                City
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressProvince"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressProvince"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressLine1"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
-                              >
-                                Province / State
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressPostalCode"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressPostalCode"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
                                   }
-                                }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressLine1"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Address Line 1
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                Postal / Zip code
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressCountry"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressCountry"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressLine2"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressLine2"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Address Line 2
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                Country
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressCity"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressCity"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    City
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressProvince"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressProvince"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Province / State
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressPostalCode"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressPostalCode"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Postal / Zip code
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressCountry"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressCountry"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Country
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
                             </div>
-                          </div>
+                          </CardBody>
                         </div>
-                      </CardBody>
+                      </ContentLoader>
                     </CardBody>
                   </div>
                 </Card>
@@ -1918,6 +1930,7 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
             >
               <Card>
                 <Card
+                  className=""
                   tag="div"
                 >
                   <div
@@ -1936,349 +1949,354 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
                       </CardHeader>
                     </CardHeader>
                     <CardBody>
-                      <CardBody
-                        tag="div"
-                      >
-                        <div
-                          className="card-body"
-                        >
-                          <Label
-                            className="d-inline-block mb-3"
-                            style={
-                              Object {
-                                "width": "10rem",
-                              }
-                            }
-                            tag="label"
-                            widths={
-                              Array [
-                                "xs",
-                                "sm",
-                                "md",
-                                "lg",
-                                "xl",
-                              ]
-                            }
+                      <ContentLoader>
+                        <div>
+                          <CardBody
+                            className=""
+                            tag="div"
                           >
-                            <label
-                              className="d-inline-block mb-3"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
+                            <div
+                              className="card-body"
                             >
-                              ID
-                            </label>
-                          </Label>
-                          <div
-                            className="d-inline-block mb-2"
-                          >
-                            -
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierName"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
+                              <Label
                                 className="d-inline-block mb-3"
-                                htmlFor="supplierName"
                                 style={
                                   Object {
                                     "width": "10rem",
                                   }
                                 }
-                              >
-                                Name
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              dummy
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressLine1"
-                              style={
-                                Object {
-                                  "width": "10rem",
+                                tag="label"
+                                widths={
+                                  Array [
+                                    "xs",
+                                    "sm",
+                                    "md",
+                                    "lg",
+                                    "xl",
+                                  ]
                                 }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressLine1"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                              >
+                                <label
+                                  className="d-inline-block mb-3"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
+                                >
+                                  ID
+                                </label>
+                              </Label>
+                              <div
+                                className="d-inline-block mb-2"
                               >
-                                Address Line 1
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressLine2"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressLine2"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                -
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierName"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
-                              >
-                                Address Line 2
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressCity"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressCity"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
                                   }
-                                }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierName"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Name
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  dummy
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                City
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressProvince"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressProvince"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressLine1"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
-                              >
-                                Province / State
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressPostalCode"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressPostalCode"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
                                   }
-                                }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressLine1"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Address Line 1
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                Postal / Zip code
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressCountry"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressCountry"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressLine2"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressLine2"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Address Line 2
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                Country
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressCity"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressCity"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    City
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressProvince"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressProvince"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Province / State
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressPostalCode"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressPostalCode"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Postal / Zip code
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressCountry"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressCountry"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Country
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
                             </div>
-                          </div>
+                          </CardBody>
                         </div>
-                      </CardBody>
+                      </ContentLoader>
                     </CardBody>
                   </div>
                 </Card>
@@ -2682,6 +2700,7 @@ exports[`Supplier -> <Index> render() On param id is new history.replace should 
             >
               <Card>
                 <Card
+                  className=""
                   tag="div"
                 >
                   <div
@@ -2700,349 +2719,354 @@ exports[`Supplier -> <Index> render() On param id is new history.replace should 
                       </CardHeader>
                     </CardHeader>
                     <CardBody>
-                      <CardBody
-                        tag="div"
-                      >
-                        <div
-                          className="card-body"
-                        >
-                          <Label
-                            className="d-inline-block mb-3"
-                            style={
-                              Object {
-                                "width": "10rem",
-                              }
-                            }
-                            tag="label"
-                            widths={
-                              Array [
-                                "xs",
-                                "sm",
-                                "md",
-                                "lg",
-                                "xl",
-                              ]
-                            }
+                      <ContentLoader>
+                        <div>
+                          <CardBody
+                            className=""
+                            tag="div"
                           >
-                            <label
-                              className="d-inline-block mb-3"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
+                            <div
+                              className="card-body"
                             >
-                              ID
-                            </label>
-                          </Label>
-                          <div
-                            className="d-inline-block mb-2"
-                          >
-                            -
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierName"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
+                              <Label
                                 className="d-inline-block mb-3"
-                                htmlFor="supplierName"
                                 style={
                                   Object {
                                     "width": "10rem",
                                   }
                                 }
-                              >
-                                Name
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              dummy
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressLine1"
-                              style={
-                                Object {
-                                  "width": "10rem",
+                                tag="label"
+                                widths={
+                                  Array [
+                                    "xs",
+                                    "sm",
+                                    "md",
+                                    "lg",
+                                    "xl",
+                                  ]
                                 }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressLine1"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                              >
+                                <label
+                                  className="d-inline-block mb-3"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
+                                >
+                                  ID
+                                </label>
+                              </Label>
+                              <div
+                                className="d-inline-block mb-2"
                               >
-                                Address Line 1
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressLine2"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressLine2"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                -
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierName"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
-                              >
-                                Address Line 2
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressCity"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressCity"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
                                   }
-                                }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierName"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Name
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  dummy
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                City
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressProvince"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressProvince"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressLine1"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
-                              >
-                                Province / State
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressPostalCode"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressPostalCode"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
                                   }
-                                }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressLine1"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Address Line 1
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                Postal / Zip code
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressCountry"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressCountry"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressLine2"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressLine2"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Address Line 2
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                Country
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressCity"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressCity"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    City
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressProvince"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressProvince"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Province / State
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressPostalCode"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressPostalCode"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Postal / Zip code
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressCountry"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressCountry"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Country
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
                             </div>
-                          </div>
+                          </CardBody>
                         </div>
-                      </CardBody>
+                      </ContentLoader>
                     </CardBody>
                   </div>
                 </Card>
@@ -3446,6 +3470,7 @@ exports[`Supplier -> <Index> render() Whenever initial Supplier Id is having val
             >
               <Card>
                 <Card
+                  className=""
                   tag="div"
                 >
                   <div
@@ -3464,349 +3489,354 @@ exports[`Supplier -> <Index> render() Whenever initial Supplier Id is having val
                       </CardHeader>
                     </CardHeader>
                     <CardBody>
-                      <CardBody
-                        tag="div"
-                      >
-                        <div
-                          className="card-body"
-                        >
-                          <Label
-                            className="d-inline-block mb-3"
-                            style={
-                              Object {
-                                "width": "10rem",
-                              }
-                            }
-                            tag="label"
-                            widths={
-                              Array [
-                                "xs",
-                                "sm",
-                                "md",
-                                "lg",
-                                "xl",
-                              ]
-                            }
+                      <ContentLoader>
+                        <div>
+                          <CardBody
+                            className=""
+                            tag="div"
                           >
-                            <label
-                              className="d-inline-block mb-3"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
+                            <div
+                              className="card-body"
                             >
-                              ID
-                            </label>
-                          </Label>
-                          <div
-                            className="d-inline-block mb-2"
-                          >
-                            -
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierName"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
+                              <Label
                                 className="d-inline-block mb-3"
-                                htmlFor="supplierName"
                                 style={
                                   Object {
                                     "width": "10rem",
                                   }
                                 }
-                              >
-                                Name
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              dummy
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressLine1"
-                              style={
-                                Object {
-                                  "width": "10rem",
+                                tag="label"
+                                widths={
+                                  Array [
+                                    "xs",
+                                    "sm",
+                                    "md",
+                                    "lg",
+                                    "xl",
+                                  ]
                                 }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressLine1"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                              >
+                                <label
+                                  className="d-inline-block mb-3"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
+                                >
+                                  ID
+                                </label>
+                              </Label>
+                              <div
+                                className="d-inline-block mb-2"
                               >
-                                Address Line 1
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressLine2"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressLine2"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                -
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierName"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
-                              >
-                                Address Line 2
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressCity"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressCity"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
                                   }
-                                }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierName"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Name
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  dummy
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                City
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressProvince"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressProvince"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressLine1"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
-                              >
-                                Province / State
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressPostalCode"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressPostalCode"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
                                   }
-                                }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressLine1"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Address Line 1
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                Postal / Zip code
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressCountry"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressCountry"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressLine2"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressLine2"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Address Line 2
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                Country
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressCity"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressCity"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    City
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressProvince"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressProvince"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Province / State
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressPostalCode"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressPostalCode"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Postal / Zip code
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressCountry"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressCountry"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Country
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
                             </div>
-                          </div>
+                          </CardBody>
                         </div>
-                      </CardBody>
+                      </ContentLoader>
                     </CardBody>
                   </div>
                 </Card>
@@ -4210,6 +4240,7 @@ exports[`Supplier -> <Index> render() renders the component 1`] = `
             >
               <Card>
                 <Card
+                  className=""
                   tag="div"
                 >
                   <div
@@ -4228,349 +4259,354 @@ exports[`Supplier -> <Index> render() renders the component 1`] = `
                       </CardHeader>
                     </CardHeader>
                     <CardBody>
-                      <CardBody
-                        tag="div"
-                      >
-                        <div
-                          className="card-body"
-                        >
-                          <Label
-                            className="d-inline-block mb-3"
-                            style={
-                              Object {
-                                "width": "10rem",
-                              }
-                            }
-                            tag="label"
-                            widths={
-                              Array [
-                                "xs",
-                                "sm",
-                                "md",
-                                "lg",
-                                "xl",
-                              ]
-                            }
+                      <ContentLoader>
+                        <div>
+                          <CardBody
+                            className=""
+                            tag="div"
                           >
-                            <label
-                              className="d-inline-block mb-3"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
+                            <div
+                              className="card-body"
                             >
-                              ID
-                            </label>
-                          </Label>
-                          <div
-                            className="d-inline-block mb-2"
-                          >
-                            -
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierName"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
+                              <Label
                                 className="d-inline-block mb-3"
-                                htmlFor="supplierName"
                                 style={
                                   Object {
                                     "width": "10rem",
                                   }
                                 }
-                              >
-                                Name
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressLine1"
-                              style={
-                                Object {
-                                  "width": "10rem",
+                                tag="label"
+                                widths={
+                                  Array [
+                                    "xs",
+                                    "sm",
+                                    "md",
+                                    "lg",
+                                    "xl",
+                                  ]
                                 }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressLine1"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                              >
+                                <label
+                                  className="d-inline-block mb-3"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
+                                >
+                                  ID
+                                </label>
+                              </Label>
+                              <div
+                                className="d-inline-block mb-2"
                               >
-                                Address Line 1
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressLine2"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressLine2"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                -
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierName"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
-                              >
-                                Address Line 2
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressCity"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressCity"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
                                   }
-                                }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierName"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Name
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                City
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressProvince"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressProvince"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressLine1"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
-                              >
-                                Province / State
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressPostalCode"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressPostalCode"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
                                   }
-                                }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressLine1"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Address Line 1
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                Postal / Zip code
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div
-                            className="clearfix"
-                          />
-                          <div
-                            className="form-group-validation"
-                          >
-                            <Label
-                              className="d-inline-block mb-3"
-                              for="supplierAddressCountry"
-                              style={
-                                Object {
-                                  "width": "10rem",
-                                }
-                              }
-                              tag="label"
-                              widths={
-                                Array [
-                                  "xs",
-                                  "sm",
-                                  "md",
-                                  "lg",
-                                  "xl",
-                                ]
-                              }
-                            >
-                              <label
-                                className="d-inline-block mb-3"
-                                htmlFor="supplierAddressCountry"
-                                style={
-                                  Object {
-                                    "width": "10rem",
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressLine2"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
                                   }
-                                }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressLine2"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Address Line 2
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
                               >
-                                Country
-                              </label>
-                            </Label>
-                            <div
-                              className="d-inline-block mb-2"
-                            >
-                              -
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressCity"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressCity"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    City
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressProvince"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressProvince"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Province / State
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressPostalCode"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressPostalCode"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Postal / Zip code
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
+                              <div
+                                className="clearfix"
+                              />
+                              <div
+                                className="form-group-validation"
+                              >
+                                <Label
+                                  className="d-inline-block mb-3"
+                                  for="supplierAddressCountry"
+                                  style={
+                                    Object {
+                                      "width": "10rem",
+                                    }
+                                  }
+                                  tag="label"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <label
+                                    className="d-inline-block mb-3"
+                                    htmlFor="supplierAddressCountry"
+                                    style={
+                                      Object {
+                                        "width": "10rem",
+                                      }
+                                    }
+                                  >
+                                    Country
+                                  </label>
+                                </Label>
+                                <div
+                                  className="d-inline-block mb-2"
+                                >
+                                  -
+                                </div>
+                              </div>
                             </div>
-                          </div>
+                          </CardBody>
                         </div>
-                      </CardBody>
+                      </ContentLoader>
                     </CardBody>
                   </div>
                 </Card>
