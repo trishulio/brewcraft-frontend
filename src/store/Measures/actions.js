@@ -1,12 +1,20 @@
 import {
-    FETCH_MEASURE_REQUEST,
+    FETCH_MEASURES,
+    SET_MEASURES,
     SET_MEASURE_PAGE_INDEX,
     SET_MEASURE_PAGE_SIZE,
 } from "./actionTypes";
 
 export const fetchMeasures = (params) => ({
-    type: FETCH_MEASURE_REQUEST,
-    payload: { params },
+    type: FETCH_MEASURES,
+    payload: {
+        success: params?.success,
+    },
+});
+
+export const setMeasures = (measures) => ({
+    type: SET_MEASURES,
+    payload: measures,
 });
 
 export const setMeasuresPageIndex = (index) => ({

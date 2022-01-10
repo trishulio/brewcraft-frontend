@@ -6,9 +6,11 @@ import {
     setProductDetails,
     setProductInvalidName,
     setProductInvalidClass,
+    setProductInvalidAbv
 } from "../../../store/actions";
 import { Card, CardBody, CardHeader } from "../../../component/Common/Card";
 import CategoriesModal from "../../../component/ProductCategories/modal";
+import { validAmount } from "../../../helpers/utils";
 
 const ADD_NEW = "ADD_NEW";
 const PRODUCT_CATEGORY_CLASS = "class";
@@ -21,13 +23,19 @@ export default function ProductDetails({ product, editable }) {
     const [modalCategoryType, setModalCategoryType] = useState(null);
     const [modalParentCategoryId, setModalParentCategoryId] = useState(null);
 
-    const { invalidName, invalidClass, invalidType } = useSelector((state) => {
+    const { invalidName, invalidClass, invalidType, invalidAbv } = useSelector((state) => {
         return state.Product;
     });
 
     const categories = useSelector((state) => {
         return state.ProductCategories.data;
     });
+
+    const measures = useSelector((state) => {
+        return state.Measures.data;
+    });
+
+    const abv = measures?.find(measure => measure.name === 'abv');
 
     const dispatch = useDispatch();
 
@@ -76,6 +84,27 @@ export default function ProductDetails({ product, editable }) {
                             style: categories.find(
                                 (c) => c.id === parseInt(e.target.value)
                             ),
+                        })
+                    );
+                }
+                break;
+            case "productTargetMeasuresAbv":
+                let abvIndex = product.targetMeasures?.findIndex(measure => measure.measure.id === abv.id);
+                let updatedTargetMeasures = product.targetMeasures ? JSON.parse(JSON.stringify(product.targetMeasures)) : [];
+                if (abvIndex < 0) {
+                    let productAbv = {
+                        id: null,
+                        measure: abv,
+                        value: null
+                    };
+                    updatedTargetMeasures.push(productAbv);
+                }
+                if (product.targetMeasures[abvIndex]?.value !== e.target.value) {
+                    updatedTargetMeasures[abvIndex].value = e.target.value;
+                    dispatch(setProductInvalidAbv(!validAmount(parseFloat(e.target.value))));
+                    dispatch(
+                        setProductDetails({
+                            targetMeasures: updatedTargetMeasures
                         })
                     );
                 }
@@ -315,6 +344,35 @@ export default function ProductDetails({ product, editable }) {
                             </FormGroup>
                             <div hidden={editable}>
                                 {product.style ? product.style.name : "-"}
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="2">
+                            <Label for="abv" className="mb-3">
+                                ABV (%)
+                            </Label>
+                        </Col>
+                        <Col xs="8">
+                            <FormGroup hidden={!editable}>
+                                <Input
+                                    type="text"
+                                    className="waves-effect"
+                                    bsSize="sm"
+                                    value={product.targetMeasures?.find(elem => elem.measure?.id === abv?.id)?.value}
+                                    style={{ width: "16rem" }}
+                                    placeholder="Enter"
+                                    name="productTargetMeasuresAbv"
+                                    disabled={!editable}
+                                    onChange={onFormInputChange}
+                                    invalid={invalidAbv}
+                                />
+                                <FormFeedback>
+                                    Enter a valid ABV (%).
+                                </FormFeedback>
+                            </FormGroup>
+                            <div hidden={editable}>
+                                {product.targetMeasures?.find(elem => elem.measure?.id === abv?.id)?.value ? product.targetMeasures?.find(elem => elem.measure.id === abv?.id)?.value : "-"}
                             </div>
                         </Col>
                     </Row>

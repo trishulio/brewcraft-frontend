@@ -1,7 +1,5 @@
 import {
-    FETCH_MEASURE_REQUEST,
-    FETCH_MEASURE_SUCCESS,
-    FETCH_MEASURE_FAILURE,
+    SET_MEASURES,
     SET_MEASURE_DETAILS,
     SET_MEASURE_PAGE_INDEX,
     SET_MEASURE_PAGE_SIZE,
@@ -9,6 +7,7 @@ import {
 
 const initialState = {
     content: [],
+    data: [],
     loading: false,
     error: null,
     totalElements: 0,
@@ -17,28 +16,9 @@ const initialState = {
     pageSize: 20,
 };
 
-const Measures = (state = initialState, { type, payload, data }) => {
+const Measures = (state = initialState, { type, payload }) => {
     switch (type) {
-        case FETCH_MEASURE_REQUEST:
-            return {
-                ...state,
-                data: null,
-                loading: true,
-                error: null,
-            };
-        case FETCH_MEASURE_SUCCESS:
-            return {
-                ...state,
-                ...data.data,
-                loading: false,
-                error: null,
-            };
-        case FETCH_MEASURE_FAILURE:
-            return {
-                ...state,
-                loading: false,
-                error: payload,
-            };
+        case SET_MEASURES:
         case SET_MEASURE_DETAILS:
         case SET_MEASURE_PAGE_INDEX:
         case SET_MEASURE_PAGE_SIZE:
