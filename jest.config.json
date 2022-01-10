@@ -2,7 +2,7 @@
     "setupFiles": ["<rootDir>/tests/setupTests.js"],
     "roots": ["<rootDir>/tests/", "<rootDir>/src/"],
     "testRegex": "/*.test.js$",
-    "collectCoverage": true,
+    "collectCoverage": false,
     "coverageDirectory": "coverage",
     "coverageThreshold": {
      "global": {

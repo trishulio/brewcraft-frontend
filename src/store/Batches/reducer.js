@@ -13,7 +13,7 @@ import {
 const initialState = {
     content: [],
     all: [],
-    loading: false,
+    loading: true,
     error: null,
     totalElements: 0,
     totalPages: 0,
@@ -23,13 +23,6 @@ const initialState = {
 
 const Batches = (state = initialState, { type, payload, data }) => {
     switch (type) {
-        case FETCH_BATCHES_REQUEST:
-            return {
-                ...state,
-                data: null,
-                loading: true,
-                error: null,
-            };
         case FETCH_BATCHES_SUCCESS:
             return {
                 ...state,
@@ -43,6 +36,7 @@ const Batches = (state = initialState, { type, payload, data }) => {
                 loading: false,
                 error: payload,
             };
+        case FETCH_BATCHES_REQUEST:
         case FETCH_ALL_BATCHES_REQUEST:
             return {
                 ...state,
@@ -74,7 +68,6 @@ const Batches = (state = initialState, { type, payload, data }) => {
         default:
             return {
                 ...state,
-                loading: true,
                 error: null,
             };
     }

@@ -43,17 +43,16 @@ async function addMixtureRecording(payload) {
     ).then((r) => r);
 }
 
-async function updateMixtureRecording(id, payload) {
-    return await AxiosInstance.patch(
-        `/api/v1/mixtures/recordings/${id}`,
-        payload
-    ).then((r) => r);
-}
-
-async function deleteMixtureRecording(id) {
-    return await AxiosInstance.delete(`/api/v1/mixtures/recordings/${id}`).then(
+async function updateMixtureRecording(payload) {
+    return await AxiosInstance.put("/api/v1/mixtures/recordings", payload).then(
         (r) => r
     );
+}
+
+async function deleteMixtureRecording(ids) {
+    return await AxiosInstance.delete("/api/v1/mixtures/recordings", {
+        params: { ids: ids.toString() },
+    }).then((r) => r);
 }
 
 export const api = {

@@ -8,6 +8,8 @@ import {
     RESET_MASH_MATERIAL_PORTION_DETAILS,
     EDIT_MASH_MATERIAL_PORTION_FAILURE,
     DELETE_MASH_MATERIAL_PORTION_FAILURE,
+    FETCH_MATERIAL_PORTION_BY_BREW_ID_REQUEST,
+    DELETE_MASH_MATERIAL_PORTION_REQUEST,
 } from "./actionTypes";
 
 const initialState = {
@@ -29,8 +31,10 @@ const MashMaterialPortion = (state = initialState, { type, payload }) => {
                 ...payload,
                 loading: false,
             };
+        case FETCH_MATERIAL_PORTION_BY_BREW_ID_REQUEST:
         case ADD_MASH_MATERIAL_PORTION_REQUEST:
         case EDIT_MASH_MATERIAL_PORTION_REQUEST:
+        case DELETE_MASH_MATERIAL_PORTION_REQUEST:
             return {
                 ...state,
                 loading: true,
@@ -61,7 +65,6 @@ const MashMaterialPortion = (state = initialState, { type, payload }) => {
         default:
             return {
                 ...state,
-                loading: false,
                 error: null,
             };
     }

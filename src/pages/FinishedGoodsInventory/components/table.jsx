@@ -59,7 +59,7 @@ export default function FinishedGoodsInventoryTable() {
                 <tr>
                     <th></th>
                     <Th name="fgSkuName" id="skuName" onSort={onSort}>
-                        Sku
+                        SKU
                     </Th>
                     <Th name="fgDescription" id="description" onSort={onSort}>
                         Description
@@ -76,7 +76,11 @@ export default function FinishedGoodsInventoryTable() {
                 {finishedGoodsInventory.map((finishedGood, key) => (
                     <tr
                         key={key}
-                        onClick={() => history.push("/finished-goods/")}
+                        onClick={() =>
+                            history.push(
+                                "/finished-goods?sku_ids=" + finishedGood.sku.id
+                            )
+                        }
                     >
                         <td></td>
                         <td>{finishedGood.sku.name}</td>

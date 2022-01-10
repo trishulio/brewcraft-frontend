@@ -10,6 +10,14 @@ export function isValidName(name) {
     return typeof name === "string" && name.trim().length > 0;
 }
 
+export function isValidNumberString(number) {
+    return !(
+        /[^0-9.]/.test(number) ||
+        /\.[0-9]*[.]{1,}/.test(number) ||
+        parseFloat(number) < 0
+    );
+}
+
 export function isValidCountry(country) {
     return isValidName(country);
 }

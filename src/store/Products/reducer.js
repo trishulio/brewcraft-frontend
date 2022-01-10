@@ -5,6 +5,8 @@ import {
     SET_PRODUCTS_CLASS,
     SET_PRODUCTS_TYPE,
     SET_PRODUCTS_STYLE,
+    FETCH_ALL_PRODUCTS,
+    FETCH_PRODUCTS,
 } from "./actionTypes";
 
 const initialState = {
@@ -14,6 +16,7 @@ const initialState = {
     totalPages: 0,
     pageIndex: 0,
     pageSize: 20,
+    loading: true,
 };
 
 const Products = (state = initialState, { type, payload }) => {
@@ -36,10 +39,16 @@ const Products = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: null,
             };
-        default:
+        case FETCH_ALL_PRODUCTS:
+        case FETCH_PRODUCTS:
             return {
                 ...state,
                 loading: true,
+                error: null,
+            };
+        default:
+            return {
+                ...state,
                 error: null,
             };
     }

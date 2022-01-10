@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import {
@@ -6,13 +6,9 @@ import {
     Label,
     FormGroup,
     FormFeedback,
-    Card,
-    CardBody,
-    CardHeader,
     Row,
     Col,
     Button,
-    CardFooter,
     Alert,
 } from "reactstrap";
 import {
@@ -20,16 +16,23 @@ import {
     setBatchInvalidName,
     setBatchInvalidDescription,
     setBatchInvalidParentBrew,
-    setTransferMixtureRecords,
 } from "../../../store/actions";
 import { isValidName, validDate, validId } from "../../../helpers/utils";
+import {
+    Card,
+    CardBody,
+    CardHeader,
+    CardFooter,
+} from "../../../component/Common/Card";
 
 export default function BatchMetadata(props) {
+    const [isOpen, setIsOpen] = useState(true);
     const dispatch = useDispatch();
 
     const {
         data: batch,
         initial: initialBatch,
+        loading: batchLoading,
         editable,
         changed,
         error,
@@ -41,17 +44,11 @@ export default function BatchMetadata(props) {
         return state.Batch.Batch;
     });
 
-    const products = useSelector((state) => {
-        return state.Products.content;
-    });
-
-    const transferMixture = useSelector((state) => {
-        return state.Batch.TransferMixture.data;
-    });
-
-    const mixtureRecords = useSelector((state) => {
-        return state.Batch.TransferMixtureRecordings.content;
-    });
+    const { content: products, loading: productsLoading } = useSelector(
+        (state) => {
+            return state.Products;
+        }
+    );
 
     function onFormInputChange(e) {
         switch (e.target.name) {
@@ -147,29 +144,6 @@ export default function BatchMetadata(props) {
                     );
                 }
                 break;
-            case "transferMixtureGravity":
-                let record;
-                const index = mixtureRecords.findIndex(
-                    (r) => r.measure.id === 5
-                );
-                if (index >= 0) {
-                    record = mixtureRecords.splice(index, 1)[0];
-                    record.value = parseInt(e.target.value);
-                } else {
-                    record = {
-                        mixture: transferMixture,
-                        measure: {
-                            id: 5,
-                        },
-                        value: parseInt(e.target.value),
-                    };
-                }
-                dispatch(
-                    setTransferMixtureRecords({
-                        content: [...mixtureRecords, record],
-                    })
-                );
-                break;
             default:
                 break;
         }
@@ -184,8 +158,23 @@ export default function BatchMetadata(props) {
                 </Alert>
             )}
             <Card>
-                <CardHeader>Brew Details</CardHeader>
-                <CardBody>
+                <CardHeader>
+                    <div
+                        className="d-inline-block mr-2"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        <i
+                            className={`fa fa-caret-right font-size-14 mr-2 ${
+                                isOpen ? " rotate-down" : ""
+                            }`}
+                        ></i>
+                        Brew Details
+                    </div>
+                </CardHeader>
+                <CardBody
+                    isLoading={batchLoading || productsLoading}
+                    isOpen={isOpen}
+                >
                     <Row className="px-2">
                         <Col sm="6">
                             <Label
