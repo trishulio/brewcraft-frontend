@@ -225,7 +225,11 @@ function* udpatePurchaseInvoiceGenerator(action) {
 
 function* deletePurchaseInvoiceGenerator(action) {
     try {
-        yield call(api.deletePurchaseInvoice, get(action, "payload.id"));
+        yield call(api.deleteProcurement, {
+            data: [{
+                "shipmentId": parseInt(get(action, "payload.shipmentId")), "invoiceId": parseInt(get(action, "payload.invoiceId"))
+            }]
+        });
         yield put(setGlobalRedirect({ pathname: "/purchases/invoices" }));
         yield put(snackSuccess("Deleted purchase invoice."));
     } catch (e) {
