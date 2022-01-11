@@ -42,11 +42,9 @@ export default function Product() {
         return state.Product.initialProduct;
     });
 
-    const measures = useSelector((state) => {
-        return state.Measures.data;
+    const abv = useSelector((state) => {
+        return state.Measures.data.find((measure) => measure.name === "abv");
     });
-
-    const abv = measures?.find((measure) => measure.name === "abv");
 
     const { invalidName, invalidClass, invalidType, invalidAbv } = useSelector(
         (state) => {

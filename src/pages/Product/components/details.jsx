@@ -33,11 +33,9 @@ export default function ProductDetails({ product, editable }) {
         return state.ProductCategories.data;
     });
 
-    const measures = useSelector((state) => {
-        return state.Measures.data;
+    const abv = useSelector((state) => {
+        return state.Measures.data.find((measure) => measure.name === "abv");
     });
-
-    const abv = measures?.find((measure) => measure.name === "abv");
 
     const dispatch = useDispatch();
 
@@ -108,7 +106,9 @@ export default function ProductDetails({ product, editable }) {
                 if (
                     product.targetMeasures[abvIndex]?.value !== e.target.value
                 ) {
-                    updatedTargetMeasures[abvIndex].value = e.target.value;
+                    updatedTargetMeasures.find(
+                        (measure) => measure.measure.id === abv.id
+                    ).value = e.target.value;
                     dispatch(
                         setProductInvalidAbv(
                             !validAmount(parseFloat(e.target.value))
@@ -377,7 +377,7 @@ export default function ProductDetails({ product, editable }) {
                                                 elem.measure?.id === abv?.id
                                         )?.value
                                     }
-                                    style={{ width: "16rem" }}
+                                    style={{ width: "8rem" }}
                                     placeholder="Enter"
                                     name="productTargetMeasuresAbv"
                                     disabled={!editable}

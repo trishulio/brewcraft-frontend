@@ -1,8 +1,9 @@
 import {
-    SET_MEASURES,
+    FETCH_MEASURES_SUCCESS,
     SET_MEASURE_DETAILS,
     SET_MEASURE_PAGE_INDEX,
     SET_MEASURE_PAGE_SIZE,
+    FETCH_MEASURES_FAILURE,
 } from "./actionTypes";
 
 const initialState = {
@@ -18,7 +19,7 @@ const initialState = {
 
 const Measures = (state = initialState, { type, payload }) => {
     switch (type) {
-        case SET_MEASURES:
+        case FETCH_MEASURES_SUCCESS:
         case SET_MEASURE_DETAILS:
         case SET_MEASURE_PAGE_INDEX:
         case SET_MEASURE_PAGE_SIZE:
@@ -27,6 +28,12 @@ const Measures = (state = initialState, { type, payload }) => {
                 ...payload,
                 loading: false,
                 error: null,
+            };
+        case FETCH_MEASURES_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: payload,
             };
         default:
             return {
