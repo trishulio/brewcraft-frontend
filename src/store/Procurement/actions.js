@@ -88,7 +88,7 @@ export const deletePurchaseInvoice = (shipmentId, invoiceId) => ({
     type: DELETE_PURCHASE_INVOICE,
     payload: {
         shipmentId,
-        invoiceId
+        invoiceId,
     },
 });
 
