@@ -24,7 +24,7 @@ const initialState = {
         invalidParentCategory: false,
         loading: true,
         error: null,
-        all:[]
+        all: [],
     },
     MaterialCategories: {
         content: [],
@@ -35,7 +35,7 @@ const initialState = {
         totalPages: 0,
         pageIndex: 0,
         pageSize: 20,
-    }
+    },
 };
 
 const middlewares = [];
@@ -47,30 +47,31 @@ const mockDispatch = jest.fn();
 const mockGoBack = jest.fn();
 const mockPush = jest.fn();
 
-const mockHistory = ({
+const mockHistory = {
     replace: jest.fn(),
     goBack: mockGoBack,
-    push: mockPush
-})
+    push: mockPush,
+};
 
 jest.mock("react-redux", () => ({
     ...jest.requireActual("react-redux"),
     useDispatch: () => mockDispatch,
 }));
 
-jest.mock("react-router-dom", ()=> ({
+jest.mock("react-router-dom", () => ({
     ...jest.requireActual("react-router-dom"),
     useParams: jest.fn().mockReturnValue({
-        id: ""
+        id: "",
     }),
-    useHistory: () => mockHistory.mockReturnValue({
-        goBack: () => mockGoBack
-    })
+    useHistory: () =>
+        mockHistory.mockReturnValue({
+            goBack: () => mockGoBack,
+        }),
 }));
 
-jest.mock("react-router", ()=> ({
+jest.mock("react-router", () => ({
     ...jest.requireActual("react-router"),
-    useHistory: () => mockHistory
+    useHistory: () => mockHistory,
 }));
 
 describe("MaterialCategory -> Components -> <Toolbar>", () => {
@@ -94,69 +95,73 @@ describe("MaterialCategory -> Components -> <Toolbar>", () => {
             const toolBarComponent = mount(
                 <Provider store={store}>
                     <BrowserRouter>
-                        <Toolbar
-                            editable={true}
-                        />
+                        <Toolbar editable={true} />
                     </BrowserRouter>
                 </Provider>
             );
-            toolBarComponent.find({ children: "Cancel" }).at(1).simulate("click");
+            toolBarComponent
+                .find({ children: "Cancel" })
+                .at(1)
+                .simulate("click");
             expect(mockGoBack).toHaveBeenCalled();
             expect(shallowToJson(toolBarComponent)).toMatchSnapshot();
         });
         test("History.push button should be called on Edit Category", () => {
-            initialState.MaterialCategory.data.id =1;
+            initialState.MaterialCategory.data.id = 1;
             initialState.MaterialCategory.data.parentCategory = true;
             const store = mockStore(initialState);
             const toolBarComponent = mount(
                 <Provider store={store}>
                     <BrowserRouter>
-                        <Toolbar
-                            editable={false}
-                        />
+                        <Toolbar editable={false} />
                     </BrowserRouter>
                 </Provider>
             );
-            toolBarComponent.find({ children: "Edit Category" }).at(1).simulate("click");
+            toolBarComponent
+                .find({ children: "Edit Category" })
+                .at(1)
+                .simulate("click");
             expect(mockPush).toHaveBeenCalledWith({
-                "pathname": "/materials/categories/1",
-                "search": "?edit=true",
-            })
+                pathname: "/materials/categories/1",
+                search: "?edit=true",
+            });
             expect(shallowToJson(toolBarComponent)).toMatchSnapshot();
         });
         test("History.push button should be called on New Category", () => {
-            initialState.MaterialCategory.data.id =1;
+            initialState.MaterialCategory.data.id = 1;
             const store = mockStore(initialState);
             const toolBarComponent = mount(
                 <Provider store={store}>
                     <BrowserRouter>
-                        <Toolbar
-                            editable={false}
-                        />
+                        <Toolbar editable={false} />
                     </BrowserRouter>
                 </Provider>
             );
-            toolBarComponent.find({ children: "New Category" }).at(1).simulate("click");
+            toolBarComponent
+                .find({ children: "New Category" })
+                .at(1)
+                .simulate("click");
             expect(mockPush).toHaveBeenCalledWith({
                 pathname: "/materials/categories/new",
                 search: "?edit=true",
-            })
+            });
             expect(shallowToJson(toolBarComponent)).toMatchSnapshot();
         });
         test("History.push button should be called on Material Categories", () => {
-            initialState.MaterialCategory.data.id =1;
+            initialState.MaterialCategory.data.id = 1;
             const store = mockStore(initialState);
             const toolBarComponent = mount(
                 <Provider store={store}>
                     <BrowserRouter>
-                        <Toolbar
-                            editable={false}
-                        />
+                        <Toolbar editable={false} />
                     </BrowserRouter>
                 </Provider>
             );
-            toolBarComponent.find({ children: "Material Categories" }).at(1).simulate("click");
-            expect(mockPush).toHaveBeenCalledWith("/materials/categories")
+            toolBarComponent
+                .find({ children: "Material Categories" })
+                .at(1)
+                .simulate("click");
+            expect(mockPush).toHaveBeenCalledWith("/materials/categories");
             expect(shallowToJson(toolBarComponent)).toMatchSnapshot();
         });
     });

@@ -23,21 +23,23 @@ const initialState = {
         invalidName: false,
         invalidParentCategory: false,
         loading: true,
-        error: null
+        error: null,
     },
     MaterialCategories: {
         content: [],
-        all: [{
-            id:2,
-            parentCategoryId:null,
-        }],
+        all: [
+            {
+                id: 2,
+                parentCategoryId: null,
+            },
+        ],
         loading: false,
         error: null,
         totalElements: 0,
         totalPages: 0,
         pageIndex: 0,
-        pageSize: 20
-    }
+        pageSize: 20,
+    },
 };
 const middlewares = [];
 
@@ -48,30 +50,31 @@ const mockDispatch = jest.fn();
 const mockGoBack = jest.fn();
 const mockPush = jest.fn();
 
-const mockHistory = ({
+const mockHistory = {
     replace: jest.fn(),
     goBack: mockGoBack,
-    push: mockPush
-})
+    push: mockPush,
+};
 
 jest.mock("react-redux", () => ({
     ...jest.requireActual("react-redux"),
     useDispatch: () => mockDispatch,
 }));
 
-jest.mock("react-router-dom", ()=> ({
+jest.mock("react-router-dom", () => ({
     ...jest.requireActual("react-router-dom"),
     useParams: jest.fn().mockReturnValue({
-        id: ""
+        id: "",
     }),
-    useHistory: () => mockHistory.mockReturnValue({
-        goBack: () => mockGoBack
-    })
+    useHistory: () =>
+        mockHistory.mockReturnValue({
+            goBack: () => mockGoBack,
+        }),
 }));
 
-jest.mock("react-router", ()=> ({
+jest.mock("react-router", () => ({
     ...jest.requireActual("react-router"),
-    useHistory: () => mockHistory
+    useHistory: () => mockHistory,
 }));
 
 describe("MaterialCategory -> Components -> <Details>", () => {
@@ -88,39 +91,47 @@ describe("MaterialCategory -> Components -> <Details>", () => {
                     </BrowserRouter>
                 </Provider>
             );
-            expect(shallowToJson(MaterialCategoryDetailsComp)).toMatchSnapshot();
+            expect(
+                shallowToJson(MaterialCategoryDetailsComp)
+            ).toMatchSnapshot();
         });
 
         test("Dispatch materialCategoryName is getting on input change", () => {
             const MaterialCategoryDetailsComp = mount(
                 <Provider store={store}>
                     <BrowserRouter>
-                        <MaterialCategoryDetails
-                            editable={true}
-                        />
+                        <MaterialCategoryDetails editable={true} />
                     </BrowserRouter>
                 </Provider>
             );
 
-            MaterialCategoryDetailsComp.find('input[name="materialCategoryName"]').simulate("change",  { target: { value: 'test@example.com', name: 'materialCategoryName' } });
-
-            expect(shallowToJson(MaterialCategoryDetailsComp)).toMatchSnapshot();
-            expect(mockDispatch).toHaveBeenCalledWith({
-               "payload": {"invalidName": false},
-               "type": "INVALID_MATERIAL_CATEGORY_NAME"
-             });
-            expect(mockDispatch).toHaveBeenCalledWith({
-                   "payload": {
-                     "data": {
-                       "id": null,
-                       "name": "test@example.com",
-                       "parentCategoryId": null,
-                       "version": null,
-                     },
-                   },
-                   "type": "SET_MATERIAL_CATEGORY_DETAILS",
+            MaterialCategoryDetailsComp.find(
+                'input[name="materialCategoryName"]'
+            ).simulate("change", {
+                target: {
+                    value: "test@example.com",
+                    name: "materialCategoryName",
+                },
             });
 
+            expect(
+                shallowToJson(MaterialCategoryDetailsComp)
+            ).toMatchSnapshot();
+            expect(mockDispatch).toHaveBeenCalledWith({
+                payload: { invalidName: false },
+                type: "INVALID_MATERIAL_CATEGORY_NAME",
+            });
+            expect(mockDispatch).toHaveBeenCalledWith({
+                payload: {
+                    data: {
+                        id: null,
+                        name: "test@example.com",
+                        parentCategoryId: null,
+                        version: null,
+                    },
+                },
+                type: "SET_MATERIAL_CATEGORY_DETAILS",
+            });
         });
 
         test("Dispatch materialCategoryParentCategory is getting on input change", () => {
@@ -136,12 +147,18 @@ describe("MaterialCategory -> Components -> <Details>", () => {
                 </Provider>
             );
 
-            MaterialCategoryDetailsComp.find('Input[name="materialCategoryParentCategory"]').simulate("change",  { target: { value: '1', name: 'materialCategoryParentCategory' } });
+            MaterialCategoryDetailsComp.find(
+                'Input[name="materialCategoryParentCategory"]'
+            ).simulate("change", {
+                target: { value: "1", name: "materialCategoryParentCategory" },
+            });
 
-            expect(shallowToJson(MaterialCategoryDetailsComp)).toMatchSnapshot();
+            expect(
+                shallowToJson(MaterialCategoryDetailsComp)
+            ).toMatchSnapshot();
             expect(mockDispatch).toHaveBeenCalledWith({
-                "payload": { "invalidParentCategory": false },
-                "type": "INVALID_MATERIAL_CATEGORY_PARENT_CATEGORY"
+                payload: { invalidParentCategory: false },
+                type: "INVALID_MATERIAL_CATEGORY_PARENT_CATEGORY",
             });
         });
 
@@ -158,9 +175,13 @@ describe("MaterialCategory -> Components -> <Details>", () => {
                 </Provider>
             );
 
-            MaterialCategoryDetailsComp.find('Input[name="materialCategoryParentCategory"]').simulate("change",  { target: { value: '1', name: 'dummy' } });
+            MaterialCategoryDetailsComp.find(
+                'Input[name="materialCategoryParentCategory"]'
+            ).simulate("change", { target: { value: "1", name: "dummy" } });
 
-            expect(shallowToJson(MaterialCategoryDetailsComp)).toMatchSnapshot();
+            expect(
+                shallowToJson(MaterialCategoryDetailsComp)
+            ).toMatchSnapshot();
         });
 
         test("Dispatch materialCategoryName is getting on key up", () => {
@@ -175,9 +196,13 @@ describe("MaterialCategory -> Components -> <Details>", () => {
                 </Provider>
             );
 
-            MaterialCategoryDetailsComp.find('input[name="materialCategoryName"]').simulate("keyup");
+            MaterialCategoryDetailsComp.find(
+                'input[name="materialCategoryName"]'
+            ).simulate("keyup");
 
-            expect(shallowToJson(MaterialCategoryDetailsComp)).toMatchSnapshot();
+            expect(
+                shallowToJson(MaterialCategoryDetailsComp)
+            ).toMatchSnapshot();
         });
     });
 });

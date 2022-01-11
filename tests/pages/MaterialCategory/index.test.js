@@ -24,7 +24,7 @@ const initialState = {
         invalidParentCategory: false,
         loading: true,
         error: null,
-        all:[]
+        all: [],
     },
     MaterialCategories: {
         content: [],
@@ -35,7 +35,7 @@ const initialState = {
         totalPages: 0,
         pageIndex: 0,
         pageSize: 20,
-    }
+    },
 };
 
 const middlewares = [];
@@ -45,22 +45,22 @@ const mockStore = configureStore(middlewares);
 const store = mockStore(initialState);
 const mockDispatch = jest.fn();
 
-const mockHistory = ({
-    replace: jest.fn()
-})
+const mockHistory = {
+    replace: jest.fn(),
+};
 
 jest.mock("react-redux", () => ({
     ...jest.requireActual("react-redux"),
     useDispatch: () => mockDispatch,
 }));
 
-jest.mock("react-router-dom", ()=> ({
+jest.mock("react-router-dom", () => ({
     ...jest.requireActual("react-router-dom"),
     useParams: jest.fn().mockReturnValue({
-        id: ""
+        id: "",
     }),
-    useHistory: () => mockHistory
-}))
+    useHistory: () => mockHistory,
+}));
 
 jest.mock("../../../src/helpers/utils", () => ({
     ...jest.requireActual("../../../src/helpers/utils"),
@@ -86,7 +86,7 @@ describe("MaterialCategory -> <Index>", () => {
 
         test("history.replace should happen on id is new", () => {
             useParams.mockReturnValueOnce({
-                id: "new"
+                id: "new",
             });
             const wrapper = mount(
                 <Provider store={store}>
@@ -99,18 +99,19 @@ describe("MaterialCategory -> <Index>", () => {
 
             expect(mockDispatch).toHaveBeenCalledWith({
                 type: "RESET_MATERIAL_CATEGORY_DETAILS",
-                payload: null
+                payload: null,
             });
-            expect(mockHistory.replace).toHaveBeenCalledWith("/materials/categories/new?edit=true")
-
+            expect(mockHistory.replace).toHaveBeenCalledWith(
+                "/materials/categories/new?edit=true"
+            );
         });
 
         test("setBreadcrumbItems when material id exists", () => {
-            initialState.MaterialCategory.data.id=1;
-            initialState.MaterialCategory.data.name="dumy";
+            initialState.MaterialCategory.data.id = 1;
+            initialState.MaterialCategory.data.name = "dumy";
 
             useParams.mockReturnValueOnce({
-                id: "new"
+                id: "new",
             });
 
             const store = mockStore(initialState);
@@ -138,4 +139,3 @@ describe("MaterialCategory -> <Index>", () => {
         });
     });
 });
-
