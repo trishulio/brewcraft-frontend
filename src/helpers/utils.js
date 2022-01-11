@@ -46,7 +46,14 @@ export function validInvoiceNumber(invoiceNumber) {
 }
 
 export function validInvoiceItems(invoiceItems) {
-    return invoiceItems.length > 0 && invoiceItems[0].invoiceItem.id;
+    const { materialId, price, quantity, tax } = invoiceItems[0].invoiceItem;
+    return (
+        invoiceItems.length > 0 &&
+        validId(materialId) &&
+        price.amount &&
+        quantity.value &&
+        tax.amount.amount
+    );
 }
 
 export function validDate(date) {

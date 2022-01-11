@@ -160,7 +160,7 @@ function* createPurchaseInvoiceGenerator(action) {
                     invalidMaterial: !validId(value.material.id),
                     invalidQuantity: !validAmount(value.quantity.value),
                     invalidPrice: !validAmount(value.price.amount),
-                    invalidTax: !validAmount(value.tax.amount.amount),
+                    invalidTax: !value.tax.amount.amount,
                     invalidLotNumber: !validAmount(value.materialLot.lotNumber),
                 };
             });
@@ -305,15 +305,9 @@ function* createProcurementGenerator(action) {
                         invalidDescription:
                             value.invoiceItem.description.length === 0,
                         invalidMaterial: !validId(value.invoiceItem.materialId),
-                        invalidQuantity: !validAmount(
-                            value.invoiceItem.quantity.value
-                        ),
-                        invalidPrice: !validAmount(
-                            value.invoiceItem.price.amount
-                        ),
-                        invalidTax: !validAmount(
-                            value.invoiceItem.tax.amount.amount
-                        ),
+                        invalidQuantity: !value.invoiceItem.quantity.value,
+                        invalidPrice: !value.invoiceItem.price.amount,
+                        invalidTax: !value.invoiceItem.tax.amount.amount,
                     },
                     materialLot: {
                         ...items[index].materialLot,
@@ -408,9 +402,7 @@ function* updateProcurementGenerator(action) {
                         invalidPrice: !validAmount(
                             value.invoiceItem.price.amount
                         ),
-                        invalidTax: !validAmount(
-                            value.invoiceItem.tax.amount.amount
-                        ),
+                        invalidTax: value.invoiceItem.tax.amount.amount,
                     },
                     materialLot: {
                         ...items[index].materialLot,

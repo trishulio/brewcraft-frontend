@@ -66,7 +66,7 @@ export default function PurchaseInvoice() {
     useEffect(() => {
         dispatch(resetPurchaseInvoiceDetails());
         // eslint-disable-next-line
-    }, []);
+    }, [shipmentId, invoiceId, editMode]);
 
     useEffect(() => {
         if (!shipmentId || !invoiceId) {
@@ -197,7 +197,7 @@ export default function PurchaseInvoice() {
                     tax: {
                         amount: {
                             currency: "CAD",
-                            amount: parseFloat(invoiceItem.taxAmount),
+                            amount: parseFloat(invoiceItem.taxAmount) || "0",
                         },
                     },
                     materialId: invoiceItem.material.id,

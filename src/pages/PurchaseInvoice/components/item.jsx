@@ -134,18 +134,21 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                         </div>
                     </Col>
                     <Col xs="3">
-                        <FormGroup>
-                            <Input
-                                type="textarea"
-                                name="purchaseInvoiceItemDescription"
-                                rows="1"
-                                value={item.invoiceItem.description}
-                                onChange={changeevent}
-                                hidden={!editable}
-                                invalid={item.invoiceItem.invalidDescription}
-                            />
-                            <FormFeedback>Invalid invoice field</FormFeedback>
-                        </FormGroup>
+                        {editable && (
+                            <FormGroup>
+                                <Input
+                                    type="textarea"
+                                    name="purchaseInvoiceItemDescription"
+                                    rows="1"
+                                    value={item.invoiceItem.description}
+                                    onChange={changeevent}
+                                    hidden={!editable}
+                                />
+                                <FormFeedback>
+                                    Invalid invoice field
+                                </FormFeedback>
+                            </FormGroup>
+                        )}
                         <div hidden={editable}>
                             {item.invoiceItem.description || "-"}
                         </div>
