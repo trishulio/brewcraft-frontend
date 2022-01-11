@@ -8,11 +8,16 @@ import {
     FETCH_FINISHED_GOODS,
     SAVE_FERMENT_FINISHED_GOODS,
     FETCH_FERMENT_FINISHED_GOODS,
+    DELETE_FERMENT_FINISHED_GOODS,
+    FETCH_FINISHED_GOODS_BY_BREW_ID,
+    SAVE_FERMENT_FINISHED_GOODS_ERROR,
+    DELETE_FERMENT_FINISHED_GOODS_ERROR,
 } from "./actionTypes";
 import { api } from "./api";
 import { snackFailure } from "../Snackbar/actions";
+import { fetchFinishedGoodsByBrewId } from "./actions";
 
-function* fetchFinishedGoods(action) {
+function* fetchFinishedGoodsGenerator(action) {
     try {
         const res = yield call(
             api.fetchFinishedGoods,
@@ -39,7 +44,52 @@ function* fetchFinishedGoods(action) {
     }
 }
 
-function* fetchFermentFinishedGoods(action) {
+function* fetchFinishedGoodsByBrewIdGenerator(action) {
+    try {
+        const res = yield call(api.fetchFinishedGoods, get(action, "payload"));
+        let content = res.data.content.filter((fg) => {
+            return (
+                fg.mixturePortions[0].mixture.brewStage.task.name === "FERMENT"
+            );
+        });
+        yield put({
+            type: SET_FERMENT_FINISHED_GOODS,
+            payload: {
+                content: JSON.parse(JSON.stringify(content)),
+                initial: JSON.parse(JSON.stringify(content)),
+            },
+        });
+        content = res.data.content.filter((fg) => {
+            return (
+                fg.mixturePortions[0].mixture.brewStage.task.name ===
+                "CONDITION"
+            );
+        });
+        yield put({
+            type: SET_CONDITION_FINISHED_GOODS,
+            payload: {
+                content: JSON.parse(JSON.stringify(content)),
+                initial: JSON.parse(JSON.stringify(content)),
+            },
+        });
+        content = res.data.content.filter((fg) => {
+            return (
+                fg.mixturePortions[0].mixture.brewStage.task.name === "STORAGE"
+            );
+        });
+        yield put({
+            type: SET_BRITE_TANK_FINISHED_GOODS,
+            payload: {
+                content: JSON.parse(JSON.stringify(content)),
+                initial: JSON.parse(JSON.stringify(content)),
+            },
+        });
+    } catch (e) {
+        yield put(snackFailure("Something went wrong please try again."));
+    }
+}
+
+function* fetchFermentFinishedGoodsGenerator(action) {
     try {
         const res = yield call(api.fetchFinishedGoods, get(action, "payload"));
         yield put({
@@ -51,18 +101,56 @@ function* fetchFermentFinishedGoods(action) {
     }
 }
 
-function* saveFermentFinishedGoods(action) {
+function* saveFermentFinishedGoodsGenerator(action) {
     try {
-        yield call(api.postFinishedGoods, get(action, "payload.form"));
+        yield call(api.updateFinishedGoods, get(action, "payload.form"));
+        yield put(
+            fetchFinishedGoodsByBrewId({
+                brewId: get(action, "payload.batchId"),
+            })
+        );
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({
+            type: SAVE_FERMENT_FINISHED_GOODS_ERROR,
+            payload: { error: true },
+        });
+    }
+}
+
+function* deleteFermentFinishedGoodsGenerator(action) {
+    try {
+        yield call(api.deleteFinishedGoods, get(action, "payload.form"));
+        yield put(
+            fetchFinishedGoodsByBrewId({
+                brewId: get(action, "payload.batchId"),
+            })
+        );
+    } catch (e) {
+        yield put({
+            type: DELETE_FERMENT_FINISHED_GOODS_ERROR,
+            payload: { error: true },
+        });
     }
 }
 
 function* FinishedGoods() {
-    yield takeEvery(FETCH_FINISHED_GOODS, fetchFinishedGoods);
-    yield takeEvery(FETCH_FERMENT_FINISHED_GOODS, fetchFermentFinishedGoods);
-    yield takeEvery(SAVE_FERMENT_FINISHED_GOODS, saveFermentFinishedGoods);
+    yield takeEvery(FETCH_FINISHED_GOODS, fetchFinishedGoodsGenerator);
+    yield takeEvery(
+        FETCH_FINISHED_GOODS_BY_BREW_ID,
+        fetchFinishedGoodsByBrewIdGenerator
+    );
+    yield takeEvery(
+        FETCH_FERMENT_FINISHED_GOODS,
+        fetchFermentFinishedGoodsGenerator
+    );
+    yield takeEvery(
+        SAVE_FERMENT_FINISHED_GOODS,
+        saveFermentFinishedGoodsGenerator
+    );
+    yield takeEvery(
+        DELETE_FERMENT_FINISHED_GOODS,
+        deleteFermentFinishedGoodsGenerator
+    );
 }
 
 export default FinishedGoods;

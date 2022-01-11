@@ -17,6 +17,7 @@ import Materials from "./Materials/saga";
 import MaterialCategories from "./MaterialCategories/saga";
 import MaterialCategory from "./MaterialCategory/saga";
 import Measures from "./Measures/saga";
+import MiniCards from "./MiniCards/saga";
 import Mixture from "./Mixture/saga";
 import MixtureRecording from "./MixtureRecording/saga";
 import Packaging from "./Packaging/saga";
@@ -60,6 +61,7 @@ export default function* rootSaga() {
         MaterialCategories(),
         MaterialCategory(),
         Measures(),
+        MiniCards(),
         Mixture(),
         MixtureRecording(),
         Packaging(),

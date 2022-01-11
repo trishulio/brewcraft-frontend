@@ -1,14 +1,43 @@
-import React from "react";
-import { Row, Col, Card, CardBody } from "reactstrap";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { Row, Col } from "reactstrap";
+import { Card, CardBody } from "../../../component/Common/Card";
 import { formatPercent, formatVolumeHL } from "../../../helpers/textUtils";
+import { fetchMiniCardBrewsMixtures } from "../../../store/MiniCards/actions";
 
 export default function BrewMiniCard() {
+    const dispatch = useDispatch();
+
+    const turns = useSelector((state) => {
+        return state.MiniCards.brewsMixtures?.length;
+    });
+
+    const { loading } = useSelector((state) => {
+        return state.MiniCards;
+    });
+
+    const batch = useSelector((state) => {
+        return state.Batch.Batch.data;
+    });
+
+    useEffect(() => {
+        dispatch(
+            fetchMiniCardBrewsMixtures({
+                brewIds: [batch.id],
+                stageStatusIds: [2, 6], // complete, skipped
+                stageTaskIds: [3],
+            })
+        );
+        // eslint-disable-next-line
+    }, []);
+
     return (
         <React.Fragment>
             <Row>
                 <Col xl="3" md="6">
                     <Card className="mini-stat bg-primary">
-                        <CardBody className="mini-stat-img">
+                        <CardBody isLoading={loading} className="mini-stat-img">
                             <div className="mini-stat-icon">
                                 <i
                                     className={
@@ -22,7 +51,7 @@ export default function BrewMiniCard() {
                                     <br />
                                     Turns
                                 </h6>
-                                <h2 className="mb-4">1</h2>
+                                <h2 className="mb-4">{turns}</h2>
                             </div>
                         </CardBody>
                     </Card>
@@ -43,7 +72,7 @@ export default function BrewMiniCard() {
                                     <br />
                                     &nbsp;
                                 </h6>
-                                <h2 className="mb-4">{formatVolumeHL(200)}</h2>
+                                <h2 className="mb-4">{formatVolumeHL(0)}</h2>
                             </div>
                         </CardBody>
                     </Card>
@@ -59,9 +88,7 @@ export default function BrewMiniCard() {
                                     Total Gain /<br />
                                     Loss
                                 </h6>
-                                <h2 className="mb-4">
-                                    {formatVolumeHL(10.09)}
-                                </h2>
+                                <h2 className="mb-4">{formatVolumeHL(0)}</h2>
                             </div>
                         </CardBody>
                     </Card>
@@ -82,7 +109,7 @@ export default function BrewMiniCard() {
                                     <br />
                                     &nbsp;
                                 </h6>
-                                <h2 className="mb-4">{formatPercent(73.68)}</h2>
+                                <h2 className="mb-4">{formatPercent(0)}</h2>
                             </div>
                         </CardBody>
                     </Card>
