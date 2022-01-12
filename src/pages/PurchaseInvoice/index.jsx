@@ -238,7 +238,7 @@ export default function PurchaseInvoice() {
             <DeleteGuard
                 when={showDeletePrompt}
                 confirm={() => {
-                    dispatch(deletePurchaseInvoice(invoice.id));
+                    dispatch(deletePurchaseInvoice(shipmentId, invoiceId));
                     setShowRouterPrompt(false);
                 }}
                 close={() => {
