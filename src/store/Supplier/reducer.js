@@ -102,13 +102,11 @@ const Supplier = (state = initialState, { type, payload }) => {
         case RESET_SUPPLIER_DETAILS:
             return {
                 ...initialState,
-                loading: false,
                 error: null,
             };
         default:
             return {
                 ...state,
-                loading: false,
                 error: null,
             };
     }
