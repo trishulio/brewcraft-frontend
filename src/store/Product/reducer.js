@@ -4,6 +4,7 @@ import {
     INVALID_TYPE,
     INVALID_STYLE,
     INVALID_DESCRIPTION,
+    INVALID_ABV,
     SET_PRODUCT_DETAILS,
     SET_INITIAL_PRODUCT_DETAILS,
     RESET_PRODUCT_DETAILS,
@@ -51,6 +52,7 @@ const Product = (state = initialState, { type, payload }) => {
         case INVALID_TYPE:
         case INVALID_STYLE:
         case INVALID_DESCRIPTION:
+        case INVALID_ABV:
             return {
                 ...state,
                 ...payload,
