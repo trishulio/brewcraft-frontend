@@ -8,6 +8,7 @@ import {
     updateProduct,
     deleteProduct,
     fetchAllProductCategories,
+    fetchMeasures,
     resetProductDetails,
 } from "../../store/actions";
 import { useQuery } from "../../helpers/utils";
@@ -17,7 +18,9 @@ import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import {
     setProductInvalidName,
     setProductInvalidClass,
+    setProductInvalidAbv,
 } from "../../store/Product/actions";
+import { validAmount } from "../../helpers/utils";
 
 export default function Product() {
     const [editable, setEditable] = useState(false);
@@ -39,11 +42,18 @@ export default function Product() {
         return state.Product.initialProduct;
     });
 
-    const { invalidName, invalidClass, invalidType } = useSelector((state) => {
-        return state.Product;
+    const abv = useSelector((state) => {
+        return state.Measures.data.find((measure) => measure.name === "abv");
     });
 
+    const { invalidName, invalidClass, invalidType, invalidAbv } = useSelector(
+        (state) => {
+            return state.Product;
+        }
+    );
+
     useEffect(() => {
+        dispatch(fetchMeasures());
         if (id === "new" && !editMode) {
             history.replace("/products/new?edit=true");
         } else {
@@ -83,23 +93,41 @@ export default function Product() {
     function isChanged() {
         return (
             JSON.stringify(
-                (({ id, name, description, productClass, type, style }) => ({
+                (({
                     id,
                     name,
                     description,
                     productClass,
                     type,
                     style,
+                    targetMeasures,
+                }) => ({
+                    id,
+                    name,
+                    description,
+                    productClass,
+                    type,
+                    style,
+                    targetMeasures,
                 }))(initialProduct)
             ) !==
             JSON.stringify(
-                (({ id, name, description, productClass, type, style }) => ({
+                (({
                     id,
                     name,
                     description,
                     productClass,
                     type,
                     style,
+                    targetMeasures,
+                }) => ({
+                    id,
+                    name,
+                    description,
+                    productClass,
+                    type,
+                    style,
+                    targetMeasures,
                 }))(product)
             )
         );
@@ -118,13 +146,34 @@ export default function Product() {
         return null;
     }
 
+    function getTargetMeasures() {
+        return product.targetMeasures
+            ? product.targetMeasures.map((x) => {
+                  return {
+                      id: x.id,
+                      measureId: x.measure.id,
+                      value: x.value,
+                  };
+              })
+            : [];
+    }
+
     function onSave() {
-        if (!product.name || !product.productClass?.id) {
+        const abvValue = parseFloat(
+            product.targetMeasures?.find((elem) => elem.measure?.id === abv?.id)
+                ?.value
+        );
+        if (
+            !product.name ||
+            !product.productClass?.id ||
+            !validAmount(abvValue)
+        ) {
             dispatch(setProductInvalidName(!product.name));
             dispatch(setProductInvalidClass(!product.productClass?.id));
+            dispatch(setProductInvalidAbv(!validAmount(abvValue)));
             return;
         }
-        if (invalidName || invalidClass || invalidType) {
+        if (invalidName || invalidClass || invalidType || invalidAbv) {
             return;
         }
         if (!isChanged()) {
@@ -134,6 +183,7 @@ export default function Product() {
                 updateProduct({
                     data: product,
                     categoryId: getCategoryId(),
+                    targetMeasures: getTargetMeasures(),
                 })
             );
         } else {
@@ -141,6 +191,7 @@ export default function Product() {
                 createProduct({
                     data: product,
                     categoryId: getCategoryId(),
+                    targetMeasures: getTargetMeasures(),
                 })
             );
         }

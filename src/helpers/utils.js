@@ -45,6 +45,17 @@ export function validInvoiceNumber(invoiceNumber) {
     return invoiceNumber && invoiceNumber.trim().length > 0;
 }
 
+export function validInvoiceItems(invoiceItems) {
+    const { materialId, price, quantity, tax } = invoiceItems[0].invoiceItem;
+    return (
+        invoiceItems.length > 0 &&
+        validId(materialId) &&
+        price.amount &&
+        quantity.value &&
+        tax.amount.amount
+    );
+}
+
 export function validDate(date) {
     return !(!date || isNaN(Date.parse(date)));
 }
