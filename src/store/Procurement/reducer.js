@@ -168,6 +168,12 @@ const initialState = {
 const PurchaseInvoice = (state = initialState, { type, payload }) => {
     switch (type) {
         case SET_PURCHASE_INVOICE_DETAILS:
+            return {
+                ...state,
+                ...payload,
+                loading: false,
+                error: null,
+            };
         case INVALID_NAME:
         case INVALID_DESCRIPTION:
         case INVALID_PURCHASE_INVOICE_GENERATED_ON:
@@ -207,6 +213,7 @@ const PurchaseInvoice = (state = initialState, { type, payload }) => {
                         ...payload,
                     },
                 },
+                error: null,
                 loading: false,
             };
         case SET_PURCHASE_INVOICE_STATUS:
@@ -250,6 +257,7 @@ const PurchaseInvoice = (state = initialState, { type, payload }) => {
                     ...state.data,
                     ...payload,
                 },
+                error: null,
                 loading: false,
             };
         case RESET_PURCHASE_INVOICE_DETAILS:

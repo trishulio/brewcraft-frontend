@@ -1,28 +1,30 @@
 import {
-    FETCH_MEASURE_REQUEST,
-    FETCH_MEASURE_SUCCESS,
-    FETCH_MEASURE_FAILURE,
+    FETCH_MEASURES_REQUEST,
+    FETCH_MEASURES_SUCCESS,
+    FETCH_MEASURES_FAILURE,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
-import { get } from "lodash";
 import { snackFailure } from "../Snackbar/actions";
 
-function* fetchStatusesGenerator(action) {
+function* fetchMeasures(action) {
     try {
-        const res = yield call(
-            api.fetchMeasures,
-            get(action, "payload.params")
-        );
-        yield put({ type: FETCH_MEASURE_SUCCESS, data: { data: res.data } });
+        const res = yield call(api.fetchMeasures, {});
+        yield put({
+            type: FETCH_MEASURES_SUCCESS,
+            payload: { data: res.data.content },
+        });
+        if (action?.payload?.success) {
+            yield call(action.payload.success);
+        }
     } catch (e) {
-        yield put({ type: FETCH_MEASURE_FAILURE });
+        yield put({ type: FETCH_MEASURES_FAILURE });
         yield put(snackFailure(e.message));
     }
 }
 
 function* Measures() {
-    yield takeEvery(FETCH_MEASURE_REQUEST, fetchStatusesGenerator);
+    yield takeEvery(FETCH_MEASURES_REQUEST, fetchMeasures);
 }
 
 export default Measures;

@@ -112,7 +112,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                     name="purchaseInvoiceItemMaterial"
                                     value={item.invoiceItem.material?.id || ""}
                                     onChange={changeevent}
-                                    invalid={item.invalidMaterial}
+                                    invalid={item.invoiceItem.invalidMaterial}
                                 >
                                     <option value="">Select item</option>
                                     {materials.map((value, index) => (
@@ -142,9 +142,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                     rows="1"
                                     value={item.invoiceItem.description}
                                     onChange={changeevent}
-                                    invalid={
-                                        item.invoiceItem.invalidDescription
-                                    }
+                                    hidden={!editable}
                                 />
                                 <FormFeedback>
                                     Invalid invoice field
