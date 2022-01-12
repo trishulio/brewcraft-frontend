@@ -30,17 +30,19 @@ import {
     validDate,
     validId,
     validInvoiceNumber,
+    validInvoiceItems,
 } from "../../helpers/utils";
 import { snackSuccess } from "../Snackbar/actions";
 import { setGlobalRedirect } from "../Brewery/actions";
 import { api } from "./api";
 
-function validInvoice({ invoice, purchaseOrder }) {
+function validInvoice({ invoice, purchaseOrder, procurementItems }) {
     return (
         validId(purchaseOrder.supplier.id) &&
         validInvoiceNumber(invoice.invoiceNumber) &&
         validDate(invoice.generatedOn) &&
-        (!invoice.paymentDueDate || validDate(invoice.paymentDueDate))
+        (!invoice.paymentDueDate || validDate(invoice.paymentDueDate)) &&
+        validInvoiceItems(procurementItems)
     );
 }
 
@@ -132,25 +134,25 @@ function* fetchPurchaseInvoiceByIdGenerator(action) {
 
 function* createPurchaseInvoiceGenerator(action) {
     try {
-        if (!validInvoice(get(action, "payload.form[0]"))) {
+        if (!validInvoice(get(action, "payload"))) {
             yield put({
                 type: SET_PURCHASE_INVOICE_ERROR,
                 payload: {
                     invalidInvoiceNumber: !validInvoiceNumber(
-                        get(action, "payload.form[0].invoice.invoiceNumber")
+                        get(action, "payload.invoice.invoiceNumber")
                     ),
                     invalidSupplier: !validId(
-                        get(action, "payload.form[0].purchaseOrder.supplierId")
+                        get(action, "payload.purchaseOrder.supplierId")
                     ),
                     invalidGeneratedOn: !validDate(
-                        get(action, "payload.form[0].invoice.generatedOn")
+                        get(action, "payload.invoice.generatedOn")
                     ),
                     invalidPaymentDueDate: !validDate(
-                        get(action, "payload.form[0].invoice.paymentDueDate")
+                        get(action, "payload.invoice.paymentDueDate")
                     ),
                 },
             });
-            const temp = get(action, "payload.form[0].procurementItems");
+            const temp = get(action, "payload.procurementItems");
             const items = [...temp];
             map(items, (value, index) => {
                 items[index] = {
@@ -158,7 +160,7 @@ function* createPurchaseInvoiceGenerator(action) {
                     invalidMaterial: !validId(value.material.id),
                     invalidQuantity: !validAmount(value.quantity.value),
                     invalidPrice: !validAmount(value.price.amount),
-                    invalidTax: !validAmount(value.tax.amount.amount),
+                    invalidTax: !value.tax.amount.amount,
                     invalidLotNumber: !validAmount(value.materialLot.lotNumber),
                 };
             });
@@ -284,32 +286,46 @@ function* createProcurementGenerator(action) {
                 type: SET_PURCHASE_INVOICE_ERROR,
                 payload: {
                     invalidInvoiceNumber: !validInvoiceNumber(
-                        get(action, "payload.form[0].invoice.invoiceNumber")
+                        get(action, "payload.invoice.invoiceNumber")
                     ),
                     invalidSupplier: !validId(
-                        get(action, "payload.form[0].purchaseOrder.supplierId")
+                        get(action, "payload.purchaseOrder.supplier.id")
                     ),
                     invalidGeneratedOn: !validDate(
-                        get(action, "payload.form[0].invoice.generatedOn")
+                        get(action, "payload.invoice.generatedOn")
                     ),
                     invalidPaymentDueDate: !validDate(
-                        get(action, "payload.form[0].invoice.paymentDueDate")
+                        get(action, "payload.invoice.paymentDueDate")
                     ),
                 },
             });
-            const temp = get(action, "payload.form[0].procurementItems");
+            const temp = get(action, "payload.procurementItems");
             const items = [...temp];
             map(items, (value, index) => {
                 items[index] = {
                     ...items[index],
-                    invalidMaterial: !validId(value.material.id),
-                    invalidQuantity: !validAmount(value.quantity.value),
-                    invalidPrice: !validAmount(value.price.amount),
-                    invalidTax: !validAmount(value.tax.amount.amount),
-                    invalidLotNumber: !validAmount(value.materialLot.lotNumber),
+                    invoiceItem: {
+                        ...items[index].invoiceItem,
+                        material: {
+                            id: value.invoiceItem.materialId,
+                        },
+                        invalidDescription:
+                            value.invoiceItem.description.length === 0,
+                        invalidMaterial: !validId(value.invoiceItem.materialId),
+                        invalidQuantity: !value.invoiceItem.quantity.value,
+                        invalidPrice: !value.invoiceItem.price.amount,
+                        invalidTax: !value.invoiceItem.tax.amount.amount,
+                    },
+                    materialLot: {
+                        ...items[index].materialLot,
+                        invalidLotNumber: !value.materialLot.lotNumber,
+                    },
                 };
             });
-            yield put({ type: SET_PURCHASE_INVOICE_ITEMS, payload: { items } });
+            yield put({
+                type: SET_PURCHASE_INVOICE_ITEMS,
+                payload: { procurementItems: items },
+            });
             yield put({
                 type: SET_PURCHASE_INVOICE_ERROR,
                 payload: { error: true },
@@ -393,9 +409,7 @@ function* updateProcurementGenerator(action) {
                         invalidPrice: !validAmount(
                             value.invoiceItem.price.amount
                         ),
-                        invalidTax: !validAmount(
-                            value.invoiceItem.tax.amount.amount
-                        ),
+                        invalidTax: value.invoiceItem.tax.amount.amount,
                     },
                     materialLot: {
                         ...items[index].materialLot,
