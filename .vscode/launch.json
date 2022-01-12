@@ -12,6 +12,26 @@
             "request": "launch",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Jest",
+            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+            "args": ["--runInBand", "--no-cache"],
+            "cwd": "${workspaceRoot}",
+            "console": "integratedTerminal",
+            "sourceMaps": true
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Jest File",
+            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+            "args": ["${file}", "--runInBand", "--no-cache"],
+            "cwd": "${workspaceRoot}",
+            "console": "integratedTerminal",
+            "sourceMaps": true
         }
     ]
 }
