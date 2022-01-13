@@ -110,7 +110,14 @@ describe("Supplier -> <Index>", () => {
                     </BrowserRouter>
                 </Provider>
             );
-            wrapper.find({ children: "Save" }).at(1).simulate("click");
+            wrapper
+                .findWhere((node) => {
+                    return (
+                        node.type() === "button" && node.text().includes("Save")
+                    );
+                })
+                .at(0)
+                .simulate("click");
             expect(mockDispatch).toHaveBeenNthCalledWith(9, {
                 type: "SET_SUPPLIER_DETAILS",
                 payload: {
@@ -141,7 +148,14 @@ describe("Supplier -> <Index>", () => {
             );
             expect(shallowToJson(wrapper)).toMatchSnapshot();
 
-            wrapper.find({ children: "Save" }).at(1).simulate("click");
+            wrapper
+                .findWhere((node) => {
+                    return (
+                        node.type() === "button" && node.text().includes("Save")
+                    );
+                })
+                .at(0)
+                .simulate("click");
             expect(mockDispatch).toHaveBeenNthCalledWith(15, {
                 type: "EDIT_SUPPLIER_REQUEST",
                 payload: {
@@ -182,7 +196,14 @@ describe("Supplier -> <Index>", () => {
             );
             expect(shallowToJson(wrapper)).toMatchSnapshot();
 
-            wrapper.find({ children: "Save" }).at(1).simulate("click");
+            wrapper
+                .findWhere((node) => {
+                    return (
+                        node.type() === "button" && node.text().includes("Save")
+                    );
+                })
+                .at(0)
+                .simulate("click");
             expect(mockDispatch).toHaveBeenNthCalledWith(21, {
                 type: "ADD_SUPPLIER_REQUEST",
                 payload: {
@@ -223,7 +244,14 @@ describe("Supplier -> <Index>", () => {
             );
             expect(shallowToJson(wrapper)).toMatchSnapshot();
 
-            wrapper.find({ children: "Save" }).at(1).simulate("click");
+            wrapper
+                .findWhere((node) => {
+                    return (
+                        node.type() === "button" && node.text().includes("Save")
+                    );
+                })
+                .at(0)
+                .simulate("click");
             expect(mockDispatch).toHaveBeenNthCalledWith(21, {
                 type: "ADD_SUPPLIER_REQUEST",
                 payload: {
@@ -271,7 +299,15 @@ describe("Supplier -> <Index>", () => {
 
             expect(shallowToJson(wrapper)).toMatchSnapshot();
 
-            wrapper.find({ children: "Save" }).at(1).simulate("click");
+            wrapper
+                .findWhere((node) => {
+                    return (
+                        node.type() === "button" &&
+                        node.text().includes("Cancel")
+                    );
+                })
+                .at(0)
+                .simulate("click");
             expect(mockDispatch).toHaveBeenNthCalledWith(21, {
                 type: "ADD_SUPPLIER_REQUEST",
                 payload: {

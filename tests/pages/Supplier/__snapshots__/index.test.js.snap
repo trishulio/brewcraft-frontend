@@ -157,7 +157,10 @@ exports[`Supplier -> <Index> render() On Save isValid Name is false 1`] = `
                 onClick={[Function]}
                 type="button"
               >
-                Save
+                <i
+                  className="fa fa-save"
+                />
+                 Save
               </button>
             </Button>
             <Button
@@ -176,7 +179,10 @@ exports[`Supplier -> <Index> render() On Save isValid Name is false 1`] = `
                 onClick={[Function]}
                 type="button"
               >
-                Cancel
+                <i
+                  className="fa fa-ban"
+                />
+                 Cancel
               </button>
             </Button>
             <Button
@@ -185,20 +191,22 @@ exports[`Supplier -> <Index> render() On Save isValid Name is false 1`] = `
               disabled={false}
               hidden={false}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 disabled={false}
                 hidden={false}
                 onClick={[Function]}
                 type="button"
               >
-                Edit
+                <i
+                  className="fa fa-edit"
+                />
+                 Edit
               </button>
             </Button>
             <Button
@@ -219,7 +227,10 @@ exports[`Supplier -> <Index> render() On Save isValid Name is false 1`] = `
                 onClick={[Function]}
                 type="button"
               >
-                Delete Supplier
+                <i
+                  className="fa fa-minus-circle"
+                />
+                 Delete Supplier
               </button>
             </Button>
             <Button
@@ -227,19 +238,21 @@ exports[`Supplier -> <Index> render() On Save isValid Name is false 1`] = `
               color="secondary"
               hidden={false}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 hidden={false}
                 onClick={[Function]}
                 type="button"
               >
-                Suppliers
+                <i
+                  className="fa fa-plus"
+                />
+                 New Supplier
               </button>
             </Button>
             <Button
@@ -247,59 +260,21 @@ exports[`Supplier -> <Index> render() On Save isValid Name is false 1`] = `
               color="secondary"
               hidden={false}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 hidden={false}
                 onClick={[Function]}
                 type="button"
               >
-                New Supplier
-              </button>
-            </Button>
-            <Button
-              className="waves-effect mr-2 mb-3"
-              color="secondary"
-              hidden={false}
-              onClick={[Function]}
-              outline={true}
-              size="sm"
-              tag="button"
-              type="button"
-            >
-              <button
-                aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-                hidden={false}
-                onClick={[Function]}
-                type="button"
-              >
-                New Contact
-              </button>
-            </Button>
-            <Button
-              className="waves-effect mr-2 mb-3"
-              color="secondary"
-              hidden={false}
-              onClick={[Function]}
-              outline={true}
-              size="sm"
-              tag="button"
-              type="button"
-            >
-              <button
-                aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-                hidden={false}
-                onClick={[Function]}
-                type="button"
-              >
-                Contacts
+                <i
+                  className="fa fa-industry"
+                />
+                 Suppliers
               </button>
             </Button>
           </Toolbar>
@@ -408,9 +383,46 @@ exports[`Supplier -> <Index> render() On Save isValid Name is false 1`] = `
                         </div>
                       </CardHeader>
                     </CardHeader>
-                    <CardBody>
-                      <ContentLoader>
+                    <CardBody
+                      isLoading={true}
+                    >
+                      <ContentLoader
+                        isLoading={true}
+                      >
                         <div>
+                          <div
+                            style={
+                              Object {
+                                "alignItems": "center",
+                                "backgroundColor": "rgba(255, 255, 255, 0.8)",
+                                "display": "flex",
+                                "height": 0,
+                                "position": "absolute",
+                                "textAlign": "center",
+                                "width": 0,
+                                "zIndex": 1,
+                              }
+                            }
+                          >
+                            <Loading>
+                              <div
+                                style={
+                                  Object {
+                                    "width": "100%",
+                                  }
+                                }
+                              >
+                                <div
+                                  className="spinner-border text-primary"
+                                  role="status"
+                                >
+                                  <span
+                                    className="visually-hidden"
+                                  />
+                                </div>
+                              </div>
+                            </Loading>
+                          </div>
                           <CardBody
                             className=""
                             tag="div"
@@ -927,7 +939,10 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
                 onClick={[Function]}
                 type="button"
               >
-                Save
+                <i
+                  className="fa fa-save"
+                />
+                 Save
               </button>
             </Button>
             <Button
@@ -946,7 +961,10 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
                 onClick={[Function]}
                 type="button"
               >
-                Cancel
+                <i
+                  className="fa fa-ban"
+                />
+                 Cancel
               </button>
             </Button>
             <Button
@@ -955,20 +973,22 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
               disabled={false}
               hidden={false}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 disabled={false}
                 hidden={false}
                 onClick={[Function]}
                 type="button"
               >
-                Edit
+                <i
+                  className="fa fa-edit"
+                />
+                 Edit
               </button>
             </Button>
             <Button
@@ -989,7 +1009,10 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
                 onClick={[Function]}
                 type="button"
               >
-                Delete Supplier
+                <i
+                  className="fa fa-minus-circle"
+                />
+                 Delete Supplier
               </button>
             </Button>
             <Button
@@ -997,19 +1020,21 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
               color="secondary"
               hidden={false}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 hidden={false}
                 onClick={[Function]}
                 type="button"
               >
-                Suppliers
+                <i
+                  className="fa fa-plus"
+                />
+                 New Supplier
               </button>
             </Button>
             <Button
@@ -1017,59 +1042,21 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
               color="secondary"
               hidden={false}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 hidden={false}
                 onClick={[Function]}
                 type="button"
               >
-                New Supplier
-              </button>
-            </Button>
-            <Button
-              className="waves-effect mr-2 mb-3"
-              color="secondary"
-              hidden={false}
-              onClick={[Function]}
-              outline={true}
-              size="sm"
-              tag="button"
-              type="button"
-            >
-              <button
-                aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-                hidden={false}
-                onClick={[Function]}
-                type="button"
-              >
-                New Contact
-              </button>
-            </Button>
-            <Button
-              className="waves-effect mr-2 mb-3"
-              color="secondary"
-              hidden={false}
-              onClick={[Function]}
-              outline={true}
-              size="sm"
-              tag="button"
-              type="button"
-            >
-              <button
-                aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-                hidden={false}
-                onClick={[Function]}
-                type="button"
-              >
-                Contacts
+                <i
+                  className="fa fa-industry"
+                />
+                 Suppliers
               </button>
             </Button>
           </Toolbar>
@@ -1178,9 +1165,46 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
                         </div>
                       </CardHeader>
                     </CardHeader>
-                    <CardBody>
-                      <ContentLoader>
+                    <CardBody
+                      isLoading={true}
+                    >
+                      <ContentLoader
+                        isLoading={true}
+                      >
                         <div>
+                          <div
+                            style={
+                              Object {
+                                "alignItems": "center",
+                                "backgroundColor": "rgba(255, 255, 255, 0.8)",
+                                "display": "flex",
+                                "height": 0,
+                                "position": "absolute",
+                                "textAlign": "center",
+                                "width": 0,
+                                "zIndex": 1,
+                              }
+                            }
+                          >
+                            <Loading>
+                              <div
+                                style={
+                                  Object {
+                                    "width": "100%",
+                                  }
+                                }
+                              >
+                                <div
+                                  className="spinner-border text-primary"
+                                  role="status"
+                                >
+                                  <span
+                                    className="visually-hidden"
+                                  />
+                                </div>
+                              </div>
+                            </Loading>
+                          </div>
                           <CardBody
                             className=""
                             tag="div"
@@ -1697,7 +1721,10 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
                 onClick={[Function]}
                 type="button"
               >
-                Save
+                <i
+                  className="fa fa-save"
+                />
+                 Save
               </button>
             </Button>
             <Button
@@ -1716,7 +1743,10 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
                 onClick={[Function]}
                 type="button"
               >
-                Cancel
+                <i
+                  className="fa fa-ban"
+                />
+                 Cancel
               </button>
             </Button>
             <Button
@@ -1725,20 +1755,22 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
               disabled={false}
               hidden={true}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 disabled={false}
                 hidden={true}
                 onClick={[Function]}
                 type="button"
               >
-                Edit
+                <i
+                  className="fa fa-edit"
+                />
+                 Edit
               </button>
             </Button>
             <Button
@@ -1759,7 +1791,10 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
                 onClick={[Function]}
                 type="button"
               >
-                Delete Supplier
+                <i
+                  className="fa fa-minus-circle"
+                />
+                 Delete Supplier
               </button>
             </Button>
             <Button
@@ -1767,19 +1802,21 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
               color="secondary"
               hidden={true}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 hidden={true}
                 onClick={[Function]}
                 type="button"
               >
-                Suppliers
+                <i
+                  className="fa fa-plus"
+                />
+                 New Supplier
               </button>
             </Button>
             <Button
@@ -1787,59 +1824,21 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
               color="secondary"
               hidden={true}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 hidden={true}
                 onClick={[Function]}
                 type="button"
               >
-                New Supplier
-              </button>
-            </Button>
-            <Button
-              className="waves-effect mr-2 mb-3"
-              color="secondary"
-              hidden={true}
-              onClick={[Function]}
-              outline={true}
-              size="sm"
-              tag="button"
-              type="button"
-            >
-              <button
-                aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-                hidden={true}
-                onClick={[Function]}
-                type="button"
-              >
-                New Contact
-              </button>
-            </Button>
-            <Button
-              className="waves-effect mr-2 mb-3"
-              color="secondary"
-              hidden={true}
-              onClick={[Function]}
-              outline={true}
-              size="sm"
-              tag="button"
-              type="button"
-            >
-              <button
-                aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-                hidden={true}
-                onClick={[Function]}
-                type="button"
-              >
-                Contacts
+                <i
+                  className="fa fa-industry"
+                />
+                 Suppliers
               </button>
             </Button>
           </Toolbar>
@@ -1948,9 +1947,46 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
                         </div>
                       </CardHeader>
                     </CardHeader>
-                    <CardBody>
-                      <ContentLoader>
+                    <CardBody
+                      isLoading={true}
+                    >
+                      <ContentLoader
+                        isLoading={true}
+                      >
                         <div>
+                          <div
+                            style={
+                              Object {
+                                "alignItems": "center",
+                                "backgroundColor": "rgba(255, 255, 255, 0.8)",
+                                "display": "flex",
+                                "height": 0,
+                                "position": "absolute",
+                                "textAlign": "center",
+                                "width": 0,
+                                "zIndex": 1,
+                              }
+                            }
+                          >
+                            <Loading>
+                              <div
+                                style={
+                                  Object {
+                                    "width": "100%",
+                                  }
+                                }
+                              >
+                                <div
+                                  className="spinner-border text-primary"
+                                  role="status"
+                                >
+                                  <span
+                                    className="visually-hidden"
+                                  />
+                                </div>
+                              </div>
+                            </Loading>
+                          </div>
                           <CardBody
                             className=""
                             tag="div"
@@ -2467,7 +2503,10 @@ exports[`Supplier -> <Index> render() On param id is new history.replace should 
                 onClick={[Function]}
                 type="button"
               >
-                Save
+                <i
+                  className="fa fa-save"
+                />
+                 Save
               </button>
             </Button>
             <Button
@@ -2486,7 +2525,10 @@ exports[`Supplier -> <Index> render() On param id is new history.replace should 
                 onClick={[Function]}
                 type="button"
               >
-                Cancel
+                <i
+                  className="fa fa-ban"
+                />
+                 Cancel
               </button>
             </Button>
             <Button
@@ -2495,20 +2537,22 @@ exports[`Supplier -> <Index> render() On param id is new history.replace should 
               disabled={false}
               hidden={true}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 disabled={false}
                 hidden={true}
                 onClick={[Function]}
                 type="button"
               >
-                Edit
+                <i
+                  className="fa fa-edit"
+                />
+                 Edit
               </button>
             </Button>
             <Button
@@ -2529,7 +2573,10 @@ exports[`Supplier -> <Index> render() On param id is new history.replace should 
                 onClick={[Function]}
                 type="button"
               >
-                Delete Supplier
+                <i
+                  className="fa fa-minus-circle"
+                />
+                 Delete Supplier
               </button>
             </Button>
             <Button
@@ -2537,19 +2584,21 @@ exports[`Supplier -> <Index> render() On param id is new history.replace should 
               color="secondary"
               hidden={true}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 hidden={true}
                 onClick={[Function]}
                 type="button"
               >
-                Suppliers
+                <i
+                  className="fa fa-plus"
+                />
+                 New Supplier
               </button>
             </Button>
             <Button
@@ -2557,59 +2606,21 @@ exports[`Supplier -> <Index> render() On param id is new history.replace should 
               color="secondary"
               hidden={true}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 hidden={true}
                 onClick={[Function]}
                 type="button"
               >
-                New Supplier
-              </button>
-            </Button>
-            <Button
-              className="waves-effect mr-2 mb-3"
-              color="secondary"
-              hidden={true}
-              onClick={[Function]}
-              outline={true}
-              size="sm"
-              tag="button"
-              type="button"
-            >
-              <button
-                aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-                hidden={true}
-                onClick={[Function]}
-                type="button"
-              >
-                New Contact
-              </button>
-            </Button>
-            <Button
-              className="waves-effect mr-2 mb-3"
-              color="secondary"
-              hidden={true}
-              onClick={[Function]}
-              outline={true}
-              size="sm"
-              tag="button"
-              type="button"
-            >
-              <button
-                aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-                hidden={true}
-                onClick={[Function]}
-                type="button"
-              >
-                Contacts
+                <i
+                  className="fa fa-industry"
+                />
+                 Suppliers
               </button>
             </Button>
           </Toolbar>
@@ -2718,9 +2729,46 @@ exports[`Supplier -> <Index> render() On param id is new history.replace should 
                         </div>
                       </CardHeader>
                     </CardHeader>
-                    <CardBody>
-                      <ContentLoader>
+                    <CardBody
+                      isLoading={true}
+                    >
+                      <ContentLoader
+                        isLoading={true}
+                      >
                         <div>
+                          <div
+                            style={
+                              Object {
+                                "alignItems": "center",
+                                "backgroundColor": "rgba(255, 255, 255, 0.8)",
+                                "display": "flex",
+                                "height": 0,
+                                "position": "absolute",
+                                "textAlign": "center",
+                                "width": 0,
+                                "zIndex": 1,
+                              }
+                            }
+                          >
+                            <Loading>
+                              <div
+                                style={
+                                  Object {
+                                    "width": "100%",
+                                  }
+                                }
+                              >
+                                <div
+                                  className="spinner-border text-primary"
+                                  role="status"
+                                >
+                                  <span
+                                    className="visually-hidden"
+                                  />
+                                </div>
+                              </div>
+                            </Loading>
+                          </div>
                           <CardBody
                             className=""
                             tag="div"
@@ -3237,7 +3285,10 @@ exports[`Supplier -> <Index> render() Whenever initial Supplier Id is having val
                 onClick={[Function]}
                 type="button"
               >
-                Save
+                <i
+                  className="fa fa-save"
+                />
+                 Save
               </button>
             </Button>
             <Button
@@ -3256,7 +3307,10 @@ exports[`Supplier -> <Index> render() Whenever initial Supplier Id is having val
                 onClick={[Function]}
                 type="button"
               >
-                Cancel
+                <i
+                  className="fa fa-ban"
+                />
+                 Cancel
               </button>
             </Button>
             <Button
@@ -3265,20 +3319,22 @@ exports[`Supplier -> <Index> render() Whenever initial Supplier Id is having val
               disabled={false}
               hidden={true}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 disabled={false}
                 hidden={true}
                 onClick={[Function]}
                 type="button"
               >
-                Edit
+                <i
+                  className="fa fa-edit"
+                />
+                 Edit
               </button>
             </Button>
             <Button
@@ -3299,7 +3355,10 @@ exports[`Supplier -> <Index> render() Whenever initial Supplier Id is having val
                 onClick={[Function]}
                 type="button"
               >
-                Delete Supplier
+                <i
+                  className="fa fa-minus-circle"
+                />
+                 Delete Supplier
               </button>
             </Button>
             <Button
@@ -3307,19 +3366,21 @@ exports[`Supplier -> <Index> render() Whenever initial Supplier Id is having val
               color="secondary"
               hidden={true}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 hidden={true}
                 onClick={[Function]}
                 type="button"
               >
-                Suppliers
+                <i
+                  className="fa fa-plus"
+                />
+                 New Supplier
               </button>
             </Button>
             <Button
@@ -3327,59 +3388,21 @@ exports[`Supplier -> <Index> render() Whenever initial Supplier Id is having val
               color="secondary"
               hidden={true}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 hidden={true}
                 onClick={[Function]}
                 type="button"
               >
-                New Supplier
-              </button>
-            </Button>
-            <Button
-              className="waves-effect mr-2 mb-3"
-              color="secondary"
-              hidden={true}
-              onClick={[Function]}
-              outline={true}
-              size="sm"
-              tag="button"
-              type="button"
-            >
-              <button
-                aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-                hidden={true}
-                onClick={[Function]}
-                type="button"
-              >
-                New Contact
-              </button>
-            </Button>
-            <Button
-              className="waves-effect mr-2 mb-3"
-              color="secondary"
-              hidden={true}
-              onClick={[Function]}
-              outline={true}
-              size="sm"
-              tag="button"
-              type="button"
-            >
-              <button
-                aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-                hidden={true}
-                onClick={[Function]}
-                type="button"
-              >
-                Contacts
+                <i
+                  className="fa fa-industry"
+                />
+                 Suppliers
               </button>
             </Button>
           </Toolbar>
@@ -3488,9 +3511,46 @@ exports[`Supplier -> <Index> render() Whenever initial Supplier Id is having val
                         </div>
                       </CardHeader>
                     </CardHeader>
-                    <CardBody>
-                      <ContentLoader>
+                    <CardBody
+                      isLoading={true}
+                    >
+                      <ContentLoader
+                        isLoading={true}
+                      >
                         <div>
+                          <div
+                            style={
+                              Object {
+                                "alignItems": "center",
+                                "backgroundColor": "rgba(255, 255, 255, 0.8)",
+                                "display": "flex",
+                                "height": 0,
+                                "position": "absolute",
+                                "textAlign": "center",
+                                "width": 0,
+                                "zIndex": 1,
+                              }
+                            }
+                          >
+                            <Loading>
+                              <div
+                                style={
+                                  Object {
+                                    "width": "100%",
+                                  }
+                                }
+                              >
+                                <div
+                                  className="spinner-border text-primary"
+                                  role="status"
+                                >
+                                  <span
+                                    className="visually-hidden"
+                                  />
+                                </div>
+                              </div>
+                            </Loading>
+                          </div>
                           <CardBody
                             className=""
                             tag="div"
@@ -4007,7 +4067,10 @@ exports[`Supplier -> <Index> render() renders the component 1`] = `
                 onClick={[Function]}
                 type="button"
               >
-                Save
+                <i
+                  className="fa fa-save"
+                />
+                 Save
               </button>
             </Button>
             <Button
@@ -4026,7 +4089,10 @@ exports[`Supplier -> <Index> render() renders the component 1`] = `
                 onClick={[Function]}
                 type="button"
               >
-                Cancel
+                <i
+                  className="fa fa-ban"
+                />
+                 Cancel
               </button>
             </Button>
             <Button
@@ -4035,20 +4101,22 @@ exports[`Supplier -> <Index> render() renders the component 1`] = `
               disabled={false}
               hidden={true}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 disabled={false}
                 hidden={true}
                 onClick={[Function]}
                 type="button"
               >
-                Edit
+                <i
+                  className="fa fa-edit"
+                />
+                 Edit
               </button>
             </Button>
             <Button
@@ -4069,7 +4137,10 @@ exports[`Supplier -> <Index> render() renders the component 1`] = `
                 onClick={[Function]}
                 type="button"
               >
-                Delete Supplier
+                <i
+                  className="fa fa-minus-circle"
+                />
+                 Delete Supplier
               </button>
             </Button>
             <Button
@@ -4077,19 +4148,21 @@ exports[`Supplier -> <Index> render() renders the component 1`] = `
               color="secondary"
               hidden={true}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 hidden={true}
                 onClick={[Function]}
                 type="button"
               >
-                Suppliers
+                <i
+                  className="fa fa-plus"
+                />
+                 New Supplier
               </button>
             </Button>
             <Button
@@ -4097,59 +4170,21 @@ exports[`Supplier -> <Index> render() renders the component 1`] = `
               color="secondary"
               hidden={true}
               onClick={[Function]}
-              outline={true}
               size="sm"
               tag="button"
               type="button"
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 hidden={true}
                 onClick={[Function]}
                 type="button"
               >
-                New Supplier
-              </button>
-            </Button>
-            <Button
-              className="waves-effect mr-2 mb-3"
-              color="secondary"
-              hidden={true}
-              onClick={[Function]}
-              outline={true}
-              size="sm"
-              tag="button"
-              type="button"
-            >
-              <button
-                aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-                hidden={true}
-                onClick={[Function]}
-                type="button"
-              >
-                New Contact
-              </button>
-            </Button>
-            <Button
-              className="waves-effect mr-2 mb-3"
-              color="secondary"
-              hidden={true}
-              onClick={[Function]}
-              outline={true}
-              size="sm"
-              tag="button"
-              type="button"
-            >
-              <button
-                aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-                hidden={true}
-                onClick={[Function]}
-                type="button"
-              >
-                Contacts
+                <i
+                  className="fa fa-industry"
+                />
+                 Suppliers
               </button>
             </Button>
           </Toolbar>
@@ -4258,9 +4293,46 @@ exports[`Supplier -> <Index> render() renders the component 1`] = `
                         </div>
                       </CardHeader>
                     </CardHeader>
-                    <CardBody>
-                      <ContentLoader>
+                    <CardBody
+                      isLoading={true}
+                    >
+                      <ContentLoader
+                        isLoading={true}
+                      >
                         <div>
+                          <div
+                            style={
+                              Object {
+                                "alignItems": "center",
+                                "backgroundColor": "rgba(255, 255, 255, 0.8)",
+                                "display": "flex",
+                                "height": undefined,
+                                "position": "absolute",
+                                "textAlign": "center",
+                                "width": undefined,
+                                "zIndex": 1,
+                              }
+                            }
+                          >
+                            <Loading>
+                              <div
+                                style={
+                                  Object {
+                                    "width": "100%",
+                                  }
+                                }
+                              >
+                                <div
+                                  className="spinner-border text-primary"
+                                  role="status"
+                                >
+                                  <span
+                                    className="visually-hidden"
+                                  />
+                                </div>
+                              </div>
+                            </Loading>
+                          </div>
                           <CardBody
                             className=""
                             tag="div"
