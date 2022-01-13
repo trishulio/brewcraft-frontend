@@ -1,6 +1,6 @@
-// 
+//
 // _table.scss
-// 
+//
 
 .table {
   th {
@@ -13,6 +13,10 @@
   td,th {
       vertical-align: middle !important;
   }
+}
+
+.table-fixed {
+    table-layout: fixed;
 }
 
 .table-nowrap {
