@@ -297,6 +297,10 @@ function* createProcurementGenerator(action) {
                     invalidPaymentDueDate: !validDate(
                         get(action, "payload.invoice.paymentDueDate")
                     ),
+                    invalidStatus: !validId(
+                        action,
+                        "payload.invoice.invoiceStatus.id"
+                    ),
                 },
             });
             const temp = get(action, "payload.procurementItems");
@@ -384,9 +388,9 @@ function* updateProcurementGenerator(action) {
                     invalidPaymentDueDate: !validDate(
                         get(action, "payload.invoice.paymentDueDate")
                     ),
-                    invalidStatus: !get(
+                    invalidStatus: !validId(
                         action,
-                        "payload.invoice.invoiceStatusId"
+                        "payload.invoice.invoiceStatus.id"
                     ),
                 },
             });
