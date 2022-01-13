@@ -22,6 +22,7 @@ export default function PurchaseInvoiceItems({ editable }) {
             amountTotal = 0.0;
         items.forEach(({ invoiceItem }) => {
             if (invoiceItem.quantity.value && invoiceItem.price.amount) {
+                const taxRate = invoiceItem.tax.amount.amount / 100
                 const amountItemSubtotalItem =
                     parseFloat(invoiceItem.quantity.value) *
                     parseFloat(invoiceItem.price.amount);
@@ -34,7 +35,7 @@ export default function PurchaseInvoiceItems({ editable }) {
                     if (invoiceItem.tax.amount.amount) {
                         const amountItemTax =
                             amountItemSubtotalItem *
-                            parseFloat(invoiceItem.tax.amount.amount);
+                            taxRate;
                         if (
                             Number.isInteger(amountItemTax) ||
                             isFloat(amountItemTax)
@@ -85,8 +86,8 @@ export default function PurchaseInvoiceItems({ editable }) {
                         <Col xs="1">Lot</Col>
                         <Col xs="1">Qty</Col>
                         <Col xs="1">Price</Col>
-                        <Col xs="1">Tax</Col>
-                        <Col xs="2">Amount</Col>
+                        <Col xs="1">Tax (%)</Col>
+                        <Col xs="2">Total Amount</Col>
                     </Row>
                 </ListGroupItem>
                 {items.map((value, index) => (
