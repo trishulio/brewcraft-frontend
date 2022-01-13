@@ -108,6 +108,7 @@ export default function MaterialCategory() {
             );
             return;
         }
+
         if (!isChanged()) {
             history.push("/materials/categories/" + id);
         } else if (materialCategory.id) {

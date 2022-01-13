@@ -1,5 +1,1889 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`MaterialCategory -> <Index> render() Should dispatch setInvalidMaterialCategoryName on onSave 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <MaterialCategory>
+        <DeleteGuard
+          close={[Function]}
+          confirm={[Function]}
+          content="This cannot be undone. Are you sure want to delete this ingredient?"
+          when={false}
+        >
+          <Modal
+            close={[Function]}
+            onValidSubmit={[Function]}
+            show={false}
+            title="Warning"
+          >
+            <Modal
+              autoFocus={true}
+              backdrop={true}
+              backdropTransition={
+                Object {
+                  "mountOnEnter": true,
+                  "timeout": 150,
+                }
+              }
+              centered={true}
+              container="body"
+              fade={false}
+              isOpen={false}
+              keyboard={true}
+              modalTransition={
+                Object {
+                  "timeout": 300,
+                }
+              }
+              onClosed={[Function]}
+              onOpened={[Function]}
+              returnFocusAfterClose={true}
+              role="dialog"
+              scrollable={false}
+              toggle={[Function]}
+              trapFocus={false}
+              unmountOnClose={true}
+              zIndex={1050}
+            />
+          </Modal>
+        </DeleteGuard>
+        <RouteLeavingGuard
+          content="There are unsaved changes. Are you sure want to leave this page?"
+          navigate={[Function]}
+          shouldBlockNavigation={[Function]}
+          when={true}
+        >
+          <Prompt
+            message={[Function]}
+            when={true}
+          >
+            <Lifecycle
+              message={[Function]}
+              onMount={[Function]}
+              onUnmount={[Function]}
+              onUpdate={[Function]}
+            />
+          </Prompt>
+          <Modal
+            close={[Function]}
+            onValidSubmit={[Function]}
+            show={false}
+            title="Warning"
+          >
+            <Modal
+              autoFocus={true}
+              backdrop={true}
+              backdropTransition={
+                Object {
+                  "mountOnEnter": true,
+                  "timeout": 150,
+                }
+              }
+              centered={true}
+              container="body"
+              fade={false}
+              isOpen={false}
+              keyboard={true}
+              modalTransition={
+                Object {
+                  "timeout": 300,
+                }
+              }
+              onClosed={[Function]}
+              onOpened={[Function]}
+              returnFocusAfterClose={true}
+              role="dialog"
+              scrollable={false}
+              toggle={[Function]}
+              trapFocus={false}
+              unmountOnClose={true}
+              zIndex={1050}
+            />
+          </Modal>
+        </RouteLeavingGuard>
+        <MaterialCategory
+          changed={true}
+          editable={true}
+          onDelete={[Function]}
+          onSave={[Function]}
+        >
+          <Toolbar
+            changed={true}
+            editable={true}
+            onDelete={[Function]}
+            onSave={[Function]}
+          >
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              data-testid="categorySave"
+              disabled={false}
+              hidden={false}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="categorySave"
+                disabled={false}
+                hidden={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Save
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              hidden={false}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                hidden={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Cancel
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              data-testid="categoryEdit"
+              disabled={true}
+              hidden={true}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm disabled"
+                data-testid="categoryEdit"
+                disabled={true}
+                hidden={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Edit Category
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              hidden={true}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                hidden={true}
+                onClick={[Function]}
+                type="button"
+              >
+                New Category
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="danger"
+              data-testid="categoryDelete"
+              hidden={false}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+                data-testid="categoryDelete"
+                hidden={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Delete Category
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              hidden={true}
+              onClick={[Function]}
+              outline={true}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                hidden={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Material Categories
+              </button>
+            </Button>
+          </Toolbar>
+          <Row
+            tag="div"
+            widths={
+              Array [
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl",
+              ]
+            }
+          >
+            <div
+              className="row"
+            >
+              <Col
+                md={9}
+                tag="div"
+                widths={
+                  Array [
+                    "xs",
+                    "sm",
+                    "md",
+                    "lg",
+                    "xl",
+                  ]
+                }
+                xl={8}
+              >
+                <div
+                  className="col-md-9 col-xl-8"
+                >
+                  <MaterialCategoryDetails
+                    changed={true}
+                    editable={true}
+                    onSave={[Function]}
+                  >
+                    <Card>
+                      <Card
+                        className=""
+                        tag="div"
+                      >
+                        <div
+                          className="card"
+                        >
+                          <CardHeader>
+                            <CardHeader
+                              className="font-size-14 mb-2"
+                              tag="div"
+                            >
+                              <div
+                                className="font-size-14 mb-2 card-header"
+                              >
+                                Material Category Details
+                              </div>
+                            </CardHeader>
+                          </CardHeader>
+                          <CardBody>
+                            <ContentLoader>
+                              <div>
+                                <CardBody
+                                  className=""
+                                  tag="div"
+                                >
+                                  <div
+                                    className="card-body"
+                                  >
+                                    <Row
+                                      tag="div"
+                                      widths={
+                                        Array [
+                                          "xs",
+                                          "sm",
+                                          "md",
+                                          "lg",
+                                          "xl",
+                                        ]
+                                      }
+                                    >
+                                      <div
+                                        className="row"
+                                      >
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="2"
+                                        >
+                                          <div
+                                            className="col-2"
+                                          >
+                                            <Label
+                                              className="mb-3"
+                                              for="materialCategoryName"
+                                              tag="label"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                            >
+                                              <label
+                                                className="mb-3"
+                                                htmlFor="materialCategoryName"
+                                              >
+                                                *Name
+                                              </label>
+                                            </Label>
+                                          </div>
+                                        </Col>
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="8"
+                                        >
+                                          <div
+                                            className="col-8"
+                                          >
+                                            <FormGroup
+                                              hidden={false}
+                                              tag="div"
+                                            >
+                                              <div
+                                                className="form-group"
+                                                hidden={false}
+                                              >
+                                                <Input
+                                                  bsSize="sm"
+                                                  className="waves-effect"
+                                                  data-testid="materialCategoryName"
+                                                  disabled={false}
+                                                  invalid={false}
+                                                  name="materialCategoryName"
+                                                  onChange={[Function]}
+                                                  onKeyUp={[Function]}
+                                                  placeholder="Enter"
+                                                  style={
+                                                    Object {
+                                                      "width": "16rem",
+                                                    }
+                                                  }
+                                                  type="text"
+                                                  value="dumy"
+                                                >
+                                                  <input
+                                                    aria-invalid={false}
+                                                    className="waves-effect form-control-sm form-control"
+                                                    data-testid="materialCategoryName"
+                                                    disabled={false}
+                                                    name="materialCategoryName"
+                                                    onChange={[Function]}
+                                                    onKeyUp={[Function]}
+                                                    placeholder="Enter"
+                                                    style={
+                                                      Object {
+                                                        "width": "16rem",
+                                                      }
+                                                    }
+                                                    type="text"
+                                                    value="dumy"
+                                                  />
+                                                </Input>
+                                                <FormFeedback
+                                                  tag="div"
+                                                >
+                                                  <div
+                                                    className="invalid-feedback"
+                                                  >
+                                                    Enter a valid material category name.
+                                                  </div>
+                                                </FormFeedback>
+                                              </div>
+                                            </FormGroup>
+                                            <div
+                                              hidden={true}
+                                            >
+                                              dumy
+                                            </div>
+                                          </div>
+                                        </Col>
+                                      </div>
+                                    </Row>
+                                    <Row
+                                      tag="div"
+                                      widths={
+                                        Array [
+                                          "xs",
+                                          "sm",
+                                          "md",
+                                          "lg",
+                                          "xl",
+                                        ]
+                                      }
+                                    >
+                                      <div
+                                        className="row"
+                                      >
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="2"
+                                        >
+                                          <div
+                                            className="col-2"
+                                          >
+                                            <Label
+                                              className="mb-3"
+                                              for="materialCategoryParentCategory"
+                                              tag="label"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                            >
+                                              <label
+                                                className="mb-3"
+                                                htmlFor="materialCategoryParentCategory"
+                                              >
+                                                *Parent Category
+                                              </label>
+                                            </Label>
+                                          </div>
+                                        </Col>
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="8"
+                                        >
+                                          <div
+                                            className="col-8"
+                                          >
+                                            <FormGroup
+                                              hidden={false}
+                                              tag="div"
+                                            >
+                                              <div
+                                                className="form-group"
+                                                hidden={false}
+                                              >
+                                                <Input
+                                                  bsSize="sm"
+                                                  className="waves-effect"
+                                                  data-testid="materialCategoryParentCategory"
+                                                  disabled={false}
+                                                  invalid={false}
+                                                  name="materialCategoryParentCategory"
+                                                  onChange={[Function]}
+                                                  onKeyUp={[Function]}
+                                                  style={
+                                                    Object {
+                                                      "width": "8rem",
+                                                    }
+                                                  }
+                                                  type="select"
+                                                  value=""
+                                                >
+                                                  <select
+                                                    aria-invalid={false}
+                                                    className="waves-effect form-control-sm form-control"
+                                                    data-testid="materialCategoryParentCategory"
+                                                    disabled={false}
+                                                    name="materialCategoryParentCategory"
+                                                    onChange={[Function]}
+                                                    onKeyUp={[Function]}
+                                                    style={
+                                                      Object {
+                                                        "width": "8rem",
+                                                      }
+                                                    }
+                                                    value=""
+                                                  >
+                                                    <option
+                                                      value=""
+                                                    >
+                                                      Select
+                                                    </option>
+                                                  </select>
+                                                </Input>
+                                                <FormFeedback
+                                                  tag="div"
+                                                >
+                                                  <div
+                                                    className="invalid-feedback"
+                                                  >
+                                                    Enter a valid material category.
+                                                  </div>
+                                                </FormFeedback>
+                                              </div>
+                                            </FormGroup>
+                                            <div
+                                              hidden={true}
+                                            />
+                                          </div>
+                                        </Col>
+                                      </div>
+                                    </Row>
+                                  </div>
+                                </CardBody>
+                              </div>
+                            </ContentLoader>
+                          </CardBody>
+                        </div>
+                      </Card>
+                    </Card>
+                  </MaterialCategoryDetails>
+                </div>
+              </Col>
+            </div>
+          </Row>
+        </MaterialCategory>
+      </MaterialCategory>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`MaterialCategory -> <Index> render() dispatch editMaterialCategory on click of onSave 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <MaterialCategory>
+        <DeleteGuard
+          close={[Function]}
+          confirm={[Function]}
+          content="This cannot be undone. Are you sure want to delete this ingredient?"
+          when={false}
+        >
+          <Modal
+            close={[Function]}
+            onValidSubmit={[Function]}
+            show={false}
+            title="Warning"
+          >
+            <Modal
+              autoFocus={true}
+              backdrop={true}
+              backdropTransition={
+                Object {
+                  "mountOnEnter": true,
+                  "timeout": 150,
+                }
+              }
+              centered={true}
+              container="body"
+              fade={false}
+              isOpen={false}
+              keyboard={true}
+              modalTransition={
+                Object {
+                  "timeout": 300,
+                }
+              }
+              onClosed={[Function]}
+              onOpened={[Function]}
+              returnFocusAfterClose={true}
+              role="dialog"
+              scrollable={false}
+              toggle={[Function]}
+              trapFocus={false}
+              unmountOnClose={true}
+              zIndex={1050}
+            />
+          </Modal>
+        </DeleteGuard>
+        <RouteLeavingGuard
+          content="There are unsaved changes. Are you sure want to leave this page?"
+          navigate={[Function]}
+          shouldBlockNavigation={[Function]}
+          when={true}
+        >
+          <Prompt
+            message={[Function]}
+            when={true}
+          >
+            <Lifecycle
+              message={[Function]}
+              onMount={[Function]}
+              onUnmount={[Function]}
+              onUpdate={[Function]}
+            />
+          </Prompt>
+          <Modal
+            close={[Function]}
+            onValidSubmit={[Function]}
+            show={false}
+            title="Warning"
+          >
+            <Modal
+              autoFocus={true}
+              backdrop={true}
+              backdropTransition={
+                Object {
+                  "mountOnEnter": true,
+                  "timeout": 150,
+                }
+              }
+              centered={true}
+              container="body"
+              fade={false}
+              isOpen={false}
+              keyboard={true}
+              modalTransition={
+                Object {
+                  "timeout": 300,
+                }
+              }
+              onClosed={[Function]}
+              onOpened={[Function]}
+              returnFocusAfterClose={true}
+              role="dialog"
+              scrollable={false}
+              toggle={[Function]}
+              trapFocus={false}
+              unmountOnClose={true}
+              zIndex={1050}
+            />
+          </Modal>
+        </RouteLeavingGuard>
+        <MaterialCategory
+          changed={true}
+          editable={true}
+          onDelete={[Function]}
+          onSave={[Function]}
+        >
+          <Toolbar
+            changed={true}
+            editable={true}
+            onDelete={[Function]}
+            onSave={[Function]}
+          >
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              data-testid="categorySave"
+              disabled={false}
+              hidden={false}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="categorySave"
+                disabled={false}
+                hidden={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Save
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              hidden={false}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                hidden={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Cancel
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              data-testid="categoryEdit"
+              disabled={true}
+              hidden={true}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm disabled"
+                data-testid="categoryEdit"
+                disabled={true}
+                hidden={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Edit Category
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              hidden={true}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                hidden={true}
+                onClick={[Function]}
+                type="button"
+              >
+                New Category
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="danger"
+              data-testid="categoryDelete"
+              hidden={false}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+                data-testid="categoryDelete"
+                hidden={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Delete Category
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              hidden={true}
+              onClick={[Function]}
+              outline={true}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                hidden={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Material Categories
+              </button>
+            </Button>
+          </Toolbar>
+          <Row
+            tag="div"
+            widths={
+              Array [
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl",
+              ]
+            }
+          >
+            <div
+              className="row"
+            >
+              <Col
+                md={9}
+                tag="div"
+                widths={
+                  Array [
+                    "xs",
+                    "sm",
+                    "md",
+                    "lg",
+                    "xl",
+                  ]
+                }
+                xl={8}
+              >
+                <div
+                  className="col-md-9 col-xl-8"
+                >
+                  <MaterialCategoryDetails
+                    changed={true}
+                    editable={true}
+                    onSave={[Function]}
+                  >
+                    <Card>
+                      <Card
+                        className=""
+                        tag="div"
+                      >
+                        <div
+                          className="card"
+                        >
+                          <CardHeader>
+                            <CardHeader
+                              className="font-size-14 mb-2"
+                              tag="div"
+                            >
+                              <div
+                                className="font-size-14 mb-2 card-header"
+                              >
+                                Material Category Details
+                              </div>
+                            </CardHeader>
+                          </CardHeader>
+                          <CardBody>
+                            <ContentLoader>
+                              <div>
+                                <CardBody
+                                  className=""
+                                  tag="div"
+                                >
+                                  <div
+                                    className="card-body"
+                                  >
+                                    <Row
+                                      tag="div"
+                                      widths={
+                                        Array [
+                                          "xs",
+                                          "sm",
+                                          "md",
+                                          "lg",
+                                          "xl",
+                                        ]
+                                      }
+                                    >
+                                      <div
+                                        className="row"
+                                      >
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="2"
+                                        >
+                                          <div
+                                            className="col-2"
+                                          >
+                                            <Label
+                                              className="mb-3"
+                                              for="materialCategoryName"
+                                              tag="label"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                            >
+                                              <label
+                                                className="mb-3"
+                                                htmlFor="materialCategoryName"
+                                              >
+                                                *Name
+                                              </label>
+                                            </Label>
+                                          </div>
+                                        </Col>
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="8"
+                                        >
+                                          <div
+                                            className="col-8"
+                                          >
+                                            <FormGroup
+                                              hidden={false}
+                                              tag="div"
+                                            >
+                                              <div
+                                                className="form-group"
+                                                hidden={false}
+                                              >
+                                                <Input
+                                                  bsSize="sm"
+                                                  className="waves-effect"
+                                                  data-testid="materialCategoryName"
+                                                  disabled={false}
+                                                  invalid={false}
+                                                  name="materialCategoryName"
+                                                  onChange={[Function]}
+                                                  onKeyUp={[Function]}
+                                                  placeholder="Enter"
+                                                  style={
+                                                    Object {
+                                                      "width": "16rem",
+                                                    }
+                                                  }
+                                                  type="text"
+                                                  value="dummy"
+                                                >
+                                                  <input
+                                                    aria-invalid={false}
+                                                    className="waves-effect form-control-sm form-control"
+                                                    data-testid="materialCategoryName"
+                                                    disabled={false}
+                                                    name="materialCategoryName"
+                                                    onChange={[Function]}
+                                                    onKeyUp={[Function]}
+                                                    placeholder="Enter"
+                                                    style={
+                                                      Object {
+                                                        "width": "16rem",
+                                                      }
+                                                    }
+                                                    type="text"
+                                                    value="dummy"
+                                                  />
+                                                </Input>
+                                                <FormFeedback
+                                                  tag="div"
+                                                >
+                                                  <div
+                                                    className="invalid-feedback"
+                                                  >
+                                                    Enter a valid material category name.
+                                                  </div>
+                                                </FormFeedback>
+                                              </div>
+                                            </FormGroup>
+                                            <div
+                                              hidden={true}
+                                            >
+                                              dummy
+                                            </div>
+                                          </div>
+                                        </Col>
+                                      </div>
+                                    </Row>
+                                    <Row
+                                      tag="div"
+                                      widths={
+                                        Array [
+                                          "xs",
+                                          "sm",
+                                          "md",
+                                          "lg",
+                                          "xl",
+                                        ]
+                                      }
+                                    >
+                                      <div
+                                        className="row"
+                                      >
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="2"
+                                        >
+                                          <div
+                                            className="col-2"
+                                          >
+                                            <Label
+                                              className="mb-3"
+                                              for="materialCategoryParentCategory"
+                                              tag="label"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                            >
+                                              <label
+                                                className="mb-3"
+                                                htmlFor="materialCategoryParentCategory"
+                                              >
+                                                *Parent Category
+                                              </label>
+                                            </Label>
+                                          </div>
+                                        </Col>
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="8"
+                                        >
+                                          <div
+                                            className="col-8"
+                                          >
+                                            <FormGroup
+                                              hidden={false}
+                                              tag="div"
+                                            >
+                                              <div
+                                                className="form-group"
+                                                hidden={false}
+                                              >
+                                                <Input
+                                                  bsSize="sm"
+                                                  className="waves-effect"
+                                                  data-testid="materialCategoryParentCategory"
+                                                  disabled={false}
+                                                  invalid={false}
+                                                  name="materialCategoryParentCategory"
+                                                  onChange={[Function]}
+                                                  onKeyUp={[Function]}
+                                                  style={
+                                                    Object {
+                                                      "width": "8rem",
+                                                    }
+                                                  }
+                                                  type="select"
+                                                  value={1}
+                                                >
+                                                  <select
+                                                    aria-invalid={false}
+                                                    className="waves-effect form-control-sm form-control"
+                                                    data-testid="materialCategoryParentCategory"
+                                                    disabled={false}
+                                                    name="materialCategoryParentCategory"
+                                                    onChange={[Function]}
+                                                    onKeyUp={[Function]}
+                                                    style={
+                                                      Object {
+                                                        "width": "8rem",
+                                                      }
+                                                    }
+                                                    value={1}
+                                                  >
+                                                    <option
+                                                      value=""
+                                                    >
+                                                      Select
+                                                    </option>
+                                                  </select>
+                                                </Input>
+                                                <FormFeedback
+                                                  tag="div"
+                                                >
+                                                  <div
+                                                    className="invalid-feedback"
+                                                  >
+                                                    Enter a valid material category.
+                                                  </div>
+                                                </FormFeedback>
+                                              </div>
+                                            </FormGroup>
+                                            <div
+                                              hidden={true}
+                                            />
+                                          </div>
+                                        </Col>
+                                      </div>
+                                    </Row>
+                                  </div>
+                                </CardBody>
+                              </div>
+                            </ContentLoader>
+                          </CardBody>
+                        </div>
+                      </Card>
+                    </Card>
+                  </MaterialCategoryDetails>
+                </div>
+              </Col>
+            </div>
+          </Row>
+        </MaterialCategory>
+      </MaterialCategory>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`MaterialCategory -> <Index> render() dispatch saveMaterialCategory on click of onSave 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <MaterialCategory>
+        <DeleteGuard
+          close={[Function]}
+          confirm={[Function]}
+          content="This cannot be undone. Are you sure want to delete this ingredient?"
+          when={false}
+        >
+          <Modal
+            close={[Function]}
+            onValidSubmit={[Function]}
+            show={false}
+            title="Warning"
+          >
+            <Modal
+              autoFocus={true}
+              backdrop={true}
+              backdropTransition={
+                Object {
+                  "mountOnEnter": true,
+                  "timeout": 150,
+                }
+              }
+              centered={true}
+              container="body"
+              fade={false}
+              isOpen={false}
+              keyboard={true}
+              modalTransition={
+                Object {
+                  "timeout": 300,
+                }
+              }
+              onClosed={[Function]}
+              onOpened={[Function]}
+              returnFocusAfterClose={true}
+              role="dialog"
+              scrollable={false}
+              toggle={[Function]}
+              trapFocus={false}
+              unmountOnClose={true}
+              zIndex={1050}
+            />
+          </Modal>
+        </DeleteGuard>
+        <RouteLeavingGuard
+          content="There are unsaved changes. Are you sure want to leave this page?"
+          navigate={[Function]}
+          shouldBlockNavigation={[Function]}
+          when={true}
+        >
+          <Prompt
+            message={[Function]}
+            when={true}
+          >
+            <Lifecycle
+              message={[Function]}
+              onMount={[Function]}
+              onUnmount={[Function]}
+              onUpdate={[Function]}
+            />
+          </Prompt>
+          <Modal
+            close={[Function]}
+            onValidSubmit={[Function]}
+            show={false}
+            title="Warning"
+          >
+            <Modal
+              autoFocus={true}
+              backdrop={true}
+              backdropTransition={
+                Object {
+                  "mountOnEnter": true,
+                  "timeout": 150,
+                }
+              }
+              centered={true}
+              container="body"
+              fade={false}
+              isOpen={false}
+              keyboard={true}
+              modalTransition={
+                Object {
+                  "timeout": 300,
+                }
+              }
+              onClosed={[Function]}
+              onOpened={[Function]}
+              returnFocusAfterClose={true}
+              role="dialog"
+              scrollable={false}
+              toggle={[Function]}
+              trapFocus={false}
+              unmountOnClose={true}
+              zIndex={1050}
+            />
+          </Modal>
+        </RouteLeavingGuard>
+        <MaterialCategory
+          changed={true}
+          editable={true}
+          onDelete={[Function]}
+          onSave={[Function]}
+        >
+          <Toolbar
+            changed={true}
+            editable={true}
+            onDelete={[Function]}
+            onSave={[Function]}
+          >
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              data-testid="categorySave"
+              disabled={false}
+              hidden={false}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="categorySave"
+                disabled={false}
+                hidden={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Save
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              hidden={false}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                hidden={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Cancel
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              data-testid="categoryEdit"
+              disabled={true}
+              hidden={true}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm disabled"
+                data-testid="categoryEdit"
+                disabled={true}
+                hidden={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Edit Category
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              hidden={true}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                hidden={true}
+                onClick={[Function]}
+                type="button"
+              >
+                New Category
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="danger"
+              data-testid="categoryDelete"
+              hidden={true}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+                data-testid="categoryDelete"
+                hidden={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Delete Category
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              hidden={true}
+              onClick={[Function]}
+              outline={true}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                hidden={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Material Categories
+              </button>
+            </Button>
+          </Toolbar>
+          <Row
+            tag="div"
+            widths={
+              Array [
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl",
+              ]
+            }
+          >
+            <div
+              className="row"
+            >
+              <Col
+                md={9}
+                tag="div"
+                widths={
+                  Array [
+                    "xs",
+                    "sm",
+                    "md",
+                    "lg",
+                    "xl",
+                  ]
+                }
+                xl={8}
+              >
+                <div
+                  className="col-md-9 col-xl-8"
+                >
+                  <MaterialCategoryDetails
+                    changed={true}
+                    editable={true}
+                    onSave={[Function]}
+                  >
+                    <Card>
+                      <Card
+                        className=""
+                        tag="div"
+                      >
+                        <div
+                          className="card"
+                        >
+                          <CardHeader>
+                            <CardHeader
+                              className="font-size-14 mb-2"
+                              tag="div"
+                            >
+                              <div
+                                className="font-size-14 mb-2 card-header"
+                              >
+                                Material Category Details
+                              </div>
+                            </CardHeader>
+                          </CardHeader>
+                          <CardBody>
+                            <ContentLoader>
+                              <div>
+                                <CardBody
+                                  className=""
+                                  tag="div"
+                                >
+                                  <div
+                                    className="card-body"
+                                  >
+                                    <Row
+                                      tag="div"
+                                      widths={
+                                        Array [
+                                          "xs",
+                                          "sm",
+                                          "md",
+                                          "lg",
+                                          "xl",
+                                        ]
+                                      }
+                                    >
+                                      <div
+                                        className="row"
+                                      >
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="2"
+                                        >
+                                          <div
+                                            className="col-2"
+                                          >
+                                            <Label
+                                              className="mb-3"
+                                              for="materialCategoryName"
+                                              tag="label"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                            >
+                                              <label
+                                                className="mb-3"
+                                                htmlFor="materialCategoryName"
+                                              >
+                                                *Name
+                                              </label>
+                                            </Label>
+                                          </div>
+                                        </Col>
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="8"
+                                        >
+                                          <div
+                                            className="col-8"
+                                          >
+                                            <FormGroup
+                                              hidden={false}
+                                              tag="div"
+                                            >
+                                              <div
+                                                className="form-group"
+                                                hidden={false}
+                                              >
+                                                <Input
+                                                  bsSize="sm"
+                                                  className="waves-effect"
+                                                  data-testid="materialCategoryName"
+                                                  disabled={false}
+                                                  invalid={false}
+                                                  name="materialCategoryName"
+                                                  onChange={[Function]}
+                                                  onKeyUp={[Function]}
+                                                  placeholder="Enter"
+                                                  style={
+                                                    Object {
+                                                      "width": "16rem",
+                                                    }
+                                                  }
+                                                  type="text"
+                                                  value="dummy"
+                                                >
+                                                  <input
+                                                    aria-invalid={false}
+                                                    className="waves-effect form-control-sm form-control"
+                                                    data-testid="materialCategoryName"
+                                                    disabled={false}
+                                                    name="materialCategoryName"
+                                                    onChange={[Function]}
+                                                    onKeyUp={[Function]}
+                                                    placeholder="Enter"
+                                                    style={
+                                                      Object {
+                                                        "width": "16rem",
+                                                      }
+                                                    }
+                                                    type="text"
+                                                    value="dummy"
+                                                  />
+                                                </Input>
+                                                <FormFeedback
+                                                  tag="div"
+                                                >
+                                                  <div
+                                                    className="invalid-feedback"
+                                                  >
+                                                    Enter a valid material category name.
+                                                  </div>
+                                                </FormFeedback>
+                                              </div>
+                                            </FormGroup>
+                                            <div
+                                              hidden={true}
+                                            >
+                                              dummy
+                                            </div>
+                                          </div>
+                                        </Col>
+                                      </div>
+                                    </Row>
+                                    <Row
+                                      tag="div"
+                                      widths={
+                                        Array [
+                                          "xs",
+                                          "sm",
+                                          "md",
+                                          "lg",
+                                          "xl",
+                                        ]
+                                      }
+                                    >
+                                      <div
+                                        className="row"
+                                      >
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="2"
+                                        >
+                                          <div
+                                            className="col-2"
+                                          >
+                                            <Label
+                                              className="mb-3"
+                                              for="materialCategoryParentCategory"
+                                              tag="label"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                            >
+                                              <label
+                                                className="mb-3"
+                                                htmlFor="materialCategoryParentCategory"
+                                              >
+                                                *Parent Category
+                                              </label>
+                                            </Label>
+                                          </div>
+                                        </Col>
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="8"
+                                        >
+                                          <div
+                                            className="col-8"
+                                          >
+                                            <FormGroup
+                                              hidden={false}
+                                              tag="div"
+                                            >
+                                              <div
+                                                className="form-group"
+                                                hidden={false}
+                                              >
+                                                <Input
+                                                  bsSize="sm"
+                                                  className="waves-effect"
+                                                  data-testid="materialCategoryParentCategory"
+                                                  disabled={false}
+                                                  invalid={false}
+                                                  name="materialCategoryParentCategory"
+                                                  onChange={[Function]}
+                                                  onKeyUp={[Function]}
+                                                  style={
+                                                    Object {
+                                                      "width": "8rem",
+                                                    }
+                                                  }
+                                                  type="select"
+                                                  value={1}
+                                                >
+                                                  <select
+                                                    aria-invalid={false}
+                                                    className="waves-effect form-control-sm form-control"
+                                                    data-testid="materialCategoryParentCategory"
+                                                    disabled={false}
+                                                    name="materialCategoryParentCategory"
+                                                    onChange={[Function]}
+                                                    onKeyUp={[Function]}
+                                                    style={
+                                                      Object {
+                                                        "width": "8rem",
+                                                      }
+                                                    }
+                                                    value={1}
+                                                  >
+                                                    <option
+                                                      value=""
+                                                    >
+                                                      Select
+                                                    </option>
+                                                  </select>
+                                                </Input>
+                                                <FormFeedback
+                                                  tag="div"
+                                                >
+                                                  <div
+                                                    className="invalid-feedback"
+                                                  >
+                                                    Enter a valid material category.
+                                                  </div>
+                                                </FormFeedback>
+                                              </div>
+                                            </FormGroup>
+                                            <div
+                                              hidden={true}
+                                            />
+                                          </div>
+                                        </Col>
+                                      </div>
+                                    </Row>
+                                  </div>
+                                </CardBody>
+                              </div>
+                            </ContentLoader>
+                          </CardBody>
+                        </div>
+                      </Card>
+                    </Card>
+                  </MaterialCategoryDetails>
+                </div>
+              </Col>
+            </div>
+          </Row>
+        </MaterialCategory>
+      </MaterialCategory>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
 exports[`MaterialCategory -> <Index> render() history.replace should happen on id is new 1`] = `
 <Provider
   store={
@@ -185,7 +2069,7 @@ exports[`MaterialCategory -> <Index> render() history.replace should happen on i
               className="waves-effect mr-2 mb-3"
               color="secondary"
               data-testid="categoryEdit"
-              disabled={true}
+              disabled={false}
               hidden={true}
               onClick={[Function]}
               size="sm"
@@ -194,9 +2078,9 @@ exports[`MaterialCategory -> <Index> render() history.replace should happen on i
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm disabled"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 data-testid="categoryEdit"
-                disabled={true}
+                disabled={false}
                 hidden={true}
                 onClick={[Function]}
                 type="button"
@@ -596,9 +2480,7 @@ exports[`MaterialCategory -> <Index> render() history.replace should happen on i
                                             </FormGroup>
                                             <div
                                               hidden={false}
-                                            >
-                                              -
-                                            </div>
+                                            />
                                           </div>
                                         </Col>
                                       </div>
@@ -808,7 +2690,7 @@ exports[`MaterialCategory -> <Index> render() renders the component 1`] = `
               className="waves-effect mr-2 mb-3"
               color="secondary"
               data-testid="categoryEdit"
-              disabled={true}
+              disabled={false}
               hidden={true}
               onClick={[Function]}
               size="sm"
@@ -817,9 +2699,9 @@ exports[`MaterialCategory -> <Index> render() renders the component 1`] = `
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm disabled"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 data-testid="categoryEdit"
-                disabled={true}
+                disabled={false}
                 hidden={true}
                 onClick={[Function]}
                 type="button"
@@ -1219,9 +3101,7 @@ exports[`MaterialCategory -> <Index> render() renders the component 1`] = `
                                             </FormGroup>
                                             <div
                                               hidden={false}
-                                            >
-                                              -
-                                            </div>
+                                            />
                                           </div>
                                         </Col>
                                       </div>
@@ -1431,7 +3311,7 @@ exports[`MaterialCategory -> <Index> render() setBreadcrumbItems when material i
               className="waves-effect mr-2 mb-3"
               color="secondary"
               data-testid="categoryEdit"
-              disabled={true}
+              disabled={false}
               hidden={false}
               onClick={[Function]}
               size="sm"
@@ -1440,9 +3320,9 @@ exports[`MaterialCategory -> <Index> render() setBreadcrumbItems when material i
             >
               <button
                 aria-label={null}
-                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm disabled"
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
                 data-testid="categoryEdit"
-                disabled={true}
+                disabled={false}
                 hidden={false}
                 onClick={[Function]}
                 type="button"
@@ -1842,9 +3722,1256 @@ exports[`MaterialCategory -> <Index> render() setBreadcrumbItems when material i
                                             </FormGroup>
                                             <div
                                               hidden={false}
+                                            />
+                                          </div>
+                                        </Col>
+                                      </div>
+                                    </Row>
+                                  </div>
+                                </CardBody>
+                              </div>
+                            </ContentLoader>
+                          </CardBody>
+                        </div>
+                      </Card>
+                    </Card>
+                  </MaterialCategoryDetails>
+                </div>
+              </Col>
+            </div>
+          </Row>
+        </MaterialCategory>
+      </MaterialCategory>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`MaterialCategory -> <Index> render() setBreadcrumbItems when material id exists 2`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <MaterialCategory>
+        <DeleteGuard
+          close={[Function]}
+          confirm={[Function]}
+          content="This cannot be undone. Are you sure want to delete this ingredient?"
+          when={false}
+        >
+          <Modal
+            close={[Function]}
+            onValidSubmit={[Function]}
+            show={false}
+            title="Warning"
+          >
+            <Modal
+              autoFocus={true}
+              backdrop={true}
+              backdropTransition={
+                Object {
+                  "mountOnEnter": true,
+                  "timeout": 150,
+                }
+              }
+              centered={true}
+              container="body"
+              fade={false}
+              isOpen={false}
+              keyboard={true}
+              modalTransition={
+                Object {
+                  "timeout": 300,
+                }
+              }
+              onClosed={[Function]}
+              onOpened={[Function]}
+              returnFocusAfterClose={true}
+              role="dialog"
+              scrollable={false}
+              toggle={[Function]}
+              trapFocus={false}
+              unmountOnClose={true}
+              zIndex={1050}
+            />
+          </Modal>
+        </DeleteGuard>
+        <RouteLeavingGuard
+          content="There are unsaved changes. Are you sure want to leave this page?"
+          navigate={[Function]}
+          shouldBlockNavigation={[Function]}
+          when={false}
+        >
+          <Prompt
+            message={[Function]}
+            when={false}
+          />
+          <Modal
+            close={[Function]}
+            onValidSubmit={[Function]}
+            show={false}
+            title="Warning"
+          >
+            <Modal
+              autoFocus={true}
+              backdrop={true}
+              backdropTransition={
+                Object {
+                  "mountOnEnter": true,
+                  "timeout": 150,
+                }
+              }
+              centered={true}
+              container="body"
+              fade={false}
+              isOpen={false}
+              keyboard={true}
+              modalTransition={
+                Object {
+                  "timeout": 300,
+                }
+              }
+              onClosed={[Function]}
+              onOpened={[Function]}
+              returnFocusAfterClose={true}
+              role="dialog"
+              scrollable={false}
+              toggle={[Function]}
+              trapFocus={false}
+              unmountOnClose={true}
+              zIndex={1050}
+            />
+          </Modal>
+        </RouteLeavingGuard>
+        <MaterialCategory
+          changed={true}
+          editable={false}
+          onDelete={[Function]}
+          onSave={[Function]}
+        >
+          <Toolbar
+            changed={true}
+            editable={false}
+            onDelete={[Function]}
+            onSave={[Function]}
+          >
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              data-testid="categorySave"
+              disabled={false}
+              hidden={true}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="categorySave"
+                disabled={false}
+                hidden={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Save
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              hidden={true}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                hidden={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Cancel
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              data-testid="categoryEdit"
+              disabled={false}
+              hidden={false}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="categoryEdit"
+                disabled={false}
+                hidden={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Edit Category
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              hidden={false}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                hidden={false}
+                onClick={[Function]}
+                type="button"
+              >
+                New Category
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="danger"
+              data-testid="categoryDelete"
+              hidden={true}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+                data-testid="categoryDelete"
+                hidden={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Delete Category
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              hidden={false}
+              onClick={[Function]}
+              outline={true}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                hidden={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Material Categories
+              </button>
+            </Button>
+          </Toolbar>
+          <Row
+            tag="div"
+            widths={
+              Array [
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl",
+              ]
+            }
+          >
+            <div
+              className="row"
+            >
+              <Col
+                md={9}
+                tag="div"
+                widths={
+                  Array [
+                    "xs",
+                    "sm",
+                    "md",
+                    "lg",
+                    "xl",
+                  ]
+                }
+                xl={8}
+              >
+                <div
+                  className="col-md-9 col-xl-8"
+                >
+                  <MaterialCategoryDetails
+                    changed={true}
+                    editable={false}
+                    onSave={[Function]}
+                  >
+                    <Card>
+                      <Card
+                        className=""
+                        tag="div"
+                      >
+                        <div
+                          className="card"
+                        >
+                          <CardHeader>
+                            <CardHeader
+                              className="font-size-14 mb-2"
+                              tag="div"
+                            >
+                              <div
+                                className="font-size-14 mb-2 card-header"
+                              >
+                                Material Category Details
+                              </div>
+                            </CardHeader>
+                          </CardHeader>
+                          <CardBody>
+                            <ContentLoader>
+                              <div>
+                                <CardBody
+                                  className=""
+                                  tag="div"
+                                >
+                                  <div
+                                    className="card-body"
+                                  >
+                                    <Row
+                                      tag="div"
+                                      widths={
+                                        Array [
+                                          "xs",
+                                          "sm",
+                                          "md",
+                                          "lg",
+                                          "xl",
+                                        ]
+                                      }
+                                    >
+                                      <div
+                                        className="row"
+                                      >
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="2"
+                                        >
+                                          <div
+                                            className="col-2"
+                                          >
+                                            <Label
+                                              className="mb-3"
+                                              for="materialCategoryName"
+                                              tag="label"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
                                             >
-                                              -
+                                              <label
+                                                className="mb-3"
+                                                htmlFor="materialCategoryName"
+                                              >
+                                                *Name
+                                              </label>
+                                            </Label>
+                                          </div>
+                                        </Col>
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="8"
+                                        >
+                                          <div
+                                            className="col-8"
+                                          >
+                                            <FormGroup
+                                              hidden={true}
+                                              tag="div"
+                                            >
+                                              <div
+                                                className="form-group"
+                                                hidden={true}
+                                              >
+                                                <Input
+                                                  bsSize="sm"
+                                                  className="waves-effect"
+                                                  data-testid="materialCategoryName"
+                                                  disabled={true}
+                                                  invalid={false}
+                                                  name="materialCategoryName"
+                                                  onChange={[Function]}
+                                                  onKeyUp={[Function]}
+                                                  placeholder="Enter"
+                                                  style={
+                                                    Object {
+                                                      "width": "16rem",
+                                                    }
+                                                  }
+                                                  type="text"
+                                                  value="dumy"
+                                                >
+                                                  <input
+                                                    aria-invalid={false}
+                                                    className="waves-effect form-control-sm form-control"
+                                                    data-testid="materialCategoryName"
+                                                    disabled={true}
+                                                    name="materialCategoryName"
+                                                    onChange={[Function]}
+                                                    onKeyUp={[Function]}
+                                                    placeholder="Enter"
+                                                    style={
+                                                      Object {
+                                                        "width": "16rem",
+                                                      }
+                                                    }
+                                                    type="text"
+                                                    value="dumy"
+                                                  />
+                                                </Input>
+                                                <FormFeedback
+                                                  tag="div"
+                                                >
+                                                  <div
+                                                    className="invalid-feedback"
+                                                  >
+                                                    Enter a valid material category name.
+                                                  </div>
+                                                </FormFeedback>
+                                              </div>
+                                            </FormGroup>
+                                            <div
+                                              hidden={false}
+                                            >
+                                              dumy
                                             </div>
+                                          </div>
+                                        </Col>
+                                      </div>
+                                    </Row>
+                                    <Row
+                                      tag="div"
+                                      widths={
+                                        Array [
+                                          "xs",
+                                          "sm",
+                                          "md",
+                                          "lg",
+                                          "xl",
+                                        ]
+                                      }
+                                    >
+                                      <div
+                                        className="row"
+                                      >
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="2"
+                                        >
+                                          <div
+                                            className="col-2"
+                                          >
+                                            <Label
+                                              className="mb-3"
+                                              for="materialCategoryParentCategory"
+                                              tag="label"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                            >
+                                              <label
+                                                className="mb-3"
+                                                htmlFor="materialCategoryParentCategory"
+                                              >
+                                                *Parent Category
+                                              </label>
+                                            </Label>
+                                          </div>
+                                        </Col>
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="8"
+                                        >
+                                          <div
+                                            className="col-8"
+                                          >
+                                            <FormGroup
+                                              hidden={true}
+                                              tag="div"
+                                            >
+                                              <div
+                                                className="form-group"
+                                                hidden={true}
+                                              >
+                                                <Input
+                                                  bsSize="sm"
+                                                  className="waves-effect"
+                                                  data-testid="materialCategoryParentCategory"
+                                                  disabled={true}
+                                                  invalid={false}
+                                                  name="materialCategoryParentCategory"
+                                                  onChange={[Function]}
+                                                  onKeyUp={[Function]}
+                                                  style={
+                                                    Object {
+                                                      "width": "8rem",
+                                                    }
+                                                  }
+                                                  type="select"
+                                                  value=""
+                                                >
+                                                  <select
+                                                    aria-invalid={false}
+                                                    className="waves-effect form-control-sm form-control"
+                                                    data-testid="materialCategoryParentCategory"
+                                                    disabled={true}
+                                                    name="materialCategoryParentCategory"
+                                                    onChange={[Function]}
+                                                    onKeyUp={[Function]}
+                                                    style={
+                                                      Object {
+                                                        "width": "8rem",
+                                                      }
+                                                    }
+                                                    value=""
+                                                  >
+                                                    <option
+                                                      value=""
+                                                    >
+                                                      Select
+                                                    </option>
+                                                  </select>
+                                                </Input>
+                                                <FormFeedback
+                                                  tag="div"
+                                                >
+                                                  <div
+                                                    className="invalid-feedback"
+                                                  >
+                                                    Enter a valid material category.
+                                                  </div>
+                                                </FormFeedback>
+                                              </div>
+                                            </FormGroup>
+                                            <div
+                                              hidden={false}
+                                            />
+                                          </div>
+                                        </Col>
+                                      </div>
+                                    </Row>
+                                  </div>
+                                </CardBody>
+                              </div>
+                            </ContentLoader>
+                          </CardBody>
+                        </div>
+                      </Card>
+                    </Card>
+                  </MaterialCategoryDetails>
+                </div>
+              </Col>
+            </div>
+          </Row>
+        </MaterialCategory>
+      </MaterialCategory>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`MaterialCategory -> <Index> render() setEditMode should set editable to true 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <MaterialCategory>
+        <DeleteGuard
+          close={[Function]}
+          confirm={[Function]}
+          content="This cannot be undone. Are you sure want to delete this ingredient?"
+          when={false}
+        >
+          <Modal
+            close={[Function]}
+            onValidSubmit={[Function]}
+            show={false}
+            title="Warning"
+          >
+            <Modal
+              autoFocus={true}
+              backdrop={true}
+              backdropTransition={
+                Object {
+                  "mountOnEnter": true,
+                  "timeout": 150,
+                }
+              }
+              centered={true}
+              container="body"
+              fade={false}
+              isOpen={false}
+              keyboard={true}
+              modalTransition={
+                Object {
+                  "timeout": 300,
+                }
+              }
+              onClosed={[Function]}
+              onOpened={[Function]}
+              returnFocusAfterClose={true}
+              role="dialog"
+              scrollable={false}
+              toggle={[Function]}
+              trapFocus={false}
+              unmountOnClose={true}
+              zIndex={1050}
+            />
+          </Modal>
+        </DeleteGuard>
+        <RouteLeavingGuard
+          content="There are unsaved changes. Are you sure want to leave this page?"
+          navigate={[Function]}
+          shouldBlockNavigation={[Function]}
+          when={true}
+        >
+          <Prompt
+            message={[Function]}
+            when={true}
+          >
+            <Lifecycle
+              message={[Function]}
+              onMount={[Function]}
+              onUnmount={[Function]}
+              onUpdate={[Function]}
+            />
+          </Prompt>
+          <Modal
+            close={[Function]}
+            onValidSubmit={[Function]}
+            show={false}
+            title="Warning"
+          >
+            <Modal
+              autoFocus={true}
+              backdrop={true}
+              backdropTransition={
+                Object {
+                  "mountOnEnter": true,
+                  "timeout": 150,
+                }
+              }
+              centered={true}
+              container="body"
+              fade={false}
+              isOpen={false}
+              keyboard={true}
+              modalTransition={
+                Object {
+                  "timeout": 300,
+                }
+              }
+              onClosed={[Function]}
+              onOpened={[Function]}
+              returnFocusAfterClose={true}
+              role="dialog"
+              scrollable={false}
+              toggle={[Function]}
+              trapFocus={false}
+              unmountOnClose={true}
+              zIndex={1050}
+            />
+          </Modal>
+        </RouteLeavingGuard>
+        <MaterialCategory
+          changed={true}
+          editable={true}
+          onDelete={[Function]}
+          onSave={[Function]}
+        >
+          <Toolbar
+            changed={true}
+            editable={true}
+            onDelete={[Function]}
+            onSave={[Function]}
+          >
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              data-testid="categorySave"
+              disabled={false}
+              hidden={false}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="categorySave"
+                disabled={false}
+                hidden={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Save
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              hidden={false}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                hidden={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Cancel
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              data-testid="categoryEdit"
+              disabled={true}
+              hidden={true}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm disabled"
+                data-testid="categoryEdit"
+                disabled={true}
+                hidden={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Edit Category
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              hidden={true}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                hidden={true}
+                onClick={[Function]}
+                type="button"
+              >
+                New Category
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="danger"
+              data-testid="categoryDelete"
+              hidden={false}
+              onClick={[Function]}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+                data-testid="categoryDelete"
+                hidden={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Delete Category
+              </button>
+            </Button>
+            <Button
+              className="waves-effect mr-2 mb-3"
+              color="secondary"
+              hidden={true}
+              onClick={[Function]}
+              outline={true}
+              size="sm"
+              tag="button"
+              type="button"
+            >
+              <button
+                aria-label={null}
+                className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+                hidden={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Material Categories
+              </button>
+            </Button>
+          </Toolbar>
+          <Row
+            tag="div"
+            widths={
+              Array [
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl",
+              ]
+            }
+          >
+            <div
+              className="row"
+            >
+              <Col
+                md={9}
+                tag="div"
+                widths={
+                  Array [
+                    "xs",
+                    "sm",
+                    "md",
+                    "lg",
+                    "xl",
+                  ]
+                }
+                xl={8}
+              >
+                <div
+                  className="col-md-9 col-xl-8"
+                >
+                  <MaterialCategoryDetails
+                    changed={true}
+                    editable={true}
+                    onSave={[Function]}
+                  >
+                    <Card>
+                      <Card
+                        className=""
+                        tag="div"
+                      >
+                        <div
+                          className="card"
+                        >
+                          <CardHeader>
+                            <CardHeader
+                              className="font-size-14 mb-2"
+                              tag="div"
+                            >
+                              <div
+                                className="font-size-14 mb-2 card-header"
+                              >
+                                Material Category Details
+                              </div>
+                            </CardHeader>
+                          </CardHeader>
+                          <CardBody>
+                            <ContentLoader>
+                              <div>
+                                <CardBody
+                                  className=""
+                                  tag="div"
+                                >
+                                  <div
+                                    className="card-body"
+                                  >
+                                    <Row
+                                      tag="div"
+                                      widths={
+                                        Array [
+                                          "xs",
+                                          "sm",
+                                          "md",
+                                          "lg",
+                                          "xl",
+                                        ]
+                                      }
+                                    >
+                                      <div
+                                        className="row"
+                                      >
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="2"
+                                        >
+                                          <div
+                                            className="col-2"
+                                          >
+                                            <Label
+                                              className="mb-3"
+                                              for="materialCategoryName"
+                                              tag="label"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                            >
+                                              <label
+                                                className="mb-3"
+                                                htmlFor="materialCategoryName"
+                                              >
+                                                *Name
+                                              </label>
+                                            </Label>
+                                          </div>
+                                        </Col>
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="8"
+                                        >
+                                          <div
+                                            className="col-8"
+                                          >
+                                            <FormGroup
+                                              hidden={false}
+                                              tag="div"
+                                            >
+                                              <div
+                                                className="form-group"
+                                                hidden={false}
+                                              >
+                                                <Input
+                                                  bsSize="sm"
+                                                  className="waves-effect"
+                                                  data-testid="materialCategoryName"
+                                                  disabled={false}
+                                                  invalid={false}
+                                                  name="materialCategoryName"
+                                                  onChange={[Function]}
+                                                  onKeyUp={[Function]}
+                                                  placeholder="Enter"
+                                                  style={
+                                                    Object {
+                                                      "width": "16rem",
+                                                    }
+                                                  }
+                                                  type="text"
+                                                  value="dumy"
+                                                >
+                                                  <input
+                                                    aria-invalid={false}
+                                                    className="waves-effect form-control-sm form-control"
+                                                    data-testid="materialCategoryName"
+                                                    disabled={false}
+                                                    name="materialCategoryName"
+                                                    onChange={[Function]}
+                                                    onKeyUp={[Function]}
+                                                    placeholder="Enter"
+                                                    style={
+                                                      Object {
+                                                        "width": "16rem",
+                                                      }
+                                                    }
+                                                    type="text"
+                                                    value="dumy"
+                                                  />
+                                                </Input>
+                                                <FormFeedback
+                                                  tag="div"
+                                                >
+                                                  <div
+                                                    className="invalid-feedback"
+                                                  >
+                                                    Enter a valid material category name.
+                                                  </div>
+                                                </FormFeedback>
+                                              </div>
+                                            </FormGroup>
+                                            <div
+                                              hidden={true}
+                                            >
+                                              dumy
+                                            </div>
+                                          </div>
+                                        </Col>
+                                      </div>
+                                    </Row>
+                                    <Row
+                                      tag="div"
+                                      widths={
+                                        Array [
+                                          "xs",
+                                          "sm",
+                                          "md",
+                                          "lg",
+                                          "xl",
+                                        ]
+                                      }
+                                    >
+                                      <div
+                                        className="row"
+                                      >
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="2"
+                                        >
+                                          <div
+                                            className="col-2"
+                                          >
+                                            <Label
+                                              className="mb-3"
+                                              for="materialCategoryParentCategory"
+                                              tag="label"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                            >
+                                              <label
+                                                className="mb-3"
+                                                htmlFor="materialCategoryParentCategory"
+                                              >
+                                                *Parent Category
+                                              </label>
+                                            </Label>
+                                          </div>
+                                        </Col>
+                                        <Col
+                                          tag="div"
+                                          widths={
+                                            Array [
+                                              "xs",
+                                              "sm",
+                                              "md",
+                                              "lg",
+                                              "xl",
+                                            ]
+                                          }
+                                          xs="8"
+                                        >
+                                          <div
+                                            className="col-8"
+                                          >
+                                            <FormGroup
+                                              hidden={false}
+                                              tag="div"
+                                            >
+                                              <div
+                                                className="form-group"
+                                                hidden={false}
+                                              >
+                                                <Input
+                                                  bsSize="sm"
+                                                  className="waves-effect"
+                                                  data-testid="materialCategoryParentCategory"
+                                                  disabled={false}
+                                                  invalid={false}
+                                                  name="materialCategoryParentCategory"
+                                                  onChange={[Function]}
+                                                  onKeyUp={[Function]}
+                                                  style={
+                                                    Object {
+                                                      "width": "8rem",
+                                                    }
+                                                  }
+                                                  type="select"
+                                                  value=""
+                                                >
+                                                  <select
+                                                    aria-invalid={false}
+                                                    className="waves-effect form-control-sm form-control"
+                                                    data-testid="materialCategoryParentCategory"
+                                                    disabled={false}
+                                                    name="materialCategoryParentCategory"
+                                                    onChange={[Function]}
+                                                    onKeyUp={[Function]}
+                                                    style={
+                                                      Object {
+                                                        "width": "8rem",
+                                                      }
+                                                    }
+                                                    value=""
+                                                  >
+                                                    <option
+                                                      value=""
+                                                    >
+                                                      Select
+                                                    </option>
+                                                  </select>
+                                                </Input>
+                                                <FormFeedback
+                                                  tag="div"
+                                                >
+                                                  <div
+                                                    className="invalid-feedback"
+                                                  >
+                                                    Enter a valid material category.
+                                                  </div>
+                                                </FormFeedback>
+                                              </div>
+                                            </FormGroup>
+                                            <div
+                                              hidden={true}
+                                            />
                                           </div>
                                         </Col>
                                       </div>

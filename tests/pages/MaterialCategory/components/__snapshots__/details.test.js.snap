@@ -397,6 +397,19 @@ exports[`MaterialCategory -> Components -> <Details> render() Dispatch materialC
       <MaterialCategoryDetails
         changed={true}
         editable={true}
+        onSave={
+          [MockFunction] {
+            "calls": Array [
+              Array [],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+            ],
+          }
+        }
       >
         <Card>
           <Card

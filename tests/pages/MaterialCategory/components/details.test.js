@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import { BrowserRouter } from "react-router-dom";
 import MaterialCategoryDetails from "../../../../src/pages/MaterialCategory/components/details";
+import { useKeyPress } from "../../../../src/helpers/utils";
 
 const initialState = {
     MaterialCategory: {
@@ -75,6 +76,11 @@ jest.mock("react-router-dom", () => ({
 jest.mock("react-router", () => ({
     ...jest.requireActual("react-router"),
     useHistory: () => mockHistory,
+}));
+
+jest.mock("../../../../src/helpers/utils", () => ({
+    ...jest.requireActual("../../../../src/helpers/utils"),
+    useKeyPress: jest.fn().mockReturnValue(false),
 }));
 
 describe("MaterialCategory -> Components -> <Details>", () => {
@@ -185,12 +191,15 @@ describe("MaterialCategory -> Components -> <Details>", () => {
         });
 
         test("Dispatch materialCategoryName is getting on key up", () => {
+            const onSaveMock = jest.fn();
+            useKeyPress.mockReturnValue(true);
             const MaterialCategoryDetailsComp = mount(
                 <Provider store={store}>
                     <BrowserRouter>
                         <MaterialCategoryDetails
                             editable={true}
                             changed={true}
+                            onSave={onSaveMock}
                         />
                     </BrowserRouter>
                 </Provider>
@@ -203,6 +212,7 @@ describe("MaterialCategory -> Components -> <Details>", () => {
             expect(
                 shallowToJson(MaterialCategoryDetailsComp)
             ).toMatchSnapshot();
+            expect(onSaveMock).toHaveBeenCalled();
         });
     });
 });
