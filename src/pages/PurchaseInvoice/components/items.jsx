@@ -22,7 +22,7 @@ export default function PurchaseInvoiceItems({ editable }) {
             amountTotal = 0.0;
         items.forEach(({ invoiceItem }) => {
             if (invoiceItem.quantity.value && invoiceItem.price.amount) {
-                const taxRate = invoiceItem.tax.amount.amount / 100
+                const taxRate = invoiceItem.tax.amount.amount / 100;
                 const amountItemSubtotalItem =
                     parseFloat(invoiceItem.quantity.value) *
                     parseFloat(invoiceItem.price.amount);
@@ -33,9 +33,7 @@ export default function PurchaseInvoiceItems({ editable }) {
                     amountSubtotal += amountItemSubtotalItem;
                     amountTotal += amountItemSubtotalItem;
                     if (invoiceItem.tax.amount.amount) {
-                        const amountItemTax =
-                            amountItemSubtotalItem *
-                            taxRate;
+                        const amountItemTax = amountItemSubtotalItem * taxRate;
                         if (
                             Number.isInteger(amountItemTax) ||
                             isFloat(amountItemTax)
