@@ -6,6 +6,10 @@ import configureStore from "redux-mock-store";
 import { BrowserRouter, useParams } from "react-router-dom";
 import MaterialCategory from "../../../src/pages/MaterialCategory/index";
 import { useQuery, useKeyPress } from "../../../src/helpers/utils";
+import {
+    editMaterialCategory,
+    saveMaterialCategory,
+} from "../../../src/store/actions";
 
 const initialState = {
     MaterialCategory: {
@@ -77,6 +81,12 @@ jest.mock("../../../src/helpers/utils", () => ({
         },
     }),
     useKeyPress: jest.fn().mockReturnValue(false),
+}));
+
+jest.mock("../../../src/store/actions", () => ({
+    ...jest.requireActual("../../../src/store/actions"),
+    editMaterialCategory: jest.fn(),
+    saveMaterialCategory: jest.fn(),
 }));
 
 describe("MaterialCategory -> <Index>", () => {
@@ -207,46 +217,24 @@ describe("MaterialCategory -> <Index>", () => {
         });
 
         test("dispatch editMaterialCategory on click of onSave", () => {
-            const initialState = {
-                MaterialCategory: {
-                    data: {
-                        id: 1,
-                        name: "dummy",
-                        parentCategoryId: null,
-                        parentCategory: {
-                            id: 1,
-                        },
-                        version: null,
-                    },
-                    initial: {
-                        id: null,
-                        name: "",
-                        parentCategoryId: null,
-                        parentCategory: {
-                            id: null,
-                        },
-                        version: null,
-                    },
-                    invalidName: false,
-                    invalidParentCategory: false,
-                    loading: true,
-                    error: null,
-                    all: [],
-                },
-                MaterialCategories: {
-                    content: [],
-                    all: [],
-                    loading: false,
-                    error: null,
-                    totalElements: 0,
-                    totalPages: 0,
-                    pageIndex: 0,
-                    pageSize: 20,
-                },
-            };
+            initialState.MaterialCategory.data.id = 1;
+            initialState.MaterialCategory.data.name = "dummy";
+            initialState.MaterialCategory.data.parentCategory.id = 1;
+            initialState.MaterialCategory.data.version = null;
 
             const store = mockStore(initialState);
 
+            editMaterialCategory.mockReturnValue({
+                type: "EDIT_MATERIAL_CATEGORY_REQUEST",
+                payload: {
+                    id: 1,
+                    form: {
+                        name: "dummy",
+                        parentCategoryId: 1,
+                        version: null,
+                    },
+                },
+            });
             useKeyPress.mockReturnValue(true);
             useParams.mockReturnValueOnce({
                 id: "new",
@@ -270,6 +258,18 @@ describe("MaterialCategory -> <Index>", () => {
             wrapper
                 .find('input[name="materialCategoryName"]')
                 .simulate("keyup");
+
+            expect(mockDispatch).toHaveBeenCalledWith({
+                type: "EDIT_MATERIAL_CATEGORY_REQUEST",
+                payload: {
+                    id: 1,
+                    form: {
+                        name: "dummy",
+                        parentCategoryId: 1,
+                        version: null,
+                    },
+                },
+            });
         });
 
         test("dispatch saveMaterialCategory on click of onSave", () => {
@@ -311,6 +311,16 @@ describe("MaterialCategory -> <Index>", () => {
                 },
             };
 
+            saveMaterialCategory.mockReturnValue({
+                type: "ADD_MATERIAL_CATEGORY_REQUEST",
+                payload: {
+                    form: {
+                        name: "dummy",
+                        parentCategoryId: 1,
+                    },
+                },
+            });
+
             const store = mockStore(initialState);
 
             useKeyPress.mockReturnValue(true);
@@ -336,6 +346,16 @@ describe("MaterialCategory -> <Index>", () => {
             wrapper
                 .find('input[name="materialCategoryName"]')
                 .simulate("keyup");
+
+            expect(mockDispatch).toHaveBeenCalledWith({
+                type: "ADD_MATERIAL_CATEGORY_REQUEST",
+                payload: {
+                    form: {
+                        name: "dummy",
+                        parentCategoryId: 1,
+                    },
+                },
+            });
         });
     });
 });
