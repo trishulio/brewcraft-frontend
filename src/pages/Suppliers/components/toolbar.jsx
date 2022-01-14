@@ -20,19 +20,18 @@ export default function ProductCategoriesToolbar() {
                     });
                 }}
             >
-                New Supplier
+                <i className="fa fa-plus"></i> New Supplier
             </Button>
             <Button
                 type="button"
                 color="secondary"
                 size="sm"
                 className="waves-effect mr-2 mb-3"
-                outline={true}
                 onClick={() => {
                     history.push("/suppliers/contacts");
                 }}
             >
-                Contacts
+                <i className="fa fa-user"></i> Contacts
             </Button>
         </Toolbar>
     );

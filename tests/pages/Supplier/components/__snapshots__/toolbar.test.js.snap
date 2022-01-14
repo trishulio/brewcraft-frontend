@@ -56,7 +56,10 @@ exports[`Supplier -> Components -> <Toolbar> render() History.goback button shou
             onClick={[Function]}
             type="button"
           >
-            Save
+            <i
+              className="fa fa-save"
+            />
+             Save
           </button>
         </Button>
         <Button
@@ -75,7 +78,10 @@ exports[`Supplier -> Components -> <Toolbar> render() History.goback button shou
             onClick={[Function]}
             type="button"
           >
-            Cancel
+            <i
+              className="fa fa-ban"
+            />
+             Cancel
           </button>
         </Button>
         <Button
@@ -84,20 +90,22 @@ exports[`Supplier -> Components -> <Toolbar> render() History.goback button shou
           disabled={true}
           hidden={true}
           onClick={[Function]}
-          outline={true}
           size="sm"
           tag="button"
           type="button"
         >
           <button
             aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm disabled"
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm disabled"
             disabled={true}
             hidden={true}
             onClick={[Function]}
             type="button"
           >
-            Edit
+            <i
+              className="fa fa-edit"
+            />
+             Edit
           </button>
         </Button>
         <Button
@@ -115,152 +123,10 @@ exports[`Supplier -> Components -> <Toolbar> render() History.goback button shou
             onClick={[Function]}
             type="button"
           >
-            Delete Supplier
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={true}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={true}
-            onClick={[Function]}
-            type="button"
-          >
-            Suppliers
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={true}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={true}
-            onClick={[Function]}
-            type="button"
-          >
-            New Supplier
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={true}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={true}
-            onClick={[Function]}
-            type="button"
-          >
-            New Contact
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={true}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={true}
-            onClick={[Function]}
-            type="button"
-          >
-            Contacts
-          </button>
-        </Button>
-      </Toolbar>
-    </Router>
-  </BrowserRouter>
-</Provider>
-`;
-
-exports[`Supplier -> Components -> <Toolbar> render() History.push button should be called on Contacts 1`] = `
-<Provider
-  store={
-    Object {
-      "clearActions": [Function],
-      "dispatch": [Function],
-      "getActions": [Function],
-      "getState": [Function],
-      "replaceReducer": [Function],
-      "subscribe": [Function],
-    }
-  }
->
-  <BrowserRouter>
-    <Router
-      history={
-        Object {
-          "action": "POP",
-          "block": [Function],
-          "createHref": [Function],
-          "go": [Function],
-          "goBack": [Function],
-          "goForward": [Function],
-          "length": 1,
-          "listen": [Function],
-          "location": Object {
-            "hash": "",
-            "pathname": "/",
-            "search": "",
-            "state": undefined,
-          },
-          "push": [Function],
-          "replace": [Function],
-        }
-      }
-    >
-      <Toolbar
-        editable={false}
-      >
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="primary"
-          disabled={true}
-          hidden={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-primary btn-sm disabled"
-            disabled={true}
-            hidden={true}
-            onClick={[Function]}
-            type="button"
-          >
-            Save
+            <i
+              className="fa fa-minus-circle"
+            />
+             Delete Supplier
           </button>
         </Button>
         <Button
@@ -279,192 +145,10 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
             onClick={[Function]}
             type="button"
           >
-            Cancel
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          disabled={false}
-          hidden={false}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            disabled={false}
-            hidden={false}
-            onClick={[Function]}
-            type="button"
-          >
-            Edit
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="danger"
-          hidden={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
-            hidden={true}
-            onClick={[Function]}
-            type="button"
-          >
-            Delete Supplier
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={false}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={false}
-            onClick={[Function]}
-            type="button"
-          >
-            Suppliers
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={false}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={false}
-            onClick={[Function]}
-            type="button"
-          >
-            New Supplier
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={false}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={false}
-            onClick={[Function]}
-            type="button"
-          >
-            New Contact
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={false}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={false}
-            onClick={[Function]}
-            type="button"
-          >
-            Contacts
-          </button>
-        </Button>
-      </Toolbar>
-    </Router>
-  </BrowserRouter>
-</Provider>
-`;
-
-exports[`Supplier -> Components -> <Toolbar> render() History.push button should be called on New Contact 1`] = `
-<Provider
-  store={
-    Object {
-      "clearActions": [Function],
-      "dispatch": [Function],
-      "getActions": [Function],
-      "getState": [Function],
-      "replaceReducer": [Function],
-      "subscribe": [Function],
-    }
-  }
->
-  <BrowserRouter>
-    <Router
-      history={
-        Object {
-          "action": "POP",
-          "block": [Function],
-          "createHref": [Function],
-          "go": [Function],
-          "goBack": [Function],
-          "goForward": [Function],
-          "length": 1,
-          "listen": [Function],
-          "location": Object {
-            "hash": "",
-            "pathname": "/",
-            "search": "",
-            "state": undefined,
-          },
-          "push": [Function],
-          "replace": [Function],
-        }
-      }
-    >
-      <Toolbar
-        editable={false}
-      >
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="primary"
-          disabled={true}
-          hidden={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-primary btn-sm disabled"
-            disabled={true}
-            hidden={true}
-            onClick={[Function]}
-            type="button"
-          >
-            Save
+            <i
+              className="fa fa-plus"
+            />
+             New Supplier
           </button>
         </Button>
         <Button
@@ -483,127 +167,10 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
             onClick={[Function]}
             type="button"
           >
-            Cancel
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          disabled={false}
-          hidden={false}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            disabled={false}
-            hidden={false}
-            onClick={[Function]}
-            type="button"
-          >
-            Edit
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="danger"
-          hidden={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
-            hidden={true}
-            onClick={[Function]}
-            type="button"
-          >
-            Delete Supplier
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={false}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={false}
-            onClick={[Function]}
-            type="button"
-          >
-            Suppliers
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={false}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={false}
-            onClick={[Function]}
-            type="button"
-          >
-            New Supplier
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={false}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={false}
-            onClick={[Function]}
-            type="button"
-          >
-            New Contact
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={false}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={false}
-            onClick={[Function]}
-            type="button"
-          >
-            Contacts
+            <i
+              className="fa fa-industry"
+            />
+             Suppliers
           </button>
         </Button>
       </Toolbar>
@@ -668,7 +235,10 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
             onClick={[Function]}
             type="button"
           >
-            Save
+            <i
+              className="fa fa-save"
+            />
+             Save
           </button>
         </Button>
         <Button
@@ -687,7 +257,10 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
             onClick={[Function]}
             type="button"
           >
-            Cancel
+            <i
+              className="fa fa-ban"
+            />
+             Cancel
           </button>
         </Button>
         <Button
@@ -696,20 +269,22 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
           disabled={false}
           hidden={false}
           onClick={[Function]}
-          outline={true}
           size="sm"
           tag="button"
           type="button"
         >
           <button
             aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
             disabled={false}
             hidden={false}
             onClick={[Function]}
             type="button"
           >
-            Edit
+            <i
+              className="fa fa-edit"
+            />
+             Edit
           </button>
         </Button>
         <Button
@@ -727,7 +302,10 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
             onClick={[Function]}
             type="button"
           >
-            Delete Supplier
+            <i
+              className="fa fa-minus-circle"
+            />
+             Delete Supplier
           </button>
         </Button>
         <Button
@@ -735,19 +313,21 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
           color="secondary"
           hidden={false}
           onClick={[Function]}
-          outline={true}
           size="sm"
           tag="button"
           type="button"
         >
           <button
             aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
             hidden={false}
             onClick={[Function]}
             type="button"
           >
-            Suppliers
+            <i
+              className="fa fa-plus"
+            />
+             New Supplier
           </button>
         </Button>
         <Button
@@ -755,59 +335,21 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
           color="secondary"
           hidden={false}
           onClick={[Function]}
-          outline={true}
           size="sm"
           tag="button"
           type="button"
         >
           <button
             aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
             hidden={false}
             onClick={[Function]}
             type="button"
           >
-            New Supplier
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={false}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={false}
-            onClick={[Function]}
-            type="button"
-          >
-            New Contact
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={false}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={false}
-            onClick={[Function]}
-            type="button"
-          >
-            Contacts
+            <i
+              className="fa fa-industry"
+            />
+             Suppliers
           </button>
         </Button>
       </Toolbar>
@@ -872,7 +414,10 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
             onClick={[Function]}
             type="button"
           >
-            Save
+            <i
+              className="fa fa-save"
+            />
+             Save
           </button>
         </Button>
         <Button
@@ -891,7 +436,10 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
             onClick={[Function]}
             type="button"
           >
-            Cancel
+            <i
+              className="fa fa-ban"
+            />
+             Cancel
           </button>
         </Button>
         <Button
@@ -900,20 +448,22 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
           disabled={false}
           hidden={false}
           onClick={[Function]}
-          outline={true}
           size="sm"
           tag="button"
           type="button"
         >
           <button
             aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
             disabled={false}
             hidden={false}
             onClick={[Function]}
             type="button"
           >
-            Edit
+            <i
+              className="fa fa-edit"
+            />
+             Edit
           </button>
         </Button>
         <Button
@@ -931,7 +481,10 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
             onClick={[Function]}
             type="button"
           >
-            Delete Supplier
+            <i
+              className="fa fa-minus-circle"
+            />
+             Delete Supplier
           </button>
         </Button>
         <Button
@@ -939,19 +492,21 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
           color="secondary"
           hidden={false}
           onClick={[Function]}
-          outline={true}
           size="sm"
           tag="button"
           type="button"
         >
           <button
             aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
             hidden={false}
             onClick={[Function]}
             type="button"
           >
-            Suppliers
+            <i
+              className="fa fa-plus"
+            />
+             New Supplier
           </button>
         </Button>
         <Button
@@ -959,59 +514,21 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
           color="secondary"
           hidden={false}
           onClick={[Function]}
-          outline={true}
           size="sm"
           tag="button"
           type="button"
         >
           <button
             aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
             hidden={false}
             onClick={[Function]}
             type="button"
           >
-            New Supplier
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={false}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={false}
-            onClick={[Function]}
-            type="button"
-          >
-            New Contact
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={false}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={false}
-            onClick={[Function]}
-            type="button"
-          >
-            Contacts
+            <i
+              className="fa fa-industry"
+            />
+             Suppliers
           </button>
         </Button>
       </Toolbar>
@@ -1076,7 +593,10 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
             onClick={[Function]}
             type="button"
           >
-            Save
+            <i
+              className="fa fa-save"
+            />
+             Save
           </button>
         </Button>
         <Button
@@ -1095,7 +615,10 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
             onClick={[Function]}
             type="button"
           >
-            Cancel
+            <i
+              className="fa fa-ban"
+            />
+             Cancel
           </button>
         </Button>
         <Button
@@ -1104,20 +627,22 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
           disabled={false}
           hidden={false}
           onClick={[Function]}
-          outline={true}
           size="sm"
           tag="button"
           type="button"
         >
           <button
             aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
             disabled={false}
             hidden={false}
             onClick={[Function]}
             type="button"
           >
-            Edit
+            <i
+              className="fa fa-edit"
+            />
+             Edit
           </button>
         </Button>
         <Button
@@ -1135,7 +660,10 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
             onClick={[Function]}
             type="button"
           >
-            Delete Supplier
+            <i
+              className="fa fa-minus-circle"
+            />
+             Delete Supplier
           </button>
         </Button>
         <Button
@@ -1143,19 +671,21 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
           color="secondary"
           hidden={false}
           onClick={[Function]}
-          outline={true}
           size="sm"
           tag="button"
           type="button"
         >
           <button
             aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
             hidden={false}
             onClick={[Function]}
             type="button"
           >
-            Suppliers
+            <i
+              className="fa fa-plus"
+            />
+             New Supplier
           </button>
         </Button>
         <Button
@@ -1163,59 +693,21 @@ exports[`Supplier -> Components -> <Toolbar> render() History.push button should
           color="secondary"
           hidden={false}
           onClick={[Function]}
-          outline={true}
           size="sm"
           tag="button"
           type="button"
         >
           <button
             aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
             hidden={false}
             onClick={[Function]}
             type="button"
           >
-            New Supplier
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={false}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={false}
-            onClick={[Function]}
-            type="button"
-          >
-            New Contact
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={false}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={false}
-            onClick={[Function]}
-            type="button"
-          >
-            Contacts
+            <i
+              className="fa fa-industry"
+            />
+             Suppliers
           </button>
         </Button>
       </Toolbar>
@@ -1284,7 +776,10 @@ exports[`Supplier -> Components -> <Toolbar> render() renders the toolbar compon
             onClick={[Function]}
             type="button"
           >
-            Save
+            <i
+              className="fa fa-save"
+            />
+             Save
           </button>
         </Button>
         <Button
@@ -1303,7 +798,10 @@ exports[`Supplier -> Components -> <Toolbar> render() renders the toolbar compon
             onClick={[Function]}
             type="button"
           >
-            Cancel
+            <i
+              className="fa fa-ban"
+            />
+             Cancel
           </button>
         </Button>
         <Button
@@ -1312,20 +810,22 @@ exports[`Supplier -> Components -> <Toolbar> render() renders the toolbar compon
           disabled={false}
           hidden={true}
           onClick={[Function]}
-          outline={true}
           size="sm"
           tag="button"
           type="button"
         >
           <button
             aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
             disabled={false}
             hidden={true}
             onClick={[Function]}
             type="button"
           >
-            Edit
+            <i
+              className="fa fa-edit"
+            />
+             Edit
           </button>
         </Button>
         <Button
@@ -1346,7 +846,10 @@ exports[`Supplier -> Components -> <Toolbar> render() renders the toolbar compon
             onClick={[Function]}
             type="button"
           >
-            Delete Supplier
+            <i
+              className="fa fa-minus-circle"
+            />
+             Delete Supplier
           </button>
         </Button>
         <Button
@@ -1354,19 +857,21 @@ exports[`Supplier -> Components -> <Toolbar> render() renders the toolbar compon
           color="secondary"
           hidden={true}
           onClick={[Function]}
-          outline={true}
           size="sm"
           tag="button"
           type="button"
         >
           <button
             aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
             hidden={true}
             onClick={[Function]}
             type="button"
           >
-            Suppliers
+            <i
+              className="fa fa-plus"
+            />
+             New Supplier
           </button>
         </Button>
         <Button
@@ -1374,59 +879,21 @@ exports[`Supplier -> Components -> <Toolbar> render() renders the toolbar compon
           color="secondary"
           hidden={true}
           onClick={[Function]}
-          outline={true}
           size="sm"
           tag="button"
           type="button"
         >
           <button
             aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
+            className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
             hidden={true}
             onClick={[Function]}
             type="button"
           >
-            New Supplier
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={true}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={true}
-            onClick={[Function]}
-            type="button"
-          >
-            New Contact
-          </button>
-        </Button>
-        <Button
-          className="waves-effect mr-2 mb-3"
-          color="secondary"
-          hidden={true}
-          onClick={[Function]}
-          outline={true}
-          size="sm"
-          tag="button"
-          type="button"
-        >
-          <button
-            aria-label={null}
-            className="waves-effect mr-2 mb-3 btn btn-outline-secondary btn-sm"
-            hidden={true}
-            onClick={[Function]}
-            type="button"
-          >
-            Contacts
+            <i
+              className="fa fa-industry"
+            />
+             Suppliers
           </button>
         </Button>
       </Toolbar>

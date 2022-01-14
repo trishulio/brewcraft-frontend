@@ -146,6 +146,9 @@
         ]
     },
     "jest": {
+        "setupFilesAfterEnv": [
+            "<rootDir>/tests/setupTests.js"
+        ],
         "coveragePathIgnorePatterns": [
             "<rootDir>/src/assets/*"
         ]

@@ -19,14 +19,14 @@ export default function SupplierContactToolbar({
         <React.Fragment>
             <Button
                 type="button"
-                color="secondary"
+                color="primary"
                 size="sm"
                 className="waves-effect mr-2 mb-3"
                 onClick={onSave}
                 disabled={!changed}
                 hidden={!editable}
             >
-                Save
+                <i className="fa fa-save"></i> Save
             </Button>
             <Button
                 type="button"
@@ -38,7 +38,7 @@ export default function SupplierContactToolbar({
                 }}
                 hidden={!editable}
             >
-                Cancel
+                <i className="fa fa-ban"></i> Cancel
             </Button>
             <Button
                 type="button"
@@ -54,7 +54,7 @@ export default function SupplierContactToolbar({
                     });
                 }}
             >
-                Edit Contact
+                <i className="fa fa-edit"></i> Edit Contact
             </Button>
             <Button
                 type="button"
@@ -69,7 +69,7 @@ export default function SupplierContactToolbar({
                     });
                 }}
             >
-                New Contact
+                <i className="fa fa-plus"></i> New Contact
             </Button>
             <Button
                 type="button"
@@ -79,7 +79,7 @@ export default function SupplierContactToolbar({
                 onClick={onDelete}
                 hidden={!contact.id || !editable}
             >
-                Delete Contact
+                <i className="fa fa-minus-circle"></i> Delete Contact
             </Button>
             <Button
                 type="button"
@@ -87,12 +87,11 @@ export default function SupplierContactToolbar({
                 size="sm"
                 className="waves-effect mr-2 mb-3"
                 hidden={!contact.id || editable}
-                outline={true}
                 onClick={() => {
                     history.push("/suppliers/contacts");
                 }}
             >
-                Contacts
+                <i className="fa fa-user"></i> Contacts
             </Button>
         </React.Fragment>
     );

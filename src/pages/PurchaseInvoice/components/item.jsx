@@ -64,6 +64,8 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                 );
                 break;
             case "purchaseInvoiceItemTax":
+                if (e.target.value < 0) e.target.value = 0;
+                if (e.target.value > 100) e.target.value = 100;
                 itemsNew[indexv].invoiceItem.tax.amount.amount = e.target.value;
                 itemsNew[indexv].invoiceItem.invalidTax = !validAmount(
                     parseFloat(e.target.value)
@@ -90,10 +92,13 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
             item.invoiceItem.price.amount &&
             item.invoiceItem.tax.amount.amount
         ) {
+            const taxRate = parseFloat(
+                item.invoiceItem.tax.amount.amount / 100
+            );
             const amount =
                 parseFloat(item.invoiceItem.quantity.value) *
                 parseFloat(item.invoiceItem.price.amount) *
-                (parseFloat(item.invoiceItem.tax.amount.amount) + 1.0);
+                (parseFloat(taxRate) + 1.0);
             if (Number.isInteger(amount) || isFloat(amount)) {
                 return amount.toFixed(2);
             }

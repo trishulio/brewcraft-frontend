@@ -39,7 +39,9 @@ const initialState = {
             generatedOn: "",
             receivedOn: "",
             paymentDueDate: "",
-            invoiceStatus: null,
+            invoiceStatus: {
+                id: "",
+            },
             version: null,
         },
         shipment: {
@@ -104,7 +106,9 @@ const initialState = {
             generatedOn: "",
             receivedOn: "",
             paymentDueDate: "",
-            invoiceStatus: null,
+            invoiceStatus: {
+                id: "",
+            },
             version: null,
         },
         shipment: {

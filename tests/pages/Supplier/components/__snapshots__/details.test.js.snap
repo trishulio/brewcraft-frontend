@@ -59,9 +59,46 @@ exports[`Supplier -> Components -> <Details> render() Dispatch supplierAddressCi
                   </div>
                 </CardHeader>
               </CardHeader>
-              <CardBody>
-                <ContentLoader>
+              <CardBody
+                isLoading={true}
+              >
+                <ContentLoader
+                  isLoading={true}
+                >
                   <div>
+                    <div
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "rgba(255, 255, 255, 0.8)",
+                          "display": "flex",
+                          "height": undefined,
+                          "position": "absolute",
+                          "textAlign": "center",
+                          "width": undefined,
+                          "zIndex": 1,
+                        }
+                      }
+                    >
+                      <Loading>
+                        <div
+                          style={
+                            Object {
+                              "width": "100%",
+                            }
+                          }
+                        >
+                          <div
+                            className="spinner-border text-primary"
+                            role="status"
+                          >
+                            <span
+                              className="visually-hidden"
+                            />
+                          </div>
+                        </div>
+                      </Loading>
+                    </div>
                     <CardBody
                       className=""
                       tag="div"
@@ -811,9 +848,46 @@ exports[`Supplier -> Components -> <Details> render() Dispatch supplierAddressCo
                   </div>
                 </CardHeader>
               </CardHeader>
-              <CardBody>
-                <ContentLoader>
+              <CardBody
+                isLoading={true}
+              >
+                <ContentLoader
+                  isLoading={true}
+                >
                   <div>
+                    <div
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "rgba(255, 255, 255, 0.8)",
+                          "display": "flex",
+                          "height": undefined,
+                          "position": "absolute",
+                          "textAlign": "center",
+                          "width": undefined,
+                          "zIndex": 1,
+                        }
+                      }
+                    >
+                      <Loading>
+                        <div
+                          style={
+                            Object {
+                              "width": "100%",
+                            }
+                          }
+                        >
+                          <div
+                            className="spinner-border text-primary"
+                            role="status"
+                          >
+                            <span
+                              className="visually-hidden"
+                            />
+                          </div>
+                        </div>
+                      </Loading>
+                    </div>
                     <CardBody
                       className=""
                       tag="div"
@@ -1563,9 +1637,46 @@ exports[`Supplier -> Components -> <Details> render() Dispatch supplierAddressLi
                   </div>
                 </CardHeader>
               </CardHeader>
-              <CardBody>
-                <ContentLoader>
+              <CardBody
+                isLoading={true}
+              >
+                <ContentLoader
+                  isLoading={true}
+                >
                   <div>
+                    <div
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "rgba(255, 255, 255, 0.8)",
+                          "display": "flex",
+                          "height": undefined,
+                          "position": "absolute",
+                          "textAlign": "center",
+                          "width": undefined,
+                          "zIndex": 1,
+                        }
+                      }
+                    >
+                      <Loading>
+                        <div
+                          style={
+                            Object {
+                              "width": "100%",
+                            }
+                          }
+                        >
+                          <div
+                            className="spinner-border text-primary"
+                            role="status"
+                          >
+                            <span
+                              className="visually-hidden"
+                            />
+                          </div>
+                        </div>
+                      </Loading>
+                    </div>
                     <CardBody
                       className=""
                       tag="div"
@@ -2315,9 +2426,46 @@ exports[`Supplier -> Components -> <Details> render() Dispatch supplierAddressLi
                   </div>
                 </CardHeader>
               </CardHeader>
-              <CardBody>
-                <ContentLoader>
+              <CardBody
+                isLoading={true}
+              >
+                <ContentLoader
+                  isLoading={true}
+                >
                   <div>
+                    <div
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "rgba(255, 255, 255, 0.8)",
+                          "display": "flex",
+                          "height": undefined,
+                          "position": "absolute",
+                          "textAlign": "center",
+                          "width": undefined,
+                          "zIndex": 1,
+                        }
+                      }
+                    >
+                      <Loading>
+                        <div
+                          style={
+                            Object {
+                              "width": "100%",
+                            }
+                          }
+                        >
+                          <div
+                            className="spinner-border text-primary"
+                            role="status"
+                          >
+                            <span
+                              className="visually-hidden"
+                            />
+                          </div>
+                        </div>
+                      </Loading>
+                    </div>
                     <CardBody
                       className=""
                       tag="div"
@@ -3067,9 +3215,46 @@ exports[`Supplier -> Components -> <Details> render() Dispatch supplierAddressPo
                   </div>
                 </CardHeader>
               </CardHeader>
-              <CardBody>
-                <ContentLoader>
+              <CardBody
+                isLoading={true}
+              >
+                <ContentLoader
+                  isLoading={true}
+                >
                   <div>
+                    <div
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "rgba(255, 255, 255, 0.8)",
+                          "display": "flex",
+                          "height": undefined,
+                          "position": "absolute",
+                          "textAlign": "center",
+                          "width": undefined,
+                          "zIndex": 1,
+                        }
+                      }
+                    >
+                      <Loading>
+                        <div
+                          style={
+                            Object {
+                              "width": "100%",
+                            }
+                          }
+                        >
+                          <div
+                            className="spinner-border text-primary"
+                            role="status"
+                          >
+                            <span
+                              className="visually-hidden"
+                            />
+                          </div>
+                        </div>
+                      </Loading>
+                    </div>
                     <CardBody
                       className=""
                       tag="div"
@@ -3819,9 +4004,46 @@ exports[`Supplier -> Components -> <Details> render() Dispatch supplierAddressPr
                   </div>
                 </CardHeader>
               </CardHeader>
-              <CardBody>
-                <ContentLoader>
+              <CardBody
+                isLoading={true}
+              >
+                <ContentLoader
+                  isLoading={true}
+                >
                   <div>
+                    <div
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "rgba(255, 255, 255, 0.8)",
+                          "display": "flex",
+                          "height": undefined,
+                          "position": "absolute",
+                          "textAlign": "center",
+                          "width": undefined,
+                          "zIndex": 1,
+                        }
+                      }
+                    >
+                      <Loading>
+                        <div
+                          style={
+                            Object {
+                              "width": "100%",
+                            }
+                          }
+                        >
+                          <div
+                            className="spinner-border text-primary"
+                            role="status"
+                          >
+                            <span
+                              className="visually-hidden"
+                            />
+                          </div>
+                        </div>
+                      </Loading>
+                    </div>
                     <CardBody
                       className=""
                       tag="div"
@@ -4571,9 +4793,46 @@ exports[`Supplier -> Components -> <Details> render() Dispatch supplierName is g
                   </div>
                 </CardHeader>
               </CardHeader>
-              <CardBody>
-                <ContentLoader>
+              <CardBody
+                isLoading={true}
+              >
+                <ContentLoader
+                  isLoading={true}
+                >
                   <div>
+                    <div
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "rgba(255, 255, 255, 0.8)",
+                          "display": "flex",
+                          "height": undefined,
+                          "position": "absolute",
+                          "textAlign": "center",
+                          "width": undefined,
+                          "zIndex": 1,
+                        }
+                      }
+                    >
+                      <Loading>
+                        <div
+                          style={
+                            Object {
+                              "width": "100%",
+                            }
+                          }
+                        >
+                          <div
+                            className="spinner-border text-primary"
+                            role="status"
+                          >
+                            <span
+                              className="visually-hidden"
+                            />
+                          </div>
+                        </div>
+                      </Loading>
+                    </div>
                     <CardBody
                       className=""
                       tag="div"
@@ -5323,9 +5582,46 @@ exports[`Supplier -> Components -> <Details> render() renders the Details compon
                   </div>
                 </CardHeader>
               </CardHeader>
-              <CardBody>
-                <ContentLoader>
+              <CardBody
+                isLoading={true}
+              >
+                <ContentLoader
+                  isLoading={true}
+                >
                   <div>
+                    <div
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "rgba(255, 255, 255, 0.8)",
+                          "display": "flex",
+                          "height": undefined,
+                          "position": "absolute",
+                          "textAlign": "center",
+                          "width": undefined,
+                          "zIndex": 1,
+                        }
+                      }
+                    >
+                      <Loading>
+                        <div
+                          style={
+                            Object {
+                              "width": "100%",
+                            }
+                          }
+                        >
+                          <div
+                            className="spinner-border text-primary"
+                            role="status"
+                          >
+                            <span
+                              className="visually-hidden"
+                            />
+                          </div>
+                        </div>
+                      </Loading>
+                    </div>
                     <CardBody
                       className=""
                       tag="div"
