@@ -27,7 +27,7 @@ export const FilterBarIcon = () => {
         <Button
             type="button"
             size="sm"
-            className="waves-effect float-right mr-2 my-2 "
+            className="waves-effect float-right mr-2 my-2"
             outline={true}
             onClick={() => {
                 dispatch(toggleFilterBar(pagesKey));
@@ -38,7 +38,7 @@ export const FilterBarIcon = () => {
                 borderColor: "#ced4da",
             }}
         >
-            <i className="mdi mdi-filter font-size-12 p-0" />
+            <i className="fa fa-filter"></i> Filter
         </Button>
     );
 };
