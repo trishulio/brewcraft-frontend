@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Row, ListGroupItem, ListGroup } from "reactstrap";
-import { isFloat } from "../../../helpers/textUtils";
+import { formatCurrency, isFloat } from "../../../helpers/textUtils";
 import Item from "./item";
 import { setPurchaseInvoiceItems } from "../../../store/actions";
 
@@ -107,14 +107,14 @@ export default function PurchaseInvoiceItems({ editable }) {
                             <strong>Subtotal</strong>
                         </Col>
                         <Col xs="2" className="text-center">
-                            <strong>{subtotal.toFixed(2)}</strong>
+                            <strong>{formatCurrency(subtotal)}</strong>
                         </Col>
                         <Col xs="8"></Col>
                         <Col xs="2" className="text-right">
                             <strong>Tax</strong>
                         </Col>
                         <Col xs="2" className="text-center">
-                            <strong>{taxTotal.toFixed(2)}</strong>
+                            <strong>{formatCurrency(taxTotal)}</strong>
                         </Col>
                     </Row>
                 </ListGroupItem>
@@ -125,7 +125,7 @@ export default function PurchaseInvoiceItems({ editable }) {
                             <strong>Total</strong>
                         </Col>
                         <Col xs="2" className="text-center">
-                            <strong>$ {total.toFixed(2)}</strong>
+                            <strong>{formatCurrency(total)}</strong>
                         </Col>
                     </Row>
                 </ListGroupItem>

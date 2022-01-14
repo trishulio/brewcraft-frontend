@@ -8,7 +8,7 @@ import {
     FormGroup,
     FormFeedback,
 } from "reactstrap";
-import { isFloat } from "../../../helpers/textUtils";
+import { formatCurrency, isFloat } from "../../../helpers/textUtils";
 import { validAmount, validId } from "../../../helpers/utils";
 import { setPurchaseInvoiceItems } from "../../../store/actions";
 
@@ -108,7 +108,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
     return (
         <React.Fragment>
             <ListGroupItem>
-                <Row>
+                <Row style={{ alignItems: "baseline" }}>
                     <Col xs="3">
                         {editable && (
                             <FormGroup>
@@ -249,22 +249,17 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             {item.invoiceItem.tax.amount.amount || "-"}
                         </div>
                     </Col>
-                    <Col xs="1">
-                        <Input
-                            type="text"
-                            name="purchaseInvoiceItemAmount"
-                            value={formatAmount() || "-"}
-                            onChange={changeevent}
-                            disabled={true}
-                            hidden={!editable}
-                        />
-                        <div hidden={editable}>{formatAmount() || "-"}</div>
-                    </Col>
-                    <Col xs="1">
+                    <Col xs="1" className="text-center">
                         <span
-                            style={{ lineHeight: "2rem" }}
-                            className="align-middle"
+                            style={{
+                                whiteSpace: "nowrap",
+                            }}
                         >
+                            {formatCurrency(formatAmount()) || "-"}
+                        </span>
+                    </Col>
+                    <Col xs="1" className="text-center">
+                        <span>
                             <i
                                 className="mdi mdi-delete pointer iconhover iconfont"
                                 title="delete item"

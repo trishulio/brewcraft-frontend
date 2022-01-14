@@ -72,13 +72,14 @@ export default function PurchaseInvoicesTable() {
 
     return (
         <React.Fragment>
-            <Table hover={true}>
+            <Table hover tableLayout="fixed">
                 <thead>
                     <tr>
                         <Th
                             name="purchaseInvoiceNumber"
                             id="invoiceNumber"
                             onSort={onSort}
+                            width="16rem"
                         >
                             Number
                         </Th>
