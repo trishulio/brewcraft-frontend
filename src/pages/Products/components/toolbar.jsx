@@ -16,6 +16,7 @@ export default function ProductToolbar() {
                 onClick={() => {
                     history.push("/products/new");
                 }}
+                data-testid="newProduct"
             >
                 New Product
             </Button>

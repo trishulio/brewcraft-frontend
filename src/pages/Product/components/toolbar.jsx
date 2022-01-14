@@ -21,6 +21,7 @@ export default function Toolbar({
                 onClick={onSave}
                 disabled={!changed}
                 hidden={!editable}
+                data-testid="product-save"
             >
                 Save
             </Button>
@@ -49,6 +50,7 @@ export default function Toolbar({
                         search: "?edit=true",
                     });
                 }}
+                data-testid="product-edit"
             >
                 Edit Product
             </Button>
@@ -74,6 +76,7 @@ export default function Toolbar({
                 className="waves-effect mr-2 mb-3"
                 onClick={onDelete}
                 hidden={!product.id || !editable}
+                data-testid="product-delete"
             >
                 Delete Product
             </Button>

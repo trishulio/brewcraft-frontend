@@ -147,6 +147,7 @@ export default function ProductCategoryDetails({ editable }) {
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
                                     style={{ width: "16rem" }}
+                                    data-testid="product-category-name"
                                 />
                                 <FormFeedback>
                                     Enter a valid category name.
@@ -196,6 +197,7 @@ export default function ProductCategoryDetails({ editable }) {
                                             );
                                         }
                                     }}
+                                    data-testid="product-category-class"
                                 >
                                     <option value="">Select</option>
                                     {map(
@@ -261,6 +263,7 @@ export default function ProductCategoryDetails({ editable }) {
                                             );
                                         }
                                     }}
+                                    data-testid="product-category-type"
                                 >
                                     <option value="">Select</option>
                                     {parentClass &&

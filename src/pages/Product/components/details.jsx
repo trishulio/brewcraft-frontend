@@ -118,6 +118,7 @@ export default function ProductDetails({ product, editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
+                                    data-testid="product-name"
                                 />
                                 <FormFeedback>
                                     Enter a valid product name.
@@ -144,6 +145,7 @@ export default function ProductDetails({ product, editable }) {
                                     style={{ width: "8rem" }}
                                     disabled={!editable}
                                     invalid={invalidClass}
+                                    data-testid="product-class"
                                     value={
                                         product.productClass
                                             ? product.productClass.id
@@ -205,6 +207,7 @@ export default function ProductDetails({ product, editable }) {
                                     name="productType"
                                     disabled={!editable}
                                     invalid={invalidType}
+                                    data-testid="product-type"
                                     value={product.type ? product.type.id : ""}
                                     onChange={(e) => {
                                         if (e.target.value !== ADD_NEW) {
@@ -271,6 +274,7 @@ export default function ProductDetails({ product, editable }) {
                                     value={
                                         product.style ? product.style.id : ""
                                     }
+                                    data-testid="product-style"
                                     onChange={(e) => {
                                         if (e.target.value !== ADD_NEW) {
                                             onFormInputChange(e);
@@ -329,6 +333,7 @@ export default function ProductDetails({ product, editable }) {
                                 value={product.description}
                                 rows={4}
                                 name="productDescription"
+                                data-testid="product-description"
                                 disabled={!editable}
                                 onChange={(e) => {
                                     onFormInputChange(e);

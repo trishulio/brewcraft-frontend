@@ -155,6 +155,7 @@ export default function SkuDetails(props) {
                                     }}
                                     hidden={!props.editable}
                                     invalid={invalidName}
+                                    data-testid="sku-name"
                                 />
                                 <FormFeedback>
                                     Enter a valid sku name.
@@ -197,6 +198,7 @@ export default function SkuDetails(props) {
                                     }}
                                     hidden={!props.editable}
                                     invalid={invalidProduct}
+                                    data-testid="sku-product"
                                 >
                                     <option value="">Select</option>
                                     {map(products, (value, index) => (
@@ -247,6 +249,7 @@ export default function SkuDetails(props) {
                                         }}
                                         hidden={!props.editable}
                                         invalid={invalidVolume}
+                                        data-testid="sku-quantity"
                                     />
                                     <FormFeedback>
                                         Enter a valid sku quantity.
@@ -268,6 +271,7 @@ export default function SkuDetails(props) {
                                         onChange={(e) => {
                                             onFormInputChange(e);
                                         }}
+                                        data-testid="sku-base-quantity-unit"
                                     >
                                         <option value="">Select</option>
                                         <option value="kg">kg</option>
@@ -322,6 +326,7 @@ export default function SkuDetails(props) {
                                     hidden={!props.editable}
                                     invalid={invalidDescription}
                                     rows={4}
+                                    data-testid="sku-description"
                                 />
                                 <FormFeedback>
                                     Enter a valid sku description.
