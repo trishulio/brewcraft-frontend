@@ -52,11 +52,13 @@ export default function BrewNav({ activeTab }) {
                             active: activeTab === "params",
                         })}
                         onClick={() => {
-                            dispatch(
-                                fetchProducts({
-                                    pageSize: 1000,
-                                })
-                            );
+                            setTimeout(() => {
+                                dispatch(
+                                    fetchProducts({
+                                        pageSize: 1000,
+                                    })
+                                );
+                            });
                             navToTab("params");
                         }}
                     >
