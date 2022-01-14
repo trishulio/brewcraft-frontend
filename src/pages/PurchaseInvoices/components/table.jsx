@@ -72,7 +72,7 @@ export default function PurchaseInvoicesTable() {
 
     return (
         <React.Fragment>
-            <Table hover={true}>
+            <Table hover tableLayout="fixed">
                 <thead>
                     <tr>
                         <Th

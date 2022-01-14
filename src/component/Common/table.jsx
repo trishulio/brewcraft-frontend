@@ -31,7 +31,10 @@ export default function CommonTable(props) {
             <div className="table-responsive table-striped table-sm">
                 <Table
                     hover={props.hover}
-                    style={{ cursor: props.hover ? "pointer" : null }}
+                    style={{
+                        cursor: props.hover ? "pointer" : null,
+                        tableLayout: props.tableLayout,
+                    }}
                     className="table-centered table-vertical table-fixed jadc-effect mb-1"
                 >
                     {props.children}
