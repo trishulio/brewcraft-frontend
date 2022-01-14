@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { mount } from "enzyme";
 import { shallowToJson } from "enzyme-to-json";
 import { Provider } from "react-redux";
@@ -142,226 +142,200 @@ describe("MaterialCategory -> <Index>", () => {
             });
         });
 
-        // test("setBreadcrumbItems when material id exists", () => {
-        //     initialState.MaterialCategory.data.id = 1;
-        //     initialState.MaterialCategory.data.name = "dumy";
+        test("setEditMode should set editable to true", () => {
+            useQuery.mockReturnValue({
+                get: () => {
+                    return true;
+                },
+            });
 
-        //     useParams.mockReturnValueOnce({
-        //         id: "new",
-        //     });
+            const store = mockStore(initialState);
+            const wrapper = mount(
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <MaterialCategory />
+                    </BrowserRouter>
+                </Provider>
+            );
+            const toolBarComponent = wrapper.find("Toolbar");
+            expect(shallowToJson(wrapper)).toMatchSnapshot();
+            expect(toolBarComponent.props().editable).toBeTruthy();
+        });
 
-        //     const store = mockStore(initialState);
+        test("Should dispatch setInvalidMaterialCategoryName on onSave", () => {
+            initialState.MaterialCategory.data.id = 1;
+            initialState.MaterialCategory.data.name = "dumy";
 
-        //     const wrapper = mount(
-        //         <Provider store={store}>
-        //             <BrowserRouter>
-        //                 <MaterialCategory />
-        //             </BrowserRouter>
-        //         </Provider>
-        //     );
-        //     expect(shallowToJson(wrapper)).toMatchSnapshot();
-        // });
+            useKeyPress.mockReturnValue(true);
+            useParams.mockReturnValueOnce({
+                id: "new",
+            });
+            useQuery.mockReturnValue({
+                get: () => {
+                    return true;
+                },
+            });
 
-        // test("setEditMode should set editable to true", () => {
-        //     initialState.MaterialCategory.data.id = 1;
-        //     initialState.MaterialCategory.data.name = "dumy";
+            const store = mockStore(initialState);
 
-        //     useParams.mockReturnValueOnce({
-        //         id: "new",
-        //     });
+            const wrapper = mount(
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <MaterialCategory />
+                    </BrowserRouter>
+                </Provider>
+            );
 
-        //     useQuery.mockReturnValue({
-        //         get: () => {
-        //             return true;
-        //         },
-        //     });
+            expect(shallowToJson(wrapper)).toMatchSnapshot();
 
-        //     const store = mockStore(initialState);
+            wrapper
+                .find('input[name="materialCategoryName"]')
+                .simulate("keyup");
 
-        //     const wrapper = mount(
-        //         <Provider store={store}>
-        //             <BrowserRouter>
-        //                 <MaterialCategory />
-        //             </BrowserRouter>
-        //         </Provider>
-        //     );
-        //     expect(shallowToJson(wrapper)).toMatchSnapshot();
-        // });
+            expect(mockDispatch).toHaveBeenCalledWith({
+                type: "INVALID_MATERIAL_CATEGORY_NAME",
+                payload: {
+                    invalidName: false,
+                },
+            });
+            expect(mockDispatch).toHaveBeenCalledWith({
+                type: "INVALID_MATERIAL_CATEGORY_PARENT_CATEGORY",
+                payload: {
+                    invalidParentCategory: true,
+                },
+            });
+        });
 
-        // test("Should dispatch setInvalidMaterialCategoryName on onSave", () => {
-        //     initialState.MaterialCategory.data.id = 1;
-        //     initialState.MaterialCategory.data.name = "dumy";
+        test("dispatch editMaterialCategory on click of onSave", () => {
+            const initialState = {
+                MaterialCategory: {
+                    data: {
+                        id: 1,
+                        name: "dummy",
+                        parentCategoryId: null,
+                        parentCategory: {
+                            id: 1,
+                        },
+                        version: null,
+                    },
+                    initial: {
+                        id: null,
+                        name: "",
+                        parentCategoryId: null,
+                        parentCategory: {
+                            id: null,
+                        },
+                        version: null,
+                    },
+                    invalidName: false,
+                    invalidParentCategory: false,
+                    loading: true,
+                    error: null,
+                    all: [],
+                },
+                MaterialCategories: {
+                    content: [],
+                    all: [],
+                    loading: false,
+                    error: null,
+                    totalElements: 0,
+                    totalPages: 0,
+                    pageIndex: 0,
+                    pageSize: 20,
+                },
+            };
 
-        //     useKeyPress.mockReturnValue(true);
-        //     useParams.mockReturnValueOnce({
-        //         id: "new",
-        //     });
-        //     useQuery.mockReturnValue({
-        //         get: () => {
-        //             return true;
-        //         },
-        //     });
+            const store = mockStore(initialState);
 
-        //     const store = mockStore(initialState);
+            useKeyPress.mockReturnValue(true);
+            useParams.mockReturnValueOnce({
+                id: "new",
+            });
+            useQuery.mockReturnValue({
+                get: () => {
+                    return true;
+                },
+            });
 
-        //     const wrapper = mount(
-        //         <Provider store={store}>
-        //             <BrowserRouter>
-        //                 <MaterialCategory />
-        //             </BrowserRouter>
-        //         </Provider>
-        //     );
+            const wrapper = mount(
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <MaterialCategory />
+                    </BrowserRouter>
+                </Provider>
+            );
 
-        //     expect(shallowToJson(wrapper)).toMatchSnapshot();
+            expect(shallowToJson(wrapper)).toMatchSnapshot();
 
-        //     wrapper
-        //         .find('input[name="materialCategoryName"]')
-        //         .simulate("keyup");
+            wrapper
+                .find('input[name="materialCategoryName"]')
+                .simulate("keyup");
+        });
 
-        //     expect(mockDispatch).toHaveBeenCalledWith({
-        //         type: "INVALID_MATERIAL_CATEGORY_NAME",
-        //         payload: {
-        //             invalidName: false,
-        //         },
-        //     });
-        //     expect(mockDispatch).toHaveBeenCalledWith({
-        //         type: "INVALID_MATERIAL_CATEGORY_PARENT_CATEGORY",
-        //         payload: {
-        //             invalidParentCategory: true,
-        //         },
-        //     });
-        // });
+        test("dispatch saveMaterialCategory on click of onSave", () => {
+            const initialState = {
+                MaterialCategory: {
+                    data: {
+                        id: null,
+                        name: "dummy",
+                        parentCategoryId: null,
+                        parentCategory: {
+                            id: 1,
+                        },
+                        version: null,
+                    },
+                    initial: {
+                        id: null,
+                        name: "",
+                        parentCategoryId: null,
+                        parentCategory: {
+                            id: null,
+                        },
+                        version: null,
+                    },
+                    invalidName: false,
+                    invalidParentCategory: false,
+                    loading: true,
+                    error: null,
+                    all: [],
+                },
+                MaterialCategories: {
+                    content: [],
+                    all: [],
+                    loading: false,
+                    error: null,
+                    totalElements: 0,
+                    totalPages: 0,
+                    pageIndex: 0,
+                    pageSize: 20,
+                },
+            };
 
-        // test("dispatch editMaterialCategory on click of onSave", () => {
-        //     const initialState = {
-        //         MaterialCategory: {
-        //             data: {
-        //                 id: 1,
-        //                 name: "dummy",
-        //                 parentCategoryId: null,
-        //                 parentCategory: {
-        //                     id: 1,
-        //                 },
-        //                 version: null,
-        //             },
-        //             initial: {
-        //                 id: null,
-        //                 name: "",
-        //                 parentCategoryId: null,
-        //                 parentCategory: {
-        //                     id: null,
-        //                 },
-        //                 version: null,
-        //             },
-        //             invalidName: false,
-        //             invalidParentCategory: false,
-        //             loading: true,
-        //             error: null,
-        //             all: [],
-        //         },
-        //         MaterialCategories: {
-        //             content: [],
-        //             all: [],
-        //             loading: false,
-        //             error: null,
-        //             totalElements: 0,
-        //             totalPages: 0,
-        //             pageIndex: 0,
-        //             pageSize: 20,
-        //         },
-        //     };
+            const store = mockStore(initialState);
 
-        //     const store = mockStore(initialState);
+            useKeyPress.mockReturnValue(true);
+            useParams.mockReturnValueOnce({
+                id: "new",
+            });
+            useQuery.mockReturnValue({
+                get: () => {
+                    return true;
+                },
+            });
 
-        //     useKeyPress.mockReturnValue(true);
-        //     useParams.mockReturnValueOnce({
-        //         id: "new",
-        //     });
-        //     useQuery.mockReturnValue({
-        //         get: () => {
-        //             return true;
-        //         },
-        //     });
+            const wrapper = mount(
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <MaterialCategory />
+                    </BrowserRouter>
+                </Provider>
+            );
 
-        //     const wrapper = mount(
-        //         <Provider store={store}>
-        //             <BrowserRouter>
-        //                 <MaterialCategory />
-        //             </BrowserRouter>
-        //         </Provider>
-        //     );
+            expect(shallowToJson(wrapper)).toMatchSnapshot();
 
-        //     expect(shallowToJson(wrapper)).toMatchSnapshot();
-
-        //     wrapper
-        //         .find('input[name="materialCategoryName"]')
-        //         .simulate("keyup");
-        // });
-
-        // test("dispatch saveMaterialCategory on click of onSave", () => {
-        //     const initialState = {
-        //         MaterialCategory: {
-        //             data: {
-        //                 id: null,
-        //                 name: "dummy",
-        //                 parentCategoryId: null,
-        //                 parentCategory: {
-        //                     id: 1,
-        //                 },
-        //                 version: null,
-        //             },
-        //             initial: {
-        //                 id: null,
-        //                 name: "",
-        //                 parentCategoryId: null,
-        //                 parentCategory: {
-        //                     id: null,
-        //                 },
-        //                 version: null,
-        //             },
-        //             invalidName: false,
-        //             invalidParentCategory: false,
-        //             loading: true,
-        //             error: null,
-        //             all: [],
-        //         },
-        //         MaterialCategories: {
-        //             content: [],
-        //             all: [],
-        //             loading: false,
-        //             error: null,
-        //             totalElements: 0,
-        //             totalPages: 0,
-        //             pageIndex: 0,
-        //             pageSize: 20,
-        //         },
-        //     };
-
-        //     const store = mockStore(initialState);
-
-        //     useKeyPress.mockReturnValue(true);
-        //     useParams.mockReturnValueOnce({
-        //         id: "new",
-        //     });
-        //     useQuery.mockReturnValue({
-        //         get: () => {
-        //             return true;
-        //         },
-        //     });
-
-        //     const wrapper = mount(
-        //         <Provider store={store}>
-        //             <BrowserRouter>
-        //                 <MaterialCategory />
-        //             </BrowserRouter>
-        //         </Provider>
-        //     );
-
-        //     expect(shallowToJson(wrapper)).toMatchSnapshot();
-
-        //     wrapper
-        //         .find('input[name="materialCategoryName"]')
-        //         .simulate("keyup");
-        // });
+            wrapper
+                .find('input[name="materialCategoryName"]')
+                .simulate("keyup");
+        });
     });
 });
