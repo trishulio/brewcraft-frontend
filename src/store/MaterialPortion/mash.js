@@ -9,6 +9,8 @@ import {
     EDIT_MASH_MATERIAL_PORTION_FAILURE,
     DELETE_MASH_MATERIAL_PORTION_FAILURE,
     FETCH_MATERIAL_PORTION_BY_BREW_ID_REQUEST,
+    FETCH_MATERIAL_PORTION_BY_BREW_ID_SUCCESS,
+    FETCH_MATERIAL_PORTION_BY_BREW_ID_FAILURE,
     DELETE_MASH_MATERIAL_PORTION_REQUEST,
 } from "./actionTypes";
 
@@ -30,6 +32,7 @@ const MashMaterialPortion = (state = initialState, { type, payload }) => {
                 ...state,
                 ...payload,
                 loading: false,
+                error: null,
             };
         case FETCH_MATERIAL_PORTION_BY_BREW_ID_REQUEST:
         case ADD_MASH_MATERIAL_PORTION_REQUEST:
@@ -40,6 +43,7 @@ const MashMaterialPortion = (state = initialState, { type, payload }) => {
                 loading: true,
                 error: null,
             };
+        case FETCH_MATERIAL_PORTION_BY_BREW_ID_SUCCESS:
         case ADD_MASH_MATERIAL_PORTION_SUCCESS:
         case EDIT_MASH_MATERIAL_PORTION_SUCCESS:
             return {
@@ -48,13 +52,15 @@ const MashMaterialPortion = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: null,
             };
+        case FETCH_MATERIAL_PORTION_BY_BREW_ID_FAILURE:
         case ADD_MASH_MATERIAL_PORTION_FAILURE:
         case EDIT_MASH_MATERIAL_PORTION_FAILURE:
         case DELETE_MASH_MATERIAL_PORTION_FAILURE:
             return {
                 ...state,
+                content: { ...state.initial },
                 loading: false,
-                error: true,
+                error: payload?.error || true,
             };
         case RESET_MASH_MATERIAL_PORTION_DETAILS:
             return {
@@ -65,7 +71,6 @@ const MashMaterialPortion = (state = initialState, { type, payload }) => {
         default:
             return {
                 ...state,
-                error: null,
             };
     }
 };

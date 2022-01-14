@@ -8,6 +8,9 @@ import {
     RESET_BATCH_DETAILS,
     SET_INITIAL_BATCH_DETAILS,
     EDIT_BATCH_FAILURE,
+    FETCH_BATCH_BY_ID_REQUEST,
+    FETCH_BATCH_BY_ID_SUCCESS,
+    FETCH_BATCH_BY_ID_FAILURE,
 } from "./actionTypes";
 
 const initialState = {
@@ -54,6 +57,7 @@ const Brew = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 ...payload,
+                error: null,
             };
         case SET_INITIAL_BATCH_DETAILS:
             return {
@@ -64,6 +68,7 @@ const Brew = (state = initialState, { type, payload }) => {
                 },
                 error: null,
             };
+        case FETCH_BATCH_BY_ID_REQUEST:
         case ADD_BATCH_REQUEST:
         case EDIT_BATCH_REQUEST:
             return {
@@ -71,6 +76,7 @@ const Brew = (state = initialState, { type, payload }) => {
                 loading: true,
                 error: null,
             };
+        case FETCH_BATCH_BY_ID_SUCCESS:
         case ADD_BATCH_SUCCESS:
         case EDIT_BATCH_SUCCESS:
             return {
@@ -79,6 +85,7 @@ const Brew = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: null,
             };
+        case FETCH_BATCH_BY_ID_FAILURE:
         case ADD_BATCH_FAILURE:
         case EDIT_BATCH_FAILURE:
             return {

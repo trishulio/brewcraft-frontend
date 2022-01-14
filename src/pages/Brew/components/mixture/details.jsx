@@ -42,7 +42,7 @@ export default function MixtureDetails({
                         ...mixture,
                         quantity: {
                             ...mixture.quantity,
-                            value: e.target.value === "" ? 0 : e.target.value,
+                            value: e.target.value,
                         },
                     });
                 }
@@ -74,6 +74,12 @@ export default function MixtureDetails({
                     content: [...mixtureRecordings, record],
                 });
                 break;
+            case "stageStatus":
+                setStage({
+                    ...stage,
+                    status: { id: parseInt(e.target.value) },
+                });
+                break;
             default:
                 break;
         }
@@ -81,7 +87,7 @@ export default function MixtureDetails({
 
     return (
         <React.Fragment>
-            <Row className="px-2">
+            <Row>
                 <Col sm="6">
                     <Label
                         for="mixtureStartDateTime"
@@ -209,69 +215,6 @@ export default function MixtureDetails({
                             <div className="clearFix"></div>
                         </React.Fragment>
                     )}
-                    {mixtureRecordings && (
-                        <React.Fragment>
-                            <Label
-                                for="mixtureGravity"
-                                className="d-block d-sm-inline-block font-size-14"
-                                style={{
-                                    width: "8rem",
-                                }}
-                            >
-                                Actual Gravity
-                            </Label>
-                            <FormGroup
-                                className="d-block d-sm-inline-block mb-3"
-                                hidden={editable}
-                            >
-                                <Input
-                                    type="text"
-                                    className="waves-effect"
-                                    value={
-                                        // eslint-disable-next-line
-                                        showSkipCheckbox &&
-                                        stage.status.id === 3
-                                            ? ""
-                                            : (mixtureRecordings &&
-                                                  mixtureRecordings.find(
-                                                      (r) => r.measure.id === 5
-                                                  )?.value) ||
-                                              ""
-                                    }
-                                    placeholder={
-                                        showSkipCheckbox &&
-                                        stage.status.id === 3
-                                            ? "-"
-                                            : "Enter"
-                                    }
-                                    name="mixtureGravity"
-                                    onChange={onFormInputChange}
-                                    style={{ width: "8rem" }}
-                                    hidden={!editable}
-                                    disabled={
-                                        showSkipCheckbox &&
-                                        stage.status.id === 6
-                                    }
-                                />
-                                <FormFeedback>
-                                    Enter a valid number.
-                                </FormFeedback>
-                            </FormGroup>
-                            {!editable && (
-                                <div className="d-sm-inline-block align-middle">
-                                    {
-                                        // eslint-disable-next-line
-                                        (mixtureRecordings &&
-                                            mixtureRecordings.find(
-                                                (r) => r.measure.id === 5
-                                            )?.value) ||
-                                            "-"
-                                    }
-                                </div>
-                            )}
-                            <div className="clearFix"></div>
-                        </React.Fragment>
-                    )}
                 </Col>
                 <Col sm="6">
                     <Label
@@ -292,14 +235,14 @@ export default function MixtureDetails({
                                 name="stageStatus"
                                 onChange={onFormInputChange}
                                 style={{ width: "8rem" }}
-                                disabled={stage.status.id === 6}
                             >
                                 <option value="1">In Progress</option>
                                 <option value="2">Complete</option>
                                 <option value="3">Failed</option>
                                 <option value="4">Not started</option>
                                 <option value="5">Stopped</option>
-                                {showSkipCheckbox && (
+                                {(showSkipCheckbox ||
+                                    stage.status.id === 6) && (
                                     <option value="6">Skip</option>
                                 )}
                             </Input>
@@ -333,18 +276,15 @@ export default function MixtureDetails({
                                 className="waves-effect"
                                 value={
                                     stage.status.id === 6
-                                        ? ""
+                                        ? "-"
                                         : mixture.quantity.value
                                 }
-                                placeholder={
-                                    stage.status.id === 6 ? "-" : "Enter"
-                                }
+                                placeholder={"Enter"}
                                 name="mixtureQuantityValue"
                                 onChange={onFormInputChange}
                                 style={{ width: "8rem" }}
                                 disabled={stage.status.id === 6}
                             />
-                            {console.log(stage.status)}
                             <FormFeedback>Enter a valid number.</FormFeedback>
                             &nbsp;<span>{mixture.quantity.symbol}</span>
                         </FormGroup>
@@ -356,10 +296,8 @@ export default function MixtureDetails({
                                 : "-"}
                         </div>
                     )}
-                    <div className="clearFix"></div>
                 </Col>
             </Row>
-            <div className="clearfix mb-3"></div>
         </React.Fragment>
     );
 }

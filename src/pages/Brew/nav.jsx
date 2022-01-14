@@ -47,7 +47,27 @@ export default function BrewNav({ activeTab }) {
                             navToTab("details");
                         }}
                     >
-                        <span>Overview</span>
+                        <span>Brew Status</span>
+                    </NavLink>
+                </NavItem>
+                <NavItem className="waves-effect waves-light">
+                    <NavLink
+                        style={{ cursor: "pointer" }}
+                        className={classnames({
+                            active: activeTab === "params",
+                        })}
+                        onClick={() => {
+                            setTimeout(() => {
+                                dispatch(
+                                    fetchProducts({
+                                        pageSize: 1000,
+                                    })
+                                );
+                            });
+                            navToTab("params");
+                        }}
+                    >
+                        <span>Parameters</span>
                     </NavLink>
                 </NavItem>
                 <NavItem className="waves-effect waves-light">

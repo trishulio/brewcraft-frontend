@@ -373,11 +373,11 @@ exports[`Supplier -> <Index> render() On Save isValid Name is false 1`] = `
                   >
                     <CardHeader>
                       <CardHeader
-                        className="font-size-14 mb-2"
+                        className="font-size-14"
                         tag="div"
                       >
                         <div
-                          className="font-size-14 mb-2 card-header"
+                          className="font-size-14 card-header"
                         >
                           Supplier Details
                         </div>
@@ -1155,11 +1155,11 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
                   >
                     <CardHeader>
                       <CardHeader
-                        className="font-size-14 mb-2"
+                        className="font-size-14"
                         tag="div"
                       >
                         <div
-                          className="font-size-14 mb-2 card-header"
+                          className="font-size-14 card-header"
                         >
                           Supplier Details
                         </div>
@@ -1937,11 +1937,11 @@ exports[`Supplier -> <Index> render() On Save isValid Name is true and supplieri
                   >
                     <CardHeader>
                       <CardHeader
-                        className="font-size-14 mb-2"
+                        className="font-size-14"
                         tag="div"
                       >
                         <div
-                          className="font-size-14 mb-2 card-header"
+                          className="font-size-14 card-header"
                         >
                           Supplier Details
                         </div>
@@ -2719,11 +2719,11 @@ exports[`Supplier -> <Index> render() On param id is new history.replace should 
                   >
                     <CardHeader>
                       <CardHeader
-                        className="font-size-14 mb-2"
+                        className="font-size-14"
                         tag="div"
                       >
                         <div
-                          className="font-size-14 mb-2 card-header"
+                          className="font-size-14 card-header"
                         >
                           Supplier Details
                         </div>
@@ -3501,11 +3501,11 @@ exports[`Supplier -> <Index> render() Whenever initial Supplier Id is having val
                   >
                     <CardHeader>
                       <CardHeader
-                        className="font-size-14 mb-2"
+                        className="font-size-14"
                         tag="div"
                       >
                         <div
-                          className="font-size-14 mb-2 card-header"
+                          className="font-size-14 card-header"
                         >
                           Supplier Details
                         </div>
@@ -4283,11 +4283,11 @@ exports[`Supplier -> <Index> render() renders the component 1`] = `
                   >
                     <CardHeader>
                       <CardHeader
-                        className="font-size-14 mb-2"
+                        className="font-size-14"
                         tag="div"
                       >
                         <div
-                          className="font-size-14 mb-2 card-header"
+                          className="font-size-14 card-header"
                         >
                           Supplier Details
                         </div>
