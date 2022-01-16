@@ -45,7 +45,6 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
-import { SET_BATCH_DETAILS } from "../Brew/actionTypes";
 import { SET_BRITE_TANK_MIXTURE_RECORDING_DETAILS } from "../MixtureRecording/actionTypes";
 
 function* fetchMixturesByBrewId(action) {
@@ -111,7 +110,6 @@ function* fetchMixturesByBrewId(action) {
             payload: { data: content, initial: content },
         });
     } catch (e) {
-        console.log(e);
         yield put(snackFailure("Something went wrong please try again."));
     }
 }
@@ -132,9 +130,7 @@ function* fetchMashMixtureByIdGenerator(action) {
 function* addMashMixtureGenerator(action) {
     try {
         yield call(api.addMixture, get(action, "payload.params"));
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
-        console.log(e);
         yield put(snackFailure("Something went wrong please try again."));
     }
 }
@@ -150,7 +146,6 @@ function* editMashMixtureGenerator(action) {
             type: EDIT_MASH_MIXTURE_SUCCESS,
             payload: { data: res.data, initial: res.data },
         });
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
         yield put({ type: EDIT_MASH_MIXTURE_FAILURE });
         yield put(snackFailure());
@@ -174,9 +169,7 @@ function* deleteMashMixtureGenerator(action) {
 function* addKettleMixtureGenerator(action) {
     try {
         yield call(api.addMixture, get(action, "payload.params"));
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
-        console.log(e);
         yield put(snackFailure("Something went wrong please try again."));
     }
 }
@@ -204,7 +197,6 @@ function* editKettleMixtureGenerator(action) {
             type: EDIT_KETTLE_MIXTURE_SUCCESS,
             payload: { data: res.data, initial: res.data },
         });
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
         yield put({ type: EDIT_KETTLE_MIXTURE_FAILURE });
         yield put(snackFailure());
@@ -241,9 +233,7 @@ function* fetchWhirlpoolMixtureByIdGenerator(action) {
 function* addWhirlpoolMixtureGenerator(action) {
     try {
         yield call(api.addMixture, get(action, "payload.params"));
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
-        console.log(e);
         yield put(snackFailure("Something went wrong please try again."));
     }
 }
@@ -259,7 +249,6 @@ function* editWhirlpoolMixtureGenerator(action) {
             type: EDIT_WHIRLPOOL_MIXTURE_SUCCESS,
             payload: { data: res.data, initial: res.data },
         });
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
         yield put({ type: EDIT_WHIRLPOOL_MIXTURE_FAILURE });
         yield put(snackFailure());

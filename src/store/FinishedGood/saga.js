@@ -10,7 +10,6 @@ import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
 import { setGlobalRedirect } from "../Brewery/actions";
-import { SET_BATCH_DETAILS } from "../Brew/actionTypes";
 
 function* fetchFinishedGoodByIdGenerator(action) {
     try {
@@ -28,7 +27,6 @@ function* fetchFinishedGoodByIdGenerator(action) {
 function* createFinishedGoodGenerator(action) {
     try {
         yield call(api.addFinishedGood, get(action, "payload.form"));
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
     }

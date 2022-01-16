@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Details from "../mixture/details";
 import {
@@ -6,25 +6,17 @@ import {
     editWhirlpoolStage,
     setWhirlpoolMixtureDetails,
     setWhirlpoolStageDetails,
-    setTransferMixtureRecords,
 } from "../../../../store/actions";
-import { Alert, Button } from "reactstrap";
-import {
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-} from "../../../../component/Common/Card";
-import { Badge } from "../badge";
+import BatchStage from "./stage";
 
 export default function BrewWhirlpool() {
-    const [isOpen, setIsOpen] = useState(true);
     const dispatch = useDispatch();
 
     const {
         data: stage,
         initial: initialStage,
         editable,
+        changed,
         loading: stageLoading,
         error: stageError,
     } = useSelector((state) => {
@@ -40,9 +32,14 @@ export default function BrewWhirlpool() {
         return state.Batch.WhirlpoolMixture;
     });
 
-    const mixtureRecords = useSelector((state) => {
-        return state.Batch.TransferMixtureRecordings.content;
-    });
+    useEffect(() => {
+        dispatch(
+            setWhirlpoolStageDetails({
+                changed: isChanged(),
+            })
+        );
+        // eslint-disable-next-line
+    }, [stage, mixture]);
 
     function isChanged() {
         return (
@@ -97,102 +94,50 @@ export default function BrewWhirlpool() {
         }
     }
 
-    function setMixtureRecords(mixtureRecords) {
-        dispatch(setTransferMixtureRecords(mixtureRecords));
-    }
-
     const detailsProps = {
         stage,
         setStage,
         mixture,
         setMixture,
-        mixtureRecords,
-        setMixtureRecords,
         editable,
         showSkipCheckbox: true,
     };
 
+    const stageProps = {
+        title: "Whirlpool",
+        editable,
+        setEditable: () => {
+            dispatch(
+                setWhirlpoolStageDetails({
+                    editable: true,
+                })
+            );
+        },
+        changed,
+        initialStage,
+        stage,
+        stageLoading,
+        mixtureLoading,
+        stageError,
+        mixtureError,
+        onSave,
+        onCancel: () => {
+            dispatch(
+                setWhirlpoolStageDetails({
+                    data: {
+                        ...initialStage,
+                    },
+                    editable: false,
+                })
+            );
+        },
+    };
+
     return (
         <React.Fragment>
-            {(stageError || mixtureError) && (
-                <Alert color="info" className="mt-2 mb-4">
-                    <strong>Oh snap!</strong> Change a few things up and try
-                    submitting again.
-                </Alert>
-            )}
-            <Card className="mb-3">
-                <CardHeader>
-                    <div
-                        className="d-inline-block mr-2"
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
-                        <i
-                            className={`fa fa-caret-right font-size-14 mr-2 ${
-                                isOpen ? " rotate-down" : ""
-                            }`}
-                        ></i>
-                        Whirlpool
-                    </div>
-                    <div className="d-inline-block">
-                        <Badge stage={stage} />
-                    </div>
-                </CardHeader>
-                <CardBody
-                    isLoading={stageLoading || mixtureLoading}
-                    isOpen={isOpen}
-                >
-                    <Details {...detailsProps} />
-                    <div className="clearFix mb-3"></div>
-                    <Button
-                        type="button"
-                        color="secondary"
-                        size="sm"
-                        className="waves-effect"
-                        onClick={() => {
-                            dispatch(
-                                setWhirlpoolStageDetails({
-                                    editable: true,
-                                })
-                            );
-                        }}
-                        hidden={editable}
-                    >
-                        Edit
-                    </Button>
-                </CardBody>
-                {editable && (
-                    <CardFooter>
-                        <Button
-                            type="button"
-                            color="primary"
-                            size="sm"
-                            className="waves-effect mr-2"
-                            onClick={onSave}
-                            disabled={!isChanged()}
-                        >
-                            Save
-                        </Button>
-                        <Button
-                            type="button"
-                            color="secondary"
-                            size="sm"
-                            className="waves-effect mr-2"
-                            onClick={() => {
-                                dispatch(
-                                    setWhirlpoolStageDetails({
-                                        data: {
-                                            ...initialStage,
-                                        },
-                                        editable: false,
-                                    })
-                                );
-                            }}
-                        >
-                            Done
-                        </Button>
-                    </CardFooter>
-                )}
-            </Card>
+            <BatchStage {...stageProps}>
+                <Details {...detailsProps} />
+            </BatchStage>
         </React.Fragment>
     );
 }
