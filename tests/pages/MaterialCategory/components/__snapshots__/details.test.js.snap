@@ -49,11 +49,11 @@ exports[`MaterialCategory -> Components -> <Details> render() Dispatch materialC
             >
               <CardHeader>
                 <CardHeader
-                  className="font-size-14"
+                  className="font-size-14 mb-2"
                   tag="div"
                 >
                   <div
-                    className="font-size-14 card-header"
+                    className="font-size-14 mb-2 card-header"
                   >
                     Material Category Details
                   </div>
@@ -421,11 +421,11 @@ exports[`MaterialCategory -> Components -> <Details> render() Dispatch materialC
             >
               <CardHeader>
                 <CardHeader
-                  className="font-size-14"
+                  className="font-size-14 mb-2"
                   tag="div"
                 >
                   <div
-                    className="font-size-14 card-header"
+                    className="font-size-14 mb-2 card-header"
                   >
                     Material Category Details
                   </div>
@@ -781,11 +781,11 @@ exports[`MaterialCategory -> Components -> <Details> render() Dispatch materialC
             >
               <CardHeader>
                 <CardHeader
-                  className="font-size-14"
+                  className="font-size-14 mb-2"
                   tag="div"
                 >
                   <div
-                    className="font-size-14 card-header"
+                    className="font-size-14 mb-2 card-header"
                   >
                     Material Category Details
                   </div>
@@ -1141,11 +1141,11 @@ exports[`MaterialCategory -> Components -> <Details> render() Dispatch nothing o
             >
               <CardHeader>
                 <CardHeader
-                  className="font-size-14"
+                  className="font-size-14 mb-2"
                   tag="div"
                 >
                   <div
-                    className="font-size-14 card-header"
+                    className="font-size-14 mb-2 card-header"
                   >
                     Material Category Details
                   </div>
@@ -1501,11 +1501,11 @@ exports[`MaterialCategory -> Components -> <Details> render() renders the Detail
             >
               <CardHeader>
                 <CardHeader
-                  className="font-size-14"
+                  className="font-size-14 mb-2"
                   tag="div"
                 >
                   <div
-                    className="font-size-14 card-header"
+                    className="font-size-14 mb-2 card-header"
                   >
                     Material Category Details
                   </div>
