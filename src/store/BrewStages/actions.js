@@ -50,7 +50,9 @@ export const fetchMashStageById = (id) => ({
 
 export const setMashStageDetails = (payload) => ({
     type: SET_MASH_STAGE_DETAILS,
-    payload: payload,
+    payload: {
+        ...payload,
+    },
 });
 
 export const resetMashStageDetails = () => ({

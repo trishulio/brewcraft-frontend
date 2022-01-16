@@ -14,8 +14,35 @@ import {
     ADD_BATCH_SUCCESS,
     FETCH_BATCH_BY_ID_SUCCESS,
     FETCH_BATCH_BY_ID_FAILURE,
+    RESET_BATCH_DETAILS,
 } from "./actionTypes";
 import { isValidName, validDate, validId } from "../../helpers/utils";
+import {
+    RESET_FERMENT_MIXTURE_DETAILS,
+    RESET_KETTLE_MIXTURE_DETAILS,
+    RESET_MASH_MIXTURE_DETAILS,
+    RESET_TRANSFER_MIXTURE_DETAILS,
+    RESET_WHIRLPOOL_MIXTURE_DETAILS,
+} from "../Mixture/actionTypes";
+import {
+    RESET_FERMENT_MATERIAL_PORTION_DETAILS,
+    RESET_KETTLE_MATERIAL_PORTION_DETAILS,
+    RESET_MASH_MATERIAL_PORTION_DETAILS,
+} from "../MaterialPortion/actionTypes";
+import {
+    RESET_FERMENT_MIXTURE_RECORDING_DETAILS,
+    RESET_KETTLE_MIXTURE_RECORDING_DETAILS,
+    RESET_TRANSFER_MIXTURE_RECORDING_DETAILS,
+    RESET_WHIRLPOOL_MIXTURE_RECORDING_DETAILS,
+} from "../MixtureRecording/actionTypes";
+import {
+    RESET_FERMENT_STAGE_DETAILS,
+    RESET_KETTLE_STAGE_DETAILS,
+    RESET_MASH_STAGE_DETAILS,
+    RESET_TRANSFER_STAGE_DETAILS,
+    RESET_WHIRLPOOL_STAGE_DETAILS,
+} from "../BrewStages/actionTypes";
+import { RESET_FERMENT_FINISHED_GOODS_DETAILS } from "../FinishedGoods/actionTypes";
 
 function isValidBrew(batch) {
     return (
@@ -44,7 +71,6 @@ function* fetchBatchByIdGenerator(action) {
 }
 
 function* addBatchGenerator(action) {
-    let resStage, resMixture;
     try {
         const batch = get(action, "payload.form");
         yield put({
@@ -60,108 +86,37 @@ function* addBatchGenerator(action) {
         if (!isValidBrew(get(action, "payload.form"))) {
             yield put({ type: SET_BATCH_DETAILS, payload: { error: true } });
         } else {
-            const res = yield call(api.addBatch, batch);
-            resStage = yield call(api.addBrewStage, [
-                {
-                    brewId: res.data.id,
-                    taskId: 1, // mash
-                    statusId: 1,
-                    startedAt: get(action, "payload.form.startedAt"),
-                },
-                {
-                    brewId: res.data.id,
-                    taskId: 2, // kettle
-                    statusId: 4,
-                },
-                {
-                    brewId: res.data.id,
-                    taskId: 3, // whirlpool
-                    statusId: 4,
-                },
-                {
-                    brewId: res.data.id,
-                    taskId: 6, // transfer
-                    statusId: 4,
-                },
-                {
-                    brewId: res.data.id,
-                    taskId: 7, // ferment
-                    statusId: 4,
-                },
-                {
-                    brewId: res.data.id,
-                    taskId: 5, // condition
-                    statusId: 4,
-                },
-                {
-                    brewId: res.data.id,
-                    taskId: 8, // storage
-                    statusId: 4,
-                },
-            ]);
-            resMixture = yield call(api.addMixture, {
-                quantity: {
-                    symbol: "hl",
-                    value: 0,
-                },
-                brewStageId: resStage.data[0].id,
-            });
-            resMixture = yield call(api.addMixture, {
-                parentMixtureId: resMixture.data.id,
-                quantity: {
-                    symbol: "hl",
-                    value: 0,
-                },
-                brewStageId: resStage.data[1].id,
-            });
-            resMixture = yield call(api.addMixture, {
-                parentMixtureId: resMixture.data.id,
-                quantity: {
-                    symbol: "hl",
-                    value: 0,
-                },
-                brewStageId: resStage.data[2].id,
-            });
-            resMixture = yield call(api.addMixture, {
-                parentMixtureId: resMixture.data.id,
-                quantity: {
-                    symbol: "hl",
-                    value: 0,
-                },
-                brewStageId: resStage.data[3].id,
-            });
-            resMixture = yield call(api.addMixture, {
-                parentMixtureId: resMixture.data.id,
-                quantity: {
-                    symbol: "hl",
-                    value: 0,
-                },
-                brewStageId: resStage.data[4].id,
-            });
-            resMixture = yield call(api.addMixture, {
-                parentMixtureId: resMixture.data.id,
-                quantity: {
-                    symbol: "hl",
-                    value: 0,
-                },
-                brewStageId: resStage.data[5].id,
-            });
-            yield call(api.addMixture, {
-                parentMixtureId: resMixture.data.id,
-                quantity: {
-                    symbol: "hl",
-                    value: 0,
-                },
-                brewStageId: resStage.data[6].id,
-            });
+            let res = yield call(api.addBatch, batch);
+            const pathname = "/brews/" + res.data.id;
             yield put({
                 type: SET_BATCH_DETAILS,
                 payload: { data: res.data, initial: res.data },
             });
-            yield put(setGlobalRedirect({ pathname: "/brews/" + res.data.id }));
+            res = yield call(api.addBrewStage, [
+                {
+                    brewId: res.data.id,
+                    taskId: 1, // mash
+                    statusId: 4,
+                    startedAt: get(action, "payload.form.startedAt"),
+                },
+            ]);
+            res = yield call(api.addMixture, {
+                quantity: {
+                    symbol: "hl",
+                    value: 0,
+                },
+                brewStageId: res.data[0].id,
+            });
+            yield put(
+                setGlobalRedirect({
+                    pathname,
+                    search: "?edit=true",
+                })
+            );
             yield put({ type: ADD_BATCH_SUCCESS });
         }
     } catch (e) {
+        debugger;
         yield put({ type: SET_BATCH_DETAILS, payload: { error: true } });
     }
 }
@@ -177,7 +132,12 @@ function* editBatchGenerator(action) {
             type: SET_BATCH_DETAILS,
             payload: { data: res.data, initial: res.data },
         });
-        yield put(setGlobalRedirect({ pathname: "/brews/" + res.data.id }));
+        yield put(
+            setGlobalRedirect({
+                pathname: "/brews/" + res.data.id,
+                search: "?edit=true",
+            })
+        );
         yield put({ type: EDIT_BATCH_SUCCESS });
     } catch (e) {
         yield put({ type: EDIT_BATCH_FAILURE });
@@ -194,11 +154,38 @@ function* deleteBatchGenerator(action) {
     }
 }
 
+function* resetBatchDetailsGenerator() {
+    // reset mash
+    yield put({ type: RESET_MASH_STAGE_DETAILS });
+    yield put({ type: RESET_MASH_MIXTURE_DETAILS });
+    yield put({ type: RESET_MASH_MATERIAL_PORTION_DETAILS });
+    // reset kettle
+    yield put({ type: RESET_KETTLE_STAGE_DETAILS });
+    yield put({ type: RESET_KETTLE_MIXTURE_DETAILS });
+    yield put({ type: RESET_KETTLE_MATERIAL_PORTION_DETAILS });
+    yield put({ type: RESET_KETTLE_MIXTURE_RECORDING_DETAILS });
+    // reset whirlpool
+    yield put({ type: RESET_WHIRLPOOL_STAGE_DETAILS });
+    yield put({ type: RESET_WHIRLPOOL_MIXTURE_DETAILS });
+    yield put({ type: RESET_WHIRLPOOL_MIXTURE_RECORDING_DETAILS });
+    // reset transfer
+    yield put({ type: RESET_TRANSFER_STAGE_DETAILS });
+    yield put({ type: RESET_TRANSFER_MIXTURE_DETAILS });
+    yield put({ type: RESET_TRANSFER_MIXTURE_RECORDING_DETAILS });
+    // reset ferment
+    yield put({ type: RESET_FERMENT_STAGE_DETAILS });
+    yield put({ type: RESET_FERMENT_MIXTURE_DETAILS });
+    yield put({ type: RESET_FERMENT_MATERIAL_PORTION_DETAILS });
+    yield put({ type: RESET_FERMENT_MIXTURE_RECORDING_DETAILS });
+    yield put({ type: RESET_FERMENT_FINISHED_GOODS_DETAILS });
+}
+
 function* Batch() {
     yield takeEvery(FETCH_BATCH_BY_ID_REQUEST, fetchBatchByIdGenerator);
     yield takeEvery(ADD_BATCH_REQUEST, addBatchGenerator);
     yield takeEvery(EDIT_BATCH_REQUEST, editBatchGenerator);
     yield takeEvery(DELETE_BATCH_REQUEST, deleteBatchGenerator);
+    yield takeEvery(RESET_BATCH_DETAILS, resetBatchDetailsGenerator);
 }
 
 export default Batch;

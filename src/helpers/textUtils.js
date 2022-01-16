@@ -237,3 +237,19 @@ export function NotMinusoneNun(props) {
 export function isFloat(n) {
     return Number(n) === n && n % 1 !== 0;
 }
+
+export function ErrorMessage({ error, message }) {
+    return (
+        <React.Fragment>
+            <strong>{error ? error + "!" : "Oh snap!"}</strong>{" "}
+            {message || "Change a few things up and try submitting again."}
+        </React.Fragment>
+    );
+}
+
+export function prettyBrewTaskName(name) {
+    return name
+        .toLowerCase()
+        .split(" ")
+        .map((w) => w[0].toUpperCase() + w.substr(1));
+}

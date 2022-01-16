@@ -6,6 +6,7 @@ import {
     ADD_MASH_MIXTURE_SUCCESS,
     SET_MASH_MIXTURE_DETAILS,
     RESET_MASH_MIXTURE_DETAILS,
+    FETCH_MIXTURE_BY_BREW_ID_REQUEST,
 } from "./actionTypes";
 import { initialState } from "./initial";
 
@@ -18,6 +19,7 @@ const MashMixture = (state = initialState, { type, payload } = {}) => {
                 loading: false,
                 error: null,
             };
+        case FETCH_MIXTURE_BY_BREW_ID_REQUEST:
         case ADD_MASH_MIXTURE_REQUEST:
         case EDIT_MASH_MIXTURE_REQUEST:
             return {

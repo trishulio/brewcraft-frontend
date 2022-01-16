@@ -1,19 +1,28 @@
 import {
     FETCH_MIXTURE_RECORDING_BY_BREW_ID_REQUEST,
+    FETCH_MIXTURE_RECORDING_BY_BREW_ID_SUCCESS,
+    FETCH_MIXTURE_RECORDING_BY_BREW_ID_FAILURE,
     SET_TRANSFER_MIXTURE_RECORDING_DETAILS,
     ADD_TRANSFER_MIXTURE_RECORDING_REQUEST,
+    ADD_TRANSFER_MIXTURE_RECORDING_SUCCESS,
+    ADD_TRANSFER_MIXTURE_RECORDING_FAILURE,
     EDIT_TRANSFER_MIXTURE_RECORDING_REQUEST,
     EDIT_TRANSFER_MIXTURE_RECORDING_FAILURE,
     SET_FERMENT_MIXTURE_RECORDING_DETAILS,
     EDIT_FERMENT_MIXTURE_RECORDING_FAILURE,
     ADD_FERMENT_MIXTURE_RECORDING_REQUEST,
     EDIT_FERMENT_MIXTURE_RECORDING_REQUEST,
-    DELETE_FERMENT_MIXTURE_RECORDING_REQUEST,
+    DELETE_MIXTURE_RECORDING_REQUEST,
+    ADD_FERMENT_MIXTURE_RECORDING_FAILURE,
+    EDIT_TRANSFER_MIXTURE_RECORDING_SUCCESS,
+    ADD_FERMENT_MIXTURE_RECORDING_SUCCESS,
+    EDIT_FERMENT_MIXTURE_RECORDING_SUCCESS,
+    DELETE_FERMENT_MIXTURE_RECORDING_FAILURE,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
-import { snackFailure } from "../Snackbar/actions";
+import { ErrorMessage } from "../../helpers/textUtils";
 
 function* fetchMixtureRecordingByBrewIdGenerator(action) {
     try {
@@ -22,6 +31,16 @@ function* fetchMixtureRecordingByBrewIdGenerator(action) {
             get(action, "payload.id")
         );
         let content;
+        content = res.data.content.filter(
+            (c) => c.mixture.brewStage.task.name === "TRANSFER"
+        );
+        yield put({
+            type: SET_TRANSFER_MIXTURE_RECORDING_DETAILS,
+            payload: {
+                content: JSON.parse(JSON.stringify(content)),
+                initial: JSON.parse(JSON.stringify(content)),
+            },
+        });
         content = res.data.content.filter(
             (c) => c.mixture.brewStage.task.name === "FERMENT"
         );
@@ -32,8 +51,14 @@ function* fetchMixtureRecordingByBrewIdGenerator(action) {
                 initial: JSON.parse(JSON.stringify(content)),
             },
         });
+        yield put({ type: FETCH_MIXTURE_RECORDING_BY_BREW_ID_SUCCESS });
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({
+            type: FETCH_MIXTURE_RECORDING_BY_BREW_ID_FAILURE,
+            payload: {
+                error: ErrorMessage({ ...e.response.data }),
+            },
+        });
     }
 }
 
@@ -44,11 +69,16 @@ function* addTransferMixtureRecordingGenerator(action) {
             get(action, "payload.form")
         );
         yield put({
-            type: SET_TRANSFER_MIXTURE_RECORDING_DETAILS,
+            type: ADD_TRANSFER_MIXTURE_RECORDING_SUCCESS,
             payload: { ...res.data, initial: res.data.content },
         });
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({
+            type: ADD_TRANSFER_MIXTURE_RECORDING_FAILURE,
+            payload: {
+                error: ErrorMessage({ ...e.response.data }),
+            },
+        });
     }
 }
 
@@ -56,16 +86,19 @@ function* editTransferMixtureRecordingGenerator(action) {
     try {
         const res = yield call(
             api.updateMixtureRecording,
-            get(action, "payload.id"),
             get(action, "payload.form")
         );
         yield put({
-            type: SET_TRANSFER_MIXTURE_RECORDING_DETAILS,
+            type: EDIT_TRANSFER_MIXTURE_RECORDING_SUCCESS,
             payload: { ...res.data, initial: res.data.content },
         });
     } catch (e) {
-        yield put({ type: EDIT_TRANSFER_MIXTURE_RECORDING_FAILURE });
-        yield put(snackFailure());
+        yield put({
+            type: EDIT_TRANSFER_MIXTURE_RECORDING_FAILURE,
+            payload: {
+                error: ErrorMessage({ ...e.response.data }),
+            },
+        });
     }
 }
 
@@ -76,11 +109,16 @@ function* addFermentMixtureRecordingGenerator(action) {
             get(action, "payload.form")
         );
         yield put({
-            type: SET_FERMENT_MIXTURE_RECORDING_DETAILS,
+            type: ADD_FERMENT_MIXTURE_RECORDING_SUCCESS,
             payload: { ...res.data, initial: res.data.content },
         });
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({
+            type: ADD_FERMENT_MIXTURE_RECORDING_FAILURE,
+            payload: {
+                error: ErrorMessage({ ...e.response.data }),
+            },
+        });
     }
 }
 
@@ -91,18 +129,23 @@ function* editFermentMixtureRecordingGenerator(action) {
             get(action, "payload.form")
         );
         yield put({
-            type: SET_FERMENT_MIXTURE_RECORDING_DETAILS,
+            type: EDIT_FERMENT_MIXTURE_RECORDING_SUCCESS,
             payload: {
                 content: JSON.parse(JSON.stringify(res.data)),
                 initial: JSON.parse(JSON.stringify(res.data)),
             },
         });
     } catch (e) {
-        yield put({ type: EDIT_FERMENT_MIXTURE_RECORDING_FAILURE });
+        yield put({
+            type: EDIT_FERMENT_MIXTURE_RECORDING_FAILURE,
+            payload: {
+                error: ErrorMessage({ ...e.response.data }),
+            },
+        });
     }
 }
 
-function* deleteFermentMixtureRecordingGenerator(action) {
+function* deleteMixtureRecordingGenerator(action) {
     try {
         yield call(api.deleteMixtureRecording, get(action, "payload.form"));
         yield put({
@@ -110,7 +153,12 @@ function* deleteFermentMixtureRecordingGenerator(action) {
             payload: { id: get(action, "payload.batchId") },
         });
     } catch (e) {
-        yield put(snackFailure());
+        yield put({
+            type: DELETE_FERMENT_MIXTURE_RECORDING_FAILURE,
+            payload: {
+                error: ErrorMessage({ ...e.response.data }),
+            },
+        });
     }
 }
 
@@ -136,8 +184,8 @@ function* MixtureRecording() {
         editFermentMixtureRecordingGenerator
     );
     yield takeEvery(
-        DELETE_FERMENT_MIXTURE_RECORDING_REQUEST,
-        deleteFermentMixtureRecordingGenerator
+        DELETE_MIXTURE_RECORDING_REQUEST,
+        deleteMixtureRecordingGenerator
     );
 }
 

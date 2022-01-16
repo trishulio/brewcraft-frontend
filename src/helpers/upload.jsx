@@ -19,7 +19,6 @@ export const UploadImage = () => {
             .then((data) => {
                 const getsession = Auth.currentSession();
                 if (!getsession) authenticateUser();
-                debugger;
                 Axios.get(data.location).then((data) => console.log(data));
             })
             .catch((err) => console.error(err));

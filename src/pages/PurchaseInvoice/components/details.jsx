@@ -343,8 +343,11 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             }}
                             hidden={editable}
                         >
-                            {INVOICE_STATUS[invoice.invoiceStatus?.id - 1] ||
-                                "-"}
+                            {INVOICE_STATUS[
+                                invoice.invoiceStatus
+                                    ? invoice.invoiceStatus.id - 1
+                                    : 0
+                            ] || "-"}
                         </div>
                         <FormFeedback>
                             {!invoice.invoiceStatus?.id

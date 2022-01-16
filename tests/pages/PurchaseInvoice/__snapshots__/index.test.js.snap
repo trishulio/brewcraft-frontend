@@ -1048,7 +1048,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               }
                                             }
                                           >
-                                            -
+                                            Unpaid
                                           </div>
                                           <FormFeedback
                                             tag="div"
@@ -6571,7 +6571,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               }
                                             }
                                           >
-                                            -
+                                            Unpaid
                                           </div>
                                           <FormFeedback
                                             tag="div"
@@ -8412,7 +8412,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               }
                                             }
                                           >
-                                            -
+                                            Unpaid
                                           </div>
                                           <FormFeedback
                                             tag="div"
@@ -10253,7 +10253,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               }
                                             }
                                           >
-                                            -
+                                            Unpaid
                                           </div>
                                           <FormFeedback
                                             tag="div"
