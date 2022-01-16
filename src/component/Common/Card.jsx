@@ -15,7 +15,7 @@ export const Card = (props) => {
 export const CardHeader = (props) => {
     return (
         <ReactStrap.CardHeader
-            className={`font-size-14 mb-2${
+            className={`font-size-14${
                 props.className ? " " + props.className : ""
             }`}
         >

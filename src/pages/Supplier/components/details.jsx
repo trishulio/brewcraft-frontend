@@ -19,6 +19,7 @@ export default function SupplierDetails({ editable }) {
         invalidProvince,
         invalidPostalCode,
         invalidCountry,
+        loading,
     } = useSelector((state) => {
         return state.Supplier;
     });
@@ -128,7 +129,7 @@ export default function SupplierDetails({ editable }) {
         <React.Fragment>
             <Card>
                 <CardHeader>Supplier Details</CardHeader>
-                <CardBody>
+                <CardBody isLoading={loading}>
                     <Label
                         className="d-inline-block mb-3"
                         style={{

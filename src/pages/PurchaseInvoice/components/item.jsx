@@ -8,7 +8,7 @@ import {
     FormGroup,
     FormFeedback,
 } from "reactstrap";
-import { isFloat } from "../../../helpers/textUtils";
+import { formatCurrency, isFloat } from "../../../helpers/textUtils";
 import { validAmount, validId } from "../../../helpers/utils";
 import { setPurchaseInvoiceItems } from "../../../store/actions";
 
@@ -64,6 +64,8 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                 );
                 break;
             case "purchaseInvoiceItemTax":
+                if (e.target.value < 0) e.target.value = 0;
+                if (e.target.value > 100) e.target.value = 100;
                 itemsNew[indexv].invoiceItem.tax.amount.amount = e.target.value;
                 itemsNew[indexv].invoiceItem.invalidTax = !validAmount(
                     parseFloat(e.target.value)
@@ -90,10 +92,13 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
             item.invoiceItem.price.amount &&
             item.invoiceItem.tax.amount.amount
         ) {
+            const taxRate = parseFloat(
+                item.invoiceItem.tax.amount.amount / 100
+            );
             const amount =
                 parseFloat(item.invoiceItem.quantity.value) *
                 parseFloat(item.invoiceItem.price.amount) *
-                (parseFloat(item.invoiceItem.tax.amount.amount) + 1.0);
+                (parseFloat(taxRate) + 1.0);
             if (Number.isInteger(amount) || isFloat(amount)) {
                 return amount.toFixed(2);
             }
@@ -103,47 +108,52 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
     return (
         <React.Fragment>
             <ListGroupItem>
-                <Row>
+                <Row style={{ alignItems: "baseline" }}>
                     <Col xs="3">
-                        <FormGroup>
-                            <Input
-                                type="select"
-                                name="purchaseInvoiceItemMaterial"
-                                value={item.invoiceItem.material?.id || ""}
-                                onChange={changeevent}
-                                hidden={!editable}
-                                invalid={item.invalidMaterial}
-                            >
-                                <option value="">Select item</option>
-                                {materials.map((value, index) => (
-                                    <option key={index} value={value.id}>
-                                        {value.name} ({value.baseQuantityUnit})
-                                    </option>
-                                ))}
-                            </Input>
-                            <FormFeedback>
-                                {!item.invoiceItem.material?.id
-                                    ? "Required invoice field"
-                                    : "Invalid invoice field"}
-                            </FormFeedback>
-                        </FormGroup>
+                        {editable && (
+                            <FormGroup>
+                                <Input
+                                    type="select"
+                                    name="purchaseInvoiceItemMaterial"
+                                    value={item.invoiceItem.material?.id || ""}
+                                    onChange={changeevent}
+                                    invalid={item.invoiceItem.invalidMaterial}
+                                >
+                                    <option value="">Select item</option>
+                                    {materials.map((value, index) => (
+                                        <option key={index} value={value.id}>
+                                            {value.name} (
+                                            {value.baseQuantityUnit})
+                                        </option>
+                                    ))}
+                                </Input>
+                                <FormFeedback>
+                                    {!item.invoiceItem.material?.id
+                                        ? "Required invoice field"
+                                        : "Invalid invoice field"}
+                                </FormFeedback>
+                            </FormGroup>
+                        )}
                         <div hidden={editable}>
                             {item.invoiceItem.material?.name || "-"}
                         </div>
                     </Col>
                     <Col xs="3">
-                        <FormGroup>
-                            <Input
-                                type="textarea"
-                                name="purchaseInvoiceItemDescription"
-                                rows="1"
-                                value={item.invoiceItem.description}
-                                onChange={changeevent}
-                                hidden={!editable}
-                                invalid={item.invoiceItem.invalidDescription}
-                            />
-                            <FormFeedback>Invalid invoice field</FormFeedback>
-                        </FormGroup>
+                        {editable && (
+                            <FormGroup>
+                                <Input
+                                    type="textarea"
+                                    name="purchaseInvoiceItemDescription"
+                                    rows="1"
+                                    value={item.invoiceItem.description}
+                                    onChange={changeevent}
+                                    hidden={!editable}
+                                />
+                                <FormFeedback>
+                                    Invalid invoice field
+                                </FormFeedback>
+                            </FormGroup>
+                        )}
                         <div hidden={editable}>
                             {item.invoiceItem.description || "-"}
                         </div>
@@ -239,22 +249,17 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             {item.invoiceItem.tax.amount.amount || "-"}
                         </div>
                     </Col>
-                    <Col xs="1">
-                        <Input
-                            type="text"
-                            name="purchaseInvoiceItemAmount"
-                            value={formatAmount() || "-"}
-                            onChange={changeevent}
-                            disabled={true}
-                            hidden={!editable}
-                        />
-                        <div hidden={editable}>{formatAmount() || "-"}</div>
-                    </Col>
-                    <Col xs="1">
+                    <Col xs="1" className="text-center">
                         <span
-                            style={{ lineHeight: "2rem" }}
-                            className="align-middle"
+                            style={{
+                                whiteSpace: "nowrap",
+                            }}
                         >
+                            {formatCurrency(formatAmount()) || "-"}
+                        </span>
+                    </Col>
+                    <Col xs="1" className="text-center">
+                        <span>
                             <i
                                 className="mdi mdi-delete pointer iconhover iconfont"
                                 title="delete item"

@@ -1,14 +1,14 @@
 import {
-    FETCH_MEASURE_REQUEST,
-    FETCH_MEASURE_SUCCESS,
-    FETCH_MEASURE_FAILURE,
+    FETCH_MEASURES_SUCCESS,
     SET_MEASURE_DETAILS,
     SET_MEASURE_PAGE_INDEX,
     SET_MEASURE_PAGE_SIZE,
+    FETCH_MEASURES_FAILURE,
 } from "./actionTypes";
 
 const initialState = {
     content: [],
+    data: [],
     loading: false,
     error: null,
     totalElements: 0,
@@ -17,28 +17,9 @@ const initialState = {
     pageSize: 20,
 };
 
-const Measures = (state = initialState, { type, payload, data }) => {
+const Measures = (state = initialState, { type, payload }) => {
     switch (type) {
-        case FETCH_MEASURE_REQUEST:
-            return {
-                ...state,
-                data: null,
-                loading: true,
-                error: null,
-            };
-        case FETCH_MEASURE_SUCCESS:
-            return {
-                ...state,
-                ...data.data,
-                loading: false,
-                error: null,
-            };
-        case FETCH_MEASURE_FAILURE:
-            return {
-                ...state,
-                loading: false,
-                error: payload,
-            };
+        case FETCH_MEASURES_SUCCESS:
         case SET_MEASURE_DETAILS:
         case SET_MEASURE_PAGE_INDEX:
         case SET_MEASURE_PAGE_SIZE:
@@ -47,6 +28,12 @@ const Measures = (state = initialState, { type, payload, data }) => {
                 ...payload,
                 loading: false,
                 error: null,
+            };
+        case FETCH_MEASURES_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: payload,
             };
         default:
             return {

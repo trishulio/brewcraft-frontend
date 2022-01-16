@@ -21,7 +21,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 disabled={!changed}
                 hidden={!editable}
             >
-                Save
+                <i className="fa fa-save"></i> Save
             </Button>
             <Button
                 type="button"
@@ -33,7 +33,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 }}
                 hidden={!editable}
             >
-                Cancel
+                <i className="fa fa-ban"></i> Cancel
             </Button>
             <Button
                 type="button"
@@ -42,7 +42,6 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 className="waves-effect mr-2 mb-3"
                 disabled={editable}
                 hidden={!supplier.id || editable}
-                outline={true}
                 onClick={() => {
                     history.push({
                         pathname: "/suppliers/" + supplier.id,
@@ -50,7 +49,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                     });
                 }}
             >
-                Edit
+                <i className="fa fa-edit"></i> Edit
             </Button>
             <Button
                 type="button"
@@ -61,7 +60,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 hidden={!supplier.id || !editable}
                 disabled={changed}
             >
-                Delete Supplier
+                <i className="fa fa-minus-circle"></i> Delete Supplier
             </Button>
             <Button
                 type="button"
@@ -69,20 +68,6 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 size="sm"
                 className="waves-effect mr-2 mb-3"
                 hidden={!supplier.id || editable}
-                outline={true}
-                onClick={() => {
-                    history.push("/suppliers");
-                }}
-            >
-                Suppliers
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2 mb-3"
-                hidden={!supplier.id || editable}
-                outline={true}
                 onClick={() => {
                     history.push({
                         pathname: "/suppliers/new",
@@ -90,7 +75,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                     });
                 }}
             >
-                New Supplier
+                <i className="fa fa-plus"></i> New Supplier
             </Button>
             <Button
                 type="button"
@@ -98,30 +83,11 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 size="sm"
                 className="waves-effect mr-2 mb-3"
                 hidden={!supplier.id || editable}
-                outline={true}
                 onClick={() => {
-                    history.push({
-                        pathname: "/suppliers/contacts/new",
-                        search: `?edit=true`,
-                    });
+                    history.push("/suppliers");
                 }}
             >
-                New Contact
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2 mb-3"
-                hidden={!supplier.id || editable}
-                outline={true}
-                onClick={() => {
-                    history.push({
-                        pathname: "/suppliers/contacts",
-                    });
-                }}
-            >
-                Contacts
+                <i className="fa fa-industry"></i> Suppliers
             </Button>
         </React.Fragment>
     );

@@ -14,7 +14,6 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure } from "../Snackbar/actions";
-import { SET_BATCH_DETAILS } from "../Brew/actionTypes";
 
 function* fetchMixtureRecordingByBrewIdGenerator(action) {
     try {
@@ -48,9 +47,7 @@ function* addTransferMixtureRecordingGenerator(action) {
             type: SET_TRANSFER_MIXTURE_RECORDING_DETAILS,
             payload: { ...res.data, initial: res.data.content },
         });
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
-        console.log(e);
         yield put(snackFailure("Something went wrong please try again."));
     }
 }
@@ -66,7 +63,6 @@ function* editTransferMixtureRecordingGenerator(action) {
             type: SET_TRANSFER_MIXTURE_RECORDING_DETAILS,
             payload: { ...res.data, initial: res.data.content },
         });
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
         yield put({ type: EDIT_TRANSFER_MIXTURE_RECORDING_FAILURE });
         yield put(snackFailure());
@@ -83,9 +79,7 @@ function* addFermentMixtureRecordingGenerator(action) {
             type: SET_FERMENT_MIXTURE_RECORDING_DETAILS,
             payload: { ...res.data, initial: res.data.content },
         });
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
-        console.log(e);
         yield put(snackFailure("Something went wrong please try again."));
     }
 }
@@ -116,7 +110,6 @@ function* deleteFermentMixtureRecordingGenerator(action) {
             payload: { id: get(action, "payload.batchId") },
         });
     } catch (e) {
-        console.log(e);
         yield put(snackFailure());
     }
 }
