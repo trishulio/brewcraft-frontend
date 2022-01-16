@@ -90,6 +90,7 @@
         "test": "jest --config ./jest.config.json",
         "test:watch": "jest --watch --config ./jest.config.json",
         "test:coverage": "jest --coverage --watchAll --config ./jest.config.json",
+        "test:updateSnapshot": "npm run test -- -u",
         "eslint": "node ./node_modules/eslint/bin/eslint ./src ./tests ./cypress",
         "prettier": "node ./node_modules/prettier/bin-prettier --write .",
         "prettier:warn": "node ./node_modules/prettier/bin-prettier --check ."
