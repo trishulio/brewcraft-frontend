@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert, Button } from "reactstrap";
 import {
     setFermentMaterialPortionDetails,
     setFermentMixtureDetails,
@@ -16,20 +15,13 @@ import {
     deleteFermentMixtureRecords,
     deleteFermentFinishedGoods,
 } from "../../../../store/actions";
-import {
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-} from "../../../../component/Common/Card";
 import Details from "../mixture/details";
 import Ingredients from "../mixture/ingredients";
 import Recordings from "../mixture/mixture-recordings";
 import FinishedGoods from "../mixture/finished-goods";
-import { Badge } from "../badge";
+import BatchStage from "./stage";
 
 export default function BatchFerment() {
-    const [isOpen, setIsOpen] = useState(true);
     const dispatch = useDispatch();
 
     const {
@@ -322,106 +314,53 @@ export default function BatchFerment() {
         }
     }
 
+    const stageProps = {
+        title: "Mash Lauter",
+        editable,
+        setEditable: () => {
+            dispatch(
+                setFermentStageDetails({
+                    editable: true,
+                })
+            );
+        },
+        changed,
+        initialStage,
+        stage,
+        stageLoading,
+        mixtureLoading,
+        materialPortionsLoading,
+        mixtureRecordingsLoading,
+        finishedGoodsLoading,
+        stageError,
+        mixtureError,
+        materialPortionsError,
+        mixtureRecordingsError,
+        finishedGoodsError,
+        onSave,
+        onCancel: () => {
+            dispatch(
+                setFermentStageDetails({
+                    data: {
+                        ...initialStage,
+                    },
+                    editable: false,
+                })
+            );
+        },
+    };
+
     return (
         <React.Fragment>
-            {(stageError ||
-                mixtureError ||
-                materialPortionsError ||
-                mixtureRecordingsError ||
-                finishedGoodsError) && (
-                <Alert color="info" className="mt-2 mb-4">
-                    <strong>Oh snap!</strong> Change a few things up and try
-                    submitting again.
-                </Alert>
-            )}
-            <Card className="mb-3">
-                <CardHeader>
-                    <div
-                        className="d-inline-block mr-2"
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
-                        <i
-                            className={`fa fa-caret-right font-size-14 mr-2 ${
-                                isOpen ? " rotate-down" : ""
-                            }`}
-                        ></i>
-                        Ferment
-                    </div>
-                    <div className="d-inline-block">
-                        <Badge stage={stage} />
-                    </div>
-                </CardHeader>
-                <CardBody
-                    isLoading={
-                        stageLoading ||
-                        mixtureLoading ||
-                        materialPortionsLoading ||
-                        mixtureRecordingsLoading ||
-                        finishedGoodsLoading
-                    }
-                    isOpen={isOpen}
-                >
-                    <Details {...detailsProps} />
-                    <div className="clearFix mb-4"></div>
-                    <div className="px-2 mb-4">
-                        <Ingredients {...ingredientsProps} />
-                    </div>
-                    <div className="px-2 mb-4">
-                        <Recordings {...recordingsProps} />
-                    </div>
-                    <div className="px-2">
-                        <FinishedGoods {...finishedGoodsProps} />
-                    </div>
-                    <Button
-                        type="button"
-                        color="secondary"
-                        size="sm"
-                        className="waves-effect"
-                        onClick={() => {
-                            dispatch(
-                                setFermentStageDetails({
-                                    editable: true,
-                                })
-                            );
-                        }}
-                        hidden={editable}
-                    >
-                        Edit
-                    </Button>
-                </CardBody>
-                {editable && (
-                    <CardFooter>
-                        <Button
-                            type="button"
-                            color="primary"
-                            size="sm"
-                            className="waves-effect mr-2"
-                            onClick={onSave}
-                            disabled={!changed}
-                        >
-                            Save
-                        </Button>
-                        <Button
-                            type="button"
-                            color="secondary"
-                            size="sm"
-                            className="waves-effect mr-2"
-                            onClick={() => {
-                                dispatch(
-                                    setFermentStageDetails({
-                                        data: {
-                                            ...initialStage,
-                                        },
-                                        editable: false,
-                                    })
-                                );
-                            }}
-                        >
-                            Done
-                        </Button>
-                    </CardFooter>
-                )}
-            </Card>
+            <BatchStage {...stageProps}>
+                <Details {...detailsProps} />
+                <div className="clearFix mb-1"></div>
+                <Ingredients {...ingredientsProps} />
+                <div className="clearFix mb-1"></div>
+                <Recordings {...recordingsProps} />
+                <div className="clearFix mb-1"></div>
+                <FinishedGoods {...finishedGoodsProps} />
+            </BatchStage>
         </React.Fragment>
     );
 }

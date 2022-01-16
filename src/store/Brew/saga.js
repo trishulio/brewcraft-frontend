@@ -12,6 +12,8 @@ import {
     EDIT_BATCH_FAILURE,
     EDIT_BATCH_SUCCESS,
     ADD_BATCH_SUCCESS,
+    FETCH_BATCH_BY_ID_SUCCESS,
+    FETCH_BATCH_BY_ID_FAILURE,
 } from "./actionTypes";
 import { isValidName, validDate, validId } from "../../helpers/utils";
 
@@ -31,8 +33,13 @@ function* fetchBatchByIdGenerator(action) {
             type: SET_BATCH_DETAILS,
             payload: { data: res.data, initial: res.data },
         });
+        yield put({
+            type: FETCH_BATCH_BY_ID_SUCCESS,
+        });
     } catch (e) {
-        yield put(snackFailure(e.message));
+        yield put({
+            type: FETCH_BATCH_BY_ID_FAILURE,
+        });
     }
 }
 
@@ -44,7 +51,7 @@ function* addBatchGenerator(action) {
             type: SET_BATCH_DETAILS,
             payload: {
                 invalidBatchId: !isValidName(batch.batchId),
-                invalidProduct: !validId(batch.product?.id),
+                invalidProduct: !validId(batch.productId),
                 invalidBatchStartedAt: !validDate(batch.startedAt),
                 invalidBatchEndedAt:
                     batch.endedAt && !validDate(batch.endedAt) ? true : false,
@@ -155,7 +162,6 @@ function* addBatchGenerator(action) {
             yield put({ type: ADD_BATCH_SUCCESS });
         }
     } catch (e) {
-        console.log(e);
         yield put({ type: SET_BATCH_DETAILS, payload: { error: true } });
     }
 }

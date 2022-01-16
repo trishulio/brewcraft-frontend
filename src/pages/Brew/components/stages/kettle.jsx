@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Ingredients from "../mixture/ingredients";
 import Details from "../mixture/details";
@@ -11,17 +11,9 @@ import {
     setKettleMixtureDetails,
     setKettleStageDetails,
 } from "../../../../store/actions";
-import { Alert, Button } from "reactstrap";
-import {
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-} from "../../../../component/Common/Card";
-import { Badge } from "../badge";
+import BatchStage from "./stage";
 
 export default function BrewKettle() {
-    const [isOpen, setIsOpen] = useState(true);
     const dispatch = useDispatch();
 
     const {
@@ -48,7 +40,7 @@ export default function BrewKettle() {
         content: materialPortions,
         initial: initialMaterialPortions,
         loading: materialPortionsLoading,
-        error: materialPortionError,
+        error: materialPortionsError,
     } = useSelector((state) => {
         return state.Batch.KettleMaterialPortion;
     });
@@ -166,94 +158,45 @@ export default function BrewKettle() {
         setMaterialPortions,
     };
 
+    const stageProps = {
+        title: "Kettle",
+        editable,
+        setEditable: () => {
+            dispatch(
+                setKettleStageDetails({
+                    editable: true,
+                })
+            );
+        },
+        changed,
+        initialStage,
+        stage,
+        stageLoading,
+        mixtureLoading,
+        materialPortionsLoading,
+        stageError,
+        mixtureError,
+        materialPortionsError,
+        onSave,
+        onCancel: () => {
+            dispatch(
+                setKettleStageDetails({
+                    data: {
+                        ...initialStage,
+                    },
+                    editable: false,
+                })
+            );
+        },
+    };
+
     return (
         <React.Fragment>
-            {(stageError || mixtureError || materialPortionError) && (
-                <Alert color="info" className="mt-2 mb-4">
-                    <strong>Oh snap!</strong> Change a few things up and try
-                    submitting again.
-                </Alert>
-            )}
-            <Card className="mb-3">
-                <CardHeader>
-                    <div
-                        className="d-inline-block mr-2"
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
-                        <i
-                            className={`fa fa-caret-right font-size-14 mr-2 ${
-                                isOpen ? " rotate-down" : ""
-                            }`}
-                        ></i>
-                        Kettle Lauter
-                    </div>
-                    <div className="d-inline-block">
-                        <Badge stage={stage} />
-                    </div>
-                </CardHeader>
-                <CardBody
-                    isLoading={
-                        stageLoading ||
-                        mixtureLoading ||
-                        materialPortionsLoading
-                    }
-                    isOpen={isOpen}
-                >
-                    <Details {...detailsProps} />
-                    <div className="clearFix mb-3"></div>
-                    <div className="px-2">
-                        <Ingredients {...ingredientsProps} />
-                    </div>
-                    <Button
-                        type="button"
-                        color="secondary"
-                        size="sm"
-                        className="waves-effect"
-                        onClick={() => {
-                            dispatch(
-                                setKettleStageDetails({
-                                    editable: true,
-                                })
-                            );
-                        }}
-                        hidden={editable}
-                    >
-                        Edit
-                    </Button>
-                </CardBody>
-                {editable && (
-                    <CardFooter>
-                        <Button
-                            type="button"
-                            color="primary"
-                            size="sm"
-                            className="waves-effect mr-2"
-                            onClick={onSave}
-                            disabled={!changed}
-                        >
-                            Save
-                        </Button>
-                        <Button
-                            type="button"
-                            color="secondary"
-                            size="sm"
-                            className="waves-effect mr-2"
-                            onClick={() => {
-                                dispatch(
-                                    setKettleStageDetails({
-                                        data: {
-                                            ...initialStage,
-                                        },
-                                        editable: false,
-                                    })
-                                );
-                            }}
-                        >
-                            Done
-                        </Button>
-                    </CardFooter>
-                )}
-            </Card>
+            <BatchStage {...stageProps}>
+                <Details {...detailsProps} />
+                <div className="clearfix mb-1"></div>
+                <Ingredients {...ingredientsProps} />
+            </BatchStage>
         </React.Fragment>
     );
 }

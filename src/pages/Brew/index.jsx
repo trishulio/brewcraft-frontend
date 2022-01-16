@@ -75,12 +75,13 @@ export default function Batch() {
     ]);
 
     useEffect(() => {
-        dispatch(resetBatchDetails());
         if (id !== "new") {
             dispatch(fetchBatchById(id));
             dispatch(fetchMaterialPortionsByBrewId(id));
             dispatch(fetchMixtureRecordingsByBrewId(id));
             dispatch(fetchFinishedGoodsByBrewId({ brewId: id, pageSize: 500 }));
+        } else {
+            dispatch(resetBatchDetails());
         }
         dispatch(
             fetchProducts({

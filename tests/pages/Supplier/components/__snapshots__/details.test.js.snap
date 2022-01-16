@@ -49,11 +49,11 @@ exports[`Supplier -> Components -> <Details> render() Dispatch supplierAddressCi
             >
               <CardHeader>
                 <CardHeader
-                  className="font-size-14 mb-2"
+                  className="font-size-14"
                   tag="div"
                 >
                   <div
-                    className="font-size-14 mb-2 card-header"
+                    className="font-size-14 card-header"
                   >
                     Supplier Details
                   </div>
@@ -838,11 +838,11 @@ exports[`Supplier -> Components -> <Details> render() Dispatch supplierAddressCo
             >
               <CardHeader>
                 <CardHeader
-                  className="font-size-14 mb-2"
+                  className="font-size-14"
                   tag="div"
                 >
                   <div
-                    className="font-size-14 mb-2 card-header"
+                    className="font-size-14 card-header"
                   >
                     Supplier Details
                   </div>
@@ -1627,11 +1627,11 @@ exports[`Supplier -> Components -> <Details> render() Dispatch supplierAddressLi
             >
               <CardHeader>
                 <CardHeader
-                  className="font-size-14 mb-2"
+                  className="font-size-14"
                   tag="div"
                 >
                   <div
-                    className="font-size-14 mb-2 card-header"
+                    className="font-size-14 card-header"
                   >
                     Supplier Details
                   </div>
@@ -2416,11 +2416,11 @@ exports[`Supplier -> Components -> <Details> render() Dispatch supplierAddressLi
             >
               <CardHeader>
                 <CardHeader
-                  className="font-size-14 mb-2"
+                  className="font-size-14"
                   tag="div"
                 >
                   <div
-                    className="font-size-14 mb-2 card-header"
+                    className="font-size-14 card-header"
                   >
                     Supplier Details
                   </div>
@@ -3205,11 +3205,11 @@ exports[`Supplier -> Components -> <Details> render() Dispatch supplierAddressPo
             >
               <CardHeader>
                 <CardHeader
-                  className="font-size-14 mb-2"
+                  className="font-size-14"
                   tag="div"
                 >
                   <div
-                    className="font-size-14 mb-2 card-header"
+                    className="font-size-14 card-header"
                   >
                     Supplier Details
                   </div>
@@ -3994,11 +3994,11 @@ exports[`Supplier -> Components -> <Details> render() Dispatch supplierAddressPr
             >
               <CardHeader>
                 <CardHeader
-                  className="font-size-14 mb-2"
+                  className="font-size-14"
                   tag="div"
                 >
                   <div
-                    className="font-size-14 mb-2 card-header"
+                    className="font-size-14 card-header"
                   >
                     Supplier Details
                   </div>
@@ -4783,11 +4783,11 @@ exports[`Supplier -> Components -> <Details> render() Dispatch supplierName is g
             >
               <CardHeader>
                 <CardHeader
-                  className="font-size-14 mb-2"
+                  className="font-size-14"
                   tag="div"
                 >
                   <div
-                    className="font-size-14 mb-2 card-header"
+                    className="font-size-14 card-header"
                   >
                     Supplier Details
                   </div>
@@ -5572,11 +5572,11 @@ exports[`Supplier -> Components -> <Details> render() renders the Details compon
             >
               <CardHeader>
                 <CardHeader
-                  className="font-size-14 mb-2"
+                  className="font-size-14"
                   tag="div"
                 >
                   <div
-                    className="font-size-14 mb-2 card-header"
+                    className="font-size-14 card-header"
                   >
                     Supplier Details
                   </div>
