@@ -319,11 +319,11 @@ exports[`MaterialCategory -> <Index> render() Should dispatch setInvalidMaterial
                         >
                           <CardHeader>
                             <CardHeader
-                              className="font-size-14 mb-2"
+                              className="font-size-14"
                               tag="div"
                             >
                               <div
-                                className="font-size-14 mb-2 card-header"
+                                className="font-size-14 card-header"
                               >
                                 Material Category Details
                               </div>
@@ -947,11 +947,11 @@ exports[`MaterialCategory -> <Index> render() dispatch editMaterialCategory on c
                         >
                           <CardHeader>
                             <CardHeader
-                              className="font-size-14 mb-2"
+                              className="font-size-14"
                               tag="div"
                             >
                               <div
-                                className="font-size-14 mb-2 card-header"
+                                className="font-size-14 card-header"
                               >
                                 Material Category Details
                               </div>
@@ -1575,11 +1575,11 @@ exports[`MaterialCategory -> <Index> render() dispatch saveMaterialCategory on c
                         >
                           <CardHeader>
                             <CardHeader
-                              className="font-size-14 mb-2"
+                              className="font-size-14"
                               tag="div"
                             >
                               <div
-                                className="font-size-14 mb-2 card-header"
+                                className="font-size-14 card-header"
                               >
                                 Material Category Details
                               </div>
@@ -2196,11 +2196,11 @@ exports[`MaterialCategory -> <Index> render() history.replace should happen on i
                         >
                           <CardHeader>
                             <CardHeader
-                              className="font-size-14 mb-2"
+                              className="font-size-14"
                               tag="div"
                             >
                               <div
-                                className="font-size-14 mb-2 card-header"
+                                className="font-size-14 card-header"
                               >
                                 Material Category Details
                               </div>
@@ -2817,11 +2817,11 @@ exports[`MaterialCategory -> <Index> render() renders the component 1`] = `
                         >
                           <CardHeader>
                             <CardHeader
-                              className="font-size-14 mb-2"
+                              className="font-size-14"
                               tag="div"
                             >
                               <div
-                                className="font-size-14 mb-2 card-header"
+                                className="font-size-14 card-header"
                               >
                                 Material Category Details
                               </div>
@@ -3438,11 +3438,11 @@ exports[`MaterialCategory -> <Index> render() setBreadcrumbItems when material c
                         >
                           <CardHeader>
                             <CardHeader
-                              className="font-size-14 mb-2"
+                              className="font-size-14"
                               tag="div"
                             >
                               <div
-                                className="font-size-14 mb-2 card-header"
+                                className="font-size-14 card-header"
                               >
                                 Material Category Details
                               </div>
@@ -4066,11 +4066,11 @@ exports[`MaterialCategory -> <Index> render() setEditMode should set editable to
                         >
                           <CardHeader>
                             <CardHeader
-                              className="font-size-14 mb-2"
+                              className="font-size-14"
                               tag="div"
                             >
                               <div
-                                className="font-size-14 mb-2 card-header"
+                                className="font-size-14 card-header"
                               >
                                 Material Category Details
                               </div>

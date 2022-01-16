@@ -294,7 +294,7 @@ describe("PurchaseInvoice -> <Index>", () => {
                 </Provider>
             );
             expect(shallowToJson(wrapper)).toMatchSnapshot();
-            expect(mockDispatch).toHaveBeenNthCalledWith(13, {
+            expect(mockDispatch).toHaveBeenNthCalledWith(15, {
                 type: "SET_BREADCRUMB_ITEMS",
                 payload: {
                     title: "Invoice: 1",
@@ -332,7 +332,7 @@ describe("PurchaseInvoice -> <Index>", () => {
             );
             expect(shallowToJson(wrapper)).toMatchSnapshot();
             wrapper.find({ children: "Save" }).at(1).simulate("click");
-            expect(mockDispatch).toHaveBeenNthCalledWith(21, {
+            expect(mockDispatch).toHaveBeenNthCalledWith(24, {
                 type: "UPDATE_PURCHASE_ORDER",
                 payload: {
                     id: "1",
@@ -341,7 +341,7 @@ describe("PurchaseInvoice -> <Index>", () => {
                     version: undefined,
                 },
             });
-            expect(mockDispatch).toHaveBeenNthCalledWith(22, {
+            expect(mockDispatch).toHaveBeenNthCalledWith(25, {
                 type: "UPDATE_PROCUREMENT",
                 payload: {
                     invoice: {
@@ -389,7 +389,7 @@ describe("PurchaseInvoice -> <Index>", () => {
                                 tax: {
                                     amount: {
                                         currency: "CAD",
-                                        amount: NaN,
+                                        amount: "0",
                                     },
                                 },
                                 materialId: undefined,
@@ -460,7 +460,7 @@ describe("PurchaseInvoice -> <Index>", () => {
             );
             expect(shallowToJson(wrapper)).toMatchSnapshot();
             wrapper.find({ children: "Save" }).at(1).simulate("click");
-            expect(mockDispatch).toHaveBeenNthCalledWith(21, {
+            expect(mockDispatch).toHaveBeenNthCalledWith(34, {
                 type: "UPDATE_PURCHASE_ORDER",
                 payload: {
                     id: "1",
@@ -469,7 +469,7 @@ describe("PurchaseInvoice -> <Index>", () => {
                     version: undefined,
                 },
             });
-            expect(mockDispatch).toHaveBeenNthCalledWith(31, {
+            expect(mockDispatch).toHaveBeenNthCalledWith(35, {
                 type: "CREATE_PROCUREMENT",
                 payload: {
                     invoice: {
@@ -494,11 +494,18 @@ describe("PurchaseInvoice -> <Index>", () => {
                     },
                     shipment: {
                         id: "id",
+                        deliveredDate: undefined,
+                        deliveryDueDate: undefined,
+                        description: undefined,
+                        shipmentNumber: undefined,
+                        shipmentStatusId: undefined,
+                        version: undefined,
                     },
                     procurementItems: [
                         {
                             invoiceItem: {
                                 id: "id",
+                                description: undefined,
                                 quantity: {
                                     value: NaN,
                                 },
@@ -509,7 +516,7 @@ describe("PurchaseInvoice -> <Index>", () => {
                                 tax: {
                                     amount: {
                                         currency: "CAD",
-                                        amount: NaN,
+                                        amount: "0",
                                     },
                                 },
                                 materialId: undefined,
@@ -519,8 +526,11 @@ describe("PurchaseInvoice -> <Index>", () => {
                                 id: "id",
                                 quantity: {
                                     value: NaN,
+                                    symbol: undefined,
                                 },
                                 version: undefined,
+                                lotNumber: undefined,
+                                storageId: undefined,
                             },
                         },
                     ],

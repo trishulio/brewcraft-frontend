@@ -427,9 +427,9 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -540,9 +540,9 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -653,9 +653,9 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -785,9 +785,9 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -900,9 +900,9 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -1026,9 +1026,9 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -1190,7 +1190,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                             <div
                                               className="col-1"
                                             >
-                                              Tax
+                                              Tax (%)
                                             </div>
                                           </Col>
                                           <Col
@@ -1209,7 +1209,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                             <div
                                               className="col-2"
                                             >
-                                              Amount
+                                              Total Amount
                                             </div>
                                           </Col>
                                         </div>
@@ -1228,6 +1228,11 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                         className="list-group-item"
                                       >
                                         <Row
+                                          style={
+                                            Object {
+                                              "alignItems": "baseline",
+                                            }
+                                          }
                                           tag="div"
                                           widths={
                                             Array [
@@ -1241,6 +1246,11 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                         >
                                           <div
                                             className="row"
+                                            style={
+                                              Object {
+                                                "alignItems": "baseline",
+                                              }
+                                            }
                                           >
                                             <Col
                                               tag="div"
@@ -1258,44 +1268,6 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               <div
                                                 className="col-3"
                                               >
-                                                <FormGroup
-                                                  tag="div"
-                                                >
-                                                  <div
-                                                    className="form-group"
-                                                  >
-                                                    <Input
-                                                      hidden={true}
-                                                      name="purchaseInvoiceItemMaterial"
-                                                      onChange={[Function]}
-                                                      type="select"
-                                                      value=""
-                                                    >
-                                                      <select
-                                                        className="form-control"
-                                                        hidden={true}
-                                                        name="purchaseInvoiceItemMaterial"
-                                                        onChange={[Function]}
-                                                        value=""
-                                                      >
-                                                        <option
-                                                          value=""
-                                                        >
-                                                          Select item
-                                                        </option>
-                                                      </select>
-                                                    </Input>
-                                                    <FormFeedback
-                                                      tag="div"
-                                                    >
-                                                      <div
-                                                        className="invalid-feedback"
-                                                      >
-                                                        Required invoice field
-                                                      </div>
-                                                    </FormFeedback>
-                                                  </div>
-                                                </FormGroup>
                                                 <div
                                                   hidden={false}
                                                 >
@@ -1319,40 +1291,6 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               <div
                                                 className="col-3"
                                               >
-                                                <FormGroup
-                                                  tag="div"
-                                                >
-                                                  <div
-                                                    className="form-group"
-                                                  >
-                                                    <Input
-                                                      hidden={true}
-                                                      name="purchaseInvoiceItemDescription"
-                                                      onChange={[Function]}
-                                                      rows="1"
-                                                      type="textarea"
-                                                      value=""
-                                                    >
-                                                      <textarea
-                                                        className="form-control"
-                                                        hidden={true}
-                                                        name="purchaseInvoiceItemDescription"
-                                                        onChange={[Function]}
-                                                        rows="1"
-                                                        value=""
-                                                      />
-                                                    </Input>
-                                                    <FormFeedback
-                                                      tag="div"
-                                                    >
-                                                      <div
-                                                        className="invalid-feedback"
-                                                      >
-                                                        Invalid invoice field
-                                                      </div>
-                                                    </FormFeedback>
-                                                  </div>
-                                                </FormGroup>
                                                 <div
                                                   hidden={false}
                                                 >
@@ -1462,6 +1400,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               </div>
                                             </Col>
                                             <Col
+                                              className="text-center"
                                               tag="div"
                                               widths={
                                                 Array [
@@ -1475,57 +1414,60 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               xs="1"
                                             >
                                               <div
-                                                className="col-1"
-                                              >
-                                                <Input
-                                                  disabled={true}
-                                                  hidden={true}
-                                                  name="purchaseInvoiceItemAmount"
-                                                  onChange={[Function]}
-                                                  type="text"
-                                                  value="-"
-                                                >
-                                                  <input
-                                                    className="form-control"
-                                                    disabled={true}
-                                                    hidden={true}
-                                                    name="purchaseInvoiceItemAmount"
-                                                    onChange={[Function]}
-                                                    type="text"
-                                                    value="-"
-                                                  />
-                                                </Input>
-                                                <div
-                                                  hidden={false}
-                                                >
-                                                  -
-                                                </div>
-                                              </div>
-                                            </Col>
-                                            <Col
-                                              tag="div"
-                                              widths={
-                                                Array [
-                                                  "xs",
-                                                  "sm",
-                                                  "md",
-                                                  "lg",
-                                                  "xl",
-                                                ]
-                                              }
-                                              xs="1"
-                                            >
-                                              <div
-                                                className="col-1"
+                                                className="text-center col-1"
                                               >
                                                 <span
-                                                  className="align-middle"
                                                   style={
                                                     Object {
-                                                      "lineHeight": "2rem",
+                                                      "whiteSpace": "nowrap",
                                                     }
                                                   }
                                                 >
+                                                  <NumberFormat
+                                                    allowEmptyFormatting={false}
+                                                    allowLeadingZeros={false}
+                                                    allowNegative={true}
+                                                    decimalScale={2}
+                                                    decimalSeparator="."
+                                                    displayType="text"
+                                                    fixedDecimalScale={true}
+                                                    isAllowed={[Function]}
+                                                    isNumericString={true}
+                                                    onBlur={[Function]}
+                                                    onChange={[Function]}
+                                                    onFocus={[Function]}
+                                                    onKeyDown={[Function]}
+                                                    onMouseUp={[Function]}
+                                                    onValueChange={[Function]}
+                                                    prefix="$"
+                                                    suffix=""
+                                                    thousandSeparator=","
+                                                    thousandsGroupStyle="thousand"
+                                                    type="text"
+                                                  >
+                                                    <span />
+                                                  </NumberFormat>
+                                                </span>
+                                              </div>
+                                            </Col>
+                                            <Col
+                                              className="text-center"
+                                              tag="div"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                              xs="1"
+                                            >
+                                              <div
+                                                className="text-center col-1"
+                                              >
+                                                <span>
                                                   <i
                                                     className="mdi mdi-delete pointer iconhover iconfont"
                                                     hidden={true}
@@ -1629,7 +1571,33 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -1690,7 +1658,33 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -1776,8 +1770,33 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                $ 
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -2231,9 +2250,9 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -2344,9 +2363,9 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -2457,9 +2476,9 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             1
                                           </div>
@@ -2589,9 +2608,9 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -2704,9 +2723,9 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -2830,9 +2849,9 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -2994,7 +3013,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                             <div
                                               className="col-1"
                                             >
-                                              Tax
+                                              Tax (%)
                                             </div>
                                           </Col>
                                           <Col
@@ -3013,7 +3032,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                             <div
                                               className="col-2"
                                             >
-                                              Amount
+                                              Total Amount
                                             </div>
                                           </Col>
                                         </div>
@@ -3032,6 +3051,11 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                         className="list-group-item"
                                       >
                                         <Row
+                                          style={
+                                            Object {
+                                              "alignItems": "baseline",
+                                            }
+                                          }
                                           tag="div"
                                           widths={
                                             Array [
@@ -3045,6 +3069,11 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                         >
                                           <div
                                             className="row"
+                                            style={
+                                              Object {
+                                                "alignItems": "baseline",
+                                              }
+                                            }
                                           >
                                             <Col
                                               tag="div"
@@ -3062,44 +3091,6 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               <div
                                                 className="col-3"
                                               >
-                                                <FormGroup
-                                                  tag="div"
-                                                >
-                                                  <div
-                                                    className="form-group"
-                                                  >
-                                                    <Input
-                                                      hidden={true}
-                                                      name="purchaseInvoiceItemMaterial"
-                                                      onChange={[Function]}
-                                                      type="select"
-                                                      value=""
-                                                    >
-                                                      <select
-                                                        className="form-control"
-                                                        hidden={true}
-                                                        name="purchaseInvoiceItemMaterial"
-                                                        onChange={[Function]}
-                                                        value=""
-                                                      >
-                                                        <option
-                                                          value=""
-                                                        >
-                                                          Select item
-                                                        </option>
-                                                      </select>
-                                                    </Input>
-                                                    <FormFeedback
-                                                      tag="div"
-                                                    >
-                                                      <div
-                                                        className="invalid-feedback"
-                                                      >
-                                                        Required invoice field
-                                                      </div>
-                                                    </FormFeedback>
-                                                  </div>
-                                                </FormGroup>
                                                 <div
                                                   hidden={false}
                                                 >
@@ -3123,40 +3114,6 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               <div
                                                 className="col-3"
                                               >
-                                                <FormGroup
-                                                  tag="div"
-                                                >
-                                                  <div
-                                                    className="form-group"
-                                                  >
-                                                    <Input
-                                                      hidden={true}
-                                                      name="purchaseInvoiceItemDescription"
-                                                      onChange={[Function]}
-                                                      rows="1"
-                                                      type="textarea"
-                                                      value=""
-                                                    >
-                                                      <textarea
-                                                        className="form-control"
-                                                        hidden={true}
-                                                        name="purchaseInvoiceItemDescription"
-                                                        onChange={[Function]}
-                                                        rows="1"
-                                                        value=""
-                                                      />
-                                                    </Input>
-                                                    <FormFeedback
-                                                      tag="div"
-                                                    >
-                                                      <div
-                                                        className="invalid-feedback"
-                                                      >
-                                                        Invalid invoice field
-                                                      </div>
-                                                    </FormFeedback>
-                                                  </div>
-                                                </FormGroup>
                                                 <div
                                                   hidden={false}
                                                 >
@@ -3266,6 +3223,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               </div>
                                             </Col>
                                             <Col
+                                              className="text-center"
                                               tag="div"
                                               widths={
                                                 Array [
@@ -3279,57 +3237,60 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               xs="1"
                                             >
                                               <div
-                                                className="col-1"
-                                              >
-                                                <Input
-                                                  disabled={true}
-                                                  hidden={true}
-                                                  name="purchaseInvoiceItemAmount"
-                                                  onChange={[Function]}
-                                                  type="text"
-                                                  value="-"
-                                                >
-                                                  <input
-                                                    className="form-control"
-                                                    disabled={true}
-                                                    hidden={true}
-                                                    name="purchaseInvoiceItemAmount"
-                                                    onChange={[Function]}
-                                                    type="text"
-                                                    value="-"
-                                                  />
-                                                </Input>
-                                                <div
-                                                  hidden={false}
-                                                >
-                                                  -
-                                                </div>
-                                              </div>
-                                            </Col>
-                                            <Col
-                                              tag="div"
-                                              widths={
-                                                Array [
-                                                  "xs",
-                                                  "sm",
-                                                  "md",
-                                                  "lg",
-                                                  "xl",
-                                                ]
-                                              }
-                                              xs="1"
-                                            >
-                                              <div
-                                                className="col-1"
+                                                className="text-center col-1"
                                               >
                                                 <span
-                                                  className="align-middle"
                                                   style={
                                                     Object {
-                                                      "lineHeight": "2rem",
+                                                      "whiteSpace": "nowrap",
                                                     }
                                                   }
                                                 >
+                                                  <NumberFormat
+                                                    allowEmptyFormatting={false}
+                                                    allowLeadingZeros={false}
+                                                    allowNegative={true}
+                                                    decimalScale={2}
+                                                    decimalSeparator="."
+                                                    displayType="text"
+                                                    fixedDecimalScale={true}
+                                                    isAllowed={[Function]}
+                                                    isNumericString={true}
+                                                    onBlur={[Function]}
+                                                    onChange={[Function]}
+                                                    onFocus={[Function]}
+                                                    onKeyDown={[Function]}
+                                                    onMouseUp={[Function]}
+                                                    onValueChange={[Function]}
+                                                    prefix="$"
+                                                    suffix=""
+                                                    thousandSeparator=","
+                                                    thousandsGroupStyle="thousand"
+                                                    type="text"
+                                                  >
+                                                    <span />
+                                                  </NumberFormat>
+                                                </span>
+                                              </div>
+                                            </Col>
+                                            <Col
+                                              className="text-center"
+                                              tag="div"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                              xs="1"
+                                            >
+                                              <div
+                                                className="text-center col-1"
+                                              >
+                                                <span>
                                                   <i
                                                     className="mdi mdi-delete pointer iconhover iconfont"
                                                     hidden={true}
@@ -3433,7 +3394,33 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -3494,7 +3481,33 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -3580,8 +3593,33 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                $ 
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -4035,9 +4073,9 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -4148,9 +4186,9 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -4261,9 +4299,9 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             1
                                           </div>
@@ -4393,9 +4431,9 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -4508,9 +4546,9 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -4634,9 +4672,9 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -4798,7 +4836,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                             <div
                                               className="col-1"
                                             >
-                                              Tax
+                                              Tax (%)
                                             </div>
                                           </Col>
                                           <Col
@@ -4817,7 +4855,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                             <div
                                               className="col-2"
                                             >
-                                              Amount
+                                              Total Amount
                                             </div>
                                           </Col>
                                         </div>
@@ -4836,6 +4874,11 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                         className="list-group-item"
                                       >
                                         <Row
+                                          style={
+                                            Object {
+                                              "alignItems": "baseline",
+                                            }
+                                          }
                                           tag="div"
                                           widths={
                                             Array [
@@ -4849,6 +4892,11 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                         >
                                           <div
                                             className="row"
+                                            style={
+                                              Object {
+                                                "alignItems": "baseline",
+                                              }
+                                            }
                                           >
                                             <Col
                                               tag="div"
@@ -4866,44 +4914,6 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               <div
                                                 className="col-3"
                                               >
-                                                <FormGroup
-                                                  tag="div"
-                                                >
-                                                  <div
-                                                    className="form-group"
-                                                  >
-                                                    <Input
-                                                      hidden={true}
-                                                      name="purchaseInvoiceItemMaterial"
-                                                      onChange={[Function]}
-                                                      type="select"
-                                                      value=""
-                                                    >
-                                                      <select
-                                                        className="form-control"
-                                                        hidden={true}
-                                                        name="purchaseInvoiceItemMaterial"
-                                                        onChange={[Function]}
-                                                        value=""
-                                                      >
-                                                        <option
-                                                          value=""
-                                                        >
-                                                          Select item
-                                                        </option>
-                                                      </select>
-                                                    </Input>
-                                                    <FormFeedback
-                                                      tag="div"
-                                                    >
-                                                      <div
-                                                        className="invalid-feedback"
-                                                      >
-                                                        Required invoice field
-                                                      </div>
-                                                    </FormFeedback>
-                                                  </div>
-                                                </FormGroup>
                                                 <div
                                                   hidden={false}
                                                 >
@@ -4927,38 +4937,6 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               <div
                                                 className="col-3"
                                               >
-                                                <FormGroup
-                                                  tag="div"
-                                                >
-                                                  <div
-                                                    className="form-group"
-                                                  >
-                                                    <Input
-                                                      hidden={true}
-                                                      name="purchaseInvoiceItemDescription"
-                                                      onChange={[Function]}
-                                                      rows="1"
-                                                      type="textarea"
-                                                    >
-                                                      <textarea
-                                                        className="form-control"
-                                                        hidden={true}
-                                                        name="purchaseInvoiceItemDescription"
-                                                        onChange={[Function]}
-                                                        rows="1"
-                                                      />
-                                                    </Input>
-                                                    <FormFeedback
-                                                      tag="div"
-                                                    >
-                                                      <div
-                                                        className="invalid-feedback"
-                                                      >
-                                                        Invalid invoice field
-                                                      </div>
-                                                    </FormFeedback>
-                                                  </div>
-                                                </FormGroup>
                                                 <div
                                                   hidden={false}
                                                 >
@@ -5068,6 +5046,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               </div>
                                             </Col>
                                             <Col
+                                              className="text-center"
                                               tag="div"
                                               widths={
                                                 Array [
@@ -5081,57 +5060,60 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               xs="1"
                                             >
                                               <div
-                                                className="col-1"
-                                              >
-                                                <Input
-                                                  disabled={true}
-                                                  hidden={true}
-                                                  name="purchaseInvoiceItemAmount"
-                                                  onChange={[Function]}
-                                                  type="text"
-                                                  value="-"
-                                                >
-                                                  <input
-                                                    className="form-control"
-                                                    disabled={true}
-                                                    hidden={true}
-                                                    name="purchaseInvoiceItemAmount"
-                                                    onChange={[Function]}
-                                                    type="text"
-                                                    value="-"
-                                                  />
-                                                </Input>
-                                                <div
-                                                  hidden={false}
-                                                >
-                                                  -
-                                                </div>
-                                              </div>
-                                            </Col>
-                                            <Col
-                                              tag="div"
-                                              widths={
-                                                Array [
-                                                  "xs",
-                                                  "sm",
-                                                  "md",
-                                                  "lg",
-                                                  "xl",
-                                                ]
-                                              }
-                                              xs="1"
-                                            >
-                                              <div
-                                                className="col-1"
+                                                className="text-center col-1"
                                               >
                                                 <span
-                                                  className="align-middle"
                                                   style={
                                                     Object {
-                                                      "lineHeight": "2rem",
+                                                      "whiteSpace": "nowrap",
                                                     }
                                                   }
                                                 >
+                                                  <NumberFormat
+                                                    allowEmptyFormatting={false}
+                                                    allowLeadingZeros={false}
+                                                    allowNegative={true}
+                                                    decimalScale={2}
+                                                    decimalSeparator="."
+                                                    displayType="text"
+                                                    fixedDecimalScale={true}
+                                                    isAllowed={[Function]}
+                                                    isNumericString={true}
+                                                    onBlur={[Function]}
+                                                    onChange={[Function]}
+                                                    onFocus={[Function]}
+                                                    onKeyDown={[Function]}
+                                                    onMouseUp={[Function]}
+                                                    onValueChange={[Function]}
+                                                    prefix="$"
+                                                    suffix=""
+                                                    thousandSeparator=","
+                                                    thousandsGroupStyle="thousand"
+                                                    type="text"
+                                                  >
+                                                    <span />
+                                                  </NumberFormat>
+                                                </span>
+                                              </div>
+                                            </Col>
+                                            <Col
+                                              className="text-center"
+                                              tag="div"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                              xs="1"
+                                            >
+                                              <div
+                                                className="text-center col-1"
+                                              >
+                                                <span>
                                                   <i
                                                     className="mdi mdi-delete pointer iconhover iconfont"
                                                     hidden={true}
@@ -5235,7 +5217,33 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -5296,7 +5304,33 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -5382,8 +5416,33 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                $ 
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -5837,9 +5896,9 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -5950,9 +6009,9 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -6063,9 +6122,9 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -6195,9 +6254,9 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -6310,9 +6369,9 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -6436,9 +6495,9 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -6600,7 +6659,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                             <div
                                               className="col-1"
                                             >
-                                              Tax
+                                              Tax (%)
                                             </div>
                                           </Col>
                                           <Col
@@ -6619,7 +6678,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                             <div
                                               className="col-2"
                                             >
-                                              Amount
+                                              Total Amount
                                             </div>
                                           </Col>
                                         </div>
@@ -6638,6 +6697,11 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                         className="list-group-item"
                                       >
                                         <Row
+                                          style={
+                                            Object {
+                                              "alignItems": "baseline",
+                                            }
+                                          }
                                           tag="div"
                                           widths={
                                             Array [
@@ -6651,6 +6715,11 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                         >
                                           <div
                                             className="row"
+                                            style={
+                                              Object {
+                                                "alignItems": "baseline",
+                                              }
+                                            }
                                           >
                                             <Col
                                               tag="div"
@@ -6668,44 +6737,6 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               <div
                                                 className="col-3"
                                               >
-                                                <FormGroup
-                                                  tag="div"
-                                                >
-                                                  <div
-                                                    className="form-group"
-                                                  >
-                                                    <Input
-                                                      hidden={true}
-                                                      name="purchaseInvoiceItemMaterial"
-                                                      onChange={[Function]}
-                                                      type="select"
-                                                      value=""
-                                                    >
-                                                      <select
-                                                        className="form-control"
-                                                        hidden={true}
-                                                        name="purchaseInvoiceItemMaterial"
-                                                        onChange={[Function]}
-                                                        value=""
-                                                      >
-                                                        <option
-                                                          value=""
-                                                        >
-                                                          Select item
-                                                        </option>
-                                                      </select>
-                                                    </Input>
-                                                    <FormFeedback
-                                                      tag="div"
-                                                    >
-                                                      <div
-                                                        className="invalid-feedback"
-                                                      >
-                                                        Required invoice field
-                                                      </div>
-                                                    </FormFeedback>
-                                                  </div>
-                                                </FormGroup>
                                                 <div
                                                   hidden={false}
                                                 >
@@ -6729,40 +6760,6 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               <div
                                                 className="col-3"
                                               >
-                                                <FormGroup
-                                                  tag="div"
-                                                >
-                                                  <div
-                                                    className="form-group"
-                                                  >
-                                                    <Input
-                                                      hidden={true}
-                                                      name="purchaseInvoiceItemDescription"
-                                                      onChange={[Function]}
-                                                      rows="1"
-                                                      type="textarea"
-                                                      value=""
-                                                    >
-                                                      <textarea
-                                                        className="form-control"
-                                                        hidden={true}
-                                                        name="purchaseInvoiceItemDescription"
-                                                        onChange={[Function]}
-                                                        rows="1"
-                                                        value=""
-                                                      />
-                                                    </Input>
-                                                    <FormFeedback
-                                                      tag="div"
-                                                    >
-                                                      <div
-                                                        className="invalid-feedback"
-                                                      >
-                                                        Invalid invoice field
-                                                      </div>
-                                                    </FormFeedback>
-                                                  </div>
-                                                </FormGroup>
                                                 <div
                                                   hidden={false}
                                                 >
@@ -6872,6 +6869,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               </div>
                                             </Col>
                                             <Col
+                                              className="text-center"
                                               tag="div"
                                               widths={
                                                 Array [
@@ -6885,57 +6883,60 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               xs="1"
                                             >
                                               <div
-                                                className="col-1"
-                                              >
-                                                <Input
-                                                  disabled={true}
-                                                  hidden={true}
-                                                  name="purchaseInvoiceItemAmount"
-                                                  onChange={[Function]}
-                                                  type="text"
-                                                  value="-"
-                                                >
-                                                  <input
-                                                    className="form-control"
-                                                    disabled={true}
-                                                    hidden={true}
-                                                    name="purchaseInvoiceItemAmount"
-                                                    onChange={[Function]}
-                                                    type="text"
-                                                    value="-"
-                                                  />
-                                                </Input>
-                                                <div
-                                                  hidden={false}
-                                                >
-                                                  -
-                                                </div>
-                                              </div>
-                                            </Col>
-                                            <Col
-                                              tag="div"
-                                              widths={
-                                                Array [
-                                                  "xs",
-                                                  "sm",
-                                                  "md",
-                                                  "lg",
-                                                  "xl",
-                                                ]
-                                              }
-                                              xs="1"
-                                            >
-                                              <div
-                                                className="col-1"
+                                                className="text-center col-1"
                                               >
                                                 <span
-                                                  className="align-middle"
                                                   style={
                                                     Object {
-                                                      "lineHeight": "2rem",
+                                                      "whiteSpace": "nowrap",
                                                     }
                                                   }
                                                 >
+                                                  <NumberFormat
+                                                    allowEmptyFormatting={false}
+                                                    allowLeadingZeros={false}
+                                                    allowNegative={true}
+                                                    decimalScale={2}
+                                                    decimalSeparator="."
+                                                    displayType="text"
+                                                    fixedDecimalScale={true}
+                                                    isAllowed={[Function]}
+                                                    isNumericString={true}
+                                                    onBlur={[Function]}
+                                                    onChange={[Function]}
+                                                    onFocus={[Function]}
+                                                    onKeyDown={[Function]}
+                                                    onMouseUp={[Function]}
+                                                    onValueChange={[Function]}
+                                                    prefix="$"
+                                                    suffix=""
+                                                    thousandSeparator=","
+                                                    thousandsGroupStyle="thousand"
+                                                    type="text"
+                                                  >
+                                                    <span />
+                                                  </NumberFormat>
+                                                </span>
+                                              </div>
+                                            </Col>
+                                            <Col
+                                              className="text-center"
+                                              tag="div"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                              xs="1"
+                                            >
+                                              <div
+                                                className="text-center col-1"
+                                              >
+                                                <span>
                                                   <i
                                                     className="mdi mdi-delete pointer iconhover iconfont"
                                                     hidden={true}
@@ -7039,7 +7040,33 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -7100,7 +7127,33 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -7186,8 +7239,33 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                $ 
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -7641,9 +7719,9 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -7754,9 +7832,9 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -7867,9 +7945,9 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -7999,9 +8077,9 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -8114,9 +8192,9 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -8240,9 +8318,9 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -8404,7 +8482,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                             <div
                                               className="col-1"
                                             >
-                                              Tax
+                                              Tax (%)
                                             </div>
                                           </Col>
                                           <Col
@@ -8423,7 +8501,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                             <div
                                               className="col-2"
                                             >
-                                              Amount
+                                              Total Amount
                                             </div>
                                           </Col>
                                         </div>
@@ -8442,6 +8520,11 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                         className="list-group-item"
                                       >
                                         <Row
+                                          style={
+                                            Object {
+                                              "alignItems": "baseline",
+                                            }
+                                          }
                                           tag="div"
                                           widths={
                                             Array [
@@ -8455,6 +8538,11 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                         >
                                           <div
                                             className="row"
+                                            style={
+                                              Object {
+                                                "alignItems": "baseline",
+                                              }
+                                            }
                                           >
                                             <Col
                                               tag="div"
@@ -8472,44 +8560,6 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               <div
                                                 className="col-3"
                                               >
-                                                <FormGroup
-                                                  tag="div"
-                                                >
-                                                  <div
-                                                    className="form-group"
-                                                  >
-                                                    <Input
-                                                      hidden={true}
-                                                      name="purchaseInvoiceItemMaterial"
-                                                      onChange={[Function]}
-                                                      type="select"
-                                                      value=""
-                                                    >
-                                                      <select
-                                                        className="form-control"
-                                                        hidden={true}
-                                                        name="purchaseInvoiceItemMaterial"
-                                                        onChange={[Function]}
-                                                        value=""
-                                                      >
-                                                        <option
-                                                          value=""
-                                                        >
-                                                          Select item
-                                                        </option>
-                                                      </select>
-                                                    </Input>
-                                                    <FormFeedback
-                                                      tag="div"
-                                                    >
-                                                      <div
-                                                        className="invalid-feedback"
-                                                      >
-                                                        Required invoice field
-                                                      </div>
-                                                    </FormFeedback>
-                                                  </div>
-                                                </FormGroup>
                                                 <div
                                                   hidden={false}
                                                 >
@@ -8533,40 +8583,6 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               <div
                                                 className="col-3"
                                               >
-                                                <FormGroup
-                                                  tag="div"
-                                                >
-                                                  <div
-                                                    className="form-group"
-                                                  >
-                                                    <Input
-                                                      hidden={true}
-                                                      name="purchaseInvoiceItemDescription"
-                                                      onChange={[Function]}
-                                                      rows="1"
-                                                      type="textarea"
-                                                      value=""
-                                                    >
-                                                      <textarea
-                                                        className="form-control"
-                                                        hidden={true}
-                                                        name="purchaseInvoiceItemDescription"
-                                                        onChange={[Function]}
-                                                        rows="1"
-                                                        value=""
-                                                      />
-                                                    </Input>
-                                                    <FormFeedback
-                                                      tag="div"
-                                                    >
-                                                      <div
-                                                        className="invalid-feedback"
-                                                      >
-                                                        Invalid invoice field
-                                                      </div>
-                                                    </FormFeedback>
-                                                  </div>
-                                                </FormGroup>
                                                 <div
                                                   hidden={false}
                                                 >
@@ -8676,6 +8692,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               </div>
                                             </Col>
                                             <Col
+                                              className="text-center"
                                               tag="div"
                                               widths={
                                                 Array [
@@ -8689,57 +8706,60 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               xs="1"
                                             >
                                               <div
-                                                className="col-1"
-                                              >
-                                                <Input
-                                                  disabled={true}
-                                                  hidden={true}
-                                                  name="purchaseInvoiceItemAmount"
-                                                  onChange={[Function]}
-                                                  type="text"
-                                                  value="-"
-                                                >
-                                                  <input
-                                                    className="form-control"
-                                                    disabled={true}
-                                                    hidden={true}
-                                                    name="purchaseInvoiceItemAmount"
-                                                    onChange={[Function]}
-                                                    type="text"
-                                                    value="-"
-                                                  />
-                                                </Input>
-                                                <div
-                                                  hidden={false}
-                                                >
-                                                  -
-                                                </div>
-                                              </div>
-                                            </Col>
-                                            <Col
-                                              tag="div"
-                                              widths={
-                                                Array [
-                                                  "xs",
-                                                  "sm",
-                                                  "md",
-                                                  "lg",
-                                                  "xl",
-                                                ]
-                                              }
-                                              xs="1"
-                                            >
-                                              <div
-                                                className="col-1"
+                                                className="text-center col-1"
                                               >
                                                 <span
-                                                  className="align-middle"
                                                   style={
                                                     Object {
-                                                      "lineHeight": "2rem",
+                                                      "whiteSpace": "nowrap",
                                                     }
                                                   }
                                                 >
+                                                  <NumberFormat
+                                                    allowEmptyFormatting={false}
+                                                    allowLeadingZeros={false}
+                                                    allowNegative={true}
+                                                    decimalScale={2}
+                                                    decimalSeparator="."
+                                                    displayType="text"
+                                                    fixedDecimalScale={true}
+                                                    isAllowed={[Function]}
+                                                    isNumericString={true}
+                                                    onBlur={[Function]}
+                                                    onChange={[Function]}
+                                                    onFocus={[Function]}
+                                                    onKeyDown={[Function]}
+                                                    onMouseUp={[Function]}
+                                                    onValueChange={[Function]}
+                                                    prefix="$"
+                                                    suffix=""
+                                                    thousandSeparator=","
+                                                    thousandsGroupStyle="thousand"
+                                                    type="text"
+                                                  >
+                                                    <span />
+                                                  </NumberFormat>
+                                                </span>
+                                              </div>
+                                            </Col>
+                                            <Col
+                                              className="text-center"
+                                              tag="div"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                              xs="1"
+                                            >
+                                              <div
+                                                className="text-center col-1"
+                                              >
+                                                <span>
                                                   <i
                                                     className="mdi mdi-delete pointer iconhover iconfont"
                                                     hidden={true}
@@ -8843,7 +8863,33 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -8904,7 +8950,33 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -8990,8 +9062,33 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                $ 
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -9445,9 +9542,9 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -9558,9 +9655,9 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -9671,9 +9768,9 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             1
                                           </div>
@@ -9803,9 +9900,9 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -9918,9 +10015,9 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -10044,9 +10141,9 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               Object {
                                                 "lineHeight": "2rem",
                                                 "verticalAlign": "middle",
+                                                "width": "100%",
                                               }
                                             }
-                                            width="100%"
                                           >
                                             -
                                           </div>
@@ -10208,7 +10305,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                             <div
                                               className="col-1"
                                             >
-                                              Tax
+                                              Tax (%)
                                             </div>
                                           </Col>
                                           <Col
@@ -10227,7 +10324,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                             <div
                                               className="col-2"
                                             >
-                                              Amount
+                                              Total Amount
                                             </div>
                                           </Col>
                                         </div>
@@ -10246,6 +10343,11 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                         className="list-group-item"
                                       >
                                         <Row
+                                          style={
+                                            Object {
+                                              "alignItems": "baseline",
+                                            }
+                                          }
                                           tag="div"
                                           widths={
                                             Array [
@@ -10259,6 +10361,11 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                         >
                                           <div
                                             className="row"
+                                            style={
+                                              Object {
+                                                "alignItems": "baseline",
+                                              }
+                                            }
                                           >
                                             <Col
                                               tag="div"
@@ -10276,44 +10383,6 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               <div
                                                 className="col-3"
                                               >
-                                                <FormGroup
-                                                  tag="div"
-                                                >
-                                                  <div
-                                                    className="form-group"
-                                                  >
-                                                    <Input
-                                                      hidden={true}
-                                                      name="purchaseInvoiceItemMaterial"
-                                                      onChange={[Function]}
-                                                      type="select"
-                                                      value=""
-                                                    >
-                                                      <select
-                                                        className="form-control"
-                                                        hidden={true}
-                                                        name="purchaseInvoiceItemMaterial"
-                                                        onChange={[Function]}
-                                                        value=""
-                                                      >
-                                                        <option
-                                                          value=""
-                                                        >
-                                                          Select item
-                                                        </option>
-                                                      </select>
-                                                    </Input>
-                                                    <FormFeedback
-                                                      tag="div"
-                                                    >
-                                                      <div
-                                                        className="invalid-feedback"
-                                                      >
-                                                        Required invoice field
-                                                      </div>
-                                                    </FormFeedback>
-                                                  </div>
-                                                </FormGroup>
                                                 <div
                                                   hidden={false}
                                                 >
@@ -10337,40 +10406,6 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               <div
                                                 className="col-3"
                                               >
-                                                <FormGroup
-                                                  tag="div"
-                                                >
-                                                  <div
-                                                    className="form-group"
-                                                  >
-                                                    <Input
-                                                      hidden={true}
-                                                      name="purchaseInvoiceItemDescription"
-                                                      onChange={[Function]}
-                                                      rows="1"
-                                                      type="textarea"
-                                                      value=""
-                                                    >
-                                                      <textarea
-                                                        className="form-control"
-                                                        hidden={true}
-                                                        name="purchaseInvoiceItemDescription"
-                                                        onChange={[Function]}
-                                                        rows="1"
-                                                        value=""
-                                                      />
-                                                    </Input>
-                                                    <FormFeedback
-                                                      tag="div"
-                                                    >
-                                                      <div
-                                                        className="invalid-feedback"
-                                                      >
-                                                        Invalid invoice field
-                                                      </div>
-                                                    </FormFeedback>
-                                                  </div>
-                                                </FormGroup>
                                                 <div
                                                   hidden={false}
                                                 >
@@ -10480,6 +10515,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               </div>
                                             </Col>
                                             <Col
+                                              className="text-center"
                                               tag="div"
                                               widths={
                                                 Array [
@@ -10493,57 +10529,60 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               xs="1"
                                             >
                                               <div
-                                                className="col-1"
-                                              >
-                                                <Input
-                                                  disabled={true}
-                                                  hidden={true}
-                                                  name="purchaseInvoiceItemAmount"
-                                                  onChange={[Function]}
-                                                  type="text"
-                                                  value="-"
-                                                >
-                                                  <input
-                                                    className="form-control"
-                                                    disabled={true}
-                                                    hidden={true}
-                                                    name="purchaseInvoiceItemAmount"
-                                                    onChange={[Function]}
-                                                    type="text"
-                                                    value="-"
-                                                  />
-                                                </Input>
-                                                <div
-                                                  hidden={false}
-                                                >
-                                                  -
-                                                </div>
-                                              </div>
-                                            </Col>
-                                            <Col
-                                              tag="div"
-                                              widths={
-                                                Array [
-                                                  "xs",
-                                                  "sm",
-                                                  "md",
-                                                  "lg",
-                                                  "xl",
-                                                ]
-                                              }
-                                              xs="1"
-                                            >
-                                              <div
-                                                className="col-1"
+                                                className="text-center col-1"
                                               >
                                                 <span
-                                                  className="align-middle"
                                                   style={
                                                     Object {
-                                                      "lineHeight": "2rem",
+                                                      "whiteSpace": "nowrap",
                                                     }
                                                   }
                                                 >
+                                                  <NumberFormat
+                                                    allowEmptyFormatting={false}
+                                                    allowLeadingZeros={false}
+                                                    allowNegative={true}
+                                                    decimalScale={2}
+                                                    decimalSeparator="."
+                                                    displayType="text"
+                                                    fixedDecimalScale={true}
+                                                    isAllowed={[Function]}
+                                                    isNumericString={true}
+                                                    onBlur={[Function]}
+                                                    onChange={[Function]}
+                                                    onFocus={[Function]}
+                                                    onKeyDown={[Function]}
+                                                    onMouseUp={[Function]}
+                                                    onValueChange={[Function]}
+                                                    prefix="$"
+                                                    suffix=""
+                                                    thousandSeparator=","
+                                                    thousandsGroupStyle="thousand"
+                                                    type="text"
+                                                  >
+                                                    <span />
+                                                  </NumberFormat>
+                                                </span>
+                                              </div>
+                                            </Col>
+                                            <Col
+                                              className="text-center"
+                                              tag="div"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                              xs="1"
+                                            >
+                                              <div
+                                                className="text-center col-1"
+                                              >
+                                                <span>
                                                   <i
                                                     className="mdi mdi-delete pointer iconhover iconfont"
                                                     hidden={true}
@@ -10647,7 +10686,33 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -10708,7 +10773,33 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
@@ -10794,8 +10885,33 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               className="text-center col-2"
                                             >
                                               <strong>
-                                                $ 
-                                                0.00
+                                                <NumberFormat
+                                                  allowEmptyFormatting={false}
+                                                  allowLeadingZeros={false}
+                                                  allowNegative={true}
+                                                  decimalScale={2}
+                                                  decimalSeparator="."
+                                                  displayType="text"
+                                                  fixedDecimalScale={true}
+                                                  isAllowed={[Function]}
+                                                  isNumericString={true}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onMouseUp={[Function]}
+                                                  onValueChange={[Function]}
+                                                  prefix="$"
+                                                  suffix=""
+                                                  thousandSeparator=","
+                                                  thousandsGroupStyle="thousand"
+                                                  type="text"
+                                                  value={0}
+                                                >
+                                                  <span>
+                                                    $0.00
+                                                  </span>
+                                                </NumberFormat>
                                               </strong>
                                             </div>
                                           </Col>
