@@ -53,6 +53,7 @@ const KettleMaterialPortion = (state = initialState, { type, payload }) => {
         case DELETE_KETTLE_MATERIAL_PORTION_FAILURE:
             return {
                 ...state,
+                loading: false,
                 error: true,
             };
         case RESET_KETTLE_MATERIAL_PORTION_DETAILS:

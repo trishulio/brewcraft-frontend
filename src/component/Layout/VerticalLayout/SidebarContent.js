@@ -245,30 +245,44 @@ class SidebarContent extends Component {
                         </li>
                         <li>
                             <Link to="/suppliers" className="waves-effect">
-                                <i className="mdi mdi-account"></i>
+                                <i className="mdi mdi-domain"></i>
                                 <span>Suppliers</span>
                             </Link>
                         </li>
+                        <li>
+                            <Link
+                                to="/suppliers/contacts"
+                                className="waves-effect"
+                            >
+                                <i className="mdi mdi-account"></i>
+                                <span>Contacts</span>
+                            </Link>
+                        </li>
                         {/* <li>
-              <Link to="/sales/receipts" className="has-arrow waves-effect">
-              <i className="mdi mdi-currency-usd"></i>
-                <span>Sales</span>
-              </Link>
-              <ul className="sub-menu" aria-expanded="false">
-                <li>
-                  <Link to="/sales/receipts">Sales Receipts</Link>
-                </li>
-                <li>
-                  <Link to="/sales/customers">Customers</Link>
-                </li>
-              </ul>
-            </li> */}
-                        {/* <li>
-              <Link to="/reports" className="waves-effect">
-                <i className="mdi mdi-chart-pie"></i>
-                <span>Reports</span>
-              </Link>
-            </li> */}
+                            <Link
+                                to="/sales/receipts"
+                                className="has-arrow waves-effect"
+                            >
+                                <i className="mdi mdi-currency-usd"></i>
+                                <span>Sales</span>
+                            </Link>
+                            <ul className="sub-menu" aria-expanded="false">
+                                <li>
+                                    <Link to="/sales/receipts">
+                                        Sales Receipts
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/sales/customers">Customers</Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <Link to="/reports" className="waves-effect">
+                                <i className="mdi mdi-chart-pie"></i>
+                                <span>Reports</span>
+                            </Link>
+                        </li> */}
                         <li className="menu-title">Admin</li>
                         <li>
                             <Link to="/users" className="waves-effect">
@@ -276,12 +290,7 @@ class SidebarContent extends Component {
                                 <span>Users</span>
                             </Link>
                         </li>
-                        {/* <li>
-              <Link to="/settings" className="waves-effect">
-                <i className="mdi mdi-settings"></i>
-                <span>Settings</span>
-              </Link>
-            </li> */}
+                        <li className="menu-title">beta v0.1.0</li>
                     </ul>
                 </div>
             </React.Fragment>

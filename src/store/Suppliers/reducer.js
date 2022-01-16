@@ -13,7 +13,7 @@ import {
 const initialState = {
     content: [],
     all: [],
-    loading: false,
+    loading: true,
     error: null,
     totalItems: 0,
     totalPages: 0,
@@ -74,7 +74,6 @@ const Suppliers = (state = initialState, { type, payload, data }) => {
         default:
             return {
                 ...state,
-                loading: true,
                 error: null,
             };
     }

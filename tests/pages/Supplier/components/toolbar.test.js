@@ -83,6 +83,8 @@ jest.mock("react-router", () => ({
     useHistory: () => mockHistory,
 }));
 
+// configure({ adapter: new Adapter() });
+
 describe("Supplier -> Components -> <Toolbar>", () => {
     describe("render()", () => {
         test("renders the toolbar component", () => {
@@ -108,10 +110,7 @@ describe("Supplier -> Components -> <Toolbar>", () => {
                     </BrowserRouter>
                 </Provider>
             );
-            toolBarComponent
-                .find({ children: "Cancel" })
-                .at(1)
-                .simulate("click");
+            toolBarComponent.find("Button").at(1).simulate("click");
             expect(mockGoBack).toHaveBeenCalled();
             expect(shallowToJson(toolBarComponent)).toMatchSnapshot();
         });
@@ -125,12 +124,16 @@ describe("Supplier -> Components -> <Toolbar>", () => {
                     </BrowserRouter>
                 </Provider>
             );
-            toolBarComponent.find({ children: "Edit" }).at(1).simulate("click");
+            toolBarComponent
+                .findWhere((node) => {
+                    return (
+                        node.type() === "button" &&
+                        node.text().includes("Cancel")
+                    );
+                })
+                .at(0)
+                .simulate("click");
             expect(mockGoBack).toHaveBeenCalled();
-            expect(mockPush).toHaveBeenCalledWith({
-                pathname: "/suppliers/1",
-                search: "?edit=true",
-            });
             expect(shallowToJson(toolBarComponent)).toMatchSnapshot();
         });
 
@@ -145,8 +148,13 @@ describe("Supplier -> Components -> <Toolbar>", () => {
                 </Provider>
             );
             toolBarComponent
-                .find({ children: "Suppliers" })
-                .at(1)
+                .findWhere((node) => {
+                    return (
+                        node.type() === "button" &&
+                        node.text().includes("Suppliers")
+                    );
+                })
+                .at(0)
                 .simulate("click");
             expect(mockGoBack).toHaveBeenCalled();
             expect(mockPush).toHaveBeenCalledWith("/suppliers");
@@ -163,54 +171,18 @@ describe("Supplier -> Components -> <Toolbar>", () => {
                 </Provider>
             );
             toolBarComponent
-                .find({ children: "New Supplier" })
-                .at(1)
+                .findWhere((node) => {
+                    return (
+                        node.type() === "button" &&
+                        node.text().includes("New Supplier")
+                    );
+                })
+                .at(0)
                 .simulate("click");
             expect(mockGoBack).toHaveBeenCalled();
             expect(mockPush).toHaveBeenCalledWith({
                 pathname: "/suppliers/new",
                 search: "?edit=true",
-            });
-            expect(shallowToJson(toolBarComponent)).toMatchSnapshot();
-        });
-        test("History.push button should be called on New Contact", () => {
-            initialState.Supplier.data.id = 1;
-            const store = mockStore(initialState);
-            const toolBarComponent = mount(
-                <Provider store={store}>
-                    <BrowserRouter>
-                        <Toolbar editable={false} />
-                    </BrowserRouter>
-                </Provider>
-            );
-            toolBarComponent
-                .find({ children: "New Contact" })
-                .at(1)
-                .simulate("click");
-            expect(mockGoBack).toHaveBeenCalled();
-            expect(mockPush).toHaveBeenCalledWith({
-                pathname: "/suppliers/contacts/new",
-                search: `?edit=true`,
-            });
-            expect(shallowToJson(toolBarComponent)).toMatchSnapshot();
-        });
-        test("History.push button should be called on Contacts", () => {
-            initialState.Supplier.data.id = 1;
-            const store = mockStore(initialState);
-            const toolBarComponent = mount(
-                <Provider store={store}>
-                    <BrowserRouter>
-                        <Toolbar editable={false} />
-                    </BrowserRouter>
-                </Provider>
-            );
-            toolBarComponent
-                .find({ children: "Contacts" })
-                .at(1)
-                .simulate("click");
-            expect(mockGoBack).toHaveBeenCalled();
-            expect(mockPush).toHaveBeenCalledWith({
-                pathname: "/suppliers/contacts",
             });
             expect(shallowToJson(toolBarComponent)).toMatchSnapshot();
         });

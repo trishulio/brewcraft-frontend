@@ -8,7 +8,7 @@ export function Th(props) {
     const order = query.get("order");
     return (
         <th
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", width: props.width }}
             name={props.name}
             onClick={props.onSort}
         >
@@ -31,8 +31,11 @@ export default function CommonTable(props) {
             <div className="table-responsive table-striped table-sm">
                 <Table
                     hover={props.hover}
-                    style={{ cursor: props.hover ? "pointer" : null }}
-                    className="table-centered table-vertical jadc-effect mb-1"
+                    style={{
+                        cursor: props.hover ? "pointer" : null,
+                        tableLayout: props.tableLayout,
+                    }}
+                    className="table-centered table-vertical table-fixed jadc-effect mb-1"
                 >
                     {props.children}
                 </Table>
