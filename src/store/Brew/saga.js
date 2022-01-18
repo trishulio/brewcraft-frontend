@@ -10,6 +10,10 @@ import {
     EDIT_BATCH_REQUEST,
     DELETE_BATCH_REQUEST,
     EDIT_BATCH_FAILURE,
+    EDIT_BATCH_SUCCESS,
+    ADD_BATCH_SUCCESS,
+    FETCH_BATCH_BY_ID_SUCCESS,
+    FETCH_BATCH_BY_ID_FAILURE,
 } from "./actionTypes";
 import { isValidName, validDate, validId } from "../../helpers/utils";
 
@@ -29,13 +33,17 @@ function* fetchBatchByIdGenerator(action) {
             type: SET_BATCH_DETAILS,
             payload: { data: res.data, initial: res.data },
         });
+        yield put({
+            type: FETCH_BATCH_BY_ID_SUCCESS,
+        });
     } catch (e) {
-        yield put(snackFailure(e.message));
+        yield put({
+            type: FETCH_BATCH_BY_ID_FAILURE,
+        });
     }
 }
 
 function* addBatchGenerator(action) {
-    // eslint-disable-next-line
     let resStage, resMixture;
     try {
         const batch = get(action, "payload.form");
@@ -43,7 +51,7 @@ function* addBatchGenerator(action) {
             type: SET_BATCH_DETAILS,
             payload: {
                 invalidBatchId: !isValidName(batch.batchId),
-                invalidProduct: !validId(batch.product?.id),
+                invalidProduct: !validId(batch.productId),
                 invalidBatchStartedAt: !validDate(batch.startedAt),
                 invalidBatchEndedAt:
                     batch.endedAt && !validDate(batch.endedAt) ? true : false,
@@ -63,32 +71,32 @@ function* addBatchGenerator(action) {
                 {
                     brewId: res.data.id,
                     taskId: 2, // kettle
-                    statusId: 1,
+                    statusId: 4,
                 },
                 {
                     brewId: res.data.id,
                     taskId: 3, // whirlpool
-                    statusId: 1,
+                    statusId: 4,
                 },
                 {
                     brewId: res.data.id,
                     taskId: 6, // transfer
-                    statusId: 1,
+                    statusId: 4,
                 },
                 {
                     brewId: res.data.id,
                     taskId: 7, // ferment
-                    statusId: 1,
+                    statusId: 4,
                 },
                 {
                     brewId: res.data.id,
                     taskId: 5, // condition
-                    statusId: 1,
+                    statusId: 4,
                 },
                 {
                     brewId: res.data.id,
                     taskId: 8, // storage
-                    statusId: 1,
+                    statusId: 4,
                 },
             ]);
             resMixture = yield call(api.addMixture, {
@@ -151,9 +159,9 @@ function* addBatchGenerator(action) {
                 payload: { data: res.data, initial: res.data },
             });
             yield put(setGlobalRedirect({ pathname: "/brews/" + res.data.id }));
+            yield put({ type: ADD_BATCH_SUCCESS });
         }
     } catch (e) {
-        console.log(e);
         yield put({ type: SET_BATCH_DETAILS, payload: { error: true } });
     }
 }
@@ -170,7 +178,7 @@ function* editBatchGenerator(action) {
             payload: { data: res.data, initial: res.data },
         });
         yield put(setGlobalRedirect({ pathname: "/brews/" + res.data.id }));
-        yield put(snackSuccess());
+        yield put({ type: EDIT_BATCH_SUCCESS });
     } catch (e) {
         yield put({ type: EDIT_BATCH_FAILURE });
     }

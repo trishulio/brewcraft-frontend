@@ -1,18 +1,24 @@
 import React from "react";
-import { Card, CardBody, Col, Row } from "reactstrap";
+import { Col, Row } from "reactstrap";
 import Table from "./components/table";
 import Toolbar from "./components/toolbar";
 import Pagination from "./components/pagination";
 import FilterBarBrews from "./components/filterBar";
+import { useSelector } from "react-redux";
+import { Card, CardBody } from "../../component/Common/Card";
 
 export default function Batches() {
+    const loading = useSelector((state) => {
+        return state.Batches.loading;
+    });
+
     return (
         <React.Fragment>
             <Row>
                 <Col style={{ maxWidth: "1024px" }}>
                     <Toolbar />
                     <Card>
-                        <CardBody className="py-2">
+                        <CardBody isLoading={loading} className="py-2">
                             <Pagination>
                                 <Table />
                             </Pagination>

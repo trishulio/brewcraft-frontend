@@ -14,6 +14,7 @@ export default function Products() {
     const productClass = query.get("class");
     const type = query.get("type");
     const style = query.get("style");
+    const abv = query.get("abv");
     const sort = query.get("sort");
     const order = query.get("order");
 
@@ -39,13 +40,14 @@ export default function Products() {
             categoryId,
             type,
             style,
+            abv,
             sort,
             order,
         };
         dispatch(fetchProductsByCategory({ ...props }));
         dispatch(fetchAllProductCategories());
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageIndex, pageSize, productClass, type, style, sort, order]);
+    }, [pageIndex, pageSize, productClass, type, style, abv, sort, order]);
 
     return <ProductsInner />;
 }

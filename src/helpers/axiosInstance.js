@@ -26,6 +26,7 @@ AxiosInstance.interceptors.request.use(
     }
 );
 
+// eslint-disable-next-line
 export function setInterceptorHistory(history) {
     AxiosInstance.interceptors.response.use(
         function (response) {
@@ -34,8 +35,6 @@ export function setInterceptorHistory(history) {
         function (error) {
             if (error.response.status === 401) {
                 authenticateUser();
-            } else if (error.response.status === 404) {
-                history.replace("/404");
             }
 
             return Promise.reject(error);

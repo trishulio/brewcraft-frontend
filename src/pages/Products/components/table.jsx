@@ -43,6 +43,12 @@ export default function ProductsList() {
                 }
                 query.append("sort", "style");
                 break;
+            case "productsAbv":
+                if (sort !== "abv") {
+                    order = undefined;
+                }
+                query.append("sort", "abv");
+                break;
             default:
                 break;
         }
@@ -70,6 +76,9 @@ export default function ProductsList() {
                         </Th>
                         <Th name="productsStyle" id="style" onSort={onSort}>
                             Style
+                        </Th>
+                        <Th name="productsAbv" id="abv" onSort={onSort}>
+                            ABV (%)
                         </Th>
                         {/*
                         Waiting for backend to support sorting on product
@@ -114,6 +123,15 @@ export default function ProductsList() {
                             </td>
                             <td>{product.type ? product.type.name : "-"}</td>
                             <td>{product.style ? product.style.name : "-"}</td>
+                            <td>
+                                {product.targetMeasures?.find(
+                                    (elem) => elem.measure?.name === "abv"
+                                )?.value
+                                    ? product.targetMeasures?.find(
+                                          (elem) => elem.measure.name === "abv"
+                                      )?.value
+                                    : "-"}
+                            </td>
                         </tr>
                     ))}
                 </tbody>

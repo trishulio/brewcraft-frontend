@@ -6,6 +6,9 @@ import {
     ADD_FERMENT_MIXTURE_RECORDING_SUCCESS,
     SET_FERMENT_MIXTURE_RECORDING_DETAILS,
     RESET_FERMENT_MIXTURE_RECORDING_DETAILS,
+    EDIT_FERMENT_MIXTURE_RECORDING_FAILURE,
+    DELETE_FERMENT_MIXTURE_RECORDING_REQUEST,
+    FETCH_MIXTURE_RECORDING_BY_BREW_ID_REQUEST,
 } from "./actionTypes";
 import { initialState } from "./initial";
 
@@ -19,10 +22,11 @@ const FermenmtMixtureRecordings = (
                 ...state,
                 ...payload,
                 loading: false,
-                error: null,
             };
+        case FETCH_MIXTURE_RECORDING_BY_BREW_ID_REQUEST:
         case ADD_FERMENT_MIXTURE_RECORDING_REQUEST:
         case EDIT_FERMENT_MIXTURE_RECORDING_REQUEST:
+        case DELETE_FERMENT_MIXTURE_RECORDING_REQUEST:
             return {
                 ...state,
                 loading: true,
@@ -37,6 +41,7 @@ const FermenmtMixtureRecordings = (
                 error: null,
             };
         case ADD_FERMENT_MIXTURE_RECORDING_FAILURE:
+        case EDIT_FERMENT_MIXTURE_RECORDING_FAILURE:
             return {
                 ...state,
                 loading: false,
@@ -51,7 +56,6 @@ const FermenmtMixtureRecordings = (
         default:
             return {
                 ...state,
-                loading: false,
                 error: null,
             };
     }

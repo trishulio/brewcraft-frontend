@@ -20,7 +20,6 @@ function* fetchProcurementsQuantity(action) {
             payload: res.data.content,
         });
     } catch (e) {
-        console.log(e);
         yield put(snackFailure("Something went wrong please try again."));
     }
 }
@@ -44,7 +43,6 @@ function* fetchStockQuantity(action) {
             })),
         });
     } catch (e) {
-        console.log(e);
         yield put(snackFailure("Something went wrong please try again."));
     }
 }

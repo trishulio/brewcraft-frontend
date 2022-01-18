@@ -35,12 +35,14 @@ import {
     SET_FERMENT_MATERIAL_PORTION_DETAILS,
     SET_CONDITION_MATERIAL_PORTION_DETAILS,
     SET_BRITE_TANK_MATERIAL_PORTION_DETAILS,
+    FETCH_MATERIAL_PORTION_BY_BREW_ID_FAILURE,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure } from "../Snackbar/actions";
 import { fetchMaterialPortionsByBrewId } from "./actions";
+import React from "react";
 
 function* fetchMaterialPortionByIdGenerator(action) {
     try {
@@ -68,7 +70,6 @@ function* fetchMaterialPortionsByMixtureIdGenerator(action) {
             payload: { content: res.data.content },
         });
     } catch (e) {
-        console.log(e);
         yield put(snackFailure("Something went wrong please try again."));
     }
 }
@@ -131,8 +132,10 @@ function* fetchMaterialPortionByBrewIdGenerator(action) {
             },
         });
     } catch (e) {
-        console.log(e);
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({
+            type: FETCH_MATERIAL_PORTION_BY_BREW_ID_FAILURE,
+            error: "<strong>Oh snap!</strong> Change a few things up and try submitting again.",
+        });
     }
 }
 
@@ -148,13 +151,17 @@ function* addMashMaterialPortionGenerator(action) {
         });
         yield put(fetchMaterialPortionsByBrewId(get(action, "payload.brewId")));
     } catch (e) {
-        yield put({ type: ADD_MASH_MATERIAL_PORTION_FAILURE });
+        yield put({
+            type: ADD_MASH_MATERIAL_PORTION_FAILURE,
+            error: "<strong>Oh snap!</strong> Change a few things up and try submitting again.",
+        });
     }
 }
 
 function* editMashMaterialPortionGenerator(action) {
+    let res;
     try {
-        const res = yield call(
+        res = yield call(
             api.updateMaterialPortion,
             get(action, "payload.form")
         );
@@ -163,7 +170,20 @@ function* editMashMaterialPortionGenerator(action) {
             payload: { data: res.data, initial: res.data },
         });
     } catch (e) {
-        yield put({ type: EDIT_MASH_MATERIAL_PORTION_FAILURE });
+        yield put({
+            type: EDIT_MASH_MATERIAL_PORTION_FAILURE,
+            payload: {
+                error: (
+                    <React.Fragment>
+                        <strong>
+                            {e.response.data.error + "!" || "Oh snap!"}
+                        </strong>{" "}
+                        {e.response.data.message ||
+                            "Change a few things up and try submitting again."}
+                    </React.Fragment>
+                ),
+            },
+        });
     }
 }
 
@@ -175,7 +195,10 @@ function* deleteMashMaterialPortionGenerator(action) {
             payload: get(action, "payload"),
         });
     } catch (e) {
-        yield put({ type: DELETE_MASH_MATERIAL_PORTION_FAILURE });
+        yield put({
+            type: DELETE_MASH_MATERIAL_PORTION_FAILURE,
+            error: "<strong>Oh snap!</strong> Change a few things up and try submitting again.",
+        });
     }
 }
 
@@ -191,7 +214,10 @@ function* addKettleMaterialPortionGenerator(action) {
         });
         yield put(fetchMaterialPortionsByBrewId(get(action, "payload.brewId")));
     } catch (e) {
-        yield put({ type: ADD_KETTLE_MATERIAL_PORTION_FAILURE });
+        yield put({
+            type: ADD_KETTLE_MATERIAL_PORTION_FAILURE,
+            error: "<strong>Oh snap!</strong> Change a few things up and try submitting again.",
+        });
     }
 }
 
@@ -206,7 +232,10 @@ function* editKettleMaterialPortionGenerator(action) {
             payload: { data: res.data, initial: res.data },
         });
     } catch (e) {
-        yield put({ type: EDIT_KETTLE_MATERIAL_PORTION_FAILURE });
+        yield put({
+            type: EDIT_KETTLE_MATERIAL_PORTION_FAILURE,
+            error: "<strong>Oh snap!</strong> Change a few things up and try submitting again.",
+        });
     }
 }
 

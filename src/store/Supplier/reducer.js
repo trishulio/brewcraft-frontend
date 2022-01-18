@@ -108,7 +108,6 @@ const Supplier = (state = initialState, { type, payload }) => {
         default:
             return {
                 ...state,
-                loading: false,
                 error: null,
             };
     }

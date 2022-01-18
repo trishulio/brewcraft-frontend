@@ -43,7 +43,6 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
-import { SET_BATCH_DETAILS } from "../Brew/actionTypes";
 
 function* fetchAllBrewStages(action) {
     try {
@@ -107,7 +106,6 @@ function* addMashStageGenerator(action) {
             type: ADD_MASH_STAGE_SUCCESS,
             payload: { data: res.data, initial: res.data },
         });
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
         yield put({ type: ADD_MASH_STAGE_FAILURE });
         yield put(snackFailure("Something went wrong please try again."));
@@ -125,7 +123,6 @@ function* editMashStageGenerator(action) {
             type: EDIT_MASH_STAGE_SUCCESS,
             payload: { data: res.data, initial: res.data, editable: false },
         });
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
         yield put({ type: EDIT_MASH_STAGE_FAILURE });
         yield put(snackFailure());
@@ -153,7 +150,6 @@ function* addKettleStageGenerator(action) {
             type: ADD_KETTLE_STAGE_SUCCESS,
             payload: { data: res.data, initial: res.data },
         });
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
         yield put({ type: ADD_MASH_STAGE_FAILURE });
         yield put(snackFailure("Something went wrong please try again."));
@@ -171,7 +167,6 @@ function* editKettleStageGenerator(action) {
             type: EDIT_KETTLE_STAGE_SUCCESS,
             payload: { data: res.data, initial: res.data, editable: false },
         });
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
         yield put({ type: EDIT_MASH_STAGE_FAILURE });
         yield put(snackFailure());
@@ -195,7 +190,6 @@ function* addWhirlpoolStageGenerator(action) {
             type: ADD_WHIRLPOOL_STAGE_SUCCESS,
             payload: { data: res.data, initial: res.data },
         });
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
         yield put({ type: ADD_WHIRLPOOL_STAGE_FAILURE });
         yield put(snackFailure("Something went wrong please try again."));
@@ -213,7 +207,6 @@ function* editWhirlpoolStageGenerator(action) {
             type: EDIT_WHIRLPOOL_STAGE_SUCCESS,
             payload: { data: res.data, initial: res.data, editable: false },
         });
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
         yield put({ type: EDIT_WHIRLPOOL_STAGE_FAILURE });
         yield put(snackFailure());
@@ -269,7 +262,6 @@ function* editFermentStageGenerator(action) {
             type: EDIT_FERMENT_STAGE_SUCCESS,
             payload: { data: res.data, initial: res.data, editable: false },
         });
-        yield put({ type: SET_BATCH_DETAILS, payload: { save: false } });
     } catch (e) {
         yield put({ type: EDIT_FERMENT_STAGE_FAILURE });
         yield put(snackFailure());

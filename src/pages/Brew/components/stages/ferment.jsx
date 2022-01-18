@@ -1,14 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    Alert,
-    Button,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-} from "reactstrap";
-import {
     setFermentMaterialPortionDetails,
     setFermentMixtureDetails,
     setFermentMixtureRecords,
@@ -17,14 +9,17 @@ import {
     editFermentStage,
     editFermentMixture,
     saveFermentFinishedGoods,
-    fetchFermentFinishedGoods,
     editFermentMaterialPortion,
     deleteFermentMaterialPortion,
+    editFermentMixtureRecords,
+    deleteFermentMixtureRecords,
+    deleteFermentFinishedGoods,
 } from "../../../../store/actions";
 import Details from "../mixture/details";
 import Ingredients from "../mixture/ingredients";
 import Recordings from "../mixture/mixture-recordings";
 import FinishedGoods from "../mixture/finished-goods";
+import BatchStage from "./stage";
 
 export default function BatchFerment() {
     const dispatch = useDispatch();
@@ -34,15 +29,21 @@ export default function BatchFerment() {
         initial: initialStage,
         changed,
         editable,
-        stageError,
+        loading: stageLoading,
+        error: stageError,
     } = useSelector((state) => {
         return state.Batch.FermentStage;
+    });
+
+    const batch = useSelector((state) => {
+        return state.Batch.Batch.data;
     });
 
     const {
         data: mixture,
         initial: initialMixture,
-        mixtureError,
+        loading: mixtureLoading,
+        error: mixtureError,
     } = useSelector((state) => {
         return state.Batch.FermentMixture;
     });
@@ -50,7 +51,8 @@ export default function BatchFerment() {
     const {
         content: materialPortions,
         initial: initialMaterialPortions,
-        materialPortionError,
+        loading: materialPortionsLoading,
+        error: materialPortionsError,
     } = useSelector((state) => {
         return state.Batch.FermentMaterialPortion;
     });
@@ -58,7 +60,8 @@ export default function BatchFerment() {
     const {
         content: mixtureRecordings,
         initial: initialMixtureRecordings,
-        mixtureRecordingsError,
+        loading: mixtureRecordingsLoading,
+        error: mixtureRecordingsError,
     } = useSelector((state) => {
         return state.Batch.FermentMixtureRecordings;
     });
@@ -66,22 +69,11 @@ export default function BatchFerment() {
     const {
         content: finishedGoods,
         initial: initialFinishedGoods,
-        finishedGoodsError,
+        loading: finishedGoodsLoading,
+        error: finishedGoodsError,
     } = useSelector((state) => {
         return state.Batch.FermentFinishedGoods;
     });
-
-    useEffect(() => {
-        if (mixture.id) {
-            dispatch(
-                fetchFermentFinishedGoods({
-                    mixtureId: mixture.id,
-                    pageSize: 500,
-                })
-            );
-        }
-        // eslint-disable-next-line
-    }, [mixture]);
 
     useEffect(() => {
         dispatch(
@@ -156,7 +148,7 @@ export default function BatchFerment() {
         setMixture,
         editable,
         showCompleteCheckbox: true,
-        showOriginalGravityCheckbox: true,
+        // showOriginalGravityCheckbox: true,
     };
 
     const ingredientsProps = {
@@ -181,7 +173,7 @@ export default function BatchFerment() {
     };
 
     function onSave() {
-        if (changed) {
+        if (changed && JSON.stringify(initialStage) !== JSON.stringify(stage)) {
             dispatch(
                 editFermentStage({
                     id: stage.id,
@@ -194,6 +186,11 @@ export default function BatchFerment() {
                     },
                 })
             );
+        }
+        if (
+            changed &&
+            JSON.stringify(initialMixture) !== JSON.stringify(mixture)
+        ) {
             dispatch(
                 editFermentMixture({
                     id: mixture.id,
@@ -207,6 +204,12 @@ export default function BatchFerment() {
                     },
                 })
             );
+        }
+        if (
+            changed &&
+            JSON.stringify(initialMaterialPortions) !==
+                JSON.stringify(materialPortions)
+        ) {
             if (materialPortions.length) {
                 dispatch(
                     editFermentMaterialPortion({
@@ -233,97 +236,131 @@ export default function BatchFerment() {
                     })
                 );
             }
-            dispatch(
-                saveFermentFinishedGoods({
-                    form: finishedGoods.map((fg) => ({
-                        skuId: fg.sku.id,
-                        mixturePortions: fg.mixturePortions.map((mp) => ({
-                            mixtureId: mp.mixture.id,
-                            quantity: mp.quantity,
+        }
+        if (
+            changed &&
+            JSON.stringify(initialMixtureRecordings) !==
+                JSON.stringify(mixtureRecordings)
+        ) {
+            if (mixtureRecordings.length) {
+                dispatch(
+                    editFermentMixtureRecords({
+                        form: mixtureRecordings.map((record) => ({
+                            id: record.id,
+                            mixtureId: record.mixture.id,
+                            measureId: record.measure.id,
+                            value: record.value,
+                            recordedAt: record.recordedAt,
+                            version: record.version,
                         })),
-                        materialPortions: [],
-                    })),
-                })
-            );
+                    })
+                );
+            }
+            // delete mixture recordings
+            const map = mixtureRecordings.map((mp) => mp.id);
+            const records = initialMixtureRecordings
+                .filter((imp) => !map.includes(imp.id))
+                .map((records) => records.id);
+            if (records.length) {
+                dispatch(
+                    deleteFermentMixtureRecords({
+                        batchId: batch.id,
+                        form: records,
+                    })
+                );
+            }
+        }
+        if (
+            changed &&
+            JSON.stringify(initialFinishedGoods) !==
+                JSON.stringify(finishedGoods)
+        ) {
+            if (finishedGoods.length) {
+                dispatch(
+                    saveFermentFinishedGoods({
+                        batchId: batch.id,
+                        form: finishedGoods.map((fg) => ({
+                            id: fg.id,
+                            skuId: fg.sku.id,
+                            materialPortions: fg.materialPortions.map((mp) => ({
+                                mixtureId: mp.mixture.id,
+                                quantity: mp.quantity,
+                                addedAt: mp.addedAt,
+                            })),
+                            mixturePortions: fg.mixturePortions.map((mp) => ({
+                                mixtureId: mp.mixture.id,
+                                quantity: mp.quantity,
+                                addedAt: mp.addedAt,
+                            })),
+                            packagedOn: fg.packagedOn,
+                            version: fg.version,
+                        })),
+                    })
+                );
+            }
+            // delete finished goods
+            const map = finishedGoods.map((mp) => mp.id);
+            const finishedGoodsIds = initialFinishedGoods
+                .filter((ifg) => !map.includes(ifg.id))
+                .map((finishedGoods) => finishedGoods.id);
+            if (finishedGoodsIds.length) {
+                dispatch(
+                    deleteFermentFinishedGoods({
+                        batchId: batch.id,
+                        form: finishedGoodsIds,
+                    })
+                );
+            }
         }
     }
 
+    const stageProps = {
+        title: "Mash Lauter",
+        editable,
+        setEditable: () => {
+            dispatch(
+                setFermentStageDetails({
+                    editable: true,
+                })
+            );
+        },
+        changed,
+        initialStage,
+        stage,
+        stageLoading,
+        mixtureLoading,
+        materialPortionsLoading,
+        mixtureRecordingsLoading,
+        finishedGoodsLoading,
+        stageError,
+        mixtureError,
+        materialPortionsError,
+        mixtureRecordingsError,
+        finishedGoodsError,
+        onSave,
+        onCancel: () => {
+            dispatch(
+                setFermentStageDetails({
+                    data: {
+                        ...initialStage,
+                    },
+                    editable: false,
+                })
+            );
+        },
+    };
+
     return (
         <React.Fragment>
-            {(stageError ||
-                mixtureError ||
-                materialPortionError ||
-                mixtureRecordingsError ||
-                finishedGoodsError) && (
-                <Alert color="info" className="mt-2 mb-4">
-                    <strong>Oh snap!</strong> Change a few things up and try
-                    submitting again.
-                </Alert>
-            )}
-            <Card className="mb-3">
-                <CardHeader>Ferment</CardHeader>
-                <CardBody>
-                    <Details {...detailsProps} />
-                    <div className="clearFix mb-4"></div>
-                    <div className="px-2 mb-4">
-                        <Ingredients {...ingredientsProps} />
-                    </div>
-                    <div className="px-2 mb-4">
-                        <Recordings {...recordingsProps} />
-                    </div>
-                    <div className="px-2">
-                        <FinishedGoods {...finishedGoodsProps} />
-                    </div>
-                    <Button
-                        type="button"
-                        color="secondary"
-                        size="sm"
-                        className="waves-effect"
-                        onClick={() => {
-                            dispatch(
-                                setFermentStageDetails({
-                                    editable: true,
-                                })
-                            );
-                        }}
-                        hidden={editable}
-                    >
-                        Edit
-                    </Button>
-                </CardBody>
-                {editable && (
-                    <CardFooter>
-                        <Button
-                            type="button"
-                            color="primary"
-                            size="sm"
-                            className="waves-effect mr-2"
-                            onClick={onSave}
-                            disabled={!changed}
-                        >
-                            Save
-                        </Button>
-                        <Button
-                            type="button"
-                            color="secondary"
-                            size="sm"
-                            className="waves-effect mr-2"
-                            onClick={() => {
-                                dispatch(
-                                    setFermentStageDetails({
-                                        data: {
-                                            ...initialStage,
-                                        },
-                                        editable: false,
-                                    })
-                                );
-                            }}
-                        >
-                            Done
-                        </Button>
-                    </CardFooter>
-                )}
-            </Card>
+            <BatchStage {...stageProps}>
+                <Details {...detailsProps} />
+                <div className="clearFix mb-1"></div>
+                <Ingredients {...ingredientsProps} />
+                <div className="clearFix mb-1"></div>
+                <Recordings {...recordingsProps} />
+                <div className="clearFix mb-1"></div>
+                <FinishedGoods {...finishedGoodsProps} />
+            </BatchStage>
         </React.Fragment>
     );
 }

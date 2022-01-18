@@ -5,6 +5,7 @@ import Kettle from "./stages/kettle";
 import Whirlpool from "./stages/whirlpool";
 import Ferment from "./stages/ferment";
 import BatchDetails from "./details";
+import BatchParameters from "./params";
 
 export default function BrewTabs(props) {
     return (
@@ -12,6 +13,9 @@ export default function BrewTabs(props) {
             <TabContent activeTab={props.activeTab}>
                 <TabPane tabId="details">
                     <BatchDetails {...props} />
+                </TabPane>
+                <TabPane tabId="params">
+                    <BatchParameters {...props} />
                 </TabPane>
                 <TabPane tabId="brew">
                     <Mash {...props} />

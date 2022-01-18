@@ -1,14 +1,43 @@
 import {
     FETCH_FINISHED_GOODS,
     FETCH_FERMENT_FINISHED_GOODS,
+    FETCH_FINISHED_GOODS_BY_BREW_ID,
+    DELETE_FERMENT_FINISHED_GOODS,
     SAVE_FERMENT_FINISHED_GOODS,
     SET_CONDITION_FINISHED_GOODS,
     SET_FERMENT_FINISHED_GOODS,
+    SET_FINISHED_GOODS,
+    SET_FINISHED_GOODS_PAGE_INDEX,
+    SET_FINISHED_GOODS_PAGE_SIZE,
 } from "./actionTypes";
 
-export const fetchFinishedGoods = (payload) => ({
-    type: FETCH_FINISHED_GOODS,
+export const setFinishedGoodsDetails = (payload) => ({
+    type: SET_FINISHED_GOODS,
     payload: { ...payload },
+});
+
+export const fetchFinishedGoods = (params) => ({
+    type: FETCH_FINISHED_GOODS,
+    payload: { params },
+});
+
+export const setFinishedGoodsPageIndex = (index) => ({
+    type: SET_FINISHED_GOODS_PAGE_INDEX,
+    payload: {
+        pageIndex: index,
+    },
+});
+
+export const setFinishedGoodsPageSize = (size) => ({
+    type: SET_FINISHED_GOODS_PAGE_SIZE,
+    payload: {
+        pageSize: size,
+    },
+});
+
+export const fetchFinishedGoodsByBrewId = (params) => ({
+    type: FETCH_FINISHED_GOODS_BY_BREW_ID,
+    payload: { ...params },
 });
 
 export const fetchFermentFinishedGoods = (payload) => ({
@@ -18,6 +47,11 @@ export const fetchFermentFinishedGoods = (payload) => ({
 
 export const saveFermentFinishedGoods = (payload) => ({
     type: SAVE_FERMENT_FINISHED_GOODS,
+    payload: { ...payload },
+});
+
+export const deleteFermentFinishedGoods = (payload) => ({
+    type: DELETE_FERMENT_FINISHED_GOODS,
     payload: { ...payload },
 });
 

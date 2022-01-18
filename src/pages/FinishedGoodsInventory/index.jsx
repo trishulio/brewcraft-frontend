@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     fetchFinishedGoodsInventory,
+    fetchAllSkus,
+    fetchAllProducts,
     setBreadcrumbItems,
 } from "../../store/actions";
 import { useQuery } from "../../helpers/utils";
@@ -35,6 +37,8 @@ export default function FinishedGoodsInventory() {
             order,
         };
         dispatch(fetchFinishedGoodsInventory({ ...props }));
+        dispatch(fetchAllSkus());
+        dispatch(fetchAllProducts());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageIndex, pageSize, sort, order]);
 

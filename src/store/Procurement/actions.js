@@ -84,10 +84,11 @@ export const updatePurchaseInvoice = ({ id, form }) => ({
     },
 });
 
-export const deletePurchaseInvoice = (id) => ({
+export const deletePurchaseInvoice = (shipmentId, invoiceId) => ({
     type: DELETE_PURCHASE_INVOICE,
     payload: {
-        id,
+        shipmentId,
+        invoiceId,
     },
 });
 

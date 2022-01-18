@@ -62,7 +62,6 @@ export default function RawMaterialsList() {
 
     return (
         <React.Fragment>
-            {console.log(rawMaterials)}
             <Table>
                 <thead>
                     <tr>

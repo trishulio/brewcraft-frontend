@@ -11,14 +11,7 @@ import {
     setMashMixtureDetails,
     setMashStageDetails,
 } from "../../../../store/actions";
-import {
-    Alert,
-    Button,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-} from "reactstrap";
+import BatchStage from "./stage";
 
 export default function BrewMash() {
     const dispatch = useDispatch();
@@ -27,6 +20,7 @@ export default function BrewMash() {
         data: stage,
         initial: initialStage,
         changed,
+        loading: stageLoading,
         editable,
         stageError,
     } = useSelector((state) => {
@@ -36,7 +30,8 @@ export default function BrewMash() {
     const {
         data: mixture,
         initial: initialMixture,
-        mixtureError,
+        loading: mixtureLoading,
+        error: mixtureError,
     } = useSelector((state) => {
         return state.Batch.MashMixture;
     });
@@ -44,7 +39,8 @@ export default function BrewMash() {
     const {
         content: materialPortions,
         initial: initialMaterialPortions,
-        materialPortionError,
+        loading: materialPortionsLoading,
+        error: materialPortionsError,
     } = useSelector((state) => {
         return state.Batch.MashMaterialPortion;
     });
@@ -162,72 +158,45 @@ export default function BrewMash() {
         setMaterialPortions,
     };
 
+    const stageProps = {
+        title: "Mash Lauter",
+        editable,
+        setEditable: () => {
+            dispatch(
+                setMashStageDetails({
+                    editable: true,
+                })
+            );
+        },
+        changed,
+        initialStage,
+        stage,
+        stageLoading,
+        mixtureLoading,
+        materialPortionsLoading,
+        stageError,
+        mixtureError,
+        materialPortionsError,
+        onSave,
+        onCancel: () => {
+            dispatch(
+                setMashStageDetails({
+                    data: {
+                        ...initialStage,
+                    },
+                    editable: false,
+                })
+            );
+        },
+    };
+
     return (
         <React.Fragment>
-            {(stageError || mixtureError || materialPortionError) && (
-                <Alert color="info" className="mt-2 mb-4">
-                    <strong>Oh snap!</strong> Change a few things up and try
-                    submitting again.
-                </Alert>
-            )}
-            <Card className="mb-3">
-                <CardHeader>Mash Lauter</CardHeader>
-                <CardBody>
-                    <Details {...detailsProps} />
-                    <div className="clearFix mb-3"></div>
-                    <div className="px-2">
-                        <Ingredients {...ingredientsProps} />
-                    </div>
-                    <Button
-                        type="button"
-                        color="secondary"
-                        size="sm"
-                        className="waves-effect"
-                        onClick={() => {
-                            dispatch(
-                                setMashStageDetails({
-                                    editable: true,
-                                })
-                            );
-                        }}
-                        hidden={editable}
-                    >
-                        Edit
-                    </Button>
-                </CardBody>
-                {editable && (
-                    <CardFooter>
-                        <Button
-                            type="button"
-                            color="primary"
-                            size="sm"
-                            className="waves-effect mr-2"
-                            onClick={onSave}
-                            disabled={!changed}
-                        >
-                            Save
-                        </Button>
-                        <Button
-                            type="button"
-                            color="secondary"
-                            size="sm"
-                            className="waves-effect mr-2"
-                            onClick={() => {
-                                dispatch(
-                                    setMashStageDetails({
-                                        data: {
-                                            ...initialStage,
-                                        },
-                                        editable: false,
-                                    })
-                                );
-                            }}
-                        >
-                            Done
-                        </Button>
-                    </CardFooter>
-                )}
-            </Card>
+            <BatchStage {...stageProps}>
+                <Details {...detailsProps} />
+                <div className="clearfix mb-1"></div>
+                <Ingredients {...ingredientsProps} />
+            </BatchStage>
         </React.Fragment>
     );
 }
