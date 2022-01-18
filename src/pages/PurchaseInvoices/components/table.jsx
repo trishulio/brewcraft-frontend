@@ -150,7 +150,7 @@ export default function PurchaseInvoicesTable() {
                             <td>
                                 {
                                     INVOICE_STATUS[
-                                        procurement.invoice.invoiceStatus.id - 1
+                                        procurement.invoice.invoiceStatus?.id - 1
                                     ]
                                 }
                             </td>
