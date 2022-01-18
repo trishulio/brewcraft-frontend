@@ -129,6 +129,6 @@ export function arrayEquals(a, b) {
 
 export function calculatedTaxRate(qty, price, taxAmount) {
     let taxRate = 0;
-    taxRate = taxAmount / (qty * price);
+    taxRate = (taxAmount / (qty * price)) * 100;
     return taxRate || "0";
 }
