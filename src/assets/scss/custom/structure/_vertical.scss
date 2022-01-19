@@ -42,6 +42,7 @@
     position: fixed;
     top: $header-height;
     box-shadow: $box-shadow;
+    transition: all .3s;
 }
 
 .filter-bar-menu {
@@ -193,17 +194,20 @@
 
 @media (max-width: 992px) {
     .vertical-menu {
-        display: none;
+        margin-left: -100vw;
     }
 
     .main-content {
-        margin-left: 0 !important;
+        margin-left: auto;
     }
 
     body.sidebar-enable {
         .vertical-menu {
+            height: 100vh;
             display: block;
+            margin-left: 0;
         }
+        overflow-y: hidden;
     }
 }
 
@@ -249,6 +253,7 @@
         .simplebar-mask,
         .simplebar-content-wrapper {
             overflow: visible !important;
+            scrollbar-width: none;
         }
 
         .simplebar-scrollbar {
