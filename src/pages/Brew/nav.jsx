@@ -3,15 +3,29 @@ import { Nav, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
 import { useHistory } from "react-router";
 import { useQuery } from "../../helpers/utils";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    fetchFinishedGoodsByBrewId,
+    fetchMaterialPortionsByBrewId,
+    fetchMixtureRecordingsByBrewId,
+    fetchProducts,
+} from "../../store/actions";
 
 export default function BrewNav({ activeTab }) {
+    const dispatch = useDispatch();
     const history = useHistory();
     const query = useQuery();
 
+    const batch = useSelector((state) => {
+        return state.Batch.Batch.data;
+    });
+
     function navToTab(tab) {
-        query.delete("tab");
-        query.append("tab", tab);
-        history.push({ search: query.toString() });
+        setTimeout(() => {
+            query.delete("tab");
+            query.append("tab", tab);
+            history.push({ search: query.toString() });
+        });
     }
 
     return (
@@ -28,7 +42,25 @@ export default function BrewNav({ activeTab }) {
                             navToTab("details");
                         }}
                     >
-                        <span>Overview</span>
+                        <span>Brew Status</span>
+                    </NavLink>
+                </NavItem>
+                <NavItem className="waves-effect waves-light">
+                    <NavLink
+                        style={{ cursor: "pointer" }}
+                        className={classnames({
+                            active: activeTab === "params",
+                        })}
+                        onClick={() => {
+                            dispatch(
+                                fetchProducts({
+                                    pageSize: 1000,
+                                })
+                            );
+                            navToTab("params");
+                        }}
+                    >
+                        <span>Parameters</span>
                     </NavLink>
                 </NavItem>
                 <NavItem className="waves-effect waves-light">
@@ -38,6 +70,14 @@ export default function BrewNav({ activeTab }) {
                             active: activeTab === "brew",
                         })}
                         onClick={() => {
+                            dispatch(fetchMaterialPortionsByBrewId(batch.id));
+                            dispatch(fetchMixtureRecordingsByBrewId(batch.id));
+                            dispatch(
+                                fetchFinishedGoodsByBrewId({
+                                    brewId: batch.id,
+                                    pageSize: 500,
+                                })
+                            );
                             navToTab("brew");
                         }}
                     >
@@ -90,22 +130,6 @@ export default function BrewNav({ activeTab }) {
                             <i className="fas fa-home"></i>
                         </span>
                         <span className="d-none d-sm-block">Brite Tank</span>
-                    </NavLink>
-                </NavItem>
-                <NavItem className="waves-effect waves-light">
-                    <NavLink
-                        style={{ cursor: "pointer" }}
-                        className={classnames({
-                            active: activeTab === "summary",
-                        })}
-                        onClick={() => {
-                            navToTab("summary");
-                        }}
-                    >
-                        <span className="d-block d-sm-none">
-                            <i className="fas fa-home"></i>
-                        </span>
-                        <span className="d-none d-sm-block">Report</span>
                     </NavLink>
                 </NavItem>
             </Nav>

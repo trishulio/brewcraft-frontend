@@ -72,13 +72,14 @@ export default function PurchaseInvoicesTable() {
 
     return (
         <React.Fragment>
-            <Table hover={true}>
+            <Table hover tableLayout="fixed">
                 <thead>
                     <tr>
                         <Th
                             name="purchaseInvoiceNumber"
                             id="invoiceNumber"
                             onSort={onSort}
+                            width="16rem"
                         >
                             Number
                         </Th>
@@ -150,7 +151,8 @@ export default function PurchaseInvoicesTable() {
                             <td>
                                 {
                                     INVOICE_STATUS[
-                                        procurement.invoice.invoiceStatus.id - 1
+                                        procurement.invoice.invoiceStatus?.id -
+                                            1
                                     ]
                                 }
                             </td>

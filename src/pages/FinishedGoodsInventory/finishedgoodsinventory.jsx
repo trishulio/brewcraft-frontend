@@ -3,6 +3,7 @@ import { Card, CardBody, Row, Col } from "reactstrap";
 import Table from "./components/table";
 import Toolbar from "./components/toolbar";
 import Pagination from "./components/pagination";
+import FilterBarFinishedGoodsInventory from "./components/filterBar";
 
 export default function FinishedGoodsInventory() {
     return (
@@ -18,6 +19,7 @@ export default function FinishedGoodsInventory() {
                         </CardBody>
                     </Card>
                 </Col>
+                <FilterBarFinishedGoodsInventory />
             </Row>
         </React.Fragment>
     );

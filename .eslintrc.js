@@ -20,7 +20,8 @@ module.exports = {
          },
     },
     plugins: [
-        "react"
+        "react",
+        "react-hooks"
     ],
     rules: {
         "no-empty": 0,

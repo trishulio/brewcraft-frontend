@@ -1,12 +1,12 @@
 import AxiosInstance from "../../helpers/axiosInstance";
 
-async function fetchMeasures() {
+async function fetchMeasures(params) {
     const data = {
         params: {
-            sort: "id",
-            order_asc: true,
-            page: 0,
-            size: 500,
+            page: params.pageIndex || 0,
+            size: params.pageSize || 500,
+            sort: params.sort || "name",
+            order_asc: !params.order || params.order === "asc",
         },
     };
     return await AxiosInstance.get("/api/v1/measures", data)

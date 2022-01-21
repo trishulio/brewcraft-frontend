@@ -14,6 +14,9 @@ import {
     fetchMeasures,
     fetchMaterialStockQuantity,
     setBatchDetails,
+    fetchMaterialPortionsByBrewId,
+    fetchMixtureRecordingsByBrewId,
+    fetchFinishedGoodsByBrewId,
 } from "../../store/actions";
 import { useQuery } from "../../helpers/utils";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
@@ -21,8 +24,6 @@ import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 import BatchInner from "./batch";
 import Stages from "./stages";
 import Mixtures from "./mixtures";
-import MaterialPortions from "./material-portions";
-import MixtureRecordings from "./mixture-recordings";
 
 export default function Batch() {
     const [activeTab, setActiveTab] = useState("details");
@@ -74,9 +75,13 @@ export default function Batch() {
     ]);
 
     useEffect(() => {
-        dispatch(resetBatchDetails());
         if (id !== "new") {
             dispatch(fetchBatchById(id));
+            dispatch(fetchMaterialPortionsByBrewId(id));
+            dispatch(fetchMixtureRecordingsByBrewId(id));
+            dispatch(fetchFinishedGoodsByBrewId({ brewId: id, pageSize: 500 }));
+        } else {
+            dispatch(resetBatchDetails());
         }
         dispatch(
             fetchProducts({
@@ -87,7 +92,7 @@ export default function Batch() {
         dispatch(fetchBatchTasks());
         dispatch(fetchMeasures());
         dispatch(fetchMaterialStockQuantity());
-        // setShowRouterPrompt(!!editMode);
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
@@ -141,8 +146,6 @@ export default function Batch() {
             invalidBatchProduct
         ) {
             dispatch(setBatchDetails({ error: true }));
-        } else if (!isBatchChanged()) {
-            dispatch(setBatchDetails({ save: true }));
         } else if (batch.id) {
             dispatch(
                 editBatch({
@@ -226,8 +229,6 @@ export default function Batch() {
             />
             {batch.id && <Stages {...props} />}
             {batch.id && <Mixtures {...props} />}
-            {batch.id && <MaterialPortions {...props} />}
-            {batch.id && <MixtureRecordings {...props} />}
             <BatchInner {...props} />
         </React.Fragment>
     );

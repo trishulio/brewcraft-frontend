@@ -77,7 +77,7 @@ export function formatPercent(value) {
             value={value}
             displayType="text"
             isNumericString={true}
-            suffix="%"
+            suffix=" %"
             decimalScale={1}
             fixedDecimalScale={true}
         />
@@ -90,7 +90,7 @@ export function formatWeightKG(value) {
             value={value}
             displayType="text"
             isNumericString={true}
-            suffix="kg"
+            suffix=" kg"
             thousandSeparator=","
             decimalScale={1}
             fixedDecimalScale={true}
@@ -104,7 +104,7 @@ export function formatWeightG(value) {
             value={value}
             displayType="text"
             isNumericString={true}
-            suffix="g"
+            suffix=" g"
             thousandSeparator=","
             decimalScale={1}
             fixedDecimalScale={true}
@@ -118,7 +118,7 @@ export function formatVolumeHL(value) {
             value={value}
             displayType="text"
             isNumericString={true}
-            suffix="hl"
+            suffix=" hl"
             thousandSeparator=","
             decimalScale={1}
             fixedDecimalScale={true}
@@ -132,7 +132,7 @@ export function formatVolumeL(value) {
             value={value}
             displayType="text"
             isNumericString={true}
-            suffix="l"
+            suffix=" l"
             thousandSeparator=","
             decimalScale={1}
             fixedDecimalScale={true}
@@ -152,6 +152,56 @@ export function formatVolumeML(value) {
             fixedDecimalScale={true}
         />
     );
+}
+
+export function prettyVolume(volume, symbol) {
+    const vol = toL(volume, symbol);
+    if (vol > 10000) {
+        return formatVolumeHL(toHl(vol, "l"));
+    } else if (vol < 1) {
+        return formatVolumeML(toMl(vol, "l"));
+    } else {
+        return formatVolumeL(vol);
+    }
+}
+
+export function toHl(volume, symbol) {
+    switch (symbol) {
+        case "hl":
+            return volume;
+        case "l":
+            return volume / 1000;
+        case "ml":
+            return volume / 1000000;
+        default:
+            break;
+    }
+}
+
+export function toL(volume, symbol) {
+    switch (symbol) {
+        case "hl":
+            return volume * 1000;
+        case "l":
+            return volume;
+        case "ml":
+            return volume / 1000;
+        default:
+            break;
+    }
+}
+
+export function toMl(volume, symbol) {
+    switch (symbol) {
+        case "hl":
+            return volume * 1000000;
+        case "l":
+            return volume * 1000;
+        case "ml":
+            return volume;
+        default:
+            break;
+    }
 }
 
 export function formatKeyAsLabel(name) {

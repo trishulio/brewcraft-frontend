@@ -10,6 +10,14 @@ export function isValidName(name) {
     return typeof name === "string" && name.trim().length > 0;
 }
 
+export function isValidNumberString(number) {
+    return !(
+        /[^0-9.]/.test(number) ||
+        /\.[0-9]*[.]{1,}/.test(number) ||
+        parseFloat(number) < 0
+    );
+}
+
 export function isValidCountry(country) {
     return isValidName(country);
 }
@@ -35,6 +43,17 @@ export function validAmount(quantity) {
 
 export function validInvoiceNumber(invoiceNumber) {
     return invoiceNumber && invoiceNumber.trim().length > 0;
+}
+
+export function validInvoiceItems(invoiceItems) {
+    const { materialId, price, quantity, tax } = invoiceItems[0].invoiceItem;
+    return (
+        invoiceItems.length > 0 &&
+        validId(materialId) &&
+        price.amount &&
+        quantity.value &&
+        tax.amount.amount
+    );
 }
 
 export function validDate(date) {
@@ -110,6 +129,6 @@ export function arrayEquals(a, b) {
 
 export function calculatedTaxRate(qty, price, taxAmount) {
     let taxRate = 0;
-    taxRate = taxAmount / (qty * price);
-    return taxRate;
+    taxRate = (taxAmount / (qty * price)) * 100;
+    return taxRate || "0";
 }

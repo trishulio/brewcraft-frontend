@@ -7,6 +7,7 @@ import {
     INVALID_CLASS,
     INVALID_TYPE,
     INVALID_STYLE,
+    INVALID_ABV,
     INVALID_DESCRIPTION,
     RESET_PRODUCT_DETAILS,
     DELETE_PRODUCT,
@@ -24,18 +25,19 @@ export const fetchProductById = (id) => ({
     payload: { id },
 });
 
-export const createProduct = ({ data, categoryId }) => ({
+export const createProduct = ({ data, categoryId, targetMeasures }) => ({
     type: CREATE_PRODUCT,
     payload: {
         form: {
             name: data.name,
             description: data.description || "",
             categoryId: categoryId,
+            targetMeasures: targetMeasures || [],
         },
     },
 });
 
-export const updateProduct = ({ data, categoryId }) => ({
+export const updateProduct = ({ data, categoryId, targetMeasures }) => ({
     type: UPDATE_PRODUCT,
     payload: {
         id: data.id,
@@ -43,6 +45,7 @@ export const updateProduct = ({ data, categoryId }) => ({
             name: data.name,
             description: data.description || "",
             categoryId: categoryId,
+            targetMeasures: targetMeasures,
             version: data.version,
         },
     },
@@ -78,6 +81,13 @@ export const setProductInvalidStyle = (enabled) => ({
     type: INVALID_STYLE,
     payload: {
         invalidStyle: enabled,
+    },
+});
+
+export const setProductInvalidAbv = (enabled) => ({
+    type: INVALID_ABV,
+    payload: {
+        invalidAbv: enabled,
     },
 });
 

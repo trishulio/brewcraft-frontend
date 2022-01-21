@@ -18,10 +18,10 @@ async function putProcurements(data) {
     );
 }
 
-async function deleteProcurement(shipmentId, invoiceId) {
-    return await AxiosInstance.delete(
-        `/api/v1/procurements/${shipmentId}/${invoiceId}`
-    ).then((r) => r);
+async function deleteProcurement(data) {
+    return await AxiosInstance.delete(`/api/v1/procurements/`, data).then(
+        (r) => r
+    );
 }
 
 async function fetchPurchaseInvoiceById(id) {

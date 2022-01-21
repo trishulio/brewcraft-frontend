@@ -7,7 +7,10 @@ import {
     SET_FERMENT_MATERIAL_PORTION_DETAILS,
     RESET_FERMENT_MATERIAL_PORTION_DETAILS,
     EDIT_FERMENT_MATERIAL_PORTION_FAILURE,
+    DELETE_FERMENT_MATERIAL_PORTION_REQUEST,
+    DELETE_FERMENT_MATERIAL_PORTION_SUCCESS,
     DELETE_FERMENT_MATERIAL_PORTION_FAILURE,
+    FETCH_MATERIAL_PORTION_BY_BREW_ID_REQUEST,
 } from "./actionTypes";
 
 const initialState = {
@@ -29,8 +32,10 @@ const FermentMaterialPortion = (state = initialState, { type, payload }) => {
                 ...payload,
                 loading: false,
             };
+        case FETCH_MATERIAL_PORTION_BY_BREW_ID_REQUEST:
         case ADD_FERMENT_MATERIAL_PORTION_REQUEST:
         case EDIT_FERMENT_MATERIAL_PORTION_REQUEST:
+        case DELETE_FERMENT_MATERIAL_PORTION_REQUEST:
             return {
                 ...state,
                 loading: true,
@@ -38,6 +43,7 @@ const FermentMaterialPortion = (state = initialState, { type, payload }) => {
             };
         case ADD_FERMENT_MATERIAL_PORTION_SUCCESS:
         case EDIT_FERMENT_MATERIAL_PORTION_SUCCESS:
+        case DELETE_FERMENT_MATERIAL_PORTION_SUCCESS:
             return {
                 ...state,
                 ...payload,

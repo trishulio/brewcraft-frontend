@@ -25,6 +25,7 @@ export default function SupplierContactDetails({ editable }) {
         invalidEmail,
         invalidPhoneNumber,
         invalidCompany,
+        loading,
     } = useSelector((state) => {
         return state.SupplierContact;
     });
@@ -142,7 +143,7 @@ export default function SupplierContactDetails({ editable }) {
         <React.Fragment>
             <Card>
                 <CardHeader>Contact Details</CardHeader>
-                <CardBody>
+                <CardBody isLoading={loading}>
                     <div className="form-group-validation">
                         <Label
                             for="contactFirstName"

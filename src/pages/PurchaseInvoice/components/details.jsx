@@ -72,8 +72,8 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             style={{
                                 lineHeight: "2rem",
                                 verticalAlign: "middle",
+                                width: "100%",
                             }}
-                            width="100%"
                             hidden={editable}
                         >
                             {purchaseOrder.orderNumber || "-"}
@@ -119,8 +119,8 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             style={{
                                 lineHeight: "2rem",
                                 verticalAlign: "middle",
+                                width: "100%",
                             }}
-                            width="100%"
                             hidden={editable}
                         >
                             {invoice.generatedOn || "-"}
@@ -168,8 +168,8 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             style={{
                                 lineHeight: "2rem",
                                 verticalAlign: "middle",
+                                width: "100%",
                             }}
-                            width="100%"
                             hidden={editable}
                         >
                             {invoice.invoiceNumber || "-"}
@@ -229,8 +229,8 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             style={{
                                 lineHeight: "2rem",
                                 verticalAlign: "middle",
+                                width: "100%",
                             }}
-                            width="100%"
                             hidden={editable}
                         >
                             {purchaseOrder.supplier.name || "-"}
@@ -277,8 +277,8 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             style={{
                                 lineHeight: "2rem",
                                 verticalAlign: "middle",
+                                width: "100%",
                             }}
-                            width="100%"
                             hidden={editable}
                         >
                             {invoice.paymentDueDate || "-"}
@@ -333,8 +333,8 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             style={{
                                 lineHeight: "2rem",
                                 verticalAlign: "middle",
+                                width: "100%",
                             }}
-                            width="100%"
                             hidden={editable}
                         >
                             {INVOICE_STATUS[invoice.invoiceStatus?.id - 1] ||
