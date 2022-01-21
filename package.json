@@ -53,7 +53,6 @@
         "react-chartist": "^0.14.4",
         "react-chartjs-2": "^2.11.1",
         "react-color": "^2.19.3",
-        "react-content-loader": "^6.0.3",
         "react-datepicker": "^2.14.1",
         "react-dom": "^16.14.0",
         "react-draft-wysiwyg": "^1.14.5",
@@ -91,7 +90,8 @@
         "test": "jest --config ./jest.config.json",
         "test:watch": "jest --watch --config ./jest.config.json",
         "test:coverage": "jest --coverage --watchAll --config ./jest.config.json",
-        "eslint": "node ./node_modules/eslint/bin/eslint ./src && node ./node_modules/eslint/bin/eslint ./cypress",
+        "test:updateSnapshot": "npm run test -- -u",
+        "eslint": "node ./node_modules/eslint/bin/eslint ./src ./tests ./cypress",
         "prettier": "node ./node_modules/prettier/bin-prettier --write .",
         "prettier:warn": "node ./node_modules/prettier/bin-prettier --check ."
     },
@@ -125,6 +125,8 @@
         "eslint": "6.8.0",
         "eslint-plugin-cypress": "^2.12.1",
         "eslint-plugin-jest": "^25.3.4",
+        "eslint-plugin-react": "^7.28.0",
+        "eslint-plugin-react-hooks": "^4.3.0",
         "jest": "^24.9.0",
         "prettier": "2.5.1",
         "redux-mock-store": "^1.5.4"
@@ -132,6 +134,7 @@
     "prettier": {
         "semi": true,
         "tabWidth": 4,
+        "endOfLine": "lf",
         "overrides": [
             {
                 "files": [
@@ -145,6 +148,9 @@
         ]
     },
     "jest": {
+        "setupFilesAfterEnv": [
+            "<rootDir>/tests/setupTests.js"
+        ],
         "coveragePathIgnorePatterns": [
             "<rootDir>/src/assets/*"
         ]
