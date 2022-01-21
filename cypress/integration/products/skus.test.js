@@ -16,7 +16,7 @@ describe("skus", () => {
         cy.intercept("PUT", /\/api\/v1\/skus\/\d+$/).as("skuEdit");
         cy.intercept("DELETE", /\/api\/v1\/skus\/\d+$/).as("skuDelete");
 
-        /* create a new SKU  */
+        /* create a new SKU */
         cy.get("[data-testid=newSku]").should("exist").click();
         cy.wait("@products").then(({ response }) => {
             expect(response.statusCode).to.equal(200);
