@@ -33,10 +33,10 @@ describe("product categories", () => {
         cy.get("[data-testid=product-category-name]")
             .type(name)
             .should("have.value", name);
-        cy.get("[data-testid=product-category-class]")
-            .should("exist")
-            .select(1);
-        cy.get("[data-testid=product-category-type]").should("exist").select(1);
+        // cy.get("[data-testid=product-category-class]")
+        //     .should("exist")
+        //     .select(1);
+        // cy.get("[data-testid=product-category-type]").should("exist").select(1);
         cy.get("[data-testid=product-category-save]").should("exist").click();
         cy.wait("@productCategoryCreated").then(({ response }) => {
             expect(response.statusCode).to.equal(201);
@@ -50,14 +50,14 @@ describe("product categories", () => {
         cy.wait("@fetchProductCategory").then(({ response }) => {
             expect(response.statusCode).to.eq(200);
         });
+        cy.get("[data-testid=product-category-edit]").click();
         cy.get("[data-testid=product-category-name]")
             .type(name)
             .should("have.value", name);
-        cy.get("[data-testid=product-category-class]")
-            .should("exist")
-            .select(1);
-        cy.get("[data-testid=product-category-type]").should("exist").select(1);
-        cy.get("[data-testid=product-category-edit]").click();
+        // cy.get("[data-testid=product-category-class]")
+        //     .should("exist")
+        //     .select(0);
+        // cy.get("[data-testid=product-category-type]").should("exist").select(0);
         cy.get("[data-testid=product-category-name]")
             .click()
             .focused()

@@ -9,15 +9,16 @@ describe("Products", () => {
     it("validates normal product CRUD workflow", function () {
         const name = "product-" + id;
         cy.visit("/products");
+        cy.intercept("/api/v1/products/categories?*").as("categories");
         cy.intercept("/api/v1/products?*").as("products");
         cy.intercept(/\/api\/v1\/products\/\d+$/).as("fetchProduct");
         cy.intercept("POST", "/api/v1/products").as("productCreated");
-        cy.intercept("PATCH", /\/api\/v1\/products\/\d+$/).as("productdit");
+        cy.intercept("PATCH", /\/api\/v1\/products\/\d+$/).as("productEdit");
         cy.intercept("DELETE", /\/api\/v1\/products\/\d+$/).as("productDelete");
 
         /* create a new Product */
         cy.get("[data-testid=newProduct]").should("exist").click();
-        cy.wait("@products").then(({ response }) => {
+        cy.wait("@categories", { timeout: 15000 }).then(({ response }) => {
             expect(response.statusCode).to.equal(200);
             expect(response.body.content).to.have.length.of.at.least(1);
         });
@@ -43,6 +44,7 @@ describe("Products", () => {
         cy.wait("@fetchProduct").then(({ response }) => {
             expect(response.statusCode).to.eq(200);
         });
+        cy.get("[data-testid=product-edit]").click();
         cy.get("[data-testid=product-name]")
             .type(name)
             .should("have.value", name);
@@ -52,7 +54,6 @@ describe("Products", () => {
         cy.get("[data-testid=product-description]")
             .should("exist")
             .type("description is coming from test!");
-        cy.get("[data-testid=product-edit]").click();
         cy.get("[data-testid=product-name]")
             .click()
             .focused()

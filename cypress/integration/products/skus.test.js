@@ -10,14 +10,15 @@ describe("skus", () => {
         const name = "sku-" + id;
         cy.visit("/sku");
         cy.intercept("/api/v1/skus?*").as("skus");
+        cy.intercept("/api/v1/products?*").as("products");
         cy.intercept(/\/api\/v1\/skus\/\d+$/).as("fetchSku");
         cy.intercept("POST", "/api/v1/skus").as("skuCreated");
-        cy.intercept("PATCH", /\/api\/v1\/skus\/\d+$/).as("skuEdit");
+        cy.intercept("PUT", /\/api\/v1\/skus\/\d+$/).as("skuEdit");
         cy.intercept("DELETE", /\/api\/v1\/skus\/\d+$/).as("skuDelete");
 
         /* create a new SKU */
         cy.get("[data-testid=newSku]").should("exist").click();
-        cy.wait("@skus").then(({ response }) => {
+        cy.wait("@products").then(({ response }) => {
             expect(response.statusCode).to.equal(200);
             expect(response.body.content).to.have.length.of.at.least(1);
         });
@@ -43,6 +44,7 @@ describe("skus", () => {
         cy.wait("@fetchSku").then(({ response }) => {
             expect(response.statusCode).to.eq(200);
         });
+        cy.get("[data-testid=sku-edit]").click();
         cy.get("[data-testid=sku-name]").type(name).should("have.value", name);
         cy.get("[data-testid=sku-product]").should("exist").select(1);
         cy.get("[data-testid=sku-quantity]").should("exist").type(10);
@@ -52,12 +54,11 @@ describe("skus", () => {
         cy.get("[data-testid=sku-description]")
             .should("exist")
             .type("description is coming from test!");
-        cy.get("[data-testid=sku-edit]").click();
         cy.get("[data-testid=sku-name]")
             .click()
             .focused()
             .clear()
-            .type(name + " edit");
+            .type(name + "-e");
         cy.get("[data-testid=sku-save]").should("exist").click();
         cy.wait("@skuEdit").then(({ response }) => {
             expect(response.statusCode).to.eq(200);
@@ -66,17 +67,17 @@ describe("skus", () => {
 
         cy.visit("/sku");
         cy.get("table")
-            .contains("td", name + " edit")
+            .contains("td", name + "-e")
             .should("exist");
         cy.get("table")
-            .contains("td", name + " edit")
+            .contains("td", name + "-e")
             .click();
 
         /* Delete same SKU */
 
         cy.visit("/sku");
         cy.get("table")
-            .contains("td", name + " edit")
+            .contains("td", name + "-e")
             .click();
         cy.get("[data-testid=sku-edit]").click();
         cy.get("[data-testid=sku-delete]").click();
