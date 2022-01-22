@@ -20,6 +20,7 @@ export default function PurchaseInvoicesToolbar() {
                             search: "?edit=true",
                         });
                     }}
+                    data-testid="newInvoice"
                 >
                     New Invoice
                 </Button>
