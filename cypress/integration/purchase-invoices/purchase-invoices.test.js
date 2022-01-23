@@ -103,42 +103,40 @@ describe("PurchaseInvoices", () => {
             expect(response.statusCode).to.eq(200);
         });
         cy.get("[data-testid=invoice-edit]").click();
-        cy.get("[data-testid=invoice-details-PoSo]")
-            .type(name)
-            .should("have.value", name);
+        cy.get("[data-testid=invoice-details-PoSo]").should("have.value", name);
         cy.get("[data-testid=invoice-details-invoide-date]")
             .should("exist")
-            .type(formatDate(day));
+            .should("not.have.value", "");
         cy.get("[data-testid=invoice-details-due-date]")
             .should("exist")
-            .type(formatDate(nextDay));
+            .should("not.have.value", "");
         cy.get("[data-testid=invoice-details-invoice-number]")
             .should("exist")
-            .type(id);
+            .should("not.have.value", "");
         cy.get("[data-testid=invoice-details-supplier]")
             .should("exist")
-            .select(1);
+            .should("not.have.value", "");
         cy.get("[data-testid=invoice-details-status]")
             .should("exist")
-            .select(1);
+            .should("not.have.value", "");
         cy.get("[data-testid=purchase-invoice-item-material]")
             .should("exist")
-            .select(1);
+            .should("not.have.value", "");
         cy.get("[data-testid=purchase-invoice-item-description]")
             .should("exist")
-            .type("description is coming from test!");
+            .should("not.have.value", "");
         cy.get("[data-testid=purchase-invoice-item-lot]")
             .should("exist")
-            .type(5);
+            .should("not.have.value", "");
         cy.get("[data-testid=purchase-invoice-item-quantity]")
             .should("exist")
-            .type(5);
+            .should("not.have.value", "");
         cy.get("[data-testid=purchase-invoice-item-price]")
             .should("exist")
-            .type(200);
+            .should("not.have.value", "");
         cy.get("[data-testid=purchase-invoice-item-tax]")
             .should("exist")
-            .type(0);
+            .should("not.have.value", "");
         cy.get("[data-testid=invoice-details-invoice-number]")
             .click()
             .focused()
