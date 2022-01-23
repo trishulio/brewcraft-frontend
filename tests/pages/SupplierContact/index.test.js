@@ -285,87 +285,6 @@ describe("SupplierContact -> <Index>", () => {
                 },
             });
         });
-
-        // test("Dispatch editSupplierContact on Save", () => {
-        //     const initialState = {
-        //         SupplierContact: {
-        //             data: {
-        //                 id: 1,
-        //                 firstName: "FirstName",
-        //                 lastName: "LastName",
-        //                 supplier: {
-        //                     id: 1,
-        //                 },
-        //                 position: "",
-        //                 email: "email@email.com",
-        //                 phoneNumber: "123-456-7890",
-        //                 version: null,
-        //             },
-        //             initial: {
-        //                 id: 2,
-        //                 firstName: "",
-        //                 lastName: "",
-        //                 supplier: "",
-        //                 position: "",
-        //                 email: "",
-        //                 phoneNumber: "",
-        //                 version: null,
-        //             },
-        //             invalidFirstName: false,
-        //             invalidLastName: false,
-        //             invalidPosition: false,
-        //             invalidEmail: false,
-        //             invalidPhoneNumber: false,
-        //             invalidCompany: false,
-        //             loading: true,
-        //             error: null,
-        //         },
-        //         Suppliers: {
-        //             content: [],
-        //             all: [],
-        //             loading: true,
-        //             error: null,
-        //             totalItems: 0,
-        //             totalPages: 0,
-        //             pageIndex: 0,
-        //             pageSize: 20,
-        //         },
-        //     };
-
-        //     const store = mockStore(initialState);
-        //     const wrapper = mount(
-        //         <Provider store={store}>
-        //             <BrowserRouter>
-        //                 <SupplierContact />
-        //             </BrowserRouter>
-        //         </Provider>
-        //     );
-
-        //     expect(shallowToJson(wrapper)).toMatchSnapshot();
-        //     wrapper
-        //         .findWhere((node) => {
-        //             return (
-        //                 node.type() === "button" && node.text().includes("Save")
-        //             );
-        //         })
-        //         .at(0)
-        //         .simulate("click");
-        //     expect(mockDispatch).toHaveBeenCalledWith({
-        //         type: "EDIT_SUPPLIER_CONTACT_REQUEST",
-        //         payload: {
-        //             id: 1,
-        //             supplierId: 1,
-        //             form: {
-        //                 firstName: "FirstName",
-        //                 lastName: "LastName",
-        //                 position: "",
-        //                 email: "email@email.com",
-        //                 phoneNumber: "123-456-7890",
-        //                 version: null,
-        //             },
-        //         },
-        //     });
-        // });
     });
 
     describe("Toobar Component", () => {
@@ -479,6 +398,284 @@ describe("SupplierContact -> <Index>", () => {
             expect(mockHistory.push).toHaveBeenCalledWith(
                 "/suppliers/contacts"
             );
+        });
+    });
+
+    describe("Details Component", () => {
+        test("Should Dispatch setInvalidSupplierContactFirstName on input name contactFirstName value change", () => {
+            useQuery.mockReturnValue({
+                get: () => {
+                    return true;
+                },
+            });
+            const wrapper = mount(
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <SupplierContact />
+                    </BrowserRouter>
+                </Provider>
+            );
+            expect(shallowToJson(wrapper)).toMatchSnapshot();
+            wrapper.find('input[name="contactFirstName"]').simulate("change", {
+                target: {
+                    value: "dummy",
+                    name: "contactFirstName",
+                },
+            });
+            expect(mockDispatch).toHaveBeenCalledWith({
+                type: "INVALID_SUPPLIER_CONTACT_FIRST_NAME",
+                payload: {
+                    invalidFirstName: false,
+                },
+            });
+            expect(mockDispatch).toHaveBeenCalledWith({
+                type: "SET_SUPPLIER_CONTACT_DETAILS",
+                payload: {
+                    data: {
+                        ...initialState.SupplierContact.data,
+                        firstName: "dummy",
+                    },
+                },
+            });
+
+            const input = wrapper
+                .find('input[name="contactFirstName"]')
+                .simulate("change");
+            // not sending event.target thats why ndefined
+            expect(input.value).toBe(undefined);
+        });
+
+        test("Should Dispatch setInvalidSupplierContactLastName on input name contactLastName value change", () => {
+            useQuery.mockReturnValue({
+                get: () => {
+                    return true;
+                },
+            });
+            const wrapper = mount(
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <SupplierContact />
+                    </BrowserRouter>
+                </Provider>
+            );
+            expect(shallowToJson(wrapper)).toMatchSnapshot();
+            wrapper.find('input[name="contactLastName"]').simulate("change", {
+                target: {
+                    value: "dummy",
+                    name: "contactLastName",
+                },
+            });
+            expect(mockDispatch).toHaveBeenCalledWith({
+                type: "INVALID_SUPPLIER_CONTACT_LAST_NAME",
+                payload: {
+                    invalidLastName: false,
+                },
+            });
+            expect(mockDispatch).toHaveBeenCalledWith({
+                type: "SET_SUPPLIER_CONTACT_DETAILS",
+                payload: {
+                    data: {
+                        ...initialState.SupplierContact.data,
+                        lastName: "dummy",
+                    },
+                },
+            });
+
+            const input = wrapper
+                .find('input[name="contactLastName"]')
+                .simulate("change");
+            // not sending event.target thats why ndefined
+            expect(input.value).toBe(undefined);
+        });
+
+        test("Should Dispatch setInvalidSupplierContactCompany on input name contactCompany value change", () => {
+            initialState.Suppliers.all = [
+                {
+                    id: 1,
+                },
+            ];
+            const store = mockStore(initialState);
+            useQuery.mockReturnValue({
+                get: () => {
+                    return true;
+                },
+            });
+            const wrapper = mount(
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <SupplierContact />
+                    </BrowserRouter>
+                </Provider>
+            );
+            expect(shallowToJson(wrapper)).toMatchSnapshot();
+            wrapper.find('Input[name="contactCompany"]').simulate("change", {
+                target: {
+                    value: 2,
+                    name: "contactCompany",
+                },
+            });
+            expect(mockDispatch).toHaveBeenCalledWith({
+                type: "INVALID_SUPPLIER_CONTACT_COMPANY",
+                payload: {
+                    invalidCompany: false,
+                },
+            });
+        });
+
+        test("Should Dispatch setInvalidSupplierContactPosition on input name contactPosition value change", () => {
+            useQuery.mockReturnValue({
+                get: () => {
+                    return true;
+                },
+            });
+            const wrapper = mount(
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <SupplierContact />
+                    </BrowserRouter>
+                </Provider>
+            );
+            expect(shallowToJson(wrapper)).toMatchSnapshot();
+            wrapper.find('input[name="contactPosition"]').simulate("change", {
+                target: {
+                    value: "dummy",
+                    name: "contactPosition",
+                },
+            });
+            expect(mockDispatch).toHaveBeenCalledWith({
+                type: "INVALID_SUPPLIER_CONTACT_POSITION",
+                payload: {
+                    invalidPosition: false,
+                },
+            });
+            expect(mockDispatch).toHaveBeenCalledWith({
+                type: "SET_SUPPLIER_CONTACT_DETAILS",
+                payload: {
+                    data: {
+                        ...initialState.SupplierContact.data,
+                        position: "dummy",
+                    },
+                },
+            });
+
+            const input = wrapper
+                .find('input[name="contactPosition"]')
+                .simulate("change");
+            // not sending event.target thats why ndefined
+            expect(input.value).toBe(undefined);
+        });
+
+        test("Should Dispatch setInvalidSupplierContactEmail on input name contactEmail value change", () => {
+            useQuery.mockReturnValue({
+                get: () => {
+                    return true;
+                },
+            });
+            const wrapper = mount(
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <SupplierContact />
+                    </BrowserRouter>
+                </Provider>
+            );
+            expect(shallowToJson(wrapper)).toMatchSnapshot();
+            wrapper.find('input[name="contactEmail"]').simulate("change", {
+                target: {
+                    value: "email1@email.com",
+                    name: "contactEmail",
+                },
+            });
+            expect(mockDispatch).toHaveBeenCalledWith({
+                type: "INVALID_SUPPLIER_CONTACT_EMAIL",
+                payload: {
+                    invalidEmail: false,
+                },
+            });
+            expect(mockDispatch).toHaveBeenCalledWith({
+                type: "SET_SUPPLIER_CONTACT_DETAILS",
+                payload: {
+                    data: {
+                        ...initialState.SupplierContact.data,
+                        email: "email1@email.com",
+                    },
+                },
+            });
+
+            const input = wrapper
+                .find('input[name="contactEmail"]')
+                .simulate("change");
+            // not sending event.target thats why ndefined
+            expect(input.value).toBe(undefined);
+        });
+
+        test("Should Dispatch setInvalidSupplierContactPhoneNumber on input name contactPhoneNumber value change", () => {
+            useQuery.mockReturnValue({
+                get: () => {
+                    return true;
+                },
+            });
+            const wrapper = mount(
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <SupplierContact />
+                    </BrowserRouter>
+                </Provider>
+            );
+            expect(shallowToJson(wrapper)).toMatchSnapshot();
+            wrapper
+                .find('input[name="contactPhoneNumber"]')
+                .simulate("change", {
+                    target: {
+                        value: "123-456-7899",
+                        name: "contactPhoneNumber",
+                    },
+                });
+            expect(mockDispatch).toHaveBeenCalledWith({
+                type: "INVALID_SUPPLIER_CONTACT_PHONE_NUMBER",
+                payload: {
+                    invalidPhoneNumber: false,
+                },
+            });
+            expect(mockDispatch).toHaveBeenCalledWith({
+                type: "SET_SUPPLIER_CONTACT_DETAILS",
+                payload: {
+                    data: {
+                        ...initialState.SupplierContact.data,
+                        phoneNumber: "(123) 456-7899",
+                    },
+                },
+            });
+
+            const input = wrapper
+                .find('input[name="contactPhoneNumber"]')
+                .simulate("change");
+            // not sending event.target thats why ndefined
+            expect(input.value).toBe(undefined);
+        });
+
+        test("Should Dispatch nothing on undefined target name", () => {
+            useQuery.mockReturnValue({
+                get: () => {
+                    return true;
+                },
+            });
+            const wrapper = mount(
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <SupplierContact />
+                    </BrowserRouter>
+                </Provider>
+            );
+            expect(shallowToJson(wrapper)).toMatchSnapshot();
+            wrapper
+                .find('input[name="contactPhoneNumber"]')
+                .simulate("change", {
+                    target: {
+                        value: "",
+                        name: "dummy",
+                    },
+                });
+            expect(mockDispatch).not.toHaveBeenCalledWith({});
         });
     });
 });
