@@ -16,6 +16,7 @@ export default function SkusToolbar() {
                 onClick={() => {
                     history.push("/sku/new");
                 }}
+                data-testid="newSku"
             >
                 New SKU
             </Button>

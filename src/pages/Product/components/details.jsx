@@ -159,6 +159,7 @@ export default function ProductDetails({ product, editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
+                                    data-testid="product-name"
                                 />
                                 <FormFeedback>
                                     Enter a valid product name.
@@ -201,6 +202,7 @@ export default function ProductDetails({ product, editable }) {
                                             setShowProductCategoryModal(true);
                                         }
                                     }}
+                                    data-testid="product-class"
                                 >
                                     <option value="">Select</option>
                                     {map(
@@ -260,6 +262,7 @@ export default function ProductDetails({ product, editable }) {
                                             setShowProductCategoryModal(true);
                                         }
                                     }}
+                                    data-testid="product-type"
                                 >
                                     <option value="">Select</option>
                                     {product.productClass &&
@@ -325,6 +328,7 @@ export default function ProductDetails({ product, editable }) {
                                             setShowProductCategoryModal(true);
                                         }
                                     }}
+                                    data-testid="product-style"
                                 >
                                     <option value="">Select</option>
                                     {product.type &&
@@ -383,6 +387,7 @@ export default function ProductDetails({ product, editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidAbv}
+                                    data-testid="product-abv"
                                 />
                                 <FormFeedback>
                                     Enter a valid ABV (%).
@@ -415,6 +420,7 @@ export default function ProductDetails({ product, editable }) {
                                     onFormInputChange(e);
                                 }}
                                 autoComplete="false"
+                                data-testid="product-description"
                             />
                         </Col>
                     </Row>

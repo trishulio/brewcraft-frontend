@@ -16,6 +16,7 @@ export default function ProductCategoriesToolbar() {
                 onClick={() => {
                     history.push("/products/categories/new");
                 }}
+                data-testid="newProductCategory"
             >
                 New Category
             </Button>

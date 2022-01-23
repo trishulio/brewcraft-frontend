@@ -24,6 +24,7 @@ export default function ProductCategoryToolbar({
                     onClick={onSave}
                     disabled={!changed}
                     hidden={!editable}
+                    data-testid="product-category-save"
                 >
                     Save
                 </Button>
@@ -47,6 +48,7 @@ export default function ProductCategoryToolbar({
                     onClick={onEdit}
                     disabled={editable}
                     hidden={!category.id || editable}
+                    data-testid="product-category-edit"
                 >
                     Edit Category
                 </Button>
@@ -72,6 +74,7 @@ export default function ProductCategoryToolbar({
                     className="waves-effect mr-2 mb-3"
                     onClick={onDelete}
                     hidden={!category.id || !editable}
+                    data-testid="product-category-delete"
                 >
                     Delete Category
                 </Button>

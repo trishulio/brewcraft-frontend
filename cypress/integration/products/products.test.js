@@ -28,6 +28,7 @@ describe("Products", () => {
         cy.get("[data-testid=product-class]").should("exist").select("Beer");
         cy.get("[data-testid=product-type]").should("exist").select(1);
         cy.get("[data-testid=product-style]").should("exist").select(1);
+        cy.get("[data-testid=product-abv]").should("exist").type(90);
         cy.get("[data-testid=product-description]")
             .should("exist")
             .type("description is coming from test!");
@@ -45,15 +46,19 @@ describe("Products", () => {
             expect(response.statusCode).to.eq(200);
         });
         cy.get("[data-testid=product-edit]").click();
-        cy.get("[data-testid=product-name]")
-            .type(name)
-            .should("have.value", name);
-        cy.get("[data-testid=product-class]").should("exist").select("Beer");
-        cy.get("[data-testid=product-type]").should("exist").select(1);
-        cy.get("[data-testid=product-style]").should("exist").select(1);
-        cy.get("[data-testid=product-description]")
+        cy.get("[data-testid=product-name]").should("have.value", name);
+        cy.get("[data-testid=product-class]")
             .should("exist")
-            .type("description is coming from test!");
+            .should("be.ok")
+            .should("not.have.value", "");
+        cy.get("[data-testid=product-type]").should("exist");
+        cy.get("[data-testid=product-style]").should("exist");
+        cy.get("[data-testid=product-abv]")
+            .should("exist")
+            .should("be.ok")
+            .should("not.have.value", "")
+            .should("match", /^[0-9]\d*(\.\d+)?$/);
+        cy.get("[data-testid=product-description]").should("exist");
         cy.get("[data-testid=product-name]")
             .click()
             .focused()

@@ -28,6 +28,7 @@ export default function SkuToolbar({
                     onClick={onSave}
                     disabled={!changed}
                     hidden={!editable}
+                    data-testid="sku-save"
                 >
                     Save
                 </Button>
@@ -51,6 +52,7 @@ export default function SkuToolbar({
                     onClick={onEdit}
                     disabled={editable}
                     hidden={!sku.id || editable}
+                    data-testid="sku-edit"
                 >
                     Edit SKU
                 </Button>
@@ -76,6 +78,7 @@ export default function SkuToolbar({
                     className="waves-effect mr-2 mb-3"
                     onClick={onDelete}
                     hidden={!sku.id || !editable}
+                    data-testid="sku-delete"
                 >
                     Delete SKU
                 </Button>

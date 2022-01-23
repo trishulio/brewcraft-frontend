@@ -45,15 +45,19 @@ describe("skus", () => {
             expect(response.statusCode).to.eq(200);
         });
         cy.get("[data-testid=sku-edit]").click();
-        cy.get("[data-testid=sku-name]").type(name).should("have.value", name);
-        cy.get("[data-testid=sku-product]").should("exist").select(1);
-        cy.get("[data-testid=sku-quantity]").should("exist").type(10);
+        cy.get("[data-testid=sku-name]").should("have.value", name);
+        cy.get("[data-testid=sku-product]")
+            .should("exist")
+            .should("not.have.value", "");
+        cy.get("[data-testid=sku-quantity]")
+            .should("exist")
+            .should("not.have.value", "");
         cy.get("[data-testid=sku-base-quantity-unit]")
             .should("exist")
-            .select("kg");
+            .should("not.have.value", "");
         cy.get("[data-testid=sku-description]")
             .should("exist")
-            .type("description is coming from test!");
+            .should("not.have.value", "");
         cy.get("[data-testid=sku-name]")
             .click()
             .focused()
