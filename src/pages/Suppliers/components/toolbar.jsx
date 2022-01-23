@@ -19,6 +19,7 @@ export default function ProductCategoriesToolbar() {
                         search: "?edit=true",
                     });
                 }}
+                data-testid="newSupplier"
             >
                 <i className="fa fa-plus"></i> New Supplier
             </Button>

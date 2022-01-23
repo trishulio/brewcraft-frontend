@@ -171,6 +171,7 @@ export default function SupplierDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidName}
+                                    data-testid="supplier-name"
                                 />
                                 <FormFeedback>
                                     {supplier.name.length > 0
@@ -214,6 +215,7 @@ export default function SupplierDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidAddressLine1}
+                                    data-testid="supplier-address-line-1"
                                 />
                                 <FormFeedback>
                                     {supplier.address.addressLine1.length > 0
@@ -257,6 +259,7 @@ export default function SupplierDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidAddressLine2}
+                                    data-testid="supplier-address-line-2"
                                 />
                                 <FormFeedback>
                                     Invalid supplier address field
@@ -298,6 +301,7 @@ export default function SupplierDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidCity}
+                                    data-testid="supplier-address-city"
                                 />
                                 <FormFeedback>
                                     {supplier.address.city.length > 0
@@ -341,6 +345,7 @@ export default function SupplierDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidProvince}
+                                    data-testid="supplier-address-province"
                                 />
                                 <FormFeedback>
                                     {supplier.address.province.length > 0
@@ -384,6 +389,7 @@ export default function SupplierDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidPostalCode}
+                                    data-testid="supplier-postal-code"
                                 />
                                 <FormFeedback>
                                     {supplier.address.postalCode.length > 0
@@ -427,6 +433,7 @@ export default function SupplierDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidCountry}
+                                    data-testid="supplier-address-country"
                                 />
                                 <FormFeedback>
                                     {supplier.address.country.length > 0

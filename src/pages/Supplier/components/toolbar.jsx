@@ -20,6 +20,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 onClick={onSave}
                 disabled={!changed}
                 hidden={!editable}
+                data-testid="supplier-save"
             >
                 <i className="fa fa-save"></i> Save
             </Button>
@@ -48,6 +49,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                         search: "?edit=true",
                     });
                 }}
+                data-testid="supplier-edit"
             >
                 <i className="fa fa-edit"></i> Edit
             </Button>
@@ -59,6 +61,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 onClick={onDelete}
                 hidden={!supplier.id || !editable}
                 disabled={changed}
+                data-testid="supplier-delete"
             >
                 <i className="fa fa-minus-circle"></i> Delete Supplier
             </Button>

@@ -25,6 +25,7 @@ export default function SupplierContactToolbar({
                 onClick={onSave}
                 disabled={!changed}
                 hidden={!editable}
+                data-testid="supplier-contact-save"
             >
                 <i className="fa fa-save"></i> Save
             </Button>
@@ -53,6 +54,7 @@ export default function SupplierContactToolbar({
                         search: "?edit=true",
                     });
                 }}
+                data-testid="supplier-contact-edit"
             >
                 <i className="fa fa-edit"></i> Edit Contact
             </Button>
@@ -78,6 +80,7 @@ export default function SupplierContactToolbar({
                 className="waves-effect mr-2 mb-3"
                 onClick={onDelete}
                 hidden={!contact.id || !editable}
+                data-testid="supplier-contact-delete"
             >
                 <i className="fa fa-minus-circle"></i> Delete Contact
             </Button>

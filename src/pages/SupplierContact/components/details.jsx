@@ -173,6 +173,7 @@ export default function SupplierContactDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidFirstName}
+                                    data-testid="contact-first-name"
                                 />
                                 <FormFeedback>
                                     {contact.firstName.length > 0
@@ -216,6 +217,7 @@ export default function SupplierContactDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidLastName}
+                                    data-testid="contact-last-name"
                                 />
                                 <FormFeedback>
                                     {contact.lastName.length > 0
@@ -261,6 +263,7 @@ export default function SupplierContactDetails({ editable }) {
                                     onChange={(e) => {
                                         onFormInputChange(e);
                                     }}
+                                    data-testid="contact-supplier"
                                 >
                                     <option value="" disabled={true}>
                                         Select
@@ -313,6 +316,7 @@ export default function SupplierContactDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidPosition}
+                                    data-testid="contact-position"
                                 />
                                 <FormFeedback>
                                     {contact.position.length > 0
@@ -356,6 +360,7 @@ export default function SupplierContactDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidEmail}
+                                    data-testid="contact-email"
                                 />
                                 <FormFeedback>
                                     {contact.email.length > 0
@@ -405,6 +410,7 @@ export default function SupplierContactDetails({ editable }) {
                                     disabled={!editable}
                                     onChange={onFormInputChange}
                                     invalid={invalidPhoneNumber}
+                                    data-testid="contact-phone"
                                 />
 
                                 <FormFeedback>
