@@ -118,6 +118,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                     value={item.invoiceItem.material?.id || ""}
                                     onChange={changeevent}
                                     invalid={item.invoiceItem.invalidMaterial}
+                                    data-testid="purchase-invoice-item-material"
                                 >
                                     <option value="">Select item</option>
                                     {materials.map((value, index) => (
@@ -148,6 +149,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                     value={item.invoiceItem.description}
                                     onChange={changeevent}
                                     hidden={!editable}
+                                    data-testid="purchase-invoice-item-description"
                                 />
                                 <FormFeedback>
                                     Invalid invoice field
@@ -167,6 +169,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                     onChange={changeevent}
                                     value={item.materialLot.lotNumber || ""}
                                     invalid={item.materialLot.invalidLotNumber}
+                                    data-testid="purchase-invoice-item-lot"
                                 />
                                 <FormFeedback>
                                     Invalid invoice field
@@ -189,6 +192,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                     }
                                     onChange={changeevent}
                                     invalid={item.invoiceItem.invalidQuantity}
+                                    data-testid="purchase-invoice-item-quantity"
                                 />
                                 <FormFeedback>
                                     {!item.invoiceItem.quantity.value &&
@@ -211,6 +215,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                     value={item.invoiceItem.price?.amount || ""}
                                     onChange={changeevent}
                                     invalid={item.invoiceItem.invalidPrice}
+                                    data-testid="purchase-invoice-item-price"
                                 />
                                 <FormFeedback>
                                     {!item.invoiceItem.price.amount &&
@@ -236,6 +241,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                     }
                                     onChange={changeevent}
                                     invalid={item.invoiceItem.invalidTax}
+                                    data-testid="purchase-invoice-item-tax"
                                 />
                                 <FormFeedback>
                                     {!item.invoiceItem.tax.amount.amount &&
