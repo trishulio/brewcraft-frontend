@@ -25,9 +25,9 @@ describe("Products", () => {
         cy.get("[data-testid=product-name]")
             .type(name)
             .should("have.value", name);
-        cy.get("[data-testid=product-class]").should("exist").select("Beer");
-        cy.get("[data-testid=product-type]").should("exist").select(1);
-        cy.get("[data-testid=product-style]").should("exist").select(1);
+        cy.get("[data-testid=product-class]").should("exist").select(1);
+        cy.get("[data-testid=product-type]").should("exist");
+        cy.get("[data-testid=product-style]").should("exist");
         cy.get("[data-testid=product-abv]").should("exist").type(90);
         cy.get("[data-testid=product-description]")
             .should("exist")
@@ -56,8 +56,7 @@ describe("Products", () => {
         cy.get("[data-testid=product-abv]")
             .should("exist")
             .should("be.ok")
-            .should("not.have.value", "")
-            .should("match", /^[0-9]\d*(\.\d+)?$/);
+            .should("not.have.value", "");
         cy.get("[data-testid=product-description]").should("exist");
         cy.get("[data-testid=product-name]")
             .click()
