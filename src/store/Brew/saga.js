@@ -116,7 +116,6 @@ function* addBatchGenerator(action) {
             yield put({ type: ADD_BATCH_SUCCESS });
         }
     } catch (e) {
-        debugger;
         yield put({ type: SET_BATCH_DETAILS, payload: { error: true } });
     }
 }
