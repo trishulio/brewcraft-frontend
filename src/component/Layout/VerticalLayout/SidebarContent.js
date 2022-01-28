@@ -153,6 +153,13 @@ class SidebarContent extends Component {
         this.props.changeSidebarType(value);
     }
 
+    toggleSidebar() {
+        const isMobile =
+            window.innerWidth < 768 && this.state.sidebarType === "condensed";
+        if (isMobile) {
+            this.changeLeftSidebarType("default");
+        }
+    }
     render() {
         return (
             <React.Fragment>
@@ -160,7 +167,11 @@ class SidebarContent extends Component {
                     <ul className="metismenu list-unstyled" id="side-menu">
                         <li className="menu-title">Main</li>
                         <li>
-                            <Link to="/brews" className="waves-effect">
+                            <Link
+                                to="/brews"
+                                className="waves-effect"
+                                onClick={this.toggleSidebar.bind(this)}
+                            >
                                 <i className="mdi mdi-beer"></i>
                                 <span>Brews</span>
                             </Link>
@@ -175,10 +186,18 @@ class SidebarContent extends Component {
                             </Link>
                             <ul className="sub-menu" aria-expanded="false">
                                 <li>
-                                    <Link to="/sku">SKUs</Link>
+                                    <Link
+                                        to="/sku"
+                                        onClick={this.toggleSidebar.bind(this)}
+                                    >
+                                        SKUs
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link to="/inventory/finished-goods">
+                                    <Link
+                                        to="/inventory/finished-goods"
+                                        onClick={this.toggleSidebar.bind(this)}
+                                    >
                                         Inventory
                                     </Link>
                                 </li>
@@ -194,10 +213,18 @@ class SidebarContent extends Component {
                             </Link>
                             <ul className="sub-menu" aria-expanded="false">
                                 <li>
-                                    <Link to="/products">Products</Link>
+                                    <Link
+                                        to="/products"
+                                        onClick={this.toggleSidebar.bind(this)}
+                                    >
+                                        Products
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link to="/products/categories">
+                                    <Link
+                                        to="/products/categories"
+                                        onClick={this.toggleSidebar.bind(this)}
+                                    >
                                         Categories
                                     </Link>
                                 </li>
@@ -213,22 +240,34 @@ class SidebarContent extends Component {
                             </Link>
                             <ul className="sub-menu" aria-expanded="false">
                                 <li>
-                                    <Link to="/inventory/raw-materials">
+                                    <Link
+                                        to="/inventory/raw-materials"
+                                        onClick={this.toggleSidebar.bind(this)}
+                                    >
                                         Inventory
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/materials/ingredients">
+                                    <Link
+                                        to="/materials/ingredients"
+                                        onClick={this.toggleSidebar.bind(this)}
+                                    >
                                         Ingredients
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/materials/packaging">
+                                    <Link
+                                        to="/materials/packaging"
+                                        onClick={this.toggleSidebar.bind(this)}
+                                    >
                                         Packaging
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/materials/categories">
+                                    <Link
+                                        to="/materials/categories"
+                                        onClick={this.toggleSidebar.bind(this)}
+                                    >
                                         Categories
                                     </Link>
                                 </li>
@@ -238,13 +277,18 @@ class SidebarContent extends Component {
                             <Link
                                 to="/purchases/invoices"
                                 className="waves-effect"
+                                onClick={this.toggleSidebar.bind(this)}
                             >
                                 <i className="mdi mdi-currency-usd"></i>
                                 <span>Purchases</span>
                             </Link>
                         </li>
                         <li>
-                            <Link to="/suppliers" className="waves-effect">
+                            <Link
+                                to="/suppliers"
+                                className="waves-effect"
+                                onClick={this.toggleSidebar.bind(this)}
+                            >
                                 <i className="mdi mdi-domain"></i>
                                 <span>Suppliers</span>
                             </Link>
@@ -253,6 +297,7 @@ class SidebarContent extends Component {
                             <Link
                                 to="/suppliers/contacts"
                                 className="waves-effect"
+                                onClick={this.toggleSidebar.bind(this)}
                             >
                                 <i className="mdi mdi-account"></i>
                                 <span>Contacts</span>
@@ -285,7 +330,11 @@ class SidebarContent extends Component {
                         </li> */}
                         <li className="menu-title">Admin</li>
                         <li>
-                            <Link to="/users" className="waves-effect">
+                            <Link
+                                to="/users"
+                                className="waves-effect"
+                                onClick={this.toggleSidebar.bind(this)}
+                            >
                                 <i className="mdi mdi-account-multiple"></i>
                                 <span>Users</span>
                             </Link>
