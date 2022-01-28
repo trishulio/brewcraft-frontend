@@ -11,6 +11,16 @@ export default function Brewhouse(props) {
         return state.Batch.FermentStage.data;
     });
 
+    const loading = useSelector((state) => {
+        return (
+            state.Batch.FermentStage.loading ||
+            state.Batch.FermentMixture.loading ||
+            state.Batch.FermentMaterialPortion.loading ||
+            state.Batch.FermentMixtureRecordings.loading ||
+            state.Batch.FermentFinishedGoods.loading
+        );
+    });
+
     return (
         <React.Fragment>
             <Card className="shadow-none mb-3">
@@ -30,7 +40,11 @@ export default function Brewhouse(props) {
                         </span>
                     </div>
                 </CardHeader>
-                <CardBody isOpen={isOpen} className="p-2 pt-3">
+                <CardBody
+                    isLoading={fermentStage.id && loading}
+                    isOpen={isOpen}
+                    className="p-2 pt-3"
+                >
                     {fermentStage.id && (
                         <React.Fragment>
                             <div className="mb-3">

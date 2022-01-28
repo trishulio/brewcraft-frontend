@@ -447,7 +447,7 @@ export default function Batch() {
                 editTransferMixtureRecords
             );
             // save batch
-            changed &&
+            if (JSON.stringify(batch) !== JSON.stringify(initialBatch)) {
                 dispatch(
                     editBatch({
                         id: batch.id,
@@ -463,6 +463,7 @@ export default function Batch() {
                         },
                     })
                 );
+            }
         } else {
             dispatch(
                 saveBatch({

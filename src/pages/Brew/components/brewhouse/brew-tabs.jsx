@@ -1,13 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TabContent, TabPane } from "reactstrap";
 import Mash from "./mash";
 import Kettle from "./kettle";
 import Whirlpool from "./whirlpool";
+import { useSelector } from "react-redux";
 
 export default function BrewTabs(props) {
-    const [isMashOpen, setIsMashOpen] = useState(true);
+    const [isMashOpen, setIsMashOpen] = useState(false);
     const [isKettleOpen, setIsKettleOpen] = useState(false);
     const [isWhirlpoolOpen, setIsWhirlpoolOpen] = useState(false);
+
+    const mashStage = useSelector((state) => {
+        return state.Batch.MashStage.data;
+    });
+
+    const kettleStage = useSelector((state) => {
+        return state.Batch.MashStage.data;
+    });
+
+    const whirlpoolStage = useSelector((state) => {
+        return state.Batch.WhirlpoolStage.data;
+    });
+
+    useEffect(() => {
+        if (
+            mashStage.status.id &&
+            mashStage.status.id !== 2 &&
+            mashStage.status.id !== 6
+        ) {
+            toggleIsOpen("mash");
+        }
+        if (
+            kettleStage.status.id &&
+            kettleStage.status.id !== 2 &&
+            kettleStage.status.id !== 6
+        ) {
+            toggleIsOpen("kettle");
+        }
+        if (
+            whirlpoolStage.status.id &&
+            whirlpoolStage.status.id !== 2 &&
+            whirlpoolStage.status.id !== 6
+        ) {
+            toggleIsOpen("whirlpool");
+        }
+    }, [mashStage, kettleStage, whirlpoolStage]);
 
     const mashProps = {
         isOpen: isMashOpen,
@@ -26,6 +63,11 @@ export default function BrewTabs(props) {
 
     function toggleIsOpen(index) {
         switch (index) {
+            case "mash":
+                setIsMashOpen(!isMashOpen);
+                setIsKettleOpen(false);
+                setIsWhirlpoolOpen(false);
+                break;
             case "kettle":
                 setIsMashOpen(false);
                 setIsKettleOpen(!isKettleOpen);
@@ -36,9 +78,8 @@ export default function BrewTabs(props) {
                 setIsKettleOpen(false);
                 setIsWhirlpoolOpen(!isWhirlpoolOpen);
                 break;
-            case "mash":
             default:
-                setIsMashOpen(!isMashOpen);
+                setIsMashOpen(false);
                 setIsKettleOpen(false);
                 setIsWhirlpoolOpen(false);
                 break;

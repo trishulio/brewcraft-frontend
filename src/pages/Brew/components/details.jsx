@@ -27,6 +27,7 @@ export default function BatchDetails(props) {
 
     const {
         data: batch,
+        loading,
         editable,
         invalidBatchId,
         invalidProduct,
@@ -224,7 +225,11 @@ export default function BatchDetails(props) {
                         </span>
                     </div>
                 </CardHeader>
-                <CardBody isOpen={isDetailsOpen} className="pb-0">
+                <CardBody
+                    isLoading={loading}
+                    isOpen={isDetailsOpen}
+                    className="pb-0"
+                >
                     <Row>
                         <Col sm="6" xl="4">
                             <Label

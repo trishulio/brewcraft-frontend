@@ -1,24 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Nav, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
 import { Badge } from "../common/badge";
 
 export default function BrewNav({ activeTab }) {
-    const stage = useSelector((state) => {
-        const stages = [
-            state.Batch.MashStage.data,
-            state.Batch.KettleStage.data,
-            state.Batch.WhirlpoolStage.data,
-            state.Batch.TransferStage.data,
-        ];
-        let stage;
-        stage = stages.find((s) => s.status.id !== 2 && s.status.id !== 6);
-        if (!stage) {
-            stage = stages.reverse().find((s) => s.status.id === 2);
-        }
-        return stage;
+    const [statusId, setStatusId] = useState("");
+
+    const mashStage = useSelector((state) => {
+        return state.Batch.MashStage.initial;
     });
+
+    const kettleStage = useSelector((state) => {
+        return state.Batch.MashStage.initial;
+    });
+
+    const whirlpoolStage = useSelector((state) => {
+        return state.Batch.WhirlpoolStage.initial;
+    });
+
+    useEffect(() => {
+        if (
+            mashStage.status.id === 2 &&
+            kettleStage.status.id === 2 &&
+            (!whirlpoolStage || whirlpoolStage.status.id === 2)
+        ) {
+            setStatusId(2); //  complete
+        } else if (
+            mashStage.status.id === 3 ||
+            kettleStage.status.id === 3 ||
+            whirlpoolStage.status.id === 3
+        ) {
+            setStatusId(3); // failed
+        } else if (
+            mashStage.status.id === 5 ||
+            kettleStage.status.id === 5 ||
+            whirlpoolStage.status.id === 5
+        ) {
+            setStatusId(5); // stopped
+        } else if (
+            mashStage.status.id === 1 ||
+            kettleStage.status.id === 1 ||
+            whirlpoolStage.status.id === 1
+        ) {
+            setStatusId(5); // stopped
+        } else if (
+            mashStage.status.id === 2 ||
+            kettleStage.status.id === 2 ||
+            whirlpoolStage.status.id === 2
+        ) {
+            setStatusId(1); // in progress
+        } else {
+            return 4; // init
+        }
+    }, [mashStage, kettleStage, whirlpoolStage]);
 
     function navToTab(tab) {}
 
@@ -38,7 +73,7 @@ export default function BrewNav({ activeTab }) {
                             }}
                         >
                             <span>Brewhouse Turn 1</span>{" "}
-                            <Badge stageId={stage.status.id} />
+                            <Badge statusId={statusId} />
                         </NavLink>
                     </NavItem>
                 </Nav>

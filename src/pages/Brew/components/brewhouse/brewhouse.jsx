@@ -7,8 +7,21 @@ import { useSelector } from "react-redux";
 export default function Brewhouse(props) {
     const [isOpen, setIsOpen] = useState(true);
 
-    const mashStage = useSelector((state) => {
-        return state.Batch.MashStage.data;
+    const { data: mashStage } = useSelector((state) => {
+        return state.Batch.MashStage;
+    });
+
+    const loading = useSelector((state) => {
+        return (
+            state.Batch.MashStage.loading ||
+            state.Batch.MashMixture.loading ||
+            state.Batch.KettleStage.loading ||
+            state.Batch.KettleMixture.loading ||
+            state.Batch.WhirlpoolStage.loading ||
+            state.Batch.WhirlpoolMixture.loading ||
+            state.Batch.MashMaterialPortion.loading ||
+            state.Batch.KettleMaterialPortion.loading
+        );
     });
 
     return (
@@ -30,7 +43,11 @@ export default function Brewhouse(props) {
                         </span>
                     </div>
                 </CardHeader>
-                <CardBody isOpen={isOpen} className="px-2 pt-3 pb-0">
+                <CardBody
+                    isLoading={mashStage.id && loading}
+                    isOpen={isOpen}
+                    className="px-2 pt-3 pb-0"
+                >
                     {mashStage.id && (
                         <React.Fragment>
                             <div className="mb-3">
