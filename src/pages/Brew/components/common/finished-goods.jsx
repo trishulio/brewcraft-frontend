@@ -4,7 +4,11 @@ import { map } from "lodash";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
 import { fetchSkus } from "../../../../store/actions";
-import { formatDatetime, toHl } from "../../../../helpers/textUtils";
+import {
+    formatDatetime,
+    prettyVolume,
+    toL,
+} from "../../../../helpers/textUtils";
 import { isValidNumberString } from "../../../../helpers/utils";
 
 export default function BatchIngredients({
@@ -47,13 +51,15 @@ export default function BatchIngredients({
                         <th></th>
                         <th>SKU</th>
                         <th>Time</th>
-                        <th>Total Vol. (hl)</th>
+                        <th>Total Vol.</th>
+                        <th>Num. Units</th>
                     </tr>
                 </thead>
                 <tbody>
                     {!finishedGoods.length && (
                         <tr>
                             <td></td>
+                            <td>-</td>
                             <td>-</td>
                             <td>-</td>
                             <td>-</td>
@@ -101,11 +107,14 @@ export default function BatchIngredients({
                                     {formatDatetime(finishedGood.packagedOn)}
                                 </td>
                                 <td>
-                                    {
+                                    {prettyVolume(
                                         finishedGood.mixturePortions[0].quantity
-                                            .value
-                                    }
+                                            .value,
+                                        finishedGood.mixturePortions[0].quantity
+                                            .symbol
+                                    )}
                                 </td>
+                                <td>{finishedGood.quantity.value}</td>
                             </tr>
                         ))}
                 </tbody>
@@ -180,9 +189,16 @@ export default function BatchIngredients({
                                 );
                             });
                             if (finishedGood) {
-                                finishedGood.mixturePortions.find(
+                                const mp = finishedGood.mixturePortions.find(
                                     (mp) => mp.addedAt === datetime
-                                ).quantity.value += parseFloat(quantity);
+                                );
+                                mp.quantity.value +=
+                                    toL(
+                                        sku.quantity.value,
+                                        sku.quantity.symbol
+                                    ) * parseFloat(quantity);
+                                finishedGood.quantity.value +=
+                                    parseFloat(quantity);
                                 setFinishedGoods([...finishedGoods]);
                             } else {
                                 setFinishedGoods([
@@ -193,20 +209,24 @@ export default function BatchIngredients({
                                             {
                                                 mixture,
                                                 quantity: {
-                                                    value: toHl(
-                                                        sku.quantity.value *
+                                                    value: toL(
+                                                        sku.quantity.value /
                                                             parseFloat(
                                                                 quantity
                                                             ),
                                                         sku.quantity.symbol
                                                     ),
-                                                    symbol: "hl",
+                                                    symbol: "l",
                                                 },
                                                 addedAt: datetime,
                                             },
                                         ],
                                         materialPortions: [],
                                         packagedOn: datetime,
+                                        quantity: {
+                                            value: parseInt(quantity),
+                                            symbol: "each",
+                                        },
                                     },
                                 ]);
                             }

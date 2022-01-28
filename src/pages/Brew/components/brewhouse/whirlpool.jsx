@@ -39,6 +39,10 @@ export default function BrewWhirlpool(props) {
         return state.Batch.WhirlpoolMixture;
     });
 
+    const fermentStage = useSelector((state) => {
+        return state.Batch.FermentStage.data;
+    });
+
     useEffect(() => {
         dispatch(
             setWhirlpoolStageDetails({
@@ -104,7 +108,7 @@ export default function BrewWhirlpool(props) {
                         More <i className="fa fa-caret-down"></i>
                     </DropdownToggle>
                     <DropdownMenu>
-                        <DropdownItem>
+                        <DropdownItem disabled={!!fermentStage.id}>
                             <span
                                 className="text-dark"
                                 onClick={() => {

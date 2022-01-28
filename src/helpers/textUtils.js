@@ -106,8 +106,6 @@ export function formatWeightG(value) {
             isNumericString={true}
             suffix=" g"
             thousandSeparator=","
-            decimalScale={1}
-            fixedDecimalScale={true}
         />
     );
 }
@@ -120,8 +118,6 @@ export function formatVolumeHL(value) {
             isNumericString={true}
             suffix=" hl"
             thousandSeparator=","
-            decimalScale={1}
-            fixedDecimalScale={true}
         />
     );
 }
@@ -134,8 +130,6 @@ export function formatVolumeL(value) {
             isNumericString={true}
             suffix=" l"
             thousandSeparator=","
-            decimalScale={1}
-            fixedDecimalScale={true}
         />
     );
 }
@@ -146,10 +140,8 @@ export function formatVolumeML(value) {
             value={value}
             displayType="text"
             isNumericString={true}
-            suffix="ml"
+            suffix=" ml"
             thousandSeparator=","
-            decimalScale={1}
-            fixedDecimalScale={true}
         />
     );
 }

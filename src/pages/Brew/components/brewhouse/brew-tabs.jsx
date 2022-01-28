@@ -44,6 +44,7 @@ export default function BrewTabs(props) {
         ) {
             toggleIsOpen("whirlpool");
         }
+        // eslint-disable-next-line
     }, [mashStage, kettleStage, whirlpoolStage]);
 
     const mashProps = {

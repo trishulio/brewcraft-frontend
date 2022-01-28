@@ -165,7 +165,7 @@ export default function BrewKettle(props) {
                     </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem
-                            disabled={!whirlpoolStage.id && !fermentStage.id}
+                            disabled={!!whirlpoolStage.id || !!fermentStage.id}
                         >
                             <span
                                 className="text-dark"
@@ -189,7 +189,7 @@ export default function BrewKettle(props) {
                             </span>
                         </DropdownItem>
                         <DropdownItem
-                            disabled={!whirlpoolStage.id && !fermentStage.id}
+                            disabled={!!whirlpoolStage.id || !!fermentStage.id}
                         >
                             <span
                                 className="text-dark"

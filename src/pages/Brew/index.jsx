@@ -285,6 +285,7 @@ export default function Batch() {
                             })),
                             packagedOn: fg.packagedOn,
                             version: fg.version,
+                            quantity: fg.quantity,
                         })),
                     })
                 );
