@@ -10,6 +10,32 @@ import "react-toastify/dist/ReactToastify.css";
 import "./theme.scss";
 import "./jadc.scss";
 import { useHistory } from "react-router-dom";
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    TimeScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement,
+} from "chart.js";
+
+ChartJS.register(
+    CategoryScale,
+    TimeScale,
+    LinearScale,
+    ArcElement,
+    BarElement,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+);
 
 const App = () => {
     const dispatch = useDispatch();

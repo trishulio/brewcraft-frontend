@@ -12,7 +12,7 @@ export default function ProductCategoriesToolbar() {
                 type="button"
                 color="secondary"
                 size="sm"
-                className="waves-effect mr-2 mb-3"
+                className="waves-effect mr-2 mb-3 newCategeroy"
                 onClick={() => {
                     history.push({
                         pathname: "/materials/categories/new",

@@ -57,58 +57,66 @@ function* fetchMixturesByBrewId(action) {
         content = res.data.content.find(
             (m) => m.brewStage.task.name === "MASH"
         );
-        yield put({
-            type: SET_MASH_MIXTURE_DETAILS,
-            payload: { data: content, initial: content },
-        });
-
+        if (content) {
+            yield put({
+                type: SET_MASH_MIXTURE_DETAILS,
+                payload: { data: content, initial: content },
+            });
+        }
         content = res.data.content.find(
             (m) => m.brewStage.task.name === "BOIL"
         );
-        yield put({
-            type: SET_KETTLE_MIXTURE_DETAILS,
-            payload: { data: content, initial: content },
-        });
-
+        if (content) {
+            yield put({
+                type: SET_KETTLE_MIXTURE_DETAILS,
+                payload: { data: content, initial: content },
+            });
+        }
         content = res.data.content.find(
             (m) => m.brewStage.task.name === "WHIRLPOOL"
         );
-        yield put({
-            type: SET_WHIRLPOOL_MIXTURE_DETAILS,
-            payload: { data: content, initial: content },
-        });
-
+        if (content) {
+            yield put({
+                type: SET_WHIRLPOOL_MIXTURE_DETAILS,
+                payload: { data: content, initial: content },
+            });
+        }
         content = res.data.content.find(
             (m) => m.brewStage.task.name === "TRANSFER"
         );
-        yield put({
-            type: SET_TRANSFER_MIXTURE_DETAILS,
-            payload: { data: content, initial: content },
-        });
-
+        if (content) {
+            yield put({
+                type: SET_TRANSFER_MIXTURE_DETAILS,
+                payload: { data: content, initial: content },
+            });
+        }
         content = res.data.content.find(
             (m) => m.brewStage.task.name === "FERMENT"
         );
-        yield put({
-            type: SET_FERMENT_MIXTURE_DETAILS,
-            payload: { data: content, initial: content },
-        });
-
+        if (content) {
+            yield put({
+                type: SET_FERMENT_MIXTURE_DETAILS,
+                payload: { data: content, initial: content },
+            });
+        }
         content = res.data.content.find(
             (m) => m.brewStage.task.name === "CONDITION"
         );
-        yield put({
-            type: SET_CONDITION_MIXTURE_DETAILS,
-            payload: { data: content, initial: content },
-        });
-
+        if (content) {
+            yield put({
+                type: SET_CONDITION_MIXTURE_DETAILS,
+                payload: { data: content, initial: content },
+            });
+        }
         content = res.data.content.find(
-            (m) => m.brewStage.task.name === "STORAGEs"
+            (m) => m.brewStage.task.name === "STORAGE"
         );
-        yield put({
-            type: SET_BRITE_TANK_MIXTURE_RECORDING_DETAILS,
-            payload: { data: content, initial: content },
-        });
+        if (content) {
+            yield put({
+                type: SET_BRITE_TANK_MIXTURE_RECORDING_DETAILS,
+                payload: { data: content, initial: content },
+            });
+        }
     } catch (e) {
         yield put(snackFailure("Something went wrong please try again."));
     }

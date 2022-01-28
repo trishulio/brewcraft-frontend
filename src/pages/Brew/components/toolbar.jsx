@@ -1,83 +1,129 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import { Button } from "reactstrap";
+import { Link, useHistory, useParams } from "react-router-dom";
+import {
+    Button,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownToggle,
+} from "reactstrap";
+import Select from "react-select";
 
-export default function Toolbar({
-    editable,
-    setEditable,
-    changed,
-    onSave,
-    onDelete,
-}) {
+export default function Toolbar() {
+    const [isOpenWorkflowDropdown, setIsOpenWorkflowDropdown] = useState(false);
     const history = useHistory();
+    const { id } = useParams();
 
     const batch = useSelector((state) => {
         return state.Batch.Batch.data;
     });
 
-    return (
+    const batches = useSelector((state) => {
+        return state.Batches.content;
+    });
+
+    const renderBatchToolbar = () => (
         <React.Fragment>
+            <Select
+                className="d-inline-block align-middle mr-3"
+                isMulti={false}
+                name="brewMonitorId"
+                value={{
+                    id,
+                    label: `${batch.batchId} - ${batch.product.name}`,
+                }}
+                placeholder="Select Batch .."
+                options={batches.map((b) => ({
+                    value: b.id,
+                    label: `${b.batchId} ${b.product.name}`,
+                }))}
+                onChange={(e) => {
+                    history.push({
+                        pathname: "/brews/" + e.value,
+                    });
+                }}
+                styles={{
+                    control: (styles) => ({
+                        ...styles,
+                        width: "12rem",
+                        "@media screen and (max-width: 750px)": {
+                            width: "100%",
+                        },
+                    }),
+                }}
+            />
             <Button
                 type="button"
                 color="secondary"
                 size="sm"
-                className="waves-effect mr-2  mb-2"
+                className="waves-effect d-inline align-middle mr-2"
+            >
+                <i className="fa fa-comment"></i> Comment
+            </Button>
+            <Button
+                type="button"
+                color="secondary"
+                size="sm"
+                className="waves-effect d-inline align-middle mr-2"
+            >
+                <i className="fa fa-user"></i> Assign
+            </Button>
+            <Button
+                type="button"
+                color="secondary"
+                size="sm"
+                className="waves-effect d-inline align-middle mr-2"
+            >
+                <i className="fa fa-print"></i> Print
+            </Button>
+            <Button
+                type="button"
+                color="secondary"
+                size="sm"
+                className="waves-effect d-inline align-middle mr-2"
                 onClick={() => {
-                    history.goBack();
+                    history.push({
+                        pathname: "/brews/monitor/" + id,
+                    });
                 }}
             >
-                Back
+                <i className="fa fa-desktop"></i> Monitor
             </Button>
-            {/* <Button
-                type="button"
-                color="danger"
-                size="sm"
-                className="waves-effect mr-2  mb-2"
-                onClick={onDelete}
-                hidden={!batch.id || !editable}
+            <Dropdown
+                isOpen={isOpenWorkflowDropdown}
+                toggle={() =>
+                    setIsOpenWorkflowDropdown(!isOpenWorkflowDropdown)
+                }
+                className="d-inline-block mr-2"
             >
-                Delete Brew
-            </Button> */}
-            {/* <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2 mb-2"
-                hidden={editable || fermentStage.id}
-                disabled={!completed}
-                onClick={() => {
-                    dispatch(saveFermentStage({
-                        form: [{
-                            brewId: batch.id,
-                            statusId: 1,
-                            taskId: 8 // ferment
-                        }]
-                    }));
-                }}
-            >
-                    Start Batch
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2  mb-2"
-                hidden={editable || fermentStage.id}
-                disabled={true} // not supported yet
-            >
-                    Add to Batch
-            </Button> */}
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect mr-2  mb-2"
-                hidden={!batch.id}
-                disabled={true} // not supported yet
-            >
-                Print Batch
-            </Button>
+                <DropdownToggle
+                    tag="button"
+                    className="waves-effect btn btn-secondary btn-sm"
+                    data-toggle="dropdown"
+                >
+                    <i className="fa fa-caret-down"></i> Workflow
+                </DropdownToggle>
+                <DropdownMenu>
+                    <DropdownItem>
+                        <Link to="#" target="_blank" className="text-dark">
+                            Start Brew
+                        </Link>
+                    </DropdownItem>
+                    <DropdownItem>
+                        <Link to="#" target="_blank" className="text-dark">
+                            Start Ferment
+                        </Link>
+                    </DropdownItem>
+                    <DropdownItem disabled={true}>
+                        <Link to="#" target="_blank" className="text-dark">
+                            Package
+                        </Link>
+                    </DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
         </React.Fragment>
     );
+
+    return <React.Fragment>{batch.id && renderBatchToolbar()}</React.Fragment>;
 }
