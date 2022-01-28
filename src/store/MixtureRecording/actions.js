@@ -23,7 +23,7 @@ import {
     SET_FERMENT_MIXTURE_RECORDING_DETAILS,
     ADD_FERMENT_MIXTURE_RECORDING_REQUEST,
     EDIT_FERMENT_MIXTURE_RECORDING_REQUEST,
-    DELETE_FERMENT_MIXTURE_RECORDING_REQUEST,
+    DELETE_MIXTURE_RECORDING_REQUEST,
     RESET_FERMENT_MIXTURE_RECORDING_DETAILS,
 } from "./actionTypes";
 
@@ -153,6 +153,6 @@ export const editFermentMixtureRecords = (payload) => ({
 });
 
 export const deleteFermentMixtureRecords = (payload) => ({
-    type: DELETE_FERMENT_MIXTURE_RECORDING_REQUEST,
+    type: DELETE_MIXTURE_RECORDING_REQUEST,
     payload: payload,
 });

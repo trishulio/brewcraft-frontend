@@ -20,7 +20,6 @@ const TransferMixtureRecordings = (
             return {
                 ...state,
                 ...payload,
-                loading: false,
                 error: null,
             };
         case FETCH_MIXTURE_RECORDING_BY_BREW_ID_REQUEST:

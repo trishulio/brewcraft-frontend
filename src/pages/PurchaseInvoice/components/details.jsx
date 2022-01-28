@@ -66,6 +66,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             }}
                             hidden={!editable}
                             invalid={invalidPurchaseOrder}
+                            data-testid="invoice-details-PoSo"
                         />
                         <div
                             className="float-left"
@@ -113,6 +114,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             }}
                             hidden={!editable}
                             invalid={invalidGeneratedOn}
+                            data-testid="invoice-details-invoide-date"
                         />
                         <div
                             className="float-left"
@@ -162,6 +164,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             }}
                             hidden={!editable}
                             invalid={invalidInvoiceNumber}
+                            data-testid="invoice-details-invoice-number"
                         />
                         <div
                             className="float-left"
@@ -214,6 +217,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             }}
                             hidden={!editable}
                             invalid={invalidSupplier}
+                            data-testid="invoice-details-supplier"
                         >
                             <option value="">Select</option>
                             {suppliers.map((value, index) => {
@@ -271,6 +275,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             }}
                             hidden={!editable}
                             invalid={invalidPaymentDueDate}
+                            data-testid="invoice-details-due-date"
                         />
                         <div
                             className="float-left"
@@ -319,6 +324,7 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             }}
                             hidden={!editable}
                             invalid={invalidStatus}
+                            data-testid="invoice-details-status"
                         >
                             <option value="">Select</option>
                             <option value={"1"} key={"1"}>
@@ -337,8 +343,11 @@ export default function PurchaseInvoiceDetails({ editable }) {
                             }}
                             hidden={editable}
                         >
-                            {INVOICE_STATUS[invoice.invoiceStatus?.id - 1] ||
-                                "-"}
+                            {INVOICE_STATUS[
+                                invoice.invoiceStatus
+                                    ? invoice.invoiceStatus.id - 1
+                                    : 0
+                            ] || "-"}
                         </div>
                         <FormFeedback>
                             {!invoice.invoiceStatus?.id
