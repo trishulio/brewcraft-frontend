@@ -222,6 +222,13 @@
     }
 }
 
+
+@media (max-width: 300px) {
+    .vertical-menu {
+        margin-left: -450%
+    }
+}
+
 // Enlarge menu
 .vertical-collpsed {
 
@@ -447,6 +454,8 @@ body[data-sidebar="dark"] {
     // Enlarge menu
     &.vertical-collpsed {
         min-height: 1200px;
+        height: auto;
+        overflow: scroll;
         // Side menu
         .vertical-menu {
 

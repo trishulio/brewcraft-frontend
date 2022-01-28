@@ -15,23 +15,29 @@ class Navbar extends Component {
         this.state = {
             is_toggle: false,
         };
+        this.isMobile =
+            window.innerWidth < 768 &&
+            this.props.leftSideBarType === "condensed";
     }
 
     render() {
         return (
             <React.Fragment>
-                <div className="vertical-menu">
+                <div
+                    className="vertical-menu"
+                    style={{ overflowY: this.isMobile && "hidden" }}
+                >
                     <div data-simplebar className="h-100 mobileMenuScroll">
                         {this.props.leftSideBarType !== "condensed" ? (
                             this.props.leftSideBarType !== "icon" ? (
                                 <PerfectScrollbar>
-                                    <SidebarContent />
+                                    <SidebarContent isMobile={this.isMobile} />
                                 </PerfectScrollbar>
                             ) : (
-                                <SidebarContent />
+                                <SidebarContent isMobile={this.isMobile} />
                             )
                         ) : (
-                            <SidebarContent />
+                            <SidebarContent isMobile={this.isMobile} />
                         )}
                     </div>
                 </div>
