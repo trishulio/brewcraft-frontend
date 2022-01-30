@@ -142,6 +142,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
             <Button
               className="waves-effect mr-2 mb-3"
               color="secondary"
+              data-testid="invoice-save"
               disabled={false}
               hidden={true}
               onClick={[Function]}
@@ -152,6 +153,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="invoice-save"
                 disabled={false}
                 hidden={true}
                 onClick={[Function]}
@@ -182,6 +184,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
             <Button
               className="waves-effect mr-2 mb-3"
               color="secondary"
+              data-testid="invoice-edit"
               disabled={false}
               hidden={true}
               onClick={[Function]}
@@ -192,6 +195,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="invoice-edit"
                 disabled={false}
                 hidden={true}
                 onClick={[Function]}
@@ -203,6 +207,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
             <Button
               className="waves-effect mr-2 mb-3"
               color="danger"
+              data-testid="invoice-delete"
               hidden={true}
               onClick={[Function]}
               size="sm"
@@ -212,6 +217,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+                data-testid="invoice-delete"
                 hidden={true}
                 onClick={[Function]}
                 type="button"
@@ -405,6 +411,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-PoSo"
                                             hidden={true}
                                             name="invoiceDetailsPoSo"
                                             onChange={[Function]}
@@ -413,6 +420,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                           >
                                             <input
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-PoSo"
                                               hidden={true}
                                               name="invoiceDetailsPoSo"
                                               onChange={[Function]}
@@ -514,6 +522,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-invoide-date"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsInvoiceDate"
@@ -525,6 +534,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-invoide-date"
                                               hidden={true}
                                               name="invoiceDetailsInvoiceDate"
                                               onChange={[Function]}
@@ -627,6 +637,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-invoice-number"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsInvoiceNumber"
@@ -638,6 +649,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-invoice-number"
                                               hidden={true}
                                               name="invoiceDetailsInvoiceNumber"
                                               onChange={[Function]}
@@ -758,6 +770,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-supplier"
                                             hidden={true}
                                             name="invoiceDetailsSupplier"
                                             onChange={[Function]}
@@ -766,6 +779,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                           >
                                             <select
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-supplier"
                                               hidden={true}
                                               name="invoiceDetailsSupplier"
                                               onChange={[Function]}
@@ -872,6 +886,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-due-date"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsDueDate"
@@ -884,6 +899,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-due-date"
                                               hidden={true}
                                               name="invoiceDetailsDueDate"
                                               onChange={[Function]}
@@ -987,6 +1003,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-status"
                                             hidden={true}
                                             name="invoiceDetailsStatus"
                                             onChange={[Function]}
@@ -995,6 +1012,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                           >
                                             <select
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-status"
                                               hidden={true}
                                               name="invoiceDetailsStatus"
                                               onChange={[Function]}
@@ -1030,7 +1048,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               }
                                             }
                                           >
-                                            -
+                                            Unpaid
                                           </div>
                                           <FormFeedback
                                             tag="div"
@@ -1965,6 +1983,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
             <Button
               className="waves-effect mr-2 mb-3"
               color="secondary"
+              data-testid="invoice-save"
               disabled={false}
               hidden={true}
               onClick={[Function]}
@@ -1975,6 +1994,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="invoice-save"
                 disabled={false}
                 hidden={true}
                 onClick={[Function]}
@@ -2005,6 +2025,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
             <Button
               className="waves-effect mr-2 mb-3"
               color="secondary"
+              data-testid="invoice-edit"
               disabled={false}
               hidden={false}
               onClick={[Function]}
@@ -2015,6 +2036,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="invoice-edit"
                 disabled={false}
                 hidden={false}
                 onClick={[Function]}
@@ -2026,6 +2048,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
             <Button
               className="waves-effect mr-2 mb-3"
               color="danger"
+              data-testid="invoice-delete"
               hidden={true}
               onClick={[Function]}
               size="sm"
@@ -2035,6 +2058,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+                data-testid="invoice-delete"
                 hidden={true}
                 onClick={[Function]}
                 type="button"
@@ -2228,6 +2252,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-PoSo"
                                             hidden={true}
                                             name="invoiceDetailsPoSo"
                                             onChange={[Function]}
@@ -2236,6 +2261,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                           >
                                             <input
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-PoSo"
                                               hidden={true}
                                               name="invoiceDetailsPoSo"
                                               onChange={[Function]}
@@ -2337,6 +2363,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-invoide-date"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsInvoiceDate"
@@ -2348,6 +2375,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-invoide-date"
                                               hidden={true}
                                               name="invoiceDetailsInvoiceDate"
                                               onChange={[Function]}
@@ -2450,6 +2478,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-invoice-number"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsInvoiceNumber"
@@ -2461,6 +2490,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-invoice-number"
                                               hidden={true}
                                               name="invoiceDetailsInvoiceNumber"
                                               onChange={[Function]}
@@ -2581,6 +2611,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-supplier"
                                             hidden={true}
                                             name="invoiceDetailsSupplier"
                                             onChange={[Function]}
@@ -2589,6 +2620,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                           >
                                             <select
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-supplier"
                                               hidden={true}
                                               name="invoiceDetailsSupplier"
                                               onChange={[Function]}
@@ -2695,6 +2727,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-due-date"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsDueDate"
@@ -2707,6 +2740,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-due-date"
                                               hidden={true}
                                               name="invoiceDetailsDueDate"
                                               onChange={[Function]}
@@ -2810,6 +2844,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-status"
                                             hidden={true}
                                             name="invoiceDetailsStatus"
                                             onChange={[Function]}
@@ -2818,6 +2853,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                           >
                                             <select
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-status"
                                               hidden={true}
                                               name="invoiceDetailsStatus"
                                               onChange={[Function]}
@@ -3788,6 +3824,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
             <Button
               className="waves-effect mr-2 mb-3"
               color="secondary"
+              data-testid="invoice-save"
               disabled={false}
               hidden={true}
               onClick={[Function]}
@@ -3798,6 +3835,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="invoice-save"
                 disabled={false}
                 hidden={true}
                 onClick={[Function]}
@@ -3828,6 +3866,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
             <Button
               className="waves-effect mr-2 mb-3"
               color="secondary"
+              data-testid="invoice-edit"
               disabled={false}
               hidden={true}
               onClick={[Function]}
@@ -3838,6 +3877,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="invoice-edit"
                 disabled={false}
                 hidden={true}
                 onClick={[Function]}
@@ -3849,6 +3889,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
             <Button
               className="waves-effect mr-2 mb-3"
               color="danger"
+              data-testid="invoice-delete"
               hidden={true}
               onClick={[Function]}
               size="sm"
@@ -3858,6 +3899,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+                data-testid="invoice-delete"
                 hidden={true}
                 onClick={[Function]}
                 type="button"
@@ -4051,6 +4093,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-PoSo"
                                             hidden={true}
                                             name="invoiceDetailsPoSo"
                                             onChange={[Function]}
@@ -4059,6 +4102,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                           >
                                             <input
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-PoSo"
                                               hidden={true}
                                               name="invoiceDetailsPoSo"
                                               onChange={[Function]}
@@ -4160,6 +4204,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-invoide-date"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsInvoiceDate"
@@ -4171,6 +4216,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-invoide-date"
                                               hidden={true}
                                               name="invoiceDetailsInvoiceDate"
                                               onChange={[Function]}
@@ -4273,6 +4319,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-invoice-number"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsInvoiceNumber"
@@ -4284,6 +4331,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-invoice-number"
                                               hidden={true}
                                               name="invoiceDetailsInvoiceNumber"
                                               onChange={[Function]}
@@ -4404,6 +4452,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-supplier"
                                             hidden={true}
                                             name="invoiceDetailsSupplier"
                                             onChange={[Function]}
@@ -4412,6 +4461,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                           >
                                             <select
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-supplier"
                                               hidden={true}
                                               name="invoiceDetailsSupplier"
                                               onChange={[Function]}
@@ -4518,6 +4568,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-due-date"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsDueDate"
@@ -4530,6 +4581,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-due-date"
                                               hidden={true}
                                               name="invoiceDetailsDueDate"
                                               onChange={[Function]}
@@ -4633,6 +4685,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-status"
                                             hidden={true}
                                             name="invoiceDetailsStatus"
                                             onChange={[Function]}
@@ -4641,6 +4694,7 @@ exports[`PurchaseInvoice -> <Index> render() should call action _savePurchaseOrd
                                           >
                                             <select
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-status"
                                               hidden={true}
                                               name="invoiceDetailsStatus"
                                               onChange={[Function]}
@@ -5611,6 +5665,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
             <Button
               className="waves-effect mr-2 mb-3"
               color="secondary"
+              data-testid="invoice-save"
               disabled={false}
               hidden={true}
               onClick={[Function]}
@@ -5621,6 +5676,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="invoice-save"
                 disabled={false}
                 hidden={true}
                 onClick={[Function]}
@@ -5651,6 +5707,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
             <Button
               className="waves-effect mr-2 mb-3"
               color="secondary"
+              data-testid="invoice-edit"
               disabled={false}
               hidden={true}
               onClick={[Function]}
@@ -5661,6 +5718,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="invoice-edit"
                 disabled={false}
                 hidden={true}
                 onClick={[Function]}
@@ -5672,6 +5730,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
             <Button
               className="waves-effect mr-2 mb-3"
               color="danger"
+              data-testid="invoice-delete"
               hidden={true}
               onClick={[Function]}
               size="sm"
@@ -5681,6 +5740,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+                data-testid="invoice-delete"
                 hidden={true}
                 onClick={[Function]}
                 type="button"
@@ -5874,6 +5934,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-PoSo"
                                             hidden={true}
                                             name="invoiceDetailsPoSo"
                                             onChange={[Function]}
@@ -5882,6 +5943,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                           >
                                             <input
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-PoSo"
                                               hidden={true}
                                               name="invoiceDetailsPoSo"
                                               onChange={[Function]}
@@ -5983,6 +6045,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-invoide-date"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsInvoiceDate"
@@ -5994,6 +6057,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-invoide-date"
                                               hidden={true}
                                               name="invoiceDetailsInvoiceDate"
                                               onChange={[Function]}
@@ -6096,6 +6160,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-invoice-number"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsInvoiceNumber"
@@ -6107,6 +6172,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-invoice-number"
                                               hidden={true}
                                               name="invoiceDetailsInvoiceNumber"
                                               onChange={[Function]}
@@ -6227,6 +6293,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-supplier"
                                             hidden={true}
                                             name="invoiceDetailsSupplier"
                                             onChange={[Function]}
@@ -6235,6 +6302,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                           >
                                             <select
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-supplier"
                                               hidden={true}
                                               name="invoiceDetailsSupplier"
                                               onChange={[Function]}
@@ -6341,6 +6409,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-due-date"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsDueDate"
@@ -6353,6 +6422,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-due-date"
                                               hidden={true}
                                               name="invoiceDetailsDueDate"
                                               onChange={[Function]}
@@ -6456,6 +6526,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-status"
                                             hidden={true}
                                             name="invoiceDetailsStatus"
                                             onChange={[Function]}
@@ -6464,6 +6535,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                           >
                                             <select
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-status"
                                               hidden={true}
                                               name="invoiceDetailsStatus"
                                               onChange={[Function]}
@@ -6499,7 +6571,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               }
                                             }
                                           >
-                                            -
+                                            Unpaid
                                           </div>
                                           <FormFeedback
                                             tag="div"
@@ -7434,6 +7506,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
             <Button
               className="waves-effect mr-2 mb-3"
               color="secondary"
+              data-testid="invoice-save"
               disabled={false}
               hidden={true}
               onClick={[Function]}
@@ -7444,6 +7517,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="invoice-save"
                 disabled={false}
                 hidden={true}
                 onClick={[Function]}
@@ -7474,6 +7548,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
             <Button
               className="waves-effect mr-2 mb-3"
               color="secondary"
+              data-testid="invoice-edit"
               disabled={false}
               hidden={true}
               onClick={[Function]}
@@ -7484,6 +7559,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="invoice-edit"
                 disabled={false}
                 hidden={true}
                 onClick={[Function]}
@@ -7495,6 +7571,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
             <Button
               className="waves-effect mr-2 mb-3"
               color="danger"
+              data-testid="invoice-delete"
               hidden={true}
               onClick={[Function]}
               size="sm"
@@ -7504,6 +7581,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+                data-testid="invoice-delete"
                 hidden={true}
                 onClick={[Function]}
                 type="button"
@@ -7697,6 +7775,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-PoSo"
                                             hidden={true}
                                             name="invoiceDetailsPoSo"
                                             onChange={[Function]}
@@ -7705,6 +7784,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                           >
                                             <input
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-PoSo"
                                               hidden={true}
                                               name="invoiceDetailsPoSo"
                                               onChange={[Function]}
@@ -7806,6 +7886,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-invoide-date"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsInvoiceDate"
@@ -7817,6 +7898,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-invoide-date"
                                               hidden={true}
                                               name="invoiceDetailsInvoiceDate"
                                               onChange={[Function]}
@@ -7919,6 +8001,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-invoice-number"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsInvoiceNumber"
@@ -7930,6 +8013,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-invoice-number"
                                               hidden={true}
                                               name="invoiceDetailsInvoiceNumber"
                                               onChange={[Function]}
@@ -8050,6 +8134,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-supplier"
                                             hidden={true}
                                             name="invoiceDetailsSupplier"
                                             onChange={[Function]}
@@ -8058,6 +8143,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                           >
                                             <select
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-supplier"
                                               hidden={true}
                                               name="invoiceDetailsSupplier"
                                               onChange={[Function]}
@@ -8164,6 +8250,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-due-date"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsDueDate"
@@ -8176,6 +8263,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-due-date"
                                               hidden={true}
                                               name="invoiceDetailsDueDate"
                                               onChange={[Function]}
@@ -8279,6 +8367,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-status"
                                             hidden={true}
                                             name="invoiceDetailsStatus"
                                             onChange={[Function]}
@@ -8287,6 +8376,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                           >
                                             <select
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-status"
                                               hidden={true}
                                               name="invoiceDetailsStatus"
                                               onChange={[Function]}
@@ -8322,7 +8412,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               }
                                             }
                                           >
-                                            -
+                                            Unpaid
                                           </div>
                                           <FormFeedback
                                             tag="div"
@@ -9257,6 +9347,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
             <Button
               className="waves-effect mr-2 mb-3"
               color="secondary"
+              data-testid="invoice-save"
               disabled={false}
               hidden={true}
               onClick={[Function]}
@@ -9267,6 +9358,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="invoice-save"
                 disabled={false}
                 hidden={true}
                 onClick={[Function]}
@@ -9297,6 +9389,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
             <Button
               className="waves-effect mr-2 mb-3"
               color="secondary"
+              data-testid="invoice-edit"
               disabled={false}
               hidden={false}
               onClick={[Function]}
@@ -9307,6 +9400,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                data-testid="invoice-edit"
                 disabled={false}
                 hidden={false}
                 onClick={[Function]}
@@ -9318,6 +9412,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
             <Button
               className="waves-effect mr-2 mb-3"
               color="danger"
+              data-testid="invoice-delete"
               hidden={true}
               onClick={[Function]}
               size="sm"
@@ -9327,6 +9422,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
               <button
                 aria-label={null}
                 className="waves-effect mr-2 mb-3 btn btn-danger btn-sm"
+                data-testid="invoice-delete"
                 hidden={true}
                 onClick={[Function]}
                 type="button"
@@ -9520,6 +9616,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-PoSo"
                                             hidden={true}
                                             name="invoiceDetailsPoSo"
                                             onChange={[Function]}
@@ -9528,6 +9625,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                           >
                                             <input
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-PoSo"
                                               hidden={true}
                                               name="invoiceDetailsPoSo"
                                               onChange={[Function]}
@@ -9629,6 +9727,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-invoide-date"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsInvoiceDate"
@@ -9640,6 +9739,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-invoide-date"
                                               hidden={true}
                                               name="invoiceDetailsInvoiceDate"
                                               onChange={[Function]}
@@ -9742,6 +9842,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-invoice-number"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsInvoiceNumber"
@@ -9753,6 +9854,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-invoice-number"
                                               hidden={true}
                                               name="invoiceDetailsInvoiceNumber"
                                               onChange={[Function]}
@@ -9873,6 +9975,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-supplier"
                                             hidden={true}
                                             name="invoiceDetailsSupplier"
                                             onChange={[Function]}
@@ -9881,6 +9984,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                           >
                                             <select
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-supplier"
                                               hidden={true}
                                               name="invoiceDetailsSupplier"
                                               onChange={[Function]}
@@ -9987,6 +10091,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-due-date"
                                             hidden={true}
                                             invalid={false}
                                             name="invoiceDetailsDueDate"
@@ -9999,6 +10104,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                             <input
                                               aria-invalid={false}
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-due-date"
                                               hidden={true}
                                               name="invoiceDetailsDueDate"
                                               onChange={[Function]}
@@ -10102,6 +10208,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                         >
                                           <Input
                                             className="mb-2"
+                                            data-testid="invoice-details-status"
                                             hidden={true}
                                             name="invoiceDetailsStatus"
                                             onChange={[Function]}
@@ -10110,6 +10217,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                           >
                                             <select
                                               className="mb-2 form-control"
+                                              data-testid="invoice-details-status"
                                               hidden={true}
                                               name="invoiceDetailsStatus"
                                               onChange={[Function]}
@@ -10145,7 +10253,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               }
                                             }
                                           >
-                                            -
+                                            Unpaid
                                           </div>
                                           <FormFeedback
                                             tag="div"

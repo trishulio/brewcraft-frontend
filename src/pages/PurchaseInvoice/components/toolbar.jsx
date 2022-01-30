@@ -20,6 +20,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 onClick={onSave}
                 disabled={!changed}
                 hidden={!editable}
+                data-testid="invoice-save"
             >
                 Save
             </Button>
@@ -48,6 +49,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                         search: "?edit=true",
                     });
                 }}
+                data-testid="invoice-edit"
             >
                 Edit Invoice
             </Button>
@@ -58,6 +60,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 className="waves-effect mr-2 mb-3"
                 onClick={onDelete}
                 hidden={!invoice.id || !editable}
+                data-testid="invoice-delete"
             >
                 Delete Invoice
             </Button>

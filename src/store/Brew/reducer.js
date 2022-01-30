@@ -101,6 +101,7 @@ const Brew = (state = initialState, { type, payload }) => {
                 initial: {
                     ...initialState.initial,
                 },
+                loading: false,
                 error: null,
             };
         default:

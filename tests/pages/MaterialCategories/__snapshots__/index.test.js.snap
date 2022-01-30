@@ -114,7 +114,7 @@ exports[`MaterialCategories -> <Index> FilterBar Component History.push should c
                               className="col-12"
                             >
                               <Button
-                                className="waves-effect mr-2 mb-3"
+                                className="waves-effect mr-2 mb-3 newCategeroy"
                                 color="secondary"
                                 data-testid="newCategory"
                                 onClick={[Function]}
@@ -124,7 +124,7 @@ exports[`MaterialCategories -> <Index> FilterBar Component History.push should c
                               >
                                 <button
                                   aria-label={null}
-                                  className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                                  className="waves-effect mr-2 mb-3 newCategeroy btn btn-secondary btn-sm"
                                   data-testid="newCategory"
                                   onClick={[Function]}
                                   type="button"
@@ -1028,7 +1028,7 @@ exports[`MaterialCategories -> <Index> FilterBar Component History.push should c
                               className="col-12"
                             >
                               <Button
-                                className="waves-effect mr-2 mb-3"
+                                className="waves-effect mr-2 mb-3 newCategeroy"
                                 color="secondary"
                                 data-testid="newCategory"
                                 onClick={[Function]}
@@ -1038,7 +1038,7 @@ exports[`MaterialCategories -> <Index> FilterBar Component History.push should c
                               >
                                 <button
                                   aria-label={null}
-                                  className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                                  className="waves-effect mr-2 mb-3 newCategeroy btn btn-secondary btn-sm"
                                   data-testid="newCategory"
                                   onClick={[Function]}
                                   type="button"
@@ -1942,7 +1942,7 @@ exports[`MaterialCategories -> <Index> Pagination Component Dispatch setMaterial
                               className="col-12"
                             >
                               <Button
-                                className="waves-effect mr-2 mb-3"
+                                className="waves-effect mr-2 mb-3 newCategeroy"
                                 color="secondary"
                                 data-testid="newCategory"
                                 onClick={[Function]}
@@ -1952,7 +1952,7 @@ exports[`MaterialCategories -> <Index> Pagination Component Dispatch setMaterial
                               >
                                 <button
                                   aria-label={null}
-                                  className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                                  className="waves-effect mr-2 mb-3 newCategeroy btn btn-secondary btn-sm"
                                   data-testid="newCategory"
                                   onClick={[Function]}
                                   type="button"
@@ -2869,7 +2869,7 @@ exports[`MaterialCategories -> <Index> Table Component Dispatch setMaterialCateg
                               className="col-12"
                             >
                               <Button
-                                className="waves-effect mr-2 mb-3"
+                                className="waves-effect mr-2 mb-3 newCategeroy"
                                 color="secondary"
                                 data-testid="newCategory"
                                 onClick={[Function]}
@@ -2879,7 +2879,7 @@ exports[`MaterialCategories -> <Index> Table Component Dispatch setMaterialCateg
                               >
                                 <button
                                   aria-label={null}
-                                  className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                                  className="waves-effect mr-2 mb-3 newCategeroy btn btn-secondary btn-sm"
                                   data-testid="newCategory"
                                   onClick={[Function]}
                                   type="button"
@@ -3821,7 +3821,7 @@ exports[`MaterialCategories -> <Index> ToolBar Component History.push should cal
                               className="col-12"
                             >
                               <Button
-                                className="waves-effect mr-2 mb-3"
+                                className="waves-effect mr-2 mb-3 newCategeroy"
                                 color="secondary"
                                 data-testid="newCategory"
                                 onClick={[Function]}
@@ -3831,7 +3831,7 @@ exports[`MaterialCategories -> <Index> ToolBar Component History.push should cal
                               >
                                 <button
                                   aria-label={null}
-                                  className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                                  className="waves-effect mr-2 mb-3 newCategeroy btn btn-secondary btn-sm"
                                   data-testid="newCategory"
                                   onClick={[Function]}
                                   type="button"
@@ -4735,7 +4735,7 @@ exports[`MaterialCategories -> <Index> render() Dispatching setBreadcrumbItems,f
                               className="col-12"
                             >
                               <Button
-                                className="waves-effect mr-2 mb-3"
+                                className="waves-effect mr-2 mb-3 newCategeroy"
                                 color="secondary"
                                 data-testid="newCategory"
                                 onClick={[Function]}
@@ -4745,7 +4745,7 @@ exports[`MaterialCategories -> <Index> render() Dispatching setBreadcrumbItems,f
                               >
                                 <button
                                   aria-label={null}
-                                  className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                                  className="waves-effect mr-2 mb-3 newCategeroy btn btn-secondary btn-sm"
                                   data-testid="newCategory"
                                   onClick={[Function]}
                                   type="button"
@@ -5649,7 +5649,7 @@ exports[`MaterialCategories -> <Index> render() renders the component 1`] = `
                               className="col-12"
                             >
                               <Button
-                                className="waves-effect mr-2 mb-3"
+                                className="waves-effect mr-2 mb-3 newCategeroy"
                                 color="secondary"
                                 data-testid="newCategory"
                                 onClick={[Function]}
@@ -5659,7 +5659,7 @@ exports[`MaterialCategories -> <Index> render() renders the component 1`] = `
                               >
                                 <button
                                   aria-label={null}
-                                  className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                                  className="waves-effect mr-2 mb-3 newCategeroy btn btn-secondary btn-sm"
                                   data-testid="newCategory"
                                   onClick={[Function]}
                                   type="button"
