@@ -37,6 +37,8 @@ import {
     saveFermentFinishedGoods,
     deleteFermentFinishedGoods,
     deleteFermentMaterialPortion,
+    deleteTransferMixtureRecords,
+    saveTransferMixtureRecords,
 } from "../../store/actions";
 import { useQuery } from "../../helpers/utils";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
@@ -217,6 +219,7 @@ export default function Batch() {
             state.Batch.MashStage.changed ||
             state.Batch.KettleStage.changed ||
             state.Batch.WhirlpoolStage.changed ||
+            state.Batch.TransferStage.changed ||
             state.Batch.FermentStage.changed
         );
     });
@@ -442,10 +445,11 @@ export default function Batch() {
                 deleteFermentFinishedGoods
             );
             // save transfer
-            saveMixture(
+            saveMixtureRecords(
                 transferMixtureRecords,
                 initialTransferMixtureRecords,
-                editTransferMixtureRecords
+                saveTransferMixtureRecords,
+                deleteTransferMixtureRecords
             );
             // save batch
             if (JSON.stringify(batch) !== JSON.stringify(initialBatch)) {

@@ -18,6 +18,7 @@ import {
     EDIT_WHIRLPOOL_STAGE_REQUEST,
     DELETE_WHIRLPOOL_STAGE_REQUEST,
     RESET_WHIRLPOOL_STAGE_DETAILS,
+    SET_TRANSFER_STAGE_DETAILS,
     FETCH_FERMENT_STAGE_BY_ID_REQUEST,
     SET_FERMENT_STAGE_DETAILS,
     ADD_FERMENT_STAGE_REQUEST,
@@ -133,6 +134,13 @@ export const editWhirlpoolStage = (payload) => ({
 export const deleteWhirlpoolStage = (payload) => ({
     type: DELETE_WHIRLPOOL_STAGE_REQUEST,
     payload: payload,
+});
+
+export const setTransferStageDetails = (payload) => ({
+    type: SET_TRANSFER_STAGE_DETAILS,
+    payload: {
+        ...payload,
+    },
 });
 
 export const fetchFermentStageById = (id) => ({

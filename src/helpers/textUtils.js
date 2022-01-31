@@ -130,6 +130,7 @@ export function formatVolumeL(value) {
             isNumericString={true}
             suffix=" l"
             thousandSeparator=","
+            decimalScale={2}
         />
     );
 }

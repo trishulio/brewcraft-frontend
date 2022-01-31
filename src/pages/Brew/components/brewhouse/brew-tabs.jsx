@@ -3,6 +3,7 @@ import { TabContent, TabPane } from "reactstrap";
 import Mash from "./mash";
 import Kettle from "./kettle";
 import Whirlpool from "./whirlpool";
+import Transfer from "./transfer";
 import { useSelector } from "react-redux";
 
 export default function BrewTabs(props) {
@@ -95,6 +96,7 @@ export default function BrewTabs(props) {
                         <Mash {...mashProps} />
                         <Kettle {...kettleProps} />
                         <Whirlpool {...whirlpoolProps} />
+                        <Transfer />
                     </div>
                 </TabPane>
             </TabContent>

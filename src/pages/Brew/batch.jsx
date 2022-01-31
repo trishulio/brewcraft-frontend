@@ -20,16 +20,6 @@ export default function Batch(props) {
         return state.Batch.Batch;
     });
 
-    const changed = useSelector((state) => {
-        return (
-            state.Batch.Batch.changed ||
-            state.Batch.MashStage.changed ||
-            state.Batch.KettleStage.changed ||
-            state.Batch.WhirlpoolStage.changed ||
-            state.Batch.FermentStage.changed
-        );
-    });
-
     return (
         <React.Fragment>
             <div style={{ maxWidth: "80rem" }}>
@@ -63,7 +53,7 @@ export default function Batch(props) {
                                     className="waves-effect mr-2"
                                     onClick={props.onSave}
                                     size="sm"
-                                    disabled={!changed}
+                                    disabled={!props.changed}
                                 >
                                     {!batch.id ? "Create" : "Save"}
                                 </Button>
