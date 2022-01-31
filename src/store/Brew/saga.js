@@ -18,6 +18,7 @@ import {
 } from "./actionTypes";
 import { isValidName, validDate, validId } from "../../helpers/utils";
 import {
+    RESET_BREW_MIXTURE_DETAILS,
     RESET_FERMENT_MIXTURE_DETAILS,
     RESET_KETTLE_MIXTURE_DETAILS,
     RESET_MASH_MIXTURE_DETAILS,
@@ -25,6 +26,7 @@ import {
     RESET_WHIRLPOOL_MIXTURE_DETAILS,
 } from "../Mixture/actionTypes";
 import {
+    RESET_BREW_MATERIAL_PORTIONS_DETAILS,
     RESET_FERMENT_MATERIAL_PORTION_DETAILS,
     RESET_KETTLE_MATERIAL_PORTION_DETAILS,
     RESET_MASH_MATERIAL_PORTION_DETAILS,
@@ -36,6 +38,7 @@ import {
     RESET_WHIRLPOOL_MIXTURE_RECORDING_DETAILS,
 } from "../MixtureRecording/actionTypes";
 import {
+    RESET_BREW_STAGES,
     RESET_FERMENT_STAGE_DETAILS,
     RESET_KETTLE_STAGE_DETAILS,
     RESET_MASH_STAGE_DETAILS,
@@ -154,6 +157,9 @@ function* deleteBatchGenerator(action) {
 }
 
 function* resetBatchDetailsGenerator() {
+    yield put({ type: RESET_BREW_STAGES });
+    yield put({ type: RESET_BREW_MIXTURE_DETAILS });
+    yield put({ type: RESET_BREW_MATERIAL_PORTIONS_DETAILS });
     // reset mash
     yield put({ type: RESET_MASH_STAGE_DETAILS });
     yield put({ type: RESET_MASH_MIXTURE_DETAILS });

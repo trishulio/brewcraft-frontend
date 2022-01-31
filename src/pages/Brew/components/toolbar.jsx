@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
 import {
     Button,
     Dropdown,
@@ -9,9 +9,11 @@ import {
     DropdownToggle,
 } from "reactstrap";
 import Select from "react-select";
+import { addBrewStage } from "../../../store/actions";
 
 export default function Toolbar() {
     const [isOpenWorkflowDropdown, setIsOpenWorkflowDropdown] = useState(false);
+    const dispatch = useDispatch();
     const history = useHistory();
     const { id } = useParams();
 
@@ -106,19 +108,29 @@ export default function Toolbar() {
                 </DropdownToggle>
                 <DropdownMenu>
                     <DropdownItem>
-                        <Link to="#" target="_blank" className="text-dark">
-                            Start Brew
-                        </Link>
-                    </DropdownItem>
-                    <DropdownItem>
-                        <Link to="#" target="_blank" className="text-dark">
-                            Start Ferment
-                        </Link>
+                        <span
+                            className="text-dark"
+                            onClick={() => {
+                                dispatch(
+                                    addBrewStage({
+                                        form: [
+                                            {
+                                                brewId: batch.id,
+                                                taskId: 1,
+                                                statusId: 4,
+                                                startedAt:
+                                                    new Date().toISOString(),
+                                            },
+                                        ],
+                                    })
+                                );
+                            }}
+                        >
+                            Add Brewhouse Turn
+                        </span>
                     </DropdownItem>
                     <DropdownItem disabled={true}>
-                        <Link to="#" target="_blank" className="text-dark">
-                            Package
-                        </Link>
+                        <span className="text-dark">Add Packaged Item</span>
                     </DropdownItem>
                 </DropdownMenu>
             </Dropdown>

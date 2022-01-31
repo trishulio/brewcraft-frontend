@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     Button,
@@ -7,184 +7,62 @@ import {
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import {
-    setFermentMaterialPortionDetails,
-    setFermentMixtureDetails,
-    setFermentMixtureRecords,
-    setFermentStageDetails,
-    setFermentFinishedGoodsDetails,
-    saveFermentStage,
-} from "../../../../store/actions";
+import { addBrewStage } from "../../../../store/actions";
 import Ingredients from "../common/ingredients";
 import Recordings from "../common/mixture-recordings";
 import FinishedGoods from "../common/finished-goods";
 import BatchStage from "../common/stage";
 
-export default function BatchFerment(props) {
+export default function BatchFerment({ fermentMixture }) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
     const dispatch = useDispatch();
-
-    const { editable } = useSelector((state) => {
-        return state.Batch.Batch;
-    });
-
-    const {
-        data: stage,
-        initial: initialStage,
-        loading: stageLoading,
-        error: stageError,
-    } = useSelector((state) => {
-        return state.Batch.FermentStage;
-    });
 
     const batch = useSelector((state) => {
         return state.Batch.Batch.data;
     });
 
-    const {
-        data: mixture,
-        initial: initialMixture,
-        loading: mixtureLoading,
-        error: mixtureError,
-    } = useSelector((state) => {
-        return state.Batch.FermentMixture;
+    const fermentStage = useSelector((state) => {
+        return state.Batch.Stages.content.find(
+            (s) => s.id === fermentMixture.brewStage.id
+        );
     });
 
-    const {
-        content: materialPortions,
-        initial: initialMaterialPortions,
-        loading: materialPortionsLoading,
-        error: materialPortionsError,
-    } = useSelector((state) => {
-        return state.Batch.FermentMaterialPortion;
+    const materialPortions = useSelector((state) => {
+        return state.Batch.MaterialPortions.content.filter(
+            (mp) => mp.mixture.id === fermentMixture.id
+        );
     });
 
-    const {
-        content: mixtureRecordings,
-        initial: initialMixtureRecordings,
-        loading: mixtureRecordingsLoading,
-        error: mixtureRecordingsError,
-    } = useSelector((state) => {
+    const { content: mixtureRecordings } = useSelector((state) => {
         return state.Batch.FermentMixtureRecordings;
     });
 
-    const {
-        content: finishedGoods,
-        initial: initialFinishedGoods,
-        loading: finishedGoodsLoading,
-        error: finishedGoodsError,
-    } = useSelector((state) => {
+    const { content: finishedGoods } = useSelector((state) => {
         return state.Batch.FermentFinishedGoods;
     });
 
-    useEffect(() => {
-        dispatch(
-            setFermentStageDetails({
-                changed: isChanged(),
-            })
-        );
-        // eslint-disable-next-line
-    }, [stage, mixture, materialPortions, mixtureRecordings, finishedGoods]);
-
-    function isChanged() {
-        return (
-            JSON.stringify(initialStage) !== JSON.stringify(stage) ||
-            JSON.stringify(initialMixture) !== JSON.stringify(mixture) ||
-            JSON.stringify(initialMaterialPortions) !==
-                JSON.stringify(materialPortions) ||
-            JSON.stringify(initialMixtureRecordings) !==
-                JSON.stringify(mixtureRecordings) ||
-            JSON.stringify(initialFinishedGoods) !==
-                JSON.stringify(finishedGoods)
-        );
-    }
-
-    function setStage(stage) {
-        dispatch(
-            setFermentStageDetails({
-                data: {
-                    ...stage,
-                },
-            })
-        );
-    }
-
-    function setMixture(mixture) {
-        dispatch(
-            setFermentMixtureDetails({
-                data: {
-                    ...mixture,
-                },
-            })
-        );
-    }
-
-    function setMaterialPortions(materialPortions) {
-        dispatch(
-            setFermentMaterialPortionDetails({
-                content: [...materialPortions],
-            })
-        );
-    }
-
-    function setMixtureRecordings(mixtureRecordings) {
-        dispatch(
-            setFermentMixtureRecords({
-                content: [...mixtureRecordings],
-            })
-        );
-    }
-
-    function setFinishedGoods(finishedGoods) {
-        dispatch(
-            setFermentFinishedGoodsDetails({
-                content: [...finishedGoods],
-            })
-        );
-    }
-
     const ingredientsProps = {
-        mixture,
-        editable,
+        mixture: fermentMixture,
         materialPortions,
-        setMaterialPortions,
     };
 
     const recordingsProps = {
-        mixture,
-        editable,
+        mixture: fermentMixture,
         mixtureRecordings,
-        setMixtureRecordings,
     };
 
     const finishedGoodsProps = {
-        mixture,
-        editable,
+        mixture: fermentMixture,
         finishedGoods,
-        setFinishedGoods,
     };
 
     const stageProps = {
         title: "Ferment",
-        initialStage,
-        stage,
-        setStage,
-        stageLoading,
-        mixture,
-        setMixture,
-        mixtureLoading,
-        materialPortionsLoading,
-        mixtureRecordingsLoading,
-        finishedGoodsLoading,
-        stageError,
-        mixtureError,
-        materialPortionsError,
-        mixtureRecordingsError,
-        finishedGoodsError,
-        isOpen: props.isOpen,
-        toggleIsOpen: () => {
-            props.toggleIsOpen("mash");
-        },
+        stage: fermentStage,
+        mixture: fermentMixture,
+        isOpen,
+        toggleIsOpen: () => setIsOpen(!isOpen),
         toolbar: (
             <React.Fragment>
                 <Button
@@ -227,7 +105,7 @@ export default function BatchFerment(props) {
                         className="waves-effect btn btn-outline-secondary btn-sm"
                         data-toggle="dropdown"
                     >
-                        More <i className="fa fa-caret-down"></i>
+                        Mixture <i className="fa fa-caret-down"></i>
                     </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem>
@@ -235,7 +113,7 @@ export default function BatchFerment(props) {
                                 className="text-dark"
                                 onClick={() => {
                                     dispatch(
-                                        saveFermentStage({
+                                        addBrewStage({
                                             form: [
                                                 {
                                                     brewId: batch.id,
@@ -263,7 +141,7 @@ export default function BatchFerment(props) {
 
     return (
         <React.Fragment>
-            {stage.id && (
+            {fermentStage?.id && (
                 <BatchStage {...stageProps}>
                     <div className="mb-3">
                         <Ingredients {...ingredientsProps} />
