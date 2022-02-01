@@ -9,8 +9,10 @@ export default function Brewhouse(props) {
     const [activeTab, setActiveTab] = useState(1);
     const [isOpen, setIsOpen] = useState(true);
 
-    const { data: mashStages } = useSelector((state) => {
-        return state.Batch.MashStages;
+    const mashMixtures = useSelector((state) => {
+        return state.Batch.Mixtures.content.filter(
+            (m) => m.brewStage.task.id === 1
+        );
     });
 
     const loading = useSelector((state) => {
@@ -51,11 +53,11 @@ export default function Brewhouse(props) {
                     </div>
                 </CardHeader>
                 <CardBody
-                    isLoading={mashStages.length && loading}
+                    isLoading={mashMixtures.length && loading}
                     isOpen={isOpen}
                     className="px-2 pt-3 pb-0"
                 >
-                    {mashStages.length && (
+                    {mashMixtures.length && (
                         <React.Fragment>
                             <div className="mb-3">
                                 <Nav {...navProps} />
@@ -63,11 +65,12 @@ export default function Brewhouse(props) {
                             <Card className="shadow-none mb-0">
                                 <CardBody className="p-0 mx-2 border">
                                     <TabContent activeTab={activeTab}>
-                                        {mashStages.map((_, index) => {
+                                        {mashMixtures.map((mixture, index) => {
                                             return (
                                                 <Tab
                                                     key={index}
                                                     indexv={index}
+                                                    mashMixture={mixture}
                                                     {...navProps}
                                                     {...props}
                                                 />

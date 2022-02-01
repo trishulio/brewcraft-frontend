@@ -37,6 +37,8 @@ import {
     EDIT_BRITE_TANK_STAGE_REQUEST,
     DELETE_BRITE_TANK_STAGE_REQUEST,
     RESET_BRITE_TANK_STAGE_DETAILS,
+    EDIT_BREW_STAGES_REQUEST,
+    SET_BREW_STAGE_DETAILS,
 } from "./actionTypes";
 
 export const fetchAllBrewStages = (id) => ({
@@ -47,6 +49,21 @@ export const fetchAllBrewStages = (id) => ({
 export const fetchMashStageById = (id) => ({
     type: FETCH_MASH_STAGE_BY_ID_REQUEST,
     payload: { id },
+});
+
+export const editBrewStages = ({ id, form }) => ({
+    type: EDIT_BREW_STAGES_REQUEST,
+    payload: {
+        id,
+        form: { ...form },
+    },
+});
+
+export const setBrewStageDetails = (payload) => ({
+    type: SET_BREW_STAGE_DETAILS,
+    payload: {
+        ...payload,
+    },
 });
 
 export const setMashStageDetails = (payload) => ({

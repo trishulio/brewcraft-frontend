@@ -8,15 +8,15 @@ export default function BrewNav({ activeTab, setActiveTab }) {
     const [statusId, setStatusId] = useState("");
 
     const mashStages = useSelector((state) => {
-        return state.Batch.MashStages.initial;
+        return state.Batch.Stages.initial.filter((s) => s.task.id === 1);
     });
 
-    const kettleStage = useSelector((state) => {
-        return state.Batch.MashStages.initial;
+    const kettleStages = useSelector((state) => {
+        return state.Batch.Stages.initial.filter((s) => s.task.id === 2);
     });
 
-    const whirlpoolStage = useSelector((state) => {
-        return state.Batch.WhirlpoolStage.initial;
+    const whirlpoolStages = useSelector((state) => {
+        return state.Batch.Stages.initial.filter((s) => s.task.id === 3);
     });
 
     // useEffect(() => {

@@ -5,17 +5,16 @@ import { Card, CardBody, CardHeader } from "../../../../component/Common/Card";
 import { formatDatetime } from "../../../../helpers/textUtils";
 
 export default function BatchStage({
-    isOpen,
-    mixtureRecordings,
-    mixture,
-    stage,
-    setStage,
-    setMixtureRecords,
-    showSkipCheckbox,
     title,
+    isOpen,
     toggleIsOpen,
     toolbar,
+    mixture,
     setMixture,
+    stage,
+    setStage,
+    mixtureRecordings,
+    setMixtureRecords,
     children,
 }) {
     const { editable } = useSelector((state) => {
@@ -50,12 +49,6 @@ export default function BatchStage({
                         },
                     });
                 }
-                break;
-            case "mixtureCompleteCheckbox":
-                setStage({
-                    ...stage,
-                    status: { id: e.target.checked ? 6 : 1 },
-                });
                 break;
             case "mixtureGravity":
                 let record;
@@ -130,10 +123,6 @@ export default function BatchStage({
                                         }
                                         onChange={onFormInputChange}
                                         hidden={!editable}
-                                        disabled={
-                                            showSkipCheckbox &&
-                                            stage.status.id === 3
-                                        }
                                     />
                                     <FormFeedback>
                                         Enter a valid start time.
@@ -193,10 +182,7 @@ export default function BatchStage({
                                         <option value="3">Failed</option>
                                         <option value="4">Not started</option>
                                         <option value="5">Stopped</option>
-                                        {(showSkipCheckbox ||
-                                            stage.status.id === 6) && (
-                                            <option value="6">Skip</option>
-                                        )}
+                                        {/* <option value="6">Skip</option> */}
                                     </Input>
                                     <FormFeedback>
                                         Enter a valid number.

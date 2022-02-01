@@ -40,6 +40,8 @@ import {
     DELETE_FERMENT_MIXTURE_FAILURE,
     FETCH_FERMENT_MIXTURE_BY_ID_FAILURE,
     ADD_FERMENT_MIXTURE_FAILURE,
+    FETCH_MIXTURE_BY_BREW_ID_SUCCESS,
+    FETCH_MIXTURE_BY_BREW_ID_FAILURE,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
@@ -47,22 +49,22 @@ import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
 import { SET_BRITE_TANK_MIXTURE_RECORDING_DETAILS } from "../MixtureRecording/actionTypes";
 
-function* fetchMixturesByBrewId(action) {
+function* fetchMixturesByBrewIdGenerator(action) {
     try {
         const res = yield call(
             api.fetchMixturesByBrewId,
             get(action, "payload.id")
         );
+        debugger;
+        yield put({
+            type: FETCH_MIXTURE_BY_BREW_ID_SUCCESS,
+            payload: {
+                content: [...res.data.content],
+                initial: [...res.data.content],
+            },
+        });
+
         let content;
-        content = res.data.content.find(
-            (m) => m.brewStage.task.name === "MASH"
-        );
-        if (content) {
-            yield put({
-                type: SET_MASH_MIXTURE_DETAILS,
-                payload: { data: content, initial: content },
-            });
-        }
         content = res.data.content.find(
             (m) => m.brewStage.task.name === "BOIL"
         );
@@ -118,7 +120,10 @@ function* fetchMixturesByBrewId(action) {
             });
         }
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({
+            type: FETCH_MIXTURE_BY_BREW_ID_FAILURE,
+            payload: {},
+        });
     }
 }
 
@@ -328,7 +333,10 @@ function* deleteFermentMixtureGenerator(action) {
 }
 
 function* Mixture() {
-    yield takeEvery(FETCH_MIXTURE_BY_BREW_ID_REQUEST, fetchMixturesByBrewId);
+    yield takeEvery(
+        FETCH_MIXTURE_BY_BREW_ID_REQUEST,
+        fetchMixturesByBrewIdGenerator
+    );
     yield takeEvery(
         FETCH_MASH_MIXTURE_BY_ID_REQUEST,
         fetchMashMixtureByIdGenerator

@@ -9,6 +9,8 @@ import {
 } from "reactstrap";
 import {
     saveKettleStage,
+    setBrewMixtureDetails,
+    setBrewStageDetails,
     setMashMaterialPortionDetails,
     setMashMixtureDetails,
     setMashStageDetails,
@@ -16,41 +18,49 @@ import {
 import Ingredients from "../common/ingredients";
 import BatchStage from "../common/stage";
 
-export default function BrewMash(props) {
+export default function BrewMash({
+    mashMixture,
+    mashStage,
+    kettleMixture,
+    isOpen,
+    toggleIsOpen,
+}) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const dispatch = useDispatch();
 
-    const { data: batch, editable } = useSelector((state) => {
+    const { data: batch } = useSelector((state) => {
         return state.Batch.Batch;
     });
 
-    const stages = useSelector((state) => {
-        return state.Batch.MashStages.data;
+    const mixtures = useSelector((state) => {
+        return state.Batch.Mixtures.content;
     });
 
-    const stage = useSelector((state) => {
-        return state.Batch.MashStages.data[props.indexv];
+    const initialMixture = useSelector((state) => {
+        return state.Batch.Mixtures.initial.filter(
+            (m) => m.id === mashMixture.id
+        );
+    });
+
+    const stages = useSelector((state) => {
+        return state.Batch.Stages.content;
     });
 
     const initialStage = useSelector((state) => {
-        return state.Batch.MashStages.initial[props.indexv];
+        return (
+            mashStage &&
+            state.Batch.Stages.initial.find((s) => s.id === mashStage.id)
+        );
     });
+
+    const { loading: mixtureLoading, error: mixtureError } = useSelector(
+        (state) => {
+            return state.Batch.MashMixture;
+        }
+    );
 
     const { loading: stageLoading, stageError } = useSelector((state) => {
         return state.Batch.MashStages;
-    });
-
-    const { data: kettleStage } = useSelector((state) => {
-        return state.Batch.KettleStage;
-    });
-
-    const {
-        data: mixture,
-        initial: initialMixture,
-        loading: mixtureLoading,
-        error: mixtureError,
-    } = useSelector((state) => {
-        return state.Batch.MashMixture;
     });
 
     const {
@@ -69,33 +79,39 @@ export default function BrewMash(props) {
             })
         );
         // eslint-disable-next-line
-    }, [stage, mixture, materialPortions]);
+    }, [mashStage, mashMixture, materialPortions]);
 
     function isChanged() {
         return (
-            JSON.stringify(initialStage) !== JSON.stringify(stage) ||
-            JSON.stringify(initialMixture) !== JSON.stringify(mixture) ||
+            JSON.stringify(initialStage) !== JSON.stringify(mashStage) ||
+            JSON.stringify(initialMixture) !== JSON.stringify(mashMixture) ||
             JSON.stringify(initialMaterialPortions) !==
                 JSON.stringify(materialPortions)
+        );
+    }
+
+    function setMixture(mixture) {
+        // insert mixture back into array
+        const data = [...stages];
+        const index = mixtures.findIndex((s) => (s.id = mashMixture.id));
+        data.splice(index, 1);
+        data.splice(index, 0, { ...mixture });
+        dispatch(
+            setBrewMixtureDetails({
+                content: data,
+            })
         );
     }
 
     function setStage(stage) {
         // insert stage back into array
         const data = [...stages];
-        data.splice(props.indexv, 1);
-        data.splice(props.indexv, 0, { ...stage });
+        const index = stages.findIndex((s) => (s.id = mashStage.id));
+        data.splice(index, 1);
+        data.splice(index, 0, { ...stage });
         dispatch(
-            setMashStageDetails({
-                data,
-            })
-        );
-    }
-
-    function setMixture(mixture) {
-        dispatch(
-            setMashMixtureDetails({
-                data: mixture,
+            setBrewStageDetails({
+                content: data,
             })
         );
     }
@@ -109,31 +125,27 @@ export default function BrewMash(props) {
     }
 
     const ingredientsProps = {
-        mixture,
-        editable,
+        mixture: mashMixture,
         materialPortions,
         setMaterialPortions,
     };
 
     const stageProps = {
-        ...props,
         title: "Mash Lauter",
-        editable,
-        setEditable: props.setEditable,
         initialStage,
-        stage,
+        stage: mashStage,
         setStage,
         stageLoading,
-        mixture,
+        mixture: mashMixture,
         setMixture,
         mixtureLoading,
         materialPortionsLoading,
         stageError,
         mixtureError,
         materialPortionsError,
-        isOpen: props.isOpen,
+        isOpen,
         toggleIsOpen: () => {
-            props.toggleIsOpen("mash");
+            toggleIsOpen("mash");
         },
         toolbar: (
             <React.Fragment>
@@ -160,7 +172,7 @@ export default function BrewMash(props) {
                         More <i className="fa fa-caret-down"></i>
                     </DropdownToggle>
                     <DropdownMenu>
-                        <DropdownItem disabled={!!kettleStage.id}>
+                        <DropdownItem disabled={!!kettleMixture?.id}>
                             <span
                                 className="text-dark"
                                 onClick={() => {
@@ -193,7 +205,7 @@ export default function BrewMash(props) {
 
     return (
         <React.Fragment>
-            {stage.id && (
+            {mashStage?.id && (
                 <BatchStage {...stageProps}>
                     <div className="mb-3">
                         <Ingredients {...ingredientsProps} />

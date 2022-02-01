@@ -39,6 +39,7 @@ import {
     deleteFermentMaterialPortion,
     deleteTransferMixtureRecords,
     saveTransferMixtureRecords,
+    editBrewStages,
 } from "../../store/actions";
 import { useQuery } from "../../helpers/utils";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
@@ -64,17 +65,25 @@ export default function Batch() {
         return state.Batch.Batch;
     });
 
-    const { data: mashStages, initial: initialMashStages } = useSelector(
-        (state) => {
-            return state.Batch.MashStages;
-        }
-    );
+    const stages = useSelector((state) => {
+        return state.Batch.Stages.content;
+    });
 
-    const { data: mashMixture, initial: initialMashMixture } = useSelector(
-        (state) => {
-            return state.Batch.MashMixture;
-        }
-    );
+    const initialStages = useSelector((state) => {
+        return state.Batch.Stages.initial;
+    });
+
+    const mashMixtures = useSelector((state) => {
+        return state.Batch.Mixtures.content.filter(
+            (m) => m.brewStage.task.id === 1
+        );
+    });
+
+    const initialMashMixtures = useSelector((state) => {
+        return state.Batch.Mixtures.initial.filter(
+            (m) => m.brewStage.task.id === 1
+        );
+    });
 
     const {
         content: mashMaterialPortions,
@@ -390,11 +399,17 @@ export default function Batch() {
 
     function onSave() {
         if (batch.id) {
-            // save mash
-            for (let i = 0; i < mashStages.length; i++) {
-                saveStage(mashStages[i], initialMashStages[i], editMashStage);
+            // save stages
+            for (let i = 0; i < stages.length; i++) {
+                saveStage(stages[i], initialStages[i], editBrewStages);
             }
-            saveMixture(mashMixture, initialMashMixture, editMashMixture);
+            for (let i = 0; i < mashMixtures.length; i++) {
+                saveMixture(
+                    mashMixtures[i],
+                    initialMashMixtures[i],
+                    editMashMixture
+                );
+            }
             saveMaterialPortions(
                 mashMaterialPortions,
                 initialMashMaterialPortions,

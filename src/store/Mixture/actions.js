@@ -30,6 +30,7 @@ import {
     DELETE_FERMENT_MIXTURE_REQUEST,
     SET_FERMENT_MIXTURE_DETAILS,
     RESET_FERMENT_MIXTURE_DETAILS,
+    SET_BREW_MIXTURE_DETAILS,
 } from "./actionTypes";
 
 export const fetchMixturesByBrewId = (id) => ({
@@ -55,6 +56,11 @@ export const editMashMixture = (payload) => ({
 export const deleteMashMixture = (payload) => ({
     type: DELETE_MASH_MIXTURE_REQUEST,
     payload: payload,
+});
+
+export const setBrewMixtureDetails = (mixtures) => ({
+    type: SET_BREW_MIXTURE_DETAILS,
+    payload: [...mixtures],
 });
 
 export const setMashMixtureDetails = (payload) => ({

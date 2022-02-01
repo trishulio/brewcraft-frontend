@@ -3,8 +3,8 @@ import {
     FETCH_MASH_STAGE_BY_ID_REQUEST,
     SET_MASH_STAGE_DETAILS,
     ADD_MASH_STAGE_REQUEST,
-    ADD_MASH_STAGE_SUCCESS,
-    ADD_MASH_STAGE_FAILURE,
+    ADD_BREW_STAGE_SUCCESS,
+    ADD_BREW_STAGE_FAILURE,
     EDIT_MASH_STAGE_REQUEST,
     DELETE_MASH_STAGE_REQUEST,
     EDIT_MASH_STAGE_SUCCESS,
@@ -40,25 +40,33 @@ import {
     DELETE_FERMENT_STAGE_FAILURE,
     ADD_KETTLE_STAGE_FAILURE,
     ADD_TRANSFER_STAGE_REQUEST,
+    FETCH_ALL_BREW_STAGE_SUCCESS,
+    FETCH_ALL_BREW_STAGE_FAILURE,
+    FETCH_BREW_STAGE_BY_BREW_ID_SUCCESS,
+    FETCH_BREW_STAGE_BY_BREW_ID_FAILURE,
+    EDIT_BREW_STAGES_REQUEST,
+    EDIT_BREW_STAGES_SUCCESS,
+    EDIT_BREW_STAGES_FAILURE,
 } from "./actionTypes";
 import { call, put, select, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
-import { fetchAllBrewStages } from "./actions";
+import { editBrewStages, fetchAllBrewStages } from "./actions";
 import { fetchMixturesByBrewId } from "../actions";
 
 function* fetchAllBrewStagesGenerator(action) {
     try {
         const res = yield call(api.fetchBrewStages, get(action, "payload.id"));
+        yield put({
+            type: FETCH_BREW_STAGE_BY_BREW_ID_SUCCESS,
+            payload: {
+                content: [...res.data.content],
+                initial: [...res.data.content],
+            },
+        });
+
         let data;
-        data = res.data.content.filter((s) => s.task.name === "MASH");
-        if (data) {
-            yield put({
-                type: SET_MASH_STAGE_DETAILS,
-                payload: { data, initial: data },
-            });
-        }
         data = res.data.content.find((s) => s.task.name === "BOIL");
         if (data) {
             yield put({
@@ -88,26 +96,37 @@ function* fetchAllBrewStagesGenerator(action) {
             });
         }
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({
+            type: FETCH_BREW_STAGE_BY_BREW_ID_FAILURE,
+        });
     }
 }
 
-function* fetchMashStageByIdGenerator(action) {
+function* editBrewStagesGenerator(action) {
     try {
         const res = yield call(
-            api.fetchBrewStageById,
-            get(action, "payload.id")
+            api.updateBrewStage,
+            get(action, "payload.id"),
+            get(action, "payload.form")
         );
+        const stages = yield select((state) => {
+            return state.Batch.Stages.content;
+        });
+        // insert stage from response
+        const data = [...stages];
+        const index = stages.findIndex((s) => s.id === res.data.id);
+        data.splice(index, 1);
+        data.splice(index, 0, res.data);
         yield put({
-            type: SET_MASH_STAGE_DETAILS,
-            payload: { data: res.data, initial: res.data },
+            type: EDIT_BREW_STAGES_SUCCESS,
+            payload: { data: data, initial: data },
         });
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({ type: EDIT_BREW_STAGES_FAILURE });
     }
 }
 
-function* addMashStageGenerator(action) {
+function* addBrewStageGenerator(action) {
     try {
         const batch = yield select((state) => {
             return state.Batch.Batch.data;
@@ -122,39 +141,14 @@ function* addMashStageGenerator(action) {
             brewStageId: res.data[0].id,
         });
         yield put({
-            type: ADD_MASH_STAGE_SUCCESS,
+            type: ADD_BREW_STAGE_SUCCESS,
             payload: {},
         });
         yield put(fetchAllBrewStages(batch.id));
         yield put(fetchMixturesByBrewId(batch.id));
     } catch (e) {
-        yield put({ type: ADD_MASH_STAGE_FAILURE });
+        yield put({ type: ADD_BREW_STAGE_FAILURE });
         yield put(snackFailure("Something went wrong please try again."));
-    }
-}
-
-function* editMashStageGenerator(action) {
-    try {
-        const res = yield call(
-            api.updateBrewStage,
-            get(action, "payload.id"),
-            get(action, "payload.form")
-        );
-        const stages = yield select((state) => {
-            return state.Batch.MashStages.data;
-        });
-        // insert stage from response
-        const data = [...stages];
-        const index = stages.findIndex((s) => s.id === res.data.id);
-        data.splice(index, 1);
-        data.splice(index, 0, res.data);
-        yield put({
-            type: EDIT_MASH_STAGE_SUCCESS,
-            payload: { data: data, initial: data },
-        });
-    } catch (e) {
-        yield put({ type: EDIT_MASH_STAGE_FAILURE });
-        yield put(snackFailure());
     }
 }
 
@@ -399,12 +393,9 @@ function* deleteFermentStageGenerator(action) {
 
 function* BrewStage() {
     yield takeEvery(FETCH_ALL_BREW_STAGE_REQUEST, fetchAllBrewStagesGenerator);
-    yield takeEvery(
-        FETCH_MASH_STAGE_BY_ID_REQUEST,
-        fetchMashStageByIdGenerator
-    );
-    yield takeEvery(ADD_MASH_STAGE_REQUEST, addMashStageGenerator);
-    yield takeEvery(EDIT_MASH_STAGE_REQUEST, editMashStageGenerator);
+    yield takeEvery(EDIT_BREW_STAGES_REQUEST, editBrewStagesGenerator);
+    yield takeEvery(ADD_MASH_STAGE_REQUEST, addBrewStageGenerator);
+    yield takeEvery(EDIT_BREW_STAGES_REQUEST, editBrewStagesGenerator);
     yield takeEvery(DELETE_MASH_STAGE_REQUEST, deleteMashStageGenerator);
     yield takeEvery(ADD_KETTLE_STAGE_REQUEST, addKettleStageGenerator);
     yield takeEvery(EDIT_KETTLE_STAGE_REQUEST, editKettleStageGenerator);
