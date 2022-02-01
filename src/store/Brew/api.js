@@ -1,6 +1,7 @@
 import AxiosInstance from "../../helpers/axiosInstance";
 
 async function fetchBatchById(id) {
+    AxiosInstance.get(`/api/v1/facilities`).then((r) => console.log(r));
     return await AxiosInstance.get(`/api/v1/brews/${id}`).then((r) => r);
 }
 

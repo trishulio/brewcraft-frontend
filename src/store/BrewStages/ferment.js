@@ -19,7 +19,7 @@ const FermentStage = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: null,
             };
-        case FETCH_ALL_BREW_STAGE_REQUEST:
+        // case FETCH_ALL_BREW_STAGE_REQUEST:
         case ADD_FERMENT_STAGE_REQUEST:
         case EDIT_FERMENT_STAGE_REQUEST:
             return {

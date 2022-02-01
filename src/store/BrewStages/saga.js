@@ -52,7 +52,7 @@ function* fetchAllBrewStagesGenerator(action) {
     try {
         const res = yield call(api.fetchBrewStages, get(action, "payload.id"));
         let data;
-        data = res.data.content.find((s) => s.task.name === "MASH");
+        data = res.data.content.filter((s) => s.task.name === "MASH");
         if (data) {
             yield put({
                 type: SET_MASH_STAGE_DETAILS,
@@ -109,11 +109,24 @@ function* fetchMashStageByIdGenerator(action) {
 
 function* addMashStageGenerator(action) {
     try {
+        const batch = yield select((state) => {
+            return state.Batch.Batch.data;
+        });
         const res = yield call(api.addBrewStage, get(action, "payload.form"));
+        yield call(api.addMixture, {
+            parentMixtureIds: [],
+            quantity: {
+                symbol: "hl",
+                value: 0,
+            },
+            brewStageId: res.data[0].id,
+        });
         yield put({
             type: ADD_MASH_STAGE_SUCCESS,
-            payload: { data: res.data, initial: res.data },
+            payload: {},
         });
+        yield put(fetchAllBrewStages(batch.id));
+        yield put(fetchMixturesByBrewId(batch.id));
     } catch (e) {
         yield put({ type: ADD_MASH_STAGE_FAILURE });
         yield put(snackFailure("Something went wrong please try again."));
@@ -127,9 +140,17 @@ function* editMashStageGenerator(action) {
             get(action, "payload.id"),
             get(action, "payload.form")
         );
+        const stages = yield select((state) => {
+            return state.Batch.MashStages.data;
+        });
+        // insert stage from response
+        const data = [...stages];
+        const index = stages.findIndex((s) => s.id === res.data.id);
+        data.splice(index, 1);
+        data.splice(index, 0, res.data);
         yield put({
             type: EDIT_MASH_STAGE_SUCCESS,
-            payload: { data: res.data, initial: res.data, editable: false },
+            payload: { data: data, initial: data },
         });
     } catch (e) {
         yield put({ type: EDIT_MASH_STAGE_FAILURE });
@@ -168,6 +189,7 @@ function* addKettleStageGenerator(action) {
             },
             brewStageId: res.data[0].id,
         });
+        debugger;
         yield put({
             type: ADD_KETTLE_STAGE_SUCCESS,
             payload: {},
@@ -188,7 +210,7 @@ function* editKettleStageGenerator(action) {
         );
         yield put({
             type: EDIT_KETTLE_STAGE_SUCCESS,
-            payload: { data: res.data, initial: res.data, editable: false },
+            payload: { data: res.data, initial: res.data },
         });
     } catch (e) {
         yield put({ type: EDIT_MASH_STAGE_FAILURE });
@@ -250,7 +272,7 @@ function* editWhirlpoolStageGenerator(action) {
         );
         yield put({
             type: EDIT_WHIRLPOOL_STAGE_SUCCESS,
-            payload: { data: res.data, initial: res.data, editable: false },
+            payload: { data: res.data, initial: res.data },
         });
     } catch (e) {
         yield put({ type: EDIT_WHIRLPOOL_STAGE_FAILURE });
@@ -353,7 +375,7 @@ function* editFermentStageGenerator(action) {
         );
         yield put({
             type: EDIT_FERMENT_STAGE_SUCCESS,
-            payload: { data: res.data, initial: res.data, editable: false },
+            payload: { data: res.data, initial: res.data },
         });
     } catch (e) {
         yield put({ type: EDIT_FERMENT_STAGE_FAILURE });

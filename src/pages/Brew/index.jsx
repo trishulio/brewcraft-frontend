@@ -44,11 +44,11 @@ import { useQuery } from "../../helpers/utils";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 import BatchInner from "./batch";
+import { forEach } from "lodash";
 
 export default function Batch() {
     const [showDeletePrompt, setShowDeletePrompt] = useState(false);
     const [showRouterPrompt, setShowRouterPrompt] = useState(false);
-    const [activeTab, setActiveTab] = useState("1");
 
     const { id } = useParams();
     const history = useHistory();
@@ -64,9 +64,9 @@ export default function Batch() {
         return state.Batch.Batch;
     });
 
-    const { data: mashStage, initial: initialMashStage } = useSelector(
+    const { data: mashStages, initial: initialMashStages } = useSelector(
         (state) => {
-            return state.Batch.MashStage;
+            return state.Batch.MashStages;
         }
     );
 
@@ -216,7 +216,7 @@ export default function Batch() {
     const changed = useSelector((state) => {
         return (
             state.Batch.Batch.changed ||
-            state.Batch.MashStage.changed ||
+            state.Batch.MashStages.changed ||
             state.Batch.KettleStage.changed ||
             state.Batch.WhirlpoolStage.changed ||
             state.Batch.TransferStage.changed ||
@@ -391,7 +391,9 @@ export default function Batch() {
     function onSave() {
         if (batch.id) {
             // save mash
-            saveStage(mashStage, initialMashStage, editMashStage);
+            for (let i = 0; i < mashStages.length; i++) {
+                saveStage(mashStages[i], initialMashStages[i], editMashStage);
+            }
             saveMixture(mashMixture, initialMashMixture, editMashMixture);
             saveMaterialPortions(
                 mashMaterialPortions,
@@ -497,8 +499,6 @@ export default function Batch() {
     }
 
     const props = {
-        activeTab,
-        setActiveTab,
         setEditable,
         changed,
         error,

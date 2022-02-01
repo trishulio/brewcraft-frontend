@@ -6,7 +6,7 @@ import BatchTask from "./BatchTask/reducer";
 import Breadcrumb from "./Breadcrumb/reducer";
 import Brewery from "./Brewery/reducer";
 import {
-    MashStage,
+    MashStages,
     KettleStage,
     WhirlpoolStage,
     TransferStage,
@@ -74,7 +74,7 @@ import UserRoles from "./UserRoles/reducer";
 const rootReducer = combineReducers({
     Batch: combineReducers({
         Batch: Brew,
-        MashStage,
+        MashStages,
         MashMixture,
         MashMaterialPortion,
         KettleStage,

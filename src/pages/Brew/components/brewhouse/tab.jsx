@@ -7,16 +7,16 @@ import Transfer from "./transfer";
 import { useSelector } from "react-redux";
 
 export default function BrewTabs(props) {
-    const [isMashOpen, setIsMashOpen] = useState(false);
+    const [isMashOpen, setIsMashOpen] = useState(true);
     const [isKettleOpen, setIsKettleOpen] = useState(false);
     const [isWhirlpoolOpen, setIsWhirlpoolOpen] = useState(false);
 
     const mashStage = useSelector((state) => {
-        return state.Batch.MashStage.data;
+        return state.Batch.MashStages.data[props.indexv];
     });
 
     const kettleStage = useSelector((state) => {
-        return state.Batch.MashStage.data;
+        return state.Batch.KettleStage.data;
     });
 
     const whirlpoolStage = useSelector((state) => {
@@ -49,6 +49,7 @@ export default function BrewTabs(props) {
     }, [mashStage, kettleStage, whirlpoolStage]);
 
     const mashProps = {
+        indexv: props.indexv,
         isOpen: isMashOpen,
         toggleIsOpen,
     };
@@ -64,42 +65,21 @@ export default function BrewTabs(props) {
     };
 
     function toggleIsOpen(index) {
-        switch (index) {
-            case "mash":
-                setIsMashOpen(!isMashOpen);
-                setIsKettleOpen(false);
-                setIsWhirlpoolOpen(false);
-                break;
-            case "kettle":
-                setIsMashOpen(false);
-                setIsKettleOpen(!isKettleOpen);
-                setIsWhirlpoolOpen(false);
-                break;
-            case "whirlpool":
-                setIsMashOpen(false);
-                setIsKettleOpen(false);
-                setIsWhirlpoolOpen(!isWhirlpoolOpen);
-                break;
-            default:
-                setIsMashOpen(false);
-                setIsKettleOpen(false);
-                setIsWhirlpoolOpen(false);
-                break;
-        }
+        setIsMashOpen(index === "mash");
+        setIsKettleOpen(index === "kettle");
+        setIsWhirlpoolOpen(index === "whirlpool");
     }
 
     return (
         <React.Fragment>
-            <TabContent activeTab={props.activeTab}>
-                <TabPane tabId="1">
-                    <div className="accordion">
-                        <Mash {...mashProps} />
-                        <Kettle {...kettleProps} />
-                        <Whirlpool {...whirlpoolProps} />
-                        <Transfer />
-                    </div>
-                </TabPane>
-            </TabContent>
+            <TabPane tabId={props.indexv + 1}>
+                <div className="accordion">
+                    <Mash {...mashProps} />
+                    <Kettle {...kettleProps} />
+                    <Whirlpool {...whirlpoolProps} />
+                    <Transfer />
+                </div>
+            </TabPane>
         </React.Fragment>
     );
 }

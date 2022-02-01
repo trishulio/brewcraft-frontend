@@ -1,4 +1,4 @@
-import MashStage from "./mash";
+import MashStages from "./mash";
 import KettleStage from "./kettle";
 import WhirlpoolStage from "./whirlpool";
 import TransferStage from "./transfer";
@@ -7,7 +7,7 @@ import ConditionStage from "./condition";
 import BriteTankStage from "./brite-tank";
 
 export {
-    MashStage,
+    MashStages,
     KettleStage,
     WhirlpoolStage,
     TransferStage,

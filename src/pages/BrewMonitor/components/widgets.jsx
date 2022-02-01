@@ -18,7 +18,7 @@ export function ProductWidget() {
 export function ActiveStageWidget() {
     const stage = useSelector((state) => {
         const stages = [
-            state.Batch.MashStage.data,
+            state.Batch.MashStages.data,
             state.Batch.KettleStage.data,
             state.Batch.WhirlpoolStage.data,
             state.Batch.TransferStage.data,

@@ -19,7 +19,7 @@ const TransferStage = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: null,
             };
-        case FETCH_ALL_BREW_STAGE_REQUEST:
+        // case FETCH_ALL_BREW_STAGE_REQUEST:
         case ADD_TRANSFER_STAGE_REQUEST:
         case EDIT_TRANSFER_STAGE_REQUEST:
             return {

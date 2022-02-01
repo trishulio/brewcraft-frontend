@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import { Card, CardBody, CardHeader } from "../../../../component/Common/Card";
 import Nav from "./nav";
-import BrewTabs from "./brew-tabs";
+import Tab from "./tab";
 import { useSelector } from "react-redux";
+import { TabContent } from "reactstrap";
 
 export default function Brewhouse(props) {
+    const [activeTab, setActiveTab] = useState(1);
     const [isOpen, setIsOpen] = useState(true);
 
-    const { data: mashStage } = useSelector((state) => {
-        return state.Batch.MashStage;
+    const { data: mashStages } = useSelector((state) => {
+        return state.Batch.MashStages;
     });
 
     const loading = useSelector((state) => {
         return (
-            state.Batch.MashStage.loading ||
+            state.Batch.MashStages.loading ||
             state.Batch.MashMixture.loading ||
             state.Batch.KettleStage.loading ||
             state.Batch.KettleMixture.loading ||
@@ -23,6 +25,11 @@ export default function Brewhouse(props) {
             state.Batch.KettleMaterialPortion.loading
         );
     });
+
+    const navProps = {
+        activeTab,
+        setActiveTab,
+    };
 
     return (
         <React.Fragment>
@@ -44,18 +51,29 @@ export default function Brewhouse(props) {
                     </div>
                 </CardHeader>
                 <CardBody
-                    isLoading={mashStage.id && loading}
+                    isLoading={mashStages.length && loading}
                     isOpen={isOpen}
                     className="px-2 pt-3 pb-0"
                 >
-                    {mashStage.id && (
+                    {mashStages.length && (
                         <React.Fragment>
                             <div className="mb-3">
-                                <Nav {...props} />
+                                <Nav {...navProps} />
                             </div>
                             <Card className="shadow-none mb-0">
                                 <CardBody className="p-0 mx-2 border">
-                                    <BrewTabs {...props} />
+                                    <TabContent activeTab={activeTab}>
+                                        {mashStages.map((_, index) => {
+                                            return (
+                                                <Tab
+                                                    key={index}
+                                                    indexv={index}
+                                                    {...navProps}
+                                                    {...props}
+                                                />
+                                            );
+                                        })}
+                                    </TabContent>
                                 </CardBody>
                             </Card>
                         </React.Fragment>

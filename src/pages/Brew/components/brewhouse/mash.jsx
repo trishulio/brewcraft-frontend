@@ -24,13 +24,20 @@ export default function BrewMash(props) {
         return state.Batch.Batch;
     });
 
-    const {
-        data: stage,
-        initial: initialStage,
-        loading: stageLoading,
-        stageError,
-    } = useSelector((state) => {
-        return state.Batch.MashStage;
+    const stages = useSelector((state) => {
+        return state.Batch.MashStages.data;
+    });
+
+    const stage = useSelector((state) => {
+        return state.Batch.MashStages.data[props.indexv];
+    });
+
+    const initialStage = useSelector((state) => {
+        return state.Batch.MashStages.initial[props.indexv];
+    });
+
+    const { loading: stageLoading, stageError } = useSelector((state) => {
+        return state.Batch.MashStages;
     });
 
     const { data: kettleStage } = useSelector((state) => {
@@ -74,9 +81,13 @@ export default function BrewMash(props) {
     }
 
     function setStage(stage) {
+        // insert stage back into array
+        const data = [...stages];
+        data.splice(props.indexv, 1);
+        data.splice(props.indexv, 0, { ...stage });
         dispatch(
             setMashStageDetails({
-                data: stage,
+                data,
             })
         );
     }

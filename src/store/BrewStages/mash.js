@@ -10,7 +10,7 @@ import {
 } from "./actionTypes";
 import { initialState } from "./initial";
 
-const MashStage = (state = initialState, { type, payload }) => {
+const MashStages = (state = initialState, { type, payload }) => {
     switch (type) {
         case SET_MASH_STAGE_DETAILS:
             return {
@@ -19,7 +19,7 @@ const MashStage = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: null,
             };
-        case FETCH_ALL_BREW_STAGE_REQUEST:
+        // case FETCH_ALL_BREW_STAGE_REQUEST:
         case ADD_MASH_STAGE_REQUEST:
         case EDIT_MASH_STAGE_REQUEST:
             return {
@@ -55,4 +55,4 @@ const MashStage = (state = initialState, { type, payload }) => {
     }
 };
 
-export default MashStage;
+export default MashStages;
