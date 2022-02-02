@@ -55,7 +55,7 @@ export default function BrewTabs({ mashMixture, indexv }) {
     });
 
     const transferMixture = useSelector((state) => {
-        if (kettleMixture && !whirlpoolMixture.id) {
+        if (kettleMixture && !whirlpoolMixture?.id) {
             return state.Batch.Mixtures.content.find(
                 (m) =>
                     m.parentMixtureIds &&
@@ -124,6 +124,7 @@ export default function BrewTabs({ mashMixture, indexv }) {
 
     return (
         <React.Fragment>
+            {console.log(kettleMixture)}
             <TabPane tabId={indexv + 1}>
                 <div className="accordion">
                     <Mash isOpen={isMashOpen} {...props} />

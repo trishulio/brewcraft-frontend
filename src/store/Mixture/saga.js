@@ -55,7 +55,6 @@ function* fetchMixturesByBrewIdGenerator(action) {
             api.fetchMixturesByBrewId,
             get(action, "payload.id")
         );
-        debugger;
         yield put({
             type: FETCH_MIXTURE_BY_BREW_ID_SUCCESS,
             payload: {

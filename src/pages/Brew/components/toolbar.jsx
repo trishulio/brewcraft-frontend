@@ -9,7 +9,7 @@ import {
     DropdownToggle,
 } from "reactstrap";
 import Select from "react-select";
-import { saveMashStage } from "../../../store/actions";
+import { addBrewStage } from "../../../store/actions";
 
 export default function Toolbar() {
     const [isOpenWorkflowDropdown, setIsOpenWorkflowDropdown] = useState(false);
@@ -112,7 +112,7 @@ export default function Toolbar() {
                             className="text-dark"
                             onClick={() => {
                                 dispatch(
-                                    saveMashStage({
+                                    addBrewStage({
                                         form: [
                                             {
                                                 brewId: batch.id,

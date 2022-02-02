@@ -8,7 +8,7 @@ import {
     DropdownToggle,
 } from "reactstrap";
 import {
-    saveKettleStage,
+    addBrewStage,
     setBrewMixtureDetails,
     setBrewStageDetails,
     setMashMaterialPortionDetails,
@@ -177,7 +177,8 @@ export default function BrewMash({
                                 className="text-dark"
                                 onClick={() => {
                                     dispatch(
-                                        saveKettleStage({
+                                        addBrewStage({
+                                            parentMixtureIds: [mashMixture.id],
                                             form: [
                                                 {
                                                     brewId: batch.id,

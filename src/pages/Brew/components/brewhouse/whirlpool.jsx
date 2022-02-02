@@ -8,35 +8,62 @@ import {
 } from "reactstrap";
 import {
     saveFermentStage,
+    setBrewMixtureDetails,
+    setBrewStageDetails,
     setWhirlpoolMixtureDetails,
     setWhirlpoolStageDetails,
 } from "../../../../store/actions";
 import BatchStage from "../common/stage";
 
-export default function BrewWhirlpool(props) {
+export default function BrewWhirlpool({
+    kettleMixture,
+    kettleStage,
+    whirlpoolMixture,
+    whirlpoolStage,
+    isOpen,
+    toggleIsOpen,
+}) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const dispatch = useDispatch();
 
-    const { data: batch, editable } = useSelector((state) => {
+    const { data: batch } = useSelector((state) => {
         return state.Batch.Batch;
     });
 
-    const {
-        data: stage,
-        initial: initialStage,
-        loading: stageLoading,
-        error: stageError,
-    } = useSelector((state) => {
-        return state.Batch.WhirlpoolStage;
+    const { loading: stageLoading, error: stageError } = useSelector(
+        (state) => {
+            return state.Batch.WhirlpoolStage;
+        }
+    );
+
+    const mixtures = useSelector((state) => {
+        return state.Batch.Mixtures.content;
     });
 
-    const {
-        data: mixture,
-        initial: initialMixture,
-        loading: mixtureLoading,
-        error: mixtureError,
-    } = useSelector((state) => {
-        return state.Batch.WhirlpoolMixture;
+    const initialMixture = useSelector((state) => {
+        return (
+            whirlpoolMixture &&
+            state.Batch.Mixtures.initial.filter(
+                (m) => m.id === whirlpoolMixture.id
+            )
+        );
+    });
+
+    const { loading: mixtureLoading, error: mixtureError } = useSelector(
+        (state) => {
+            return state.Batch.WhirlpoolMixture;
+        }
+    );
+
+    const stages = useSelector((state) => {
+        return state.Batch.Stages.content;
+    });
+
+    const initialStage = useSelector((state) => {
+        return (
+            whirlpoolStage &&
+            state.Batch.Stages.initial.find((s) => s.id === whirlpoolStage.id)
+        );
     });
 
     const fermentStage = useSelector((state) => {
@@ -50,48 +77,55 @@ export default function BrewWhirlpool(props) {
             })
         );
         // eslint-disable-next-line
-    }, [stage, mixture]);
+    }, [whirlpoolStage, whirlpoolMixture]);
 
     function isChanged() {
         return (
-            JSON.stringify(initialStage) !== JSON.stringify(stage) ||
-            JSON.stringify(initialMixture) !== JSON.stringify(mixture)
-        );
-    }
-
-    function setStage(stage) {
-        dispatch(
-            setWhirlpoolStageDetails({
-                data: stage,
-            })
+            JSON.stringify(initialStage) !== JSON.stringify(whirlpoolStage) ||
+            JSON.stringify(initialMixture) !== JSON.stringify(whirlpoolMixture)
         );
     }
 
     function setMixture(mixture) {
+        // insert mixture back into array
+        const data = [...stages];
+        const index = mixtures.findIndex((s) => (s.id = whirlpoolMixture.id));
+        data.splice(index, 1);
+        data.splice(index, 0, { ...mixture });
         dispatch(
-            setWhirlpoolMixtureDetails({
-                data: mixture,
+            setBrewMixtureDetails({
+                content: data,
+            })
+        );
+    }
+
+    function setStage(stage) {
+        // insert stage back into array
+        const data = [...stages];
+        const index = stages.findIndex((s) => s.id === whirlpoolStage.id);
+        data.splice(index, 1);
+        data.splice(index, 0, { ...stage });
+        dispatch(
+            setBrewStageDetails({
+                content: data,
             })
         );
     }
 
     const stageProps = {
-        ...props,
         title: "Whirlpool",
-        editable,
-        setEditable: props.setEditable,
         initialStage,
-        stage,
+        stage: whirlpoolStage,
         setStage,
         stageLoading,
-        mixture,
+        mixture: whirlpoolMixture,
         setMixture,
         mixtureLoading,
         stageError,
         mixtureError,
-        isOpen: props.isOpen,
+        isOpen,
         toggleIsOpen: () => {
-            props.toggleIsOpen("whirlpool");
+            toggleIsOpen("whirlpool");
         },
         toolbar: (
             <React.Fragment>
@@ -141,7 +175,7 @@ export default function BrewWhirlpool(props) {
 
     return (
         <React.Fragment>
-            {stage.id && <BatchStage {...stageProps}></BatchStage>}
+            {whirlpoolStage?.id && <BatchStage {...stageProps}></BatchStage>}
         </React.Fragment>
     );
 }

@@ -170,7 +170,6 @@ export default function BatchDetails(props) {
                     invalid = !isValidNumberString(e.target.value);
                 }
                 if (!originalGravity) {
-                    debugger;
                     dispatch(
                         setTransferMixtureRecords({
                             content: [

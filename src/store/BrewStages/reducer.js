@@ -7,10 +7,10 @@ import ConditionStage from "./condition";
 import BriteTankStage from "./brite-tank";
 import {
     FETCH_BREW_STAGE_BY_BREW_ID_REQUEST,
-    FETCH_BREW_STAGE_BY_BREW_ID_SUCCESS,
-    FETCH_BREW_STAGE_BY_BREW_ID_FAILURE,
-    RESET_STAGES,
-    SET_BREW_STAGE_DETAILS,
+    FETCH_BREW_STAGES_BY_BREW_ID_SUCCESS,
+    FETCH_BREW_STAGES_BY_BREW_ID_FAILURE,
+    RESET_BREW_STAGES,
+    SET_BREW_STAGES,
     EDIT_BREW_STAGES_REQUEST,
     EDIT_BREW_STAGES_SUCCESS,
     EDIT_BREW_STAGES_FAILURE,
@@ -30,23 +30,23 @@ const Stages = (state = initialState, { type, payload }) => {
                 ...state,
                 loading: true,
             };
-        case FETCH_BREW_STAGE_BY_BREW_ID_SUCCESS:
+        case FETCH_BREW_STAGES_BY_BREW_ID_SUCCESS:
         case EDIT_BREW_STAGES_SUCCESS:
-        case SET_BREW_STAGE_DETAILS:
+        case SET_BREW_STAGES:
             return {
                 ...state,
                 ...payload,
                 loading: false,
                 error: null,
             };
-        case FETCH_BREW_STAGE_BY_BREW_ID_FAILURE:
+        case FETCH_BREW_STAGES_BY_BREW_ID_FAILURE:
         case EDIT_BREW_STAGES_FAILURE:
             return {
                 ...state,
                 loading: false,
                 error: true,
             };
-        case RESET_STAGES:
+        case RESET_BREW_STAGES:
             return {
                 ...initialState,
                 loading: false,

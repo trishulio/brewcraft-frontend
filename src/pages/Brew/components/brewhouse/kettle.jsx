@@ -8,47 +8,67 @@ import {
     DropdownToggle,
 } from "reactstrap";
 import {
-    saveFermentStage,
-    saveWhirlpoolStage,
+    addBrewStage,
+    setBrewMixtureDetails,
+    setBrewStageDetails,
     setKettleMaterialPortionDetails,
-    setKettleMixtureDetails,
     setKettleStageDetails,
 } from "../../../../store/actions";
 import Ingredients from "../common/ingredients";
 import BatchStage from "../common/stage";
 
-export default function BrewKettle(props) {
+export default function BrewKettle({
+    kettleMixture,
+    kettleStage,
+    whirlpoolStage,
+    isOpen,
+    toggleIsOpen,
+}) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const dispatch = useDispatch();
 
-    const { data: batch, editable } = useSelector((state) => {
+    const { data: batch } = useSelector((state) => {
         return state.Batch.Batch;
     });
 
-    const {
-        data: stage,
-        initial: initialStage,
-        loading: stageLoading,
-        error: stageError,
-    } = useSelector((state) => {
-        return state.Batch.KettleStage;
+    const mixtures = useSelector((state) => {
+        return state.Batch.Mixtures.content;
     });
 
-    const whirlpoolStage = useSelector((state) => {
-        return state.Batch.WhirlpoolStage.data;
+    const initialMixture = useSelector((state) => {
+        return (
+            kettleMixture &&
+            state.Batch.Mixtures.initial.filter(
+                (m) => m.id === kettleMixture.id
+            )
+        );
     });
+
+    const { loading: mixtureLoading, error: mixtureError } = useSelector(
+        (state) => {
+            return state.Batch.KettleMixture;
+        }
+    );
+
+    const stages = useSelector((state) => {
+        return state.Batch.Stages.content;
+    });
+
+    const initialStage = useSelector((state) => {
+        return (
+            kettleStage &&
+            state.Batch.Stages.initial.find((s) => s.id === kettleStage.id)
+        );
+    });
+
+    const { loading: stageLoading, error: stageError } = useSelector(
+        (state) => {
+            return state.Batch.KettleStage;
+        }
+    );
 
     const fermentStage = useSelector((state) => {
         return state.Batch.FermentStage.data;
-    });
-
-    const {
-        data: mixture,
-        initial: initialMixture,
-        loading: mixtureLoading,
-        error: mixtureError,
-    } = useSelector((state) => {
-        return state.Batch.KettleMixture;
     });
 
     const {
@@ -67,29 +87,39 @@ export default function BrewKettle(props) {
             })
         );
         // eslint-disable-next-line
-    }, [stage, mixture, materialPortions]);
+    }, [kettleStage, kettleMixture, materialPortions]);
 
     function isChanged() {
         return (
-            JSON.stringify(initialStage) !== JSON.stringify(stage) ||
-            JSON.stringify(initialMixture) !== JSON.stringify(mixture) ||
+            JSON.stringify(initialStage) !== JSON.stringify(kettleStage) ||
+            JSON.stringify(initialMixture) !== JSON.stringify(kettleMixture) ||
             JSON.stringify(initialMaterialPortions) !==
                 JSON.stringify(materialPortions)
         );
     }
 
-    function setStage(stage) {
+    function setMixture(mixture) {
+        // insert mixture back into array
+        const data = [...stages];
+        const index = mixtures.findIndex((s) => (s.id = kettleMixture.id));
+        data.splice(index, 1);
+        data.splice(index, 0, { ...mixture });
         dispatch(
-            setKettleStageDetails({
-                data: stage,
+            setBrewMixtureDetails({
+                content: data,
             })
         );
     }
 
-    function setMixture(mixture) {
+    function setStage(stage) {
+        // insert stage back into array
+        const data = [...stages];
+        const index = stages.findIndex((s) => s.id === kettleStage.id);
+        data.splice(index, 1);
+        data.splice(index, 0, { ...stage });
         dispatch(
-            setKettleMixtureDetails({
-                data: mixture,
+            setBrewStageDetails({
+                content: data,
             })
         );
     }
@@ -103,31 +133,27 @@ export default function BrewKettle(props) {
     }
 
     const ingredientsProps = {
-        mixture,
-        editable,
+        mixture: kettleMixture,
         materialPortions,
         setMaterialPortions,
     };
 
     const stageProps = {
-        ...props,
         title: "Kettle",
-        editable,
-        setEditable: props.setEditable,
         initialStage,
-        stage,
+        stage: kettleStage,
         setStage,
         stageLoading,
-        mixture,
+        mixture: kettleMixture,
         setMixture,
         mixtureLoading,
         materialPortionsLoading,
         stageError,
         mixtureError,
         materialPortionsError,
-        isOpen: props.isOpen,
+        isOpen,
         toggleIsOpen: () => {
-            props.toggleIsOpen("kettle");
+            toggleIsOpen("kettle");
         },
         toolbar: (
             <React.Fragment>
@@ -165,13 +191,18 @@ export default function BrewKettle(props) {
                     </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem
-                            disabled={!!whirlpoolStage.id || !!fermentStage.id}
+                            disabled={
+                                !!whirlpoolStage?.id || !!fermentStage?.id
+                            }
                         >
                             <span
                                 className="text-dark"
                                 onClick={() => {
                                     dispatch(
-                                        saveWhirlpoolStage({
+                                        addBrewStage({
+                                            parentMixtureIds: [
+                                                kettleMixture.id,
+                                            ],
                                             form: [
                                                 {
                                                     brewId: batch.id,
@@ -189,13 +220,20 @@ export default function BrewKettle(props) {
                             </span>
                         </DropdownItem>
                         <DropdownItem
-                            disabled={!!whirlpoolStage.id || !!fermentStage.id}
+                            disabled={
+                                !!whirlpoolStage?.id || !!fermentStage?.id
+                            }
                         >
                             <span
                                 className="text-dark"
                                 onClick={() => {
+                                    // TODO
+                                    // want to add to transfer stage before ..
                                     dispatch(
-                                        saveFermentStage({
+                                        addBrewStage({
+                                            parentMixtureIds: [
+                                                kettleMixture.id,
+                                            ],
                                             form: [
                                                 {
                                                     brewId: batch.id,
@@ -223,7 +261,7 @@ export default function BrewKettle(props) {
 
     return (
         <React.Fragment>
-            {stage.id && (
+            {kettleStage?.id && (
                 <BatchStage {...stageProps}>
                     <div className="clearfix mb-3">
                         <Ingredients {...ingredientsProps} />

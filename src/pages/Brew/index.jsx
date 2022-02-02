@@ -21,13 +21,9 @@ import {
     fetchAllBrewStages,
     editMashMaterialPortion,
     deleteMashMaterialPortion,
-    editMashStage,
     editMashMixture,
     editKettleMaterialPortion,
     deleteKettleMaterialPortion,
-    editKettleStage,
-    editKettleMixture,
-    editWhirlpoolStage,
     editWhirlpoolMixture,
     editFermentStage,
     editFermentMaterialPortion,
@@ -45,7 +41,6 @@ import { useQuery } from "../../helpers/utils";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 import BatchInner from "./batch";
-import { forEach } from "lodash";
 
 export default function Batch() {
     const [showDeletePrompt, setShowDeletePrompt] = useState(false);
@@ -73,13 +68,13 @@ export default function Batch() {
         return state.Batch.Stages.initial;
     });
 
-    const mashMixtures = useSelector((state) => {
+    const mixtures = useSelector((state) => {
         return state.Batch.Mixtures.content.filter(
             (m) => m.brewStage.task.id === 1
         );
     });
 
-    const initialMashMixtures = useSelector((state) => {
+    const initialMixtures = useSelector((state) => {
         return state.Batch.Mixtures.initial.filter(
             (m) => m.brewStage.task.id === 1
         );
@@ -92,29 +87,12 @@ export default function Batch() {
         return state.Batch.MashMaterialPortion;
     });
 
-    const { data: kettleStage, initial: initialKettleStage } = useSelector(
-        (state) => {
-            return state.Batch.KettleStage;
-        }
-    );
-
-    const { data: kettleMixture, initial: initialKettleMixture } = useSelector(
-        (state) => {
-            return state.Batch.KettleMixture;
-        }
-    );
-
     const {
         content: kettleMaterialPortions,
         initial: initialKettleMaterialPortions,
     } = useSelector((state) => {
         return state.Batch.KettleMaterialPortion;
     });
-
-    const { data: whirlpoolStage, initial: initialWhirlpoolStage } =
-        useSelector((state) => {
-            return state.Batch.WhirlpoolStage;
-        });
 
     const { data: whirlpoolMixture, initial: initialWhirlpoolMixture } =
         useSelector((state) => {
@@ -403,12 +381,8 @@ export default function Batch() {
             for (let i = 0; i < stages.length; i++) {
                 saveStage(stages[i], initialStages[i], editBrewStages);
             }
-            for (let i = 0; i < mashMixtures.length; i++) {
-                saveMixture(
-                    mashMixtures[i],
-                    initialMashMixtures[i],
-                    editMashMixture
-                );
+            for (let i = 0; i < mixtures.length; i++) {
+                saveMixture(mixtures[i], initialMixtures[i], editMashMixture);
             }
             saveMaterialPortions(
                 mashMaterialPortions,
@@ -417,8 +391,6 @@ export default function Batch() {
                 deleteMashMaterialPortion
             );
             // save kettle
-            saveStage(kettleStage, initialKettleStage, editKettleStage);
-            saveMixture(kettleMixture, initialKettleMixture, editKettleMixture);
             saveMaterialPortions(
                 kettleMaterialPortions,
                 initialKettleMaterialPortions,
@@ -426,11 +398,6 @@ export default function Batch() {
                 deleteKettleMaterialPortion
             );
             // save whirlpool
-            saveStage(
-                whirlpoolStage,
-                initialWhirlpoolStage,
-                editWhirlpoolStage
-            );
             saveMixture(
                 whirlpoolMixture,
                 initialWhirlpoolMixture,
