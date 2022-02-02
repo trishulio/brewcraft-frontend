@@ -1,8 +1,14 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Col, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
 import { Card, CardBody, CardHeader } from "../../../../component/Common/Card";
 import { formatDatetime } from "../../../../helpers/textUtils";
+import { isValidNumberString } from "../../../../helpers/utils";
+import {
+    setBrewMixtureDetails,
+    setBrewStageDetails,
+} from "../../../../store/actions";
 
 export default function BatchStage({
     title,
@@ -10,16 +16,50 @@ export default function BatchStage({
     toggleIsOpen,
     toolbar,
     mixture,
-    setMixture,
     stage,
-    setStage,
     mixtureRecordings,
     setMixtureRecords,
     children,
 }) {
+    const dispatch = useDispatch();
+
     const { editable } = useSelector((state) => {
         return state.Batch.Batch;
     });
+
+    const mixtures = useSelector((state) => {
+        return state.Batch.Mixtures.content;
+    });
+
+    const stages = useSelector((state) => {
+        return state.Batch.Stages.content;
+    });
+
+    function setMixture(mixture) {
+        // insert mixture back into array
+        const data = [...mixtures];
+        const index = mixtures.findIndex((s) => s.id === mixture.id);
+        data.splice(index, 1);
+        data.splice(index, 0, { ...mixture });
+        dispatch(
+            setBrewMixtureDetails({
+                content: data,
+            })
+        );
+    }
+
+    function setStage(stage) {
+        // insert stage back into array
+        const data = [...stages];
+        const index = stages.findIndex((s) => s.id === stage.id);
+        data.splice(index, 1);
+        data.splice(index, 0, { ...stage });
+        dispatch(
+            setBrewStageDetails({
+                content: data,
+            })
+        );
+    }
 
     function onFormInputChange(e) {
         switch (e.target.name) {

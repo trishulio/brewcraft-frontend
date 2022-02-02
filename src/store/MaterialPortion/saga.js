@@ -36,8 +36,16 @@ import {
     SET_CONDITION_MATERIAL_PORTION_DETAILS,
     SET_BRITE_TANK_MATERIAL_PORTION_DETAILS,
     FETCH_MATERIAL_PORTION_BY_BREW_ID_FAILURE,
+    FETCH_MATERIAL_PORTIONS_BY_BREW_ID_SUCCESS,
+    DELETE_MATERIAL_PORTIONS_REQUEST,
+    EDIT_MATERIAL_PORTIONS_REQUEST,
+    ADD_MATERIAL_PORTIONS_REQUEST,
+    EDIT_MATERIAL_PORTIONS_SUCCESS,
+    EDIT_MATERIAL_PORTIONS_FAILURE,
+    DELETE_MATERIAL_PORTIONS_SUCCESS,
+    DELETE_MATERIAL_PORTIONS_FAILURE,
 } from "./actionTypes";
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, select, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { snackFailure } from "../Snackbar/actions";
@@ -80,52 +88,20 @@ function* fetchMaterialPortionByBrewIdGenerator(action) {
             api.fetchMaterialPortionsByBrewId,
             get(action, "payload.id")
         );
+        yield put({
+            type: FETCH_MATERIAL_PORTIONS_BY_BREW_ID_SUCCESS,
+            payload: {
+                content: [...res.data.content],
+                initial: [...res.data.content],
+            },
+        });
+
         let content;
-        content = res.data.content.filter(
-            (mp) => mp.mixture.brewStage.task.name === "MASH"
-        );
-        yield put({
-            type: SET_MASH_MATERIAL_PORTION_DETAILS,
-            payload: {
-                content: JSON.parse(JSON.stringify(content)),
-                initial: JSON.parse(JSON.stringify(content)),
-            },
-        });
-        content = res.data.content.filter(
-            (mp) => mp.mixture.brewStage.task.name === "BOIL"
-        );
-        yield put({
-            type: SET_KETTLE_MATERIAL_PORTION_DETAILS,
-            payload: {
-                content: JSON.parse(JSON.stringify(content)),
-                initial: JSON.parse(JSON.stringify(content)),
-            },
-        });
         content = res.data.content.filter(
             (mp) => mp.mixture.brewStage.task.name === "FERMENT"
         );
         yield put({
             type: SET_FERMENT_MATERIAL_PORTION_DETAILS,
-            payload: {
-                content: JSON.parse(JSON.stringify(content)),
-                initial: JSON.parse(JSON.stringify(content)),
-            },
-        });
-        content = res.data.content.filter(
-            (mp) => mp.mixture.brewStage.task.name === "CONDITIONING"
-        );
-        yield put({
-            type: SET_CONDITION_MATERIAL_PORTION_DETAILS,
-            payload: {
-                content: JSON.parse(JSON.stringify(content)),
-                initial: JSON.parse(JSON.stringify(content)),
-            },
-        });
-        content = res.data.content.filter(
-            (mp) => mp.mixture.brewStage.task.name === "STORAGE"
-        );
-        yield put({
-            type: SET_BRITE_TANK_MATERIAL_PORTION_DETAILS,
             payload: {
                 content: JSON.parse(JSON.stringify(content)),
                 initial: JSON.parse(JSON.stringify(content)),
@@ -139,17 +115,18 @@ function* fetchMaterialPortionByBrewIdGenerator(action) {
     }
 }
 
-function* addMashMaterialPortionGenerator(action) {
+function* addMaterialPortionsGenerator(action) {
     try {
         const res = yield call(
             api.addMixtureMaterialPortion,
             get(action, "payload.form")
         );
+        const id = yield select((state) => state.Batch.Batch.data.id);
+        yield put(fetchMaterialPortionsByBrewId(id));
         yield put({
             type: ADD_MASH_MATERIAL_PORTION_SUCCESS,
-            payload: { data: res.data, initial: res.data },
+            payload: {},
         });
-        yield put(fetchMaterialPortionsByBrewId(get(action, "payload.brewId")));
     } catch (e) {
         yield put({
             type: ADD_MASH_MATERIAL_PORTION_FAILURE,
@@ -158,20 +135,22 @@ function* addMashMaterialPortionGenerator(action) {
     }
 }
 
-function* editMashMaterialPortionGenerator(action) {
+function* editMaterialPortionsGenerator(action) {
     let res;
     try {
         res = yield call(
             api.updateMaterialPortion,
             get(action, "payload.form")
         );
+        const id = yield select((state) => state.Batch.Batch.data.id);
+        yield put(fetchMaterialPortionsByBrewId(id));
         yield put({
-            type: EDIT_MASH_MATERIAL_PORTION_SUCCESS,
-            payload: { data: res.data, initial: res.data },
+            type: EDIT_MATERIAL_PORTIONS_SUCCESS,
+            payload: {},
         });
     } catch (e) {
         yield put({
-            type: EDIT_MASH_MATERIAL_PORTION_FAILURE,
+            type: EDIT_MATERIAL_PORTIONS_FAILURE,
             payload: {
                 error: (
                     <React.Fragment>
@@ -187,67 +166,18 @@ function* editMashMaterialPortionGenerator(action) {
     }
 }
 
-function* deleteMashMaterialPortionGenerator(action) {
+function* deleteMaterialPortionsGenerator(action) {
     try {
         yield call(api.deleteMaterialPortion, get(action, "payload.form"));
         yield put({
-            type: DELETE_MASH_MATERIAL_PORTION_SUCCESS,
+            type: DELETE_MATERIAL_PORTIONS_SUCCESS,
             payload: get(action, "payload"),
         });
     } catch (e) {
         yield put({
-            type: DELETE_MASH_MATERIAL_PORTION_FAILURE,
+            type: DELETE_MATERIAL_PORTIONS_FAILURE,
             error: "<strong>Oh snap!</strong> Change a few things up and try submitting again.",
         });
-    }
-}
-
-function* addKettleMaterialPortionGenerator(action) {
-    try {
-        const res = yield call(
-            api.addMixtureMaterialPortion,
-            get(action, "payload.form")
-        );
-        yield put({
-            type: ADD_KETTLE_MATERIAL_PORTION_SUCCESS,
-            payload: { data: res.data, initial: res.data },
-        });
-        yield put(fetchMaterialPortionsByBrewId(get(action, "payload.brewId")));
-    } catch (e) {
-        yield put({
-            type: ADD_KETTLE_MATERIAL_PORTION_FAILURE,
-            error: "<strong>Oh snap!</strong> Change a few things up and try submitting again.",
-        });
-    }
-}
-
-function* editKettleMaterialPortionGenerator(action) {
-    try {
-        const res = yield call(
-            api.updateMaterialPortion,
-            get(action, "payload.form")
-        );
-        yield put({
-            type: EDIT_KETTLE_MATERIAL_PORTION_SUCCESS,
-            payload: { data: res.data, initial: res.data },
-        });
-    } catch (e) {
-        yield put({
-            type: EDIT_KETTLE_MATERIAL_PORTION_FAILURE,
-            error: "<strong>Oh snap!</strong> Change a few things up and try submitting again.",
-        });
-    }
-}
-
-function* deleteKettleMaterialPortionGenerator(action) {
-    try {
-        yield call(api.deleteMaterialPortion, get(action, "payload.form"));
-        yield put({
-            type: DELETE_KETTLE_MATERIAL_PORTION_SUCCESS,
-            payload: get(action, "payload"),
-        });
-    } catch (e) {
-        yield put({ type: DELETE_KETTLE_MATERIAL_PORTION_FAILURE });
     }
 }
 
@@ -308,28 +238,16 @@ function* MaterialPortion() {
         fetchMaterialPortionsByMixtureIdGenerator
     );
     yield takeEvery(
-        ADD_MASH_MATERIAL_PORTION_REQUEST,
-        addMashMaterialPortionGenerator
+        ADD_MATERIAL_PORTIONS_REQUEST,
+        addMaterialPortionsGenerator
     );
     yield takeEvery(
-        EDIT_MASH_MATERIAL_PORTION_REQUEST,
-        editMashMaterialPortionGenerator
+        EDIT_MATERIAL_PORTIONS_REQUEST,
+        editMaterialPortionsGenerator
     );
     yield takeEvery(
-        DELETE_MASH_MATERIAL_PORTION_REQUEST,
-        deleteMashMaterialPortionGenerator
-    );
-    yield takeEvery(
-        ADD_KETTLE_MATERIAL_PORTION_REQUEST,
-        addKettleMaterialPortionGenerator
-    );
-    yield takeEvery(
-        EDIT_KETTLE_MATERIAL_PORTION_REQUEST,
-        editKettleMaterialPortionGenerator
-    );
-    yield takeEvery(
-        DELETE_KETTLE_MATERIAL_PORTION_REQUEST,
-        deleteKettleMaterialPortionGenerator
+        DELETE_MATERIAL_PORTIONS_REQUEST,
+        deleteMaterialPortionsGenerator
     );
     yield takeEvery(
         ADD_FERMENT_MATERIAL_PORTION_REQUEST,

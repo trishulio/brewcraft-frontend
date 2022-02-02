@@ -7,8 +7,8 @@ import {
     FETCH_MIXTURE_BY_BREW_ID_REQUEST,
     FETCH_MIXTURE_BY_BREW_ID_SUCCESS,
     FETCH_MIXTURE_BY_BREW_ID_FAILURE,
-    RESET_MIXTURES,
-    SET_MIXTURES,
+    SET_BREW_MIXTURE_DETAILS,
+    RESET_BREW_MIXTURE_DETAILS,
 } from "./actionTypes";
 
 const initialState = {
@@ -25,7 +25,7 @@ const Mixtures = (state = initialState, { type, payload }) => {
                 loading: true,
             };
         case FETCH_MIXTURE_BY_BREW_ID_SUCCESS:
-        case SET_MIXTURES:
+        case SET_BREW_MIXTURE_DETAILS:
             return {
                 ...state,
                 ...payload,
@@ -38,7 +38,7 @@ const Mixtures = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: true,
             };
-        case RESET_MIXTURES:
+        case RESET_BREW_MIXTURE_DETAILS:
             return {
                 ...initialState,
                 loading: false,

@@ -17,6 +17,9 @@ import {
     EDIT_FERMENT_MATERIAL_PORTION_REQUEST,
     DELETE_FERMENT_MATERIAL_PORTION_REQUEST,
     RESET_FERMENT_MATERIAL_PORTION_DETAILS,
+    EDIT_MATERIAL_PORTIONS_REQUEST,
+    DELETE_MATERIAL_PORTIONS_REQUEST,
+    SET_BREW_MATERIAL_PORTIONS_DETAILS,
 } from "./actionTypes";
 
 export const fetchMaterialPortionById = (id) => ({
@@ -34,6 +37,21 @@ export const fetchMaterialPortionsByMixtureId = (id) => ({
     payload: { id },
 });
 
+export const setBrewMaterialPortions = (payload) => ({
+    type: SET_BREW_MATERIAL_PORTIONS_DETAILS,
+    payload: { ...payload },
+});
+
+export const editMaterialPortions = (payload) => ({
+    type: EDIT_MATERIAL_PORTIONS_REQUEST,
+    payload: { ...payload },
+});
+
+export const deleteMaterialPortions = (payload) => ({
+    type: DELETE_MATERIAL_PORTIONS_REQUEST,
+    payload: { ...payload },
+});
+
 export const setMashMaterialPortionDetails = (payload) => ({
     type: SET_MASH_MATERIAL_PORTION_DETAILS,
     payload: payload,
@@ -44,21 +62,6 @@ export const resetMashMaterialPortionDetails = () => ({
     payload: null,
 });
 
-export const saveMashMaterialPortion = (payload) => ({
-    type: ADD_MASH_MATERIAL_PORTION_REQUEST,
-    payload: payload,
-});
-
-export const editMashMaterialPortion = (payload) => ({
-    type: EDIT_MASH_MATERIAL_PORTION_REQUEST,
-    payload: payload,
-});
-
-export const deleteMashMaterialPortion = (payload) => ({
-    type: DELETE_MASH_MATERIAL_PORTION_REQUEST,
-    payload: payload,
-});
-
 export const setKettleMaterialPortionDetails = (payload) => ({
     type: SET_KETTLE_MATERIAL_PORTION_DETAILS,
     payload: payload,
@@ -67,21 +70,6 @@ export const setKettleMaterialPortionDetails = (payload) => ({
 export const resetKettleMaterialPortionDetails = () => ({
     type: RESET_KETTLE_MATERIAL_PORTION_DETAILS,
     payload: null,
-});
-
-export const saveKettleMaterialPortion = (payload) => ({
-    type: ADD_KETTLE_MATERIAL_PORTION_REQUEST,
-    payload: payload,
-});
-
-export const editKettleMaterialPortion = (payload) => ({
-    type: EDIT_KETTLE_MATERIAL_PORTION_REQUEST,
-    payload: payload,
-});
-
-export const deleteKettleMaterialPortion = (payload) => ({
-    type: DELETE_KETTLE_MATERIAL_PORTION_REQUEST,
-    payload: payload,
 });
 
 export const setFermentMaterialPortionDetails = (payload) => ({

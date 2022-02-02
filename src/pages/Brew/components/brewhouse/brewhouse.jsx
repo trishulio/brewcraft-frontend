@@ -17,14 +17,15 @@ export default function Brewhouse(props) {
 
     const loading = useSelector((state) => {
         return (
-            state.Batch.MashStages.loading ||
-            state.Batch.MashMixture.loading ||
-            state.Batch.KettleStage.loading ||
-            state.Batch.KettleMixture.loading ||
-            state.Batch.WhirlpoolStage.loading ||
-            state.Batch.WhirlpoolMixture.loading ||
-            state.Batch.MashMaterialPortion.loading ||
-            state.Batch.KettleMaterialPortion.loading
+            // state.Batch.MashStages.loading ||
+            // state.Batch.MashMixture.loading ||
+            // state.Batch.KettleStage.loading ||
+            // state.Batch.KettleMixture.loading ||
+            // state.Batch.WhirlpoolStage.loading ||
+            // state.Batch.WhirlpoolMixture.loading ||
+            // state.Batch.MashMaterialPortion.loading ||
+            // state.Batch.KettleMaterialPortion.loading
+            false
         );
     });
 

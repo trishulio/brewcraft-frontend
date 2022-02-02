@@ -17,6 +17,15 @@ export default function BrewTabs({ mashMixture, indexv }) {
         );
     });
 
+    const mashMaterialPortions = useSelector((state) => {
+        return (
+            mashMixture &&
+            state.Batch.MaterialPortions.content.filter(
+                (mp) => mp.mixture.id === mashMixture.id
+            )
+        );
+    });
+
     const kettleMixture = useSelector((state) => {
         return state.Batch.Mixtures.content.find(
             (m) =>
@@ -30,6 +39,15 @@ export default function BrewTabs({ mashMixture, indexv }) {
             kettleMixture &&
             state.Batch.Stages.content.find(
                 (s) => s.id === kettleMixture.brewStage.id
+            )
+        );
+    });
+
+    const kettleMaterialPortions = useSelector((state) => {
+        return (
+            kettleMixture &&
+            state.Batch.MaterialPortions.content.filter(
+                (mp) => mp.mixture.id === kettleMixture.id
             )
         );
     });
@@ -107,8 +125,10 @@ export default function BrewTabs({ mashMixture, indexv }) {
     const props = {
         mashMixture,
         mashStage,
+        mashMaterialPortions,
         kettleMixture,
         kettleStage,
+        kettleMaterialPortions,
         whirlpoolMixture,
         whirlpoolStage,
         transferMixture,
@@ -116,15 +136,30 @@ export default function BrewTabs({ mashMixture, indexv }) {
         toggleIsOpen,
     };
 
-    function toggleIsOpen(index) {
-        setIsMashOpen(index === "mash");
-        setIsKettleOpen(index === "kettle");
-        setIsWhirlpoolOpen(index === "whirlpool");
+    function toggleIsOpen(index, show) {
+        switch (index) {
+            case "mash":
+                setIsMashOpen(show ? true : !isMashOpen);
+                setIsKettleOpen(false);
+                setIsWhirlpoolOpen(false);
+                break;
+            case "kettle":
+                setIsMashOpen(false);
+                setIsKettleOpen(show ? true : !isKettleOpen);
+                setIsWhirlpoolOpen(false);
+                break;
+            case "whirlpool":
+                setIsMashOpen(false);
+                setIsKettleOpen(false);
+                setIsWhirlpoolOpen(show ? true : !isWhirlpoolOpen);
+                break;
+            default:
+                break;
+        }
     }
 
     return (
         <React.Fragment>
-            {console.log(kettleMixture)}
             <TabPane tabId={indexv + 1}>
                 <div className="accordion">
                     <Mash isOpen={isMashOpen} {...props} />
