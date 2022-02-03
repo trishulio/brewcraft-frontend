@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { TabPane } from "reactstrap";
 import Mash from "./mash";
 import Kettle from "./kettle";
 import Whirlpool from "./whirlpool";
 import Transfer from "./transfer";
 import { useSelector } from "react-redux";
 
-export default function BrewTabs({ mashMixture, indexv }) {
+export default function BrewTabs({ mashMixture }) {
     const [isMashOpen, setIsMashOpen] = useState(true);
     const [isKettleOpen, setIsKettleOpen] = useState(false);
     const [isWhirlpoolOpen, setIsWhirlpoolOpen] = useState(false);
@@ -160,14 +159,10 @@ export default function BrewTabs({ mashMixture, indexv }) {
 
     return (
         <React.Fragment>
-            <TabPane tabId={indexv + 1}>
-                <div className="accordion">
-                    <Mash isOpen={isMashOpen} {...props} />
-                    <Kettle isOpen={isKettleOpen} {...props} />
-                    <Whirlpool isOpen={isWhirlpoolOpen} {...props} />
-                    <Transfer {...props} />
-                </div>
-            </TabPane>
+            <Mash isOpen={isMashOpen} {...props} />
+            <Kettle isOpen={isKettleOpen} {...props} />
+            <Whirlpool isOpen={isWhirlpoolOpen} {...props} />
+            <Transfer {...props} />
         </React.Fragment>
     );
 }

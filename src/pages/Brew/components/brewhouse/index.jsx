@@ -1,11 +1,31 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { TabContent, TabPane } from "reactstrap";
 import { Card, CardBody, CardHeader } from "../../../../component/Common/Card";
 import Nav from "./nav";
-import Tab from "./tab";
-import { useSelector } from "react-redux";
-import { TabContent } from "reactstrap";
+import Brew from "./brew";
 
-export default function Brewhouse(props) {
+function Tabs({ mashMixtures, activeTab }) {
+    return (
+        <TabContent activeTab={activeTab}>
+            {mashMixtures.map((mixture, index) => {
+                return <Tab key={index} indexv={index} mashMixture={mixture} />;
+            })}
+        </TabContent>
+    );
+}
+
+function Tab({ indexv, mashMixture }) {
+    return (
+        <TabPane tabId={indexv + 1}>
+            <div className="accordion">
+                <Brew mashMixture={mashMixture} />
+            </div>
+        </TabPane>
+    );
+}
+
+export default function Brewhouse() {
     const [activeTab, setActiveTab] = useState(1);
     const [isOpen, setIsOpen] = useState(true);
 
@@ -17,22 +37,11 @@ export default function Brewhouse(props) {
 
     const loading = useSelector((state) => {
         return (
-            // state.Batch.MashStages.loading ||
-            // state.Batch.MashMixture.loading ||
-            // state.Batch.KettleStage.loading ||
-            // state.Batch.KettleMixture.loading ||
-            // state.Batch.WhirlpoolStage.loading ||
-            // state.Batch.WhirlpoolMixture.loading ||
-            // state.Batch.MashMaterialPortion.loading ||
-            // state.Batch.KettleMaterialPortion.loading
-            false
+            state.Batch.Stages.loading ||
+            state.Batch.Mixtures.loading ||
+            state.Batch.MaterialPortions.loading
         );
     });
-
-    const navProps = {
-        activeTab,
-        setActiveTab,
-    };
 
     return (
         <React.Fragment>
@@ -54,30 +63,24 @@ export default function Brewhouse(props) {
                     </div>
                 </CardHeader>
                 <CardBody
-                    isLoading={mashMixtures.length && loading}
+                    isLoading={loading}
                     isOpen={isOpen}
                     className="px-2 pt-3 pb-0"
                 >
-                    {mashMixtures.length && (
+                    {!!mashMixtures.length && (
                         <React.Fragment>
                             <div className="mb-3">
-                                <Nav {...navProps} />
+                                <Nav
+                                    activeTab={activeTab}
+                                    setActiveTab={setActiveTab}
+                                />
                             </div>
                             <Card className="shadow-none mb-0">
                                 <CardBody className="p-0 mx-2 border">
-                                    <TabContent activeTab={activeTab}>
-                                        {mashMixtures.map((mixture, index) => {
-                                            return (
-                                                <Tab
-                                                    key={index}
-                                                    indexv={index}
-                                                    mashMixture={mixture}
-                                                    {...navProps}
-                                                    {...props}
-                                                />
-                                            );
-                                        })}
-                                    </TabContent>
+                                    <Tabs
+                                        mashMixtures={mashMixtures}
+                                        activeTab={activeTab}
+                                    />
                                 </CardBody>
                             </Card>
                         </React.Fragment>

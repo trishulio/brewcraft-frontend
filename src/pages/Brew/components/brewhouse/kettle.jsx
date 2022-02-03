@@ -7,7 +7,10 @@ import {
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import { addBrewStage } from "../../../../store/actions";
+import {
+    addBrewStage,
+    transferToFermentStage,
+} from "../../../../store/actions";
 import Ingredients from "../common/ingredients";
 import BatchStage from "../common/stage";
 
@@ -75,7 +78,7 @@ export default function BrewKettle({
                         className="waves-effect btn btn-outline-secondary btn-sm"
                         data-toggle="dropdown"
                     >
-                        More <i className="fa fa-caret-down"></i>
+                        Mixture <i className="fa fa-caret-down"></i>
                     </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem
@@ -115,24 +118,7 @@ export default function BrewKettle({
                             <span
                                 className="text-dark"
                                 onClick={() => {
-                                    // TODO
-                                    // want to add to transfer stage before ..
-                                    dispatch(
-                                        addBrewStage({
-                                            parentMixtureIds: [
-                                                kettleMixture.id,
-                                            ],
-                                            form: [
-                                                {
-                                                    brewId: batch.id,
-                                                    taskId: 7,
-                                                    statusId: 4,
-                                                    startedAt:
-                                                        new Date().toISOString(),
-                                                },
-                                            ],
-                                        })
-                                    );
+                                    dispatch(transferToFermentStage());
                                 }}
                             >
                                 Move to Fermenter

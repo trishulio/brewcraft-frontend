@@ -18,13 +18,10 @@ import {
     fetchFinishedGoodsByBrewId,
     fetchMixturesByBrewId,
     fetchAllBrewStages,
-    editKettleMaterialPortion,
-    editFermentMaterialPortion,
     editFermentMixtureRecords,
     deleteFermentMixtureRecords,
     saveFermentFinishedGoods,
     deleteFermentFinishedGoods,
-    deleteFermentMaterialPortion,
     deleteTransferMixtureRecords,
     saveTransferMixtureRecords,
     editBrewStages,
@@ -153,17 +150,10 @@ export default function Batch() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [edit]);
 
-    useEffect(() => {
-        dispatch(
-            setBatchDetails({
-                changed: JSON.stringify(initialBatch) !== JSON.stringify(batch),
-            })
-        );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [batch]);
-
     const changed = useSelector((state) => {
         return (
+            JSON.stringify(state.Batch.Batch.data) !==
+                JSON.stringify(state.Batch.Batch.initial) ||
             JSON.stringify(state.Batch.Stages.content) !==
                 JSON.stringify(state.Batch.Stages.initial) ||
             JSON.stringify(state.Batch.Mixtures.content) !==

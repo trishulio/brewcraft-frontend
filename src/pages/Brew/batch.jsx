@@ -10,7 +10,7 @@ import BatchPeople from "./components/people";
 import BatchComments from "./components/comments";
 import BatchDescription from "./components/description";
 import BatchFileUploads from "./components/uploads";
-import Brewhouse from "./components/brewhouse/brewhouse";
+import Brewhouse from "./components/brewhouse";
 import Fermentation from "./components/fermentation/fermentation";
 
 export default function Batch(props) {

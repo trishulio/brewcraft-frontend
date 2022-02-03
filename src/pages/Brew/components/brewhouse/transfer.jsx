@@ -29,6 +29,7 @@ export default function BrewTransfer() {
                         JSON.stringify(initialMixtureRecords),
             })
         );
+        // eslint-disable-next-line
     }, [stage, mixture, mixtureRecords]);
 
     return <React.Fragment></React.Fragment>;

@@ -61,7 +61,7 @@ export default function BrewMash({
                         className="waves-effect btn btn-outline-secondary btn-sm"
                         data-toggle="dropdown"
                     >
-                        More <i className="fa fa-caret-down"></i>
+                        Mixture <i className="fa fa-caret-down"></i>
                     </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem disabled={!!kettleMixture?.id}>

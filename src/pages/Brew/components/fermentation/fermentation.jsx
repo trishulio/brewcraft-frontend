@@ -1,23 +1,47 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { TabContent, TabPane } from "reactstrap";
 import { Card, CardBody, CardHeader } from "../../../../component/Common/Card";
 import Nav from "./nav";
-import Tabs from "./tabs";
+import Ferment from "./ferment";
 
-export default function Brewhouse(props) {
+function Tabs({ fermentMixtures, activeTab }) {
+    return (
+        <TabContent activeTab={activeTab}>
+            {fermentMixtures.map((mixture, index) => {
+                return (
+                    <Tab key={index} indexv={index} fermentMixture={mixture} />
+                );
+            })}
+        </TabContent>
+    );
+}
+
+function Tab({ indexv, fermentMixture }) {
+    return (
+        <TabPane tabId={indexv + 1}>
+            <div className="accordion">
+                <Ferment fermentMixture={fermentMixture} />
+            </div>
+        </TabPane>
+    );
+}
+
+export default function Fermentation() {
+    const [activeTab, setActiveTab] = useState(1);
     const [isOpen, setIsOpen] = useState(true);
 
-    const fermentStage = useSelector((state) => {
-        return state.Batch.FermentStage.data;
+    const fermentMixtures = useSelector((state) => {
+        return state.Batch.Mixtures.content.filter(
+            (m) => m.brewStage.task.id === 7
+        );
     });
 
     const loading = useSelector((state) => {
         return (
-            state.Batch.FermentStage.loading ||
-            state.Batch.FermentMixture.loading ||
-            state.Batch.FermentMaterialPortion.loading ||
-            state.Batch.FermentMixtureRecordings.loading ||
-            state.Batch.FermentFinishedGoods.loading
+            state.Batch.Stages.loading ||
+            state.Batch.Mixtures.loading ||
+            state.Batch.MaterialPortions.loading
         );
     });
 
@@ -41,18 +65,24 @@ export default function Brewhouse(props) {
                     </div>
                 </CardHeader>
                 <CardBody
-                    isLoading={fermentStage.id && loading}
+                    isLoading={!!fermentMixtures.length && loading}
                     isOpen={isOpen}
                     className="p-2 pt-3"
                 >
-                    {fermentStage.id && (
+                    {!!fermentMixtures.length && (
                         <React.Fragment>
                             <div className="mb-3">
-                                <Nav {...props} />
+                                <Nav
+                                    activeTab={activeTab}
+                                    setActiveTab={setActiveTab}
+                                />
                             </div>
                             <Card className="shadow-none mb-0">
                                 <CardBody className="p-0 mx-2 border">
-                                    <Tabs {...props} />
+                                    <Tabs
+                                        fermentMixtures={fermentMixtures}
+                                        activeTab={activeTab}
+                                    />
                                 </CardBody>
                             </Card>
                         </React.Fragment>

@@ -3,26 +3,8 @@ import {
     FETCH_MATERIAL_PORTIONS_BY_MIXTURE_ID_REQUEST,
     FETCH_MATERIAL_PORTION_BY_BREW_ID_REQUEST,
     SET_MATERIAL_PORTION_DETAILS,
-    SET_MASH_MATERIAL_PORTION_DETAILS,
-    ADD_MASH_MATERIAL_PORTION_REQUEST,
     ADD_MASH_MATERIAL_PORTION_SUCCESS,
     ADD_MASH_MATERIAL_PORTION_FAILURE,
-    EDIT_MASH_MATERIAL_PORTION_REQUEST,
-    DELETE_MASH_MATERIAL_PORTION_REQUEST,
-    EDIT_MASH_MATERIAL_PORTION_SUCCESS,
-    DELETE_MASH_MATERIAL_PORTION_SUCCESS,
-    EDIT_MASH_MATERIAL_PORTION_FAILURE,
-    DELETE_MASH_MATERIAL_PORTION_FAILURE,
-    DELETE_KETTLE_MATERIAL_PORTION_SUCCESS,
-    DELETE_KETTLE_MATERIAL_PORTION_FAILURE,
-    ADD_KETTLE_MATERIAL_PORTION_SUCCESS,
-    ADD_KETTLE_MATERIAL_PORTION_FAILURE,
-    EDIT_KETTLE_MATERIAL_PORTION_SUCCESS,
-    EDIT_KETTLE_MATERIAL_PORTION_FAILURE,
-    ADD_KETTLE_MATERIAL_PORTION_REQUEST,
-    EDIT_KETTLE_MATERIAL_PORTION_REQUEST,
-    DELETE_KETTLE_MATERIAL_PORTION_REQUEST,
-    SET_KETTLE_MATERIAL_PORTION_DETAILS,
     ADD_FERMENT_MATERIAL_PORTION_REQUEST,
     ADD_FERMENT_MATERIAL_PORTION_SUCCESS,
     ADD_FERMENT_MATERIAL_PORTION_FAILURE,
@@ -33,8 +15,6 @@ import {
     EDIT_FERMENT_MATERIAL_PORTION_FAILURE,
     DELETE_FERMENT_MATERIAL_PORTION_FAILURE,
     SET_FERMENT_MATERIAL_PORTION_DETAILS,
-    SET_CONDITION_MATERIAL_PORTION_DETAILS,
-    SET_BRITE_TANK_MATERIAL_PORTION_DETAILS,
     FETCH_MATERIAL_PORTION_BY_BREW_ID_FAILURE,
     FETCH_MATERIAL_PORTIONS_BY_BREW_ID_SUCCESS,
     DELETE_MATERIAL_PORTIONS_REQUEST,
@@ -117,10 +97,7 @@ function* fetchMaterialPortionByBrewIdGenerator(action) {
 
 function* addMaterialPortionsGenerator(action) {
     try {
-        const res = yield call(
-            api.addMixtureMaterialPortion,
-            get(action, "payload.form")
-        );
+        yield call(api.addMixtureMaterialPortion, get(action, "payload.form"));
         const id = yield select((state) => state.Batch.Batch.data.id);
         yield put(fetchMaterialPortionsByBrewId(id));
         yield put({
@@ -136,12 +113,8 @@ function* addMaterialPortionsGenerator(action) {
 }
 
 function* editMaterialPortionsGenerator(action) {
-    let res;
     try {
-        res = yield call(
-            api.updateMaterialPortion,
-            get(action, "payload.form")
-        );
+        yield call(api.updateMaterialPortion, get(action, "payload.form"));
         const id = yield select((state) => state.Batch.Batch.data.id);
         yield put(fetchMaterialPortionsByBrewId(id));
         yield put({

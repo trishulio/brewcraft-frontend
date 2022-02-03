@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     Dropdown,
@@ -6,11 +6,7 @@ import {
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import {
-    addBrewStage,
-    saveFermentStage,
-    setWhirlpoolStageDetails,
-} from "../../../../store/actions";
+import { addBrewStage } from "../../../../store/actions";
 import BatchStage from "../common/stage";
 
 export default function BrewWhirlpool({
@@ -50,7 +46,7 @@ export default function BrewWhirlpool({
                         className="waves-effect btn btn-outline-secondary btn-sm"
                         data-toggle="dropdown"
                     >
-                        More <i className="fa fa-caret-down"></i>
+                        Mixture <i className="fa fa-caret-down"></i>
                     </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem disabled={!!fermentStage.id}>
