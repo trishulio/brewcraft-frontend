@@ -44,7 +44,6 @@ function* fetchAllBrewStagesGenerator(action) {
 
 function* addBrewStageGenerator(action) {
     try {
-        debugger;
         const batch = yield select((state) => {
             return state.Batch.Batch.data;
         });
