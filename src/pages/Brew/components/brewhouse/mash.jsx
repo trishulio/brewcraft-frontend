@@ -7,7 +7,7 @@ import {
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import { addBrewStage } from "../../../../store/actions";
+import { addBrewStage, deleteBrewStage } from "../../../../store/actions";
 import Ingredients from "../common/ingredients";
 import BatchStage from "../common/stage";
 
@@ -88,7 +88,14 @@ export default function BrewMash({
                             </span>
                         </DropdownItem>
                         <DropdownItem>
-                            <span className="text-dark">Delete Mixture</span>
+                            <span
+                                className="text-dark"
+                                onClick={() => {
+                                    dispatch(deleteBrewStage(mashStage));
+                                }}
+                            >
+                                Delete
+                            </span>
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>

@@ -5,17 +5,16 @@ import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
 import { formatDatetime } from "../../.././../helpers/textUtils";
 import { isValidNumberString } from "../../../../helpers/utils";
+import { useDispatch } from "react-redux";
+import { setBrewMixtureRecordings } from "../../../../store/actions";
 
-export default function BatchRecords({
-    mixture,
-    mixtureRecordings,
-    setMixtureRecordings,
-}) {
+export default function MixtureRecordings({ mixture, mixtureRecordings }) {
     const [items, setItems] = useState([]);
     const [measure, setMeasure] = useState("");
     const [datetime, setDatetime] = useState("");
     const [recordValue, setRecordValue] = useState(0);
     const [invalidQuantity, setInvalidQuantity] = useState(false);
+    const dispatch = useDispatch();
 
     const { editable } = useSelector((state) => {
         return state.Batch.Batch;
@@ -149,15 +148,19 @@ export default function BatchRecords({
                         size="sm"
                         className="waves-effect mr-2"
                         onClick={() => {
-                            setMixtureRecordings([
-                                ...mixtureRecordings,
-                                {
-                                    measure,
-                                    value: recordValue,
-                                    recordedAt: datetime,
-                                    mixture: mixture,
-                                },
-                            ]);
+                            dispatch(
+                                setBrewMixtureRecordings({
+                                    content: [
+                                        ...mixtureRecordings,
+                                        {
+                                            measure,
+                                            value: recordValue,
+                                            recordedAt: datetime,
+                                            mixture: mixture,
+                                        },
+                                    ],
+                                })
+                            );
                         }}
                         disabled={!measure || !datetime}
                     >
@@ -168,11 +171,11 @@ export default function BatchRecords({
                         color="warning"
                         className="waves-effect"
                         onClick={() => {
-                            setMixtureRecordings(
-                                mixtureRecordings.filter(
+                            setBrewMixtureRecordings({
+                                content: mixtureRecordings.filter(
                                     (_, index) => !items.includes(index)
-                                )
-                            );
+                                ),
+                            });
                             setItems([]);
                         }}
                         disabled={!items.length}

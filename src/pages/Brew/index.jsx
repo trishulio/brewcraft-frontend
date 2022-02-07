@@ -18,16 +18,14 @@ import {
     fetchFinishedGoodsByBrewId,
     fetchMixturesByBrewId,
     fetchAllBrewStages,
-    editFermentMixtureRecords,
-    deleteFermentMixtureRecords,
     saveFermentFinishedGoods,
     deleteFermentFinishedGoods,
-    deleteTransferMixtureRecords,
-    saveTransferMixtureRecords,
     editBrewStages,
     editBrewMixtures,
     editMaterialPortions,
     deleteMaterialPortions,
+    saveBrewMixtureRecordings,
+    deleteBrewMixtureRecordings,
 } from "../../store/actions";
 import { useQuery } from "../../helpers/utils";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
@@ -76,18 +74,12 @@ export default function Batch() {
         return state.Batch.MaterialPortions.initial;
     });
 
-    const {
-        content: transferMixtureRecords,
-        initial: initialTransferMixtureRecords,
-    } = useSelector((state) => {
-        return state.Batch.TransferMixtureRecordings;
+    const mixtureRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.content;
     });
 
-    const {
-        content: fermentMixtureRecords,
-        initial: initialFermentMixtureRecords,
-    } = useSelector((state) => {
-        return state.Batch.FermentMixtureRecordings;
+    const initialMixtureRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.initial;
     });
 
     const {
@@ -159,7 +151,9 @@ export default function Batch() {
             JSON.stringify(state.Batch.Mixtures.content) !==
                 JSON.stringify(state.Batch.Mixtures.initial) ||
             JSON.stringify(state.Batch.MaterialPortions.content) !==
-                JSON.stringify(state.Batch.MaterialPortions.initial)
+                JSON.stringify(state.Batch.MaterialPortions.initial) ||
+            JSON.stringify(state.Batch.MixtureRecordings.content) !==
+                JSON.stringify(state.Batch.MixtureRecordings.initial)
         );
     });
 
@@ -287,38 +281,38 @@ export default function Batch() {
         }
     }
 
-    function saveMixtureRecords(
-        mixtureRecords,
-        initialMixtureRecords,
-        saveMixtureRecords,
-        deleteMixtureRecords
+    function saveMixtureRecordings(
+        mixtureRecordings,
+        initialMixtureRecordings,
+        saveMixtureRecordings,
+        deleteMixtureRecordings
     ) {
         if (
-            JSON.stringify(initialMixtureRecords) !==
-            JSON.stringify(mixtureRecords)
+            JSON.stringify(mixtureRecordings) !==
+            JSON.stringify(initialMixtureRecordings)
         ) {
-            if (mixtureRecords.length) {
+            if (mixtureRecordings.length) {
                 dispatch(
-                    saveMixtureRecords({
-                        form: mixtureRecords.map((record) => ({
+                    saveMixtureRecordings(
+                        mixtureRecordings.map((record) => ({
                             id: record.id,
                             mixtureId: record.mixture.id,
                             measureId: record.measure.id,
                             value: record.value,
                             recordedAt: record.recordedAt,
                             version: record.version,
-                        })),
-                    })
+                        }))
+                    )
                 );
             }
             // delete mixture records
-            const map = mixtureRecords.map((mp) => mp.id);
-            const records = initialMixtureRecords
+            const map = mixtureRecordings.map((mp) => mp.id);
+            const records = initialMixtureRecordings
                 .filter((imp) => !map.includes(imp.id))
                 .map((records) => records.id);
             if (records.length) {
                 dispatch(
-                    deleteMixtureRecords({
+                    deleteMixtureRecordings({
                         batchId: batch.id,
                         form: records,
                     })
@@ -344,24 +338,19 @@ export default function Batch() {
                 editMaterialPortions,
                 deleteMaterialPortions
             );
-            saveMixtureRecords(
-                fermentMixtureRecords,
-                initialFermentMixtureRecords,
-                editFermentMixtureRecords,
-                deleteFermentMixtureRecords
+            // save mixuture recordings
+            debugger;
+            saveMixtureRecordings(
+                mixtureRecordings,
+                initialMixtureRecordings,
+                saveBrewMixtureRecordings,
+                deleteBrewMixtureRecordings
             );
             saveFinishedGoods(
                 fermentFinishedGoods,
                 initialFermentFinishedGoods,
                 saveFermentFinishedGoods,
                 deleteFermentFinishedGoods
-            );
-            // save transfer
-            saveMixtureRecords(
-                transferMixtureRecords,
-                initialTransferMixtureRecords,
-                saveTransferMixtureRecords,
-                deleteTransferMixtureRecords
             );
             // save batch
             if (JSON.stringify(batch) !== JSON.stringify(initialBatch)) {
@@ -384,15 +373,13 @@ export default function Batch() {
         } else {
             dispatch(
                 saveBatch({
-                    form: {
-                        name: batch.name,
-                        description: batch.description,
-                        batchId: batch.batchId,
-                        productId: parseInt(batch.product.id),
-                        parentBrewId: batch.parentBrewId || null,
-                        startedAt: batch.startedAt,
-                        endedAt: batch.endedAt,
-                    },
+                    name: batch.name,
+                    description: batch.description,
+                    batchId: "a",
+                    productId: parseInt(batch.product.id),
+                    parentBrewId: batch.parentBrewId || null,
+                    startedAt: batch.startedAt,
+                    endedAt: batch.endedAt,
                 })
             );
         }

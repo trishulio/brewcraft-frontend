@@ -8,18 +8,16 @@ import {
     setBatchInvalidDescription,
     setBatchInvalidParentBrew,
     fetchProducts,
-    setTransferMixtureRecords,
 } from "../../../store/actions";
 import {
     isValidName,
-    isValidNumberString,
     useQuery,
     validDate,
     validId,
 } from "../../../helpers/utils";
 import { Card, CardBody, CardHeader } from "../../../component/Common/Card";
 
-export default function BatchDetails(props) {
+export default function BatchDetails() {
     const [isDetailsOpen, setIsDetailsOpen] = useState(true);
     const dispatch = useDispatch();
     const query = useQuery();
@@ -29,7 +27,6 @@ export default function BatchDetails(props) {
         data: batch,
         loading,
         editable,
-        invalidBatchId,
         invalidProduct,
         invalidBatchStartedAt,
         invalidBatchEndedAt,
@@ -39,22 +36,6 @@ export default function BatchDetails(props) {
 
     const { content: products } = useSelector((state) => {
         return state.Products;
-    });
-
-    const originalGravity = useSelector((state) => {
-        return state.Batch.TransferMixtureRecordings.content.find(
-            (r) => r.measure.name === "gravity"
-        );
-    });
-
-    const { data: transferMixture, invalidOriginalGravity } = useSelector(
-        (state) => {
-            return state.Batch.TransferMixture;
-        }
-    );
-
-    const { content: transferMixtureRecords } = useSelector((state) => {
-        return state.Batch.TransferMixtureRecordings;
     });
 
     useEffect(() => {
@@ -162,44 +143,6 @@ export default function BatchDetails(props) {
                     );
                 }
                 break;
-            case "transferOriginalGravity":
-                let invalid;
-                if (!e.target.value) {
-                    invalid = false;
-                } else {
-                    invalid = !isValidNumberString(e.target.value);
-                }
-                if (!originalGravity) {
-                    dispatch(
-                        setTransferMixtureRecords({
-                            content: [
-                                ...transferMixtureRecords,
-                                {
-                                    measure: {
-                                        id: 5,
-                                        name: "gravity",
-                                        version: 1,
-                                    },
-                                    value: e.target.value,
-                                    recordedAt: null,
-                                    mixture: transferMixture,
-                                },
-                            ],
-                            invalidOriginalGravity: invalid,
-                        })
-                    );
-                } else {
-                    originalGravity.value = e.target.value;
-                    dispatch(
-                        setTransferMixtureRecords({
-                            content: JSON.parse(
-                                JSON.stringify(transferMixtureRecords)
-                            ),
-                            invalidOriginalGravity: invalid,
-                        })
-                    );
-                }
-                break;
             default:
                 break;
         }
@@ -234,32 +177,20 @@ export default function BatchDetails(props) {
                 >
                     <Row>
                         <Col sm="6" xl="4">
-                            <Label
-                                for="batchBatchId"
+                            <Label for="batchBatchId">Batch ID</Label>
+                            <div
+                                className="mb-3"
                                 style={{
-                                    width: "6rem",
+                                    height: "2.09375rem",
                                 }}
                             >
-                                {editable ? "* Batch ID" : "Batch ID"}
-                            </Label>
-                            <FormGroup>
-                                <Input
-                                    type="text"
-                                    className="waves-effect"
-                                    value={batch.batchId}
-                                    placeholder="Enter"
-                                    name="batchBatchId"
-                                    onChange={onFormInputChange}
-                                    // style={{ width: "16rem" }}
-                                    disabled={batch.id && !editable}
-                                    invalid={invalidBatchId}
-                                />
-                                <FormFeedback>
-                                    {editable || !batch.id
-                                        ? "Batch ID is required"
-                                        : "Invalid batch parameter"}
-                                </FormFeedback>
-                            </FormGroup>
+                                <span
+                                    id="batchBatchId"
+                                    className="align-middle font-size-14"
+                                >
+                                    {batch.id ? batch.id : "-"}
+                                </span>
+                            </div>
                             <div className="clearfix"></div>
                             <Label
                                 for="batchProduct"
@@ -267,7 +198,7 @@ export default function BatchDetails(props) {
                                     width: "6rem",
                                 }}
                             >
-                                {editable ? "* Product" : "Product"}
+                                Product
                             </Label>
                             <FormGroup>
                                 <Input
@@ -342,58 +273,6 @@ export default function BatchDetails(props) {
                                             {!batch.endedAt
                                                 ? "Enter a valid time and date"
                                                 : "Invalid batch parameter"}
-                                        </FormFeedback>
-                                    </FormGroup>
-                                </React.Fragment>
-                            )}
-                        </Col>
-                        <Col sm="6" xl="4">
-                            <Label
-                                for="batchStatus"
-                                style={{
-                                    width: "140em",
-                                }}
-                            >
-                                Batch Status
-                            </Label>
-                            <FormGroup>
-                                <Input
-                                    type="select"
-                                    className="waves-effect"
-                                    name="batchStatus"
-                                    style={{ width: "100%" }}
-                                    disabled={true}
-                                >
-                                    <option value="1">In Progress</option>
-                                    <option value="2">Complete</option>
-                                    <option value="3">Failed</option>
-                                    <option value="4">Not started</option>
-                                    <option value="5">Stopped</option>
-                                </Input>
-                                <FormFeedback>
-                                    Enter a valid number.
-                                </FormFeedback>
-                            </FormGroup>
-                            {batch.id && (
-                                <React.Fragment>
-                                    <Label for="transferOriginalGravity">
-                                        Original Gravity (OG)
-                                    </Label>
-                                    <FormGroup>
-                                        <Input
-                                            type="text"
-                                            className="waves-effect"
-                                            value={
-                                                originalGravity?.measure.value
-                                            }
-                                            placeholder="Enter"
-                                            name="transferOriginalGravity"
-                                            onChange={onFormInputChange}
-                                            disabled={!editable}
-                                            invalid={invalidOriginalGravity}
-                                        />
-                                        <FormFeedback>
-                                            Invalid batch parameter
                                         </FormFeedback>
                                     </FormGroup>
                                 </React.Fragment>

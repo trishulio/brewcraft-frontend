@@ -36,7 +36,9 @@ const Mixtures = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 loading: false,
-                error: true,
+                error: {
+                    ...payload,
+                },
             };
         case RESET_BREW_MIXTURE_DETAILS:
             return {

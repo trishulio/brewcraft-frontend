@@ -50,6 +50,7 @@ import {
 } from "./Mixture/reducer";
 import MiniCards from "./MiniCards/reducer";
 import {
+    MixtureRecordings,
     KettleMixtureRecordings,
     WhirlpoolMixtureRecordings,
     TransferMixtureRecordings,
@@ -80,6 +81,7 @@ const rootReducer = combineReducers({
         Mixtures,
         Stages,
         MaterialPortions,
+        MixtureRecordings,
         MashStages,
         MashMixture,
         MashMaterialPortion,

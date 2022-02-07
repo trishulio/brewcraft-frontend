@@ -10,7 +10,7 @@ import {
 import { addBrewStage } from "../../../../store/actions";
 import Ingredients from "../common/ingredients";
 import Recordings from "../common/mixture-recordings";
-import FinishedGoods from "../common/finished-goods";
+// import FinishedGoods from "../common/finished-goods";
 import BatchStage from "../common/stage";
 
 export default function BatchFerment({ fermentMixture }) {
@@ -34,13 +34,17 @@ export default function BatchFerment({ fermentMixture }) {
         );
     });
 
-    const { content: mixtureRecordings } = useSelector((state) => {
-        return state.Batch.FermentMixtureRecordings;
+    const mixtureRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.content.filter(
+            (mr) => mr.mixture.id === fermentMixture.id
+        );
     });
 
-    const { content: finishedGoods } = useSelector((state) => {
-        return state.Batch.FermentFinishedGoods;
-    });
+    // const finishedGoods = useSelector((state) => {
+    //     return state.Batch.FinishedGoods.content.filter(
+    //         (fg) => fg.mixture.id === fermentMixture.id
+    //     );
+    // });
 
     const ingredientsProps = {
         mixture: fermentMixture,
@@ -52,10 +56,10 @@ export default function BatchFerment({ fermentMixture }) {
         mixtureRecordings,
     };
 
-    const finishedGoodsProps = {
-        mixture: fermentMixture,
-        finishedGoods,
-    };
+    // const finishedGoodsProps = {
+    //     mixture: fermentMixture,
+    //     finishedGoods,
+    // };
 
     const stageProps = {
         title: "Ferment",
@@ -149,9 +153,9 @@ export default function BatchFerment({ fermentMixture }) {
                     <div className="mb-3">
                         <Recordings {...recordingsProps} />
                     </div>
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                         <FinishedGoods {...finishedGoodsProps} />
-                    </div>
+                    </div> */}
                 </BatchStage>
             )}
         </React.Fragment>

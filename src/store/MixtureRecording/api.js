@@ -36,14 +36,14 @@ async function fetchMixtureRecordingsByMixtureId(id) {
     );
 }
 
-async function addMixtureRecording(payload) {
+async function addMixtureRecordings(payload) {
     return await AxiosInstance.post(
         "/api/v1/mixtures/recordings",
         payload
     ).then((r) => r);
 }
 
-async function updateMixtureRecording(payload) {
+async function updateMixtureRecordings(payload) {
     return await AxiosInstance.put("/api/v1/mixtures/recordings", payload).then(
         (r) => r
     );
@@ -59,7 +59,7 @@ export const api = {
     fetchMixtureRecordingById,
     fetchMixtureRecordingByBrewId,
     fetchMixtureRecordingsByMixtureId,
-    addMixtureRecording,
-    updateMixtureRecording,
+    addMixtureRecordings,
+    updateMixtureRecordings,
     deleteMixtureRecording,
 };

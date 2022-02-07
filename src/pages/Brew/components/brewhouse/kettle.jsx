@@ -9,6 +9,7 @@ import {
 } from "reactstrap";
 import {
     addBrewStage,
+    deleteBrewStage,
     transferToFermentStage,
 } from "../../../../store/actions";
 import Ingredients from "../common/ingredients";
@@ -19,6 +20,7 @@ export default function BrewKettle({
     kettleStage,
     kettleMaterialPortions,
     whirlpoolStage,
+    transferStage,
     isOpen,
     toggleIsOpen,
 }) {
@@ -27,10 +29,6 @@ export default function BrewKettle({
 
     const { data: batch } = useSelector((state) => {
         return state.Batch.Batch;
-    });
-
-    const fermentStage = useSelector((state) => {
-        return state.Batch.FermentStage.data;
     });
 
     const ingredientsProps = {
@@ -83,7 +81,7 @@ export default function BrewKettle({
                     <DropdownMenu>
                         <DropdownItem
                             disabled={
-                                !!whirlpoolStage?.id || !!fermentStage?.id
+                                !!whirlpoolStage?.id || !!transferStage?.id
                             }
                         >
                             <span
@@ -112,20 +110,31 @@ export default function BrewKettle({
                         </DropdownItem>
                         <DropdownItem
                             disabled={
-                                !!whirlpoolStage?.id || !!fermentStage?.id
+                                !!whirlpoolStage?.id || !!transferStage?.id
                             }
                         >
                             <span
                                 className="text-dark"
                                 onClick={() => {
-                                    dispatch(transferToFermentStage());
+                                    dispatch(
+                                        transferToFermentStage({
+                                            mixture: kettleMixture,
+                                        })
+                                    );
                                 }}
                             >
                                 Move to Fermenter
                             </span>
                         </DropdownItem>
                         <DropdownItem>
-                            <span className="text-dark">Delete Mixture</span>
+                            <span
+                                className="text-dark"
+                                onClick={() => {
+                                    dispatch(deleteBrewStage(kettleStage));
+                                }}
+                            >
+                                Delete
+                            </span>
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
