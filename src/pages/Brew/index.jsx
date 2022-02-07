@@ -339,7 +339,6 @@ export default function Batch() {
                 deleteMaterialPortions
             );
             // save mixuture recordings
-            debugger;
             saveMixtureRecordings(
                 mixtureRecordings,
                 initialMixtureRecordings,

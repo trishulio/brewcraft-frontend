@@ -14,7 +14,6 @@ import BatchStage from "../common/stage";
 export default function BrewMash({
     mashMixture,
     mashStage,
-    mashMaterialPortions,
     kettleMixture,
     isOpen,
     toggleIsOpen,
@@ -28,7 +27,6 @@ export default function BrewMash({
 
     const ingredientsProps = {
         mixture: mashMixture,
-        materialPortions: mashMaterialPortions,
     };
 
     const stageProps = {
