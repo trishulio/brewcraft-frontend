@@ -14,9 +14,8 @@ import {
     fetchAllMaterialCategories,
     resetPurchaseInvoiceDetails,
     fetchAllSuppliers,
-    fetchAllIngredients,
-    fetchAllPackaging,
     updatePurchaseOrder,
+    fetchAllMaterials,
 } from "../../store/actions";
 import PurchaseInvoiceInner from "./invoice";
 
@@ -79,8 +78,7 @@ export default function PurchaseInvoice() {
         if (editMode) {
             dispatch(fetchAllMaterialCategories());
             dispatch(fetchAllSuppliers());
-            dispatch(fetchAllIngredients());
-            dispatch(fetchAllPackaging());
+            dispatch(fetchAllMaterials());
         }
         setEditable(editMode && editMode !== "false");
         setShowRouterPrompt(!!editMode);

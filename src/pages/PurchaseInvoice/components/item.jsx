@@ -32,7 +32,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
     });
 
     const materials = useSelector((state) => {
-        return state.Ingredients.all.concat(state.Packaging.all);
+        return state.Materials.all;
     });
 
     function changeevent(e) {
