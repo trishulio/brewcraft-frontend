@@ -28,7 +28,7 @@ describe("Products", () => {
         cy.get("[data-testid=product-class]").should("exist").select(1);
         cy.get("[data-testid=product-type]").should("exist");
         cy.get("[data-testid=product-style]").should("exist");
-        cy.get("[data-testid=product-abv]").should("exist").type(90);
+        cy.get("[data-testid=product-abv]").should("exist").type(90.0);
         cy.get("[data-testid=product-description]")
             .should("exist")
             .type("description is coming from test!");
