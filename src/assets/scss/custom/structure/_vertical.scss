@@ -202,7 +202,7 @@
 
     body.sidebar-enable {
         .vertical-menu {
-            height: 100%;
+            min-height: 100vh;
             display: block;
             margin-left: 0;
         }
@@ -453,9 +453,9 @@ body[data-sidebar="dark"] {
     }
     // Enlarge menu
     &.vertical-collpsed {
-        min-height: 1200px;
+        min-height: 100%;
         height: auto;
-        overflow: scroll;
+        overflow-y: scroll;
         // Side menu
         .vertical-menu {
 
