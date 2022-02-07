@@ -79,7 +79,7 @@ export default function PurchaseInvoicesTable() {
                             name="purchaseInvoiceNumber"
                             id="invoiceNumber"
                             onSort={onSort}
-                            width="16rem"
+                            width="20%"
                         >
                             Number
                         </Th>

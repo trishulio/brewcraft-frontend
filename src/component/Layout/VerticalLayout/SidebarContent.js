@@ -154,9 +154,7 @@ class SidebarContent extends Component {
     }
 
     toggleSidebar() {
-        const isMobile =
-            window.innerWidth < 768 && this.state.sidebarType === "condensed";
-        if (isMobile) {
+        if (this.props.isMobile) {
             this.changeLeftSidebarType("default");
         }
     }
