@@ -6,7 +6,7 @@ async function fetchBrewStages(brewId) {
             page: 0,
             size: 500,
             brew_ids: brewId,
-            sort: "task.id",
+            sort: "id",
             order_asc: true,
             // sort: params.sort || "name",
             // order_asc: !params.order || params.order === "asc"

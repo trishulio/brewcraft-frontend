@@ -4,16 +4,15 @@ import { map } from "lodash";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
 import { isValidNumberString } from "../../../../helpers/utils";
+import { setBrewMaterialPortions } from "../../../../store/actions";
+import { useDispatch } from "react-redux";
 
-export default function BatchIngredients({
-    mixture,
-    materialPortions,
-    setMaterialPortions,
-}) {
+export default function BatchIngredients({ mixture, materialPortions }) {
     const [invalidQuantity, setInvalidQuantity] = useState(false);
     const [lots, setLots] = useState([]);
     const [selectedLot, setSelectedLot] = useState("");
     const [selectedLotQuantity, setSelectedLotQuantity] = useState(0);
+    const dispatch = useDispatch();
 
     const { editable } = useSelector((state) => {
         return state.Batch.Batch;
@@ -168,21 +167,30 @@ export default function BatchIngredients({
                             if (materialPortion) {
                                 materialPortion.quantity.value +=
                                     parseFloat(selectedLotQuantity);
-                                setMaterialPortions([...materialPortions]);
+                                dispatch(
+                                    setBrewMaterialPortions({
+                                        content: [...materialPortions],
+                                    })
+                                );
                             } else {
-                                setMaterialPortions([
-                                    ...materialPortions,
-                                    {
-                                        ...selectedLot,
-                                        quantity: {
-                                            symbol: selectedLot.quantity.symbol,
-                                            value: parseFloat(
-                                                selectedLotQuantity
-                                            ),
-                                        },
-                                        mixture: mixture,
-                                    },
-                                ]);
+                                dispatch(
+                                    setBrewMaterialPortions({
+                                        content: [
+                                            ...materialPortions,
+                                            {
+                                                ...selectedLot,
+                                                quantity: {
+                                                    symbol: selectedLot.quantity
+                                                        .symbol,
+                                                    value: parseFloat(
+                                                        selectedLotQuantity
+                                                    ),
+                                                },
+                                                mixture: mixture,
+                                            },
+                                        ],
+                                    })
+                                );
                             }
                         }}
                         disabled={!selectedLot || !selectedLotQuantity}
@@ -194,7 +202,7 @@ export default function BatchIngredients({
                         color="warning"
                         className="waves-effect"
                         onClick={() => {
-                            setMaterialPortions(
+                            setBrewMaterialPortions(
                                 materialPortions.filter(
                                     (_, index) => !lots.includes(index)
                                 )

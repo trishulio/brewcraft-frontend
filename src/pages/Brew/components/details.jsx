@@ -47,9 +47,11 @@ export default function BatchDetails(props) {
         );
     });
 
-    const transferMixture = useSelector((state) => {
-        return state.Batch.TransferMixture.data;
-    });
+    const { data: transferMixture, invalidOriginalGravity } = useSelector(
+        (state) => {
+            return state.Batch.TransferMixture;
+        }
+    );
 
     const { content: transferMixtureRecords } = useSelector((state) => {
         return state.Batch.TransferMixtureRecordings;
@@ -372,6 +374,30 @@ export default function BatchDetails(props) {
                                     Enter a valid number.
                                 </FormFeedback>
                             </FormGroup>
+                            {batch.id && (
+                                <React.Fragment>
+                                    <Label for="transferOriginalGravity">
+                                        Original Gravity (OG)
+                                    </Label>
+                                    <FormGroup>
+                                        <Input
+                                            type="text"
+                                            className="waves-effect"
+                                            value={
+                                                originalGravity?.measure.value
+                                            }
+                                            placeholder="Enter"
+                                            name="transferOriginalGravity"
+                                            onChange={onFormInputChange}
+                                            disabled={!editable}
+                                            invalid={invalidOriginalGravity}
+                                        />
+                                        <FormFeedback>
+                                            Invalid batch parameter
+                                        </FormFeedback>
+                                    </FormGroup>
+                                </React.Fragment>
+                            )}
                         </Col>
                     </Row>
                 </CardBody>

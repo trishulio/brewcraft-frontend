@@ -1,26 +1,64 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Col, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
 import { Card, CardBody, CardHeader } from "../../../../component/Common/Card";
 import { formatDatetime } from "../../../../helpers/textUtils";
+import {
+    setBrewMixtureDetails,
+    setBrewStageDetails,
+} from "../../../../store/actions";
 
 export default function BatchStage({
-    isOpen,
-    mixtureRecordings,
-    mixture,
-    stage,
-    setStage,
-    setMixtureRecords,
-    showSkipCheckbox,
     title,
+    isOpen,
     toggleIsOpen,
     toolbar,
-    setMixture,
+    mixture,
+    stage,
+    mixtureRecordings,
+    setMixtureRecords,
     children,
 }) {
+    const dispatch = useDispatch();
+
     const { editable } = useSelector((state) => {
         return state.Batch.Batch;
     });
+
+    const mixtures = useSelector((state) => {
+        return state.Batch.Mixtures.content;
+    });
+
+    const stages = useSelector((state) => {
+        return state.Batch.Stages.content;
+    });
+
+    function setMixture(mixture) {
+        // insert mixture back into array
+        const data = [...mixtures];
+        const index = mixtures.findIndex((s) => s.id === mixture.id);
+        data.splice(index, 1);
+        data.splice(index, 0, { ...mixture });
+        dispatch(
+            setBrewMixtureDetails({
+                content: data,
+            })
+        );
+    }
+
+    function setStage(stage) {
+        // insert stage back into array
+        const data = [...stages];
+        const index = stages.findIndex((s) => s.id === stage.id);
+        data.splice(index, 1);
+        data.splice(index, 0, { ...stage });
+        dispatch(
+            setBrewStageDetails({
+                content: data,
+            })
+        );
+    }
 
     function onFormInputChange(e) {
         switch (e.target.name) {
@@ -50,12 +88,6 @@ export default function BatchStage({
                         },
                     });
                 }
-                break;
-            case "mixtureCompleteCheckbox":
-                setStage({
-                    ...stage,
-                    status: { id: e.target.checked ? 6 : 1 },
-                });
                 break;
             case "mixtureGravity":
                 let record;
@@ -130,10 +162,6 @@ export default function BatchStage({
                                         }
                                         onChange={onFormInputChange}
                                         hidden={!editable}
-                                        disabled={
-                                            showSkipCheckbox &&
-                                            stage.status.id === 3
-                                        }
                                     />
                                     <FormFeedback>
                                         Enter a valid start time.
@@ -193,10 +221,7 @@ export default function BatchStage({
                                         <option value="3">Failed</option>
                                         <option value="4">Not started</option>
                                         <option value="5">Stopped</option>
-                                        {(showSkipCheckbox ||
-                                            stage.status.id === 6) && (
-                                            <option value="6">Skip</option>
-                                        )}
+                                        {/* <option value="6">Skip</option> */}
                                     </Input>
                                     <FormFeedback>
                                         Enter a valid number.

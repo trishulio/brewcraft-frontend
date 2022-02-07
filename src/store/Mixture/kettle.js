@@ -1,12 +1,6 @@
 import {
-    ADD_KETTLE_MIXTURE_REQUEST,
-    ADD_KETTLE_MIXTURE_FAILURE,
-    EDIT_KETTLE_MIXTURE_REQUEST,
-    EDIT_KETTLE_MIXTURE_SUCCESS,
-    ADD_KETTLE_MIXTURE_SUCCESS,
     SET_KETTLE_MIXTURE_DETAILS,
     RESET_KETTLE_MIXTURE_DETAILS,
-    FETCH_MIXTURE_BY_BREW_ID_REQUEST,
 } from "./actionTypes";
 import { initialState } from "./initial";
 
@@ -18,28 +12,6 @@ const KettleMixture = (state = initialState, { type, payload } = {}) => {
                 ...payload,
                 loading: false,
                 error: null,
-            };
-        case FETCH_MIXTURE_BY_BREW_ID_REQUEST:
-        case ADD_KETTLE_MIXTURE_REQUEST:
-        case EDIT_KETTLE_MIXTURE_REQUEST:
-            return {
-                ...state,
-                loading: true,
-                error: null,
-            };
-        case ADD_KETTLE_MIXTURE_SUCCESS:
-        case EDIT_KETTLE_MIXTURE_SUCCESS:
-            return {
-                ...state,
-                ...payload,
-                loading: false,
-                error: null,
-            };
-        case ADD_KETTLE_MIXTURE_FAILURE:
-            return {
-                ...state,
-                loading: false,
-                error: true,
             };
         case RESET_KETTLE_MIXTURE_DETAILS:
             return {

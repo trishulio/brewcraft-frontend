@@ -12,7 +12,7 @@ async function fetchMixturesByBrewId(id) {
             brew_ids: id,
             page: 0,
             size: 500,
-            sort: "brewStage.task.id",
+            sort: "id",
             order_asc: true,
         },
     };

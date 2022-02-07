@@ -10,7 +10,7 @@ import BatchPeople from "./components/people";
 import BatchComments from "./components/comments";
 import BatchDescription from "./components/description";
 import BatchFileUploads from "./components/uploads";
-import Brewhouse from "./components/brewhouse/brewhouse";
+import Brewhouse from "./components/brewhouse";
 import Fermentation from "./components/fermentation/fermentation";
 
 export default function Batch(props) {
@@ -18,16 +18,6 @@ export default function Batch(props) {
     const history = useHistory();
     const { data: batch, initial: initialBatch } = useSelector((state) => {
         return state.Batch.Batch;
-    });
-
-    const changed = useSelector((state) => {
-        return (
-            state.Batch.Batch.changed ||
-            state.Batch.MashStage.changed ||
-            state.Batch.KettleStage.changed ||
-            state.Batch.WhirlpoolStage.changed ||
-            state.Batch.FermentStage.changed
-        );
     });
 
     return (
@@ -63,7 +53,7 @@ export default function Batch(props) {
                                     className="waves-effect mr-2"
                                     onClick={props.onSave}
                                     size="sm"
-                                    disabled={!changed}
+                                    disabled={!props.changed}
                                 >
                                     {!batch.id ? "Create" : "Save"}
                                 </Button>
