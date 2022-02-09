@@ -182,6 +182,16 @@ const initialState = {
         pageIndex: 0,
         pageSize: 20,
     },
+    Materials: {
+        content: [],
+        all: [],
+        loading: false,
+        error: null,
+        totalElements: 0,
+        totalPages: 0,
+        pageIndex: 0,
+        pageSize: 20,
+    },
 };
 const middlewares = [];
 
@@ -275,10 +285,7 @@ describe("PurchaseInvoice -> <Index>", () => {
                 type: "FETCH_ALL_SUPPLIERS_REQUEST",
             });
             expect(mockDispatch).toHaveBeenCalledWith({
-                type: "FETCH_ALL_INGREDIENTS_REQUEST",
-            });
-            expect(mockDispatch).toHaveBeenCalledWith({
-                type: "FETCH_ALL_PACKAGING_REQUEST",
+                type: "FETCH_ALL_MATERIALS_REQUEST",
             });
         });
         test("should dispatch action setBreadcrumbItems correctly when invoice.id is truthy", () => {
@@ -294,7 +301,7 @@ describe("PurchaseInvoice -> <Index>", () => {
                 </Provider>
             );
             expect(shallowToJson(wrapper)).toMatchSnapshot();
-            expect(mockDispatch).toHaveBeenNthCalledWith(15, {
+            expect(mockDispatch).toHaveBeenNthCalledWith(14, {
                 type: "SET_BREADCRUMB_ITEMS",
                 payload: {
                     title: "Invoice: 1",
@@ -332,7 +339,7 @@ describe("PurchaseInvoice -> <Index>", () => {
             );
             expect(shallowToJson(wrapper)).toMatchSnapshot();
             wrapper.find({ children: "Save" }).at(1).simulate("click");
-            expect(mockDispatch).toHaveBeenNthCalledWith(24, {
+            expect(mockDispatch).toHaveBeenNthCalledWith(22, {
                 type: "UPDATE_PURCHASE_ORDER",
                 payload: {
                     id: "1",
@@ -341,7 +348,7 @@ describe("PurchaseInvoice -> <Index>", () => {
                     version: undefined,
                 },
             });
-            expect(mockDispatch).toHaveBeenNthCalledWith(25, {
+            expect(mockDispatch).toHaveBeenNthCalledWith(23, {
                 type: "UPDATE_PROCUREMENT",
                 payload: {
                     invoice: {
@@ -460,7 +467,7 @@ describe("PurchaseInvoice -> <Index>", () => {
             );
             expect(shallowToJson(wrapper)).toMatchSnapshot();
             wrapper.find({ children: "Save" }).at(1).simulate("click");
-            expect(mockDispatch).toHaveBeenNthCalledWith(34, {
+            expect(mockDispatch).toHaveBeenNthCalledWith(31, {
                 type: "UPDATE_PURCHASE_ORDER",
                 payload: {
                     id: "1",
@@ -469,7 +476,7 @@ describe("PurchaseInvoice -> <Index>", () => {
                     version: undefined,
                 },
             });
-            expect(mockDispatch).toHaveBeenNthCalledWith(35, {
+            expect(mockDispatch).toHaveBeenNthCalledWith(32, {
                 type: "CREATE_PROCUREMENT",
                 payload: {
                     invoice: {
