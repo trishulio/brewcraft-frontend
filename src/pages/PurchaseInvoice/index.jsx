@@ -63,14 +63,16 @@ export default function PurchaseInvoice() {
     };
 
     useEffect(() => {
-        dispatch(resetPurchaseInvoiceDetails());
+        if (!isSaving) {
+            dispatch(resetPurchaseInvoiceDetails());
+        }
         // eslint-disable-next-line
     }, [shipmentId, invoiceId, editMode]);
 
     useEffect(() => {
         if (!shipmentId || !invoiceId) {
             history.replace("/purchases/invoices/new?edit=true");
-        } else if (shipmentId && invoiceId) {
+        } else if (shipmentId && invoiceId && !isSaving) {
             dispatch(
                 fetchProcuementByShipmentIdAndInvoiceId(shipmentId, invoiceId)
             );
