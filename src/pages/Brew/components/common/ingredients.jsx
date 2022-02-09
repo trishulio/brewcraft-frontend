@@ -187,9 +187,6 @@ export default function BatchIngredients({ mixture }) {
                                     mixture: mixture,
                                 };
                             }
-                            // const data = [...materialPortions];
-                            // data.splice(index, 1);
-                            // data.splice(index, 0, materialPortion);
                             dispatch(
                                 setBrewMaterialPortions(
                                     Object.assign([], materialPortions)
