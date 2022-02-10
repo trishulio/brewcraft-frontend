@@ -12,11 +12,16 @@ import BatchDescription from "./components/description";
 import BatchFileUploads from "./components/uploads";
 import Brewhouse from "./components/brewhouse";
 import Fermentation from "./components/fermentation/fermentation";
+import { ErrorMessage } from "../../helpers/textUtils";
 
 export default function Batch(props) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { data: batch, initial: initialBatch } = useSelector((state) => {
+    const {
+        data: batch,
+        initial: initialBatch,
+        error,
+    } = useSelector((state) => {
         return state.Batch.Batch;
     });
 
@@ -26,6 +31,8 @@ export default function Batch(props) {
                 <div className="mb-3">
                     <Toolbar {...props} />
                 </div>
+
+                {!!error && <ErrorMessage {...error} />}
                 <Card>
                     <CardBody className="px-2 px-sm-3">
                         <Row>

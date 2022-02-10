@@ -1,30 +1,23 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
     Dropdown,
     DropdownItem,
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import { addBrewStage } from "../../../../store/actions";
+import { transferToFermentStage } from "../../../../store/actions";
 import BatchStage from "../common/stage";
 
 export default function BrewWhirlpool({
     whirlpoolMixture,
     whirlpoolStage,
+    transferStage,
     isOpen,
     toggleIsOpen,
 }) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const dispatch = useDispatch();
-
-    const { data: batch } = useSelector((state) => {
-        return state.Batch.Batch;
-    });
-
-    const fermentStage = useSelector((state) => {
-        return state.Batch.FermentStage.data;
-    });
 
     const stageProps = {
         title: "Whirlpool",
@@ -49,23 +42,14 @@ export default function BrewWhirlpool({
                         Mixture <i className="fa fa-caret-down"></i>
                     </DropdownToggle>
                     <DropdownMenu>
-                        <DropdownItem disabled={!!fermentStage.id}>
+                        <DropdownItem disabled={!!transferStage?.id}>
                             <span
                                 className="text-dark"
                                 onClick={() => {
                                     dispatch(
-                                        addBrewStage({
+                                        transferToFermentStage({
                                             parentMixtureIds: [
                                                 whirlpoolMixture.id,
-                                            ],
-                                            form: [
-                                                {
-                                                    brewId: batch.id,
-                                                    taskId: 6, // transfer
-                                                    statusId: 4,
-                                                    startedAt:
-                                                        new Date().toISOString(),
-                                                },
                                             ],
                                         })
                                     );

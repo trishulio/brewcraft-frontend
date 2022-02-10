@@ -31,9 +31,11 @@ export const fetchMaterialPortionsByMixtureId = (id) => ({
     payload: { id },
 });
 
-export const setBrewMaterialPortions = (payload) => ({
+export const setBrewMaterialPortions = (materialPortions) => ({
     type: SET_BREW_MATERIAL_PORTIONS_DETAILS,
-    payload: { ...payload },
+    payload: {
+        content: [...materialPortions],
+    },
 });
 
 export const editMaterialPortions = (payload) => ({

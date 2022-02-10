@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Mash from "./mash";
 import Kettle from "./kettle";
 import Whirlpool from "./whirlpool";
-import Transfer from "./transfer";
-import { useSelector } from "react-redux";
 
-export default function BrewTabs({ mashMixture }) {
+export default function Brew({ mashMixture }) {
     const [isMashOpen, setIsMashOpen] = useState(true);
     const [isKettleOpen, setIsKettleOpen] = useState(false);
     const [isWhirlpoolOpen, setIsWhirlpoolOpen] = useState(false);
@@ -57,7 +56,8 @@ export default function BrewTabs({ mashMixture }) {
             state.Batch.Mixtures.content.find(
                 (m) =>
                     m.parentMixtureIds &&
-                    m.parentMixtureIds.includes(kettleMixture.id)
+                    m.parentMixtureIds.includes(kettleMixture.id) &&
+                    m.brewStage.task.id === 3
             )
         );
     });
@@ -97,43 +97,16 @@ export default function BrewTabs({ mashMixture }) {
     });
 
     useEffect(() => {
-        if (
-            mashStage?.status.id &&
-            mashStage?.status.id !== 2 &&
-            mashStage?.status.id !== 6
-        ) {
-            toggleIsOpen("mash");
-        }
-        if (
-            kettleStage?.status.id &&
-            kettleStage?.status.id !== 2 &&
-            kettleStage?.status.id !== 6
-        ) {
-            toggleIsOpen("kettle");
-        }
-        if (
-            whirlpoolStage?.status.id &&
-            whirlpoolStage?.status.id !== 2 &&
-            whirlpoolStage?.status.id !== 6
-        ) {
-            toggleIsOpen("whirlpool");
+        // Open the last stage that exists.
+        if (whirlpoolStage) {
+            toggleIsOpen("whirlpool", true);
+        } else if (kettleStage) {
+            toggleIsOpen("kettle", true);
+        } else {
+            toggleIsOpen("mash", true);
         }
         // eslint-disable-next-line
     }, [mashStage, kettleStage, whirlpoolStage]);
-
-    const props = {
-        mashMixture,
-        mashStage,
-        mashMaterialPortions,
-        kettleMixture,
-        kettleStage,
-        kettleMaterialPortions,
-        whirlpoolMixture,
-        whirlpoolStage,
-        transferMixture,
-        transferStage,
-        toggleIsOpen,
-    };
 
     function toggleIsOpen(index, show) {
         switch (index) {
@@ -157,12 +130,25 @@ export default function BrewTabs({ mashMixture }) {
         }
     }
 
+    const props = {
+        mashMixture,
+        mashStage,
+        mashMaterialPortions,
+        kettleMixture,
+        kettleStage,
+        kettleMaterialPortions,
+        whirlpoolMixture,
+        whirlpoolStage,
+        transferMixture,
+        transferStage,
+        toggleIsOpen,
+    };
+
     return (
         <React.Fragment>
             <Mash isOpen={isMashOpen} {...props} />
             <Kettle isOpen={isKettleOpen} {...props} />
             <Whirlpool isOpen={isWhirlpoolOpen} {...props} />
-            <Transfer {...props} />
         </React.Fragment>
     );
 }

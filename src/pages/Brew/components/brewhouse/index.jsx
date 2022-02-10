@@ -4,12 +4,18 @@ import { TabContent, TabPane } from "reactstrap";
 import { Card, CardBody, CardHeader } from "../../../../component/Common/Card";
 import Nav from "./nav";
 import Brew from "./brew";
+import Transfer from "./transfer";
 
 function Tabs({ mashMixtures, activeTab }) {
     return (
         <TabContent activeTab={activeTab}>
             {mashMixtures.map((mixture, index) => {
-                return <Tab key={index} indexv={index} mashMixture={mixture} />;
+                return (
+                    <React.Fragment key={index}>
+                        <Transfer mashMixture={mixture} />
+                        <Tab indexv={index} mashMixture={mixture} />
+                    </React.Fragment>
+                );
             })}
         </TabContent>
     );
@@ -17,7 +23,7 @@ function Tabs({ mashMixtures, activeTab }) {
 
 function Tab({ indexv, mashMixture }) {
     return (
-        <TabPane tabId={indexv + 1}>
+        <TabPane tabId={indexv + 1} className="border">
             <div className="accordion">
                 <Brew mashMixture={mashMixture} />
             </div>
@@ -76,7 +82,7 @@ export default function Brewhouse() {
                                 />
                             </div>
                             <Card className="shadow-none mb-0">
-                                <CardBody className="p-0 mx-2 border">
+                                <CardBody className="p-0 mx-2">
                                     <Tabs
                                         mashMixtures={mashMixtures}
                                         activeTab={activeTab}

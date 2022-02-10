@@ -14,7 +14,6 @@ import {
     DELETE_FERMENT_MATERIAL_PORTION_SUCCESS,
     EDIT_FERMENT_MATERIAL_PORTION_FAILURE,
     DELETE_FERMENT_MATERIAL_PORTION_FAILURE,
-    SET_FERMENT_MATERIAL_PORTION_DETAILS,
     FETCH_MATERIAL_PORTION_BY_BREW_ID_FAILURE,
     FETCH_MATERIAL_PORTIONS_BY_BREW_ID_SUCCESS,
     DELETE_MATERIAL_PORTIONS_REQUEST,
@@ -71,20 +70,8 @@ function* fetchMaterialPortionByBrewIdGenerator(action) {
         yield put({
             type: FETCH_MATERIAL_PORTIONS_BY_BREW_ID_SUCCESS,
             payload: {
-                content: [...res.data.content],
-                initial: [...res.data.content],
-            },
-        });
-
-        let content;
-        content = res.data.content.filter(
-            (mp) => mp.mixture.brewStage.task.name === "FERMENT"
-        );
-        yield put({
-            type: SET_FERMENT_MATERIAL_PORTION_DETAILS,
-            payload: {
-                content: JSON.parse(JSON.stringify(content)),
-                initial: JSON.parse(JSON.stringify(content)),
+                content: JSON.parse(JSON.stringify(res.data.content)),
+                initial: JSON.parse(JSON.stringify(res.data.content)),
             },
         });
     } catch (e) {

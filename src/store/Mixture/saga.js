@@ -40,17 +40,6 @@ function* fetchMixturesByBrewIdGenerator(action) {
                 initial: [...res.data.content],
             },
         });
-
-        let content;
-        content = res.data.content.find(
-            (m) => m.brewStage.task.name === "FERMENT"
-        );
-        if (content) {
-            yield put({
-                type: SET_FERMENT_MIXTURE_DETAILS,
-                payload: { data: content, initial: content },
-            });
-        }
     } catch (e) {
         yield put({
             type: FETCH_MIXTURE_BY_BREW_ID_FAILURE,
@@ -85,7 +74,7 @@ function* editBrewMixtureGenerator(action) {
 
 function* deleteBrewMixtureGenerator(action) {
     try {
-        yield call(api.deleteMixture, get(action, "payload.id"));
+        yield call(api.deleteMixture, get(action, "payload.mixtures"));
         yield put({
             type: DELETE_BREW_MIXTURE_SUCCESS,
             payload: get(action, "payload"),

@@ -17,6 +17,7 @@ import {
     SET_BREW_STAGES,
     ADD_BREW_STAGE_REQUEST,
     TRANSFER_TO_FERMENT_STAGE_REQUEST,
+    DELETE_BREW_STAGE_REQUEST,
 } from "./actionTypes";
 
 export const fetchAllBrewStages = (id) => ({
@@ -35,6 +36,11 @@ export const editBrewStages = ({ id, form }) => ({
         id,
         form: { ...form },
     },
+});
+
+export const deleteBrewStage = (stage) => ({
+    type: DELETE_BREW_STAGE_REQUEST,
+    payload: { stage },
 });
 
 export const setBrewStageDetails = (payload) => ({
@@ -113,9 +119,10 @@ export const resetBriteTankStageDetails = () => ({
     payload: null,
 });
 
-export const transferToFermentStage = (fermentMixtureId) => ({
+export const transferToFermentStage = ({ mixture, fermentMixture }) => ({
     type: TRANSFER_TO_FERMENT_STAGE_REQUEST,
     payload: {
-        fermentMixtureId,
+        parentMixtureIds: [mixture.id],
+        fermentMixture: fermentMixture,
     },
 });

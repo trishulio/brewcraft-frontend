@@ -44,6 +44,12 @@ async function deleteBrewStage(id) {
     );
 }
 
+async function deleteBrewMixture(id) {
+    return await AxiosInstance.delete(`/api/v1/brews/mixtures/${id}`).then(
+        (r) => r
+    );
+}
+
 export const api = {
     fetchBrewStages,
     fetchBrewStageById,
@@ -51,4 +57,5 @@ export const api = {
     addMixture,
     updateBrewStage,
     deleteBrewStage,
+    deleteBrewMixture,
 };
