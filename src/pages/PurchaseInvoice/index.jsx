@@ -14,9 +14,8 @@ import {
     fetchAllMaterialCategories,
     resetPurchaseInvoiceDetails,
     fetchAllSuppliers,
-    fetchAllIngredients,
-    fetchAllPackaging,
     updatePurchaseOrder,
+    fetchAllMaterials,
 } from "../../store/actions";
 import PurchaseInvoiceInner from "./invoice";
 
@@ -64,14 +63,16 @@ export default function PurchaseInvoice() {
     };
 
     useEffect(() => {
-        dispatch(resetPurchaseInvoiceDetails());
+        if (!isSaving) {
+            dispatch(resetPurchaseInvoiceDetails());
+        }
         // eslint-disable-next-line
     }, [shipmentId, invoiceId, editMode]);
 
     useEffect(() => {
         if (!shipmentId || !invoiceId) {
             history.replace("/purchases/invoices/new?edit=true");
-        } else if (shipmentId && invoiceId) {
+        } else if (shipmentId && invoiceId && !isSaving) {
             dispatch(
                 fetchProcuementByShipmentIdAndInvoiceId(shipmentId, invoiceId)
             );
@@ -79,8 +80,7 @@ export default function PurchaseInvoice() {
         if (editMode) {
             dispatch(fetchAllMaterialCategories());
             dispatch(fetchAllSuppliers());
-            dispatch(fetchAllIngredients());
-            dispatch(fetchAllPackaging());
+            dispatch(fetchAllMaterials());
         }
         setEditable(editMode && editMode !== "false");
         setShowRouterPrompt(!!editMode);
