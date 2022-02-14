@@ -44,12 +44,13 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 hidden={!finishedGood.id || editable}
                 onClick={() => {
                     history.push({
-                        pathname: "/finished-goods/" + finishedGood.id,
+                        pathname:
+                            "/inventory/finished-goods/" + finishedGood.id,
                         search: "?edit=true",
                     });
                 }}
             >
-                Edit Good
+                Edit Finished Good
             </Button>
             <Button
                 type="button"
@@ -59,12 +60,12 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 hidden={!finishedGood.id || editable}
                 onClick={() => {
                     history.push({
-                        pathname: "/finished-goods/new",
+                        pathname: "/inventory/finished-goods/new",
                         search: "?edit=true",
                     });
                 }}
             >
-                New Good
+                New Finished Good
             </Button>
             <Button
                 type="button"
@@ -73,9 +74,8 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 className="waves-effect mr-2 mb-3"
                 onClick={onDelete}
                 hidden={!finishedGood.id || !editable}
-                disabled={true}
             >
-                Delete Good
+                Delete Finished Good
             </Button>
             <Button
                 type="button"
@@ -85,7 +85,7 @@ export default function Toolbar({ editable, changed, onSave, onDelete }) {
                 hidden={!finishedGood.id || editable}
                 outline={true}
                 onClick={() => {
-                    history.push("/finished-goods");
+                    history.push("/inventory/finished-goods/summary");
                 }}
             >
                 Finished Goods

@@ -40,8 +40,8 @@ import Materials from "./Materials/reducer";
 import MaterialCategories from "./MaterialCategories/reducer";
 import MaterialCategory from "./MaterialCategory/reducer";
 import Measures from "./Measures/reducer";
+import Mixtures from "./Mixtures/reducer";
 import {
-    Mixtures,
     MashMixture,
     KettleMixture,
     WhirlpoolMixture,
@@ -122,6 +122,7 @@ const rootReducer = combineReducers({
     MaterialCategory,
     Measures,
     MiniCards,
+    Mixtures,
     Notifications,
     Packaging,
     PackagingItem,

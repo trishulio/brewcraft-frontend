@@ -48,7 +48,10 @@ class CreateMenu extends Component {
                         >
                             Ingredient
                         </DropdownItem>
-                        <DropdownItem tag={Link} to="/finished-goods/new">
+                        <DropdownItem
+                            tag={Link}
+                            to="/inventory/finished-goods/new"
+                        >
                             Finished Good
                         </DropdownItem>
                         <DropdownItem tag={Link} to="/products/new">
