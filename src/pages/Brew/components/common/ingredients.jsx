@@ -165,27 +165,24 @@ export default function BatchIngredients({ mixture }) {
                         size="sm"
                         className="waves-effect mr-2 mb-0"
                         onClick={() => {
-                            const index = materialPortions.findIndex(
+                            debugger;
+                            const materialPortion = materialPortions.find(
                                 (mp) =>
                                     mp.materialLot.id ===
                                     selectedLot.materialLot.id
                             );
-                            let materialPortion;
-                            if (index >= 0) {
-                                materialPortion = Object.assign(
-                                    materialPortions[index]
-                                );
+                            if (materialPortion) {
                                 materialPortion.quantity.value +=
                                     parseFloat(selectedLotQuantity);
                             } else {
-                                materialPortion = {
+                                materialPortions.push({
                                     ...selectedLot,
                                     quantity: {
                                         symbol: selectedLot.quantity.symbol,
                                         value: parseFloat(selectedLotQuantity),
                                     },
                                     mixture: mixture,
-                                };
+                                });
                             }
                             dispatch(
                                 setBrewMaterialPortions(
