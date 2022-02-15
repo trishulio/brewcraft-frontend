@@ -14,7 +14,7 @@ import CommonTable from "../../../component/Common/table";
 import { isValidNumberString } from "../../../helpers/utils";
 import { setFinishedGoodInvalidMaterialPortions } from "../../../store/actions";
 
-export default function BatchIngredients({
+export default function FinishedGoodMaterials({
     label,
     editable,
     materialPortions,
@@ -34,10 +34,6 @@ export default function BatchIngredients({
         return state.MaterialLots.stock;
     });
 
-    if (!materialPortions) {
-        materialPortions = [];
-    }
-
     return (
         <React.Fragment>
             <Label>{label}</Label>
@@ -54,7 +50,7 @@ export default function BatchIngredients({
                         </tr>
                     </thead>
                     <tbody>
-                        {(!materialPortions || !materialPortions.length) && (
+                        {!materialPortions.length && (
                             <tr>
                                 <td></td>
                                 <td>-</td>
@@ -63,59 +59,57 @@ export default function BatchIngredients({
                                 <td>-</td>
                             </tr>
                         )}
-                        {materialPortions &&
-                            map(materialPortions, (portion, index) => (
-                                <tr key={index}>
-                                    <td style={{ width: "2rem" }}>
-                                        <div className="d-flex align-items-center vertical-center">
-                                            {editable && (
-                                                <Input
-                                                    className="ml-1"
-                                                    type="checkbox"
-                                                    disabled={!editable}
-                                                    onChange={(e) => {
-                                                        if (e.target.checked) {
-                                                            setLots([
-                                                                ...lots,
-                                                                index,
-                                                            ]);
-                                                        } else {
-                                                            setLots(
-                                                                lots.filter(
-                                                                    (l) =>
-                                                                        l !==
-                                                                        index
-                                                                )
-                                                            );
-                                                        }
-                                                    }}
-                                                    checked={
-                                                        lots.includes(index) &&
-                                                        editable
+                        {map(materialPortions, (portion, index) => (
+                            <tr key={index}>
+                                <td style={{ width: "2rem" }}>
+                                    <div className="d-flex align-items-center vertical-center">
+                                        {editable && (
+                                            <Input
+                                                className="ml-1"
+                                                type="checkbox"
+                                                disabled={!editable}
+                                                onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        setLots([
+                                                            ...lots,
+                                                            index,
+                                                        ]);
+                                                    } else {
+                                                        setLots(
+                                                            lots.filter(
+                                                                (l) =>
+                                                                    l !== index
+                                                            )
+                                                        );
                                                     }
-                                                />
-                                            )}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        {
-                                            portion.materialLot.invoiceItem
-                                                .material.name
-                                        }
-                                    </td>
-                                    <td>
-                                        {
-                                            portion.materialLot.invoiceItem
-                                                .material.category?.name
-                                        }
-                                    </td>
-                                    <td>{portion.materialLot.lotNumber}</td>
-                                    <td>
-                                        {portion.quantity.value}{" "}
-                                        {portion.quantity.symbol}
-                                    </td>
-                                </tr>
-                            ))}
+                                                }}
+                                                checked={
+                                                    lots.includes(index) &&
+                                                    editable
+                                                }
+                                            />
+                                        )}
+                                    </div>
+                                </td>
+                                <td>
+                                    {
+                                        portion.materialLot.invoiceItem.material
+                                            .name
+                                    }
+                                </td>
+                                <td>
+                                    {
+                                        portion.materialLot.invoiceItem.material
+                                            .category?.name
+                                    }
+                                </td>
+                                <td>{portion.materialLot.lotNumber}</td>
+                                <td>
+                                    {portion.quantity.value}{" "}
+                                    {portion.quantity.symbol}
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </CommonTable>
             </div>
@@ -138,7 +132,7 @@ export default function BatchIngredients({
                                             );
                                         }
                                     );
-                                    if (materialPortions?.length < 1) {
+                                    if (materialPortions.length < 1) {
                                         dispatch(
                                             setFinishedGoodInvalidMaterialPortions(
                                                 !e.target.value

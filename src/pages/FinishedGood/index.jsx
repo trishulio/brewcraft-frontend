@@ -64,7 +64,12 @@ export default function FinishedGood() {
         dispatch(resetFinishedGoodDetails());
 
         if (!id || id === "new") {
-            //do nothing
+            dispatch(resetFinishedGoodDetails());
+            if (isRepackageMode) {
+                history.replace("new?edit=true&repackage=true");
+            } else {
+                history.replace("new?edit=true");
+            }
         } else {
             dispatch(fetchFinishedGoodById(id));
         }
@@ -233,7 +238,7 @@ export default function FinishedGood() {
         if (!validateFinishedGoodInputs(finishedGood)) {
             return;
         }
-
+        setShowRouterPrompt(false);
         if (!isChanged()) {
             history.push("/inventory/finished-goods/" + id);
         } else if (finishedGood.id) {
@@ -287,10 +292,7 @@ export default function FinishedGood() {
             dispatch(setFinishedGoodInvalidFinishedGoodLotPortions(true));
             result = false;
         }
-        if (
-            !finishedGood.quantity ||
-            !validAmount(finishedGood.quantity.value)
-        ) {
+        if (!finishedGood.quantity) {
             dispatch(setFinishedGoodInvalidQuantity(true));
             result = false;
         }

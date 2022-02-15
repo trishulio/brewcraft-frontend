@@ -20,7 +20,7 @@ import {
     fetchMixtures,
 } from "../../../store/actions";
 import { validDate } from "../../../helpers/utils";
-import Ingredients from "./ingredients";
+import PackagingMaterials from "./packagingMaterials";
 import FinishedGoodLotPortions from "./finishedgoodlotportions";
 
 export default function FinishedGoodDetails({ editable, repackageMode }) {
@@ -79,7 +79,7 @@ export default function FinishedGoodDetails({ editable, repackageMode }) {
         );
     }
 
-    const ingredientsProps = {
+    const packagingMaterialsProps = {
         label: "Packaging Materials",
         editable,
         materialPortions,
@@ -227,7 +227,7 @@ export default function FinishedGoodDetails({ editable, repackageMode }) {
                         //Only set mixturePortion quantity when repackageMode is false
                         let mixturePortions;
                         if (finishedGood.sku) {
-                            let mixturePortions =
+                            mixturePortions =
                                 finishedGood?.mixturePortions?.length > 0
                                     ? JSON.parse(
                                           JSON.stringify(
@@ -240,7 +240,7 @@ export default function FinishedGoodDetails({ editable, repackageMode }) {
                                 finishedGood.sku.quantity.symbol;
                             mixturePortions[0].quantity.value =
                                 finishedGood.sku.quantity.value *
-                                e.target.value;
+                                parseInt(e.target.value);
                         }
                         dispatch(
                             setFinishedGoodDetails({
@@ -510,14 +510,9 @@ export default function FinishedGoodDetails({ editable, repackageMode }) {
                                 </FormGroup>
                                 <div className="d-inline-block font-size-12 mb-2">
                                     <div hidden={editable}>
-                                        {finishedGood.mixturePortions?.length >
-                                        0
-                                            ? finishedGood.mixturePortions[0]
-                                                  .quantity.value +
-                                              " " +
-                                              finishedGood.mixturePortions[0]
-                                                  .quantity.symbol
-                                            : "-"}
+                                        {calculateMixtureQuantity(
+                                            finishedGood
+                                        ) || "-"}
                                     </div>
                                 </div>
                                 <div className="clearFix"></div>
@@ -527,7 +522,9 @@ export default function FinishedGoodDetails({ editable, repackageMode }) {
                     <Row>
                         <Col xs={12}>
                             <div className="clearfix mb-3">
-                                <Ingredients {...ingredientsProps} />
+                                <PackagingMaterials
+                                    {...packagingMaterialsProps}
+                                />
                             </div>
                             <div className="clearFix"></div>
                         </Col>

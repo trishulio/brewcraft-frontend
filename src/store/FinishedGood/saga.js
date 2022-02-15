@@ -61,8 +61,7 @@ function* udpateFinishedGoodGenerator(action) {
         });
         yield put(
             setGlobalRedirect({
-                pathname: "/inventory/finished-goods/" + res.data[0].id,
-                search: "",
+                pathname: "/inventory/finished-goods/" + res.data.id,
             })
         );
     } catch (e) {

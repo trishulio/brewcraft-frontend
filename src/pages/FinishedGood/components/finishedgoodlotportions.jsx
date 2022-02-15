@@ -38,17 +38,9 @@ export default function FinishedGoodLotPortions({
         return state.Batches.all;
     });
 
-    if (!finishedGoodLotPortions) {
-        finishedGoodLotPortions = [];
-    }
-
     function getBatchId(finishedGood) {
         let batchId = null;
-        if (
-            finishedGood &&
-            finishedGood.mixturePortions &&
-            finishedGood.mixturePortions[0]
-        ) {
+        if (finishedGood?.mixturePortions?.length > 0) {
             const batch = batches.find(
                 (b) =>
                     b.id ===
@@ -76,8 +68,7 @@ export default function FinishedGoodLotPortions({
                         </tr>
                     </thead>
                     <tbody>
-                        {(!finishedGoodLotPortions ||
-                            !finishedGoodLotPortions.length) && (
+                        {!finishedGoodLotPortions.length && (
                             <tr>
                                 <td></td>
                                 <td>-</td>
@@ -87,59 +78,50 @@ export default function FinishedGoodLotPortions({
                                 <td>-</td>
                             </tr>
                         )}
-                        {finishedGoodLotPortions &&
-                            map(finishedGoodLotPortions, (portion, index) => (
-                                <tr key={index}>
-                                    <td style={{ width: "2rem" }}>
-                                        <div className="d-flex align-items-center vertical-center">
-                                            {editable && (
-                                                <Input
-                                                    className="ml-1"
-                                                    type="checkbox"
-                                                    disabled={!editable}
-                                                    onChange={(e) => {
-                                                        if (e.target.checked) {
-                                                            setLots([
-                                                                ...lots,
-                                                                index,
-                                                            ]);
-                                                        } else {
-                                                            setLots(
-                                                                lots.filter(
-                                                                    (l) =>
-                                                                        l !==
-                                                                        index
-                                                                )
-                                                            );
-                                                        }
-                                                    }}
-                                                    checked={
-                                                        lots.includes(index) &&
-                                                        editable
+                        {map(finishedGoodLotPortions, (portion, index) => (
+                            <tr key={index}>
+                                <td style={{ width: "2rem" }}>
+                                    <div className="d-flex align-items-center vertical-center">
+                                        {editable && (
+                                            <Input
+                                                className="ml-1"
+                                                type="checkbox"
+                                                disabled={!editable}
+                                                onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        setLots([
+                                                            ...lots,
+                                                            index,
+                                                        ]);
+                                                    } else {
+                                                        setLots(
+                                                            lots.filter(
+                                                                (l) =>
+                                                                    l !== index
+                                                            )
+                                                        );
                                                     }
-                                                />
-                                            )}
-                                        </div>
-                                    </td>
-                                    <td>{portion.finishedGoodLot.sku.name}</td>
-                                    <td>
-                                        {
-                                            portion.finishedGoodLot.sku.product
-                                                .name
-                                        }
-                                    </td>
-                                    <td>
-                                        {getBatchId(portion.finishedGoodLot)}
-                                    </td>
-                                    <td>
-                                        {portion.finishedGoodLot.packagedOn}
-                                    </td>
-                                    <td>
-                                        {portion.quantity.value}{" "}
-                                        {portion.quantity.symbol}
-                                    </td>
-                                </tr>
-                            ))}
+                                                }}
+                                                checked={
+                                                    lots.includes(index) &&
+                                                    editable
+                                                }
+                                            />
+                                        )}
+                                    </div>
+                                </td>
+                                <td>{portion.finishedGoodLot.sku.name}</td>
+                                <td>
+                                    {portion.finishedGoodLot.sku.product.name}
+                                </td>
+                                <td>{getBatchId(portion.finishedGoodLot)}</td>
+                                <td>{portion.finishedGoodLot.packagedOn}</td>
+                                <td>
+                                    {portion.quantity.value}{" "}
+                                    {portion.quantity.symbol}
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </CommonTable>
             </div>
@@ -161,7 +143,7 @@ export default function FinishedGoodLotPortions({
                                                 parseInt(e.target.value)
                                             );
                                         });
-                                    if (finishedGoodLotPortions?.length < 1) {
+                                    if (finishedGoodLotPortions.length < 1) {
                                         dispatch(
                                             setFinishedGoodInvalidFinishedGoodLotPortions(
                                                 !e.target.value
