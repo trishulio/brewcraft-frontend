@@ -24,7 +24,7 @@ import { useQuery } from "../../helpers/utils";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import FinishedGoodInner from "./finished-good";
-import { isNotEmptyArray, validAmount, validDate } from "../../helpers/utils";
+import { isNotEmptyArray, validDate } from "../../helpers/utils";
 
 export default function FinishedGood() {
     const [editable, setEditable] = useState(false);
