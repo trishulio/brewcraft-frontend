@@ -3,20 +3,20 @@ import {
     FETCH_FINISHED_GOOD,
     UPDATE_FINISHED_GOOD,
     SET_FINISHED_GOOD_DETAILS,
-    INVALID_NAME,
-    INVALID_CLASS,
-    INVALID_TYPE,
-    INVALID_STYLE,
-    INVALID_DESCRIPTION,
+    SET_FINISHED_GOOD_DETAILS_ERROR,
+    INVALID_SKU,
+    INVALID_MATERIAL_PORTIONS,
+    INVALID_MIXTURE_PORTIONS,
+    INVALID_FINISHED_GOOD_LOT_PORTIONS,
+    INVALID_QUANTITY,
+    INVALID_PACKAGED_ON,
     RESET_FINISHED_GOOD_DETAILS,
     DELETE_FINISHED_GOOD,
 } from "./actionTypes";
 
-export const setFinishedGoodDetails = (finishedGood) => ({
+export const setFinishedGoodDetails = (payload) => ({
     type: SET_FINISHED_GOOD_DETAILS,
-    payload: {
-        data: finishedGood,
-    },
+    payload,
 });
 
 export const fetchFinishedGoodById = (id) => ({
@@ -24,25 +24,14 @@ export const fetchFinishedGoodById = (id) => ({
     payload: { id },
 });
 
-export const createFinishedGood = (params) => ({
+export const createFinishedGood = (payload) => ({
     type: CREATE_FINISHED_GOOD,
-    payload: {
-        ...params,
-    },
+    payload,
 });
 
-export const updateFinishedGood = ({ data, categoryId, success }) => ({
+export const updateFinishedGood = (payload) => ({
     type: UPDATE_FINISHED_GOOD,
-    payload: {
-        id: data.id,
-        form: {
-            name: data.name,
-            description: data.description || "",
-            categoryId: categoryId,
-            version: data.version,
-        },
-        success: success,
-    },
+    payload,
 });
 
 export const deleteFinishedGood = (id) => ({
@@ -50,42 +39,44 @@ export const deleteFinishedGood = (id) => ({
     payload: { id },
 });
 
-export const setFinishedGoodInvalidName = (enabled) => ({
-    type: INVALID_NAME,
+export const setFinishedGoodInvalidSku = (value) => ({
+    type: INVALID_SKU,
+    payload: value,
+});
+
+export const setFinishedGoodInvalidMaterialPortions = (value) => ({
+    type: INVALID_MATERIAL_PORTIONS,
+    payload: value,
+});
+
+export const setFinishedGoodInvalidMixturePortions = (value) => ({
+    type: INVALID_MIXTURE_PORTIONS,
+    payload: value,
+});
+
+export const setFinishedGoodInvalidFinishedGoodLotPortions = (value) => ({
+    type: INVALID_FINISHED_GOOD_LOT_PORTIONS,
+    payload: value,
+});
+
+export const setFinishedGoodInvalidQuantity = (value) => ({
+    type: INVALID_QUANTITY,
+    payload: value,
+});
+
+export const setFinishedGoodInvalidPackagedOn = (value) => ({
+    type: INVALID_PACKAGED_ON,
+    payload: value,
+});
+
+export const setFinishedGoodDetailsError = (error) => ({
+    type: SET_FINISHED_GOOD_DETAILS_ERROR,
     payload: {
-        invalidName: enabled,
+        ...error,
     },
 });
 
-export const setFinishedGoodInvalidClass = (enabled) => ({
-    type: INVALID_CLASS,
-    payload: {
-        invalidClass: enabled,
-    },
-});
-
-export const setFinishedGoodInvalidType = (enabled) => ({
-    type: INVALID_TYPE,
-    payload: {
-        invalidType: enabled,
-    },
-});
-
-export const setFinishedGoodInvalidStyle = (enabled) => ({
-    type: INVALID_STYLE,
-    payload: {
-        invalidStyle: enabled,
-    },
-});
-
-export const setFinishedGoodInvalidDescription = (enabled) => ({
-    type: INVALID_DESCRIPTION,
-    payload: {
-        invalidDescription: enabled,
-    },
-});
-
-export const resetFinishedGoodDetails = (success) => ({
+export const resetFinishedGoodDetails = () => ({
     type: RESET_FINISHED_GOOD_DETAILS,
-    payload: success,
+    payload: null,
 });

@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "../../helpers/utils";
 import {
     setBreadcrumbItems,
-    fetchFinishedGoods,
+    fetchFinishedGoodsInventory,
     fetchAllProducts,
     fetchAllSkus,
     fetchAllBatches,
+    resetFinishedGoodsInventory,
 } from "../../store/actions";
 import FinishedGoodsInner from "./finished-goods";
 
@@ -20,7 +21,7 @@ export default function FinshedGoods() {
     const order = query.get("order");
 
     const { pageIndex, pageSize } = useSelector((state) => {
-        return state.FinishedGoods;
+        return state.FinishedGoodsInventory;
     });
 
     useEffect(() => {
@@ -43,7 +44,8 @@ export default function FinshedGoods() {
             sort,
             order,
         };
-        dispatch(fetchFinishedGoods({ ...props }));
+        dispatch(resetFinishedGoodsInventory());
+        dispatch(fetchFinishedGoodsInventory({ ...props }));
         dispatch(fetchAllSkus());
         dispatch(fetchAllProducts());
         dispatch(fetchAllBatches());

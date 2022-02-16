@@ -19,6 +19,7 @@ export * from "./MaterialCategory/actions";
 export * from "./Measures/actions";
 export * from "./MiniCards/actions";
 export * from "./Mixture/actions";
+export * from "./Mixtures/actions";
 export * from "./MixtureRecording/actions";
 export * from "./Packaging/actions";
 export * from "./PackagingItem/actions";

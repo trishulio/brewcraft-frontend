@@ -1,5 +1,6 @@
 import {
     SET_FINISHED_GOOD_DETAILS,
+    SET_FINISHED_GOOD_DETAILS_ERROR,
     FETCH_FINISHED_GOOD,
     CREATE_FINISHED_GOOD,
     UPDATE_FINISHED_GOOD,
@@ -8,8 +9,7 @@ import {
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
-import { snackFailure, snackSuccess } from "../Snackbar/actions";
-import { setGlobalRedirect } from "../Brewery/actions";
+import { setGlobalRedirect } from "../../store/actions";
 
 function* fetchFinishedGoodByIdGenerator(action) {
     try {
@@ -17,18 +17,34 @@ function* fetchFinishedGoodByIdGenerator(action) {
             api.fetchFinishedGoodById,
             get(action, "payload.id")
         );
-        res.initialFinishedGood = JSON.parse(JSON.stringify(res.data));
-        yield put({ type: SET_FINISHED_GOOD_DETAILS, payload: { ...res } });
+        yield put({
+            type: SET_FINISHED_GOOD_DETAILS,
+            payload: { data: res.data, initial: res.data },
+        });
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({
+            type: SET_FINISHED_GOOD_DETAILS_ERROR,
+            payload: { error: true },
+        });
     }
 }
 
 function* createFinishedGoodGenerator(action) {
     try {
-        yield call(api.addFinishedGood, get(action, "payload.form"));
+        const res = yield call(
+            api.createFinishedGood,
+            get(action, "payload.form")
+        );
+        yield put(
+            setGlobalRedirect({
+                pathname: "/inventory/finished-goods/" + res.data[0].id,
+            })
+        );
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({
+            type: SET_FINISHED_GOOD_DETAILS_ERROR,
+            payload: { error: true },
+        });
     }
 }
 
@@ -39,28 +55,32 @@ function* udpateFinishedGoodGenerator(action) {
             get(action, "payload.id"),
             get(action, "payload.form")
         );
-        res.initialFinishedGood = JSON.parse(JSON.stringify(res.data));
-        yield put({ type: SET_FINISHED_GOOD_DETAILS, payload: { ...res } });
-        if (action.payload.success) {
-            action.payload.success(res.data.id);
-        }
+        yield put({
+            type: SET_FINISHED_GOOD_DETAILS,
+            payload: { data: res.data, initial: res.data },
+        });
         yield put(
-            snackSuccess(
-                `Updated finished good ${get(action, "payload.form.name")}.`
-            )
+            setGlobalRedirect({
+                pathname: "/inventory/finished-goods/" + res.data.id,
+            })
         );
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({
+            type: SET_FINISHED_GOOD_DETAILS_ERROR,
+            payload: { error: true },
+        });
     }
 }
 
 function* deleteFinishedGoodGenerator(action) {
     try {
         yield call(api.deleteFinishedGood, get(action, "payload.id"));
-        yield put(setGlobalRedirect({ pathname: "/finished-goods" }));
-        yield put(snackSuccess("Deleted finished good."));
+        yield put(setGlobalRedirect({ pathname: "/inventory/finished-goods" }));
     } catch (e) {
-        yield put(snackFailure("Something went wrong please try again."));
+        yield put({
+            type: SET_FINISHED_GOOD_DETAILS_ERROR,
+            payload: { error: true },
+        });
     }
 }
 

@@ -9,7 +9,7 @@ export default function FinishedGoodsTable() {
     const query = useQuery();
 
     const finishedGoods = useSelector((state) => {
-        return state.FinishedGoods.content;
+        return state.FinishedGoodsInventory.content;
     });
 
     function onSort(e) {
@@ -53,6 +53,34 @@ export default function FinishedGoodsTable() {
         }
     }
 
+    /* eslint-disable no-unused-expressions */
+    function getBatchIds(finishedGood) {
+        let batchIds = new Set();
+        finishedGood?.mixturePortions?.forEach((mixturePortion) => {
+            if (mixturePortion.mixture && mixturePortion.mixture.brewStage) {
+                batchIds.add(mixturePortion.mixture.brewStage.brew.batchId);
+            }
+        });
+
+        finishedGood?.finishedGoodLotPortions?.forEach(
+            (finishedGoodLotPortion) => {
+                finishedGoodLotPortion.finishedGoodLot.mixturePortions.forEach(
+                    (mixturePortion) => {
+                        if (
+                            mixturePortion.mixture &&
+                            mixturePortion.mixture.brewStage
+                        ) {
+                            batchIds.add(
+                                mixturePortion.mixture.brewStage.brew.batchId
+                            );
+                        }
+                    }
+                );
+            }
+        );
+        return batchIds;
+    }
+
     return (
         <Table hover>
             <thead>
@@ -65,10 +93,13 @@ export default function FinishedGoodsTable() {
                         Product
                     </Th>
                     <Th name="fgBatches" id="batches" onSort={onSort}>
-                        Packaged From Batch ID
+                        Packaged From Batch IDs
                     </Th>
                     <Th name="fgPackagedOn" id="packagedOn" onSort={onSort}>
                         Packaged On
+                    </Th>
+                    <Th name="fgQuantity" id="quantity" onSort={onSort}>
+                        Quantity Avail.
                     </Th>
                 </tr>
             </thead>
@@ -77,24 +108,17 @@ export default function FinishedGoodsTable() {
                     <tr
                         key={key}
                         onClick={() =>
-                            history.push("/finished-goods/" + finishedGood.id)
+                            history.push(
+                                "/inventory/finished-goods/" + finishedGood.id
+                            )
                         }
                     >
                         <td></td>
                         <td>{finishedGood.sku.name}</td>
                         <td>{finishedGood.sku.product.name}</td>
-                        <td>
-                            {finishedGood.mixturePortions
-                                ? finishedGood.mixturePortions
-                                      .map(
-                                          (mixturePortion) =>
-                                              mixturePortion.mixture.brewStage
-                                                  .brew.batchId
-                                      )
-                                      .join(", ")
-                                : ""}
-                        </td>
+                        <td>{[...getBatchIds(finishedGood)].join(", ")}</td>
                         <td>{finishedGood.packagedOn}</td>
+                        <td>{finishedGood.quantity.value}</td>
                     </tr>
                 ))}
             </tbody>

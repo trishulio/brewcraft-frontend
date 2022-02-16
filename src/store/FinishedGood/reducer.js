@@ -1,77 +1,113 @@
 import {
-    INVALID_NAME,
-    INVALID_CLASS,
-    INVALID_TYPE,
-    INVALID_STYLE,
-    INVALID_DESCRIPTION,
+    INVALID_SKU,
+    INVALID_MATERIAL_PORTIONS,
+    INVALID_MIXTURE_PORTIONS,
+    INVALID_FINISHED_GOOD_LOT_PORTIONS,
+    INVALID_QUANTITY,
+    INVALID_PACKAGED_ON,
     SET_FINISHED_GOOD_DETAILS,
+    SET_FINISHED_GOOD_DETAILS_ERROR,
     RESET_FINISHED_GOOD_DETAILS,
 } from "./actionTypes";
 
 const initialState = {
     data: {
         id: null,
-        name: "",
-        description: "",
-        finishedGoodClass: null,
-        style: null,
-        type: null,
-        targetMeasures: [],
+        sku: null,
+        mixturePortions: [],
+        materialPortions: [],
+        finishedGoodLotPortions: [],
+        quantity: null,
+        packagedOn: null,
         version: null,
     },
     initialFinishedGood: {
         id: null,
-        name: "",
-        description: "",
-        finishedGoodClass: null,
-        style: null,
-        type: null,
-        targetMeasures: [],
+        sku: null,
+        mixturePortions: [],
+        materialPortions: [],
+        finishedGoodLotPortions: [],
+        quantity: null,
+        packagedOn: null,
         version: null,
     },
-    status: null,
-    color: "info",
-    type: null,
-    invalidName: false,
-    invalidClass: false,
-    invalidType: false,
-    invalidStyle: false,
-    invalidDescription: false,
-    redirect: false,
+    invalidSku: false,
+    invalidMaterialPortion: false,
+    invalidMixturePortion: false,
+    invalidFinishedGoodLotPortions: false,
+    invalidQuantity: false,
+    invalidPackagedOn: false,
     loading: true,
     error: null,
 };
 
 const FinishedGood = (state = initialState, { type, payload }) => {
     switch (type) {
-        case INVALID_NAME:
-        case INVALID_CLASS:
-        case INVALID_TYPE:
-        case INVALID_STYLE:
-        case INVALID_DESCRIPTION:
+        case INVALID_SKU:
+            return {
+                ...state,
+                invalidSku: payload,
+                loading: false,
+                error: true,
+            };
+        case INVALID_MATERIAL_PORTIONS:
+            return {
+                ...state,
+                invalidMaterialPortions: payload,
+                loading: false,
+                error: true,
+            };
+        case INVALID_MIXTURE_PORTIONS:
+            return {
+                ...state,
+                invalidMixturePortions: payload,
+                loading: false,
+                error: true,
+            };
+        case INVALID_FINISHED_GOOD_LOT_PORTIONS:
+            return {
+                ...state,
+                invalidFinishedGoodLotPortions: payload,
+                loading: false,
+                error: true,
+            };
+        case INVALID_QUANTITY:
+            return {
+                ...state,
+                invalidQuantity: payload,
+                loading: false,
+                error: true,
+            };
+        case INVALID_PACKAGED_ON:
+            return {
+                ...state,
+                invalidPackagedOn: payload,
+                loading: false,
+                error: true,
+            };
         case SET_FINISHED_GOOD_DETAILS:
             return {
                 ...state,
                 ...payload,
-                data: {
-                    ...state.data,
-                    ...payload.data,
-                },
-                redirect: state.redirect,
                 loading: false,
                 error: null,
+            };
+        case SET_FINISHED_GOOD_DETAILS_ERROR:
+            return {
+                ...state,
+                ...payload,
+                loading: false,
+                error: true,
             };
         case RESET_FINISHED_GOOD_DETAILS:
             return {
                 ...initialState,
-                redirect: state.redirect,
                 loading: false,
                 error: null,
             };
         default:
             return {
                 ...state,
-                redirect: false,
                 loading: true,
                 error: null,
             };
