@@ -163,7 +163,7 @@ export default function FinishedGood() {
     }
 
     function getCreatePayload(finishedGood) {
-        let finishedGoodCreatePayload = {};
+        const finishedGoodCreatePayload = {};
         finishedGoodCreatePayload.id = null;
         finishedGoodCreatePayload.skuId = finishedGood.sku.id;
         finishedGoodCreatePayload.mixturePortions = !repackageMode
@@ -196,7 +196,7 @@ export default function FinishedGood() {
     }
 
     function getUpdatePayload(finishedGood) {
-        let finishedGoodUpdatePayload = {};
+        const finishedGoodUpdatePayload = {};
         finishedGoodUpdatePayload.id = finishedGood.id;
         finishedGoodUpdatePayload.skuId = finishedGood.sku.id;
         finishedGoodUpdatePayload.mixturePortions = !repackageMode
