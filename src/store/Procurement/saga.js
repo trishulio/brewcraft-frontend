@@ -363,6 +363,14 @@ function* updateProcurementGenerator(action) {
                 },
                 purchaseOrder,
             };
+            data.procurementItems.forEach(({ invoiceItem }) => {
+                const { tax, price, quantity } = invoiceItem;
+                invoiceItem.tax.amount.amount = calculatedTaxRate(
+                    quantity.value,
+                    price.amount,
+                    tax.amount.amount
+                );
+            });
             yield put({
                 type: SET_PURCHASE_INVOICE_DETAILS,
                 payload: { data: data, initial: data, error: false },
