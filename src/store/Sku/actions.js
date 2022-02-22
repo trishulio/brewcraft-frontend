@@ -4,6 +4,7 @@ import {
     UPDATE_SKU,
     SET_SKU_DETAILS,
     RESET_SKU_DETAILS,
+    INVALID_NUMBER,
     INVALID_NAME,
     INVALID_DESCRIPTION,
     DELETE_SKU,
@@ -45,7 +46,14 @@ export const resetSkuDetails = () => ({
 export const setSkuInvalidName = (value) => ({
     type: INVALID_NAME,
     payload: {
-        invalidName: value.length > 12 || !value,
+        invalidName: value,
+    },
+});
+
+export const setSkuInvalidNumber = (value) => ({
+    type: INVALID_NUMBER,
+    payload: {
+        invalidNumber: value.length > 12 || !value,
     },
 });
 

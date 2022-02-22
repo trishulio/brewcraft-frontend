@@ -19,11 +19,17 @@ export default function SkusTable() {
         query.delete("sort");
         query.delete("order");
         switch (name) {
-            case "sku":
-                if (sort !== "sku") {
+            case "skuNumber":
+                if (sort !== "skuNumber") {
                     order = undefined;
                 }
-                query.append("sort", "sku");
+                query.append("sort", "skuNumber");
+                break;
+            case "skuName":
+                if (sort !== "skuName") {
+                    order = undefined;
+                }
+                query.append("sort", "skuName");
                 break;
             case "skuProduct":
                 if (sort !== "product") {
@@ -52,8 +58,11 @@ export default function SkusTable() {
         <Table hover>
             <thead>
                 <tr>
-                    <Th name="sku" id="sku" onSort={onSort}>
-                        Sku
+                    <Th name="skuNumber" id="skuNumber" onSort={onSort}>
+                        SKU #
+                    </Th>
+                    <Th name="skuName" id="skuName" onSort={onSort}>
+                        Name
                     </Th>
                     <Th name="skuProduct" id="product" onSort={onSort}>
                         Product
@@ -69,6 +78,7 @@ export default function SkusTable() {
                         key={key}
                         onClick={() => history.push("/sku/" + sku.id)}
                     >
+                        <td>{sku.number}</td>
                         <td>{sku.name}</td>
                         <td>{sku.product.name}</td>
                         <td>

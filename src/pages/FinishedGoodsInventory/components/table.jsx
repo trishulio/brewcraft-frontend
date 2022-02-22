@@ -26,13 +26,13 @@ export default function FinishedGoodsInventoryTable() {
             }
             query.append("sort", "skuName");
             history.push({ search: query.toString() });
-        } else if (name === "fgDescription") {
-            if (sort !== "description" || order !== "asc") {
+        } else if (name === "fgSkuNumber") {
+            if (sort !== "skuNumber" || order !== "asc") {
                 query.append("order", "asc");
             } else {
                 query.append("order", "desc");
             }
-            query.append("sort", "description");
+            query.append("sort", "skuNumber");
             history.push({ search: query.toString() });
         } else if (name === "fgProductName") {
             if (sort !== "productName" || order !== "asc") {
@@ -58,11 +58,11 @@ export default function FinishedGoodsInventoryTable() {
             <thead>
                 <tr>
                     <th></th>
-                    <Th name="fgSkuName" id="skuName" onSort={onSort}>
-                        SKU
+                    <Th name="fgSkuNumber" id="skuNumber" onSort={onSort}>
+                        SKU #
                     </Th>
-                    <Th name="fgDescription" id="description" onSort={onSort}>
-                        Description
+                    <Th name="fgSkuName" id="skuName" onSort={onSort}>
+                        Name
                     </Th>
                     <Th name="fgProductName" id="productName" onSort={onSort}>
                         Product
@@ -84,8 +84,8 @@ export default function FinishedGoodsInventoryTable() {
                         }
                     >
                         <td></td>
+                        <td>{finishedGood.sku.number}</td>
                         <td>{finishedGood.sku.name}</td>
-                        <td>{finishedGood.sku.description}</td>
                         <td>{finishedGood.sku.product.name}</td>
                         <td>{finishedGood.quantity.value}</td>
                     </tr>
