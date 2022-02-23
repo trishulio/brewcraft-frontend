@@ -82,7 +82,15 @@ export default function Sku() {
     function isChanged() {
         return (
             JSON.stringify(
-                (({ id, number, name, description, product, materials, quantity }) => ({
+                (({
+                    id,
+                    number,
+                    name,
+                    description,
+                    product,
+                    materials,
+                    quantity,
+                }) => ({
                     id,
                     number,
                     name,
@@ -93,7 +101,15 @@ export default function Sku() {
                 }))(initialSku)
             ) !==
             JSON.stringify(
-                (({ id, number, name, description, product, materials, quantity }) => ({
+                (({
+                    id,
+                    number,
+                    name,
+                    description,
+                    product,
+                    materials,
+                    quantity,
+                }) => ({
                     id,
                     number,
                     name,

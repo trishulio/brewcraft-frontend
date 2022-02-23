@@ -320,9 +320,7 @@ export function FinishedGoodsDoughnut(props) {
             );
         }
     });
-    const labels = groupedBySku.map(
-        (i) => `${i.sku.number} ${i.sku.name}`
-    );
+    const labels = groupedBySku.map((i) => `${i.sku.number} ${i.sku.name}`);
     const data = {
         labels: labels,
         datasets: [

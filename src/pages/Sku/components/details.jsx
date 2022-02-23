@@ -49,19 +49,19 @@ export default function SkuDetails(props) {
                     );
                 }
                 break;
-                case "skuName":
-                    if (sku.name !== e.target.value) {
-                        dispatch(setSkuInvalidName(!e.target.value));
-                        dispatch(
-                            setSkuDetails({
-                                data: {
-                                    ...sku,
-                                    name: e.target.value,
-                                },
-                            })
-                        );
-                    }
-                    break;
+            case "skuName":
+                if (sku.name !== e.target.value) {
+                    dispatch(setSkuInvalidName(!e.target.value));
+                    dispatch(
+                        setSkuDetails({
+                            data: {
+                                ...sku,
+                                name: e.target.value,
+                            },
+                        })
+                    );
+                }
+                break;
             case "skuDescription":
                 if (sku.description !== e.target.value) {
                     dispatch(
