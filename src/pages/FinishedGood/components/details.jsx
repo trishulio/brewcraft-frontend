@@ -496,10 +496,10 @@ export default function FinishedGoodDetails({ editable, repackageMode }) {
                                         disabled={true}
                                         value={`${calculateMixtureQuantity(
                                             finishedGood
-                                        )} (${
+                                        )} ${
                                             finishedGood?.sku?.quantity
                                                 .symbol || ""
-                                        })`}
+                                        }`}
                                         onChange={(e) => {
                                             onFormInputChange(e);
                                         }}
