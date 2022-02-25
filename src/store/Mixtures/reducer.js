@@ -40,8 +40,6 @@ const Mixtures = (state = initialState, { type, payload, data }) => {
         default:
             return {
                 ...state,
-                loading: true,
-                error: null,
             };
     }
 };

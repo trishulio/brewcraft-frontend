@@ -3,11 +3,13 @@ import { useSelector } from "react-redux";
 import Mash from "./mash";
 import Kettle from "./kettle";
 import Whirlpool from "./whirlpool";
+import Transfer from "./transfer";
 
 export default function Brew({ mashMixture }) {
     const [isMashOpen, setIsMashOpen] = useState(true);
     const [isKettleOpen, setIsKettleOpen] = useState(false);
     const [isWhirlpoolOpen, setIsWhirlpoolOpen] = useState(false);
+    const [isTransferOpen, setIsTransferOpen] = useState(false);
 
     const mashStage = useSelector((state) => {
         return state.Batch.Stages.content.find(
@@ -98,7 +100,9 @@ export default function Brew({ mashMixture }) {
 
     useEffect(() => {
         // Open the last stage that exists.
-        if (whirlpoolStage) {
+        if (transferStage) {
+            toggleIsOpen("transfer", true);
+        } else if (whirlpoolStage) {
             toggleIsOpen("whirlpool", true);
         } else if (kettleStage) {
             toggleIsOpen("kettle", true);
@@ -106,7 +110,7 @@ export default function Brew({ mashMixture }) {
             toggleIsOpen("mash", true);
         }
         // eslint-disable-next-line
-    }, [mashStage, kettleStage, whirlpoolStage]);
+    }, [mashStage, kettleStage, whirlpoolStage, transferStage]);
 
     function toggleIsOpen(index, show) {
         switch (index) {
@@ -114,16 +118,25 @@ export default function Brew({ mashMixture }) {
                 setIsMashOpen(show ? true : !isMashOpen);
                 setIsKettleOpen(false);
                 setIsWhirlpoolOpen(false);
+                setIsTransferOpen(false);
                 break;
             case "kettle":
                 setIsMashOpen(false);
                 setIsKettleOpen(show ? true : !isKettleOpen);
                 setIsWhirlpoolOpen(false);
+                setIsTransferOpen(false);
                 break;
             case "whirlpool":
                 setIsMashOpen(false);
                 setIsKettleOpen(false);
                 setIsWhirlpoolOpen(show ? true : !isWhirlpoolOpen);
+                setIsTransferOpen(false);
+                break;
+            case "transfer":
+                setIsMashOpen(false);
+                setIsKettleOpen(false);
+                setIsWhirlpoolOpen(false);
+                setIsTransferOpen(show ? true : !isTransferOpen);
                 break;
             default:
                 break;
@@ -149,6 +162,7 @@ export default function Brew({ mashMixture }) {
             <Mash isOpen={isMashOpen} {...props} />
             <Kettle isOpen={isKettleOpen} {...props} />
             <Whirlpool isOpen={isWhirlpoolOpen} {...props} />
+            {transferMixture && <Transfer isOpen={isTransferOpen} {...props} />}
         </React.Fragment>
     );
 }

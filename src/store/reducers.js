@@ -5,20 +5,10 @@ import BatchStatus from "./BatchStatus/reducer";
 import BatchTask from "./BatchTask/reducer";
 import Breadcrumb from "./Breadcrumb/reducer";
 import Brewery from "./Brewery/reducer";
-import {
-    Stages,
-    MashStages,
-    KettleStage,
-    WhirlpoolStage,
-    TransferStage,
-    FermentStage,
-    ConditionStage,
-    BriteTankStage,
-} from "./BrewStages/reducer";
-import { FermentFinishedGoods } from "./FinishedGoods/reducer";
+import { Stages } from "./BrewStages/reducer";
+import { FinishedGoods } from "./FinishedGoods/reducer";
 import FilterBar from "./FilterBar/reducer";
 import FinishedGood from "./FinishedGood/reducer";
-import { FinishedGoods } from "./FinishedGoods/reducer";
 import FinishedGoodsInventory from "./FinishedGoodsInventory/reducer";
 import Ingredient from "./Ingredient/reducer";
 import Ingredients from "./Ingredients/reducer";
@@ -30,32 +20,15 @@ import ProductCategory from "./ProductCategory/reducer";
 import Products from "./Products/reducer";
 import Profile from "./Profile/reducer";
 import MaterialLots from "./MaterialLots/reducer";
-import {
-    MaterialPortions,
-    MashMaterialPortion,
-    KettleMaterialPortion,
-    FermentMaterialPortion,
-} from "./MaterialPortion/reducer";
+import { MaterialPortions } from "./MaterialPortion/reducer";
 import Materials from "./Materials/reducer";
 import MaterialCategories from "./MaterialCategories/reducer";
 import MaterialCategory from "./MaterialCategory/reducer";
 import Measures from "./Measures/reducer";
-import Mixtures from "./Mixtures/reducer";
-import {
-    MashMixture,
-    KettleMixture,
-    WhirlpoolMixture,
-    TransferMixture,
-    FermentMixture,
-} from "./Mixture/reducer";
+// import Mixtures from "./Mixtures/reducer";
+import { Mixtures } from "./Mixture/reducer";
 import MiniCards from "./MiniCards/reducer";
-import {
-    MixtureRecordings,
-    KettleMixtureRecordings,
-    WhirlpoolMixtureRecordings,
-    TransferMixtureRecordings,
-    FermentMixtureRecordings,
-} from "./MixtureRecording/reducer";
+import { MixtureRecordings } from "./MixtureRecording/reducer";
 import Packaging from "./Packaging/reducer";
 import PackagingItem from "./PackagingItem/reducer";
 import Procurement from "./Procurement/reducer";
@@ -82,26 +55,7 @@ const rootReducer = combineReducers({
         Stages,
         MaterialPortions,
         MixtureRecordings,
-        MashStages,
-        MashMixture,
-        MashMaterialPortion,
-        KettleStage,
-        KettleMixture,
-        KettleMaterialPortion,
-        KettleMixtureRecordings,
-        WhirlpoolStage,
-        WhirlpoolMixture,
-        WhirlpoolMixtureRecordings,
-        TransferStage,
-        TransferMixture,
-        TransferMixtureRecordings,
-        FermentStage,
-        FermentMixture,
-        FermentMaterialPortion,
-        FermentMixtureRecordings,
-        FermentFinishedGoods,
-        ConditionStage,
-        BriteTankStage,
+        FinishedGoods,
     }),
     Batches,
     BatchStatus,

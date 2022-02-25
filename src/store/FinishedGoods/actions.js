@@ -1,24 +1,48 @@
 import {
-    FETCH_FINISHED_GOODS,
-    FETCH_FERMENT_FINISHED_GOODS,
-    FETCH_FINISHED_GOODS_BY_BREW_ID,
-    DELETE_FERMENT_FINISHED_GOODS,
-    SAVE_FERMENT_FINISHED_GOODS,
-    SET_CONDITION_FINISHED_GOODS,
-    SET_FERMENT_FINISHED_GOODS,
+    DELETE_FINISHED_GOODS_REQUEST,
+    FETCH_FINISHED_GOODS_BY_BREW_ID_REQUEST,
+    FETCH_FINISHED_GOODS_BY_MIXTURE_ID_REQUEST,
+    FETCH_FINISHED_GOODS_REQUEST,
+    FETCH_FINISHED_GOOD_BY_ID_REQUEST,
+    SAVE_FINISHED_GOODS_REQUEST,
     SET_FINISHED_GOODS,
     SET_FINISHED_GOODS_PAGE_INDEX,
     SET_FINISHED_GOODS_PAGE_SIZE,
 } from "./actionTypes";
 
-export const setFinishedGoodsDetails = (payload) => ({
-    type: SET_FINISHED_GOODS,
+export const fetchFinishedGoods = (id) => ({
+    type: FETCH_FINISHED_GOODS_REQUEST,
+    payload: { id },
+});
+
+export const fetchFinishedGoodById = (id) => ({
+    type: FETCH_FINISHED_GOOD_BY_ID_REQUEST,
+    payload: { id },
+});
+
+export const fetchFinishedGoodsByBrewId = (id) => ({
+    type: FETCH_FINISHED_GOODS_BY_BREW_ID_REQUEST,
+    payload: { id },
+});
+
+export const fetchFinishedGoodsByMixtureId = (id) => ({
+    type: FETCH_FINISHED_GOODS_BY_MIXTURE_ID_REQUEST,
+    payload: { id },
+});
+
+export const saveFinishedGoods = (payload) => ({
+    type: SAVE_FINISHED_GOODS_REQUEST,
     payload: { ...payload },
 });
 
-export const fetchFinishedGoods = (params) => ({
-    type: FETCH_FINISHED_GOODS,
-    payload: { params },
+export const deleteFinishedGoods = (payload) => ({
+    type: DELETE_FINISHED_GOODS_REQUEST,
+    payload: { ...payload },
+});
+
+export const setFinishedGoods = (payload) => ({
+    type: SET_FINISHED_GOODS,
+    payload: { ...payload },
 });
 
 export const setFinishedGoodsPageIndex = (index) => ({
@@ -33,34 +57,4 @@ export const setFinishedGoodsPageSize = (size) => ({
     payload: {
         pageSize: size,
     },
-});
-
-export const fetchFinishedGoodsByBrewId = (params) => ({
-    type: FETCH_FINISHED_GOODS_BY_BREW_ID,
-    payload: { ...params },
-});
-
-export const fetchFermentFinishedGoods = (payload) => ({
-    type: FETCH_FERMENT_FINISHED_GOODS,
-    payload: { ...payload },
-});
-
-export const saveFermentFinishedGoods = (payload) => ({
-    type: SAVE_FERMENT_FINISHED_GOODS,
-    payload: { ...payload },
-});
-
-export const deleteFermentFinishedGoods = (payload) => ({
-    type: DELETE_FERMENT_FINISHED_GOODS,
-    payload: { ...payload },
-});
-
-export const setFermentFinishedGoodsDetails = (payload) => ({
-    type: SET_FERMENT_FINISHED_GOODS,
-    payload: { ...payload },
-});
-
-export const setConditionFinishedGoodsDetails = (payload) => ({
-    type: SET_CONDITION_FINISHED_GOODS,
-    payload: { ...payload },
 });

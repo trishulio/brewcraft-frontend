@@ -123,7 +123,7 @@ function* editBrewStagesGenerator(action) {
         data.splice(index, 0, res.data);
         yield put({
             type: EDIT_BREW_STAGES_SUCCESS,
-            payload: { data: data, initial: data },
+            payload: { content: data, initial: data },
         });
     } catch (e) {
         yield put({

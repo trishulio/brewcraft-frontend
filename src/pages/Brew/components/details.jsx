@@ -25,13 +25,15 @@ export default function BatchDetails() {
 
     const {
         data: batch,
-        loading,
-        editable,
         invalidProduct,
         invalidBatchStartedAt,
         invalidBatchEndedAt,
     } = useSelector((state) => {
         return state.Batch.Batch;
+    });
+
+    const loading = useSelector((state) => {
+        return state.Batch.Batch.loading;
     });
 
     const { content: products } = useSelector((state) => {
@@ -166,7 +168,7 @@ export default function BatchDetails() {
                             onClick={() => setIsDetailsOpen(!isDetailsOpen)}
                             style={{ cursor: "pointer" }}
                         >
-                            Details
+                            Batch Overview
                         </span>
                     </div>
                 </CardHeader>
@@ -176,7 +178,7 @@ export default function BatchDetails() {
                     className="pb-0"
                 >
                     <Row>
-                        <Col sm="6" xl="4">
+                        <Col sm="6">
                             <Label for="batchBatchId">Batch ID</Label>
                             <div
                                 className="mb-3"
@@ -193,6 +195,29 @@ export default function BatchDetails() {
                             </div>
                             <div className="clearfix"></div>
                             <Label
+                                for="batchStartDateTime"
+                                className="align-top"
+                            >
+                                Batch Start
+                            </Label>
+                            <FormGroup className="align-middle">
+                                <Input
+                                    type="datetime-local"
+                                    name="batchStartDateTime"
+                                    className="waves-effect"
+                                    value={batch.startedAt}
+                                    onChange={onFormInputChange}
+                                    invalid={invalidBatchStartedAt}
+                                />
+                                <FormFeedback>
+                                    {!batch.startedAt
+                                        ? "Enter a valid time and date"
+                                        : "Invalid batch parameter"}
+                                </FormFeedback>
+                            </FormGroup>
+                        </Col>
+                        <Col sm="6">
+                            <Label
                                 for="batchProduct"
                                 style={{
                                     width: "6rem",
@@ -205,12 +230,10 @@ export default function BatchDetails() {
                                     type="select"
                                     className="waves-effect"
                                     name="batchProduct"
-                                    // style={{ width: "16rem" }}
                                     value={batch.product?.id || ""}
                                     onChange={(e) => {
                                         onFormInputChange(e);
                                     }}
-                                    disabled={batch.id && !editable}
                                     invalid={invalidProduct}
                                 >
                                     <option value="">Select</option>
@@ -226,57 +249,31 @@ export default function BatchDetails() {
                                         : "Invalid batch parameter"}
                                 </FormFeedback>
                             </FormGroup>
-                        </Col>
-                        <Col sm="6" xl="4">
-                            <Label
-                                for="batchStartDateTime"
-                                className="align-top"
-                            >
-                                Batch Start Date
-                            </Label>
-                            <FormGroup className="align-middle">
-                                <Input
-                                    type="datetime-local"
-                                    name="batchStartDateTime"
-                                    className="waves-effect"
-                                    value={batch.startedAt}
-                                    onChange={onFormInputChange}
-                                    disabled={batch.id && !editable}
-                                    invalid={invalidBatchStartedAt}
-                                />
-                                <FormFeedback>
-                                    {!batch.startedAt
-                                        ? "Enter a valid time and date"
-                                        : "Invalid batch parameter"}
-                                </FormFeedback>
-                            </FormGroup>
                             <div className="clearfix"></div>
-                            {batch.id && (
-                                <React.Fragment>
-                                    <Label
-                                        for="batchFinishDateTime"
-                                        className="align-top"
-                                    >
-                                        Batch Finish Date
-                                    </Label>
-                                    <FormGroup className="align-middle">
-                                        <Input
-                                            type="datetime-local"
-                                            name="batchFinishDateTime"
-                                            className="waves-effect"
-                                            value={batch.endedAt || ""}
-                                            onChange={onFormInputChange}
-                                            disabled={batch.id && !editable}
-                                            invalid={invalidBatchEndedAt}
-                                        />
-                                        <FormFeedback>
-                                            {!batch.endedAt
-                                                ? "Enter a valid time and date"
-                                                : "Invalid batch parameter"}
-                                        </FormFeedback>
-                                    </FormGroup>
-                                </React.Fragment>
-                            )}
+                            <React.Fragment>
+                                <Label
+                                    for="batchFinishDateTime"
+                                    className="align-top"
+                                >
+                                    Batch Finish
+                                </Label>
+                                <FormGroup className="align-middle">
+                                    <Input
+                                        type="datetime-local"
+                                        name="batchFinishDateTime"
+                                        className="waves-effect"
+                                        value={batch.endedAt || ""}
+                                        onChange={onFormInputChange}
+                                        disabled={!batch.id}
+                                        invalid={invalidBatchEndedAt}
+                                    />
+                                    <FormFeedback>
+                                        {!batch.endedAt
+                                            ? "Enter a valid time and date"
+                                            : "Invalid batch parameter"}
+                                    </FormFeedback>
+                                </FormGroup>
+                            </React.Fragment>
                         </Col>
                     </Row>
                 </CardBody>

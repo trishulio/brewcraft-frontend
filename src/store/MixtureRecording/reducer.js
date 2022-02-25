@@ -1,13 +1,11 @@
-import KettleMixtureRecordings from "./kettle";
-import WhirlpoolMixtureRecordings from "./whirlpool";
-import TransferMixtureRecordings from "./transfer";
-import FermentMixtureRecordings from "./ferment";
 import {
     FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_REQUEST,
     FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_SUCCESS,
     FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_FAILURE,
     SET_BREW_MIXTURE_RECORDINGS,
     RESET_BREW_MIXTURE_RECORDINGS,
+    EDIT_BREW_MIXTURE_RECORDINGS_REQUEST,
+    DELETE_BREW_MIXTURE_RECORDINGS_REQUEST,
 } from "./actionTypes";
 
 const initialState = {
@@ -19,6 +17,8 @@ const initialState = {
 const MixtureRecordings = (state = initialState, { type, payload }) => {
     switch (type) {
         case FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_REQUEST:
+        case EDIT_BREW_MIXTURE_RECORDINGS_REQUEST:
+        case DELETE_BREW_MIXTURE_RECORDINGS_REQUEST:
             return {
                 ...state,
                 loading: true,
@@ -46,15 +46,8 @@ const MixtureRecordings = (state = initialState, { type, payload }) => {
         default:
             return {
                 ...state,
-                loading: false,
             };
     }
 };
 
-export {
-    MixtureRecordings,
-    KettleMixtureRecordings,
-    WhirlpoolMixtureRecordings,
-    TransferMixtureRecordings,
-    FermentMixtureRecordings,
-};
+export { MixtureRecordings };

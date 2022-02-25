@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {
     Dropdown,
@@ -6,7 +7,7 @@ import {
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import { transferToFermentStage } from "../../../../store/actions";
+import { addBrewStage } from "../../../../store/actions";
 import BatchStage from "../common/stage";
 
 export default function BrewWhirlpool({
@@ -18,6 +19,10 @@ export default function BrewWhirlpool({
 }) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const dispatch = useDispatch();
+
+    const batch = useSelector((state) => {
+        return state.Batch.Batch.data;
+    });
 
     const stageProps = {
         title: "Whirlpool",
@@ -47,15 +52,24 @@ export default function BrewWhirlpool({
                                 className="text-dark"
                                 onClick={() => {
                                     dispatch(
-                                        transferToFermentStage({
+                                        addBrewStage({
                                             parentMixtureIds: [
                                                 whirlpoolMixture.id,
+                                            ],
+                                            form: [
+                                                {
+                                                    brewId: batch.id,
+                                                    taskId: 2,
+                                                    statusId: 4,
+                                                    startedAt:
+                                                        new Date().toISOString(),
+                                                },
                                             ],
                                         })
                                     );
                                 }}
                             >
-                                Move to Fermenter
+                                Complete
                             </span>
                         </DropdownItem>
                         <DropdownItem>

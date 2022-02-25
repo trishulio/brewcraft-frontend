@@ -18,14 +18,13 @@ import {
     fetchFinishedGoodsByBrewId,
     fetchMixturesByBrewId,
     fetchAllBrewStages,
-    saveFermentFinishedGoods,
-    deleteFermentFinishedGoods,
     editBrewStages,
     editBrewMixtures,
-    editMaterialPortions,
-    deleteMaterialPortions,
+    editBrewMaterialPortions,
+    deleteBrewMaterialPortions,
     saveBrewMixtureRecordings,
     deleteBrewMixtureRecordings,
+    deleteFinishedGoods,
 } from "../../store/actions";
 import { useQuery } from "../../helpers/utils";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
@@ -33,6 +32,7 @@ import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 import BatchInner from "./batch";
 
 export default function Batch() {
+    const [activeTab, setActiveTab] = useState("details");
     const [showDeletePrompt, setShowDeletePrompt] = useState(false);
     const [showRouterPrompt, setShowRouterPrompt] = useState(false);
 
@@ -45,6 +45,7 @@ export default function Batch() {
     const {
         data: batch,
         initial: initialBatch,
+        changed,
         error,
     } = useSelector((state) => {
         return state.Batch.Batch;
@@ -82,11 +83,12 @@ export default function Batch() {
         return state.Batch.MixtureRecordings.initial;
     });
 
-    const {
-        content: fermentFinishedGoods,
-        initial: initialFermentFinishedGoods,
-    } = useSelector((state) => {
-        return state.Batch.FermentFinishedGoods;
+    const finishedGoods = useSelector((state) => {
+        return state.Batch.FinishedGoods.content;
+    });
+
+    const initialFinishedGoods = useSelector((state) => {
+        return state.Batch.FinishedGoods.initial;
     });
 
     useEffect(() => {
@@ -142,20 +144,30 @@ export default function Batch() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [edit]);
 
-    const changed = useSelector((state) => {
-        return (
-            JSON.stringify(state.Batch.Batch.data) !==
-                JSON.stringify(state.Batch.Batch.initial) ||
-            JSON.stringify(state.Batch.Stages.content) !==
-                JSON.stringify(state.Batch.Stages.initial) ||
-            JSON.stringify(state.Batch.Mixtures.content) !==
-                JSON.stringify(state.Batch.Mixtures.initial) ||
-            JSON.stringify(state.Batch.MaterialPortions.content) !==
-                JSON.stringify(state.Batch.MaterialPortions.initial) ||
-            JSON.stringify(state.Batch.MixtureRecordings.content) !==
-                JSON.stringify(state.Batch.MixtureRecordings.initial)
+    useEffect(() => {
+        dispatch(
+            setBatchDetails({
+                changed:
+                    JSON.stringify(batch) !== JSON.stringify(initialBatch) ||
+                    JSON.stringify(stages) !== JSON.stringify(initialStages) ||
+                    JSON.stringify(mixtures) !==
+                        JSON.stringify(initialMixtures) ||
+                    JSON.stringify(materialPortions) !==
+                        JSON.stringify(initialMaterialPortions) ||
+                    JSON.stringify(mixtureRecordings) !==
+                        JSON.stringify(initialMixtureRecordings) ||
+                    JSON.stringify(finishedGoods) !==
+                        JSON.stringify(initialFinishedGoods),
+            })
         );
-    });
+    }, [
+        batch,
+        stages,
+        mixtures,
+        materialPortions,
+        mixtureRecordings,
+        finishedGoods,
+    ]);
 
     function saveStage(stage, initialStage, editStage) {
         if (JSON.stringify(initialStage) !== JSON.stringify(stage)) {
@@ -242,19 +254,14 @@ export default function Batch() {
         }
     }
 
-    function saveMaterialPortions(
-        materialPortions,
-        initialMaterialPortions,
-        saveMaterialPortions,
-        deleteMaterialPortions
-    ) {
+    function saveMaterialPortions() {
         if (
             JSON.stringify(initialMaterialPortions) !==
             JSON.stringify(materialPortions)
         ) {
             if (materialPortions.length) {
                 dispatch(
-                    saveMaterialPortions({
+                    editBrewMaterialPortions({
                         form: materialPortions.map((mp) => ({
                             id: mp.id,
                             materialLotId: mp.materialLot.id,
@@ -273,7 +280,7 @@ export default function Batch() {
                 .map((mp) => mp.id);
             if (mp.length) {
                 dispatch(
-                    deleteMaterialPortions({
+                    deleteBrewMaterialPortions({
                         form: mp,
                     })
                 );
@@ -281,19 +288,14 @@ export default function Batch() {
         }
     }
 
-    function saveMixtureRecordings(
-        mixtureRecordings,
-        initialMixtureRecordings,
-        saveMixtureRecordings,
-        deleteMixtureRecordings
-    ) {
+    function saveMixtureRecordings() {
         if (
             JSON.stringify(mixtureRecordings) !==
             JSON.stringify(initialMixtureRecordings)
         ) {
             if (mixtureRecordings.length) {
                 dispatch(
-                    saveMixtureRecordings(
+                    saveBrewMixtureRecordings(
                         mixtureRecordings.map((record) => ({
                             id: record.id,
                             mixtureId: record.mixture.id,
@@ -312,8 +314,7 @@ export default function Batch() {
                 .map((records) => records.id);
             if (records.length) {
                 dispatch(
-                    deleteMixtureRecordings({
-                        batchId: batch.id,
+                    deleteBrewMixtureRecordings({
                         form: records,
                     })
                 );
@@ -331,13 +332,7 @@ export default function Batch() {
             for (let i = 0; i < mixtures.length; i++) {
                 saveMixture(mixtures[i], initialMixtures[i], editBrewMixtures);
             }
-            // save material portions
-            saveMaterialPortions(
-                materialPortions,
-                initialMaterialPortions,
-                editMaterialPortions,
-                deleteMaterialPortions
-            );
+            saveMaterialPortions();
             // save mixuture recordings
             saveMixtureRecordings(
                 mixtureRecordings,
@@ -346,10 +341,10 @@ export default function Batch() {
                 deleteBrewMixtureRecordings
             );
             saveFinishedGoods(
-                fermentFinishedGoods,
-                initialFermentFinishedGoods,
-                saveFermentFinishedGoods,
-                deleteFermentFinishedGoods
+                finishedGoods,
+                initialFinishedGoods,
+                saveFinishedGoods,
+                deleteFinishedGoods
             );
             // save batch
             if (JSON.stringify(batch) !== JSON.stringify(initialBatch)) {
@@ -395,6 +390,8 @@ export default function Batch() {
     }
 
     const props = {
+        activeTab,
+        setActiveTab,
         setEditable,
         changed,
         error,

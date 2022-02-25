@@ -186,6 +186,16 @@ class SidebarContent extends Component {
                         </li>
                         <li>
                             <Link
+                                to="/suppliers"
+                                className="waves-effect"
+                                onClick={this.toggleSidebar.bind(this)}
+                            >
+                                <i className="mdi mdi-domain"></i>
+                                <span>Suppliers</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
                                 to="/materials/ingredients"
                                 className="has-arrow waves-effect"
                             >
@@ -226,16 +236,6 @@ class SidebarContent extends Component {
                                     </Link>
                                 </li>
                             </ul>
-                        </li>
-                        <li>
-                            <Link
-                                to="/suppliers"
-                                className="waves-effect"
-                                onClick={this.toggleSidebar.bind(this)}
-                            >
-                                <i className="mdi mdi-domain"></i>
-                                <span>Suppliers</span>
-                            </Link>
                         </li>
                         <li>
                             <Link

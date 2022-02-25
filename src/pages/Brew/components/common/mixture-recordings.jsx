@@ -8,7 +8,7 @@ import { isValidNumberString } from "../../../../helpers/utils";
 import { useDispatch } from "react-redux";
 import { setBrewMixtureRecordings } from "../../../../store/actions";
 
-export default function MixtureRecordings({ mixture, mixtureRecordings }) {
+export default function MixtureRecordings({ mixture }) {
     const [items, setItems] = useState([]);
     const [measure, setMeasure] = useState("");
     const [datetime, setDatetime] = useState("");
@@ -24,15 +24,21 @@ export default function MixtureRecordings({ mixture, mixtureRecordings }) {
         return state.Measures.data;
     });
 
+    const mixtureRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.content.filter(
+            (mr) => mr.mixture.id === mixture.id
+        );
+    });
+
     return (
         <React.Fragment>
-            <Label>Records</Label>
+            <Label>Mixture Data</Label>
             <div className="mb-3">
                 <CommonTable>
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Record</th>
+                            <th>Measure</th>
                             <th>Time</th>
                             <th>Value</th>
                         </tr>
@@ -103,14 +109,14 @@ export default function MixtureRecordings({ mixture, mixtureRecordings }) {
                                 setMeasure(measure || "");
                             }}
                         >
-                            <option value="">Record</option>
+                            <option value="">Measure</option>
                             {map(measures, (value, index) => (
                                 <option value={value.id} key={index}>
                                     {value.name}
                                 </option>
                             ))}
                         </Input>
-                        <FormFeedback>Enter a valid record.</FormFeedback>
+                        <FormFeedback>Enter a valid measure.</FormFeedback>
                     </FormGroup>
                     <FormGroup className="d-block d-sm-inline-block mr-2 mb-0">
                         <Input
@@ -171,11 +177,13 @@ export default function MixtureRecordings({ mixture, mixtureRecordings }) {
                         color="warning"
                         className="waves-effect"
                         onClick={() => {
-                            setBrewMixtureRecordings({
-                                content: mixtureRecordings.filter(
-                                    (_, index) => !items.includes(index)
-                                ),
-                            });
+                            dispatch(
+                                setBrewMixtureRecordings({
+                                    content: mixtureRecordings.filter(
+                                        (_, index) => !items.includes(index)
+                                    ),
+                                })
+                            );
                             setItems([]);
                         }}
                         disabled={!items.length}

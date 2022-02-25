@@ -22,8 +22,13 @@ export default function BatchStage({
 }) {
     const dispatch = useDispatch();
 
-    const { editable } = useSelector((state) => {
-        return state.Batch.Batch;
+    const loading = useSelector((state) => {
+        return (
+            state.Batch.MaterialPortions.loading ||
+            state.Batch.MixtureRecordings.loading ||
+            state.Batch.Mixtures.loading ||
+            state.Batch.Stages.loading
+        );
     });
 
     const mixtures = useSelector((state) => {
@@ -142,136 +147,98 @@ export default function BatchStage({
                         </div>
                     </CardHeader>
                 )}
-                <CardBody isOpen={isOpen} className="py-3">
+                <CardBody isLoading={loading} isOpen={isOpen} className="py-3">
                     {toolbar && <div className="mb-3">{toolbar}</div>}
-                    <Row>
-                        <Col sm="6">
-                            <Label for="mixtureStartDateTime">
-                                Mixture Start
-                            </Label>
-                            {editable && (
-                                <FormGroup className="mb-3">
-                                    <Input
-                                        type="datetime-local"
-                                        name="mixtureStartDateTime"
-                                        className="waves-effect"
-                                        value={
-                                            stage.status.id === 6
-                                                ? ""
-                                                : stage.startedAt || ""
-                                        }
-                                        onChange={onFormInputChange}
-                                        hidden={!editable}
-                                    />
-                                    <FormFeedback>
-                                        Enter a valid start time.
-                                    </FormFeedback>
-                                </FormGroup>
-                            )}
-                            {!editable && (
-                                <div className="mb-3">
-                                    {stage.status.id !== 6 && stage.startedAt
-                                        ? formatDatetime(stage.startedAt)
-                                        : "-"}
-                                </div>
-                            )}
-                            <div className="clearfix"></div>
-                            <Label for="mixtureFinishDateTime">
-                                Mixture Finish
-                            </Label>
-                            {editable && (
-                                <FormGroup>
-                                    <Input
-                                        type="datetime-local"
-                                        name="mixtureFinishDateTime"
-                                        className="waves-effect"
-                                        value={
-                                            stage.status.id === 6
-                                                ? ""
-                                                : stage.endedAt || ""
-                                        }
-                                        onChange={onFormInputChange}
-                                    />
-                                    <FormFeedback>
-                                        Enter a valid finish time.
-                                    </FormFeedback>
-                                </FormGroup>
-                            )}
-                            {!editable && (
-                                <div className="mr-4">
-                                    {stage.status.id !== 6 && stage.endedAt
-                                        ? formatDatetime(stage.endedAt)
-                                        : "-"}
-                                </div>
-                            )}
-                        </Col>
-                        <Col sm="6">
-                            <Label for="stageStatus">Mixture Status</Label>
-                            {editable && (
-                                <FormGroup>
-                                    <Input
-                                        type="select"
-                                        className="waves-effect"
-                                        value={stage.status.id}
-                                        name="stageStatus"
-                                        onChange={onFormInputChange}
-                                    >
-                                        <option value="1">In Progress</option>
-                                        <option value="2">Complete</option>
-                                        <option value="3">Failed</option>
-                                        <option value="4">Not started</option>
-                                        <option value="5">Stopped</option>
-                                        {/* <option value="6">Skip</option> */}
-                                    </Input>
-                                    <FormFeedback>
-                                        Enter a valid number.
-                                    </FormFeedback>
-                                </FormGroup>
-                            )}
-                            {!editable && (
-                                <div className="mb-3">
-                                    {stage.status.id === 1 && "In Progress"}
-                                    {stage.status.id === 2 && "Complete"}
-                                    {stage.status.id === 3 && "Failed"}
-                                    {stage.status.id === 4 && "Not started"}
-                                    {stage.status.id === 5 && "Stopped"}
-                                    {stage.status.id === 6 && "Skip"}
-                                </div>
-                            )}
-                            <div className="clearFix"></div>
-                            <Label for="mixtureQuantityValue">
-                                Final volume (hl)
-                            </Label>
-                            {editable && (
-                                <FormGroup className="mb-3">
-                                    <Input
-                                        type="text"
-                                        className="waves-effect"
-                                        value={
-                                            stage.status.id === 6
-                                                ? "-"
-                                                : mixture.quantity.value
-                                        }
-                                        placeholder={"Enter"}
-                                        name="mixtureQuantityValue"
-                                        onChange={onFormInputChange}
-                                        disabled={stage.status.id === 6}
-                                    />
-                                    <FormFeedback>
-                                        Enter a valid number.
-                                    </FormFeedback>
-                                </FormGroup>
-                            )}
-                            {!editable && (
-                                <div className="mb-3">
-                                    {stage.status.id !== 6 &&
-                                    mixture.quantity.value
-                                        ? `${mixture.quantity.value} ${mixture.quantity.symbol}`
-                                        : "-"}
-                                </div>
-                            )}
-                        </Col>
-                    </Row>
+                    {stage.task.id !== 6 && (
+                        <React.Fragment>
+                            <Row>
+                                <Col sm="6">
+                                    <Label for="mixtureStartDateTime">
+                                        Mixture Start
+                                    </Label>
+                                    <FormGroup className="mb-3">
+                                        <Input
+                                            type="datetime-local"
+                                            name="mixtureStartDateTime"
+                                            className="waves-effect"
+                                            value={
+                                                stage.status.id === 6
+                                                    ? ""
+                                                    : stage.startedAt || ""
+                                            }
+                                            onChange={onFormInputChange}
+                                        />
+                                        <FormFeedback>
+                                            Enter a valid start time.
+                                        </FormFeedback>
+                                    </FormGroup>
+                                </Col>
+                                <Col sm="6">
+                                    <Label for="mixtureFinishDateTime">
+                                        Mixture Finish
+                                    </Label>
+                                    <FormGroup>
+                                        <Input
+                                            type="datetime-local"
+                                            name="mixtureFinishDateTime"
+                                            className="waves-effect"
+                                            value={
+                                                stage.status.id === 6
+                                                    ? ""
+                                                    : stage.endedAt || ""
+                                            }
+                                            onChange={onFormInputChange}
+                                        />
+                                        <FormFeedback>
+                                            Enter a valid finish time.
+                                        </FormFeedback>
+                                    </FormGroup>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col sm="6">
+                                    <Label for="mixtureQuantityValue">
+                                        Volume In (l)
+                                    </Label>
+                                    <FormGroup className="mb-3">
+                                        <Input
+                                            type="text"
+                                            className="waves-effect"
+                                            value={mixture.quantity.value}
+                                            placeholder={"Enter"}
+                                            name="mixtureQuantityValue"
+                                            onChange={onFormInputChange}
+                                        />
+                                        <FormFeedback>
+                                            Enter a valid number.
+                                        </FormFeedback>
+                                    </FormGroup>
+                                </Col>
+                                <Col sm="6">
+                                    <Label for="mixtureQuantityValue">
+                                        Volume Out (l)
+                                    </Label>
+                                    <FormGroup className="mb-3">
+                                        <Input
+                                            type="text"
+                                            className="waves-effect"
+                                            value={
+                                                stage.status.id === 6
+                                                    ? "-"
+                                                    : mixture.quantity.value
+                                            }
+                                            placeholder={"Enter"}
+                                            name="mixtureQuantityValue"
+                                            onChange={onFormInputChange}
+                                        />
+                                        <FormFeedback>
+                                            Enter a valid number.
+                                        </FormFeedback>
+                                    </FormGroup>
+                                </Col>
+                            </Row>
+                        </React.Fragment>
+                    )}
                     {children}
                 </CardBody>
             </Card>

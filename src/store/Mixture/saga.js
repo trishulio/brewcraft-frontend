@@ -22,7 +22,7 @@ import {
     DELETE_BREW_MIXTURE_FAILURE,
     ADD_BREW_MIXTURE_FAILURE,
 } from "./actionTypes";
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, select, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { snackSuccess } from "../Snackbar/actions";
@@ -58,14 +58,20 @@ function* addBrewMixtureGenerator(action) {
 
 function* editBrewMixtureGenerator(action) {
     try {
+        const mixtures = yield select((state) => state.Batch.Mixtures.content);
         const res = yield call(
             api.updateMixture,
             get(action, "payload.id"),
             get(action, "payload.form")
         );
+        // insert stage from response
+        const data = [...mixtures];
+        const index = mixtures.findIndex((s) => s.id === res.data.id);
+        data.splice(index, 1);
+        data.splice(index, 0, res.data);
         yield put({
             type: EDIT_BREW_MIXTURE_SUCCESS,
-            payload: { data: res.data, initial: res.data },
+            payload: { content: data, initial: data },
         });
     } catch (e) {
         yield put({ type: EDIT_BREW_MIXTURE_FAILURE });

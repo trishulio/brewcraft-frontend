@@ -4,6 +4,7 @@ import WhirlpoolMixture from "./whirlpool";
 import TransferMixture from "./transfer";
 import FermentMixture from "./ferment";
 import {
+    EDIT_BREW_MIXTURE_SUCCESS,
     FETCH_MIXTURE_BY_BREW_ID_REQUEST,
     FETCH_MIXTURE_BY_BREW_ID_SUCCESS,
     FETCH_MIXTURE_BY_BREW_ID_FAILURE,
@@ -25,6 +26,7 @@ const Mixtures = (state = initialState, { type, payload }) => {
                 loading: true,
             };
         case FETCH_MIXTURE_BY_BREW_ID_SUCCESS:
+        case EDIT_BREW_MIXTURE_SUCCESS:
         case SET_BREW_MIXTURE_DETAILS:
             return {
                 ...state,
@@ -49,7 +51,6 @@ const Mixtures = (state = initialState, { type, payload }) => {
         default:
             return {
                 ...state,
-                loading: false,
             };
     }
 };
