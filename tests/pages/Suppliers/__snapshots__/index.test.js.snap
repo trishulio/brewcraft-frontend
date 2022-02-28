@@ -1,0 +1,885 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Suppliers -> <Index> render() renders the component 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Suppliers>
+        <Suppliers>
+          <Row
+            tag="div"
+            widths={
+              Array [
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl",
+              ]
+            }
+          >
+            <div
+              className="row"
+            >
+              <Col
+                style={
+                  Object {
+                    "maxWidth": "1024px",
+                  }
+                }
+                tag="div"
+                widths={
+                  Array [
+                    "xs",
+                    "sm",
+                    "md",
+                    "lg",
+                    "xl",
+                  ]
+                }
+              >
+                <div
+                  className="col"
+                  style={
+                    Object {
+                      "maxWidth": "1024px",
+                    }
+                  }
+                >
+                  <ProductCategoriesToolbar>
+                    <Toolbar>
+                      <Row
+                        tag="div"
+                        widths={
+                          Array [
+                            "xs",
+                            "sm",
+                            "md",
+                            "lg",
+                            "xl",
+                          ]
+                        }
+                      >
+                        <div
+                          className="row"
+                        >
+                          <Col
+                            tag="div"
+                            widths={
+                              Array [
+                                "xs",
+                                "sm",
+                                "md",
+                                "lg",
+                                "xl",
+                              ]
+                            }
+                            xs="12"
+                          >
+                            <div
+                              className="col-12"
+                            >
+                              <Button
+                                className="waves-effect mr-2 mb-3"
+                                color="secondary"
+                                onClick={[Function]}
+                                size="sm"
+                                tag="button"
+                                type="button"
+                              >
+                                <button
+                                  aria-label={null}
+                                  className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                                  onClick={[Function]}
+                                  type="button"
+                                >
+                                  <i
+                                    className="fa fa-plus"
+                                  />
+                                   New Supplier
+                                </button>
+                              </Button>
+                              <Button
+                                className="waves-effect mr-2 mb-3"
+                                color="secondary"
+                                onClick={[Function]}
+                                size="sm"
+                                tag="button"
+                                type="button"
+                              >
+                                <button
+                                  aria-label={null}
+                                  className="waves-effect mr-2 mb-3 btn btn-secondary btn-sm"
+                                  onClick={[Function]}
+                                  type="button"
+                                >
+                                  <i
+                                    className="fa fa-user"
+                                  />
+                                   Contacts
+                                </button>
+                              </Button>
+                            </div>
+                          </Col>
+                        </div>
+                      </Row>
+                    </Toolbar>
+                  </ProductCategoriesToolbar>
+                  <Card>
+                    <Card
+                      className=""
+                      tag="div"
+                    >
+                      <div
+                        className="card"
+                      >
+                        <CardBody
+                          className="py-2"
+                          isLoading={true}
+                        >
+                          <ContentLoader
+                            isLoading={true}
+                          >
+                            <div>
+                              <div
+                                style={
+                                  Object {
+                                    "alignItems": "center",
+                                    "backgroundColor": "rgba(255, 255, 255, 0.8)",
+                                    "display": "flex",
+                                    "height": undefined,
+                                    "position": "absolute",
+                                    "textAlign": "center",
+                                    "width": undefined,
+                                    "zIndex": 1,
+                                  }
+                                }
+                              >
+                                <Loading>
+                                  <div
+                                    style={
+                                      Object {
+                                        "width": "100%",
+                                      }
+                                    }
+                                  >
+                                    <div
+                                      className="spinner-border text-primary"
+                                      role="status"
+                                    >
+                                      <span
+                                        className="visually-hidden"
+                                      />
+                                    </div>
+                                  </div>
+                                </Loading>
+                              </div>
+                              <CardBody
+                                className=" py-2"
+                                tag="div"
+                              >
+                                <div
+                                  className=" py-2 card-body"
+                                >
+                                  <SuppliersPagination>
+                                    <PageWrapper
+                                      items={Array []}
+                                      pageIndex={0}
+                                      pageSize={20}
+                                      setPageIndex={[Function]}
+                                      setPageSize={[Function]}
+                                      totalElements={0}
+                                      totalPages={0}
+                                    >
+                                      <Row
+                                        tag="div"
+                                        widths={
+                                          Array [
+                                            "xs",
+                                            "sm",
+                                            "md",
+                                            "lg",
+                                            "xl",
+                                          ]
+                                        }
+                                      >
+                                        <div
+                                          className="row"
+                                        >
+                                          <Col
+                                            tag="div"
+                                            widths={
+                                              Array [
+                                                "xs",
+                                                "sm",
+                                                "md",
+                                                "lg",
+                                                "xl",
+                                              ]
+                                            }
+                                            xs="12"
+                                          >
+                                            <div
+                                              className="col-12"
+                                            >
+                                              <Input
+                                                bsSize="sm"
+                                                className="waves-effect float-left mr-2 my-2"
+                                                onChange={[Function]}
+                                                style={
+                                                  Object {
+                                                    "width": 60,
+                                                  }
+                                                }
+                                                type="select"
+                                                value={20}
+                                              >
+                                                <select
+                                                  className="waves-effect float-left mr-2 my-2 form-control-sm form-control"
+                                                  onChange={[Function]}
+                                                  style={
+                                                    Object {
+                                                      "width": 60,
+                                                    }
+                                                  }
+                                                  value={20}
+                                                >
+                                                  <option>
+                                                    20
+                                                  </option>
+                                                  <option>
+                                                    50
+                                                  </option>
+                                                  <option>
+                                                    100
+                                                  </option>
+                                                </select>
+                                              </Input>
+                                              <FilterBarIcon>
+                                                <Button
+                                                  className="waves-effect float-right mr-2 my-2"
+                                                  color="secondary"
+                                                  onClick={[Function]}
+                                                  outline={true}
+                                                  size="sm"
+                                                  style={
+                                                    Object {
+                                                      "backgroundColor": undefined,
+                                                      "borderColor": "#ced4da",
+                                                      "color": undefined,
+                                                    }
+                                                  }
+                                                  tag="button"
+                                                  type="button"
+                                                >
+                                                  <button
+                                                    aria-label={null}
+                                                    className="waves-effect float-right mr-2 my-2 btn btn-outline-secondary btn-sm"
+                                                    onClick={[Function]}
+                                                    style={
+                                                      Object {
+                                                        "backgroundColor": undefined,
+                                                        "borderColor": "#ced4da",
+                                                        "color": undefined,
+                                                      }
+                                                    }
+                                                    type="button"
+                                                  >
+                                                    <i
+                                                      className="fa fa-filter"
+                                                    />
+                                                     Filter
+                                                  </button>
+                                                </Button>
+                                              </FilterBarIcon>
+                                            </div>
+                                          </Col>
+                                        </div>
+                                      </Row>
+                                      <SuppliersTable>
+                                        <CommonTable>
+                                          <div
+                                            className="table-responsive table-striped table-sm"
+                                          >
+                                            <Table
+                                              className="table-centered table-vertical table-fixed jadc-effect mb-1"
+                                              responsiveTag="div"
+                                              style={
+                                                Object {
+                                                  "cursor": null,
+                                                  "tableLayout": undefined,
+                                                }
+                                              }
+                                              tag="table"
+                                            >
+                                              <table
+                                                className="table-centered table-vertical table-fixed jadc-effect mb-1 table"
+                                                style={
+                                                  Object {
+                                                    "cursor": null,
+                                                    "tableLayout": undefined,
+                                                  }
+                                                }
+                                              >
+                                                <thead>
+                                                  <tr>
+                                                    <Th
+                                                      id="name"
+                                                      name="supplierName"
+                                                      onSort={[Function]}
+                                                    >
+                                                      <th
+                                                        name="supplierName"
+                                                        onClick={[Function]}
+                                                        style={
+                                                          Object {
+                                                            "cursor": "pointer",
+                                                            "width": undefined,
+                                                          }
+                                                        }
+                                                      >
+                                                        <i
+                                                          className="mdi mdi-sort-ascending mr-1"
+                                                          hidden={true}
+                                                        />
+                                                        <i
+                                                          className="mdi mdi-sort-descending mr-1"
+                                                          hidden={true}
+                                                        />
+                                                        Name
+                                                      </th>
+                                                    </Th>
+                                                    <th>
+                                                      Address
+                                                    </th>
+                                                    <th>
+                                                      Num. Contacts
+                                                    </th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody />
+                                              </table>
+                                            </Table>
+                                          </div>
+                                        </CommonTable>
+                                      </SuppliersTable>
+                                      <Row
+                                        tag="div"
+                                        widths={
+                                          Array [
+                                            "xs",
+                                            "sm",
+                                            "md",
+                                            "lg",
+                                            "xl",
+                                          ]
+                                        }
+                                      >
+                                        <div
+                                          className="row"
+                                        >
+                                          <Col
+                                            sm={6}
+                                            tag="div"
+                                            widths={
+                                              Array [
+                                                "xs",
+                                                "sm",
+                                                "md",
+                                                "lg",
+                                                "xl",
+                                              ]
+                                            }
+                                          >
+                                            <div
+                                              className="col-sm-6"
+                                            >
+                                              <span
+                                                className="font-size-12 float-left mt-3"
+                                              >
+                                                Showing 0 results ..
+                                              </span>
+                                            </div>
+                                          </Col>
+                                          <Col
+                                            sm={6}
+                                            tag="div"
+                                            widths={
+                                              Array [
+                                                "xs",
+                                                "sm",
+                                                "md",
+                                                "lg",
+                                                "xl",
+                                              ]
+                                            }
+                                          >
+                                            <div
+                                              className="col-sm-6"
+                                            >
+                                              <Pagination
+                                                aria-label="pagination"
+                                                className="float-right mt-3"
+                                                listTag="ul"
+                                                tag="nav"
+                                              >
+                                                <nav
+                                                  aria-label="pagination"
+                                                  className="float-right mt-3"
+                                                >
+                                                  <ul
+                                                    className="pagination"
+                                                  >
+                                                    <PaginationItem
+                                                      disabled={true}
+                                                      key="-1"
+                                                      tag="li"
+                                                    >
+                                                      <li
+                                                        className="page-item disabled"
+                                                      >
+                                                        <PaginationLink
+                                                          onClick={[Function]}
+                                                          tabIndex="-1"
+                                                          tag="a"
+                                                        >
+                                                          <button
+                                                            className="page-link"
+                                                            onClick={[Function]}
+                                                            tabIndex="-1"
+                                                          >
+                                                            Previous
+                                                          </button>
+                                                        </PaginationLink>
+                                                      </li>
+                                                    </PaginationItem>
+                                                    <PaginationItem
+                                                      disabled={true}
+                                                      key="-2"
+                                                      tag="li"
+                                                    >
+                                                      <li
+                                                        className="page-item disabled"
+                                                      >
+                                                        <PaginationLink
+                                                          onClick={[Function]}
+                                                          tabIndex="-2"
+                                                          tag="a"
+                                                        >
+                                                          <button
+                                                            className="page-link"
+                                                            onClick={[Function]}
+                                                            tabIndex="-2"
+                                                          >
+                                                            Next
+                                                          </button>
+                                                        </PaginationLink>
+                                                      </li>
+                                                    </PaginationItem>
+                                                  </ul>
+                                                </nav>
+                                              </Pagination>
+                                            </div>
+                                          </Col>
+                                        </div>
+                                      </Row>
+                                    </PageWrapper>
+                                  </SuppliersPagination>
+                                </div>
+                              </CardBody>
+                            </div>
+                          </ContentLoader>
+                        </CardBody>
+                      </div>
+                    </Card>
+                  </Card>
+                </div>
+              </Col>
+              <FilterBarSupplier>
+                <FilterBar
+                  clearFilter={[Function]}
+                  data={
+                    Array [
+                      Object {
+                        "id": 0,
+                        "inputType": "text",
+                        "label": "Name",
+                        "onChange": [Function],
+                        "type": "input",
+                        "value": "",
+                      },
+                    ]
+                  }
+                  label="Supplier"
+                  onSubmitFilter={[Function]}
+                >
+                  <Col
+                    style={
+                      Object {
+                        "maxWidth": undefined,
+                        "position": "fixed",
+                      }
+                    }
+                    tag="div"
+                    widths={
+                      Array [
+                        "xs",
+                        "sm",
+                        "md",
+                        "lg",
+                        "xl",
+                      ]
+                    }
+                    xs={12}
+                  >
+                    <div
+                      className="col-12"
+                      style={
+                        Object {
+                          "maxWidth": undefined,
+                          "position": "fixed",
+                        }
+                      }
+                    >
+                      <Nav
+                        className="filter-bar-menu"
+                        key="sidebar-filter-Supplier"
+                        style={
+                          Object {
+                            "backgroundColor": "whitesmoke",
+                          }
+                        }
+                        tag="ul"
+                        vertical={true}
+                      >
+                        <ul
+                          className="filter-bar-menu nav flex-column"
+                          style={
+                            Object {
+                              "backgroundColor": "whitesmoke",
+                            }
+                          }
+                        >
+                          <div
+                            className="d-flex flex-column h-100"
+                          >
+                            <Col
+                              className="filter-bar-top-content waves-effect"
+                              onClick={[Function]}
+                              style={
+                                Object {
+                                  "flex": 0.5,
+                                }
+                              }
+                              tag="div"
+                              widths={
+                                Array [
+                                  "xs",
+                                  "sm",
+                                  "md",
+                                  "lg",
+                                  "xl",
+                                ]
+                              }
+                            >
+                              <div
+                                className="filter-bar-top-content waves-effect col"
+                                onClick={[Function]}
+                                style={
+                                  Object {
+                                    "flex": 0.5,
+                                  }
+                                }
+                              >
+                                <div
+                                  className="float-right px-2 py-3"
+                                  type="button"
+                                >
+                                  Hide 
+                                  <i
+                                    className="ion ion-md-close"
+                                  />
+                                </div>
+                                <div>
+                                  <Label
+                                    className="d-flex py-2 bottom-0"
+                                    style={
+                                      Object {
+                                        "bottom": 0,
+                                        "position": "absolute",
+                                      }
+                                    }
+                                    tag="label"
+                                    widths={
+                                      Array [
+                                        "xs",
+                                        "sm",
+                                        "md",
+                                        "lg",
+                                        "xl",
+                                      ]
+                                    }
+                                  >
+                                    <label
+                                      className="d-flex py-2 bottom-0"
+                                      style={
+                                        Object {
+                                          "bottom": 0,
+                                          "position": "absolute",
+                                        }
+                                      }
+                                    >
+                                      Add filters
+                                    </label>
+                                  </Label>
+                                </div>
+                              </div>
+                            </Col>
+                            <Col
+                              className="p-2 flex-4"
+                              style={
+                                Object {
+                                  "flex": 4,
+                                  "overflow": "auto",
+                                }
+                              }
+                              tag="div"
+                              widths={
+                                Array [
+                                  "xs",
+                                  "sm",
+                                  "md",
+                                  "lg",
+                                  "xl",
+                                ]
+                              }
+                            >
+                              <div
+                                className="p-2 flex-4 col"
+                                style={
+                                  Object {
+                                    "flex": 4,
+                                    "overflow": "auto",
+                                  }
+                                }
+                              >
+                                <Col
+                                  className="p-2"
+                                  key="0"
+                                  tag="div"
+                                  widths={
+                                    Array [
+                                      "xs",
+                                      "sm",
+                                      "md",
+                                      "lg",
+                                      "xl",
+                                    ]
+                                  }
+                                >
+                                  <div
+                                    className="p-2 col"
+                                  >
+                                    <Label
+                                      className="font-weight-bold font-size-14"
+                                      onClick={[Function]}
+                                      tag="label"
+                                      type="button"
+                                      widths={
+                                        Array [
+                                          "xs",
+                                          "sm",
+                                          "md",
+                                          "lg",
+                                          "xl",
+                                        ]
+                                      }
+                                    >
+                                      <label
+                                        className="font-weight-bold font-size-14"
+                                        onClick={[Function]}
+                                        type="button"
+                                      >
+                                        <i
+                                          className="ion ion-ios-arrow-forward"
+                                        />
+                                         
+                                         
+                                        Name
+                                      </label>
+                                    </Label>
+                                    <Collapse
+                                      appear={false}
+                                      enter={true}
+                                      exit={true}
+                                      id="search-field-Supplier-Name"
+                                      in={false}
+                                      isOpen={false}
+                                      mountOnEnter={false}
+                                      onEnter={[Function]}
+                                      onEntered={[Function]}
+                                      onEntering={[Function]}
+                                      onExit={[Function]}
+                                      onExited={[Function]}
+                                      onExiting={[Function]}
+                                      tag="div"
+                                      timeout={350}
+                                      unmountOnExit={false}
+                                    >
+                                      <Transition
+                                        appear={false}
+                                        enter={true}
+                                        exit={true}
+                                        in={false}
+                                        mountOnEnter={false}
+                                        onEnter={[Function]}
+                                        onEntered={[Function]}
+                                        onEntering={[Function]}
+                                        onExit={[Function]}
+                                        onExited={[Function]}
+                                        onExiting={[Function]}
+                                        timeout={350}
+                                        unmountOnExit={false}
+                                      >
+                                        <div
+                                          className="collapse"
+                                          id="search-field-Supplier-Name"
+                                          style={Object {}}
+                                        >
+                                          <Input
+                                            name="Name"
+                                            onChange={[Function]}
+                                            placeholder="Supplier name"
+                                            type="text"
+                                            value=""
+                                          >
+                                            <input
+                                              className="form-control"
+                                              name="Name"
+                                              onChange={[Function]}
+                                              placeholder="Supplier name"
+                                              type="text"
+                                              value=""
+                                            />
+                                          </Input>
+                                        </div>
+                                      </Transition>
+                                    </Collapse>
+                                  </div>
+                                </Col>
+                                <div
+                                  style={
+                                    Object {
+                                      "alignItems": "center",
+                                      "display": "flex",
+                                      "flex": 1,
+                                      "justifyContent": "center",
+                                    }
+                                  }
+                                >
+                                  <Button
+                                    className="d-inline-block waves-effect m-2 float-bottom"
+                                    color="primary"
+                                    onClick={[Function]}
+                                    style={
+                                      Object {
+                                        "flex": 3,
+                                        "maxWidth": "200px",
+                                      }
+                                    }
+                                    tag="button"
+                                    type="button"
+                                  >
+                                    <button
+                                      aria-label={null}
+                                      className="d-inline-block waves-effect m-2 float-bottom btn btn-primary"
+                                      onClick={[Function]}
+                                      style={
+                                        Object {
+                                          "flex": 3,
+                                          "maxWidth": "200px",
+                                        }
+                                      }
+                                      type="button"
+                                    >
+                                      Apply Filters
+                                    </button>
+                                  </Button>
+                                  <Button
+                                    className="d-inline-block waves-effect m-2 float-bottom"
+                                    color="secondary"
+                                    onClick={[Function]}
+                                    style={
+                                      Object {
+                                        "flex": 1,
+                                        "maxWidth": "200px",
+                                      }
+                                    }
+                                    tag="button"
+                                    type="button"
+                                  >
+                                    <button
+                                      aria-label={null}
+                                      className="d-inline-block waves-effect m-2 float-bottom btn btn-secondary"
+                                      onClick={[Function]}
+                                      style={
+                                        Object {
+                                          "flex": 1,
+                                          "maxWidth": "200px",
+                                        }
+                                      }
+                                      type="button"
+                                    >
+                                      Clear
+                                    </button>
+                                  </Button>
+                                </div>
+                              </div>
+                            </Col>
+                          </div>
+                        </ul>
+                      </Nav>
+                    </div>
+                  </Col>
+                </FilterBar>
+              </FilterBarSupplier>
+            </div>
+          </Row>
+        </Suppliers>
+      </Suppliers>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
