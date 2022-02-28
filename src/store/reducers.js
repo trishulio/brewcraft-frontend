@@ -6,7 +6,8 @@ import BatchTask from "./BatchTask/reducer";
 import Breadcrumb from "./Breadcrumb/reducer";
 import Brewery from "./Brewery/reducer";
 import {
-    MashStage,
+    Stages,
+    MashStages,
     KettleStage,
     WhirlpoolStage,
     TransferStage,
@@ -30,6 +31,7 @@ import Products from "./Products/reducer";
 import Profile from "./Profile/reducer";
 import MaterialLots from "./MaterialLots/reducer";
 import {
+    MaterialPortions,
     MashMaterialPortion,
     KettleMaterialPortion,
     FermentMaterialPortion,
@@ -38,6 +40,7 @@ import Materials from "./Materials/reducer";
 import MaterialCategories from "./MaterialCategories/reducer";
 import MaterialCategory from "./MaterialCategory/reducer";
 import Measures from "./Measures/reducer";
+import Mixtures from "./Mixtures/reducer";
 import {
     MashMixture,
     KettleMixture,
@@ -47,6 +50,7 @@ import {
 } from "./Mixture/reducer";
 import MiniCards from "./MiniCards/reducer";
 import {
+    MixtureRecordings,
     KettleMixtureRecordings,
     WhirlpoolMixtureRecordings,
     TransferMixtureRecordings,
@@ -74,7 +78,11 @@ import UserRoles from "./UserRoles/reducer";
 const rootReducer = combineReducers({
     Batch: combineReducers({
         Batch: Brew,
-        MashStage,
+        Mixtures,
+        Stages,
+        MaterialPortions,
+        MixtureRecordings,
+        MashStages,
         MashMixture,
         MashMaterialPortion,
         KettleStage,
@@ -114,6 +122,7 @@ const rootReducer = combineReducers({
     MaterialCategory,
     Measures,
     MiniCards,
+    Mixtures,
     Notifications,
     Packaging,
     PackagingItem,

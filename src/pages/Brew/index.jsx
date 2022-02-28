@@ -17,26 +17,15 @@ import {
     fetchMixtureRecordingsByBrewId,
     fetchFinishedGoodsByBrewId,
     fetchMixturesByBrewId,
-    editTransferMixtureRecords,
     fetchAllBrewStages,
-    editMashMaterialPortion,
-    deleteMashMaterialPortion,
-    editMashStage,
-    editMashMixture,
-    editKettleMaterialPortion,
-    deleteKettleMaterialPortion,
-    editKettleStage,
-    editKettleMixture,
-    editWhirlpoolStage,
-    editWhirlpoolMixture,
-    editFermentStage,
-    editFermentMaterialPortion,
-    editFermentMixture,
-    editFermentMixtureRecords,
-    deleteFermentMixtureRecords,
     saveFermentFinishedGoods,
     deleteFermentFinishedGoods,
-    deleteFermentMaterialPortion,
+    editBrewStages,
+    editBrewMixtures,
+    editMaterialPortions,
+    deleteMaterialPortions,
+    saveBrewMixtureRecordings,
+    deleteBrewMixtureRecordings,
 } from "../../store/actions";
 import { useQuery } from "../../helpers/utils";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
@@ -46,7 +35,6 @@ import BatchInner from "./batch";
 export default function Batch() {
     const [showDeletePrompt, setShowDeletePrompt] = useState(false);
     const [showRouterPrompt, setShowRouterPrompt] = useState(false);
-    const [activeTab, setActiveTab] = useState("1");
 
     const { id } = useParams();
     const history = useHistory();
@@ -62,84 +50,36 @@ export default function Batch() {
         return state.Batch.Batch;
     });
 
-    const { data: mashStage, initial: initialMashStage } = useSelector(
-        (state) => {
-            return state.Batch.MashStage;
-        }
-    );
-
-    const { data: mashMixture, initial: initialMashMixture } = useSelector(
-        (state) => {
-            return state.Batch.MashMixture;
-        }
-    );
-
-    const {
-        content: mashMaterialPortions,
-        initial: initialMashMaterialPortions,
-    } = useSelector((state) => {
-        return state.Batch.MashMaterialPortion;
+    const stages = useSelector((state) => {
+        return state.Batch.Stages.content;
     });
 
-    const { data: kettleStage, initial: initialKettleStage } = useSelector(
-        (state) => {
-            return state.Batch.KettleStage;
-        }
-    );
-
-    const { data: kettleMixture, initial: initialKettleMixture } = useSelector(
-        (state) => {
-            return state.Batch.KettleMixture;
-        }
-    );
-
-    const {
-        content: kettleMaterialPortions,
-        initial: initialKettleMaterialPortions,
-    } = useSelector((state) => {
-        return state.Batch.KettleMaterialPortion;
+    const initialStages = useSelector((state) => {
+        return state.Batch.Stages.initial;
     });
 
-    const { data: whirlpoolStage, initial: initialWhirlpoolStage } =
-        useSelector((state) => {
-            return state.Batch.WhirlpoolStage;
-        });
-
-    const { data: whirlpoolMixture, initial: initialWhirlpoolMixture } =
-        useSelector((state) => {
-            return state.Batch.WhirlpoolMixture;
-        });
-
-    const {
-        content: transferMixtureRecords,
-        initial: initialTransferMixtureRecords,
-    } = useSelector((state) => {
-        return state.Batch.TransferMixtureRecordings;
+    const mixtures = useSelector((state) => {
+        return state.Batch.Mixtures.content;
     });
 
-    const { data: fermentStage, initial: initialFermentStage } = useSelector(
-        (state) => {
-            return state.Batch.FermentStage;
-        }
-    );
-
-    const { data: fermentMixture, initial: initialFermentMixture } =
-        useSelector((state) => {
-            return state.Batch.FermentMixture;
-        });
-
-    const {
-        content: fermentMaterialPortions,
-        initial: initialFermentMaterialPortions,
-    } = useSelector((state) => {
-        return state.Batch.FermentMaterialPortion;
+    const initialMixtures = useSelector((state) => {
+        return state.Batch.Mixtures.initial;
     });
 
-    const {
-        content: fermentMixtureRecords,
-        initial: initialFermentMixtureRecords,
-    } = useSelector((state) => {
-        return state.Batch.FermentMixtureRecordings;
+    const materialPortions = useSelector((state) => {
+        return state.Batch.MaterialPortions.content;
+    });
+
+    const initialMaterialPortions = useSelector((state) => {
+        return state.Batch.MaterialPortions.initial;
+    });
+
+    const mixtureRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.content;
+    });
+
+    const initialMixtureRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.initial;
     });
 
     const {
@@ -202,22 +142,18 @@ export default function Batch() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [edit]);
 
-    useEffect(() => {
-        dispatch(
-            setBatchDetails({
-                changed: JSON.stringify(initialBatch) !== JSON.stringify(batch),
-            })
-        );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [batch]);
-
     const changed = useSelector((state) => {
         return (
-            state.Batch.Batch.changed ||
-            state.Batch.MashStage.changed ||
-            state.Batch.KettleStage.changed ||
-            state.Batch.WhirlpoolStage.changed ||
-            state.Batch.FermentStage.changed
+            JSON.stringify(state.Batch.Batch.data) !==
+                JSON.stringify(state.Batch.Batch.initial) ||
+            JSON.stringify(state.Batch.Stages.content) !==
+                JSON.stringify(state.Batch.Stages.initial) ||
+            JSON.stringify(state.Batch.Mixtures.content) !==
+                JSON.stringify(state.Batch.Mixtures.initial) ||
+            JSON.stringify(state.Batch.MaterialPortions.content) !==
+                JSON.stringify(state.Batch.MaterialPortions.initial) ||
+            JSON.stringify(state.Batch.MixtureRecordings.content) !==
+                JSON.stringify(state.Batch.MixtureRecordings.initial)
         );
     });
 
@@ -345,38 +281,38 @@ export default function Batch() {
         }
     }
 
-    function saveMixtureRecords(
-        mixtureRecords,
-        initialMixtureRecords,
-        saveMixtureRecords,
-        deleteMixtureRecords
+    function saveMixtureRecordings(
+        mixtureRecordings,
+        initialMixtureRecordings,
+        saveMixtureRecordings,
+        deleteMixtureRecordings
     ) {
         if (
-            JSON.stringify(initialMixtureRecords) !==
-            JSON.stringify(mixtureRecords)
+            JSON.stringify(mixtureRecordings) !==
+            JSON.stringify(initialMixtureRecordings)
         ) {
-            if (mixtureRecords.length) {
+            if (mixtureRecordings.length) {
                 dispatch(
-                    saveMixtureRecords({
-                        form: mixtureRecords.map((record) => ({
+                    saveMixtureRecordings(
+                        mixtureRecordings.map((record) => ({
                             id: record.id,
                             mixtureId: record.mixture.id,
                             measureId: record.measure.id,
                             value: record.value,
                             recordedAt: record.recordedAt,
                             version: record.version,
-                        })),
-                    })
+                        }))
+                    )
                 );
             }
             // delete mixture records
-            const map = mixtureRecords.map((mp) => mp.id);
-            const records = initialMixtureRecords
+            const map = mixtureRecordings.map((mp) => mp.id);
+            const records = initialMixtureRecordings
                 .filter((imp) => !map.includes(imp.id))
                 .map((records) => records.id);
             if (records.length) {
                 dispatch(
-                    deleteMixtureRecords({
+                    deleteMixtureRecordings({
                         batchId: batch.id,
                         form: records,
                     })
@@ -387,65 +323,33 @@ export default function Batch() {
 
     function onSave() {
         if (batch.id) {
-            // save mash
-            saveStage(mashStage, initialMashStage, editMashStage);
-            saveMixture(mashMixture, initialMashMixture, editMashMixture);
+            // save stages
+            for (let i = 0; i < stages.length; i++) {
+                saveStage(stages[i], initialStages[i], editBrewStages);
+            }
+            // save mixtures
+            for (let i = 0; i < mixtures.length; i++) {
+                saveMixture(mixtures[i], initialMixtures[i], editBrewMixtures);
+            }
+            // save material portions
             saveMaterialPortions(
-                mashMaterialPortions,
-                initialMashMaterialPortions,
-                editMashMaterialPortion,
-                deleteMashMaterialPortion
+                materialPortions,
+                initialMaterialPortions,
+                editMaterialPortions,
+                deleteMaterialPortions
             );
-            // save kettle
-            saveStage(kettleStage, initialKettleStage, editKettleStage);
-            saveMixture(kettleMixture, initialKettleMixture, editKettleMixture);
-            saveMaterialPortions(
-                kettleMaterialPortions,
-                initialKettleMaterialPortions,
-                editKettleMaterialPortion,
-                deleteKettleMaterialPortion
-            );
-            // save whirlpool
-            saveStage(
-                whirlpoolStage,
-                initialWhirlpoolStage,
-                editWhirlpoolStage
-            );
-            saveMixture(
-                whirlpoolMixture,
-                initialWhirlpoolMixture,
-                editWhirlpoolMixture
-            );
-            // save ferment
-            saveStage(fermentStage, initialFermentStage, editFermentStage);
-            saveMixture(
-                fermentMixture,
-                initialFermentMixture,
-                editFermentMixture
-            );
-            saveMaterialPortions(
-                fermentMaterialPortions,
-                initialFermentMaterialPortions,
-                editFermentMaterialPortion,
-                deleteFermentMaterialPortion
-            );
-            saveMixtureRecords(
-                fermentMixtureRecords,
-                initialFermentMixtureRecords,
-                editFermentMixtureRecords,
-                deleteFermentMixtureRecords
+            // save mixuture recordings
+            saveMixtureRecordings(
+                mixtureRecordings,
+                initialMixtureRecordings,
+                saveBrewMixtureRecordings,
+                deleteBrewMixtureRecordings
             );
             saveFinishedGoods(
                 fermentFinishedGoods,
                 initialFermentFinishedGoods,
                 saveFermentFinishedGoods,
                 deleteFermentFinishedGoods
-            );
-            // save transfer
-            saveMixture(
-                transferMixtureRecords,
-                initialTransferMixtureRecords,
-                editTransferMixtureRecords
             );
             // save batch
             if (JSON.stringify(batch) !== JSON.stringify(initialBatch)) {
@@ -468,15 +372,13 @@ export default function Batch() {
         } else {
             dispatch(
                 saveBatch({
-                    form: {
-                        name: batch.name,
-                        description: batch.description,
-                        batchId: batch.batchId,
-                        productId: parseInt(batch.product.id),
-                        parentBrewId: batch.parentBrewId || null,
-                        startedAt: batch.startedAt,
-                        endedAt: batch.endedAt,
-                    },
+                    name: batch.name,
+                    description: batch.description,
+                    batchId: "a",
+                    productId: parseInt(batch.product.id),
+                    parentBrewId: batch.parentBrewId || null,
+                    startedAt: batch.startedAt,
+                    endedAt: batch.endedAt,
                 })
             );
         }
@@ -493,8 +395,6 @@ export default function Batch() {
     }
 
     const props = {
-        activeTab,
-        setActiveTab,
         setEditable,
         changed,
         error,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     Button,
@@ -7,122 +7,35 @@ import {
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import {
-    saveKettleStage,
-    setMashMaterialPortionDetails,
-    setMashMixtureDetails,
-    setMashStageDetails,
-} from "../../../../store/actions";
+import { addBrewStage, deleteBrewStage } from "../../../../store/actions";
 import Ingredients from "../common/ingredients";
 import BatchStage from "../common/stage";
 
-export default function BrewMash(props) {
+export default function BrewMash({
+    mashMixture,
+    mashStage,
+    kettleMixture,
+    isOpen,
+    toggleIsOpen,
+}) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const dispatch = useDispatch();
 
-    const { data: batch, editable } = useSelector((state) => {
+    const { data: batch } = useSelector((state) => {
         return state.Batch.Batch;
     });
 
-    const {
-        data: stage,
-        initial: initialStage,
-        loading: stageLoading,
-        stageError,
-    } = useSelector((state) => {
-        return state.Batch.MashStage;
-    });
-
-    const { data: kettleStage } = useSelector((state) => {
-        return state.Batch.KettleStage;
-    });
-
-    const {
-        data: mixture,
-        initial: initialMixture,
-        loading: mixtureLoading,
-        error: mixtureError,
-    } = useSelector((state) => {
-        return state.Batch.MashMixture;
-    });
-
-    const {
-        content: materialPortions,
-        initial: initialMaterialPortions,
-        loading: materialPortionsLoading,
-        error: materialPortionsError,
-    } = useSelector((state) => {
-        return state.Batch.MashMaterialPortion;
-    });
-
-    useEffect(() => {
-        dispatch(
-            setMashStageDetails({
-                changed: isChanged(),
-            })
-        );
-        // eslint-disable-next-line
-    }, [stage, mixture, materialPortions]);
-
-    function isChanged() {
-        return (
-            JSON.stringify(initialStage) !== JSON.stringify(stage) ||
-            JSON.stringify(initialMixture) !== JSON.stringify(mixture) ||
-            JSON.stringify(initialMaterialPortions) !==
-                JSON.stringify(materialPortions)
-        );
-    }
-
-    function setStage(stage) {
-        dispatch(
-            setMashStageDetails({
-                data: stage,
-            })
-        );
-    }
-
-    function setMixture(mixture) {
-        dispatch(
-            setMashMixtureDetails({
-                data: mixture,
-            })
-        );
-    }
-
-    function setMaterialPortions(materialPortions) {
-        dispatch(
-            setMashMaterialPortionDetails({
-                content: materialPortions,
-            })
-        );
-    }
-
     const ingredientsProps = {
-        mixture,
-        editable,
-        materialPortions,
-        setMaterialPortions,
+        mixture: mashMixture,
     };
 
     const stageProps = {
-        ...props,
         title: "Mash Lauter",
-        editable,
-        setEditable: props.setEditable,
-        initialStage,
-        stage,
-        setStage,
-        stageLoading,
-        mixture,
-        setMixture,
-        mixtureLoading,
-        materialPortionsLoading,
-        stageError,
-        mixtureError,
-        materialPortionsError,
-        isOpen: props.isOpen,
+        stage: mashStage,
+        mixture: mashMixture,
+        isOpen,
         toggleIsOpen: () => {
-            props.toggleIsOpen("mash");
+            toggleIsOpen("mash");
         },
         toolbar: (
             <React.Fragment>
@@ -146,15 +59,16 @@ export default function BrewMash(props) {
                         className="waves-effect btn btn-outline-secondary btn-sm"
                         data-toggle="dropdown"
                     >
-                        More <i className="fa fa-caret-down"></i>
+                        Mixture <i className="fa fa-caret-down"></i>
                     </DropdownToggle>
                     <DropdownMenu>
-                        <DropdownItem disabled={!!kettleStage.id}>
+                        <DropdownItem disabled={!!kettleMixture?.id}>
                             <span
                                 className="text-dark"
                                 onClick={() => {
                                     dispatch(
-                                        saveKettleStage({
+                                        addBrewStage({
+                                            parentMixtureIds: [mashMixture.id],
                                             form: [
                                                 {
                                                     brewId: batch.id,
@@ -172,7 +86,14 @@ export default function BrewMash(props) {
                             </span>
                         </DropdownItem>
                         <DropdownItem>
-                            <span className="text-dark">Delete Mixture</span>
+                            <span
+                                className="text-dark"
+                                onClick={() => {
+                                    dispatch(deleteBrewStage(mashStage));
+                                }}
+                            >
+                                Delete
+                            </span>
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
@@ -182,7 +103,7 @@ export default function BrewMash(props) {
 
     return (
         <React.Fragment>
-            {stage.id && (
+            {mashStage?.id && (
                 <BatchStage {...stageProps}>
                     <div className="mb-3">
                         <Ingredients {...ingredientsProps} />

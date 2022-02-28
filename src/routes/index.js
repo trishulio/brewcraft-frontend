@@ -49,9 +49,12 @@ const authProtectedRoutes = [
     { path: "/inventory/raw-materials", component: RawMaterials },
 
     // Finished Goods
-    { path: "/finished-goods/:id", component: FinishedGood },
-    { path: "/finished-goods", component: FinishedGoods },
-    { path: "/inventory/finished-goods", component: FinishedGoodsInventory },
+    {
+        path: "/inventory/finished-goods/summary",
+        component: FinishedGoodsInventory,
+    },
+    { path: "/inventory/finished-goods/:id", component: FinishedGood },
+    { path: "/inventory/finished-goods", component: FinishedGoods },
 
     // Product Categories
     { path: "/products/categories/:id", component: ProductCategory },

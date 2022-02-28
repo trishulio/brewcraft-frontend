@@ -192,11 +192,13 @@ export default function BatchIngredients({
                                 const mp = finishedGood.mixturePortions.find(
                                     (mp) => mp.addedAt === datetime
                                 );
-                                mp.quantity.value +=
+                                mp.quantity.value =
+                                    toL(mp.quantity.value, mp.quantity.symbol) +
                                     toL(
                                         sku.quantity.value,
                                         sku.quantity.symbol
-                                    ) * parseFloat(quantity);
+                                    ) *
+                                        parseFloat(quantity);
                                 finishedGood.quantity.value +=
                                     parseFloat(quantity);
                                 setFinishedGoods([...finishedGoods]);
@@ -210,7 +212,7 @@ export default function BatchIngredients({
                                                 mixture,
                                                 quantity: {
                                                     value: toL(
-                                                        sku.quantity.value /
+                                                        sku.quantity.value *
                                                             parseFloat(
                                                                 quantity
                                                             ),

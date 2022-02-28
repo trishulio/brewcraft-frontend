@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     Button,
@@ -8,126 +8,41 @@ import {
     DropdownToggle,
 } from "reactstrap";
 import {
-    saveFermentStage,
-    saveWhirlpoolStage,
-    setKettleMaterialPortionDetails,
-    setKettleMixtureDetails,
-    setKettleStageDetails,
+    addBrewStage,
+    deleteBrewStage,
+    transferToFermentStage,
 } from "../../../../store/actions";
 import Ingredients from "../common/ingredients";
 import BatchStage from "../common/stage";
 
-export default function BrewKettle(props) {
+export default function BrewKettle({
+    kettleMixture,
+    kettleStage,
+    kettleMaterialPortions,
+    whirlpoolStage,
+    transferStage,
+    isOpen,
+    toggleIsOpen,
+}) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const dispatch = useDispatch();
 
-    const { data: batch, editable } = useSelector((state) => {
+    const { data: batch } = useSelector((state) => {
         return state.Batch.Batch;
     });
 
-    const {
-        data: stage,
-        initial: initialStage,
-        loading: stageLoading,
-        error: stageError,
-    } = useSelector((state) => {
-        return state.Batch.KettleStage;
-    });
-
-    const whirlpoolStage = useSelector((state) => {
-        return state.Batch.WhirlpoolStage.data;
-    });
-
-    const fermentStage = useSelector((state) => {
-        return state.Batch.FermentStage.data;
-    });
-
-    const {
-        data: mixture,
-        initial: initialMixture,
-        loading: mixtureLoading,
-        error: mixtureError,
-    } = useSelector((state) => {
-        return state.Batch.KettleMixture;
-    });
-
-    const {
-        content: materialPortions,
-        initial: initialMaterialPortions,
-        loading: materialPortionsLoading,
-        error: materialPortionsError,
-    } = useSelector((state) => {
-        return state.Batch.KettleMaterialPortion;
-    });
-
-    useEffect(() => {
-        dispatch(
-            setKettleStageDetails({
-                changed: isChanged(),
-            })
-        );
-        // eslint-disable-next-line
-    }, [stage, mixture, materialPortions]);
-
-    function isChanged() {
-        return (
-            JSON.stringify(initialStage) !== JSON.stringify(stage) ||
-            JSON.stringify(initialMixture) !== JSON.stringify(mixture) ||
-            JSON.stringify(initialMaterialPortions) !==
-                JSON.stringify(materialPortions)
-        );
-    }
-
-    function setStage(stage) {
-        dispatch(
-            setKettleStageDetails({
-                data: stage,
-            })
-        );
-    }
-
-    function setMixture(mixture) {
-        dispatch(
-            setKettleMixtureDetails({
-                data: mixture,
-            })
-        );
-    }
-
-    function setMaterialPortions(materialPortions) {
-        dispatch(
-            setKettleMaterialPortionDetails({
-                content: materialPortions,
-            })
-        );
-    }
-
     const ingredientsProps = {
-        mixture,
-        editable,
-        materialPortions,
-        setMaterialPortions,
+        mixture: kettleMixture,
+        materialPortions: kettleMaterialPortions,
     };
 
     const stageProps = {
-        ...props,
         title: "Kettle",
-        editable,
-        setEditable: props.setEditable,
-        initialStage,
-        stage,
-        setStage,
-        stageLoading,
-        mixture,
-        setMixture,
-        mixtureLoading,
-        materialPortionsLoading,
-        stageError,
-        mixtureError,
-        materialPortionsError,
-        isOpen: props.isOpen,
+        stage: kettleStage,
+        mixture: kettleMixture,
+        isOpen,
         toggleIsOpen: () => {
-            props.toggleIsOpen("kettle");
+            toggleIsOpen("kettle");
         },
         toolbar: (
             <React.Fragment>
@@ -161,17 +76,22 @@ export default function BrewKettle(props) {
                         className="waves-effect btn btn-outline-secondary btn-sm"
                         data-toggle="dropdown"
                     >
-                        More <i className="fa fa-caret-down"></i>
+                        Mixture <i className="fa fa-caret-down"></i>
                     </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem
-                            disabled={!!whirlpoolStage.id || !!fermentStage.id}
+                            disabled={
+                                !!whirlpoolStage?.id || !!transferStage?.id
+                            }
                         >
                             <span
                                 className="text-dark"
                                 onClick={() => {
                                     dispatch(
-                                        saveWhirlpoolStage({
+                                        addBrewStage({
+                                            parentMixtureIds: [
+                                                kettleMixture.id,
+                                            ],
                                             form: [
                                                 {
                                                     brewId: batch.id,
@@ -189,22 +109,16 @@ export default function BrewKettle(props) {
                             </span>
                         </DropdownItem>
                         <DropdownItem
-                            disabled={!!whirlpoolStage.id || !!fermentStage.id}
+                            disabled={
+                                !!whirlpoolStage?.id || !!transferStage?.id
+                            }
                         >
                             <span
                                 className="text-dark"
                                 onClick={() => {
                                     dispatch(
-                                        saveFermentStage({
-                                            form: [
-                                                {
-                                                    brewId: batch.id,
-                                                    taskId: 7,
-                                                    statusId: 4,
-                                                    startedAt:
-                                                        new Date().toISOString(),
-                                                },
-                                            ],
+                                        transferToFermentStage({
+                                            mixture: kettleMixture,
                                         })
                                     );
                                 }}
@@ -213,7 +127,14 @@ export default function BrewKettle(props) {
                             </span>
                         </DropdownItem>
                         <DropdownItem>
-                            <span className="text-dark">Delete Mixture</span>
+                            <span
+                                className="text-dark"
+                                onClick={() => {
+                                    dispatch(deleteBrewStage(kettleStage));
+                                }}
+                            >
+                                Delete
+                            </span>
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
@@ -223,7 +144,7 @@ export default function BrewKettle(props) {
 
     return (
         <React.Fragment>
-            {stage.id && (
+            {kettleStage?.id && (
                 <BatchStage {...stageProps}>
                     <div className="clearfix mb-3">
                         <Ingredients {...ingredientsProps} />

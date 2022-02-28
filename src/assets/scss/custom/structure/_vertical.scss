@@ -202,7 +202,7 @@
 
     body.sidebar-enable {
         .vertical-menu {
-            height: 100vh;
+            min-height: 100vh;
             display: block;
             margin-left: 0;
         }
@@ -219,6 +219,13 @@
 
     .filter-open {
         margin-right: 0;
+    }
+}
+
+
+@media (max-width: 300px) {
+    .vertical-menu {
+        margin-left: -450%
     }
 }
 
@@ -446,7 +453,9 @@ body[data-sidebar="dark"] {
     }
     // Enlarge menu
     &.vertical-collpsed {
-        min-height: 1200px;
+        min-height: 100%;
+        height: auto;
+        overflow-y: scroll;
         // Side menu
         .vertical-menu {
 

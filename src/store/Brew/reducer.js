@@ -91,7 +91,9 @@ const Brew = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 loading: false,
-                error: true,
+                error: {
+                    ...payload,
+                },
             };
         case RESET_BATCH_DETAILS:
             return {

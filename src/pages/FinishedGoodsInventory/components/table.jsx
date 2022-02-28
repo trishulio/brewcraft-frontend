@@ -68,7 +68,7 @@ export default function FinishedGoodsInventoryTable() {
                         Product
                     </Th>
                     <Th name="fgQuantity" id="quantity" onSort={onSort}>
-                        Quantity
+                        Quantity Avail.
                     </Th>
                 </tr>
             </thead>
@@ -78,7 +78,8 @@ export default function FinishedGoodsInventoryTable() {
                         key={key}
                         onClick={() =>
                             history.push(
-                                "/finished-goods?sku_ids=" + finishedGood.sku.id
+                                "/inventory/finished-goods?sku_ids=" +
+                                    finishedGood.sku.id
                             )
                         }
                     >

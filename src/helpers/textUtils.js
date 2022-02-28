@@ -1,5 +1,6 @@
 import React from "react";
 import NumberFormat from "react-number-format";
+import { Alert } from "reactstrap";
 
 const MS_PER_WEEK = 1000 * 60 * 60 * 24 * 7;
 
@@ -130,6 +131,7 @@ export function formatVolumeL(value) {
             isNumericString={true}
             suffix=" l"
             thousandSeparator=","
+            decimalScale={2}
         />
     );
 }
@@ -230,11 +232,16 @@ export function isFloat(n) {
     return Number(n) === n && n % 1 !== 0;
 }
 
-export function ErrorMessage({ error, message }) {
+export function ErrorMessage({ error, message, className, color }) {
     return (
         <React.Fragment>
-            <strong>{error ? error + "!" : "Oh snap!"}</strong>{" "}
-            {message || "Change a few things up and try submitting again."}
+            <Alert
+                className={className ? "mb-2 " + className : "mb-2"}
+                color={color ? color : "info"}
+            >
+                <strong>{error ? error + "!" : "Oh snap!"}</strong>{" "}
+                {message || "Change a few things up and try submitting again."}
+            </Alert>
         </React.Fragment>
     );
 }

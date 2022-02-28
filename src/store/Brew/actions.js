@@ -28,9 +28,11 @@ export const resetBatchDetails = () => ({
     payload: null,
 });
 
-export const saveBatch = (payload) => ({
+export const saveBatch = (batch) => ({
     type: ADD_BATCH_REQUEST,
-    payload: payload,
+    payload: {
+        batch,
+    },
 });
 
 export const editBatch = (payload) => ({

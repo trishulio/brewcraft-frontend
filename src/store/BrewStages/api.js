@@ -6,7 +6,7 @@ async function fetchBrewStages(brewId) {
             page: 0,
             size: 500,
             brew_ids: brewId,
-            sort: "task.id",
+            sort: "id",
             order_asc: true,
             // sort: params.sort || "name",
             // order_asc: !params.order || params.order === "asc"
@@ -44,6 +44,12 @@ async function deleteBrewStage(id) {
     );
 }
 
+async function deleteBrewMixture(id) {
+    return await AxiosInstance.delete(`/api/v1/brews/mixtures/${id}`).then(
+        (r) => r
+    );
+}
+
 export const api = {
     fetchBrewStages,
     fetchBrewStageById,
@@ -51,4 +57,5 @@ export const api = {
     addMixture,
     updateBrewStage,
     deleteBrewStage,
+    deleteBrewMixture,
 };

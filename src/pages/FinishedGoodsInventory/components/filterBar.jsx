@@ -16,11 +16,11 @@ function FilterBarFinishedGoodsInventory() {
     const [isFormChanged, setIsFormChanged] = useState(false);
 
     const skus = useSelector((state) => {
-        return state.Skus.data;
+        return state.Skus.all;
     });
 
     const products = useSelector((state) => {
-        return state.Products.data;
+        return state.Products.all;
     });
 
     useEffect(() => {

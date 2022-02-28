@@ -4,16 +4,15 @@ import { map } from "lodash";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
 import { isValidNumberString } from "../../../../helpers/utils";
+import { setBrewMaterialPortions } from "../../../../store/actions";
+import { useDispatch } from "react-redux";
 
-export default function BatchIngredients({
-    mixture,
-    materialPortions,
-    setMaterialPortions,
-}) {
+export default function BatchIngredients({ mixture }) {
     const [invalidQuantity, setInvalidQuantity] = useState(false);
     const [lots, setLots] = useState([]);
     const [selectedLot, setSelectedLot] = useState("");
     const [selectedLotQuantity, setSelectedLotQuantity] = useState(0);
+    const dispatch = useDispatch();
 
     const { editable } = useSelector((state) => {
         return state.Batch.Batch;
@@ -21,6 +20,12 @@ export default function BatchIngredients({
 
     const materialLots = useSelector((state) => {
         return state.MaterialLots.stock;
+    });
+
+    const materialPortions = useSelector((state) => {
+        return state.Batch.MaterialPortions.content.filter(
+            (mp) => mp.mixture.id === mixture.id
+        );
     });
 
     return (
@@ -160,30 +165,33 @@ export default function BatchIngredients({
                         size="sm"
                         className="waves-effect mr-2 mb-0"
                         onClick={() => {
-                            const materialPortion = materialPortions.find(
+                            const index = materialPortions.findIndex(
                                 (mp) =>
                                     mp.materialLot.id ===
                                     selectedLot.materialLot.id
                             );
-                            if (materialPortion) {
+                            let materialPortion;
+                            if (index >= 0) {
+                                materialPortion = Object.assign(
+                                    materialPortions[index]
+                                );
                                 materialPortion.quantity.value +=
                                     parseFloat(selectedLotQuantity);
-                                setMaterialPortions([...materialPortions]);
                             } else {
-                                setMaterialPortions([
-                                    ...materialPortions,
-                                    {
-                                        ...selectedLot,
-                                        quantity: {
-                                            symbol: selectedLot.quantity.symbol,
-                                            value: parseFloat(
-                                                selectedLotQuantity
-                                            ),
-                                        },
-                                        mixture: mixture,
+                                materialPortion = {
+                                    ...selectedLot,
+                                    quantity: {
+                                        symbol: selectedLot.quantity.symbol,
+                                        value: parseFloat(selectedLotQuantity),
                                     },
-                                ]);
+                                    mixture: mixture,
+                                };
                             }
+                            dispatch(
+                                setBrewMaterialPortions(
+                                    Object.assign([], materialPortions)
+                                )
+                            );
                         }}
                         disabled={!selectedLot || !selectedLotQuantity}
                     >
@@ -194,9 +202,11 @@ export default function BatchIngredients({
                         color="warning"
                         className="waves-effect"
                         onClick={() => {
-                            setMaterialPortions(
-                                materialPortions.filter(
-                                    (_, index) => !lots.includes(index)
+                            dispatch(
+                                setBrewMaterialPortions(
+                                    materialPortions.filter(
+                                        (_, index) => !lots.includes(index)
+                                    )
                                 )
                             );
                             setLots([]);

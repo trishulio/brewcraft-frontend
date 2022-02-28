@@ -354,7 +354,7 @@ class Navbar extends Component {
                                                 Skus
                                             </Link>
                                             <Link
-                                                to="/inventory/finished-goods"
+                                                to="/inventory/finished-goods/summary"
                                                 className="dropdown-item"
                                             >
                                                 Inventory

@@ -154,9 +154,7 @@ class SidebarContent extends Component {
     }
 
     toggleSidebar() {
-        const isMobile =
-            window.innerWidth < 768 && this.state.sidebarType === "condensed";
-        if (isMobile) {
+        if (this.props.isMobile) {
             this.changeLeftSidebarType("default");
         }
     }
@@ -178,7 +176,7 @@ class SidebarContent extends Component {
                         </li>
                         <li>
                             <Link
-                                to="/inventory/finished-goods"
+                                to="/inventory/finished-goods/summary"
                                 className="has-arrow waves-effect"
                             >
                                 <i className="mdi mdi-crown"></i>
@@ -195,7 +193,7 @@ class SidebarContent extends Component {
                                 </li>
                                 <li>
                                     <Link
-                                        to="/inventory/finished-goods"
+                                        to="/inventory/finished-goods/summary"
                                         onClick={this.toggleSidebar.bind(this)}
                                     >
                                         Inventory

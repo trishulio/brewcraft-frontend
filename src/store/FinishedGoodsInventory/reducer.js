@@ -1,11 +1,15 @@
 import {
+    FETCH_FINISHED_GOODS_INVENTORY_AGGREGATION_REQUEST,
+    FETCH_FINISHED_GOODS_INVENTORY_AGGREGATION_SUCCESS,
+    FETCH_FINISHED_GOODS_INVENTORY_AGGREGATION_ERROR,
+    SET_FINISHED_GOODS_INVENTORY_AGGREGATION_PAGE_INDEX,
+    SET_FINISHED_GOODS_INVENTORY_AGGREGATION_PAGE_SIZE,
     FETCH_FINISHED_GOODS_INVENTORY_REQUEST,
     FETCH_FINISHED_GOODS_INVENTORY_SUCCESS,
     FETCH_FINISHED_GOODS_INVENTORY_ERROR,
-    FETCH_ALL_FINISHED_GOODS_INVENTORY_SUCCESS,
-    FETCH_ALL_FINISHED_GOODS_INVENTORY_REQUEST,
     SET_FINISHED_GOODS_INVENTORY_PAGE_INDEX,
     SET_FINISHED_GOODS_INVENTORY_PAGE_SIZE,
+    RESET_FINISHED_GOODS_INVENTORY,
 } from "./actionTypes";
 
 const initialState = {
@@ -24,6 +28,7 @@ const FinishedGoodsInventory = (
     { type, payload, data }
 ) => {
     switch (type) {
+        case FETCH_FINISHED_GOODS_INVENTORY_AGGREGATION_REQUEST:
         case FETCH_FINISHED_GOODS_INVENTORY_REQUEST:
             return {
                 ...state,
@@ -31,7 +36,7 @@ const FinishedGoodsInventory = (
                 loading: true,
                 error: null,
             };
-        case FETCH_ALL_FINISHED_GOODS_INVENTORY_SUCCESS:
+        case FETCH_FINISHED_GOODS_INVENTORY_AGGREGATION_SUCCESS:
         case FETCH_FINISHED_GOODS_INVENTORY_SUCCESS:
             return {
                 ...state,
@@ -39,23 +44,26 @@ const FinishedGoodsInventory = (
                 loading: false,
                 error: null,
             };
+        case FETCH_FINISHED_GOODS_INVENTORY_AGGREGATION_ERROR:
         case FETCH_FINISHED_GOODS_INVENTORY_ERROR:
             return {
                 ...state,
                 loading: false,
                 error: payload,
             };
-        case FETCH_ALL_FINISHED_GOODS_INVENTORY_REQUEST:
-            return {
-                ...state,
-                loading: true,
-                error: null,
-            };
+        case SET_FINISHED_GOODS_INVENTORY_AGGREGATION_PAGE_INDEX:
+        case SET_FINISHED_GOODS_INVENTORY_AGGREGATION_PAGE_SIZE:
         case SET_FINISHED_GOODS_INVENTORY_PAGE_INDEX:
         case SET_FINISHED_GOODS_INVENTORY_PAGE_SIZE:
             return {
                 ...state,
                 ...payload,
+                loading: false,
+                error: null,
+            };
+        case RESET_FINISHED_GOODS_INVENTORY:
+            return {
+                ...initialState,
                 loading: false,
                 error: null,
             };

@@ -10,24 +10,19 @@ import BatchPeople from "./components/people";
 import BatchComments from "./components/comments";
 import BatchDescription from "./components/description";
 import BatchFileUploads from "./components/uploads";
-import Brewhouse from "./components/brewhouse/brewhouse";
+import Brewhouse from "./components/brewhouse";
 import Fermentation from "./components/fermentation/fermentation";
+import { ErrorMessage } from "../../helpers/textUtils";
 
 export default function Batch(props) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { data: batch, initial: initialBatch } = useSelector((state) => {
+    const {
+        data: batch,
+        initial: initialBatch,
+        error,
+    } = useSelector((state) => {
         return state.Batch.Batch;
-    });
-
-    const changed = useSelector((state) => {
-        return (
-            state.Batch.Batch.changed ||
-            state.Batch.MashStage.changed ||
-            state.Batch.KettleStage.changed ||
-            state.Batch.WhirlpoolStage.changed ||
-            state.Batch.FermentStage.changed
-        );
     });
 
     return (
@@ -36,6 +31,8 @@ export default function Batch(props) {
                 <div className="mb-3">
                     <Toolbar {...props} />
                 </div>
+
+                {!!error && <ErrorMessage {...error} />}
                 <Card>
                     <CardBody className="px-2 px-sm-3">
                         <Row>
@@ -63,7 +60,7 @@ export default function Batch(props) {
                                     className="waves-effect mr-2"
                                     onClick={props.onSave}
                                     size="sm"
-                                    disabled={!changed}
+                                    disabled={!props.changed}
                                 >
                                     {!batch.id ? "Create" : "Save"}
                                 </Button>

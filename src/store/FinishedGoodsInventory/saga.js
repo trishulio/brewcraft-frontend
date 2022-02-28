@@ -1,23 +1,27 @@
 import {
+    FETCH_FINISHED_GOODS_INVENTORY_AGGREGATION_REQUEST,
+    FETCH_FINISHED_GOODS_INVENTORY_AGGREGATION_SUCCESS,
+    FETCH_FINISHED_GOODS_INVENTORY_AGGREGATION_ERROR,
     FETCH_FINISHED_GOODS_INVENTORY_REQUEST,
     FETCH_FINISHED_GOODS_INVENTORY_SUCCESS,
     FETCH_FINISHED_GOODS_INVENTORY_ERROR,
-    FETCH_ALL_FINISHED_GOODS_INVENTORY_REQUEST,
-    FETCH_ALL_FINISHED_GOODS_INVENTORY_SUCCESS,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 
-function* fetchAllFinishedGoodsInventoryGenerator() {
+function* fetchFinishedGoodsInventoryAggregationGenerator(action) {
     try {
-        let res = yield call(api.fetchFinishedGoodsInventory);
+        const res = yield call(
+            api.fetchFinishedGoodsInventoryAggregation,
+            get(action, "payload.params")
+        );
         yield put({
-            type: FETCH_ALL_FINISHED_GOODS_INVENTORY_SUCCESS,
+            type: FETCH_FINISHED_GOODS_INVENTORY_AGGREGATION_SUCCESS,
             data: { data: res.data },
         });
     } catch (e) {
-        yield put({ type: FETCH_FINISHED_GOODS_INVENTORY_ERROR });
+        yield put({ type: FETCH_FINISHED_GOODS_INVENTORY_AGGREGATION_ERROR });
     }
 }
 
@@ -38,12 +42,12 @@ function* fetchFinishedGoodsInventoryGenerator(action) {
 
 function* FinishedGoodsInventory() {
     yield takeEvery(
-        FETCH_FINISHED_GOODS_INVENTORY_REQUEST,
-        fetchFinishedGoodsInventoryGenerator
+        FETCH_FINISHED_GOODS_INVENTORY_AGGREGATION_REQUEST,
+        fetchFinishedGoodsInventoryAggregationGenerator
     );
     yield takeEvery(
-        FETCH_ALL_FINISHED_GOODS_INVENTORY_REQUEST,
-        fetchAllFinishedGoodsInventoryGenerator
+        FETCH_FINISHED_GOODS_INVENTORY_REQUEST,
+        fetchFinishedGoodsInventoryGenerator
     );
 }
 

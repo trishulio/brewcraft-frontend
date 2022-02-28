@@ -17,19 +17,14 @@ export function ProductWidget() {
 
 export function ActiveStageWidget() {
     const stage = useSelector((state) => {
-        const stages = [
-            state.Batch.MashStage.data,
-            state.Batch.KettleStage.data,
-            state.Batch.WhirlpoolStage.data,
-            state.Batch.TransferStage.data,
-            state.Batch.FermentStage.data,
-            state.Batch.ConditionStage.data,
-            state.Batch.BriteTankStage.data,
-        ];
         let stage;
-        stage = stages.find((s) => s.status.id !== 2 && s.status.id !== 6);
+        stage = state.Batch.Stages.content.find(
+            (s) => s.status.id !== 2 && s.status.id !== 6
+        );
         if (!stage) {
-            stage = stages.reverse().find((s) => s.status.id === 2);
+            stage = state.Batch.Stages.content
+                .reverse()
+                .find((s) => s.status.id === 2);
         }
         return stage;
     });
