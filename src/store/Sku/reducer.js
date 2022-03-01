@@ -4,6 +4,7 @@ import {
     INVALID_DESCRIPTION,
     SET_SKU_DETAILS_SUCCESS,
     SET_SKU_DETAILS_FAILED,
+    INVALID_NUMBER,
     INVALID_NAME,
     INVALID_PRODUCT,
     INVALID_VOLUME,
@@ -13,6 +14,7 @@ import {
 const initialState = {
     data: {
         id: "",
+        number: "",
         name: "",
         description: "",
         product: {},
@@ -25,6 +27,7 @@ const initialState = {
     },
     initial: {
         id: "",
+        number: "",
         name: "",
         description: "",
         product: {},
@@ -45,8 +48,9 @@ const initialState = {
 
 const Sku = (state = initialState, { type, payload }) => {
     switch (type) {
-        case INVALID_DESCRIPTION:
+        case INVALID_NUMBER:
         case INVALID_NAME:
+        case INVALID_DESCRIPTION:
         case INVALID_VOLUME:
             return {
                 ...state,

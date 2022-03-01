@@ -380,7 +380,7 @@ export default function FinishedGoodDetails({ editable, repackageMode }) {
                                     <option value="">Select</option>
                                     {map(skus, (value, index) => (
                                         <option value={value.id} key={index}>
-                                            {value.name}
+                                            {`${value.name} (${value.number})`}
                                         </option>
                                     ))}
                                 </Input>
@@ -389,7 +389,7 @@ export default function FinishedGoodDetails({ editable, repackageMode }) {
                             <div className="d-inline-block font-size-12 mb-2">
                                 <div hidden={editable}>
                                     {finishedGood.sku
-                                        ? finishedGood.sku.name
+                                        ? `${finishedGood.sku.name} (${finishedGood.sku.number})`
                                         : "-"}
                                 </div>
                             </div>
@@ -494,14 +494,12 @@ export default function FinishedGoodDetails({ editable, repackageMode }) {
                                         name="finishedGoodMixtureQuantity"
                                         style={{ width: "8rem" }}
                                         disabled={true}
-                                        value={
-                                            calculateMixtureQuantity(
-                                                finishedGood
-                                            ) +
-                                            " " +
-                                            (finishedGood?.sku?.quantity
-                                                .symbol || "")
-                                        }
+                                        value={`${calculateMixtureQuantity(
+                                            finishedGood
+                                        )} ${
+                                            finishedGood?.sku?.quantity
+                                                .symbol || ""
+                                        }`}
                                         onChange={(e) => {
                                             onFormInputChange(e);
                                         }}

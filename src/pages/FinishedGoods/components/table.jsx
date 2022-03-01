@@ -18,13 +18,21 @@ export default function FinishedGoodsTable() {
         const order = query.get("order");
         query.delete("sort");
         query.delete("order");
-        if (name === "fgSku") {
-            if (sort !== "sku" || order !== "asc") {
+        if (name === "fgSkuNumber") {
+            if (sort !== "skuNumber" || order !== "asc") {
                 query.append("order", "asc");
             } else {
                 query.append("order", "desc");
             }
-            query.append("sort", "sku");
+            query.append("sort", "skuName");
+            history.push({ search: query.toString() });
+        } else if (name === "fgSkuName") {
+            if (sort !== "skuName" || order !== "asc") {
+                query.append("order", "asc");
+            } else {
+                query.append("order", "desc");
+            }
+            query.append("sort", "skuName");
             history.push({ search: query.toString() });
         } else if (name === "fgProduct") {
             if (sort !== "product" || order !== "asc") {
@@ -86,14 +94,17 @@ export default function FinishedGoodsTable() {
             <thead>
                 <tr>
                     <th></th>
-                    <Th name="fgSku" id="sku" onSort={onSort}>
-                        SKU
+                    <Th name="fgSkuNumber" id="skuNumber" onSort={onSort}>
+                        SKU #
+                    </Th>
+                    <Th name="fgSkuName" id="skuName" onSort={onSort}>
+                        Name
                     </Th>
                     <Th name="fgProduct" id="product" onSort={onSort}>
                         Product
                     </Th>
                     <Th name="fgBatches" id="batches" onSort={onSort}>
-                        Packaged From Batch IDs
+                        Batch IDs
                     </Th>
                     <Th name="fgPackagedOn" id="packagedOn" onSort={onSort}>
                         Packaged On
@@ -114,6 +125,7 @@ export default function FinishedGoodsTable() {
                         }
                     >
                         <td></td>
+                        <td>{finishedGood.sku.number}</td>
                         <td>{finishedGood.sku.name}</td>
                         <td>{finishedGood.sku.product.name}</td>
                         <td>{[...getBatchIds(finishedGood)].join(", ")}</td>

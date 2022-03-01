@@ -100,8 +100,8 @@ export default function BatchIngredients({
                                     </div>
                                 </td>
                                 <td>
-                                    {finishedGood.sku.name} -{" "}
-                                    {finishedGood.sku.description}
+                                    {finishedGood.sku.number} -{" "}
+                                    {finishedGood.sku.name}
                                 </td>
                                 <td>
                                     {formatDatetime(finishedGood.packagedOn)}

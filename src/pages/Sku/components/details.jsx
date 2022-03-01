@@ -5,7 +5,7 @@ import { FormGroup, FormFeedback, Input, Label, Row, Col } from "reactstrap";
 import {
     setSkuDetails,
     setSkuInvalidBaseQuantityUnit,
-    setSkuInvalidDescription,
+    setSkuInvalidNumber,
     setSkuInvalidName,
     setSkuInvalidProduct,
     setSkuInvalidVolume,
@@ -20,6 +20,7 @@ export default function SkuDetails(props) {
     });
 
     const {
+        invalidNumber,
         invalidName,
         invalidProduct,
         invalidVolume,
@@ -35,9 +36,22 @@ export default function SkuDetails(props) {
 
     function onFormInputChange(e) {
         switch (e.target.name) {
+            case "skuNumber":
+                if (sku.number !== e.target.value) {
+                    dispatch(setSkuInvalidNumber(e.target.value));
+                    dispatch(
+                        setSkuDetails({
+                            data: {
+                                ...sku,
+                                number: e.target.value,
+                            },
+                        })
+                    );
+                }
+                break;
             case "skuName":
                 if (sku.name !== e.target.value) {
-                    dispatch(setSkuInvalidName(e.target.value));
+                    dispatch(setSkuInvalidName(!e.target.value));
                     dispatch(
                         setSkuDetails({
                             data: {
@@ -50,7 +64,6 @@ export default function SkuDetails(props) {
                 break;
             case "skuDescription":
                 if (sku.description !== e.target.value) {
-                    dispatch(setSkuInvalidDescription(!e.target.value));
                     dispatch(
                         setSkuDetails({
                             data: {
@@ -129,13 +142,55 @@ export default function SkuDetails(props) {
                     <Row>
                         <Col xs={2}>
                             <Label
+                                for="skuNumber"
+                                className="d-inline-block font-size-12 mb-3"
+                                style={{
+                                    width: "8rem",
+                                }}
+                            >
+                                SKU #
+                            </Label>
+                        </Col>
+                        <Col xs={8}>
+                            <FormGroup
+                                className="d-inline-block font-size-12 mb-2"
+                                hidden={!props.editable}
+                            >
+                                <Input
+                                    type="text"
+                                    className="waves-effect"
+                                    name="skuNumber"
+                                    style={{ width: "16rem" }}
+                                    disabled={!props.editable}
+                                    value={sku.number || ""}
+                                    onChange={(e) => {
+                                        onFormInputChange(e);
+                                    }}
+                                    hidden={!props.editable}
+                                    invalid={invalidNumber}
+                                />
+                                <FormFeedback>
+                                    Enter a valid sku number.
+                                </FormFeedback>
+                            </FormGroup>
+                            <div className="d-inline-block font-size-12 mb-2">
+                                <div hidden={props.editable}>
+                                    {sku.number ? sku.number : "-"}
+                                </div>
+                            </div>
+                            <div className="clearFix"></div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={2}>
+                            <Label
                                 for="skuName"
                                 className="d-inline-block font-size-12 mb-3"
                                 style={{
                                     width: "8rem",
                                 }}
                             >
-                                SKU
+                                Name
                             </Label>
                         </Col>
                         <Col xs={8}>
@@ -270,9 +325,7 @@ export default function SkuDetails(props) {
                                         }}
                                     >
                                         <option value="">Select</option>
-                                        <option value="kg">kg</option>
-                                        <option value="g">g</option>
-                                        <option value="mg">mg</option>
+                                        <option value="hl">hl</option>
                                         <option value="l">l</option>
                                         <option value="ml">ml</option>
                                     </Input>

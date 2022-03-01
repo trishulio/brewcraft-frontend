@@ -115,7 +115,7 @@ export default function FinishedGoodMaterials({
             </div>
             {editable && (
                 <div>
-                    <Row>
+                    <Row className="ml-0">
                         <FormGroup className="d-block d-sm-inline-block mr-2 mb-0">
                             <Input
                                 type="select"

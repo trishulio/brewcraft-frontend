@@ -9,10 +9,10 @@ import {
     deleteSku,
     resetSkuDetails,
     fetchAllProducts,
+    setSkuInvalidNumber,
     setSkuInvalidName,
     setSkuInvalidProduct,
     setSkuInvalidVolume,
-    setSkuInvalidDescription,
     setSkuInvalidBaseQuantityUnit,
 } from "../../store/actions";
 import { useQuery } from "../../helpers/utils";
@@ -82,8 +82,17 @@ export default function Sku() {
     function isChanged() {
         return (
             JSON.stringify(
-                (({ id, name, description, product, materials, quantity }) => ({
+                (({
                     id,
+                    number,
+                    name,
+                    description,
+                    product,
+                    materials,
+                    quantity,
+                }) => ({
+                    id,
+                    number,
                     name,
                     description,
                     product,
@@ -92,8 +101,17 @@ export default function Sku() {
                 }))(initialSku)
             ) !==
             JSON.stringify(
-                (({ id, name, description, product, materials, quantity }) => ({
+                (({
                     id,
+                    number,
+                    name,
+                    description,
+                    product,
+                    materials,
+                    quantity,
+                }) => ({
+                    id,
+                    number,
                     name,
                     description,
                     product,
@@ -106,17 +124,17 @@ export default function Sku() {
 
     function onSave() {
         if (
+            !sku.number ||
+            (sku.number && sku.number.length > 12) ||
             !sku.name ||
-            (sku.name && sku.name.length > 12) ||
             !sku.product?.id ||
             !sku.quantity?.value ||
-            !sku.description ||
             !sku.quantity?.symbol
         ) {
-            dispatch(setSkuInvalidName(sku.name));
+            dispatch(setSkuInvalidNumber(sku.number));
+            dispatch(setSkuInvalidName(!sku.name));
             dispatch(setSkuInvalidProduct(!sku.product?.id));
             dispatch(setSkuInvalidVolume(!sku.quantity.value));
-            dispatch(setSkuInvalidDescription(!sku.description));
             dispatch(setSkuInvalidBaseQuantityUnit(!sku.quantity.symbol));
             return;
         }
@@ -128,6 +146,7 @@ export default function Sku() {
                 updateSku({
                     id: sku.id,
                     form: {
+                        number: sku.number,
                         name: sku.name,
                         description: sku.description,
                         productId: sku.product.id,
@@ -144,6 +163,7 @@ export default function Sku() {
             dispatch(
                 createSku({
                     form: {
+                        number: sku.number,
                         name: sku.name,
                         description: sku.description,
                         productId: sku.product.id,
