@@ -1,8 +1,7 @@
+import FermentFinishedGoods from "./ferment";
+import ConditionFinishedGoods from "./condition";
+import BriteTankFinishedGoods from "./brite-tank";
 import {
-    FETCH_FINISHED_GOODS_BY_BREW_ID_FAILURE,
-    FETCH_FINISHED_GOODS_BY_BREW_ID_REQUEST,
-    FETCH_FINISHED_GOODS_BY_BREW_ID_SUCCESS,
-    RESET_FINISHED_GOODS_DETAILS,
     SET_FINISHED_GOODS,
     SET_FINISHED_GOODS_PAGE_INDEX,
     SET_FINISHED_GOODS_PAGE_SIZE,
@@ -20,42 +19,27 @@ const initialState = {
 
 const FinishedGoods = (state = initialState, { type, payload }) => {
     switch (type) {
-        case FETCH_FINISHED_GOODS_BY_BREW_ID_REQUEST:
-            return {
-                ...state,
-                loading: true,
-            };
-        case FETCH_FINISHED_GOODS_BY_BREW_ID_SUCCESS:
         case SET_FINISHED_GOODS:
-            return {
-                ...state,
-                ...payload,
-                loading: false,
-                error: null,
-            };
-        case FETCH_FINISHED_GOODS_BY_BREW_ID_FAILURE:
-            return {
-                ...state,
-                loading: false,
-                error: true,
-            };
-        case RESET_FINISHED_GOODS_DETAILS:
-            return {
-                ...initialState,
-                loading: false,
-                error: null,
-            };
         case SET_FINISHED_GOODS_PAGE_INDEX:
         case SET_FINISHED_GOODS_PAGE_SIZE:
             return {
                 ...state,
                 ...payload,
+                loading: false,
+                error: null,
             };
         default:
             return {
                 ...state,
+                loading: true,
+                error: null,
             };
     }
 };
 
-export { FinishedGoods };
+export {
+    FinishedGoods,
+    FermentFinishedGoods,
+    ConditionFinishedGoods,
+    BriteTankFinishedGoods,
+};
