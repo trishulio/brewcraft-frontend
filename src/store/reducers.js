@@ -25,8 +25,8 @@ import Materials from "./Materials/reducer";
 import MaterialCategories from "./MaterialCategories/reducer";
 import MaterialCategory from "./MaterialCategory/reducer";
 import Measures from "./Measures/reducer";
-// import Mixtures from "./Mixtures/reducer";
-import { Mixtures } from "./Mixture/reducer";
+import Mixtures from "./Mixtures/reducer";
+import { BrewMixtures } from "./BrewMixtures/reducer";
 import MiniCards from "./MiniCards/reducer";
 import { MixtureRecordings } from "./MixtureRecording/reducer";
 import Packaging from "./Packaging/reducer";
@@ -51,6 +51,7 @@ import UserRoles from "./UserRoles/reducer";
 const rootReducer = combineReducers({
     Batch: combineReducers({
         Batch: Brew,
+        BrewMixtures: BrewMixtures,
         Mixtures,
         Stages,
         MaterialPortions,

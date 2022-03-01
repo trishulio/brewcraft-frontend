@@ -27,7 +27,7 @@ export default function Brew({ mashMixture }) {
     });
 
     const kettleMixture = useSelector((state) => {
-        return state.Batch.Mixtures.content.find(
+        return state.Batch.BrewMixtures.content.find(
             (m) =>
                 m.parentMixtureIds &&
                 m.parentMixtureIds.includes(mashMixture.id)
@@ -55,7 +55,7 @@ export default function Brew({ mashMixture }) {
     const whirlpoolMixture = useSelector((state) => {
         return (
             kettleMixture &&
-            state.Batch.Mixtures.content.find(
+            state.Batch.BrewMixtures.content.find(
                 (m) =>
                     m.parentMixtureIds &&
                     m.parentMixtureIds.includes(kettleMixture.id) &&
@@ -75,13 +75,13 @@ export default function Brew({ mashMixture }) {
 
     const transferMixture = useSelector((state) => {
         if (kettleMixture && !whirlpoolMixture?.id) {
-            return state.Batch.Mixtures.content.find(
+            return state.Batch.BrewMixtures.content.find(
                 (m) =>
                     m.parentMixtureIds &&
                     m.parentMixtureIds.includes(kettleMixture.id)
             );
         } else if (whirlpoolMixture) {
-            return state.Batch.Mixtures.content.find(
+            return state.Batch.BrewMixtures.content.find(
                 (m) =>
                     m.parentMixtureIds &&
                     m.parentMixtureIds.includes(whirlpoolMixture.id)

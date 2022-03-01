@@ -52,7 +52,7 @@ export default function Batch(props) {
     });
 
     const mashMixtures = useSelector((state) => {
-        return state.Batch.Mixtures.content.filter(
+        return state.Batch.BrewMixtures.content.filter(
             (m) => m.brewStage.task.id === 1
         );
     });

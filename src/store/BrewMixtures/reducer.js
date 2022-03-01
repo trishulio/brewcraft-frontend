@@ -1,8 +1,3 @@
-import MashMixture from "./mash";
-import KettleMixture from "./kettle";
-import WhirlpoolMixture from "./whirlpool";
-import TransferMixture from "./transfer";
-import FermentMixture from "./ferment";
 import {
     EDIT_BREW_MIXTURE_SUCCESS,
     FETCH_MIXTURE_BY_BREW_ID_REQUEST,
@@ -55,11 +50,4 @@ const Mixtures = (state = initialState, { type, payload }) => {
     }
 };
 
-export {
-    Mixtures,
-    MashMixture,
-    KettleMixture,
-    WhirlpoolMixture,
-    TransferMixture,
-    FermentMixture,
-};
+export { Mixtures as BrewMixtures };

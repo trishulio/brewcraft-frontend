@@ -26,13 +26,13 @@ export default function BatchStage({
         return (
             state.Batch.MaterialPortions.loading ||
             state.Batch.MixtureRecordings.loading ||
-            state.Batch.Mixtures.loading ||
+            state.Batch.BrewMixtures.loading ||
             state.Batch.Stages.loading
         );
     });
 
     const mixtures = useSelector((state) => {
-        return state.Batch.Mixtures.content;
+        return state.Batch.BrewMixtures.content;
     });
 
     const stages = useSelector((state) => {

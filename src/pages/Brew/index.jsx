@@ -60,11 +60,11 @@ export default function Batch() {
     });
 
     const mixtures = useSelector((state) => {
-        return state.Batch.Mixtures.content;
+        return state.Batch.BrewMixtures.content;
     });
 
     const initialMixtures = useSelector((state) => {
-        return state.Batch.Mixtures.initial;
+        return state.Batch.BrewMixtures.initial;
     });
 
     const materialPortions = useSelector((state) => {

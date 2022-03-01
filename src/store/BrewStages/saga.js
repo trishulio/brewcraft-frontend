@@ -15,7 +15,7 @@ import {
     EDIT_BREW_MIXTURE_SUCCESS,
     FETCH_MIXTURE_BY_BREW_ID_FAILURE,
     FETCH_MIXTURE_BY_BREW_ID_SUCCESS,
-} from "../Mixture/actionTypes";
+} from "../BrewMixtures/actionTypes";
 import {
     FETCH_ALL_BREW_STAGE_REQUEST,
     ADD_BREW_STAGE_SUCCESS,

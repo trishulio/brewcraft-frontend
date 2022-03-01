@@ -37,7 +37,7 @@ export default function Brewhouse() {
     const [isOpen, setIsOpen] = useState(true);
 
     const mashMixtures = useSelector((state) => {
-        return state.Batch.Mixtures.content.filter(
+        return state.Batch.BrewMixtures.content.filter(
             (m) => m.brewStage.task.id === 1
         );
     });
@@ -45,7 +45,7 @@ export default function Brewhouse() {
     const loading = useSelector((state) => {
         return (
             state.Batch.Stages.loading ||
-            state.Batch.Mixtures.loading ||
+            state.Batch.BrewMixtures.loading ||
             state.Batch.MaterialPortions.loading
         );
     });

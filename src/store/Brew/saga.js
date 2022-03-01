@@ -20,7 +20,7 @@ import {
     VALIDATE_BREW_FIELDS_SUCCESS,
 } from "./actionTypes";
 import { isValidName, validDate, validId } from "../../helpers/utils";
-import { RESET_BREW_MIXTURE_DETAILS } from "../Mixture/actionTypes";
+import { RESET_BREW_MIXTURE_DETAILS } from "../BrewMixtures/actionTypes";
 import { RESET_BREW_MATERIAL_PORTIONS_DETAILS } from "../MaterialPortion/actionTypes";
 import { RESET_BREW_STAGES } from "../BrewStages/actionTypes";
 
