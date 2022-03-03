@@ -1,8 +1,8 @@
 import {
     EDIT_BREW_MIXTURE_SUCCESS,
-    FETCH_MIXTURE_BY_BREW_ID_REQUEST,
-    FETCH_MIXTURE_BY_BREW_ID_SUCCESS,
-    FETCH_MIXTURE_BY_BREW_ID_FAILURE,
+    FETCH_BREW_MIXTURES_FAILURE,
+    FETCH_BREW_MIXTURES_SUCCESS,
+    FETCH_BREW_MIXTURES_REQUEST,
     SET_BREW_MIXTURE_DETAILS,
     RESET_BREW_MIXTURE_DETAILS,
 } from "./actionTypes";
@@ -15,12 +15,12 @@ const initialState = {
 };
 const Mixtures = (state = initialState, { type, payload }) => {
     switch (type) {
-        case FETCH_MIXTURE_BY_BREW_ID_REQUEST:
+        case FETCH_BREW_MIXTURES_REQUEST:
             return {
                 ...state,
                 loading: true,
             };
-        case FETCH_MIXTURE_BY_BREW_ID_SUCCESS:
+        case FETCH_BREW_MIXTURES_SUCCESS:
         case EDIT_BREW_MIXTURE_SUCCESS:
         case SET_BREW_MIXTURE_DETAILS:
             return {
@@ -29,7 +29,7 @@ const Mixtures = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: null,
             };
-        case FETCH_MIXTURE_BY_BREW_ID_FAILURE:
+        case FETCH_BREW_MIXTURES_FAILURE:
             return {
                 ...state,
                 loading: false,

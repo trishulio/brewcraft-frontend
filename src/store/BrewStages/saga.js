@@ -8,13 +8,13 @@ import {
     takeEvery,
 } from "redux-saga/effects";
 import { get } from "lodash";
-import { fetchMixturesByBrewId } from "../actions";
+import { fetchBrewMixtures } from "../actions";
 import {
     EDIT_BREW_MIXTURES_REQUEST,
     EDIT_BREW_MIXTURE_FAILURE,
     EDIT_BREW_MIXTURE_SUCCESS,
-    FETCH_MIXTURE_BY_BREW_ID_FAILURE,
-    FETCH_MIXTURE_BY_BREW_ID_SUCCESS,
+    FETCH_BREW_MIXTURES_FAILURE,
+    FETCH_BREW_MIXTURES_SUCCESS,
 } from "../BrewMixtures/actionTypes";
 import {
     FETCH_ALL_BREW_STAGE_REQUEST,
@@ -73,14 +73,18 @@ function* addBrewStageGenerator(action) {
             },
         });
         yield put(fetchAllBrewStages(batch.id));
-        yield put(fetchMixturesByBrewId(batch.id));
+        yield put(
+            fetchBrewMixtures({
+                brewId: batch.id,
+            })
+        );
         const [success, stageFailed, mixtureFailed] = yield race([
             all([
                 take(FETCH_BREW_STAGES_BY_BREW_ID_SUCCESS),
-                take(FETCH_MIXTURE_BY_BREW_ID_SUCCESS),
+                take(FETCH_BREW_MIXTURES_SUCCESS),
             ]),
             take(FETCH_BREW_STAGES_BY_BREW_ID_FAILURE),
-            take(FETCH_MIXTURE_BY_BREW_ID_FAILURE),
+            take(FETCH_BREW_MIXTURES_FAILURE),
         ]);
         if (success) {
             yield put({ type: ADD_BREW_STAGE_SUCCESS });
@@ -142,14 +146,18 @@ function* deleteBrewStageGenerator(action) {
         const batch = yield select((state) => state.Batch.Batch.data);
         yield call(api.deleteBrewStage, get(action, "payload.stage.id"));
         yield put(fetchAllBrewStages(batch.id));
-        yield put(fetchMixturesByBrewId(batch.id));
+        yield put(
+            fetchBrewMixtures({
+                brewId: batch.id,
+            })
+        );
         const [success, stageFailed, mixtureFailed] = yield race([
             all([
                 take(FETCH_BREW_STAGES_BY_BREW_ID_SUCCESS),
-                take(FETCH_MIXTURE_BY_BREW_ID_SUCCESS),
+                take(FETCH_BREW_MIXTURES_SUCCESS),
             ]),
             take(FETCH_BREW_STAGES_BY_BREW_ID_FAILURE),
-            take(FETCH_MIXTURE_BY_BREW_ID_FAILURE),
+            take(FETCH_BREW_MIXTURES_FAILURE),
         ]);
         if (success) {
             yield put({ type: DELETE_BREW_STAGE_SUCCESS });
@@ -248,14 +256,18 @@ function* transferToFermentStageGenerator(action) {
             }
         }
         yield put(fetchAllBrewStages(batch.id));
-        yield put(fetchMixturesByBrewId(batch.id));
+        yield put(
+            fetchBrewMixtures({
+                brewId: batch.id,
+            })
+        );
         const [success, stageFailed, mixtureFailed] = yield race([
             all([
                 take(FETCH_BREW_STAGES_BY_BREW_ID_SUCCESS),
-                take(FETCH_MIXTURE_BY_BREW_ID_SUCCESS),
+                take(FETCH_BREW_MIXTURES_SUCCESS),
             ]),
             take(FETCH_BREW_STAGES_BY_BREW_ID_FAILURE),
-            take(FETCH_MIXTURE_BY_BREW_ID_FAILURE),
+            take(FETCH_BREW_MIXTURES_FAILURE),
         ]);
         if (success) {
             yield put({ type: TRANSFER_TO_FERMENT_STAGE_SUCCESS });

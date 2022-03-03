@@ -1,7 +1,9 @@
+import { get } from "lodash";
+import { call, put, select, takeEvery } from "redux-saga/effects";
 import {
-    FETCH_MIXTURE_BY_BREW_ID_REQUEST,
-    FETCH_MIXTURE_BY_BREW_ID_SUCCESS,
-    FETCH_MIXTURE_BY_BREW_ID_FAILURE,
+    FETCH_BREW_MIXTURES_REQUEST,
+    FETCH_BREW_MIXTURES_SUCCESS,
+    FETCH_BREW_MIXTURES_FAILURE,
     ADD_BREW_MIXTURES_REQUEST,
     EDIT_BREW_MIXTURES_REQUEST,
     DELETE_BREW_MIXTURES_REQUEST,
@@ -11,18 +13,13 @@ import {
     DELETE_BREW_MIXTURE_FAILURE,
     ADD_BREW_MIXTURE_FAILURE,
 } from "./actionTypes";
-import { call, put, select, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
-import { get } from "lodash";
 
-function* fetchMixturesByBrewIdGenerator(action) {
+function* fetchBrewMixturesGenerator(action) {
     try {
-        const res = yield call(
-            api.fetchMixturesByBrewId,
-            get(action, "payload.id")
-        );
+        const res = yield call(api.fetchBrewMixtures, get(action, "payload"));
         yield put({
-            type: FETCH_MIXTURE_BY_BREW_ID_SUCCESS,
+            type: FETCH_BREW_MIXTURES_SUCCESS,
             payload: {
                 content: [...res.data.content],
                 initial: [...res.data.content],
@@ -30,7 +27,7 @@ function* fetchMixturesByBrewIdGenerator(action) {
         });
     } catch (e) {
         yield put({
-            type: FETCH_MIXTURE_BY_BREW_ID_FAILURE,
+            type: FETCH_BREW_MIXTURES_FAILURE,
             payload: {},
         });
     }
@@ -81,10 +78,7 @@ function* deleteBrewMixtureGenerator(action) {
 }
 
 function* Mixture() {
-    yield takeEvery(
-        FETCH_MIXTURE_BY_BREW_ID_REQUEST,
-        fetchMixturesByBrewIdGenerator
-    );
+    yield takeEvery(FETCH_BREW_MIXTURES_REQUEST, fetchBrewMixturesGenerator);
     yield takeEvery(ADD_BREW_MIXTURES_REQUEST, addBrewMixtureGenerator);
     yield takeEvery(EDIT_BREW_MIXTURES_REQUEST, editBrewMixtureGenerator);
     yield takeEvery(DELETE_BREW_MIXTURES_REQUEST, deleteBrewMixtureGenerator);

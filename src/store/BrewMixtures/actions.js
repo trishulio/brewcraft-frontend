@@ -1,13 +1,13 @@
 import {
-    FETCH_MIXTURE_BY_BREW_ID_REQUEST,
+    FETCH_BREW_MIXTURES_REQUEST,
     SET_BREW_MIXTURE_DETAILS,
     EDIT_BREW_MIXTURES_REQUEST,
     DELETE_BREW_MIXTURES_REQUEST,
 } from "./actionTypes";
 
-export const fetchMixturesByBrewId = (id) => ({
-    type: FETCH_MIXTURE_BY_BREW_ID_REQUEST,
-    payload: { id },
+export const fetchBrewMixtures = (params) => ({
+    type: FETCH_BREW_MIXTURES_REQUEST,
+    payload: { ...params },
 });
 
 export const editBrewMixtures = (payload) => ({

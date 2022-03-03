@@ -25,19 +25,6 @@ export default function BrewNav({ activeTab, setActiveTab }) {
 
     function navToTab(tab) {
         setActiveTab(tab);
-        // setTimeout(() => {
-        //     dispatch(fetchBatchById(batch.id));
-        //     dispatch(fetchAllBrewStages(batch.id));
-        //     dispatch(fetchMixturesByBrewId(batch.id));
-        //     dispatch(fetchMaterialPortionsByBrewId(batch.id));
-        //     dispatch(fetchMixtureRecordingsByBrewId(batch.id));
-        //     dispatch(
-        //         fetchFinishedGoodsByBrewId({
-        //             brewId: batch.id,
-        //             pageSize: 500,
-        //         })
-        //     );
-        // });
     }
 
     return (

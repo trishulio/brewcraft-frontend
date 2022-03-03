@@ -16,7 +16,7 @@ import {
     fetchMaterialPortionsByBrewId,
     fetchMixtureRecordingsByBrewId,
     fetchFinishedGoodsByBrewId,
-    fetchMixturesByBrewId,
+    fetchBrewMixtures,
     fetchAllBrewStages,
     editBrewStages,
     editBrewMixtures,
@@ -98,7 +98,11 @@ export default function Batch() {
         if (id !== "new") {
             dispatch(fetchBatchById(id));
             dispatch(fetchAllBrewStages(id));
-            dispatch(fetchMixturesByBrewId(id));
+            dispatch(
+                fetchBrewMixtures({
+                    brewId: id,
+                })
+            );
             dispatch(fetchMaterialPortionsByBrewId(id));
             dispatch(fetchMixtureRecordingsByBrewId(id));
             dispatch(fetchFinishedGoodsByBrewId({ brewId: id, pageSize: 500 }));
