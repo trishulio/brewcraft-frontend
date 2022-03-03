@@ -76,7 +76,6 @@ function* editMaterialPortionsGenerator(action) {
 
 function* deleteMaterialPortionsGenerator(action) {
     try {
-        debugger;
         const batch = yield select((state) => state.Batch.Batch.data);
         yield call(api.deleteMaterialPortions, get(action, "payload.form"));
         yield put({

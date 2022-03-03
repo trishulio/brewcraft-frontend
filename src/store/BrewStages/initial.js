@@ -1,1 +1,0 @@
-export { state as initialState };
