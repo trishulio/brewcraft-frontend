@@ -164,6 +164,7 @@ export default function Batch() {
                         JSON.stringify(initialFinishedGoods),
             })
         );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         batch,
         stages,

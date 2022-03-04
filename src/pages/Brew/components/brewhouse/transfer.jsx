@@ -1,19 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    Col,
     Dropdown,
     DropdownItem,
     DropdownMenu,
     DropdownToggle,
-    FormFeedback,
-    FormGroup,
-    Input,
-    Label,
-    Row,
 } from "reactstrap";
-import { Card, CardBody, CardHeader } from "../../../../component/Common/Card";
-import { addBrewStage, setBrewMixtureDetails } from "../../../../store/actions";
+import { addBrewStage } from "../../../../store/actions";
 import BatchStage from "../common/stage";
 
 export default function BrewTransfer({
@@ -22,8 +15,8 @@ export default function BrewTransfer({
     transferMixture,
     transferStage,
 }) {
-    const [invalidOg, setInvalidOg] = useState(false);
-    const [invalidQuantity, setInvalidQuantity] = useState(false);
+    // const [invalidOg, setInvalidOg] = useState(false);
+    // const [invalidQuantity, setInvalidQuantity] = useState(false);
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const dispatch = useDispatch();
 

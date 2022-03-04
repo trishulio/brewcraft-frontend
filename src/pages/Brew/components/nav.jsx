@@ -3,22 +3,8 @@ import { useSelector } from "react-redux";
 import { Nav, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
 import { Badge } from "./common/badge";
-import {
-    fetchAllBrewStages,
-    fetchBatchById,
-    fetchFinishedGoodsByBrewId,
-    fetchMaterialPortionsByBrewId,
-    fetchMixtureRecordingsByBrewId,
-    fetchMixturesByBrewId,
-} from "../../../store/actions";
-import { useDispatch } from "react-redux";
 
 export default function BrewNav({ activeTab, setActiveTab }) {
-    const dispatch = useDispatch();
-    const { data: batch } = useSelector((state) => {
-        return state.Batch.Batch;
-    });
-
     const mashStages = useSelector((state) => {
         return state.Batch.Stages.initial.filter((s) => s.task.id === 1);
     });
