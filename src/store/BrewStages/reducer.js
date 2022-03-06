@@ -1,10 +1,3 @@
-import MashStages from "./mash";
-import KettleStage from "./kettle";
-import WhirlpoolStage from "./whirlpool";
-import TransferStage from "./transfer";
-import FermentStage from "./ferment";
-import ConditionStage from "./condition";
-import BriteTankStage from "./brite-tank";
 import {
     FETCH_BREW_STAGE_BY_BREW_ID_REQUEST,
     FETCH_BREW_STAGES_BY_BREW_ID_SUCCESS,
@@ -22,6 +15,7 @@ const initialState = {
     loading: true,
     error: false,
 };
+
 const Stages = (state = initialState, { type, payload }) => {
     switch (type) {
         case FETCH_BREW_STAGE_BY_BREW_ID_REQUEST:
@@ -55,18 +49,8 @@ const Stages = (state = initialState, { type, payload }) => {
         default:
             return {
                 ...state,
-                loading: false,
             };
     }
 };
 
-export {
-    Stages,
-    MashStages,
-    KettleStage,
-    WhirlpoolStage,
-    TransferStage,
-    FermentStage,
-    ConditionStage,
-    BriteTankStage,
-};
+export { Stages };

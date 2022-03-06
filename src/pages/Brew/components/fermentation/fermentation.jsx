@@ -32,7 +32,7 @@ export default function Fermentation() {
     const [isOpen, setIsOpen] = useState(true);
 
     const fermentMixtures = useSelector((state) => {
-        return state.Batch.Mixtures.content.filter(
+        return state.Batch.BrewMixtures.content.filter(
             (m) => m.brewStage.task.id === 7
         );
     });
@@ -40,7 +40,7 @@ export default function Fermentation() {
     const loading = useSelector((state) => {
         return (
             state.Batch.Stages.loading ||
-            state.Batch.Mixtures.loading ||
+            state.Batch.BrewMixtures.loading ||
             state.Batch.MaterialPortions.loading
         );
     });

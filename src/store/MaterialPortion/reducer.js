@@ -1,12 +1,9 @@
-import MashMaterialPortion from "./mash";
-import KettleMaterialPortion from "./kettle";
-import FermentMaterialPortion from "./ferment";
 import {
-    FETCH_MATERIAL_PORTIONS_BY_BREW_ID_REQUEST,
-    FETCH_MATERIAL_PORTIONS_BY_BREW_ID_SUCCESS,
-    FETCH_MATERIAL_PORTIONS_BY_BREW_ID_FAILURE,
-    SET_BREW_MATERIAL_PORTIONS_DETAILS,
-    RESET_BREW_MATERIAL_PORTIONS_DETAILS,
+    FETCH_BREW_MATERIAL_PORTIONS_BY_BREW_ID_FAILURE,
+    FETCH_BREW_MATERIAL_PORTIONS_BY_BREW_ID_REQUEST,
+    FETCH_BREW_MATERIAL_PORTIONS_BY_BREW_ID_SUCCESS,
+    RESET_BREW_MATERIAL_PORTIONS,
+    SET_BREW_MATERIAL_PORTIONS,
 } from "./actionTypes";
 
 const initialState = {
@@ -17,26 +14,26 @@ const initialState = {
 };
 const MaterialPortions = (state = initialState, { type, payload }) => {
     switch (type) {
-        case FETCH_MATERIAL_PORTIONS_BY_BREW_ID_REQUEST:
+        case FETCH_BREW_MATERIAL_PORTIONS_BY_BREW_ID_REQUEST:
             return {
                 ...state,
                 loading: true,
             };
-        case FETCH_MATERIAL_PORTIONS_BY_BREW_ID_SUCCESS:
-        case SET_BREW_MATERIAL_PORTIONS_DETAILS:
+        case FETCH_BREW_MATERIAL_PORTIONS_BY_BREW_ID_SUCCESS:
+        case SET_BREW_MATERIAL_PORTIONS:
             return {
                 ...state,
                 ...payload,
                 loading: false,
                 error: null,
             };
-        case FETCH_MATERIAL_PORTIONS_BY_BREW_ID_FAILURE:
+        case FETCH_BREW_MATERIAL_PORTIONS_BY_BREW_ID_FAILURE:
             return {
                 ...state,
                 loading: false,
                 error: true,
             };
-        case RESET_BREW_MATERIAL_PORTIONS_DETAILS:
+        case RESET_BREW_MATERIAL_PORTIONS:
             return {
                 ...initialState,
                 loading: false,
@@ -45,14 +42,8 @@ const MaterialPortions = (state = initialState, { type, payload }) => {
         default:
             return {
                 ...state,
-                loading: false,
             };
     }
 };
 
-export {
-    MaterialPortions,
-    MashMaterialPortion,
-    KettleMaterialPortion,
-    FermentMaterialPortion,
-};
+export { MaterialPortions };

@@ -2,6 +2,7 @@ import {
     FETCH_FINISHED_GOODS,
     FETCH_FERMENT_FINISHED_GOODS,
     FETCH_FINISHED_GOODS_BY_BREW_ID,
+    DELETE_FINISHED_GOODS,
     DELETE_FERMENT_FINISHED_GOODS,
     SAVE_FERMENT_FINISHED_GOODS,
     SET_CONDITION_FINISHED_GOODS,
@@ -38,6 +39,11 @@ export const setFinishedGoodsPageSize = (size) => ({
 export const fetchFinishedGoodsByBrewId = (params) => ({
     type: FETCH_FINISHED_GOODS_BY_BREW_ID,
     payload: { ...params },
+});
+
+export const deleteFinishedGoods = (payload) => ({
+    type: DELETE_FINISHED_GOODS,
+    payload: { ...payload },
 });
 
 export const fetchFermentFinishedGoods = (payload) => ({

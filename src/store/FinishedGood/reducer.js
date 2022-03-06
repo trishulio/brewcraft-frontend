@@ -108,7 +108,6 @@ const FinishedGood = (state = initialState, { type, payload }) => {
         default:
             return {
                 ...state,
-                loading: true,
                 error: null,
             };
     }

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    Button,
     Dropdown,
     DropdownItem,
     DropdownMenu,
@@ -10,6 +9,7 @@ import {
 import { addBrewStage, deleteBrewStage } from "../../../../store/actions";
 import Ingredients from "../common/ingredients";
 import BatchStage from "../common/stage";
+import Recordings from "../common/mixture-recordings";
 
 export default function BrewMash({
     mashMixture,
@@ -29,6 +29,10 @@ export default function BrewMash({
         mixture: mashMixture,
     };
 
+    const recordingsProps = {
+        mixture: mashMixture,
+    };
+
     const stageProps = {
         title: "Mash Lauter",
         stage: mashStage,
@@ -39,64 +43,64 @@ export default function BrewMash({
         },
         toolbar: (
             <React.Fragment>
-                <Button
-                    className="mr-2"
-                    type="button"
-                    color="secondary"
-                    size="sm"
-                    outline={true}
-                    onClick={() => {}}
-                >
-                    Ingredients
-                </Button>
-                <Dropdown
-                    isOpen={isOpenMoreDropdown}
-                    toggle={() => setIsOpenMoreDropdown(!isOpenMoreDropdown)}
-                    className="d-inline-block mr-2"
-                >
-                    <DropdownToggle
-                        tag="button"
-                        className="waves-effect btn btn-outline-secondary btn-sm"
-                        data-toggle="dropdown"
+                {!kettleMixture?.id && (
+                    <Dropdown
+                        isOpen={isOpenMoreDropdown}
+                        toggle={() =>
+                            setIsOpenMoreDropdown(!isOpenMoreDropdown)
+                        }
+                        className="d-inline-block mr-2"
                     >
-                        Mixture <i className="fa fa-caret-down"></i>
-                    </DropdownToggle>
-                    <DropdownMenu>
-                        <DropdownItem disabled={!!kettleMixture?.id}>
-                            <span
-                                className="text-dark"
-                                onClick={() => {
-                                    dispatch(
-                                        addBrewStage({
-                                            parentMixtureIds: [mashMixture.id],
-                                            form: [
-                                                {
-                                                    brewId: batch.id,
-                                                    taskId: 2,
-                                                    statusId: 4,
-                                                    startedAt:
-                                                        new Date().toISOString(),
-                                                },
-                                            ],
-                                        })
-                                    );
-                                }}
-                            >
-                                Move to Kettle
-                            </span>
-                        </DropdownItem>
-                        <DropdownItem>
-                            <span
-                                className="text-dark"
-                                onClick={() => {
-                                    dispatch(deleteBrewStage(mashStage));
-                                }}
-                            >
-                                Delete
-                            </span>
-                        </DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
+                        <DropdownToggle
+                            tag="button"
+                            className="waves-effect btn btn-outline-secondary btn-sm"
+                            data-toggle="dropdown"
+                        >
+                            Mixture <i className="fa fa-caret-down"></i>
+                        </DropdownToggle>
+                        <DropdownMenu>
+                            <DropdownItem disabled={!!kettleMixture?.id}>
+                                <span
+                                    className="text-dark"
+                                    onClick={() => {
+                                        dispatch(
+                                            addBrewStage({
+                                                parentMixtureIds: [
+                                                    mashMixture.id,
+                                                ],
+                                                form: [
+                                                    {
+                                                        brewId: batch.id,
+                                                        taskId: 2,
+                                                        statusId: 4,
+                                                        startedAt:
+                                                            new Date().toISOString(),
+                                                    },
+                                                ],
+                                            })
+                                        );
+                                    }}
+                                >
+                                    Move to Kettle
+                                </span>
+                            </DropdownItem>
+                            {!kettleMixture?.id && (
+                                <DropdownItem disabled={!!kettleMixture?.id}>
+                                    <span
+                                        className="text-dark"
+                                        onClick={() => {
+                                            dispatch(
+                                                deleteBrewStage(mashStage)
+                                            );
+                                        }}
+                                    >
+                                        Delete
+                                    </span>
+                                </DropdownItem>
+                            )}
+                        </DropdownMenu>
+                    </Dropdown>
+                )}
             </React.Fragment>
         ),
     };
@@ -107,6 +111,9 @@ export default function BrewMash({
                 <BatchStage {...stageProps}>
                     <div className="mb-3">
                         <Ingredients {...ingredientsProps} />
+                    </div>
+                    <div className="mb-3">
+                        <Recordings {...recordingsProps} />
                     </div>
                 </BatchStage>
             )}

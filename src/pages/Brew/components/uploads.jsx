@@ -3,7 +3,7 @@ import Dropzone from "react-dropzone";
 import { Card, CardBody, CardHeader } from "../../../component/Common/Card";
 
 export default function BatchFileUploads() {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
 
     function handleAcceptedFiles() {}
 

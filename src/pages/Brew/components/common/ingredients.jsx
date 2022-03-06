@@ -165,32 +165,28 @@ export default function BatchIngredients({ mixture }) {
                         size="sm"
                         className="waves-effect mr-2 mb-0"
                         onClick={() => {
-                            const index = materialPortions.findIndex(
+                            const materialPortion = materialPortions.find(
                                 (mp) =>
                                     mp.materialLot.id ===
                                     selectedLot.materialLot.id
                             );
-                            let materialPortion;
-                            if (index >= 0) {
-                                materialPortion = Object.assign(
-                                    materialPortions[index]
-                                );
+                            if (materialPortion) {
                                 materialPortion.quantity.value +=
                                     parseFloat(selectedLotQuantity);
                             } else {
-                                materialPortion = {
+                                materialPortions.push({
                                     ...selectedLot,
                                     quantity: {
                                         symbol: selectedLot.quantity.symbol,
                                         value: parseFloat(selectedLotQuantity),
                                     },
                                     mixture: mixture,
-                                };
+                                });
                             }
                             dispatch(
-                                setBrewMaterialPortions(
-                                    Object.assign([], materialPortions)
-                                )
+                                setBrewMaterialPortions({
+                                    content: materialPortions,
+                                })
                             );
                         }}
                         disabled={!selectedLot || !selectedLotQuantity}
@@ -203,11 +199,11 @@ export default function BatchIngredients({ mixture }) {
                         className="waves-effect"
                         onClick={() => {
                             dispatch(
-                                setBrewMaterialPortions(
-                                    materialPortions.filter(
+                                setBrewMaterialPortions({
+                                    content: materialPortions.filter(
                                         (_, index) => !lots.includes(index)
-                                    )
-                                )
+                                    ),
+                                })
                             );
                             setLots([]);
                         }}

@@ -8,7 +8,7 @@ import {
     fetchFinishedGoodsByBrewId,
     fetchMaterialPortionsByBrewId,
     fetchMixtureRecordingsByBrewId,
-    fetchMixturesByBrewId,
+    fetchBrewMixtures,
     setBreadcrumbItems,
 } from "../../store/actions";
 import BrewMonitorInner from "./monitor";
@@ -69,7 +69,11 @@ export default function BrewMonitor() {
 
     useEffect(() => {
         dispatch(fetchBatchById(id));
-        dispatch(fetchMixturesByBrewId(id));
+        dispatch(
+            fetchBrewMixtures({
+                brewId: id,
+            })
+        );
         dispatch(fetchMaterialPortionsByBrewId(id));
         dispatch(fetchMixtureRecordingsByBrewId(id));
         dispatch(fetchFinishedGoodsByBrewId({ brewId: id, pageSize: 500 }));

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    Button,
     Dropdown,
     DropdownItem,
     DropdownMenu,
@@ -46,26 +45,6 @@ export default function BrewKettle({
         },
         toolbar: (
             <React.Fragment>
-                <Button
-                    className="mr-2"
-                    type="button"
-                    color="secondary"
-                    size="sm"
-                    outline={true}
-                    onClick={() => {}}
-                >
-                    Ingredients
-                </Button>
-                <Button
-                    className="mr-2"
-                    type="button"
-                    color="secondary"
-                    size="sm"
-                    outline={true}
-                    onClick={() => {}}
-                >
-                    Temperature
-                </Button>
                 <Dropdown
                     isOpen={isOpenMoreDropdown}
                     toggle={() => setIsOpenMoreDropdown(!isOpenMoreDropdown)}
@@ -122,9 +101,7 @@ export default function BrewKettle({
                                         })
                                     );
                                 }}
-                            >
-                                Move to Fermenter
-                            </span>
+                            ></span>
                         </DropdownItem>
                         <DropdownItem>
                             <span

@@ -39,21 +39,21 @@ async function fetchMaterialPortionsByBrewId(id) {
     ).then((r) => r);
 }
 
-async function addMixtureMaterialPortion(payload) {
+async function addMixtureMaterialPortions(payload) {
     return await AxiosInstance.post(
         "/api/v1/brews/mixtures/portions",
         payload
     ).then((r) => r);
 }
 
-async function updateMaterialPortion(payload) {
+async function updateMaterialPortions(payload) {
     return await AxiosInstance.put(
         "/api/v1/brews/mixtures/portions",
         payload
     ).then((r) => r);
 }
 
-async function deleteMaterialPortion(ids) {
+async function deleteMaterialPortions(ids) {
     return await AxiosInstance.delete(`/api/v1/brews/mixtures/portions`, {
         params: { ids: ids.toString() },
     }).then((r) => r);
@@ -63,7 +63,7 @@ export const api = {
     fetchMaterialPortionById,
     fetchMaterialPortionsByBrewId,
     fetchMaterialPortionsByMixtureId,
-    addMixtureMaterialPortion,
-    updateMaterialPortion,
-    deleteMaterialPortion,
+    addMixtureMaterialPortions,
+    updateMaterialPortions,
+    deleteMaterialPortions,
 };

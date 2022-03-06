@@ -166,67 +166,33 @@ class SidebarContent extends Component {
                         <li className="menu-title">Main</li>
                         <li>
                             <Link
-                                to="/brews"
+                                to="/dashboard"
                                 className="waves-effect"
                                 onClick={this.toggleSidebar.bind(this)}
                             >
-                                <i className="mdi mdi-beer"></i>
-                                <span>Brews</span>
+                                <i className="mdi mdi-view-dashboard"></i>
+                                <span>Dashboard</span>
                             </Link>
                         </li>
                         <li>
                             <Link
-                                to="/inventory/finished-goods/summary"
-                                className="has-arrow waves-effect"
+                                to="/purchases/invoices"
+                                className="waves-effect"
+                                onClick={this.toggleSidebar.bind(this)}
                             >
-                                <i className="mdi mdi-crown"></i>
-                                <span>Finished Goods</span>
+                                <i className="mdi mdi-currency-usd"></i>
+                                <span>Purchases</span>
                             </Link>
-                            <ul className="sub-menu" aria-expanded="false">
-                                <li>
-                                    <Link
-                                        to="/sku"
-                                        onClick={this.toggleSidebar.bind(this)}
-                                    >
-                                        SKUs
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="/inventory/finished-goods/summary"
-                                        onClick={this.toggleSidebar.bind(this)}
-                                    >
-                                        Inventory
-                                    </Link>
-                                </li>
-                            </ul>
                         </li>
                         <li>
                             <Link
-                                to="/products"
-                                className="has-arrow waves-effect"
+                                to="/suppliers"
+                                className="waves-effect"
+                                onClick={this.toggleSidebar.bind(this)}
                             >
-                                <i className="mdi mdi-crown"></i>
-                                <span>Products</span>
+                                <i className="mdi mdi-domain"></i>
+                                <span>Suppliers</span>
                             </Link>
-                            <ul className="sub-menu" aria-expanded="false">
-                                <li>
-                                    <Link
-                                        to="/products"
-                                        onClick={this.toggleSidebar.bind(this)}
-                                    >
-                                        Products
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="/products/categories"
-                                        onClick={this.toggleSidebar.bind(this)}
-                                    >
-                                        Categories
-                                    </Link>
-                                </li>
-                            </ul>
                         </li>
                         <li>
                             <Link
@@ -273,33 +239,67 @@ class SidebarContent extends Component {
                         </li>
                         <li>
                             <Link
-                                to="/purchases/invoices"
+                                to="/inventory/finished-goods/summary"
+                                className="has-arrow waves-effect"
+                            >
+                                <i className="mdi mdi-crown"></i>
+                                <span>Finished Goods</span>
+                            </Link>
+                            <ul className="sub-menu" aria-expanded="false">
+                                <li>
+                                    <Link
+                                        to="/inventory/finished-goods/summary"
+                                        onClick={this.toggleSidebar.bind(this)}
+                                    >
+                                        Inventory
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/sku"
+                                        onClick={this.toggleSidebar.bind(this)}
+                                    >
+                                        SKUs
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <Link
+                                to="/brews"
                                 className="waves-effect"
                                 onClick={this.toggleSidebar.bind(this)}
                             >
-                                <i className="mdi mdi-currency-usd"></i>
-                                <span>Purchases</span>
+                                <i className="mdi mdi-beer"></i>
+                                <span>Brews</span>
                             </Link>
                         </li>
                         <li>
                             <Link
-                                to="/suppliers"
-                                className="waves-effect"
-                                onClick={this.toggleSidebar.bind(this)}
+                                to="/products"
+                                className="has-arrow waves-effect"
                             >
-                                <i className="mdi mdi-domain"></i>
-                                <span>Suppliers</span>
+                                <i className="mdi mdi-crown"></i>
+                                <span>Products</span>
                             </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/suppliers/contacts"
-                                className="waves-effect"
-                                onClick={this.toggleSidebar.bind(this)}
-                            >
-                                <i className="mdi mdi-account"></i>
-                                <span>Contacts</span>
-                            </Link>
+                            <ul className="sub-menu" aria-expanded="false">
+                                <li>
+                                    <Link
+                                        to="/products"
+                                        onClick={this.toggleSidebar.bind(this)}
+                                    >
+                                        Products
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/products/categories"
+                                        onClick={this.toggleSidebar.bind(this)}
+                                    >
+                                        Categories
+                                    </Link>
+                                </li>
+                            </ul>
                         </li>
                         {/* <li>
                             <Link

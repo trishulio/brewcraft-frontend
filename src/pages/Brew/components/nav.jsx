@@ -2,33 +2,54 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Nav, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
-import { Badge } from "../common/badge";
+import { Badge } from "./common/badge";
 
 export default function BrewNav({ activeTab, setActiveTab }) {
     const mashStages = useSelector((state) => {
         return state.Batch.Stages.initial.filter((s) => s.task.id === 1);
     });
 
+    function navToTab(tab) {
+        setActiveTab(tab);
+    }
+
     return (
         <React.Fragment>
             <div style={{ maxWidth: "70rem" }} className="mb-0">
                 <Nav className="nav-tabs nav-sm">
+                    <NavItem
+                        key={"details"}
+                        className="waves-effect waves-light"
+                    >
+                        <NavLink
+                            style={{ cursor: "pointer" }}
+                            className={classnames({
+                                active: activeTab === "details",
+                            })}
+                            onClick={() => {
+                                navToTab("details");
+                            }}
+                        >
+                            <span>Details</span>
+                        </NavLink>
+                    </NavItem>
                     {mashStages.map((_, index) => {
                         return (
                             <NavItem
-                                key={index}
+                                key={"brew-" + index}
                                 className="waves-effect waves-light"
                             >
                                 <NavLink
                                     style={{ cursor: "pointer" }}
                                     className={classnames({
-                                        active: activeTab === index + 1,
+                                        active:
+                                            activeTab === "brew-" + (index + 1),
                                     })}
                                     onClick={() => {
-                                        setActiveTab(index + 1);
+                                        navToTab("brew-" + (index + 1));
                                     }}
                                 >
-                                    <span>Brewhouse Turn {index + 1}</span>{" "}
+                                    <span>Turn {index + 1}</span>{" "}
                                     <Badge statusId={""} />
                                 </NavLink>
                             </NavItem>

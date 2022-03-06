@@ -20,35 +20,9 @@ import {
     VALIDATE_BREW_FIELDS_SUCCESS,
 } from "./actionTypes";
 import { isValidName, validDate, validId } from "../../helpers/utils";
-import {
-    RESET_BREW_MIXTURE_DETAILS,
-    RESET_FERMENT_MIXTURE_DETAILS,
-    RESET_KETTLE_MIXTURE_DETAILS,
-    RESET_MASH_MIXTURE_DETAILS,
-    RESET_TRANSFER_MIXTURE_DETAILS,
-    RESET_WHIRLPOOL_MIXTURE_DETAILS,
-} from "../Mixture/actionTypes";
-import {
-    RESET_BREW_MATERIAL_PORTIONS_DETAILS,
-    RESET_FERMENT_MATERIAL_PORTION_DETAILS,
-    RESET_KETTLE_MATERIAL_PORTION_DETAILS,
-    RESET_MASH_MATERIAL_PORTION_DETAILS,
-} from "../MaterialPortion/actionTypes";
-import {
-    RESET_FERMENT_MIXTURE_RECORDING_DETAILS,
-    RESET_KETTLE_MIXTURE_RECORDING_DETAILS,
-    RESET_TRANSFER_MIXTURE_RECORDING_DETAILS,
-    RESET_WHIRLPOOL_MIXTURE_RECORDING_DETAILS,
-} from "../MixtureRecording/actionTypes";
-import {
-    RESET_BREW_STAGES,
-    RESET_FERMENT_STAGE_DETAILS,
-    RESET_KETTLE_STAGE_DETAILS,
-    RESET_MASH_STAGE_DETAILS,
-    RESET_TRANSFER_STAGE_DETAILS,
-    RESET_WHIRLPOOL_STAGE_DETAILS,
-} from "../BrewStages/actionTypes";
-import { RESET_FERMENT_FINISHED_GOODS_DETAILS } from "../FinishedGoods/actionTypes";
+import { RESET_BREW_MIXTURE_DETAILS } from "../BrewMixtures/actionTypes";
+import { RESET_BREW_MATERIAL_PORTIONS_DETAILS } from "../MaterialPortion/actionTypes";
+import { RESET_BREW_STAGES } from "../BrewStages/actionTypes";
 
 function* fetchBatchByIdGenerator(action) {
     try {
@@ -179,29 +153,6 @@ function* resetBatchDetailsGenerator() {
     yield put({ type: RESET_BREW_STAGES });
     yield put({ type: RESET_BREW_MIXTURE_DETAILS });
     yield put({ type: RESET_BREW_MATERIAL_PORTIONS_DETAILS });
-    // reset mash
-    yield put({ type: RESET_MASH_STAGE_DETAILS });
-    yield put({ type: RESET_MASH_MIXTURE_DETAILS });
-    yield put({ type: RESET_MASH_MATERIAL_PORTION_DETAILS });
-    // reset kettle
-    yield put({ type: RESET_KETTLE_STAGE_DETAILS });
-    yield put({ type: RESET_KETTLE_MIXTURE_DETAILS });
-    yield put({ type: RESET_KETTLE_MATERIAL_PORTION_DETAILS });
-    yield put({ type: RESET_KETTLE_MIXTURE_RECORDING_DETAILS });
-    // reset whirlpool
-    yield put({ type: RESET_WHIRLPOOL_STAGE_DETAILS });
-    yield put({ type: RESET_WHIRLPOOL_MIXTURE_DETAILS });
-    yield put({ type: RESET_WHIRLPOOL_MIXTURE_RECORDING_DETAILS });
-    // reset transfer
-    yield put({ type: RESET_TRANSFER_STAGE_DETAILS });
-    yield put({ type: RESET_TRANSFER_MIXTURE_DETAILS });
-    yield put({ type: RESET_TRANSFER_MIXTURE_RECORDING_DETAILS });
-    // reset ferment
-    yield put({ type: RESET_FERMENT_STAGE_DETAILS });
-    yield put({ type: RESET_FERMENT_MIXTURE_DETAILS });
-    yield put({ type: RESET_FERMENT_MATERIAL_PORTION_DETAILS });
-    yield put({ type: RESET_FERMENT_MIXTURE_RECORDING_DETAILS });
-    yield put({ type: RESET_FERMENT_FINISHED_GOODS_DETAILS });
 }
 
 function* Batch() {
