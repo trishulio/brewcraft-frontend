@@ -8,47 +8,52 @@ import {
 } from "reactstrap";
 import { addBrewStage, deleteBrewStage } from "../../../../store/actions";
 import Ingredients from "../common/ingredients";
-import BatchStage from "../common/stage";
 import Recordings from "../common/mixture-recordings";
+import FinishedGoods from "../common/finished-goods";
+import BatchStage from "../common/stage";
 
-export default function BrewMash({
-    mashMixture,
-    kettleMixture,
+export default function BatchFerment({
+    fermentMixture,
+    conditionMixture,
     isOpen,
     toggleIsOpen,
 }) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const dispatch = useDispatch();
 
-    const { data: batch } = useSelector((state) => {
-        return state.Batch.Batch;
+    const batch = useSelector((state) => {
+        return state.Batch.Batch.data;
     });
 
-    const mashStage = useSelector((state) => {
+    const fermentStage = useSelector((state) => {
         return state.Batch.Stages.content.find(
-            (s) => s.id === mashMixture.brewStage.id
+            (s) => s.id === fermentMixture.brewStage.id
         );
     });
 
     const ingredientsProps = {
-        mixture: mashMixture,
+        mixture: fermentMixture,
     };
 
     const recordingsProps = {
-        mixture: mashMixture,
+        mixture: fermentMixture,
+    };
+
+    const finishedGoodsProps = {
+        mixture: fermentMixture,
     };
 
     const stageProps = {
-        title: "Mash Lauter",
-        stage: mashStage,
-        mixture: mashMixture,
+        title: "Ferment",
+        stage: fermentStage,
+        mixture: fermentMixture,
         isOpen,
         toggleIsOpen: () => {
-            toggleIsOpen("mash");
+            toggleIsOpen("ferment");
         },
         toolbar: (
             <React.Fragment>
-                {!kettleMixture?.id && (
+                {!conditionMixture && (
                     <Dropdown
                         isOpen={isOpenMoreDropdown}
                         toggle={() =>
@@ -64,19 +69,19 @@ export default function BrewMash({
                             Mixture <i className="fa fa-caret-down"></i>
                         </DropdownToggle>
                         <DropdownMenu>
-                            <DropdownItem disabled={!!kettleMixture?.id}>
+                            <DropdownItem>
                                 <span
                                     className="text-dark"
                                     onClick={() => {
                                         dispatch(
                                             addBrewStage({
                                                 parentMixtureIds: [
-                                                    mashMixture.id,
+                                                    fermentMixture.id,
                                                 ],
                                                 form: [
                                                     {
                                                         brewId: batch.id,
-                                                        taskId: 2,
+                                                        taskId: 5,
                                                         statusId: 4,
                                                         startedAt:
                                                             new Date().toISOString(),
@@ -86,23 +91,19 @@ export default function BrewMash({
                                         );
                                     }}
                                 >
-                                    Move to Kettle
+                                    Move to Conditioner
                                 </span>
                             </DropdownItem>
-                            {!kettleMixture?.id && (
-                                <DropdownItem disabled={!!kettleMixture?.id}>
-                                    <span
-                                        className="text-dark"
-                                        onClick={() => {
-                                            dispatch(
-                                                deleteBrewStage(mashStage)
-                                            );
-                                        }}
-                                    >
-                                        Delete
-                                    </span>
-                                </DropdownItem>
-                            )}
+                            <DropdownItem>
+                                <span
+                                    className="text-dark"
+                                    onClick={() => {
+                                        dispatch(deleteBrewStage(fermentStage));
+                                    }}
+                                >
+                                    Delete Mixture
+                                </span>
+                            </DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
                 )}
@@ -112,13 +113,16 @@ export default function BrewMash({
 
     return (
         <React.Fragment>
-            {mashStage && (
+            {fermentStage?.id && (
                 <BatchStage {...stageProps}>
                     <div className="mb-3">
                         <Ingredients {...ingredientsProps} />
                     </div>
                     <div className="mb-3">
                         <Recordings {...recordingsProps} />
+                    </div>
+                    <div className="mb-3">
+                        <FinishedGoods {...finishedGoodsProps} />
                     </div>
                 </BatchStage>
             )}

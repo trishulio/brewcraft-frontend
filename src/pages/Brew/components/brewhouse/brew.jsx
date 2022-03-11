@@ -11,44 +11,11 @@ export default function Brew({ mashMixture }) {
     const [isWhirlpoolOpen, setIsWhirlpoolOpen] = useState(false);
     const [isTransferOpen, setIsTransferOpen] = useState(false);
 
-    const mashStage = useSelector((state) => {
-        return state.Batch.Stages.content.find(
-            (s) => s.id === mashMixture.brewStage.id
-        );
-    });
-
-    const mashMaterialPortions = useSelector((state) => {
-        return (
-            mashMixture &&
-            state.Batch.MaterialPortions.content.filter(
-                (mp) => mp.mixture.id === mashMixture.id
-            )
-        );
-    });
-
     const kettleMixture = useSelector((state) => {
         return state.Batch.BrewMixtures.content.find(
             (m) =>
                 m.parentMixtureIds &&
                 m.parentMixtureIds.includes(mashMixture.id)
-        );
-    });
-
-    const kettleStage = useSelector((state) => {
-        return (
-            kettleMixture &&
-            state.Batch.Stages.content.find(
-                (s) => s.id === kettleMixture.brewStage.id
-            )
-        );
-    });
-
-    const kettleMaterialPortions = useSelector((state) => {
-        return (
-            kettleMixture &&
-            state.Batch.MaterialPortions.content.filter(
-                (mp) => mp.mixture.id === kettleMixture.id
-            )
         );
     });
 
@@ -60,15 +27,6 @@ export default function Brew({ mashMixture }) {
                     m.parentMixtureIds &&
                     m.parentMixtureIds.includes(kettleMixture.id) &&
                     m.brewStage.task.id === 3
-            )
-        );
-    });
-
-    const whirlpoolStage = useSelector((state) => {
-        return (
-            whirlpoolMixture &&
-            state.Batch.Stages.content.find(
-                (s) => s.id === whirlpoolMixture.brewStage.id
             )
         );
     });
@@ -89,28 +47,19 @@ export default function Brew({ mashMixture }) {
         }
     });
 
-    const transferStage = useSelector((state) => {
-        return (
-            transferMixture &&
-            state.Batch.Stages.content.find(
-                (s) => s.id === transferMixture.brewStage.id
-            )
-        );
-    });
-
     useEffect(() => {
         // Open the last stage that exists.
-        if (transferStage) {
+        if (transferMixture) {
             toggleIsOpen("transfer", true);
-        } else if (whirlpoolStage) {
+        } else if (whirlpoolMixture) {
             toggleIsOpen("whirlpool", true);
-        } else if (kettleStage) {
+        } else if (kettleMixture) {
             toggleIsOpen("kettle", true);
         } else {
             toggleIsOpen("mash", true);
         }
         // eslint-disable-next-line
-    }, [mashStage, kettleStage, whirlpoolStage, transferStage]);
+    }, []);
 
     function toggleIsOpen(index, show) {
         switch (index) {
@@ -145,23 +94,19 @@ export default function Brew({ mashMixture }) {
 
     const props = {
         mashMixture,
-        mashStage,
-        mashMaterialPortions,
         kettleMixture,
-        kettleStage,
-        kettleMaterialPortions,
         whirlpoolMixture,
-        whirlpoolStage,
         transferMixture,
-        transferStage,
         toggleIsOpen,
     };
 
     return (
         <React.Fragment>
-            <Mash isOpen={isMashOpen} {...props} />
-            <Kettle isOpen={isKettleOpen} {...props} />
-            <Whirlpool isOpen={isWhirlpoolOpen} {...props} />
+            {mashMixture && <Mash isOpen={isMashOpen} {...props} />}
+            {kettleMixture && <Kettle isOpen={isKettleOpen} {...props} />}
+            {whirlpoolMixture && (
+                <Whirlpool isOpen={isWhirlpoolOpen} {...props} />
+            )}
             {transferMixture && <Transfer isOpen={isTransferOpen} {...props} />}
         </React.Fragment>
     );

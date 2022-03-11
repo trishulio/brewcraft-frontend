@@ -5,7 +5,7 @@ import {
     fetchAllBrewStages,
     fetchBatchById,
     fetchBatches,
-    fetchFinishedGoodsByBrewId,
+    fetchFinishedGoods,
     fetchMaterialPortionsByBrewId,
     fetchMixtureRecordingsByBrewId,
     fetchBrewMixtures,
@@ -76,7 +76,7 @@ export default function BrewMonitor() {
         );
         dispatch(fetchMaterialPortionsByBrewId(id));
         dispatch(fetchMixtureRecordingsByBrewId(id));
-        dispatch(fetchFinishedGoodsByBrewId({ brewId: id, pageSize: 500 }));
+        dispatch(fetchFinishedGoods({ brewId: id, pageSize: 500 }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 

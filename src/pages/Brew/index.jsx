@@ -15,7 +15,7 @@ import {
     setBatchDetails,
     fetchMaterialPortionsByBrewId,
     fetchMixtureRecordingsByBrewId,
-    fetchFinishedGoodsByBrewId,
+    fetchFinishedGoods,
     fetchBrewMixtures,
     fetchAllBrewStages,
     editBrewStages,
@@ -84,11 +84,11 @@ export default function Batch() {
     });
 
     const finishedGoods = useSelector((state) => {
-        return state.Batch.FinishedGoods.content;
+        return state.Batch.BrewFinishedGoods.content;
     });
 
     const initialFinishedGoods = useSelector((state) => {
-        return state.Batch.FinishedGoods.initial;
+        return state.Batch.BrewFinishedGoods.initial;
     });
 
     useEffect(() => {
@@ -105,7 +105,7 @@ export default function Batch() {
             );
             dispatch(fetchMaterialPortionsByBrewId(id));
             dispatch(fetchMixtureRecordingsByBrewId(id));
-            dispatch(fetchFinishedGoodsByBrewId({ brewId: id, pageSize: 500 }));
+            dispatch(fetchFinishedGoods({ brewId: id, pageSize: 500 }));
         } else {
             dispatch(resetBatchDetails());
         }
