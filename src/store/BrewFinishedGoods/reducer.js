@@ -25,7 +25,6 @@ const BrewFinishedGoods = (state = initialState, { type, payload }) => {
             };
         case FETCH_BREW_FINISHED_GOODS_SUCCESS:
         case SET_BREW_FINISHED_GOODS:
-            debugger;
             return {
                 ...state,
                 ...payload,
