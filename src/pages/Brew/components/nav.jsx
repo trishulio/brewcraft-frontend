@@ -9,6 +9,10 @@ export default function BrewNav({ activeTab, setActiveTab }) {
         return state.Batch.Stages.initial.filter((s) => s.task.id === 1);
     });
 
+    const fermentStages = useSelector((state) => {
+        return state.Batch.Stages.initial.filter((s) => s.task.id === 7);
+    });
+
     function navToTab(tab) {
         setActiveTab(tab);
     }
@@ -50,6 +54,33 @@ export default function BrewNav({ activeTab, setActiveTab }) {
                                     }}
                                 >
                                     <span>Turn {index + 1}</span>{" "}
+                                    <Badge statusId={""} />
+                                </NavLink>
+                            </NavItem>
+                        );
+                    })}
+                    {fermentStages.map((_, index) => {
+                        return (
+                            <NavItem
+                                key={"brew-" + index + mashStages.length}
+                                className="waves-effect waves-light"
+                            >
+                                <NavLink
+                                    style={{ cursor: "pointer" }}
+                                    className={classnames({
+                                        active:
+                                            activeTab ===
+                                            "brew-" +
+                                                (index + mashStages.length + 1),
+                                    })}
+                                    onClick={() => {
+                                        navToTab(
+                                            "brew-" +
+                                                (index + mashStages.length + 1)
+                                        );
+                                    }}
+                                >
+                                    <span>Cellar {index + 1}</span>{" "}
                                     <Badge statusId={""} />
                                 </NavLink>
                             </NavItem>

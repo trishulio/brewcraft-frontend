@@ -1,5 +1,7 @@
 import { combineReducers } from "redux";
 import Brew from "./Brew/reducer";
+import { BrewMixtures } from "./BrewMixtures/reducer";
+import { BrewFinishedGoods } from "./BrewFinishedGoods/reducer";
 import Batches from "./Batches/reducer";
 import BatchStatus from "./BatchStatus/reducer";
 import BatchTask from "./BatchTask/reducer";
@@ -26,7 +28,6 @@ import MaterialCategories from "./MaterialCategories/reducer";
 import MaterialCategory from "./MaterialCategory/reducer";
 import Measures from "./Measures/reducer";
 import Mixtures from "./Mixtures/reducer";
-import { BrewMixtures } from "./BrewMixtures/reducer";
 import MiniCards from "./MiniCards/reducer";
 import { MixtureRecordings } from "./MixtureRecording/reducer";
 import Packaging from "./Packaging/reducer";
@@ -52,6 +53,7 @@ const rootReducer = combineReducers({
     Batch: combineReducers({
         Batch: Brew,
         BrewMixtures: BrewMixtures,
+        BrewFinishedGoods: BrewFinishedGoods,
         Mixtures,
         Stages,
         MaterialPortions,

@@ -7,13 +7,12 @@ import {
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import { addBrewStage } from "../../../../store/actions";
+import { addBrewStage, deleteBrewStage } from "../../../../store/actions";
 import BatchStage from "../common/stage";
 
 export default function BrewWhirlpool({
     whirlpoolMixture,
-    whirlpoolStage,
-    transferStage,
+    transferMixture,
     isOpen,
     toggleIsOpen,
 }) {
@@ -22,6 +21,24 @@ export default function BrewWhirlpool({
 
     const batch = useSelector((state) => {
         return state.Batch.Batch.data;
+    });
+
+    const whirlpoolStage = useSelector((state) => {
+        return (
+            whirlpoolMixture &&
+            state.Batch.Stages.content.find(
+                (s) => s.id === whirlpoolMixture.brewStage.id
+            )
+        );
+    });
+
+    const transferStage = useSelector((state) => {
+        return (
+            transferMixture &&
+            state.Batch.Stages.content.find(
+                (s) => s.id === transferMixture.brewStage.id
+            )
+        );
     });
 
     const stageProps = {
@@ -59,7 +76,7 @@ export default function BrewWhirlpool({
                                             form: [
                                                 {
                                                     brewId: batch.id,
-                                                    taskId: 2,
+                                                    taskId: 6, // transfer
                                                     statusId: 4,
                                                     startedAt:
                                                         new Date().toISOString(),
@@ -69,11 +86,18 @@ export default function BrewWhirlpool({
                                     );
                                 }}
                             >
-                                Complete
+                                Complete Brew
                             </span>
                         </DropdownItem>
                         <DropdownItem>
-                            <span className="text-dark">Delete Mixture</span>
+                            <span
+                                className="text-dark"
+                                onClick={() => {
+                                    dispatch(deleteBrewStage(whirlpoolStage));
+                                }}
+                            >
+                                Delete Mixture
+                            </span>
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
@@ -83,7 +107,7 @@ export default function BrewWhirlpool({
 
     return (
         <React.Fragment>
-            {whirlpoolStage?.id && <BatchStage {...stageProps}></BatchStage>}
+            {whirlpoolStage && <BatchStage {...stageProps}></BatchStage>}
         </React.Fragment>
     );
 }

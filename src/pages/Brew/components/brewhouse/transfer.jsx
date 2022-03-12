@@ -13,7 +13,6 @@ export default function BrewTransfer({
     isOpen,
     toggleIsOpen,
     transferMixture,
-    transferStage,
 }) {
     // const [invalidOg, setInvalidOg] = useState(false);
     // const [invalidQuantity, setInvalidQuantity] = useState(false);
@@ -24,13 +23,22 @@ export default function BrewTransfer({
         return state.Batch.Batch.data;
     });
 
+    const transferStage = useSelector((state) => {
+        return (
+            transferMixture &&
+            state.Batch.Stages.content.find(
+                (s) => s.id === transferMixture.brewStage.id
+            )
+        );
+    });
+
     const stageProps = {
         title: "Transfer",
         stage: transferStage,
         mixture: transferMixture,
         isOpen,
         toggleIsOpen: () => {
-            toggleIsOpen("whirlpool");
+            toggleIsOpen("transfer");
         },
         toolbar: (
             <React.Fragment>
@@ -59,7 +67,7 @@ export default function BrewTransfer({
                                             form: [
                                                 {
                                                     brewId: batch.id,
-                                                    taskId: 2,
+                                                    taskId: 7, // ferment
                                                     statusId: 4,
                                                     startedAt:
                                                         new Date().toISOString(),
@@ -81,5 +89,9 @@ export default function BrewTransfer({
         ),
     };
 
-    return <BatchStage {...stageProps} />;
+    return (
+        <React.Fragment>
+            {transferStage && <BatchStage {...stageProps} />}
+        </React.Fragment>
+    );
 }

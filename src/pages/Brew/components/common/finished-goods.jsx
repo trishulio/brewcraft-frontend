@@ -10,12 +10,9 @@ import {
     toL,
 } from "../../../../helpers/textUtils";
 import { isValidNumberString } from "../../../../helpers/utils";
+import { setBrewFinishedGoods } from "../../../../store/BrewFinishedGoods/actions";
 
-export default function BatchIngredients({
-    mixture,
-    finishedGoods,
-    setFinishedGoods,
-}) {
+export default function FinishedGoods({ mixture }) {
     const [items, setItems] = useState([]);
     const [sku, setSku] = useState("");
     const [datetime, setDatetime] = useState("");
@@ -32,19 +29,24 @@ export default function BatchIngredients({
         return state.Skus.content;
     });
 
+    const finishedGoods = useSelector((state) => {
+        return state.Batch.BrewFinishedGoods.content.filter(
+            (fg) => fg.mixturePortions[0].mixture.id === mixture.id
+        );
+    });
+
     useEffect(() => {
-        if (editable) {
-            dispatch(
-                fetchSkus({
-                    pageSize: 500,
-                })
-            );
-        }
-    }, [editable, dispatch]);
+        dispatch(
+            fetchSkus({
+                pageSize: 500,
+            })
+        );
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <React.Fragment>
-            <Label>Packaged Goods</Label>
+            <Label>Packaged Items</Label>
             <CommonTable>
                 <thead>
                     <tr>
@@ -201,36 +203,46 @@ export default function BatchIngredients({
                                         parseFloat(quantity);
                                 finishedGood.quantity.value +=
                                     parseFloat(quantity);
-                                setFinishedGoods([...finishedGoods]);
+                                dispatch(
+                                    setBrewFinishedGoods({
+                                        content: finishedGoods,
+                                    })
+                                );
                             } else {
-                                setFinishedGoods([
-                                    ...finishedGoods,
-                                    {
-                                        sku,
-                                        mixturePortions: [
+                                dispatch(
+                                    setBrewFinishedGoods({
+                                        content: [
+                                            ...finishedGoods,
                                             {
-                                                mixture,
-                                                quantity: {
-                                                    value: toL(
-                                                        sku.quantity.value *
-                                                            parseFloat(
-                                                                quantity
+                                                sku,
+                                                mixturePortions: [
+                                                    {
+                                                        mixture,
+                                                        quantity: {
+                                                            value: toL(
+                                                                sku.quantity
+                                                                    .value *
+                                                                    parseFloat(
+                                                                        quantity
+                                                                    ),
+                                                                sku.quantity
+                                                                    .symbol
                                                             ),
-                                                        sku.quantity.symbol
-                                                    ),
-                                                    symbol: "l",
+                                                            symbol: "l",
+                                                        },
+                                                        addedAt: datetime,
+                                                    },
+                                                ],
+                                                materialPortions: [],
+                                                packagedOn: datetime,
+                                                quantity: {
+                                                    value: parseInt(quantity),
+                                                    symbol: "each",
                                                 },
-                                                addedAt: datetime,
                                             },
                                         ],
-                                        materialPortions: [],
-                                        packagedOn: datetime,
-                                        quantity: {
-                                            value: parseInt(quantity),
-                                            symbol: "each",
-                                        },
-                                    },
-                                ]);
+                                    })
+                                );
                             }
                         }}
                         disabled={!sku.id || !quantity}
@@ -244,10 +256,12 @@ export default function BatchIngredients({
                         color="warning"
                         className="waves-effect"
                         onClick={() => {
-                            setFinishedGoods(
-                                finishedGoods.filter(
-                                    (_, index) => !items.includes(index)
-                                )
+                            dispatch(
+                                setBrewFinishedGoods({
+                                    content: finishedGoods.filter(
+                                        (_, index) => !items.includes(index)
+                                    ),
+                                })
                             );
                             setItems([]);
                         }}

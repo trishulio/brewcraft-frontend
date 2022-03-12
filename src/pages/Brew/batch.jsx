@@ -12,26 +12,23 @@ import BatchFileUploads from "./components/uploads";
 import { ErrorMessage } from "../../helpers/textUtils";
 import Nav from "./components/nav";
 import Brew from "./components/brewhouse/brew";
+import Cellar from "./components/cellar";
 
-function Tabs({ mashMixtures, activeTab }) {
-    return (
-        <TabContent activeTab={activeTab}>
-            {mashMixtures.map((mixture, index) => {
-                return (
-                    <React.Fragment key={index}>
-                        <Tab indexv={index} mashMixture={mixture} />
-                    </React.Fragment>
-                );
-            })}
-        </TabContent>
-    );
-}
-
-function Tab({ indexv, mashMixture }) {
+function BrewTab({ indexv, mashMixture }) {
     return (
         <TabPane tabId={"brew-" + (indexv + 1)}>
             <div className="accordion">
                 <Brew mashMixture={mashMixture} />
+            </div>
+        </TabPane>
+    );
+}
+
+function CellarTab({ indexv, fermentMixture }) {
+    return (
+        <TabPane tabId={"brew-" + (indexv + 1)}>
+            <div className="accordion">
+                <Cellar fermentMixture={fermentMixture} />
             </div>
         </TabPane>
     );
@@ -51,6 +48,12 @@ export default function Batch(props) {
     const mashMixtures = useSelector((state) => {
         return state.Batch.BrewMixtures.content.filter(
             (m) => m.brewStage.task.id === 1
+        );
+    });
+
+    const fermentMixtures = useSelector((state) => {
+        return state.Batch.BrewMixtures.content.filter(
+            (m) => m.brewStage.task.id === 7
         );
     });
 
@@ -76,10 +79,24 @@ export default function Batch(props) {
                                     <BatchDetails {...props} />
                                     <BatchFileUploads {...props} />
                                 </TabPane>
-                                <Tabs
-                                    mashMixtures={mashMixtures}
-                                    activeTab={props.activeTab}
-                                />
+                                {mashMixtures.map((mixture, index) => {
+                                    return (
+                                        <BrewTab
+                                            key={index}
+                                            indexv={index}
+                                            mashMixture={mixture}
+                                        />
+                                    );
+                                })}
+                                {fermentMixtures.map((mixture, index) => {
+                                    return (
+                                        <CellarTab
+                                            key={index + mashMixtures.length}
+                                            indexv={index + mashMixtures.length}
+                                            fermentMixture={mixture}
+                                        />
+                                    );
+                                })}
                             </TabContent>
                         </CardBody>
                     </Card>
