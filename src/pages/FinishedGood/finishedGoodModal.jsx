@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Modal, ModalBody, ModalFooter, Button } from "reactstrap";
 import FinishedGoodDetails from "./components/details";
 import { useDispatch, useSelector } from "react-redux";
