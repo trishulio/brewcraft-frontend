@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Modal, ModalBody, ModalHeader, ModalFooter, Button } from "reactstrap";
+import { Modal, ModalBody, ModalFooter, Button } from "reactstrap";
 import FinishedGoodDetails from "./components/details";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
-    setBreadcrumbItems,
     fetchFinishedGoodById,
     createFinishedGood,
     updateFinishedGood,
-    deleteFinishedGood,
     fetchAllSkus,
     fetchAllBatches,
     fetchMixtures,
@@ -24,8 +22,6 @@ import {
 import { isNotEmptyArray, validDate } from "../../helpers/utils";
 
 export default function FinishedGoodModal({ show, handleClose }) {
-    const [changed, setChanged] = useState(false);
-
     const { id } = useParams();
 
     const dispatch = useDispatch();
@@ -65,11 +61,6 @@ export default function FinishedGoodModal({ show, handleClose }) {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
-
-    useEffect(() => {
-        setChanged(isChanged());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [finishedGood]);
 
     function isChanged() {
         return (
