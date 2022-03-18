@@ -143,16 +143,22 @@ export default function FinishedGoodMaterials({
                                 }}
                             >
                                 <option value="">Material</option>
-                                {map(materialLots, (value, index) => (
-                                    <option
-                                        value={value.materialLot.id}
-                                        key={index}
-                                    >
-                                        {value.material.name} (
-                                        {value.quantity.value}
-                                        {value.quantity.symbol})
-                                    </option>
-                                ))}
+                                {map(
+                                    materialLots.filter(
+                                        (lot) =>
+                                            lot.material.materialClass.id === 2
+                                    ),
+                                    (value, index) => (
+                                        <option
+                                            value={value.materialLot.id}
+                                            key={index}
+                                        >
+                                            {value.material.name} (
+                                            {value.quantity.value}
+                                            {value.quantity.symbol})
+                                        </option>
+                                    )
+                                )}
                             </Input>
                             <FormFeedback>
                                 Select at least one material.

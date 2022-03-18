@@ -43,6 +43,12 @@ export default function SkusTable() {
                 }
                 query.append("sort", "volume");
                 break;
+            case "skuIsPackageable":
+                if (sort !== "skuIsPackageable") {
+                    order = undefined;
+                }
+                query.append("sort", "skuIsPackageable");
+                break;
             default:
                 break;
         }
@@ -70,6 +76,13 @@ export default function SkusTable() {
                     <Th name="skuVolume" id="volume" onSort={onSort}>
                         Volume
                     </Th>
+                    <Th
+                        name="skuIsPackageable"
+                        id="skuIsPackageable"
+                        onSort={onSort}
+                    >
+                        Is Packageable From Brew
+                    </Th>
                 </tr>
             </thead>
             <tbody>
@@ -86,6 +99,7 @@ export default function SkusTable() {
                                 ? sku.quantity.value + " " + sku.quantity.symbol
                                 : "-"}
                         </td>
+                        <td>{sku.isPackageable}</td>
                     </tr>
                 ))}
             </tbody>

@@ -124,6 +124,18 @@ export default function SkuDetails(props) {
                     );
                 }
                 break;
+            case "skuIsPackageable":
+                if (sku.isPackageable !== e.target.checked) {
+                    dispatch(
+                        setSkuDetails({
+                            data: {
+                                ...sku,
+                                isPackageable: e.target.checked,
+                            },
+                        })
+                    );
+                }
+                break;
             default:
                 dispatch(
                     setSkuDetails({
@@ -344,6 +356,51 @@ export default function SkuDetails(props) {
                                 </div>
                                 <div className="clearFix"></div>
                             </Row>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={2}>
+                            <Label
+                                for="skuIsPackageable"
+                                className="d-inline-block font-size-12 mb-3"
+                                style={{
+                                    width: "8rem",
+                                }}
+                            >
+                                Is Packageable <br />
+                                From Brew
+                            </Label>
+                        </Col>
+                        <Col xs={8}>
+                            <FormGroup
+                                className="d-inline-block font-size-12 mb-2"
+                                hidden={!props.editable}
+                            >
+                                <Input
+                                    type="checkbox"
+                                    className="waves-effect"
+                                    name="skuIsPackageable"
+                                    style={{
+                                        width: "3.7rem",
+                                        height: "20px",
+                                        border: "1px solid #808080",
+                                    }}
+                                    disabled={!props.editable}
+                                    checked={sku.isPackageable}
+                                    onChange={(e) => {
+                                        onFormInputChange(e);
+                                    }}
+                                    hidden={!props.editable}
+                                />
+                            </FormGroup>
+                            <div className="d-inline-block font-size-12 mb-2">
+                                <div hidden={props.editable}>
+                                    {sku.isPackageable
+                                        ? sku.isPackageable
+                                        : "-"}
+                                </div>
+                            </div>
+                            <div className="clearFix"></div>
                         </Col>
                     </Row>
                     <Row>

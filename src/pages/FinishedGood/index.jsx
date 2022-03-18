@@ -245,13 +245,13 @@ export default function FinishedGood() {
             dispatch(
                 updateFinishedGood({
                     id: finishedGood.id,
-                    form: getUpdatePayload(finishedGood),
+                    form: getUpdatePayload(finishedGood, repackageMode),
                 })
             );
         } else {
             dispatch(
                 createFinishedGood({
-                    form: getCreatePayload(finishedGood),
+                    form: getCreatePayload(finishedGood, repackageMode),
                 })
             );
         }
@@ -328,7 +328,6 @@ export default function FinishedGood() {
             <FinishedGoodInner
                 {...{ editable, changed, onSave, onDelete, repackageMode }}
             />
-            ;
         </React.Fragment>
     );
 }

@@ -375,7 +375,7 @@ export default function ProductDetails({ product, editable }) {
                                         product.targetMeasures?.find(
                                             (elem) =>
                                                 elem.measure?.id === abv?.id
-                                        )?.value
+                                        )?.value || ""
                                     }
                                     style={{ width: "8rem" }}
                                     placeholder="Enter"
