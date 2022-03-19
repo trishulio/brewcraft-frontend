@@ -23,6 +23,7 @@ const initialState = {
             value: "",
             symbol: "",
         },
+        isPackageable: false,
         version: null,
     },
     initial: {
@@ -36,6 +37,7 @@ const initialState = {
             value: "",
             symbol: "",
         },
+        isPackageable: false,
         version: null,
     },
     loading: true,
