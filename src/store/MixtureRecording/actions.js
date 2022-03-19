@@ -2,12 +2,12 @@ import {
     SET_BREW_MIXTURE_RECORDINGS,
     EDIT_BREW_MIXTURE_RECORDINGS_REQUEST,
     DELETE_BREW_MIXTURE_RECORDINGS_REQUEST,
-    FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_REQUEST,
+    FETCH_BREW_MIXTURE_RECORDINGS_REQUEST,
 } from "./actionTypes";
 
-export const fetchMixtureRecordingsByBrewId = (id) => ({
-    type: FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_REQUEST,
-    payload: { id },
+export const fetchBrewMixtureRecordings = ({ batchId }) => ({
+    type: FETCH_BREW_MIXTURE_RECORDINGS_REQUEST,
+    payload: { batchId },
 });
 
 export const setBrewMixtureRecordings = (payload) => ({

@@ -55,14 +55,14 @@ export default function Toolbar() {
                     }),
                 }}
             />
-            <Button
+            {/* <Button
                 type="button"
                 color="secondary"
                 size="sm"
                 className="waves-effect d-inline align-middle mr-2"
             >
                 <i className="fa fa-comment"></i> Comment
-            </Button>
+            </Button> */}
             <Button
                 type="button"
                 color="secondary"

@@ -5,6 +5,7 @@ import {
     FETCH_BREW_MIXTURES_REQUEST,
     SET_BREW_MIXTURE_DETAILS,
     RESET_BREW_MIXTURE_DETAILS,
+    EDIT_BREW_MIXTURE_FAILURE,
 } from "./actionTypes";
 
 const initialState = {
@@ -30,6 +31,7 @@ const Mixtures = (state = initialState, { type, payload }) => {
                 error: null,
             };
         case FETCH_BREW_MIXTURES_FAILURE:
+        case EDIT_BREW_MIXTURE_FAILURE:
             return {
                 ...state,
                 loading: false,

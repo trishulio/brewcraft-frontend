@@ -1,5 +1,4 @@
 import {
-    FETCH_BATCH_BY_ID_REQUEST,
     SET_BATCH_DETAILS,
     ADD_BATCH_REQUEST,
     EDIT_BATCH_REQUEST,
@@ -11,11 +10,12 @@ import {
     SET_BATCH_INVALID_STARTED_AT,
     SET_BATCH_INVALID_ENDED_AT,
     SET_BATCH_INVALID_DESCRIPTION,
+    FETCH_BATCH_REQUEST,
 } from "./actionTypes";
 
-export const fetchBatchById = (id) => ({
-    type: FETCH_BATCH_BY_ID_REQUEST,
-    payload: { id },
+export const fetchBatch = ({ batchId }) => ({
+    type: FETCH_BATCH_REQUEST,
+    payload: { batchId },
 });
 
 export const setBatchDetails = (payload) => ({

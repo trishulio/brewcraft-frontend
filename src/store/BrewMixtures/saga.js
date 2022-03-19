@@ -15,9 +15,9 @@ import {
 } from "./actionTypes";
 import { api } from "./api";
 
-function* fetchBrewMixturesGenerator(action) {
+function* fetchBatchMixturesGenerator(action) {
     try {
-        const res = yield call(api.fetchBrewMixtures, get(action, "payload"));
+        const res = yield call(api.fetchMixtures, get(action, "payload"));
         yield put({
             type: FETCH_BREW_MIXTURES_SUCCESS,
             payload: {
@@ -33,7 +33,7 @@ function* fetchBrewMixturesGenerator(action) {
     }
 }
 
-function* addBrewMixtureGenerator(action) {
+function* addBatchMixtureGenerator(action) {
     try {
         yield call(api.addMixture, get(action, "payload.params"));
     } catch (e) {
@@ -41,10 +41,10 @@ function* addBrewMixtureGenerator(action) {
     }
 }
 
-function* editBrewMixtureGenerator(action) {
+function* editBatchMixtureGenerator(action) {
     try {
         const mixtures = yield select(
-            (state) => state.Batch.BrewMixtures.content
+            (state) => state.Batch.BatchMixtures.content
         );
         const res = yield call(
             api.updateMixture,
@@ -61,11 +61,18 @@ function* editBrewMixtureGenerator(action) {
             payload: { content: data, initial: data },
         });
     } catch (e) {
-        yield put({ type: EDIT_BREW_MIXTURE_FAILURE });
+        yield put({
+            type: EDIT_BREW_MIXTURE_FAILURE,
+            payload: {
+                error: e.error,
+                message: e.message,
+                color: "warning",
+            },
+        });
     }
 }
 
-function* deleteBrewMixtureGenerator(action) {
+function* deleteBatchMixtureGenerator(action) {
     try {
         yield call(api.deleteMixture, get(action, "payload.mixtures"));
         yield put({
@@ -78,10 +85,10 @@ function* deleteBrewMixtureGenerator(action) {
 }
 
 function* Mixture() {
-    yield takeEvery(FETCH_BREW_MIXTURES_REQUEST, fetchBrewMixturesGenerator);
-    yield takeEvery(ADD_BREW_MIXTURES_REQUEST, addBrewMixtureGenerator);
-    yield takeEvery(EDIT_BREW_MIXTURES_REQUEST, editBrewMixtureGenerator);
-    yield takeEvery(DELETE_BREW_MIXTURES_REQUEST, deleteBrewMixtureGenerator);
+    yield takeEvery(FETCH_BREW_MIXTURES_REQUEST, fetchBatchMixturesGenerator);
+    yield takeEvery(ADD_BREW_MIXTURES_REQUEST, addBatchMixtureGenerator);
+    yield takeEvery(EDIT_BREW_MIXTURES_REQUEST, editBatchMixtureGenerator);
+    yield takeEvery(DELETE_BREW_MIXTURES_REQUEST, deleteBatchMixtureGenerator);
 }
 
 export default Mixture;

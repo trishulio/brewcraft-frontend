@@ -1,13 +1,13 @@
 import {
     DELETE_BREW_MATERIAL_PORTIONS_REQUEST,
     EDIT_BREW_MATERIAL_PORTIONS_REQUEST,
-    FETCH_BREW_MATERIAL_PORTIONS_BY_BREW_ID_REQUEST,
+    FETCH_BREW_MATERIAL_PORTIONS_REQUEST,
     SET_BREW_MATERIAL_PORTIONS,
 } from "./actionTypes";
 
-export const fetchMaterialPortionsByBrewId = (id) => ({
-    type: FETCH_BREW_MATERIAL_PORTIONS_BY_BREW_ID_REQUEST,
-    payload: { id },
+export const fetchBrewMaterialPortions = ({ batchId }) => ({
+    type: FETCH_BREW_MATERIAL_PORTIONS_REQUEST,
+    payload: { batchId },
 });
 
 export const setBrewMaterialPortions = ({ content }) => ({

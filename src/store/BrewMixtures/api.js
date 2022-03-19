@@ -1,81 +1,32 @@
 import AxiosInstance from "../../helpers/axiosInstance";
 
-async function fetchMixtureById(id) {
-    return await AxiosInstance.get(`/api/v1/brews/mixtures/${id}`).then(
-        (r) => r
-    );
-}
-
-async function fetchBrewMixtures(params) {
+async function fetchMixtures(params) {
     const data = {
         params: {
-            brew_ids: params.brewId,
+            brew_ids: params.batchId,
             page: params.page || 0,
             size: params.size || 500,
             sort: params.sort || "id",
             order_asc: params.orderAsc || true,
         },
     };
-    return await AxiosInstance.get("/api/v1/brews/mixtures", data).then(
-        (r) => r
-    );
-}
-
-async function fetchMaterialPortionsByMixtureId(id) {
-    const data = {
-        params: {
-            mixture: id,
-            page: 0,
-            size: 500,
-            sort: "id",
-            order_asc: true,
-        },
-    };
-    return await AxiosInstance.get(
-        "/api/v1/brews/mixtures/portions",
-        data
-    ).then((r) => r);
-}
-
-async function fetchMixtureRecordingsByMixtureId(id) {
-    const data = {
-        params: {
-            mixture_ids: id,
-            page: 0,
-            size: 500,
-            sort: "id",
-            order_asc: true,
-        },
-    };
-    return await AxiosInstance.get("/api/v1/mixtures/recordings", data).then(
-        (r) => r
-    );
+    return await AxiosInstance.get("/api/v1/brews/mixtures", data);
 }
 
 async function addMixture(params) {
-    return await AxiosInstance.post("/api/v1/brews/mixtures", params).then(
-        (r) => r
-    );
+    return await AxiosInstance.post("/api/v1/brews/mixtures", params);
 }
 
 async function updateMixture(id, payload) {
-    return await AxiosInstance.patch(
-        `/api/v1/brews/mixtures/${id}`,
-        payload
-    ).then((r) => r);
+    return await AxiosInstance.patch(`/api/v1/brews/mixtures/${id}`, payload);
 }
 
 async function deleteMixture(id) {
-    return await AxiosInstance.delete(`/api/v1/brews/mixtures/${id}`).then(
-        (r) => r
-    );
+    return await AxiosInstance.delete(`/api/v1/brews/mixtures/${id}`);
 }
 
 export const api = {
-    fetchMixtureById,
-    fetchBrewMixtures,
-    fetchMaterialPortionsByMixtureId,
-    fetchMixtureRecordingsByMixtureId,
+    fetchMixtures,
     addMixture,
     updateMixture,
     deleteMixture,

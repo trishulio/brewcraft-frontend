@@ -1,7 +1,7 @@
 import {
-    FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_REQUEST,
-    FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_SUCCESS,
-    FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_FAILURE,
+    FETCH_BREW_MIXTURE_RECORDINGS_REQUEST,
+    FETCH_BREW_MIXTURE_RECORDINGS_SUCCESS,
+    FETCH_BREW_MIXTURE_RECORDINGS_FAILURE,
     EDIT_BREW_MIXTURE_RECORDINGS_REQUEST,
     DELETE_BREW_MIXTURE_RECORDINGS_REQUEST,
     DELETE_BREW_MIXTURE_RECORDINGS_FAILURE,
@@ -13,14 +13,14 @@ import { call, put, race, select, take, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 
-function* fetchMixtureRecordingsByBrewIdGenerator(action) {
+function* fetchMixtureRecordingsGenerator(action) {
     try {
         const res = yield call(
-            api.fetchMixtureRecordingByBrewId,
-            get(action, "payload.id")
+            api.fetchMixtureRecordings,
+            get(action, "payload")
         );
         yield put({
-            type: FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_SUCCESS,
+            type: FETCH_BREW_MIXTURE_RECORDINGS_SUCCESS,
             payload: {
                 content: [...res.data.content],
                 initial: [...res.data.content],
@@ -28,7 +28,7 @@ function* fetchMixtureRecordingsByBrewIdGenerator(action) {
         });
     } catch (e) {
         yield put({
-            type: FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_FAILURE,
+            type: FETCH_BREW_MIXTURE_RECORDINGS_FAILURE,
             payload: {
                 error: e.error,
                 message: e.message,
@@ -46,14 +46,14 @@ function* editBrewMixtureRecordingsGenerator(action) {
             get(action, "payload.mixtureRecordings")
         );
         yield put({
-            type: FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_REQUEST,
+            type: FETCH_BREW_MIXTURE_RECORDINGS_REQUEST,
             payload: {
                 id: batch.id,
             },
         });
         const [success, failed] = yield race([
-            take(FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_SUCCESS),
-            take(FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_FAILURE),
+            take(FETCH_BREW_MIXTURE_RECORDINGS_SUCCESS),
+            take(FETCH_BREW_MIXTURE_RECORDINGS_FAILURE),
         ]);
         if (success) {
             yield put({
@@ -82,14 +82,14 @@ function* deleteMixtureRecordingsGenerator(action) {
         const batch = yield select((state) => state.Batch.Batch.data);
         yield call(api.deleteMixtureRecording, get(action, "payload.form"));
         yield put({
-            type: FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_REQUEST,
+            type: FETCH_BREW_MIXTURE_RECORDINGS_REQUEST,
             payload: {
                 id: batch.id,
             },
         });
         const [success, failed] = yield race([
-            take(FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_SUCCESS),
-            take(FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_FAILURE),
+            take(FETCH_BREW_MIXTURE_RECORDINGS_SUCCESS),
+            take(FETCH_BREW_MIXTURE_RECORDINGS_FAILURE),
         ]);
         if (success) {
             yield put({
@@ -115,8 +115,8 @@ function* deleteMixtureRecordingsGenerator(action) {
 
 function* MixtureRecording() {
     yield takeEvery(
-        FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_REQUEST,
-        fetchMixtureRecordingsByBrewIdGenerator
+        FETCH_BREW_MIXTURE_RECORDINGS_REQUEST,
+        fetchMixtureRecordingsGenerator
     );
     yield takeEvery(
         EDIT_BREW_MIXTURE_RECORDINGS_REQUEST,
