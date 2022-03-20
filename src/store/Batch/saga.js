@@ -1,4 +1,12 @@
-import { all, call, put, race, take, takeEvery } from "redux-saga/effects";
+import {
+    all,
+    call,
+    put,
+    race,
+    select,
+    take,
+    takeEvery,
+} from "redux-saga/effects";
 import { api } from "./api";
 import { get } from "lodash";
 import { setGlobalRedirect } from "../Brewery/actions";
@@ -22,6 +30,9 @@ import {
     FETCH_BATCH_REQUEST,
     FETCH_BATCH_SUCCESS,
     FETCH_BATCH_FAILURE,
+    CREATE_BATCH_REQUEST,
+    CREATE_BATCH_SUCCESS,
+    CREATE_BATCH_FAILURE,
 } from "./actionTypes";
 import { isValidName, validDate, validId } from "../../helpers/utils";
 import {
@@ -117,7 +128,7 @@ function* fetchBatchGenerator(action) {
 
 function* fetchBatchByIdGenerator(action) {
     try {
-        const res = yield call(api.fetchBatchById, get(action, "payload"));
+        const res = yield call(api.fetchBatch, get(action, "payload"));
         yield put({
             type: FETCH_BATCH_BY_ID_SUCCESS,
             payload: { data: res.data, initial: res.data },
@@ -134,51 +145,24 @@ function* fetchBatchByIdGenerator(action) {
     }
 }
 
-function* validateBrewGenerator(action) {
-    const batch = get(action, "payload.batch");
-    yield put({
-        type: VALIDATE_BREW_FIELDS_SUCCESS,
-        payload: {
-            invalidBatchId: batch.batchId && !isValidName(batch.batchId),
-            invalidProduct: !validId(batch.productId),
-            invalidBatchStartedAt: !validDate(batch.startedAt),
-            invalidBatchEndedAt: !!batch.endedAt && !validDate(batch.endedAt),
-        },
-    });
-}
-
-function isBatchValid(batch) {
-    return (
-        !batch.invalidBatchId &&
-        !batch.invalidProduct &&
-        !batch.invalidBatchStartedAt &&
-        !batch.invalidBatchEndedAt
-    );
-}
-function* addBatchGenerator(action) {
+function* addBatchGenerator() {
     try {
-        const batch = get(action, "payload.batch");
-        yield put({ type: VALIDATE_BREW_FIELDS, payload: { batch } });
-        yield take(VALIDATE_BREW_FIELDS_SUCCESS);
-        if (isBatchValid(batch)) {
-            const res = yield call(api.addBatch, batch);
-            yield put({
-                type: ADD_BATCH_SUCCESS,
-                payload: { data: res.data, initial: res.data },
-            });
+        const batch = yield select((state) => {
+            return state.Batch.Batch.data;
+        });
+        yield put({ type: CREATE_BATCH_REQUEST, payload: { batch } });
+        const [success] = yield race([
+            take(CREATE_BATCH_SUCCESS),
+            take(CREATE_BATCH_FAILURE),
+        ]);
+        if (success) {
+            yield put(snackSuccess("New Batch created!"));
             yield put(
                 setGlobalRedirect({
-                    pathname: "/brews/" + res.data.id,
+                    pathname: "/brews/" + get(success, "payload.data.id"),
                     search: "?edit=true",
                 })
             );
-        } else {
-            yield put({
-                type: ADD_BATCH_FAILURE,
-                payload: {
-                    error: null,
-                },
-            });
         }
     } catch (e) {
         yield put({
@@ -187,6 +171,35 @@ function* addBatchGenerator(action) {
                 error: e.error,
                 message: e.message,
                 color: "warning",
+            },
+        });
+    }
+}
+
+function* createBatchGenerator(action) {
+    try {
+        debugger;
+        const batch = get(action, "payload.batch");
+        const res = yield call(api.createBatch, {
+            batchId: "dummy",
+            name: "",
+            description: "",
+            productId: parseInt(batch.product.id),
+            parentBrewId: batch.parentBrewId,
+            startedAt: batch.startedAt,
+            endedAt: batch.endedAt,
+        });
+        yield put({
+            type: CREATE_BATCH_SUCCESS,
+            payload: { data: res.data, initial: res.data },
+        });
+    } catch (e) {
+        yield put({
+            type: CREATE_BATCH_FAILURE,
+            payload: {
+                error: e.error,
+                message: e.message,
+                color: "danger",
             },
         });
     }
@@ -215,6 +228,28 @@ function* editBatchGenerator(action) {
     }
 }
 
+function* validateBrewGenerator(action) {
+    const batch = get(action, "payload.batch");
+    yield put({
+        type: VALIDATE_BREW_FIELDS_SUCCESS,
+        payload: {
+            invalidBatchId: batch.batchId && !isValidName(batch.batchId),
+            invalidProduct: !validId(batch.productId),
+            invalidBatchStartedAt: !validDate(batch.startedAt),
+            invalidBatchEndedAt: !!batch.endedAt && !validDate(batch.endedAt),
+        },
+    });
+}
+
+function isBatchValid(batch) {
+    return (
+        !batch.invalidBatchId &&
+        !batch.invalidProduct &&
+        !batch.invalidBatchStartedAt &&
+        !batch.invalidBatchEndedAt
+    );
+}
+
 function* deleteBatchGenerator(action) {
     try {
         yield call(api.deleteBatch, get(action, "payload.id"));
@@ -241,8 +276,9 @@ function* setBatchErrorGenerator(action) {
 function* Batch() {
     yield takeEvery(FETCH_BATCH_REQUEST, fetchBatchGenerator);
     yield takeEvery(FETCH_BATCH_BY_ID_REQUEST, fetchBatchByIdGenerator);
-
     yield takeEvery(ADD_BATCH_REQUEST, addBatchGenerator);
+    yield takeEvery(CREATE_BATCH_REQUEST, createBatchGenerator);
+
     yield takeEvery(EDIT_BATCH_REQUEST, editBatchGenerator);
     yield takeEvery(DELETE_BATCH_REQUEST, deleteBatchGenerator);
     yield takeEvery(RESET_BATCH_DETAILS, resetBatchDetailsGenerator);

@@ -4,7 +4,6 @@ async function fetchMaterialPortions({ batchId }) {
     const data = {
         params: {
             brew_ids: batchId,
-            // group_by: "ID",
             page: 0,
             size: 5000,
             // sort: "materialLot.invoiceItem.material.name",
