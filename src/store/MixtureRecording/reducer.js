@@ -1,7 +1,7 @@
 import {
-    FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_REQUEST,
-    FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_SUCCESS,
-    FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_FAILURE,
+    FETCH_BREW_MIXTURE_RECORDINGS_REQUEST,
+    FETCH_BREW_MIXTURE_RECORDINGS_SUCCESS,
+    FETCH_BREW_MIXTURE_RECORDINGS_FAILURE,
     SET_BREW_MIXTURE_RECORDINGS,
     RESET_BREW_MIXTURE_RECORDINGS,
     EDIT_BREW_MIXTURE_RECORDINGS_REQUEST,
@@ -16,14 +16,14 @@ const initialState = {
 };
 const MixtureRecordings = (state = initialState, { type, payload }) => {
     switch (type) {
-        case FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_REQUEST:
+        case FETCH_BREW_MIXTURE_RECORDINGS_REQUEST:
         case EDIT_BREW_MIXTURE_RECORDINGS_REQUEST:
         case DELETE_BREW_MIXTURE_RECORDINGS_REQUEST:
             return {
                 ...state,
                 loading: true,
             };
-        case FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_SUCCESS:
+        case FETCH_BREW_MIXTURE_RECORDINGS_SUCCESS:
         case SET_BREW_MIXTURE_RECORDINGS:
             return {
                 ...state,
@@ -31,7 +31,7 @@ const MixtureRecordings = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: null,
             };
-        case FETCH_MIXTURE_RECORDINGS_BY_BREW_ID_FAILURE:
+        case FETCH_BREW_MIXTURE_RECORDINGS_FAILURE:
             return {
                 ...state,
                 loading: false,

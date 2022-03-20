@@ -1,7 +1,7 @@
 import {
-    FETCH_BREW_MATERIAL_PORTIONS_BY_BREW_ID_FAILURE,
-    FETCH_BREW_MATERIAL_PORTIONS_BY_BREW_ID_REQUEST,
-    FETCH_BREW_MATERIAL_PORTIONS_BY_BREW_ID_SUCCESS,
+    FETCH_BREW_MATERIAL_PORTIONS_FAILURE,
+    FETCH_BREW_MATERIAL_PORTIONS_REQUEST,
+    FETCH_BREW_MATERIAL_PORTIONS_SUCCESS,
     RESET_BREW_MATERIAL_PORTIONS,
     SET_BREW_MATERIAL_PORTIONS,
 } from "./actionTypes";
@@ -14,12 +14,12 @@ const initialState = {
 };
 const MaterialPortions = (state = initialState, { type, payload }) => {
     switch (type) {
-        case FETCH_BREW_MATERIAL_PORTIONS_BY_BREW_ID_REQUEST:
+        case FETCH_BREW_MATERIAL_PORTIONS_REQUEST:
             return {
                 ...state,
                 loading: true,
             };
-        case FETCH_BREW_MATERIAL_PORTIONS_BY_BREW_ID_SUCCESS:
+        case FETCH_BREW_MATERIAL_PORTIONS_SUCCESS:
         case SET_BREW_MATERIAL_PORTIONS:
             return {
                 ...state,
@@ -27,7 +27,7 @@ const MaterialPortions = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: null,
             };
-        case FETCH_BREW_MATERIAL_PORTIONS_BY_BREW_ID_FAILURE:
+        case FETCH_BREW_MATERIAL_PORTIONS_FAILURE:
             return {
                 ...state,
                 loading: false,

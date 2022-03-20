@@ -1,64 +1,34 @@
 import AxiosInstance from "../../helpers/axiosInstance";
 
-async function fetchMixtureRecordingById(id) {
-    return await AxiosInstance.get(`/api/v1/mixtures/recordings/${id}`).then(
-        (r) => r
-    );
-}
-
-async function fetchMixtureRecordingByBrewId(id) {
+async function fetchMixtureRecordings({ batchId }) {
     const data = {
         params: {
-            brew_ids: id,
+            brew_ids: batchId,
             page: 0,
             size: 500,
             sort: "id",
             order_asc: true,
         },
     };
-    return await AxiosInstance.get("/api/v1/mixtures/recordings", data).then(
-        (r) => r
-    );
-}
-
-async function fetchMixtureRecordingsByMixtureId(id) {
-    const data = {
-        params: {
-            mixture_ids: id,
-            page: 0,
-            size: 500,
-            sort: "id",
-            order_asc: true,
-        },
-    };
-    return await AxiosInstance.get("/api/v1/mixtures/recordings", data).then(
-        (r) => r
-    );
+    return await AxiosInstance.get("/api/v1/mixtures/recordings", data);
 }
 
 async function addMixtureRecordings(payload) {
-    return await AxiosInstance.post(
-        "/api/v1/mixtures/recordings",
-        payload
-    ).then((r) => r);
+    return await AxiosInstance.post("/api/v1/mixtures/recordings", payload);
 }
 
 async function updateMixtureRecordings(payload) {
-    return await AxiosInstance.put("/api/v1/mixtures/recordings", payload).then(
-        (r) => r
-    );
+    return await AxiosInstance.put("/api/v1/mixtures/recordings", payload);
 }
 
 async function deleteMixtureRecording(ids) {
     return await AxiosInstance.delete("/api/v1/mixtures/recordings", {
         params: { ids: ids.toString() },
-    }).then((r) => r);
+    });
 }
 
 export const api = {
-    fetchMixtureRecordingById,
-    fetchMixtureRecordingByBrewId,
-    fetchMixtureRecordingsByMixtureId,
+    fetchMixtureRecordings,
     addMixtureRecordings,
     updateMixtureRecordings,
     deleteMixtureRecording,

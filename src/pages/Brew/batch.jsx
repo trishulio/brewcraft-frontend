@@ -7,7 +7,7 @@ import { Card, CardBody } from "../../component/Common/Card";
 import BatchDetails from "./components/details";
 import Toolbar from "./components/toolbar";
 import BatchPeople from "./components/people";
-import BatchComments from "./components/comments";
+// import BatchComments from "./components/comments";
 import BatchFileUploads from "./components/uploads";
 import { ErrorMessage } from "../../helpers/textUtils";
 import Nav from "./components/nav";
@@ -100,11 +100,11 @@ export default function Batch(props) {
                             </TabContent>
                         </CardBody>
                     </Card>
-                    <Card>
+                    {/* <Card>
                         <CardBody className="px-2 px-sm-3">
                             <BatchComments {...props} />
                         </CardBody>
-                    </Card>
+                    </Card> */}
                 </Col>
                 <Col sm={6} xl="4">
                     <Card>

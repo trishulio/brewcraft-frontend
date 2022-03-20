@@ -10,7 +10,8 @@ import {
     EDIT_BATCH_FAILURE,
     FETCH_BATCH_BY_ID_REQUEST,
     FETCH_BATCH_BY_ID_SUCCESS,
-    FETCH_BATCH_BY_ID_FAILURE,
+    SET_BATCH_ERROR,
+    FETCH_BATCH_FAILURE,
 } from "./actionTypes";
 
 const initialState = {
@@ -57,7 +58,6 @@ const Brew = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 ...payload,
-                error: null,
             };
         case SET_INITIAL_BATCH_DETAILS:
             return {
@@ -66,7 +66,6 @@ const Brew = (state = initialState, { type, payload }) => {
                     ...initialState.initial,
                     ...payload,
                 },
-                error: null,
             };
         case FETCH_BATCH_BY_ID_REQUEST:
         case ADD_BATCH_REQUEST:
@@ -74,7 +73,6 @@ const Brew = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 loading: true,
-                error: null,
             };
         case FETCH_BATCH_BY_ID_SUCCESS:
         case ADD_BATCH_SUCCESS:
@@ -85,9 +83,10 @@ const Brew = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: null,
             };
-        case FETCH_BATCH_BY_ID_FAILURE:
+        case FETCH_BATCH_FAILURE:
         case ADD_BATCH_FAILURE:
         case EDIT_BATCH_FAILURE:
+        case SET_BATCH_ERROR:
             return {
                 ...state,
                 loading: false,
@@ -104,12 +103,11 @@ const Brew = (state = initialState, { type, payload }) => {
                     ...initialState.initial,
                 },
                 loading: false,
-                error: null,
+                // error: null,
             };
         default:
             return {
                 ...state,
-                error: null,
             };
     }
 };

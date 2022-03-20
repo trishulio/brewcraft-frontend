@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import {
     setBreadcrumbItems,
-    fetchBatchById,
+    fetchBatch,
     editBatch,
     saveBatch,
     deleteBatch,
@@ -13,11 +13,6 @@ import {
     fetchMeasures,
     fetchMaterialStockQuantity,
     setBatchDetails,
-    fetchMaterialPortionsByBrewId,
-    fetchMixtureRecordingsByBrewId,
-    fetchFinishedGoods,
-    fetchBrewMixtures,
-    fetchAllBrewStages,
     editBrewStages,
     editBrewMixtures,
     editBrewMaterialPortions,
@@ -96,16 +91,7 @@ export default function Batch() {
             search: "?edit=true",
         });
         if (id !== "new") {
-            dispatch(fetchBatchById(id));
-            dispatch(fetchAllBrewStages(id));
-            dispatch(
-                fetchBrewMixtures({
-                    brewId: id,
-                })
-            );
-            dispatch(fetchMaterialPortionsByBrewId(id));
-            dispatch(fetchMixtureRecordingsByBrewId(id));
-            dispatch(fetchFinishedGoods({ brewId: id, pageSize: 500 }));
+            dispatch(fetchBatch({ batchId: id }));
         } else {
             dispatch(resetBatchDetails());
         }
@@ -174,14 +160,14 @@ export default function Batch() {
         finishedGoods,
     ]);
 
-    function saveStage(stage, initialStage, editStage) {
+    function saveStage(stage, initialStage) {
         if (JSON.stringify(initialStage) !== JSON.stringify(stage)) {
             dispatch(
-                editStage({
+                editBrewStages({
                     id: stage.id,
                     form: {
                         statusId: stage.status.id,
-                        taskId: stage.task.id,
+                        taskId: "b", //stage.task.id,
                         startedAt: stage.startedAt,
                         endedAt: stage.endedAt,
                         version: stage.version,
@@ -329,9 +315,27 @@ export default function Batch() {
 
     function onSave() {
         if (batch.id) {
+            // save batch
+            if (JSON.stringify(batch) !== JSON.stringify(initialBatch)) {
+                dispatch(
+                    editBatch({
+                        id: batch.id,
+                        form: {
+                            name: batch.name,
+                            description: batch.description,
+                            batchId: batch.batchId,
+                            productId: parseInt(batch.product.id),
+                            parentBrewId: batch.parentBrewId,
+                            startedAt: batch.startedAt,
+                            endedAt: batch.endedAt,
+                            version: batch.version,
+                        },
+                    })
+                );
+            }
             // save stages
             for (let i = 0; i < stages.length; i++) {
-                saveStage(stages[i], initialStages[i], editBrewStages);
+                saveStage(stages[i], initialStages[i]);
             }
             // save mixtures
             for (let i = 0; i < mixtures.length; i++) {
@@ -351,24 +355,6 @@ export default function Batch() {
                 saveFinishedGoods,
                 deleteFinishedGoods
             );
-            // save batch
-            if (JSON.stringify(batch) !== JSON.stringify(initialBatch)) {
-                dispatch(
-                    editBatch({
-                        id: batch.id,
-                        form: {
-                            name: batch.name,
-                            description: batch.description,
-                            batchId: batch.batchId,
-                            productId: parseInt(batch.product.id),
-                            parentBrewId: batch.parentBrewId,
-                            startedAt: batch.startedAt,
-                            endedAt: batch.endedAt,
-                            version: batch.version,
-                        },
-                    })
-                );
-            }
         } else {
             dispatch(
                 saveBatch({

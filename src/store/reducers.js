@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import Brew from "./Brew/reducer";
+import Batch from "./Batch/reducer";
 import { BrewMixtures } from "./BrewMixtures/reducer";
 import { BrewFinishedGoods } from "./BrewFinishedGoods/reducer";
 import Batches from "./Batches/reducer";
@@ -51,7 +51,7 @@ import UserRoles from "./UserRoles/reducer";
 
 const rootReducer = combineReducers({
     Batch: combineReducers({
-        Batch: Brew,
+        Batch,
         BrewMixtures: BrewMixtures,
         BrewFinishedGoods: BrewFinishedGoods,
         Mixtures,

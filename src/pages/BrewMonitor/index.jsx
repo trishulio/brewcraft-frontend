@@ -2,14 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
-    fetchAllBrewStages,
-    fetchBatchById,
+    fetchBrewStages,
     fetchBatches,
-    fetchFinishedGoods,
-    fetchMaterialPortionsByBrewId,
-    fetchMixtureRecordingsByBrewId,
-    fetchBrewMixtures,
     setBreadcrumbItems,
+    fetchBatch,
 } from "../../store/actions";
 import BrewMonitorInner from "./monitor";
 
@@ -22,7 +18,7 @@ export default function BrewMonitor() {
     });
 
     useEffect(() => {
-        dispatch(fetchAllBrewStages(id));
+        dispatch(fetchBrewStages(id));
         dispatch(fetchBatches({ pageSize: 5000 }));
         dispatch(
             setBreadcrumbItems(batch.batchId, [
@@ -68,15 +64,7 @@ export default function BrewMonitor() {
     });
 
     useEffect(() => {
-        dispatch(fetchBatchById(id));
-        dispatch(
-            fetchBrewMixtures({
-                brewId: id,
-            })
-        );
-        dispatch(fetchMaterialPortionsByBrewId(id));
-        dispatch(fetchMixtureRecordingsByBrewId(id));
-        dispatch(fetchFinishedGoods({ brewId: id, pageSize: 500 }));
+        dispatch(fetchBatch({ batchId: id }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 

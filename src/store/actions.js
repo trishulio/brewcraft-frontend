@@ -1,4 +1,4 @@
-export * from "./Brew/actions";
+export * from "./Batch/actions";
 export * from "./Batches/actions";
 export * from "./BatchStatus/actions";
 export * from "./BatchTask/actions";
