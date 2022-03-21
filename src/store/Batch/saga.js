@@ -26,22 +26,21 @@ import {
     ADD_BATCH_FAILURE,
     VALIDATE_BREW_FIELDS,
     VALIDATE_BREW_FIELDS_SUCCESS,
-    SET_BATCH_ERROR,
     FETCH_BATCH_REQUEST,
     FETCH_BATCH_SUCCESS,
     FETCH_BATCH_FAILURE,
     CREATE_BATCH_REQUEST,
     CREATE_BATCH_SUCCESS,
     CREATE_BATCH_FAILURE,
-    ADD_BATCH_STAGE_FAILURE,
     ADD_BATCH_STAGE,
+    ADD_BATCH_STAGE_SUCCESS,
+    ADD_BATCH_STAGE_FAILURE,
 } from "./actionTypes";
 import { isValidName, validDate, validId } from "../../helpers/utils";
 import {
     CREATE_BATCH_MIXTURE_FAILURE,
     CREATE_BATCH_MIXTURE_REQUEST,
     CREATE_BATCH_MIXTURE_SUCCESS,
-    EDIT_BREW_MIXTURE_FAILURE,
     FETCH_BATCH_MIXTURES_FAILURE,
     FETCH_BATCH_MIXTURES_REQUEST,
     FETCH_BATCH_MIXTURES_SUCCESS,
@@ -55,8 +54,6 @@ import {
     RESET_BREW_MATERIAL_PORTIONS_DETAILS,
 } from "../MaterialPortion/actionTypes";
 import {
-    ADD_BATCH_STAGES_FAILURE,
-    EDIT_BREW_STAGES_FAILURE,
     FETCH_BATCH_STAGES_REQUEST,
     FETCH_BATCH_STAGES_SUCCESS,
     RESET_BATCH_STAGES,
@@ -64,7 +61,6 @@ import {
     CREATE_BATCH_STAGES_REQUEST,
     CREATE_BATCH_STAGES_SUCCESS,
     CREATE_BATCH_STAGES_FAILURE,
-    ADD_BATCH_STAGES_SUCCESS,
     SET_BATCH_STAGES,
 } from "../BrewStages/actionTypes";
 import {
@@ -269,7 +265,7 @@ function* addBatchStage(action) {
                 initial: JSON.parse(JSON.stringify(data)),
             },
         });
-        yield put({ type: ADD_BATCH_STAGES_SUCCESS });
+        yield put({ type: ADD_BATCH_STAGE_SUCCESS });
         yield put(snackSuccess("New brew stage created!"));
     } catch (e) {
         yield put({
@@ -363,13 +359,6 @@ function* resetBatchDetailsGenerator() {
     yield put({ type: RESET_BREW_MATERIAL_PORTIONS_DETAILS });
 }
 
-function* setBatchErrorGenerator(action) {
-    yield put({
-        type: SET_BATCH_ERROR,
-        payload: get(action, "payload"),
-    });
-}
-
 function* Batch() {
     yield takeEvery(FETCH_BATCH_REQUEST, fetchBatchGenerator);
     yield takeEvery(FETCH_BATCH_BY_ID_REQUEST, fetchBatchByIdGenerator);
@@ -381,10 +370,6 @@ function* Batch() {
     yield takeEvery(DELETE_BATCH_REQUEST, deleteBatchGenerator);
     yield takeEvery(RESET_BATCH_DETAILS, resetBatchDetailsGenerator);
     yield takeEvery(VALIDATE_BREW_FIELDS, validateBrewGenerator);
-    yield takeEvery(ADD_BATCH_STAGES_FAILURE, setBatchErrorGenerator);
-    yield takeEvery(EDIT_BREW_STAGES_FAILURE, setBatchErrorGenerator);
-    yield takeEvery(FETCH_BATCH_MIXTURES_FAILURE, setBatchErrorGenerator);
-    yield takeEvery(EDIT_BREW_MIXTURE_FAILURE, setBatchErrorGenerator);
 }
 
 export default Batch;

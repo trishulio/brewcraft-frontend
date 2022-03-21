@@ -7,7 +7,7 @@ import {
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import { addBrewStage, deleteBrewStage } from "../../../../store/actions";
+import { addBatchStage, deleteBrewStage } from "../../../../store/actions";
 import BatchStage from "../common/stage";
 
 export default function BrewWhirlpool({
@@ -18,10 +18,6 @@ export default function BrewWhirlpool({
 }) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const dispatch = useDispatch();
-
-    const batch = useSelector((state) => {
-        return state.Batch.Batch.data;
-    });
 
     const whirlpoolStage = useSelector((state) => {
         return (
@@ -69,19 +65,12 @@ export default function BrewWhirlpool({
                                 className="text-dark"
                                 onClick={() => {
                                     dispatch(
-                                        addBrewStage({
+                                        addBatchStage({
                                             parentMixtureIds: [
                                                 whirlpoolMixture.id,
                                             ],
-                                            form: [
-                                                {
-                                                    brewId: batch.id,
-                                                    taskId: 6, // transfer
-                                                    statusId: 4,
-                                                    startedAt:
-                                                        new Date().toISOString(),
-                                                },
-                                            ],
+                                            taskId: 6, // transfer
+                                            statusId: 4,
                                         })
                                     );
                                 }}

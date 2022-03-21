@@ -6,7 +6,7 @@ import {
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import { addBrewStage, deleteBrewStage } from "../../../../store/actions";
+import { addBatchStage, deleteBrewStage } from "../../../../store/actions";
 import Ingredients from "../common/ingredients";
 import Recordings from "../common/mixture-recordings";
 import FinishedGoods from "../common/finished-goods";
@@ -20,10 +20,6 @@ export default function BatchCondition({
 }) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const dispatch = useDispatch();
-
-    const batch = useSelector((state) => {
-        return state.Batch.Batch.data;
-    });
 
     const conditionStage = useSelector((state) => {
         return state.Batch.Stages.content.find(
@@ -74,19 +70,12 @@ export default function BatchCondition({
                                     className="text-dark"
                                     onClick={() => {
                                         dispatch(
-                                            addBrewStage({
+                                            addBatchStage({
                                                 parentMixtureIds: [
                                                     conditionMixture.id,
                                                 ],
-                                                form: [
-                                                    {
-                                                        brewId: batch.id,
-                                                        taskId: 8,
-                                                        statusId: 4,
-                                                        startedAt:
-                                                            new Date().toISOString(),
-                                                    },
-                                                ],
+                                                taskId: 8,
+                                                statusId: 4,
                                             })
                                         );
                                     }}

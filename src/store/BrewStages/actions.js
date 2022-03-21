@@ -2,18 +2,12 @@ import {
     FETCH_BATCH_STAGES_REQUEST,
     EDIT_BREW_STAGES_REQUEST,
     SET_BATCH_STAGES,
-    ADD_BATCH_STAGES_REQUEST,
     DELETE_BREW_STAGE_REQUEST,
 } from "./actionTypes";
 
 export const fetchBrewStages = (id) => ({
     type: FETCH_BATCH_STAGES_REQUEST,
     payload: { id },
-});
-
-export const addBrewStage = ({ parentMixtureIds, form }) => ({
-    type: ADD_BATCH_STAGES_REQUEST,
-    payload: { parentMixtureIds, form },
 });
 
 export const editBrewStages = ({ id, form }) => ({
