@@ -11,6 +11,7 @@ import {
     SET_BATCH_INVALID_ENDED_AT,
     SET_BATCH_INVALID_DESCRIPTION,
     FETCH_BATCH_REQUEST,
+    ADD_BATCH_STAGE,
 } from "./actionTypes";
 
 export const fetchBatch = ({ batchId }) => ({
@@ -32,6 +33,21 @@ export const addBatch = (batch) => ({
     type: ADD_BATCH_REQUEST,
     payload: {
         batch,
+    },
+});
+
+export const addBatchStage = ({
+    taskId,
+    statusId,
+    startedAt,
+    parentMixtureIds,
+}) => ({
+    type: ADD_BATCH_STAGE,
+    payload: {
+        taskId,
+        statusId,
+        startedAt,
+        parentMixtureIds,
     },
 });
 

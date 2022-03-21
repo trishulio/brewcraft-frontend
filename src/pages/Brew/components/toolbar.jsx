@@ -9,7 +9,7 @@ import {
     DropdownToggle,
 } from "reactstrap";
 import Select from "react-select";
-import { addBrewStage } from "../../../store/actions";
+import { addBatchStage } from "../../../store/actions";
 
 export default function Toolbar() {
     const [isOpenWorkflowDropdown, setIsOpenWorkflowDropdown] = useState(false);
@@ -33,7 +33,7 @@ export default function Toolbar() {
                 name="brewMonitorId"
                 value={{
                     id,
-                    label: `${batch.batchId} - ${batch.product.name}`,
+                    label: `brew ${batch.id} - ${batch.product.name}`,
                 }}
                 placeholder="Select Batch .."
                 options={batches.map((b) => ({
@@ -112,16 +112,9 @@ export default function Toolbar() {
                             className="text-dark"
                             onClick={() => {
                                 dispatch(
-                                    addBrewStage({
-                                        form: [
-                                            {
-                                                brewId: batch.id,
-                                                taskId: 1,
-                                                statusId: 4,
-                                                startedAt:
-                                                    new Date().toISOString(),
-                                            },
-                                        ],
+                                    addBatchStage({
+                                        taskId: 1,
+                                        statusId: 4,
                                     })
                                 );
                             }}

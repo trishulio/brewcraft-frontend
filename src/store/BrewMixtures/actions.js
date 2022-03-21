@@ -1,12 +1,12 @@
 import {
-    FETCH_BREW_MIXTURES_REQUEST,
-    SET_BREW_MIXTURE_DETAILS,
+    FETCH_BATCH_MIXTURES_REQUEST,
+    SET_BATCH_MIXTURES,
     EDIT_BREW_MIXTURES_REQUEST,
     DELETE_BREW_MIXTURES_REQUEST,
 } from "./actionTypes";
 
 export const fetchBrewMixtures = (params) => ({
-    type: FETCH_BREW_MIXTURES_REQUEST,
+    type: FETCH_BATCH_MIXTURES_REQUEST,
     payload: { ...params },
 });
 
@@ -16,7 +16,7 @@ export const editBrewMixtures = (payload) => ({
 });
 
 export const setBrewMixtureDetails = (payload) => ({
-    type: SET_BREW_MIXTURE_DETAILS,
+    type: SET_BATCH_MIXTURES,
     payload: { ...payload },
 });
 

@@ -14,6 +14,7 @@ import {
     FETCH_BATCH_FAILURE,
     CREATE_BATCH_SUCCESS,
     CREATE_BATCH_FAILURE,
+    ADD_BATCH_STAGE_FAILURE,
 } from "./actionTypes";
 
 const initialState = {
@@ -88,6 +89,8 @@ const Brew = (state = initialState, { type, payload }) => {
         case ADD_BATCH_SUCCESS:
         case FETCH_BATCH_FAILURE:
         case CREATE_BATCH_FAILURE:
+        case ADD_BATCH_FAILURE:
+        case ADD_BATCH_STAGE_FAILURE:
         case EDIT_BATCH_FAILURE:
         case SET_BATCH_ERROR:
             return {

@@ -19,10 +19,8 @@ async function fetchBrewStageById(id) {
     return await AxiosInstance.get(`/api/v1/brews/stages/${id}`).then((r) => r);
 }
 
-async function addBrewStage(payload) {
-    return await AxiosInstance.post("/api/v1/brews/stages", payload).then(
-        (r) => r
-    );
+async function addBatchStages(payload) {
+    return await AxiosInstance.post("/api/v1/brews/stages", payload);
 }
 
 async function updateBrewStage(id, payload) {
@@ -41,7 +39,7 @@ async function deleteBrewStage(id) {
 export const api = {
     fetchBrewStages,
     fetchBrewStageById,
-    addBrewStage,
+    addBatchStages,
     updateBrewStage,
     deleteBrewStage,
 };

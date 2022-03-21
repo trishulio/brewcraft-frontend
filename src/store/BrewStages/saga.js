@@ -10,22 +10,22 @@ import {
 import { get } from "lodash";
 import { fetchBrewMixtures } from "../actions";
 import {
-    FETCH_BREW_MIXTURES_FAILURE,
-    FETCH_BREW_MIXTURES_SUCCESS,
+    FETCH_BATCH_MIXTURES_FAILURE,
+    FETCH_BATCH_MIXTURES_SUCCESS,
 } from "../BrewMixtures/actionTypes";
 import {
-    ADD_BREW_STAGE_SUCCESS,
-    ADD_BREW_STAGE_FAILURE,
-    FETCH_BREW_STAGES_REQUEST,
-    FETCH_BREW_STAGES_SUCCESS,
-    FETCH_BREW_STAGES_FAILURE,
+    FETCH_BATCH_STAGES_REQUEST,
+    FETCH_BATCH_STAGES_SUCCESS,
+    FETCH_BATCH_STAGES_FAILURE,
     EDIT_BREW_STAGES_REQUEST,
     EDIT_BREW_STAGES_SUCCESS,
     EDIT_BREW_STAGES_FAILURE,
-    ADD_BREW_STAGE_REQUEST,
     DELETE_BREW_STAGE_REQUEST,
     DELETE_BREW_STAGE_SUCCESS,
     DELETE_BREW_STAGE_FAILURE,
+    CREATE_BATCH_STAGES_REQUEST,
+    CREATE_BATCH_STAGES_SUCCESS,
+    CREATE_BATCH_STAGES_FAILURE,
 } from "./actionTypes";
 import { fetchBrewStages } from "./actions";
 import { api } from "./api";
@@ -34,7 +34,7 @@ function* fetchBrewStagesGenerator(action) {
     try {
         const res = yield call(api.fetchBrewStages, get(action, "payload"));
         yield put({
-            type: FETCH_BREW_STAGES_SUCCESS,
+            type: FETCH_BATCH_STAGES_SUCCESS,
             payload: {
                 content: [...res.data.content],
                 initial: [...res.data.content],
@@ -42,7 +42,7 @@ function* fetchBrewStagesGenerator(action) {
         });
     } catch (e) {
         yield put({
-            type: FETCH_BREW_STAGES_FAILURE,
+            type: FETCH_BATCH_STAGES_FAILURE,
             payload: {
                 error: e.error,
                 message: e.message,
@@ -52,53 +52,20 @@ function* fetchBrewStagesGenerator(action) {
     }
 }
 
-function* addBrewStageGenerator(action) {
+function* createBatchStagesGenerator(action) {
     try {
-        const batch = yield select((state) => {
-            return state.Batch.Batch.data;
+        const res = yield call(api.addBatchStages, get(action, "payload"));
+        yield put({
+            type: CREATE_BATCH_STAGES_SUCCESS,
+            payload: { ...res.data },
         });
-        const res = yield call(api.addBrewStage, get(action, "payload.form"));
-        yield call(api.addMixture, {
-            parentMixtureIds: get(action, "payload.parentMixtureIds"),
-            brewStageId: res.data[0].id,
-            quantity: {
-                symbol: "hl",
-                value: 0,
-            },
-        });
-        yield put(fetchBrewStages(batch.id));
-        yield put(
-            fetchBrewMixtures({
-                brewId: batch.id,
-            })
-        );
-        const [success, stageFailed, mixtureFailed] = yield race([
-            all([
-                take(FETCH_BREW_STAGES_SUCCESS),
-                take(FETCH_BREW_MIXTURES_SUCCESS),
-            ]),
-            take(FETCH_BREW_STAGES_FAILURE),
-            take(FETCH_BREW_MIXTURES_FAILURE),
-        ]);
-        if (success) {
-            yield put({ type: ADD_BREW_STAGE_SUCCESS });
-        } else {
-            yield put({
-                type: DELETE_BREW_STAGE_FAILURE,
-                payload: {
-                    error: stageFailed
-                        ? get(stageFailed, "payload.error")
-                        : get(mixtureFailed, "payload.error"),
-                },
-            });
-        }
     } catch (e) {
         yield put({
-            type: ADD_BREW_STAGE_FAILURE,
+            type: CREATE_BATCH_STAGES_FAILURE,
             payload: {
                 error: e.error,
                 message: e.message,
-                color: "warning",
+                color: "danger",
             },
         });
     }
@@ -147,11 +114,11 @@ function* deleteBrewStageGenerator(action) {
         );
         const [success, stageFailed, mixtureFailed] = yield race([
             all([
-                take(FETCH_BREW_STAGES_SUCCESS),
-                take(FETCH_BREW_MIXTURES_SUCCESS),
+                take(FETCH_BATCH_STAGES_SUCCESS),
+                take(FETCH_BATCH_MIXTURES_SUCCESS),
             ]),
-            take(FETCH_BREW_STAGES_FAILURE),
-            take(FETCH_BREW_MIXTURES_FAILURE),
+            take(FETCH_BATCH_STAGES_FAILURE),
+            take(FETCH_BATCH_MIXTURES_FAILURE),
         ]);
         if (success) {
             yield put({ type: DELETE_BREW_STAGE_SUCCESS });
@@ -178,8 +145,8 @@ function* deleteBrewStageGenerator(action) {
 }
 
 function* BrewStage() {
-    yield takeEvery(FETCH_BREW_STAGES_REQUEST, fetchBrewStagesGenerator);
-    yield takeEvery(ADD_BREW_STAGE_REQUEST, addBrewStageGenerator);
+    yield takeEvery(FETCH_BATCH_STAGES_REQUEST, fetchBrewStagesGenerator);
+    yield takeEvery(CREATE_BATCH_STAGES_REQUEST, createBatchStagesGenerator);
     yield takeEvery(EDIT_BREW_STAGES_REQUEST, editBrewStagesGenerator);
     yield takeEvery(DELETE_BREW_STAGE_REQUEST, deleteBrewStageGenerator);
 }

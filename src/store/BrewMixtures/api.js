@@ -13,7 +13,7 @@ async function fetchMixtures(params) {
     return await AxiosInstance.get("/api/v1/brews/mixtures", data);
 }
 
-async function addMixture(params) {
+async function createMixture(params) {
     return await AxiosInstance.post("/api/v1/brews/mixtures", params);
 }
 
@@ -27,7 +27,7 @@ async function deleteMixture(id) {
 
 export const api = {
     fetchMixtures,
-    addMixture,
+    createMixture,
     updateMixture,
     deleteMixture,
 };
