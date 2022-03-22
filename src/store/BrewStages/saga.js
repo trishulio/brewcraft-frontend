@@ -85,29 +85,29 @@ function* editBatchStagesGenerator() {
         });
         if (JSON.stringify(stages) === JSON.stringify(initial)) {
             yield put({ type: EDIT_BATCH_STAGES_SUCCESS });
-            return;
-        }
-        // todo: be smart and only update stages that changed.
-        yield put({ type: UPDATE_BATCH_STAGES_REQUEST, payload: stages });
-        const [success, failed] = yield race([
-            take(UPDATE_BATCH_STAGES_SUCCESS),
-            take(UPDATE_BATCH_STAGES_FAILURE),
-        ]);
-        if (success) {
-            const data = get(success, "payload");
-            yield put({
-                type: SET_BATCH_STAGES,
-                payload: {
-                    content: JSON.parse(JSON.stringify(data)),
-                    initial: JSON.parse(JSON.stringify(data)),
-                },
-            });
-            yield put({ type: EDIT_BATCH_STAGES_SUCCESS });
         } else {
-            yield put({
-                type: EDIT_BATCH_STAGES_FAILURE,
-                payload: get(failed, "payload"),
-            });
+            // todo: be smart and only update stages that changed.
+            yield put({ type: UPDATE_BATCH_STAGES_REQUEST, payload: stages });
+            const [success, failed] = yield race([
+                take(UPDATE_BATCH_STAGES_SUCCESS),
+                take(UPDATE_BATCH_STAGES_FAILURE),
+            ]);
+            if (success) {
+                const data = get(success, "payload");
+                yield put({
+                    type: SET_BATCH_STAGES,
+                    payload: {
+                        content: JSON.parse(JSON.stringify(data)),
+                        initial: JSON.parse(JSON.stringify(data)),
+                    },
+                });
+                yield put({ type: EDIT_BATCH_STAGES_SUCCESS });
+            } else {
+                yield put({
+                    type: EDIT_BATCH_STAGES_FAILURE,
+                    payload: get(failed, "payload"),
+                });
+            }
         }
     } catch (e) {
         yield put({

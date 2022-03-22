@@ -47,6 +47,9 @@ import {
     CREATE_BATCH_MIXTURE_FAILURE,
     CREATE_BATCH_MIXTURE_REQUEST,
     CREATE_BATCH_MIXTURE_SUCCESS,
+    EDIT_BATCH_MIXTURES,
+    EDIT_BATCH_MIXTURES_FAILURE,
+    EDIT_BATCH_MIXTURES_SUCCESS,
     FETCH_BATCH_MIXTURES_FAILURE,
     FETCH_BATCH_MIXTURES_REQUEST,
     FETCH_BATCH_MIXTURES_SUCCESS,
@@ -194,17 +197,20 @@ function* addBatchGenerator() {
 }
 
 function* addBatchStage(action) {
-    let data;
     try {
         const batch = yield select((state) => {
             return state.Batch.Batch.data;
         });
-        const stages = yield select((state) => {
-            return state.Batch.Stages.content;
-        });
-        const mixtures = yield select((state) => {
-            return state.Batch.BrewMixtures.content;
-        });
+        const { content: stages, initial: initialStages } = yield select(
+            (state) => {
+                return state.Batch.Stages;
+            }
+        );
+        const { content: mixtures, initial: initialMixtures } = yield select(
+            (state) => {
+                return state.Batch.BrewMixtures;
+            }
+        );
         yield put({
             type: CREATE_BATCH_STAGES_REQUEST,
             payload: [
@@ -231,13 +237,11 @@ function* addBatchStage(action) {
             return;
         }
         const stage = get(stageSuccess, "payload[0]");
-        data = [...stages];
-        data.push(stage);
         yield put({
             type: SET_BATCH_STAGES,
             payload: {
-                content: JSON.parse(JSON.stringify(data)),
-                initial: JSON.parse(JSON.stringify(data)),
+                content: JSON.parse(JSON.stringify([...stages, stage])),
+                initial: JSON.parse(JSON.stringify([...initialStages, stage])),
             },
         });
         yield put({
@@ -265,13 +269,14 @@ function* addBatchStage(action) {
             });
             return;
         }
-        data = [...mixtures];
-        data.push(get(mixtureSuccess, "payload"));
+        const mixture = get(mixtureSuccess, "payload");
         yield put({
             type: SET_BATCH_MIXTURES,
             payload: {
-                content: JSON.parse(JSON.stringify(data)),
-                initial: JSON.parse(JSON.stringify(data)),
+                content: JSON.parse(JSON.stringify([...mixtures, mixture])),
+                initial: JSON.parse(
+                    JSON.stringify([...initialMixtures, mixture])
+                ),
             },
         });
         yield put({ type: ADD_BATCH_STAGE_SUCCESS });
@@ -318,23 +323,25 @@ function* createBatchGenerator(action) {
 
 function* editBatchGenerator() {
     try {
-        yield put({ type: EDIT_BATCH_DETAILS });
-        // yield put({ type: EDIT_BATCH_MIXTURES });
-        yield put({ type: EDIT_BATCH_STAGES });
-        // yield put({ type: EDIT_BATCH_MATERIAL_PORTIONS });
-        // yield put({ type: EDIT_BATCH_MIXTURE_RECORDINGS });
-        // yield put({ type: EDIT_BATCH_FINISHED_GOODS });
+        yield all([
+            put({ type: EDIT_BATCH_DETAILS }),
+            put({ type: EDIT_BATCH_MIXTURES }),
+            put({ type: EDIT_BATCH_STAGES }),
+            // yield put({ type: EDIT_BATCH_MATERIAL_PORTIONS }),
+            // yield put({ type: EDIT_BATCH_MIXTURE_RECORDINGS }),
+            // yield put({ type: EDIT_BATCH_FINISHED_GOODS })
+        ]);
         const [success] = yield race([
             all([
                 take(EDIT_BATCH_DETAILS_SUCCESS),
-                // EDIT_BATCH_MIXTURES_SUCCESS,
+                take(EDIT_BATCH_MIXTURES_SUCCESS),
                 take(EDIT_BATCH_STAGES_SUCCESS),
                 // EDIT_BATCH_MATERIAL_PORTIONS_SUCCESS,
                 // EDIT_BATCH_MIXTURE_RECORDINGS_SUCCESS,
                 // EDIT_BATCH_FINISHED_GOODS_SUCCESS,
             ]),
             take(EDIT_BATCH_DETAILS_FAILURE),
-            // EDIT_BATCH_MIXTURES_FAILURE,
+            take(EDIT_BATCH_MIXTURES_FAILURE),
             take(EDIT_BATCH_STAGES_FAILURE),
             // EDIT_BATCH_MATERIAL_PORTIONS_FAILURE,
             // EDIT_BATCH_MIXTURE_RECORDINGS_FAILURE,
@@ -373,26 +380,26 @@ function* editBatchDetailsGenerator() {
             return state.Batch.Batch.initial;
         });
         if (JSON.stringify(batch) === JSON.stringify(initial)) {
-            yield put({ type: UPDATE_BATCH_SUCCESS });
-            return;
-        }
-        yield put({ type: UPDATE_BATCH_REQUEST, payload: batch });
-        const [success, failed] = yield race([
-            take(UPDATE_BATCH_SUCCESS),
-            take(UPDATE_BATCH_FAILURE),
-        ]);
-        if (success) {
-            const data = get(success, "payload");
-            yield put({
-                type: SET_BATCH_DETAILS,
-                payload: { data, initial: data },
-            });
             yield put({ type: EDIT_BATCH_DETAILS_SUCCESS });
         } else {
-            yield put({
-                type: EDIT_BATCH_DETAILS_FAILURE,
-                payload: get(failed, "payload"),
-            });
+            yield put({ type: UPDATE_BATCH_REQUEST, payload: batch });
+            const [success, failed] = yield race([
+                take(UPDATE_BATCH_SUCCESS),
+                take(UPDATE_BATCH_FAILURE),
+            ]);
+            if (success) {
+                const data = get(success, "payload");
+                yield put({
+                    type: SET_BATCH_DETAILS,
+                    payload: { data, initial: data },
+                });
+                yield put({ type: EDIT_BATCH_DETAILS_SUCCESS });
+            } else {
+                yield put({
+                    type: EDIT_BATCH_DETAILS_FAILURE,
+                    payload: get(failed, "payload"),
+                });
+            }
         }
     } catch (e) {
         yield put({

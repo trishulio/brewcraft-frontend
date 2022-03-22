@@ -1,18 +1,30 @@
+import {
+    all,
+    call,
+    put,
+    race,
+    select,
+    take,
+    takeEvery,
+} from "redux-saga/effects";
 import { get } from "lodash";
-import { call, put, select, takeEvery } from "redux-saga/effects";
 import {
     FETCH_BATCH_MIXTURES_REQUEST,
     FETCH_BATCH_MIXTURES_SUCCESS,
     FETCH_BATCH_MIXTURES_FAILURE,
-    EDIT_BREW_MIXTURES_REQUEST,
     DELETE_BREW_MIXTURES_REQUEST,
-    EDIT_BREW_MIXTURE_SUCCESS,
-    EDIT_BREW_MIXTURE_FAILURE,
     DELETE_BREW_MIXTURE_SUCCESS,
     DELETE_BREW_MIXTURE_FAILURE,
     CREATE_BATCH_MIXTURE_REQUEST,
     CREATE_BATCH_MIXTURE_SUCCESS,
     CREATE_BATCH_MIXTURE_FAILURE,
+    UPDATE_BATCH_MIXTURES_REQUEST,
+    EDIT_BATCH_MIXTURES_SUCCESS,
+    UPDATE_BATCH_MIXTURES_SUCCESS,
+    UPDATE_BATCH_MIXTURES_FAILURE,
+    EDIT_BATCH_MIXTURES_FAILURE,
+    SET_BATCH_MIXTURES,
+    EDIT_BATCH_MIXTURES,
 } from "./actionTypes";
 import { api } from "./api";
 
@@ -53,28 +65,70 @@ function* createBatchMixtureGenerator(action) {
     }
 }
 
-function* editBatchMixtureGenerator(action) {
+function* editBatchMixturesGenerator() {
     try {
-        const mixtures = yield select(
-            (state) => state.Batch.BatchMixtures.content
-        );
-        const res = yield call(
-            api.updateMixture,
-            get(action, "payload.id"),
-            get(action, "payload.form")
-        );
-        // insert mixture from response
-        const data = [...mixtures];
-        const index = mixtures.findIndex((s) => s.id === res.data.id);
-        data.splice(index, 1);
-        data.splice(index, 0, res.data);
+        const mixtures = yield select((state) => {
+            return state.Batch.BrewMixtures.content;
+        });
+        const initial = yield select((state) => {
+            return state.Batch.BrewMixtures.initial;
+        });
+        if (JSON.stringify(mixtures) === JSON.stringify(initial)) {
+            yield put({ type: EDIT_BATCH_MIXTURES_SUCCESS });
+        } else {
+            // todo: be smart and only update mixtures that changed.
+            yield put({
+                type: UPDATE_BATCH_MIXTURES_REQUEST,
+                payload: mixtures,
+            });
+            const [success, failed] = yield race([
+                take(UPDATE_BATCH_MIXTURES_SUCCESS),
+                take(UPDATE_BATCH_MIXTURES_FAILURE),
+            ]);
+            if (success) {
+                const data = get(success, "payload");
+                yield put({
+                    type: SET_BATCH_MIXTURES,
+                    payload: {
+                        content: JSON.parse(JSON.stringify(data)),
+                        initial: JSON.parse(JSON.stringify(data)),
+                    },
+                });
+                yield put({ type: EDIT_BATCH_MIXTURES_SUCCESS });
+            } else {
+                yield put({
+                    type: EDIT_BATCH_MIXTURES_FAILURE,
+                    payload: get(failed, "payload"),
+                });
+            }
+        }
+    } catch (e) {
         yield put({
-            type: EDIT_BREW_MIXTURE_SUCCESS,
-            payload: { content: data, initial: data },
+            type: EDIT_BATCH_MIXTURES_FAILURE,
+            payload: {
+                error: e.error,
+                message: e.message,
+                color: "warning",
+            },
+        });
+    }
+}
+
+function* updateBatchMixturesGenerator(action) {
+    try {
+        const mixtures = get(action, "payload");
+        const res = yield all(
+            mixtures.map((mixture) => {
+                return call(api.updateMixture, { ...mixture });
+            })
+        );
+        yield put({
+            type: UPDATE_BATCH_MIXTURES_SUCCESS,
+            payload: res.map((r) => r.data),
         });
     } catch (e) {
         yield put({
-            type: EDIT_BREW_MIXTURE_FAILURE,
+            type: UPDATE_BATCH_MIXTURES_FAILURE,
             payload: {
                 error: e.error,
                 message: e.message,
@@ -99,7 +153,12 @@ function* deleteBatchMixtureGenerator(action) {
 function* Mixture() {
     yield takeEvery(FETCH_BATCH_MIXTURES_REQUEST, fetchBatchMixturesGenerator);
     yield takeEvery(CREATE_BATCH_MIXTURE_REQUEST, createBatchMixtureGenerator);
-    yield takeEvery(EDIT_BREW_MIXTURES_REQUEST, editBatchMixtureGenerator);
+    yield takeEvery(EDIT_BATCH_MIXTURES, editBatchMixturesGenerator);
+    yield takeEvery(
+        UPDATE_BATCH_MIXTURES_REQUEST,
+        updateBatchMixturesGenerator
+    );
+
     yield takeEvery(DELETE_BREW_MIXTURES_REQUEST, deleteBatchMixtureGenerator);
 }
 
