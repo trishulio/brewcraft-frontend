@@ -15,7 +15,7 @@ import {
     FETCH_BATCH_BY_ID_REQUEST,
     SET_BATCH_DETAILS,
     ADD_BATCH_REQUEST,
-    EDIT_BATCH_REQUEST,
+    EDIT_BATCH,
     DELETE_BATCH_REQUEST,
     EDIT_BATCH_FAILURE,
     EDIT_BATCH_SUCCESS,
@@ -35,6 +35,12 @@ import {
     ADD_BATCH_STAGE,
     ADD_BATCH_STAGE_SUCCESS,
     ADD_BATCH_STAGE_FAILURE,
+    EDIT_BATCH_DETAILS,
+    EDIT_BATCH_DETAILS_SUCCESS,
+    EDIT_BATCH_DETAILS_FAILURE,
+    UPDATE_BATCH_SUCCESS,
+    UPDATE_BATCH_FAILURE,
+    UPDATE_BATCH_REQUEST,
 } from "./actionTypes";
 import { isValidName, validDate, validId } from "../../helpers/utils";
 import {
@@ -62,6 +68,9 @@ import {
     CREATE_BATCH_STAGES_SUCCESS,
     CREATE_BATCH_STAGES_FAILURE,
     SET_BATCH_STAGES,
+    EDIT_BATCH_STAGES,
+    EDIT_BATCH_STAGES_SUCCESS,
+    EDIT_BATCH_STAGES_FAILURE,
 } from "../BrewStages/actionTypes";
 import {
     FETCH_BREW_MIXTURE_RECORDINGS_FAILURE,
@@ -307,26 +316,121 @@ function* createBatchGenerator(action) {
     }
 }
 
-function* editBatchGenerator(action) {
+function* editBatchGenerator() {
     try {
-        const res = yield call(
-            api.updateBatch,
-            get(action, "payload.id"),
-            get(action, "payload.form")
-        );
-        yield put({
-            type: SET_BATCH_DETAILS,
-            payload: { data: res.data, initial: res.data },
-        });
-        yield put(
-            setGlobalRedirect({
-                pathname: "/brews/" + res.data.id,
-                search: "?edit=true",
-            })
-        );
-        yield put({ type: EDIT_BATCH_SUCCESS });
+        yield put({ type: EDIT_BATCH_DETAILS });
+        // yield put({ type: EDIT_BATCH_MIXTURES });
+        yield put({ type: EDIT_BATCH_STAGES });
+        // yield put({ type: EDIT_BATCH_MATERIAL_PORTIONS });
+        // yield put({ type: EDIT_BATCH_MIXTURE_RECORDINGS });
+        // yield put({ type: EDIT_BATCH_FINISHED_GOODS });
+        const [success] = yield race([
+            all([
+                take(EDIT_BATCH_DETAILS_SUCCESS),
+                // EDIT_BATCH_MIXTURES_SUCCESS,
+                take(EDIT_BATCH_STAGES_SUCCESS),
+                // EDIT_BATCH_MATERIAL_PORTIONS_SUCCESS,
+                // EDIT_BATCH_MIXTURE_RECORDINGS_SUCCESS,
+                // EDIT_BATCH_FINISHED_GOODS_SUCCESS,
+            ]),
+            take(EDIT_BATCH_DETAILS_FAILURE),
+            // EDIT_BATCH_MIXTURES_FAILURE,
+            take(EDIT_BATCH_STAGES_FAILURE),
+            // EDIT_BATCH_MATERIAL_PORTIONS_FAILURE,
+            // EDIT_BATCH_MIXTURE_RECORDINGS_FAILURE,
+            // EDIT_BATCH_FINISHED_GOODS_FAILURE,
+        ]);
+        if (success) {
+            yield put({ type: EDIT_BATCH_SUCCESS });
+            yield put(snackSuccess("Brew updated!"));
+        } else {
+            yield put({
+                type: EDIT_BATCH_FAILURE,
+                payload: {
+                    message: "Failed to update brew.",
+                    color: "danger",
+                },
+            });
+        }
     } catch (e) {
-        yield put({ type: EDIT_BATCH_FAILURE });
+        yield put({
+            type: EDIT_BATCH_FAILURE,
+            payload: {
+                error: e.error,
+                message: e.message,
+                color: "danger",
+            },
+        });
+    }
+}
+
+function* editBatchDetailsGenerator() {
+    try {
+        const batch = yield select((state) => {
+            return state.Batch.Batch.data;
+        });
+        const initial = yield select((state) => {
+            return state.Batch.Batch.initial;
+        });
+        if (JSON.stringify(batch) === JSON.stringify(initial)) {
+            yield put({ type: UPDATE_BATCH_SUCCESS });
+            return;
+        }
+        yield put({ type: UPDATE_BATCH_REQUEST, payload: batch });
+        const [success, failed] = yield race([
+            take(UPDATE_BATCH_SUCCESS),
+            take(UPDATE_BATCH_FAILURE),
+        ]);
+        if (success) {
+            const data = get(success, "payload");
+            yield put({
+                type: SET_BATCH_DETAILS,
+                payload: { data, initial: data },
+            });
+            yield put({ type: EDIT_BATCH_DETAILS_SUCCESS });
+        } else {
+            yield put({
+                type: EDIT_BATCH_DETAILS_FAILURE,
+                payload: get(failed, "payload"),
+            });
+        }
+    } catch (e) {
+        yield put({
+            type: EDIT_BATCH_DETAILS_FAILURE,
+            payload: {
+                error: e.error,
+                message: e.message,
+                color: "danger",
+            },
+        });
+    }
+}
+
+function* updateBatchGenerator(action) {
+    try {
+        const res = yield call(api.updateBatch, get(action, "payload.id"), {
+            name: get(action, "payload.name"),
+            description: get(action, "payload.description"),
+            batchId: get(action, "payload.batchId"),
+            productId: parseInt(get(action, "payload.product.id")),
+            parentBrewId: get(action, "payload.parentBrewId"),
+            startedAt: get(action, "payload.startedAt"),
+            endedAt: get(action, "payload.endedAt"),
+            version: get(action, "payload.version"),
+        });
+        yield put({
+            type: UPDATE_BATCH_SUCCESS,
+            payload: { ...res.data },
+        });
+    } catch (e) {
+        yield put({
+            type: UPDATE_BATCH_FAILURE,
+            payload: {
+                error: e.error,
+                message: e.message,
+                color: "danger",
+            },
+        });
     }
 }
 
@@ -365,8 +469,10 @@ function* Batch() {
     yield takeEvery(ADD_BATCH_REQUEST, addBatchGenerator);
     yield takeEvery(CREATE_BATCH_REQUEST, createBatchGenerator);
     yield takeEvery(ADD_BATCH_STAGE, addBatchStage);
+    yield takeEvery(EDIT_BATCH, editBatchGenerator);
+    yield takeEvery(EDIT_BATCH_DETAILS, editBatchDetailsGenerator);
+    yield takeEvery(UPDATE_BATCH_REQUEST, updateBatchGenerator);
 
-    yield takeEvery(EDIT_BATCH_REQUEST, editBatchGenerator);
     yield takeEvery(DELETE_BATCH_REQUEST, deleteBatchGenerator);
     yield takeEvery(RESET_BATCH_DETAILS, resetBatchDetailsGenerator);
     yield takeEvery(VALIDATE_BREW_FIELDS, validateBrewGenerator);

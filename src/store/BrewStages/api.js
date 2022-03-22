@@ -19,15 +19,27 @@ async function fetchBrewStageById(id) {
     return await AxiosInstance.get(`/api/v1/brews/stages/${id}`).then((r) => r);
 }
 
-async function addBatchStages(payload) {
-    return await AxiosInstance.post("/api/v1/brews/stages", payload);
+async function createBatchStages(params) {
+    return await AxiosInstance.post("/api/v1/brews/stages", params);
 }
 
-async function updateBrewStage(id, payload) {
-    return await AxiosInstance.patch(
-        `/api/v1/brews/stages/${id}`,
-        payload
-    ).then((r) => r);
+async function updateBatchStage({
+    id,
+    brew,
+    status,
+    task,
+    startedAt,
+    endedAt,
+    version,
+}) {
+    return await AxiosInstance.patch(`/api/v1/brews/stages/${id}`, {
+        brewId: brew.id,
+        statusId: status.id,
+        taskId: task.id,
+        startedAt,
+        endedAt,
+        version,
+    });
 }
 
 async function deleteBrewStage(id) {
@@ -39,7 +51,7 @@ async function deleteBrewStage(id) {
 export const api = {
     fetchBrewStages,
     fetchBrewStageById,
-    addBatchStages,
-    updateBrewStage,
+    createBatchStages,
+    updateBatchStage,
     deleteBrewStage,
 };

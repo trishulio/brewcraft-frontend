@@ -1,7 +1,7 @@
 import {
     ADD_BATCH_REQUEST,
     ADD_BATCH_FAILURE,
-    EDIT_BATCH_REQUEST,
+    EDIT_BATCH,
     EDIT_BATCH_SUCCESS,
     ADD_BATCH_SUCCESS,
     SET_BATCH_DETAILS,
@@ -72,7 +72,7 @@ const Brew = (state = initialState, { type, payload }) => {
             };
         case FETCH_BATCH_BY_ID_REQUEST:
         case ADD_BATCH_REQUEST:
-        case EDIT_BATCH_REQUEST:
+        case EDIT_BATCH:
             return {
                 ...state,
                 loading: true,
