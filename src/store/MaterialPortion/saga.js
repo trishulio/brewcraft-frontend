@@ -1,15 +1,27 @@
-import { call, put, race, select, take, takeEvery } from "redux-saga/effects";
+import {
+    all,
+    call,
+    put,
+    race,
+    select,
+    take,
+    takeEvery,
+} from "redux-saga/effects";
 import { get } from "lodash";
 import {
-    FETCH_BREW_MATERIAL_PORTIONS_REQUEST,
-    FETCH_BREW_MATERIAL_PORTIONS_SUCCESS,
-    FETCH_BREW_MATERIAL_PORTIONS_FAILURE,
-    EDIT_BREW_MATERIAL_PORTIONS_REQUEST,
-    EDIT_BREW_MATERIAL_PORTIONS_SUCCESS,
-    EDIT_BREW_MATERIAL_PORTIONS_FAILURE,
-    DELETE_BREW_MATERIAL_PORTIONS_REQUEST,
-    DELETE_BREW_MATERIAL_PORTIONS_SUCCESS,
-    DELETE_BREW_MATERIAL_PORTIONS_FAILURE,
+    FETCH_BATCH_MATERIAL_PORTIONS_REQUEST,
+    FETCH_BATCH_MATERIAL_PORTIONS_SUCCESS,
+    FETCH_BATCH_MATERIAL_PORTIONS_FAILURE,
+    EDIT_BATCH_MATERIAL_PORTIONS,
+    EDIT_BATCH_MATERIAL_PORTIONS_SUCCESS,
+    EDIT_BATCH_MATERIAL_PORTIONS_FAILURE,
+    DELETE_BATCH_MATERIAL_PORTIONS_REQUEST,
+    DELETE_BATCH_MATERIAL_PORTIONS_SUCCESS,
+    DELETE_BATCH_MATERIAL_PORTIONS_FAILURE,
+    UPDATE_BATCH_MATERIAL_PORTIONS_REQUEST,
+    UPDATE_BATCH_MATERIAL_PORTIONS_SUCCESS,
+    UPDATE_BATCH_MATERIAL_PORTIONS_FAILURE,
+    SET_BATCH_MATERIAL_PORTIONS,
 } from "./actionTypes";
 import { api } from "./api";
 
@@ -20,7 +32,7 @@ function* fetchMaterialPortionsGenerator(action) {
             get(action, "payload")
         );
         yield put({
-            type: FETCH_BREW_MATERIAL_PORTIONS_SUCCESS,
+            type: FETCH_BATCH_MATERIAL_PORTIONS_SUCCESS,
             payload: {
                 content: JSON.parse(JSON.stringify(res.data.content)),
                 initial: JSON.parse(JSON.stringify(res.data.content)),
@@ -28,7 +40,7 @@ function* fetchMaterialPortionsGenerator(action) {
         });
     } catch (e) {
         yield put({
-            type: FETCH_BREW_MATERIAL_PORTIONS_FAILURE,
+            type: FETCH_BATCH_MATERIAL_PORTIONS_FAILURE,
             payload: {
                 error: e.error,
                 message: e.message,
@@ -38,37 +50,83 @@ function* fetchMaterialPortionsGenerator(action) {
     }
 }
 
-function* editMaterialPortionsGenerator(action) {
+function* editMaterialPortionsGenerator() {
     try {
-        const batch = yield select((state) => state.Batch.Batch.data);
-        yield call(api.updateMaterialPortions, get(action, "payload.form"));
-        yield put({
-            type: FETCH_BREW_MATERIAL_PORTIONS_REQUEST,
-            payload: {
-                id: batch.id,
-            },
+        const { content: materialPortions, initial } = yield select((state) => {
+            return state.Batch.MaterialPortions;
         });
+        if (JSON.stringify(materialPortions) === JSON.stringify(initial)) {
+            yield put({ type: EDIT_BATCH_MATERIAL_PORTIONS_SUCCESS });
+            return;
+        }
+        const materialPortionsIds = materialPortions.map((mp) => mp.id);
+        yield all([
+            put({
+                type: UPDATE_BATCH_MATERIAL_PORTIONS_REQUEST,
+                payload: [...materialPortions],
+            }),
+            put({
+                type: DELETE_BATCH_MATERIAL_PORTIONS_REQUEST,
+                payload: initial
+                    .filter((mp) => !materialPortionsIds.includes(mp.id))
+                    .map((mp) => mp.id),
+            }),
+        ]);
         const [success, failed] = yield race([
-            take(FETCH_BREW_MATERIAL_PORTIONS_SUCCESS),
-            take(FETCH_BREW_MATERIAL_PORTIONS_FAILURE),
+            all([
+                take(UPDATE_BATCH_MATERIAL_PORTIONS_SUCCESS),
+                take(DELETE_BATCH_MATERIAL_PORTIONS_SUCCESS),
+            ]),
+            take(UPDATE_BATCH_MATERIAL_PORTIONS_FAILURE),
+            take(DELETE_BATCH_MATERIAL_PORTIONS_FAILURE),
         ]);
         if (success) {
+            const data = get(success[0], "payload.data");
             yield put({
-                type: EDIT_BREW_MATERIAL_PORTIONS_SUCCESS,
+                type: SET_BATCH_MATERIAL_PORTIONS,
+                payload: {
+                    content: JSON.parse(JSON.stringify(data)),
+                    initial: JSON.parse(JSON.stringify(data)),
+                },
+            });
+            yield put({
+                type: EDIT_BATCH_MATERIAL_PORTIONS_SUCCESS,
             });
         } else {
             yield put({
-                type: EDIT_BREW_MATERIAL_PORTIONS_FAILURE,
-                payload: get(failed, "payload.error"),
+                type: EDIT_BATCH_MATERIAL_PORTIONS_FAILURE,
+                payload: get(failed, "payload"),
             });
         }
     } catch (e) {
         yield put({
-            type: EDIT_BREW_MATERIAL_PORTIONS_FAILURE,
+            type: EDIT_BATCH_MATERIAL_PORTIONS_FAILURE,
             payload: {
                 error: e.error,
                 message: e.message,
                 color: "warning",
+            },
+        });
+    }
+}
+
+function* updateMaterialPortionsGenerator(action) {
+    try {
+        const res = yield call(
+            api.updateMaterialPortions,
+            get(action, "payload")
+        );
+        yield put({
+            type: UPDATE_BATCH_MATERIAL_PORTIONS_SUCCESS,
+            payload: { ...res },
+        });
+    } catch (e) {
+        yield put({
+            type: UPDATE_BATCH_MATERIAL_PORTIONS_FAILURE,
+            payload: {
+                error: e.error,
+                message: e.message,
+                color: "danger",
             },
         });
     }
@@ -76,35 +134,21 @@ function* editMaterialPortionsGenerator(action) {
 
 function* deleteMaterialPortionsGenerator(action) {
     try {
-        const batch = yield select((state) => state.Batch.Batch.data);
-        yield call(api.deleteMaterialPortions, get(action, "payload.form"));
+        const res = yield call(
+            api.deleteMaterialPortions,
+            get(action, "payload")
+        );
         yield put({
-            type: FETCH_BREW_MATERIAL_PORTIONS_REQUEST,
-            payload: {
-                id: batch.id,
-            },
+            type: DELETE_BATCH_MATERIAL_PORTIONS_SUCCESS,
+            payload: { ...res },
         });
-        const [success, failed] = yield race([
-            take(FETCH_BREW_MATERIAL_PORTIONS_SUCCESS),
-            take(FETCH_BREW_MATERIAL_PORTIONS_FAILURE),
-        ]);
-        if (success) {
-            yield put({
-                type: DELETE_BREW_MATERIAL_PORTIONS_SUCCESS,
-            });
-        } else {
-            yield put({
-                type: DELETE_BREW_MATERIAL_PORTIONS_FAILURE,
-                payload: get(failed, "payload.error"),
-            });
-        }
     } catch (e) {
         yield put({
-            type: DELETE_BREW_MATERIAL_PORTIONS_FAILURE,
+            type: DELETE_BATCH_MATERIAL_PORTIONS_FAILURE,
             payload: {
                 error: e.error,
                 message: e.message,
-                color: "warning",
+                color: "danger",
             },
         });
     }
@@ -112,15 +156,19 @@ function* deleteMaterialPortionsGenerator(action) {
 
 function* MaterialPortion() {
     yield takeEvery(
-        FETCH_BREW_MATERIAL_PORTIONS_REQUEST,
+        FETCH_BATCH_MATERIAL_PORTIONS_REQUEST,
         fetchMaterialPortionsGenerator
     );
     yield takeEvery(
-        EDIT_BREW_MATERIAL_PORTIONS_REQUEST,
+        EDIT_BATCH_MATERIAL_PORTIONS,
         editMaterialPortionsGenerator
     );
     yield takeEvery(
-        DELETE_BREW_MATERIAL_PORTIONS_REQUEST,
+        UPDATE_BATCH_MATERIAL_PORTIONS_REQUEST,
+        updateMaterialPortionsGenerator
+    );
+    yield takeEvery(
+        DELETE_BATCH_MATERIAL_PORTIONS_REQUEST,
         deleteMaterialPortionsGenerator
     );
 }
