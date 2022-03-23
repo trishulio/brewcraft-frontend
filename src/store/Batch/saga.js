@@ -87,10 +87,13 @@ import {
     FETCH_BATCH_MIXTURE_RECORDINGS_SUCCESS,
 } from "../MixtureRecording/actionTypes";
 import {
-    FETCH_BREW_FINISHED_GOODS_FAILURE,
-    FETCH_BREW_FINISHED_GOODS_REQUEST,
-    FETCH_BREW_FINISHED_GOODS_SUCCESS,
-} from "../BrewFinishedGoods/actionTypes";
+    EDIT_BATCH_FINISHED_GOODS,
+    EDIT_BATCH_FINISHED_GOODS_FAILURE,
+    EDIT_BATCH_FINISHED_GOODS_SUCCESS,
+    FETCH_BATCH_FINISHED_GOODS_FAILURE,
+    FETCH_BATCH_FINISHED_GOODS_REQUEST,
+    FETCH_BATCH_FINISHED_GOODS_SUCCESS,
+} from "../BatchFinishedGoods/actionTypes";
 
 function* fetchBatchGenerator(action) {
     try {
@@ -107,7 +110,7 @@ function* fetchBatchGenerator(action) {
             payload: { batchId },
         });
         yield put({
-            type: FETCH_BREW_FINISHED_GOODS_REQUEST,
+            type: FETCH_BATCH_FINISHED_GOODS_REQUEST,
             payload: {
                 id: batchId,
             },
@@ -119,14 +122,14 @@ function* fetchBatchGenerator(action) {
                 take(FETCH_BATCH_STAGES_SUCCESS),
                 take(FETCH_BATCH_MATERIAL_PORTIONS_SUCCESS),
                 take(FETCH_BATCH_MIXTURE_RECORDINGS_SUCCESS),
-                take(FETCH_BREW_FINISHED_GOODS_SUCCESS),
+                take(FETCH_BATCH_FINISHED_GOODS_SUCCESS),
             ]),
             take(FETCH_BATCH_BY_ID_FAILURE),
             take(FETCH_BATCH_MIXTURES_FAILURE),
             take(FETCH_BATCH_STAGES_FAILURE),
             take(FETCH_BATCH_MATERIAL_PORTIONS_FAILURE),
             take(FETCH_BATCH_MIXTURE_RECORDINGS_FAILURE),
-            take(FETCH_BREW_FINISHED_GOODS_FAILURE),
+            take(FETCH_BATCH_FINISHED_GOODS_FAILURE),
         ]);
         if (success) {
             yield put({ type: FETCH_BATCH_SUCCESS });

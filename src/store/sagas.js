@@ -5,7 +5,7 @@ import BatchStatus from "./BatchStatus/saga";
 import BatchTasks from "./BatchTask/saga";
 import BrewStage from "./BrewStages/saga";
 import FinishedGood from "./FinishedGood/saga";
-import FinishedGoods from "./FinishedGoods/saga";
+import BatchFinishedGoods from "./BatchFinishedGoods/saga";
 import FinishedGoodsInventory from "./FinishedGoodsInventory/saga";
 import Ingredient from "./Ingredient/saga";
 import Ingredients from "./Ingredients/saga";
@@ -20,7 +20,7 @@ import Measures from "./Measures/saga";
 import MiniCards from "./MiniCards/saga";
 import BrewMixtures from "./BrewMixtures/saga";
 import Mixtures from "./Mixtures/saga";
-import MixtureRecording from "./MixtureRecording/saga";
+import MixtureRecordings from "./MixtureRecording/saga";
 import Packaging from "./Packaging/saga";
 import PackagingItem from "./PackagingItem/saga";
 import Procurement from "./Procurement/saga";
@@ -51,7 +51,7 @@ export default function* rootSaga() {
         BatchTasks(),
         BrewStage(),
         FinishedGood(),
-        FinishedGoods(),
+        BatchFinishedGoods(),
         FinishedGoodsInventory(),
         Ingredient(),
         Ingredients(),
@@ -65,7 +65,7 @@ export default function* rootSaga() {
         MiniCards(),
         BrewMixtures(),
         Mixtures(),
-        MixtureRecording(),
+        MixtureRecordings(),
         Packaging(),
         PackagingItem(),
         Procurement(),

@@ -161,7 +161,7 @@ function* deleteMixtureRecordingsGenerator(action) {
     }
 }
 
-function* MixtureRecording() {
+function* MixtureRecordings() {
     yield takeEvery(
         FETCH_BATCH_MIXTURE_RECORDINGS_REQUEST,
         fetchMixtureRecordingsGenerator
@@ -180,4 +180,4 @@ function* MixtureRecording() {
     );
 }
 
-export default MixtureRecording;
+export default MixtureRecordings;

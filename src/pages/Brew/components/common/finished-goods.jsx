@@ -10,7 +10,7 @@ import {
     toL,
 } from "../../../../helpers/textUtils";
 import { isValidNumberString } from "../../../../helpers/utils";
-import { setBrewFinishedGoods } from "../../../../store/BrewFinishedGoods/actions";
+import { setBatchFinishedGoods } from "../../../../store/BatchFinishedGoods/actions";
 
 export default function FinishedGoods({ mixture }) {
     const [items, setItems] = useState([]);
@@ -30,7 +30,7 @@ export default function FinishedGoods({ mixture }) {
     });
 
     const finishedGoods = useSelector((state) => {
-        return state.Batch.BrewFinishedGoods.content.filter(
+        return state.Batch.BatchFinishedGoods.content.filter(
             (fg) => fg.mixturePortions[0].mixture.id === mixture.id
         );
     });
@@ -204,13 +204,13 @@ export default function FinishedGoods({ mixture }) {
                                 finishedGood.quantity.value +=
                                     parseFloat(quantity);
                                 dispatch(
-                                    setBrewFinishedGoods({
+                                    setBatchFinishedGoods({
                                         content: finishedGoods,
                                     })
                                 );
                             } else {
                                 dispatch(
-                                    setBrewFinishedGoods({
+                                    setBatchFinishedGoods({
                                         content: [
                                             ...finishedGoods,
                                             {
@@ -257,7 +257,7 @@ export default function FinishedGoods({ mixture }) {
                         className="waves-effect"
                         onClick={() => {
                             dispatch(
-                                setBrewFinishedGoods({
+                                setBatchFinishedGoods({
                                     content: finishedGoods.filter(
                                         (_, index) => !items.includes(index)
                                     ),
