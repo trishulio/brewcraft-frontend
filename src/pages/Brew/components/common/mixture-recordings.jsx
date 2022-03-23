@@ -6,7 +6,7 @@ import CommonTable from "../../../../component/Common/table";
 import { formatDatetime } from "../../.././../helpers/textUtils";
 import { isValidNumberString } from "../../../../helpers/utils";
 import { useDispatch } from "react-redux";
-import { setBrewMixtureRecordings } from "../../../../store/actions";
+import { setBatchMixtureRecordings } from "../../../../store/actions";
 
 export default function MixtureRecordings({ mixture }) {
     const [items, setItems] = useState([]);
@@ -155,7 +155,7 @@ export default function MixtureRecordings({ mixture }) {
                         className="waves-effect mr-2"
                         onClick={() => {
                             dispatch(
-                                setBrewMixtureRecordings({
+                                setBatchMixtureRecordings({
                                     content: [
                                         ...mixtureRecordings,
                                         {
@@ -178,7 +178,7 @@ export default function MixtureRecordings({ mixture }) {
                         className="waves-effect"
                         onClick={() => {
                             dispatch(
-                                setBrewMixtureRecordings({
+                                setBatchMixtureRecordings({
                                     content: mixtureRecordings.filter(
                                         (_, index) => !items.includes(index)
                                     ),

@@ -79,9 +79,12 @@ import {
     EDIT_BATCH_STAGES_FAILURE,
 } from "../BrewStages/actionTypes";
 import {
-    FETCH_BREW_MIXTURE_RECORDINGS_FAILURE,
-    FETCH_BREW_MIXTURE_RECORDINGS_REQUEST,
-    FETCH_BREW_MIXTURE_RECORDINGS_SUCCESS,
+    EDIT_BATCH_MIXTURE_RECORDINGS,
+    EDIT_BATCH_MIXTURE_RECORDINGS_FAILURE,
+    EDIT_BATCH_MIXTURE_RECORDINGS_SUCCESS,
+    FETCH_BATCH_MIXTURE_RECORDINGS_FAILURE,
+    FETCH_BATCH_MIXTURE_RECORDINGS_REQUEST,
+    FETCH_BATCH_MIXTURE_RECORDINGS_SUCCESS,
 } from "../MixtureRecording/actionTypes";
 import {
     FETCH_BREW_FINISHED_GOODS_FAILURE,
@@ -100,7 +103,7 @@ function* fetchBatchGenerator(action) {
             payload: { batchId },
         });
         yield put({
-            type: FETCH_BREW_MIXTURE_RECORDINGS_REQUEST,
+            type: FETCH_BATCH_MIXTURE_RECORDINGS_REQUEST,
             payload: { batchId },
         });
         yield put({
@@ -115,14 +118,14 @@ function* fetchBatchGenerator(action) {
                 take(FETCH_BATCH_MIXTURES_SUCCESS),
                 take(FETCH_BATCH_STAGES_SUCCESS),
                 take(FETCH_BATCH_MATERIAL_PORTIONS_SUCCESS),
-                take(FETCH_BREW_MIXTURE_RECORDINGS_SUCCESS),
+                take(FETCH_BATCH_MIXTURE_RECORDINGS_SUCCESS),
                 take(FETCH_BREW_FINISHED_GOODS_SUCCESS),
             ]),
             take(FETCH_BATCH_BY_ID_FAILURE),
             take(FETCH_BATCH_MIXTURES_FAILURE),
             take(FETCH_BATCH_STAGES_FAILURE),
             take(FETCH_BATCH_MATERIAL_PORTIONS_FAILURE),
-            take(FETCH_BREW_MIXTURE_RECORDINGS_FAILURE),
+            take(FETCH_BATCH_MIXTURE_RECORDINGS_FAILURE),
             take(FETCH_BREW_FINISHED_GOODS_FAILURE),
         ]);
         if (success) {
@@ -331,8 +334,8 @@ function* editBatchGenerator() {
             put({ type: EDIT_BATCH_MIXTURES }),
             put({ type: EDIT_BATCH_STAGES }),
             put({ type: EDIT_BATCH_MATERIAL_PORTIONS }),
-            // put({ type: EDIT_BATCH_MIXTURE_RECORDINGS }),
-            // put({ type: EDIT_BATCH_FINISHED_GOODS })
+            put({ type: EDIT_BATCH_MIXTURE_RECORDINGS }),
+            put({ type: EDIT_BATCH_FINISHED_GOODS }),
         ]);
         const [success] = yield race([
             all([
@@ -340,15 +343,15 @@ function* editBatchGenerator() {
                 take(EDIT_BATCH_MIXTURES_SUCCESS),
                 take(EDIT_BATCH_STAGES_SUCCESS),
                 take(EDIT_BATCH_MATERIAL_PORTIONS_SUCCESS),
-                // EDIT_BATCH_MIXTURE_RECORDINGS_SUCCESS,
-                // EDIT_BATCH_FINISHED_GOODS_SUCCESS,
+                take(EDIT_BATCH_MIXTURE_RECORDINGS_SUCCESS),
+                take(EDIT_BATCH_FINISHED_GOODS_SUCCESS),
             ]),
             take(EDIT_BATCH_DETAILS_FAILURE),
             take(EDIT_BATCH_MIXTURES_FAILURE),
             take(EDIT_BATCH_STAGES_FAILURE),
             take(EDIT_BATCH_MATERIAL_PORTIONS_FAILURE),
-            // EDIT_BATCH_MIXTURE_RECORDINGS_FAILURE,
-            // EDIT_BATCH_FINISHED_GOODS_FAILURE,
+            take(EDIT_BATCH_MIXTURE_RECORDINGS_FAILURE),
+            take(EDIT_BATCH_FINISHED_GOODS_FAILURE),
         ]);
         if (success) {
             yield put({ type: EDIT_BATCH_SUCCESS });

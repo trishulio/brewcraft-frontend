@@ -17,11 +17,21 @@ async function addMixtureRecordings(payload) {
     return await AxiosInstance.post("/api/v1/mixtures/recordings", payload);
 }
 
-async function updateMixtureRecordings(payload) {
-    return await AxiosInstance.put("/api/v1/mixtures/recordings", payload);
+async function updateMixtureRecordings(mixtureRecordings) {
+    return await AxiosInstance.put(
+        "/api/v1/mixtures/recordings",
+        mixtureRecordings.map((mr) => ({
+            id: mr.id,
+            mixtureId: mr.mixture.id,
+            measureId: mr.measure.id,
+            value: mr.value,
+            recordedAt: mr.recordedAt,
+            version: mr.version,
+        }))
+    );
 }
 
-async function deleteMixtureRecording(ids) {
+async function deleteMixtureRecordings(ids) {
     return await AxiosInstance.delete("/api/v1/mixtures/recordings", {
         params: { ids: ids.toString() },
     });
@@ -31,5 +41,5 @@ export const api = {
     fetchMixtureRecordings,
     addMixtureRecordings,
     updateMixtureRecordings,
-    deleteMixtureRecording,
+    deleteMixtureRecordings,
 };

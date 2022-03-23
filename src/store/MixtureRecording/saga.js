@@ -1,17 +1,29 @@
 import {
-    FETCH_BREW_MIXTURE_RECORDINGS_REQUEST,
-    FETCH_BREW_MIXTURE_RECORDINGS_SUCCESS,
-    FETCH_BREW_MIXTURE_RECORDINGS_FAILURE,
-    EDIT_BREW_MIXTURE_RECORDINGS_REQUEST,
-    DELETE_BREW_MIXTURE_RECORDINGS_REQUEST,
-    DELETE_BREW_MIXTURE_RECORDINGS_FAILURE,
-    DELETE_BREW_MIXTURE_RECORDINGS_SUCCESS,
-    EDIT_BREW_MIXTURE_RECORDINGS_FAILURE,
-    EDIT_BREW_MIXTURE_RECORDINGS_SUCCESS,
-} from "./actionTypes";
-import { call, put, race, select, take, takeEvery } from "redux-saga/effects";
-import { api } from "./api";
+    all,
+    call,
+    put,
+    race,
+    select,
+    take,
+    takeEvery,
+} from "redux-saga/effects";
 import { get } from "lodash";
+import {
+    FETCH_BATCH_MIXTURE_RECORDINGS_REQUEST,
+    FETCH_BATCH_MIXTURE_RECORDINGS_SUCCESS,
+    FETCH_BATCH_MIXTURE_RECORDINGS_FAILURE,
+    EDIT_BATCH_MIXTURE_RECORDINGS,
+    EDIT_BATCH_MIXTURE_RECORDINGS_SUCCESS,
+    EDIT_BATCH_MIXTURE_RECORDINGS_FAILURE,
+    DELETE_BATCH_MIXTURE_RECORDINGS_REQUEST,
+    UPDATE_BATCH_MIXTURE_RECORDINGS_REQUEST,
+    UPDATE_BATCH_MIXTURE_RECORDINGS_SUCCESS,
+    UPDATE_BATCH_MIXTURE_RECORDINGS_FAILURE,
+    DELETE_BATCH_MIXTURE_RECORDINGS_FAILURE,
+    DELETE_BATCH_MIXTURE_RECORDINGS_SUCCESS,
+    SET_BATCH_MIXTURE_RECORDINGS,
+} from "./actionTypes";
+import { api } from "./api";
 
 function* fetchMixtureRecordingsGenerator(action) {
     try {
@@ -20,7 +32,7 @@ function* fetchMixtureRecordingsGenerator(action) {
             get(action, "payload")
         );
         yield put({
-            type: FETCH_BREW_MIXTURE_RECORDINGS_SUCCESS,
+            type: FETCH_BATCH_MIXTURE_RECORDINGS_SUCCESS,
             payload: {
                 content: [...res.data.content],
                 initial: [...res.data.content],
@@ -28,7 +40,7 @@ function* fetchMixtureRecordingsGenerator(action) {
         });
     } catch (e) {
         yield put({
-            type: FETCH_BREW_MIXTURE_RECORDINGS_FAILURE,
+            type: FETCH_BATCH_MIXTURE_RECORDINGS_FAILURE,
             payload: {
                 error: e.error,
                 message: e.message,
@@ -38,40 +50,90 @@ function* fetchMixtureRecordingsGenerator(action) {
     }
 }
 
-function* editBrewMixtureRecordingsGenerator(action) {
+function* editMixtureRecordingsGenerator() {
     try {
-        const batch = yield select((state) => state.Batch.Batch.data);
-        yield call(
-            api.updateMixtureRecordings,
-            get(action, "payload.mixtureRecordings")
+        const { content: mixtureRecordings, initial } = yield select(
+            (state) => {
+                return state.Batch.MixtureRecordings;
+            }
         );
-        yield put({
-            type: FETCH_BREW_MIXTURE_RECORDINGS_REQUEST,
-            payload: {
-                id: batch.id,
-            },
-        });
-        const [success, failed] = yield race([
-            take(FETCH_BREW_MIXTURE_RECORDINGS_SUCCESS),
-            take(FETCH_BREW_MIXTURE_RECORDINGS_FAILURE),
+        if (JSON.stringify(mixtureRecordings) === JSON.stringify(initial)) {
+            yield put({ type: EDIT_BATCH_MIXTURE_RECORDINGS_SUCCESS });
+            return;
+        }
+        const mixtureRecordingsIds = mixtureRecordings.map((mr) => mr.id);
+        yield all([
+            put({
+                type: UPDATE_BATCH_MIXTURE_RECORDINGS_REQUEST,
+                payload: [...mixtureRecordings],
+            }),
+            put({
+                type: DELETE_BATCH_MIXTURE_RECORDINGS_REQUEST,
+                payload: initial
+                    .filter((mr) => !mixtureRecordingsIds.includes(mr.id))
+                    .map((mr) => mr.id),
+            }),
+        ]);
+        const [success, failedUpdate, failedDelete] = yield race([
+            all([
+                take(UPDATE_BATCH_MIXTURE_RECORDINGS_SUCCESS),
+                take(DELETE_BATCH_MIXTURE_RECORDINGS_SUCCESS),
+            ]),
+            take(UPDATE_BATCH_MIXTURE_RECORDINGS_FAILURE),
+            take(DELETE_BATCH_MIXTURE_RECORDINGS_FAILURE),
         ]);
         if (success) {
+            const data = get(success[0], "payload.data");
             yield put({
-                type: EDIT_BREW_MIXTURE_RECORDINGS_SUCCESS,
+                type: SET_BATCH_MIXTURE_RECORDINGS,
+                payload: {
+                    content: JSON.parse(JSON.stringify(data)),
+                    initial: JSON.parse(JSON.stringify(data)),
+                },
+            });
+            yield put({
+                type: EDIT_BATCH_MIXTURE_RECORDINGS_SUCCESS,
+            });
+        } else if (failedUpdate) {
+            yield put({
+                type: EDIT_BATCH_MIXTURE_RECORDINGS_FAILURE,
+                payload: get(failedUpdate, "payload"),
             });
         } else {
             yield put({
-                type: EDIT_BREW_MIXTURE_RECORDINGS_FAILURE,
-                payload: get(failed, "payload.error"),
+                type: EDIT_BATCH_MIXTURE_RECORDINGS_FAILURE,
+                payload: get(failedDelete, "payload"),
             });
         }
     } catch (e) {
         yield put({
-            type: EDIT_BREW_MIXTURE_RECORDINGS_FAILURE,
+            type: EDIT_BATCH_MIXTURE_RECORDINGS_FAILURE,
             payload: {
                 error: e.error,
                 message: e.message,
                 color: "warning",
+            },
+        });
+    }
+}
+
+function* updateMixtureRecordingsGenerator(action) {
+    try {
+        const res = yield call(
+            api.updateMixtureRecordings,
+            get(action, "payload")
+        );
+        yield put({
+            type: UPDATE_BATCH_MIXTURE_RECORDINGS_SUCCESS,
+            payload: { ...res },
+        });
+    } catch (e) {
+        yield put({
+            type: UPDATE_BATCH_MIXTURE_RECORDINGS_FAILURE,
+            payload: {
+                error: e.error,
+                message: e.message,
+                color: "danger",
             },
         });
     }
@@ -79,35 +141,21 @@ function* editBrewMixtureRecordingsGenerator(action) {
 
 function* deleteMixtureRecordingsGenerator(action) {
     try {
-        const batch = yield select((state) => state.Batch.Batch.data);
-        yield call(api.deleteMixtureRecording, get(action, "payload.form"));
+        const res = yield call(
+            api.deleteMixtureRecordings,
+            get(action, "payload")
+        );
         yield put({
-            type: FETCH_BREW_MIXTURE_RECORDINGS_REQUEST,
-            payload: {
-                id: batch.id,
-            },
+            type: DELETE_BATCH_MIXTURE_RECORDINGS_SUCCESS,
+            payload: { ...res },
         });
-        const [success, failed] = yield race([
-            take(FETCH_BREW_MIXTURE_RECORDINGS_SUCCESS),
-            take(FETCH_BREW_MIXTURE_RECORDINGS_FAILURE),
-        ]);
-        if (success) {
-            yield put({
-                type: DELETE_BREW_MIXTURE_RECORDINGS_SUCCESS,
-            });
-        } else {
-            yield put({
-                type: DELETE_BREW_MIXTURE_RECORDINGS_FAILURE,
-                payload: get(failed, "payload.error"),
-            });
-        }
     } catch (e) {
         yield put({
-            type: DELETE_BREW_MIXTURE_RECORDINGS_FAILURE,
+            type: DELETE_BATCH_MIXTURE_RECORDINGS_FAILURE,
             payload: {
                 error: e.error,
                 message: e.message,
-                color: "warning",
+                color: "danger",
             },
         });
     }
@@ -115,15 +163,19 @@ function* deleteMixtureRecordingsGenerator(action) {
 
 function* MixtureRecording() {
     yield takeEvery(
-        FETCH_BREW_MIXTURE_RECORDINGS_REQUEST,
+        FETCH_BATCH_MIXTURE_RECORDINGS_REQUEST,
         fetchMixtureRecordingsGenerator
     );
     yield takeEvery(
-        EDIT_BREW_MIXTURE_RECORDINGS_REQUEST,
-        editBrewMixtureRecordingsGenerator
+        EDIT_BATCH_MIXTURE_RECORDINGS,
+        editMixtureRecordingsGenerator
     );
     yield takeEvery(
-        DELETE_BREW_MIXTURE_RECORDINGS_REQUEST,
+        UPDATE_BATCH_MIXTURE_RECORDINGS_REQUEST,
+        updateMixtureRecordingsGenerator
+    );
+    yield takeEvery(
+        DELETE_BATCH_MIXTURE_RECORDINGS_REQUEST,
         deleteMixtureRecordingsGenerator
     );
 }
