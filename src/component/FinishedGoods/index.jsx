@@ -1,47 +1,25 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { isNotEmptyArray, validDate } from "../../helpers/utils";
+import { useDispatch } from "react-redux";
 import {
-    fetchFinishedGoodById,
     fetchAllSkus,
     fetchAllBatches,
     fetchMixtures,
     fetchFinishedGoodsInventory,
     fetchMaterialStockQuantity,
-    resetFinishedGoodDetails,
-    setFinishedGoodInvalidSku,
-    setFinishedGoodInvalidMixturePortions,
-    setFinishedGoodInvalidMaterialPortions,
-    setFinishedGoodInvalidPackagedOn,
-    setFinishedGoodInvalidQuantity,
 } from "../../store/actions";
 import Modal from "./modal";
 
 export default function FinishedGoodModal({
-    finishedGoodId,
+    finishedGood,
+    setFinishedGood,
     show,
     handleClose,
     handleSave,
 }) {
     const dispatch = useDispatch();
 
-    const finishedGood = useSelector((state) => {
-        return state.FinishedGood.data;
-    });
-
-    const initialFinishedGood = useSelector((state) => {
-        return state.FinishedGood.initialFinishedGood;
-    });
-
     useEffect(() => {
-        dispatch(resetFinishedGoodDetails());
-
-        if (!finishedGoodId || finishedGoodId === "new") {
-            //do nothing
-        } else {
-            dispatch(fetchFinishedGoodById(finishedGoodId));
-        }
-        if (finishedGoodId) {
+        if (finishedGood?.id) {
             dispatch(
                 fetchMixtures({
                     brewIds:
@@ -57,99 +35,20 @@ export default function FinishedGoodModal({
         dispatch(fetchFinishedGoodsInventory());
         dispatch(fetchMaterialStockQuantity());
         dispatch(fetchAllBatches());
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [finishedGoodId]);
+    }, [finishedGood?.id]);
 
-    function isChanged() {
-        return (
-            JSON.stringify(
-                (({
-                    id,
-                    sku,
-                    mixturePortions,
-                    materialPortions,
-                    finishedGoodLotPortions,
-                    quantity,
-                    packagedOn,
-                }) => ({
-                    id,
-                    sku,
-                    mixturePortions,
-                    materialPortions,
-                    finishedGoodLotPortions,
-                    quantity,
-                    packagedOn,
-                }))(initialFinishedGood)
-            ) !==
-            JSON.stringify(
-                (({
-                    id,
-                    sku,
-                    mixturePortions,
-                    materialPortions,
-                    finishedGoodLotPortions,
-                    quantity,
-                    packagedOn,
-                }) => ({
-                    id,
-                    sku,
-                    mixturePortions,
-                    materialPortions,
-                    finishedGoodLotPortions,
-                    quantity,
-                    packagedOn,
-                }))(finishedGood)
-            )
-        );
-    }
-
-    function validateFinishedGoodInputs(finishedGood) {
-        let result = true;
-
-        if (!finishedGood.sku) {
-            dispatch(setFinishedGoodInvalidSku(true));
-            result = false;
-        }
-        if (
-            !finishedGood.mixturePortions ||
-            !isNotEmptyArray(finishedGood.mixturePortions)
-        ) {
-            dispatch(setFinishedGoodInvalidMixturePortions(true));
-            result = false;
-        }
-        if (
-            !finishedGood.materialPortions ||
-            !isNotEmptyArray(finishedGood.materialPortions)
-        ) {
-            dispatch(setFinishedGoodInvalidMaterialPortions(true));
-            result = false;
-        }
-        if (!finishedGood.quantity) {
-            dispatch(setFinishedGoodInvalidQuantity(true));
-            result = false;
-        }
-        if (!validDate(finishedGood.packagedOn)) {
-            dispatch(setFinishedGoodInvalidPackagedOn(true));
-            result = false;
-        }
-
-        return result;
-    }
-
-    function onSave() {
-        if (!validateFinishedGoodInputs(finishedGood) || !isChanged()) {
-            return;
-        }
+    function onSave(finishedGood) {
         handleSave(finishedGood);
     }
 
     function onClose() {
-        dispatch(resetFinishedGoodDetails());
         handleClose();
     }
 
     const props = {
+        finishedGood,
+        setFinishedGood,
         show,
         editable: true,
         repackage: false,

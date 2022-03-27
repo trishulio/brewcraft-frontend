@@ -4,6 +4,8 @@ import { Modal, ModalBody, ModalFooter } from "../Common/modal";
 import FinishedGoodDetails from "./components/details";
 
 export default function FinishedGoodModal({
+    finishedGood,
+    setFinishedGood,
     show,
     editable,
     repackage,
@@ -19,6 +21,8 @@ export default function FinishedGoodModal({
         >
             <ModalBody>
                 <FinishedGoodDetails
+                    finishedGood={finishedGood}
+                    setFinishedGood={setFinishedGood}
                     editable={editable}
                     repackage={repackage}
                 ></FinishedGoodDetails>

@@ -1,35 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import { Row, Col, FormGroup, FormFeedback, Input, Label } from "reactstrap";
-import {
-    setFinishedGoodDetails,
-    setFinishedGoodInvalidSku,
-    setFinishedGoodInvalidMixturePortions,
-    setFinishedGoodInvalidPackagedOn,
-    setFinishedGoodInvalidQuantity,
-    fetchMixtures,
-} from "../../../store/actions";
+import { fetchMixtures } from "../../../store/actions";
 import { validDate } from "../../../helpers/utils";
 import PackagingMaterials from "./materials";
 import FinishedGoodLotPortions from "./lot-portions";
 
-export default function FinishedGoodDetails({ editable, repackageMode }) {
-    const {
-        invalidSku,
-        invalidMixturePortions,
-        invalidQuantity,
-        invalidPackagedOn,
-    } = useSelector((state) => {
-        return state.FinishedGood;
-    });
+export default function FinishedGoodDetails({
+    editable,
+    repackageMode,
+    finishedGood,
+    setFinishedGood,
+}) {
+    const [invalidSku, setInvalidSku] = useState(false);
+    const [invalidMixturePortions, setInvalidMixturePortions] = useState(false);
+    const [invalidPackagedOn, setInvalidPackagedOn] = useState(false);
+    const [invalidQuantity, setInvalidQuantity] = useState(false);
+
+    const dispatch = useDispatch();
 
     const skus = useSelector((state) => {
         return state.Skus.all;
-    });
-
-    const finishedGood = useSelector((state) => {
-        return state.FinishedGood.data;
     });
 
     const materialPortions = useSelector((state) => {
@@ -49,25 +41,17 @@ export default function FinishedGoodDetails({ editable, repackageMode }) {
     });
 
     function setMaterialPortions(materialPortions) {
-        dispatch(
-            setFinishedGoodDetails({
-                data: {
-                    ...finishedGood,
-                    materialPortions,
-                },
-            })
-        );
+        setFinishedGood({
+            ...finishedGood,
+            materialPortions,
+        });
     }
 
     function setFinishedGoodLotPortions(finishedGoodLotPortions) {
-        dispatch(
-            setFinishedGoodDetails({
-                data: {
-                    ...finishedGood,
-                    finishedGoodLotPortions,
-                },
-            })
-        );
+        setFinishedGood({
+            ...finishedGood,
+            finishedGoodLotPortions,
+        });
     }
 
     const packagingMaterialsProps = {
@@ -84,19 +68,18 @@ export default function FinishedGoodDetails({ editable, repackageMode }) {
         setFinishedGoodLotPortions,
     };
 
-    const dispatch = useDispatch();
-
     function onFormInputChange(e) {
         switch (e.target.name) {
             case "finishedGoodSku":
                 if (finishedGood.sku?.id !== e.target.value) {
-                    dispatch(setFinishedGoodInvalidSku(!e.target.value));
+                    setInvalidSku(!e.target.value);
                     const sku = skus.find(
                         (s) => s.id === parseInt(e.target.value)
                     );
                     if (e.target.value) {
                         if (!repackageMode) {
-                            //Only set mixturePortion quantity when repackageMode is false.
+                            // Only set mixturePortion quantity when
+                            // repackageMode is false.
                             let mixturePortions =
                                 finishedGood?.mixturePortions?.length > 0
                                     ? JSON.parse(
@@ -115,24 +98,16 @@ export default function FinishedGoodDetails({ editable, repackageMode }) {
                                     mixturePortions[0].quantity.value *
                                     finishedGood.quantity.value;
                             }
-                            dispatch(
-                                setFinishedGoodDetails({
-                                    data: {
-                                        ...finishedGood,
-                                        sku,
-                                        mixturePortions,
-                                    },
-                                })
-                            );
+                            setFinishedGood({
+                                ...finishedGood,
+                                sku,
+                                mixturePortions,
+                            });
                         } else {
-                            dispatch(
-                                setFinishedGoodDetails({
-                                    data: {
-                                        ...finishedGood,
-                                        sku,
-                                    },
-                                })
-                            );
+                            setFinishedGood({
+                                ...finishedGood,
+                                sku,
+                            });
                         }
                     }
                 }
@@ -157,17 +132,11 @@ export default function FinishedGoodDetails({ editable, repackageMode }) {
                     mixturePortions[0].mixture.brewStage.brew.id =
                         newBatchSelected?.id;
 
-                    dispatch(
-                        setFinishedGoodInvalidMixturePortions(!e.target.value)
-                    );
-                    dispatch(
-                        setFinishedGoodDetails({
-                            data: {
-                                ...finishedGood,
-                                mixturePortions,
-                            },
-                        })
-                    );
+                    setInvalidMixturePortions(!e.target.value);
+                    setFinishedGood({
+                        ...finishedGood,
+                        mixturePortions,
+                    });
 
                     if (newBatchSelected && newBatchSelected.id) {
                         dispatch(
@@ -197,22 +166,16 @@ export default function FinishedGoodDetails({ editable, repackageMode }) {
 
                     mixturePortions[0].mixture.id = newMixture.id;
 
-                    dispatch(
-                        setFinishedGoodInvalidMixturePortions(!e.target.value)
-                    );
-                    dispatch(
-                        setFinishedGoodDetails({
-                            data: {
-                                ...finishedGood,
-                                mixturePortions,
-                            },
-                        })
-                    );
+                    setInvalidMixturePortions(!e.target.value);
+                    setFinishedGood({
+                        ...finishedGood,
+                        mixturePortions,
+                    });
                 }
                 break;
             case "finishedGoodQuantity":
                 if (finishedGood.quantity?.value !== e.target.value) {
-                    dispatch(setFinishedGoodInvalidQuantity(!e.target.value));
+                    setInvalidQuantity(!e.target.value);
 
                     if (!repackageMode) {
                         //Only set mixturePortion quantity when repackageMode is false
@@ -233,56 +196,35 @@ export default function FinishedGoodDetails({ editable, repackageMode }) {
                                 finishedGood.sku.quantity.value *
                                 parseInt(e.target.value);
                         }
-                        dispatch(
-                            setFinishedGoodDetails({
-                                data: {
-                                    ...finishedGood,
-                                    quantity: {
-                                        value: e.target.value,
-                                        symbol: "each",
-                                    },
-                                    mixturePortions,
-                                },
-                            })
-                        );
+                        setFinishedGood({
+                            ...finishedGood,
+                            quantity: {
+                                value: e.target.value,
+                                symbol: "each",
+                            },
+                            mixturePortions,
+                        });
                     } else {
-                        dispatch(
-                            setFinishedGoodDetails({
-                                data: {
-                                    ...finishedGood,
-                                    quantity: {
-                                        value: e.target.value,
-                                        symbol: "each",
-                                    },
-                                },
-                            })
-                        );
+                        setFinishedGood({
+                            ...finishedGood,
+                            quantity: {
+                                value: e.target.value,
+                                symbol: "each",
+                            },
+                        });
                     }
                 }
                 break;
             case "finishedGoodPackagedOn":
                 if (finishedGood.packagedOn !== e.target.value) {
-                    dispatch(
-                        setFinishedGoodInvalidPackagedOn(
-                            !validDate(e.target.value)
-                        )
-                    );
-                    dispatch(
-                        setFinishedGoodDetails({
-                            data: {
-                                ...finishedGood,
-                                packagedOn: e.target.value,
-                            },
-                        })
-                    );
+                    setInvalidPackagedOn(!validDate(e.target.value));
+                    setFinishedGood({
+                        ...finishedGood,
+                        packagedOn: e.target.value,
+                    });
                 }
                 break;
             default:
-                dispatch(
-                    setFinishedGoodDetails({
-                        [e.target.name]: e.target.value,
-                    })
-                );
                 break;
         }
     }
