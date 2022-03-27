@@ -27,10 +27,7 @@ import { api } from "./api";
 
 function* fetchBatchFinishedGoodsGenerator(action) {
     try {
-        const res = yield call(
-            api.fetchBatchFinishedGoods,
-            get(action, "payload")
-        );
+        const res = yield call(api.fetchFinishedGoods, get(action, "payload"));
         yield put({
             type: FETCH_BATCH_FINISHED_GOODS_SUCCESS,
             payload: {

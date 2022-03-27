@@ -41,6 +41,7 @@ export default function Batch(props) {
         data: batch,
         initial: initialBatch,
         error,
+        loading,
     } = useSelector((state) => {
         return state.Batch.Batch;
     });
@@ -67,7 +68,7 @@ export default function Batch(props) {
             <Row>
                 <Col xl="8">
                     <Card>
-                        <CardBody className="px-2 px-sm-3">
+                        <CardBody className="px-2 px-sm-3" isLoading={loading}>
                             <div className="mb-3">
                                 <Nav
                                     activeTab={props.activeTab}

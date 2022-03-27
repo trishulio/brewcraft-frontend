@@ -1,32 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
-import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
+import { Button, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
 import { fetchSkus } from "../../../../store/actions";
-import {
-    formatDatetime,
-    prettyVolume,
-    toL,
-} from "../../../../helpers/textUtils";
-import { isValidNumberString } from "../../../../helpers/utils";
-import { setBatchFinishedGoods } from "../../../../store/BatchFinishedGoods/actions";
+import { formatDatetime, prettyVolume } from "../../../../helpers/textUtils";
+import Modal from "../../../../component/FinishedGoods";
 
 export default function FinishedGoods({ mixture }) {
     const [items, setItems] = useState([]);
-    const [sku, setSku] = useState("");
-    const [datetime, setDatetime] = useState("");
-    const [quantity, setQuantity] = useState(0);
-    const [invalidQuantity, setInvalidQuantity] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const dispatch = useDispatch();
 
     const { editable } = useSelector((state) => {
         return state.Batch.Batch;
-    });
-
-    const skus = useSelector((state) => {
-        return state.Skus.content;
     });
 
     const finishedGoods = useSelector((state) => {
@@ -43,6 +31,13 @@ export default function FinishedGoods({ mixture }) {
         );
         // eslint-disable-next-line
     }, []);
+
+    const modalProps = {
+        show: showModal,
+        handleClose: () => {
+            setShowModal(false);
+        },
+    };
 
     return (
         <React.Fragment>
@@ -122,62 +117,16 @@ export default function FinishedGoods({ mixture }) {
                 </tbody>
             </CommonTable>
             <div hidden={!editable}>
-                <FormGroup className="d-block d-sm-inline-block mr-2 mb-0">
-                    <Input
-                        type="select"
-                        className="waves-effect"
-                        style={{ width: "8rem" }}
-                        value={sku.id || ""}
-                        onChange={(e) => {
-                            const sku = skus.find(
-                                (s) => s.id === parseInt(e.target.value)
-                            );
-                            setSku(sku);
-                        }}
-                    >
-                        <option value="">SKU</option>
-                        {map(skus, (value, index) => (
-                            <option value={value.id} key={index}>
-                                {value.name} - {value.description}
-                            </option>
-                        ))}
-                    </Input>
-                    <FormFeedback>Enter a valid sku.</FormFeedback>
-                </FormGroup>
-                <FormGroup className="d-block d-sm-inline-block mr-2 mb-0">
-                    <Input
-                        type="datetime-local"
-                        className="waves-effect"
-                        style={{ width: "8rem" }}
-                        value={datetime}
-                        onChange={(e) => {
-                            setDatetime(e.target.value);
-                        }}
-                    />
-                    <FormFeedback>Enter a valid datetime.</FormFeedback>
-                </FormGroup>
-                <FormGroup className="d-block d-sm-inline-block mr-2 mb-0">
-                    <Input
-                        type="text"
-                        className="waves-effect"
-                        style={{ width: "8" }}
-                        value={quantity || ""}
-                        invalid={invalidQuantity}
-                        onChange={(e) => {
-                            setQuantity(e.target.value);
-                            if (!e.target.value) {
-                                setInvalidQuantity(false);
-                            } else {
-                                setInvalidQuantity(
-                                    !isValidNumberString(e.target.value)
-                                );
-                            }
-                        }}
-                        disabled={!sku.id || !datetime}
-                    />
-                    <FormFeedback>Enter a valid number.</FormFeedback>
-                </FormGroup>
-                {editable && (
+                <Button
+                    size="sm"
+                    className="waves-effect mr-2"
+                    onClick={() => {
+                        setShowModal(true);
+                    }}
+                >
+                    Add Item
+                </Button>
+                {/* {editable && (
                     <Button
                         size="sm"
                         className="waves-effect mr-2"
@@ -269,8 +218,9 @@ export default function FinishedGoods({ mixture }) {
                     >
                         Remove
                     </Button>
-                )}
+                )} */}
             </div>
+            <Modal {...modalProps} />
         </React.Fragment>
     );
 }
