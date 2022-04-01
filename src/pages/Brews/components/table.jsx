@@ -84,9 +84,14 @@ export default function BatchesTable() {
                 {batches.map((batch, key) => (
                     <tr
                         key={key}
-                        onClick={() => history.push("/brews/" + batch.id)}
+                        onClick={() =>
+                            history.push({
+                                pathname: "/brews/" + batch.id,
+                                search: "?edit=true",
+                            })
+                        }
                     >
-                        <td>{batch.batchId}</td>
+                        <td>{batch.id}</td>
                         <td>{batch.product.name}</td>
                         <td>{formatDatetime(batch.startedAt)}</td>
                         <td>

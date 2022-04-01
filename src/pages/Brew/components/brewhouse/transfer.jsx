@@ -6,7 +6,7 @@ import {
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import { addBrewStage } from "../../../../store/actions";
+import { addBatchStage } from "../../../../store/actions";
 import BatchStage from "../common/stage";
 
 export default function BrewTransfer({
@@ -18,10 +18,6 @@ export default function BrewTransfer({
     // const [invalidQuantity, setInvalidQuantity] = useState(false);
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const dispatch = useDispatch();
-
-    const batch = useSelector((state) => {
-        return state.Batch.Batch.data;
-    });
 
     const transferStage = useSelector((state) => {
         return (
@@ -60,19 +56,12 @@ export default function BrewTransfer({
                                 className="text-dark"
                                 onClick={() => {
                                     dispatch(
-                                        addBrewStage({
+                                        addBatchStage({
                                             parentMixtureIds: [
                                                 transferMixture.id,
                                             ],
-                                            form: [
-                                                {
-                                                    brewId: batch.id,
-                                                    taskId: 7, // ferment
-                                                    statusId: 4,
-                                                    startedAt:
-                                                        new Date().toISOString(),
-                                                },
-                                            ],
+                                            taskId: 7, // ferment
+                                            statusId: 4,
                                         })
                                     );
                                 }}

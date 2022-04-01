@@ -11,7 +11,7 @@ import BatchPeople from "./components/people";
 import BatchFileUploads from "./components/uploads";
 import { ErrorMessage } from "../../helpers/textUtils";
 import Nav from "./components/nav";
-import Brew from "./components/brewhouse/brew";
+import Brew from "./components/brewhouse";
 import Cellar from "./components/cellar";
 
 function BrewTab({ indexv, mashMixture }) {

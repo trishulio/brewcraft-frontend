@@ -1,7 +1,7 @@
 import {
     ADD_BATCH_REQUEST,
     ADD_BATCH_FAILURE,
-    EDIT_BATCH_REQUEST,
+    EDIT_BATCH,
     EDIT_BATCH_SUCCESS,
     ADD_BATCH_SUCCESS,
     SET_BATCH_DETAILS,
@@ -12,6 +12,9 @@ import {
     FETCH_BATCH_BY_ID_SUCCESS,
     SET_BATCH_ERROR,
     FETCH_BATCH_FAILURE,
+    CREATE_BATCH_SUCCESS,
+    CREATE_BATCH_FAILURE,
+    ADD_BATCH_STAGE_FAILURE,
 } from "./actionTypes";
 
 const initialState = {
@@ -69,13 +72,13 @@ const Brew = (state = initialState, { type, payload }) => {
             };
         case FETCH_BATCH_BY_ID_REQUEST:
         case ADD_BATCH_REQUEST:
-        case EDIT_BATCH_REQUEST:
+        case EDIT_BATCH:
             return {
                 ...state,
                 loading: true,
             };
         case FETCH_BATCH_BY_ID_SUCCESS:
-        case ADD_BATCH_SUCCESS:
+        case CREATE_BATCH_SUCCESS:
         case EDIT_BATCH_SUCCESS:
             return {
                 ...state,
@@ -83,8 +86,11 @@ const Brew = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: null,
             };
+        case ADD_BATCH_SUCCESS:
         case FETCH_BATCH_FAILURE:
+        case CREATE_BATCH_FAILURE:
         case ADD_BATCH_FAILURE:
+        case ADD_BATCH_STAGE_FAILURE:
         case EDIT_BATCH_FAILURE:
         case SET_BATCH_ERROR:
             return {
@@ -103,7 +109,7 @@ const Brew = (state = initialState, { type, payload }) => {
                     ...initialState.initial,
                 },
                 loading: false,
-                // error: null,
+                error: null,
             };
         default:
             return {

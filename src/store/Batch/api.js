@@ -1,23 +1,11 @@
 import AxiosInstance from "../../helpers/axiosInstance";
 
-async function fetchBatchById({ batchId }) {
-    return await AxiosInstance.get(`/api/v1/brews/${batchId}`).then((r) => r);
+async function fetchBatch({ batchId }) {
+    return await AxiosInstance.get(`/api/v1/brews/${batchId}`);
 }
 
-async function addBatch(payload) {
-    return await AxiosInstance.post("/api/v1/brews", payload).then((r) => r);
-}
-
-async function addBrewStage(payload) {
-    return await AxiosInstance.post("/api/v1/brews/stages", payload).then(
-        (r) => r
-    );
-}
-
-async function addMixture(params) {
-    return await AxiosInstance.post("/api/v1/brews/mixtures", params).then(
-        (r) => r
-    );
+async function createBatch(payload) {
+    return await AxiosInstance.post("/api/v1/brews", payload);
 }
 
 async function updateBatch(id, payload) {
@@ -31,10 +19,8 @@ async function deleteBatch(id) {
 }
 
 export const api = {
-    fetchBatchById,
-    addBatch,
-    addBrewStage,
-    addMixture,
+    fetchBatch,
+    createBatch,
     updateBatch,
     deleteBatch,
 };

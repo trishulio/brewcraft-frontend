@@ -16,21 +16,15 @@ async function fetchFinishedGoods(params = {}) {
             order_asc: true,
         },
     };
-    return await AxiosInstance.get("/api/v1/finished-goods", data).then(
-        (r) => r
-    );
+    return await AxiosInstance.get("/api/v1/finished-goods", data);
 }
 
 async function postFinishedGoods(data) {
-    return await AxiosInstance.post("/api/v1/finished-goods", data).then(
-        (r) => r
-    );
+    return await AxiosInstance.post("/api/v1/finished-goods", data);
 }
 
 async function updateFinishedGoods(data) {
-    return await AxiosInstance.put("/api/v1/finished-goods", data).then(
-        (r) => r
-    );
+    return await AxiosInstance.put("/api/v1/finished-goods", data);
 }
 
 async function deleteFinishedGoods(ids) {
@@ -38,7 +32,7 @@ async function deleteFinishedGoods(ids) {
         params: {
             ids: ids.toString(),
         },
-    }).then((r) => r);
+    });
 }
 
 export const api = {

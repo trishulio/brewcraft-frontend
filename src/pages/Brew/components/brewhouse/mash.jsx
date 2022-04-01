@@ -6,7 +6,7 @@ import {
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import { addBrewStage, deleteBrewStage } from "../../../../store/actions";
+import { addBatchStage, deleteBrewStage } from "../../../../store/actions";
 import Ingredients from "../common/ingredients";
 import BatchStage from "../common/stage";
 import Recordings from "../common/mixture-recordings";
@@ -19,10 +19,6 @@ export default function BrewMash({
 }) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const dispatch = useDispatch();
-
-    const { data: batch } = useSelector((state) => {
-        return state.Batch.Batch;
-    });
 
     const mashStage = useSelector((state) => {
         return state.Batch.Stages.content.find(
@@ -69,19 +65,12 @@ export default function BrewMash({
                                     className="text-dark"
                                     onClick={() => {
                                         dispatch(
-                                            addBrewStage({
+                                            addBatchStage({
                                                 parentMixtureIds: [
                                                     mashMixture.id,
                                                 ],
-                                                form: [
-                                                    {
-                                                        brewId: batch.id,
-                                                        taskId: 2,
-                                                        statusId: 4,
-                                                        startedAt:
-                                                            new Date().toISOString(),
-                                                    },
-                                                ],
+                                                taskId: 2,
+                                                statusId: 4,
                                             })
                                         );
                                     }}

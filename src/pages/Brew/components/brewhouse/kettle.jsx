@@ -6,7 +6,7 @@ import {
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import { addBrewStage, deleteBrewStage } from "../../../../store/actions";
+import { addBatchStage, deleteBrewStage } from "../../../../store/actions";
 import Ingredients from "../common/ingredients";
 import BatchStage from "../common/stage";
 
@@ -19,10 +19,6 @@ export default function BrewKettle({
 }) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const dispatch = useDispatch();
-
-    const { data: batch } = useSelector((state) => {
-        return state.Batch.Batch;
-    });
 
     const ingredientsProps = {
         mixture: kettleMixture,
@@ -90,19 +86,12 @@ export default function BrewKettle({
                                     className="text-dark"
                                     onClick={() => {
                                         dispatch(
-                                            addBrewStage({
+                                            addBatchStage({
                                                 parentMixtureIds: [
                                                     kettleMixture.id,
                                                 ],
-                                                form: [
-                                                    {
-                                                        brewId: batch.id,
-                                                        taskId: 3,
-                                                        statusId: 4,
-                                                        startedAt:
-                                                            new Date().toISOString(),
-                                                    },
-                                                ],
+                                                taskId: 3,
+                                                statusId: 4,
                                             })
                                         );
                                     }}
@@ -119,19 +108,12 @@ export default function BrewKettle({
                                     className="text-dark"
                                     onClick={() => {
                                         dispatch(
-                                            addBrewStage({
+                                            addBatchStage({
                                                 parentMixtureIds: [
                                                     kettleMixture.id,
                                                 ],
-                                                form: [
-                                                    {
-                                                        brewId: batch.id,
-                                                        taskId: 6, // transfer
-                                                        statusId: 4,
-                                                        startedAt:
-                                                            new Date().toISOString(),
-                                                    },
-                                                ],
+                                                taskId: 6, // transfer
+                                                statusId: 4,
                                             })
                                         );
                                     }}

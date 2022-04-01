@@ -13,12 +13,25 @@ async function fetchMixtures(params) {
     return await AxiosInstance.get("/api/v1/brews/mixtures", data);
 }
 
-async function addMixture(params) {
+async function createMixture(params) {
     return await AxiosInstance.post("/api/v1/brews/mixtures", params);
 }
 
-async function updateMixture(id, payload) {
-    return await AxiosInstance.patch(`/api/v1/brews/mixtures/${id}`, payload);
+async function updateMixture({
+    id,
+    parentMixtureIds,
+    quantity,
+    equipment,
+    brewStage,
+    version,
+}) {
+    return await AxiosInstance.patch(`/api/v1/brews/mixtures/${id}`, {
+        parentMixtureIds,
+        quantity,
+        equipmentId: equipment?.id,
+        brewStageId: brewStage.id,
+        version,
+    });
 }
 
 async function deleteMixture(id) {
@@ -27,7 +40,7 @@ async function deleteMixture(id) {
 
 export const api = {
     fetchMixtures,
-    addMixture,
+    createMixture,
     updateMixture,
     deleteMixture,
 };
