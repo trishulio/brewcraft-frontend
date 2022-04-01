@@ -8,10 +8,11 @@ import PackagingMaterials from "./materials";
 import FinishedGoodLotPortions from "./lot-portions";
 
 export default function FinishedGoodDetails({
-    editable,
-    repackageMode,
     finishedGood,
     setFinishedGood,
+    showBatch,
+    editable,
+    repackageMode,
 }) {
     const [invalidSku, setInvalidSku] = useState(false);
     const [invalidMixturePortions, setInvalidMixturePortions] = useState(false);
@@ -22,14 +23,6 @@ export default function FinishedGoodDetails({
 
     const skus = useSelector((state) => {
         return state.Skus.all;
-    });
-
-    const materialPortions = useSelector((state) => {
-        return state.FinishedGood.data.materialPortions;
-    });
-
-    const finishedGoodLotPortions = useSelector((state) => {
-        return state.FinishedGood.data.finishedGoodLotPortions;
     });
 
     const batches = useSelector((state) => {
@@ -57,14 +50,14 @@ export default function FinishedGoodDetails({
     const packagingMaterialsProps = {
         label: "Packaging Materials",
         editable,
-        materialPortions,
+        materialPortions: finishedGood.materialPortions,
         setMaterialPortions,
     };
 
     const finishedGoodLotPortionsProps = {
         label: "Finished Good Lots",
         editable,
-        finishedGoodLotPortions,
+        finishedGoodLotPortions: finishedGood.finishedGoodLotPortions,
         setFinishedGoodLotPortions,
     };
 
@@ -176,7 +169,6 @@ export default function FinishedGoodDetails({
             case "finishedGoodQuantity":
                 if (finishedGood.quantity?.value !== e.target.value) {
                     setInvalidQuantity(!e.target.value);
-
                     if (!repackageMode) {
                         //Only set mixturePortion quantity when repackageMode is false
                         let mixturePortions;
@@ -281,6 +273,7 @@ export default function FinishedGoodDetails({
 
     return (
         <React.Fragment>
+            {console.log(finishedGood)}
             <Row>
                 <Col xs="2">
                     <Label for="name" className="mb-3">
@@ -324,76 +317,80 @@ export default function FinishedGoodDetails({
                     <div className="clearFix"></div>
                 </Col>
             </Row>
-            <Row hidden={repackageMode}>
-                <Col xs="2">
-                    <Label for="name" className="mb-3">
-                        Batch
-                    </Label>
-                </Col>
-                <Col xs={8}>
-                    <FormGroup
-                        className="d-inline-block font-size-12 pr-1"
-                        hidden={!editable}
-                    >
-                        <Input
-                            type="select"
-                            className="waves-effect"
-                            name="finishedGoodMixtureBatchId"
-                            style={{ width: "8rem" }}
-                            disabled={!editable}
-                            value={getBrew(finishedGood)?.id || ""}
-                            onChange={(e) => {
-                                onFormInputChange(e);
-                            }}
+            {showBatch && (
+                <Row hidden={repackageMode}>
+                    <Col xs="2">
+                        <Label for="name" className="mb-3">
+                            Batch
+                        </Label>
+                    </Col>
+                    <Col xs={8}>
+                        <FormGroup
+                            className="d-inline-block font-size-12 pr-1"
                             hidden={!editable}
-                            invalid={invalidMixturePortions}
                         >
-                            <option value="">Select Id</option>
-                            {map(batches, (value, index) => (
-                                <option value={value.id} key={index}>
-                                    {value.batchId}
-                                </option>
-                            ))}
-                        </Input>
-                        <FormFeedback>Enter a valid batch id.</FormFeedback>
-                    </FormGroup>
-                    <FormGroup
-                        className="d-inline-block font-size-12 mb-2"
-                        hidden={!editable}
-                    >
-                        <Input
-                            type="select"
-                            className="waves-effect"
-                            name="finishedGoodMixtureId"
-                            style={{ width: "8rem" }}
-                            disabled={!editable}
-                            value={getMixture(finishedGood)?.id || ""}
-                            onChange={(e) => {
-                                onFormInputChange(e);
-                            }}
+                            <Input
+                                type="select"
+                                className="waves-effect"
+                                name="finishedGoodMixtureBatchId"
+                                style={{ width: "8rem" }}
+                                disabled={!editable}
+                                value={getBrew(finishedGood)?.id || ""}
+                                onChange={(e) => {
+                                    onFormInputChange(e);
+                                }}
+                                hidden={!editable}
+                                invalid={invalidMixturePortions}
+                            >
+                                <option value="">Select Id</option>
+                                {map(batches, (value, index) => (
+                                    <option value={value.id} key={index}>
+                                        Batch {value.id}
+                                    </option>
+                                ))}
+                            </Input>
+                            <FormFeedback>Enter a valid batch id.</FormFeedback>
+                        </FormGroup>
+                        <FormGroup
+                            className="d-inline-block font-size-12 mb-2"
                             hidden={!editable}
-                            invalid={invalidMixturePortions}
                         >
-                            <option value="">Select Stage</option>
-                            {map(mixtures, (value, index) => (
-                                <option value={value.id} key={index}>
-                                    {value.brewStage.task.name}
-                                </option>
-                            ))}
-                        </Input>
-                        <FormFeedback>Enter a valid batch stage.</FormFeedback>
-                    </FormGroup>
-                    <div className="d-inline-block font-size-12 mb-2">
-                        <div hidden={editable}>
-                            {getBrew(finishedGood)?.batchId || "-"} (
-                            {getMixture(finishedGood)?.brewStage?.task?.name ||
-                                "-"}
-                            )
+                            <Input
+                                type="select"
+                                className="waves-effect"
+                                name="finishedGoodMixtureId"
+                                style={{ width: "8rem" }}
+                                disabled={!editable}
+                                value={getMixture(finishedGood)?.id || ""}
+                                onChange={(e) => {
+                                    onFormInputChange(e);
+                                }}
+                                hidden={!editable}
+                                invalid={invalidMixturePortions}
+                            >
+                                <option value="">Select Stage</option>
+                                {map(mixtures, (value, index) => (
+                                    <option value={value.id} key={index}>
+                                        {value.brewStage.task.name}
+                                    </option>
+                                ))}
+                            </Input>
+                            <FormFeedback>
+                                Enter a valid batch stage.
+                            </FormFeedback>
+                        </FormGroup>
+                        <div className="d-inline-block font-size-12 mb-2">
+                            <div hidden={editable}>
+                                {getBrew(finishedGood)?.batchId || "-"} (
+                                {getMixture(finishedGood)?.brewStage?.task
+                                    ?.name || "-"}
+                                )
+                            </div>
                         </div>
-                    </div>
-                    <div className="clearFix"></div>
-                </Col>
-            </Row>
+                        <div className="clearFix"></div>
+                    </Col>
+                </Row>
+            )}
             <Row>
                 <Col xs={2}>
                     <Label
@@ -444,21 +441,23 @@ export default function FinishedGoodDetails({
                     <div className="clearFix"></div>
                 </Col>
             </Row>
-            <Row hidden={!repackageMode}>
-                <Col xs={12}>
-                    <div className="clearfix mb-3">
-                        <FinishedGoodLotPortions
-                            {...finishedGoodLotPortionsProps}
-                        />
-                    </div>
-                    <div className="d-inline-block font-size-12 mb-2">
-                        <div hidden={editable}>
-                            {finishedGood.sku ? finishedGood.sku.name : "-"}
+            {repackageMode && (
+                <Row>
+                    <Col xs={12}>
+                        <div className="clearfix mb-3">
+                            <FinishedGoodLotPortions
+                                {...finishedGoodLotPortionsProps}
+                            />
                         </div>
-                    </div>
-                    <div className="clearFix"></div>
-                </Col>
-            </Row>
+                        <div className="d-inline-block font-size-12 mb-2">
+                            <div hidden={editable}>
+                                {finishedGood.sku ? finishedGood.sku.name : "-"}
+                            </div>
+                        </div>
+                        <div className="clearFix"></div>
+                    </Col>
+                </Row>
+            )}
             <Row>
                 <Col xs="2">
                     <Label for="finishedGoodQuantity" className="mb-3">

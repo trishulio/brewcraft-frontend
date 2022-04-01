@@ -31,10 +31,14 @@ export function ActiveStageWidget() {
 
     return (
         <span className="waves-effect font-size-16">
-            <span className="mr-1">
-                {stage.task.name && prettyBrewTaskName(stage.task.name)}
-            </span>
-            <Badge className="waves-effect d-inline" stage={stage} />
+            {stage?.task.name && (
+                <span className="mr-1">
+                    {prettyBrewTaskName(stage.task.name)}
+                </span>
+            )}
+            {stage?.task.name && (
+                <Badge className="waves-effect d-inline" stage={stage} />
+            )}
         </span>
     );
 }

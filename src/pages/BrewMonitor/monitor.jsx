@@ -31,17 +31,11 @@ export default function BatchMetadata({
     });
 
     const ingredients = useSelector((state) => {
-        return [
-            ...state.Batch.MashMaterialPortion.content,
-            ...state.Batch.KettleMaterialPortion.content,
-            ...state.Batch.FermentMaterialPortion.content,
-            // ...state.Batch.ConditionMaterialPortion.content,
-            // ...state.Batch.BriteTanksMaterialPortion.content,
-        ];
+        return state.Batch.MaterialPortions.content;
     });
 
     const finishedGoods = useSelector((state) => {
-        return state.Batch.FermentFinishedGoods.content;
+        return state.Batch.BatchFinishedGoods.content;
     });
 
     const props = {

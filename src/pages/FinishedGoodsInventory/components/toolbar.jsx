@@ -206,6 +206,7 @@ export default function FinishedGoodsInventoryToolbar() {
     const modalProps = {
         finishedGood,
         setFinishedGood,
+        showBatch: true,
         show: show,
         handleClose,
         handleSave: () => {

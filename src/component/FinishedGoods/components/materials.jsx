@@ -21,14 +21,12 @@ export default function FinishedGoodMaterials({
     setMaterialPortions,
 }) {
     const [invalidQuantity, setInvalidQuantity] = useState(false);
+    // const [invalidMaterialPortions, setInvalidMaterialPortions] =
+    //     useState(false);
     const [lots, setLots] = useState([]);
     const [selectedLot, setSelectedLot] = useState("");
     const [selectedLotQuantity, setSelectedLotQuantity] = useState(0);
     const dispatch = useDispatch();
-
-    const { invalidMaterialPortions } = useSelector((state) => {
-        return state.FinishedGood;
-    });
 
     const materialLots = useSelector((state) => {
         return state.MaterialLots.stock;
@@ -42,7 +40,7 @@ export default function FinishedGoodMaterials({
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Ingredient</th>
+                            <th>Material</th>
                             <th>Category</th>
                             <th>Lot Number</th>
                             <th>Quantity</th>
@@ -50,66 +48,69 @@ export default function FinishedGoodMaterials({
                         </tr>
                     </thead>
                     <tbody>
-                        {!materialPortions.length && (
-                            <tr>
-                                <td></td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                        )}
-                        {map(materialPortions, (portion, index) => (
-                            <tr key={index}>
-                                <td style={{ width: "2rem" }}>
-                                    <div className="d-flex align-items-center vertical-center">
-                                        {editable && (
-                                            <Input
-                                                className="ml-1"
-                                                type="checkbox"
-                                                disabled={!editable}
-                                                onChange={(e) => {
-                                                    if (e.target.checked) {
-                                                        setLots([
-                                                            ...lots,
-                                                            index,
-                                                        ]);
-                                                    } else {
-                                                        setLots(
-                                                            lots.filter(
-                                                                (l) =>
-                                                                    l !== index
-                                                            )
-                                                        );
+                        {!materialPortions ||
+                            (!materialPortions.length && (
+                                <tr>
+                                    <td></td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                </tr>
+                            ))}
+                        {materialPortions &&
+                            map(materialPortions, (portion, index) => (
+                                <tr key={index}>
+                                    <td style={{ width: "2rem" }}>
+                                        <div className="d-flex align-items-center vertical-center">
+                                            {editable && (
+                                                <Input
+                                                    className="ml-1"
+                                                    type="checkbox"
+                                                    disabled={!editable}
+                                                    onChange={(e) => {
+                                                        if (e.target.checked) {
+                                                            setLots([
+                                                                ...lots,
+                                                                index,
+                                                            ]);
+                                                        } else {
+                                                            setLots(
+                                                                lots.filter(
+                                                                    (l) =>
+                                                                        l !==
+                                                                        index
+                                                                )
+                                                            );
+                                                        }
+                                                    }}
+                                                    checked={
+                                                        lots.includes(index) &&
+                                                        editable
                                                     }
-                                                }}
-                                                checked={
-                                                    lots.includes(index) &&
-                                                    editable
-                                                }
-                                            />
-                                        )}
-                                    </div>
-                                </td>
-                                <td>
-                                    {
-                                        portion.materialLot.invoiceItem.material
-                                            .name
-                                    }
-                                </td>
-                                <td>
-                                    {
-                                        portion.materialLot.invoiceItem.material
-                                            .category?.name
-                                    }
-                                </td>
-                                <td>{portion.materialLot.lotNumber}</td>
-                                <td>
-                                    {portion.quantity.value}{" "}
-                                    {portion.quantity.symbol}
-                                </td>
-                            </tr>
-                        ))}
+                                                />
+                                            )}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {
+                                            portion.materialLot.invoiceItem
+                                                .material.name
+                                        }
+                                    </td>
+                                    <td>
+                                        {
+                                            portion.materialLot.invoiceItem
+                                                .material.category?.name
+                                        }
+                                    </td>
+                                    <td>{portion.materialLot.lotNumber}</td>
+                                    <td>
+                                        {portion.quantity.value}{" "}
+                                        {portion.quantity.symbol}
+                                    </td>
+                                </tr>
+                            ))}
                     </tbody>
                 </CommonTable>
             </div>
@@ -122,7 +123,7 @@ export default function FinishedGoodMaterials({
                                 className="waves-effect"
                                 style={{ width: "14rem" }}
                                 value={selectedLot.materialLot?.id || ""}
-                                invalid={invalidMaterialPortions}
+                                // invalid={invalidMaterialPortions}
                                 onChange={(e) => {
                                     const materialLot = materialLots.find(
                                         (s) => {
@@ -132,7 +133,10 @@ export default function FinishedGoodMaterials({
                                             );
                                         }
                                     );
-                                    if (materialPortions.length < 1) {
+                                    if (
+                                        !materialPortions ||
+                                        materialPortions.length < 1
+                                    ) {
                                         dispatch(
                                             setFinishedGoodInvalidMaterialPortions(
                                                 !e.target.value
@@ -189,12 +193,14 @@ export default function FinishedGoodMaterials({
                                 size="sm"
                                 className="waves-effect mr-2 mb-0"
                                 onClick={() => {
-                                    const materialPortion =
-                                        materialPortions.find(
+                                    let materialPortion;
+                                    if (materialPortions?.length) {
+                                        materialPortion = materialPortions.find(
                                             (mp) =>
                                                 mp.materialLot.id ===
                                                 selectedLot.materialLot.id
                                         );
+                                    }
                                     if (materialPortion) {
                                         materialPortion.quantity.value +=
                                             parseFloat(selectedLotQuantity);

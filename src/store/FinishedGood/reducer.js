@@ -23,7 +23,10 @@ const initialState = {
         mixturePortions: [],
         materialPortions: [],
         finishedGoodLotPortions: [],
-        quantity: null,
+        quantity: {
+            symbol: "",
+            value: null,
+        },
         packagedOn: null,
         version: null,
     },
@@ -39,7 +42,10 @@ const initialState = {
         mixturePortions: [],
         materialPortions: [],
         finishedGoodLotPortions: [],
-        quantity: null,
+        quantity: {
+            symbol: "",
+            value: null,
+        },
         packagedOn: null,
         version: null,
     },

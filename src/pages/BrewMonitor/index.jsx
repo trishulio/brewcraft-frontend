@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
-    fetchBrewStages,
-    fetchBatches,
     setBreadcrumbItems,
     fetchBatch,
+    fetchMiniCardBrewsMixtures,
+    fetchMiniCardFinishedGoods,
 } from "../../store/actions";
 import BrewMonitorInner from "./monitor";
 
@@ -18,10 +18,9 @@ export default function BrewMonitor() {
     });
 
     useEffect(() => {
-        dispatch(fetchBrewStages(id));
-        dispatch(fetchBatches({ pageSize: 5000 }));
+        dispatch(fetchBatch({ batchId: id }));
         dispatch(
-            setBreadcrumbItems(batch.batchId, [
+            setBreadcrumbItems(batch.id, [
                 { title: "Main", link: "#" },
                 { title: "Brews", link: "#" },
             ])
@@ -30,21 +29,29 @@ export default function BrewMonitor() {
     }, [batch, id]);
 
     const originalGravity = useSelector((state) => {
-        const record = state.Batch.TransferMixtureRecordings.content.find(
-            (r) => r.measure.name === "gravity"
+        const record = state.Batch.MixtureRecordings.content.find(
+            (mr) =>
+                mr.measure.name === "gravity" &&
+                mr.mixture.brewStage.brew.id === id
         );
         return record ? record.value : 0;
     });
 
     const gravityRecords = useSelector((state) => {
-        return state.Batch.FermentMixtureRecordings.content.filter(
-            (r) => r.measure.name === "gravity"
+        return state.Batch.MixtureRecordings.content.filter(
+            (mr) =>
+                mr.measure.name === "gravity" &&
+                mr.mixture.brewStage.brew.id === id
         );
     });
 
     const abvRecords = useSelector((state) => {
-        return state.Batch.FermentMixtureRecordings.content
-            .filter((r) => r.measure.name === "gravity")
+        return state.Batch.MixtureRecordings.content
+            .filter(
+                (mr) =>
+                    mr.measure.name === "gravity" &&
+                    mr.mixture.brewStage.brew.id === id
+            )
             .map((r) => ({
                 ...r,
                 value: Math.ceil((originalGravity - r.value) * 131.25),
@@ -52,19 +59,34 @@ export default function BrewMonitor() {
     });
 
     const temperatureRecords = useSelector((state) => {
-        return state.Batch.FermentMixtureRecordings.content.filter(
-            (r) => r.measure.name === "temperature"
+        return state.Batch.MixtureRecordings.content.filter(
+            (mr) =>
+                mr.measure.name === "temperature" &&
+                mr.mixture.brewStage.brew.id === id
         );
     });
 
     const phRecords = useSelector((state) => {
-        return state.Batch.FermentMixtureRecordings.content.filter(
-            (r) => r.measure.name === "ph"
+        return state.Batch.MixtureRecordings.content.filter(
+            (mr) =>
+                mr.measure.name === "ph" && mr.mixture.brewStage.brew.id === id
         );
     });
 
     useEffect(() => {
         dispatch(fetchBatch({ batchId: id }));
+        dispatch(
+            fetchMiniCardBrewsMixtures({
+                brewIds: [batch.id],
+                stageStatusIds: [2, 6], // complete, skipped
+                stageTaskIds: [3],
+            })
+        );
+        dispatch(
+            fetchMiniCardFinishedGoods({
+                brewIds: [batch.id],
+            })
+        );
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 

@@ -6,6 +6,7 @@ import FinishedGoodDetails from "./components/details";
 export default function FinishedGoodModal({
     finishedGood,
     setFinishedGood,
+    showBatch,
     show,
     editable,
     repackage,
@@ -23,6 +24,7 @@ export default function FinishedGoodModal({
                 <FinishedGoodDetails
                     finishedGood={finishedGood}
                     setFinishedGood={setFinishedGood}
+                    showBatch={showBatch}
                     editable={editable}
                     repackage={repackage}
                 ></FinishedGoodDetails>

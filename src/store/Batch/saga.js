@@ -112,9 +112,7 @@ function* fetchBatchGenerator(action) {
             }),
             put({
                 type: FETCH_BATCH_FINISHED_GOODS_REQUEST,
-                payload: {
-                    id: batchId,
-                },
+                payload: { brewIds: batchId },
             }),
         ]);
         const [success] = yield race([

@@ -52,7 +52,7 @@ function* editFinishedGoodsGenerator() {
             yield put({ type: EDIT_BATCH_FINISHED_GOODS_SUCCESS });
             return;
         }
-        const finishedGoodsIds = finishedGoods.map((mr) => mr.id);
+        const finishedGoodsIds = finishedGoods.map((fg) => fg.id);
         yield all([
             put({
                 type: UPDATE_BATCH_FINISHED_GOODS_REQUEST,
