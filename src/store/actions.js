@@ -5,6 +5,7 @@ export * from "./BatchTask/actions";
 export * from "./Breadcrumb/actions";
 export * from "./BrewStages/actions";
 export * from "./Brewery/actions";
+export * from "./Equipment/actions";
 export * from "./FinishedGood/actions";
 export * from "./FinishedGoods/actions";
 export * from "./FinishedGoodsInventory/actions";

@@ -21,7 +21,7 @@ const initialState = {
     pageSize: 20,
 };
 
-const MaterialCategories = (state = initialState, { type, payload, data }) => {
+const Ingredients = (state = initialState, { type, payload, data }) => {
     switch (type) {
         case FETCH_INGREDIENTS_REQUEST:
             return {
@@ -86,4 +86,4 @@ const MaterialCategories = (state = initialState, { type, payload, data }) => {
     }
 };
 
-export default MaterialCategories;
+export default Ingredients;
