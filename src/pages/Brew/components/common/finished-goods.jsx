@@ -1,32 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
-import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
+import { Button, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
 import { fetchSkus } from "../../../../store/actions";
-import {
-    formatDatetime,
-    prettyVolume,
-    toL,
-} from "../../../../helpers/textUtils";
-import { isValidNumberString } from "../../../../helpers/utils";
+import { formatDatetime, prettyVolume } from "../../../../helpers/textUtils";
+import Modal from "../../../../component/FinishedGoods";
 import { setBatchFinishedGoods } from "../../../../store/BatchFinishedGoods/actions";
 
 export default function FinishedGoods({ mixture }) {
+    const initialFinishedGood = {
+        id: "",
+        sku: {
+            name: "",
+            quantity: {
+                symbol: "",
+                value: null,
+            },
+        },
+        mixturePortions: [
+            {
+                mixture,
+            },
+        ],
+        materialPortions: [],
+        finishedGoodLotPortions: [],
+        quantity: {
+            symbol: "",
+            value: null,
+        },
+        packagedOn: null,
+    };
     const [items, setItems] = useState([]);
-    const [sku, setSku] = useState("");
-    const [datetime, setDatetime] = useState("");
-    const [quantity, setQuantity] = useState(0);
-    const [invalidQuantity, setInvalidQuantity] = useState(false);
+    const [finishedGood, setFinishedGood] = useState(initialFinishedGood);
+    const [editFinishedGood, setEditFinishedGood] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const dispatch = useDispatch();
 
     const { editable } = useSelector((state) => {
         return state.Batch.Batch;
-    });
-
-    const skus = useSelector((state) => {
-        return state.Skus.content;
     });
 
     const finishedGoods = useSelector((state) => {
@@ -43,6 +56,54 @@ export default function FinishedGoods({ mixture }) {
         );
         // eslint-disable-next-line
     }, []);
+
+    const modalProps = {
+        finishedGood,
+        setFinishedGood,
+        show: showModal,
+        editable: true,
+        repackage: false,
+        handleClose: () => {
+            setShowModal(false);
+        },
+        handleSave: () => {
+            if (editFinishedGood) {
+                // const mp = finishedGood.mixturePortions.find(
+                //     (mp) => mp.addedAt === finishedGood.datetime
+                // );
+                // mp.quantity.value =
+                //     toL(mp.quantity.value, mp.quantity.symbol) +
+                //     toL(
+                //         finishedGood.sku.quantity.value,
+                //         finishedGood.sku.quantity.symbol
+                //     ) *
+                //         parseFloat(finishedGood.quantity);
+                // finishedGood.quantity.value += parseFloat(quantity);
+                const index = finishedGoods.findIndex((fg) => {
+                    return fg.id === finishedGood.id;
+                });
+                const content = JSON.parse(JSON.stringify(finishedGoods));
+                content[index] = finishedGood;
+                dispatch(
+                    setBatchFinishedGoods({
+                        content,
+                    })
+                );
+            } else {
+                dispatch(
+                    setBatchFinishedGoods({
+                        content: [
+                            ...finishedGoods,
+                            {
+                                ...finishedGood,
+                            },
+                        ],
+                    })
+                );
+            }
+            setShowModal(false);
+        },
+    };
 
     return (
         <React.Fragment>
@@ -69,7 +130,14 @@ export default function FinishedGoods({ mixture }) {
                     )}
                     {finishedGoods &&
                         map(finishedGoods, (finishedGood, index) => (
-                            <tr key={index}>
+                            <tr
+                                key={index}
+                                onClick={() => {
+                                    setFinishedGood(finishedGood);
+                                    setEditFinishedGood(true);
+                                    setShowModal(true);
+                                }}
+                            >
                                 <td style={{ width: "2rem" }}>
                                     <div className="d-flex align-items-center vertical-center">
                                         {editable && (
@@ -121,156 +189,50 @@ export default function FinishedGoods({ mixture }) {
                         ))}
                 </tbody>
             </CommonTable>
-            <div hidden={!editable}>
-                <FormGroup className="d-block d-sm-inline-block mr-2 mb-0">
-                    <Input
-                        type="select"
-                        className="waves-effect"
-                        style={{ width: "8rem" }}
-                        value={sku.id || ""}
-                        onChange={(e) => {
-                            const sku = skus.find(
-                                (s) => s.id === parseInt(e.target.value)
-                            );
-                            setSku(sku);
-                        }}
-                    >
-                        <option value="">SKU</option>
-                        {map(skus, (value, index) => (
-                            <option value={value.id} key={index}>
-                                {value.name} - {value.description}
-                            </option>
-                        ))}
-                    </Input>
-                    <FormFeedback>Enter a valid sku.</FormFeedback>
-                </FormGroup>
-                <FormGroup className="d-block d-sm-inline-block mr-2 mb-0">
-                    <Input
-                        type="datetime-local"
-                        className="waves-effect"
-                        style={{ width: "8rem" }}
-                        value={datetime}
-                        onChange={(e) => {
-                            setDatetime(e.target.value);
-                        }}
-                    />
-                    <FormFeedback>Enter a valid datetime.</FormFeedback>
-                </FormGroup>
-                <FormGroup className="d-block d-sm-inline-block mr-2 mb-0">
-                    <Input
-                        type="text"
-                        className="waves-effect"
-                        style={{ width: "8" }}
-                        value={quantity || ""}
-                        invalid={invalidQuantity}
-                        onChange={(e) => {
-                            setQuantity(e.target.value);
-                            if (!e.target.value) {
-                                setInvalidQuantity(false);
-                            } else {
-                                setInvalidQuantity(
-                                    !isValidNumberString(e.target.value)
-                                );
-                            }
-                        }}
-                        disabled={!sku.id || !datetime}
-                    />
-                    <FormFeedback>Enter a valid number.</FormFeedback>
-                </FormGroup>
-                {editable && (
-                    <Button
-                        size="sm"
-                        className="waves-effect mr-2"
-                        onClick={() => {
-                            const finishedGood = finishedGoods.find((fg) => {
-                                return (
-                                    fg.sku.id === sku.id &&
-                                    fg.mixturePortions.find(
-                                        (mp) => mp.addedAt === datetime
-                                    )
-                                );
-                            });
-                            if (finishedGood) {
-                                const mp = finishedGood.mixturePortions.find(
-                                    (mp) => mp.addedAt === datetime
-                                );
-                                mp.quantity.value =
-                                    toL(mp.quantity.value, mp.quantity.symbol) +
-                                    toL(
-                                        sku.quantity.value,
-                                        sku.quantity.symbol
-                                    ) *
-                                        parseFloat(quantity);
-                                finishedGood.quantity.value +=
-                                    parseFloat(quantity);
-                                dispatch(
-                                    setBatchFinishedGoods({
-                                        content: finishedGoods,
-                                    })
-                                );
-                            } else {
-                                dispatch(
-                                    setBatchFinishedGoods({
-                                        content: [
-                                            ...finishedGoods,
-                                            {
-                                                sku,
-                                                mixturePortions: [
-                                                    {
-                                                        mixture,
-                                                        quantity: {
-                                                            value: toL(
-                                                                sku.quantity
-                                                                    .value *
-                                                                    parseFloat(
-                                                                        quantity
-                                                                    ),
-                                                                sku.quantity
-                                                                    .symbol
-                                                            ),
-                                                            symbol: "l",
-                                                        },
-                                                        addedAt: datetime,
-                                                    },
-                                                ],
-                                                materialPortions: [],
-                                                packagedOn: datetime,
-                                                quantity: {
-                                                    value: parseInt(quantity),
-                                                    symbol: "each",
-                                                },
-                                            },
-                                        ],
-                                    })
-                                );
-                            }
-                        }}
-                        disabled={!sku.id || !quantity}
-                    >
-                        Enter
-                    </Button>
-                )}
-                {editable && (
-                    <Button
-                        size="sm"
-                        color="warning"
-                        className="waves-effect"
-                        onClick={() => {
-                            dispatch(
-                                setBatchFinishedGoods({
-                                    content: finishedGoods.filter(
-                                        (_, index) => !items.includes(index)
-                                    ),
-                                })
-                            );
-                            setItems([]);
-                        }}
-                        disabled={!items.length}
-                    >
-                        Remove
-                    </Button>
-                )}
-            </div>
+            {editable && (
+                <Button
+                    size="sm"
+                    className="waves-effect mr-2"
+                    onClick={() => {
+                        setFinishedGood(initialFinishedGood);
+                        setEditFinishedGood(false);
+                        setShowModal(true);
+                    }}
+                >
+                    Add Item
+                </Button>
+            )}
+            {/* {editable && (
+                <Button
+                    size="sm"
+                    className="waves-effect mr-2"
+                    onClick={() => {}}
+                    disabled={!sku.id || !quantity}
+                >
+                    Enter
+                </Button>
+            )}
+            {editable && (
+                <Button
+                    size="sm"
+                    color="warning"
+                    className="waves-effect"
+                    onClick={() => {
+                        dispatch(
+                            setBatchFinishedGoods({
+                                content: finishedGoods.filter(
+                                    (_, index) => !items.includes(index)
+                                ),
+                            })
+                        );
+                        setItems([]);
+                    }}
+                    disabled={!items.length}
+                >
+                    Remove
+                </Button>
+            )} */}
+            <Modal {...modalProps} />
         </React.Fragment>
     );
 }

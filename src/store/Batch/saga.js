@@ -12,23 +12,23 @@ import { get } from "lodash";
 import { setGlobalRedirect } from "../Brewery/actions";
 import { snackFailure, snackSuccess } from "../Snackbar/actions";
 import {
-    FETCH_BATCH_BY_ID_REQUEST,
+    FETCH_BATCH_REQUEST,
     SET_BATCH_DETAILS,
-    ADD_BATCH_REQUEST,
+    ADD_BATCH,
     EDIT_BATCH,
     DELETE_BATCH_REQUEST,
     EDIT_BATCH_FAILURE,
     EDIT_BATCH_SUCCESS,
     ADD_BATCH_SUCCESS,
-    FETCH_BATCH_BY_ID_SUCCESS,
-    FETCH_BATCH_BY_ID_FAILURE,
+    FETCH_BATCH_SUCCESS,
+    FETCH_BATCH_FAILURE,
     RESET_BATCH_DETAILS,
     ADD_BATCH_FAILURE,
     VALIDATE_BREW_FIELDS,
     VALIDATE_BREW_FIELDS_SUCCESS,
-    FETCH_BATCH_REQUEST,
-    FETCH_BATCH_SUCCESS,
-    FETCH_BATCH_FAILURE,
+    GET_BATCH,
+    GET_BATCH_SUCCESS,
+    GET_BATCH_FAILURE,
     CREATE_BATCH_REQUEST,
     CREATE_BATCH_SUCCESS,
     CREATE_BATCH_FAILURE,
@@ -98,33 +98,33 @@ import {
 function* fetchBatchGenerator(action) {
     try {
         const batchId = get(action, "payload.batchId");
-        yield put({ type: FETCH_BATCH_BY_ID_REQUEST, payload: { batchId } });
-        yield put({ type: FETCH_BATCH_MIXTURES_REQUEST, payload: { batchId } });
-        yield put({ type: FETCH_BATCH_STAGES_REQUEST, payload: { batchId } });
-        yield put({
-            type: FETCH_BATCH_MATERIAL_PORTIONS_REQUEST,
-            payload: { batchId },
-        });
-        yield put({
-            type: FETCH_BATCH_MIXTURE_RECORDINGS_REQUEST,
-            payload: { batchId },
-        });
-        yield put({
-            type: FETCH_BATCH_FINISHED_GOODS_REQUEST,
-            payload: {
-                id: batchId,
-            },
-        });
+        yield all([
+            put({ type: FETCH_BATCH_REQUEST, payload: { batchId } }),
+            put({ type: FETCH_BATCH_MIXTURES_REQUEST, payload: { batchId } }),
+            put({ type: FETCH_BATCH_STAGES_REQUEST, payload: { batchId } }),
+            put({
+                type: FETCH_BATCH_MATERIAL_PORTIONS_REQUEST,
+                payload: { batchId },
+            }),
+            put({
+                type: FETCH_BATCH_MIXTURE_RECORDINGS_REQUEST,
+                payload: { batchId },
+            }),
+            put({
+                type: FETCH_BATCH_FINISHED_GOODS_REQUEST,
+                payload: { brewIds: batchId },
+            }),
+        ]);
         const [success] = yield race([
             all([
-                take(FETCH_BATCH_BY_ID_SUCCESS),
+                take(FETCH_BATCH_SUCCESS),
                 take(FETCH_BATCH_MIXTURES_SUCCESS),
                 take(FETCH_BATCH_STAGES_SUCCESS),
                 take(FETCH_BATCH_MATERIAL_PORTIONS_SUCCESS),
                 take(FETCH_BATCH_MIXTURE_RECORDINGS_SUCCESS),
                 take(FETCH_BATCH_FINISHED_GOODS_SUCCESS),
             ]),
-            take(FETCH_BATCH_BY_ID_FAILURE),
+            take(FETCH_BATCH_FAILURE),
             take(FETCH_BATCH_MIXTURES_FAILURE),
             take(FETCH_BATCH_STAGES_FAILURE),
             take(FETCH_BATCH_MATERIAL_PORTIONS_FAILURE),
@@ -132,23 +132,23 @@ function* fetchBatchGenerator(action) {
             take(FETCH_BATCH_FINISHED_GOODS_FAILURE),
         ]);
         if (success) {
-            yield put({ type: FETCH_BATCH_SUCCESS });
+            yield put({ type: GET_BATCH_SUCCESS });
         } else {
             yield put({
-                type: FETCH_BATCH_FAILURE,
+                type: GET_BATCH_FAILURE,
                 payload: {
                     message: "Failed to fetch batch details",
-                    color: "warning",
+                    color: "danger",
                 },
             });
         }
     } catch (e) {
         yield put({
-            type: FETCH_BATCH_FAILURE,
+            type: GET_BATCH_FAILURE,
             payload: {
                 error: e.error,
                 message: e.message,
-                color: "warning",
+                color: "danger",
             },
         });
     }
@@ -157,13 +157,18 @@ function* fetchBatchGenerator(action) {
 function* fetchBatchByIdGenerator(action) {
     try {
         const res = yield call(api.fetchBatch, get(action, "payload"));
-        yield put({
-            type: FETCH_BATCH_BY_ID_SUCCESS,
-            payload: { data: res.data, initial: res.data },
-        });
+        yield all([
+            put({
+                type: SET_BATCH_DETAILS,
+                payload: { data: res.data, initial: res.data },
+            }),
+            put({
+                type: FETCH_BATCH_SUCCESS,
+            }),
+        ]);
     } catch (e) {
         yield put({
-            type: FETCH_BATCH_BY_ID_FAILURE,
+            type: FETCH_BATCH_FAILURE,
             payload: {
                 error: e.error,
                 message: e.message,
@@ -184,14 +189,24 @@ function* addBatchGenerator() {
             take(CREATE_BATCH_FAILURE),
         ]);
         if (success) {
-            yield put(snackSuccess("New Batch created!"));
-            yield put({ type: ADD_BATCH_SUCCESS });
-            yield put(
-                setGlobalRedirect({
-                    pathname: "/brews/" + get(success, "payload.data.id"),
-                    search: "?edit=true",
-                })
-            );
+            const data = get(success, "payload");
+            yield all([
+                put({
+                    type: SET_BATCH_DETAILS,
+                    payload: {
+                        data: JSON.parse(JSON.stringify(data)),
+                        initial: JSON.parse(JSON.stringify(data)),
+                    },
+                }),
+                put(
+                    setGlobalRedirect({
+                        pathname: "/brews/" + data.id,
+                        search: "?edit=true",
+                    })
+                ),
+                put({ type: ADD_BATCH_SUCCESS }),
+                put(snackSuccess("New Batch created!")),
+            ]);
         }
     } catch (e) {
         yield put({
@@ -200,6 +215,34 @@ function* addBatchGenerator() {
                 error: e.error,
                 message: e.message,
                 color: "warning",
+            },
+        });
+    }
+}
+
+function* createBatchGenerator(action) {
+    try {
+        const batch = get(action, "payload.batch");
+        const res = yield call(api.createBatch, {
+            batchId: "dummy",
+            name: "",
+            description: "",
+            productId: parseInt(batch.product.id),
+            parentBrewId: batch.parentBrewId,
+            startedAt: batch.startedAt,
+            endedAt: batch.endedAt,
+        });
+        yield put({
+            type: CREATE_BATCH_SUCCESS,
+            payload: { ...res.data },
+        });
+    } catch (e) {
+        yield put({
+            type: CREATE_BATCH_FAILURE,
+            payload: {
+                error: e.error,
+                message: e.message,
+                color: "danger",
             },
         });
     }
@@ -279,48 +322,22 @@ function* addBatchStage(action) {
             return;
         }
         const mixture = get(mixtureSuccess, "payload");
-        yield put({
-            type: SET_BATCH_MIXTURES,
-            payload: {
-                content: JSON.parse(JSON.stringify([...mixtures, mixture])),
-                initial: JSON.parse(
-                    JSON.stringify([...initialMixtures, mixture])
-                ),
-            },
-        });
-        yield put({ type: ADD_BATCH_STAGE_SUCCESS });
-        yield put(snackSuccess("New brew stage created!"));
+        yield all([
+            put({
+                type: SET_BATCH_MIXTURES,
+                payload: {
+                    content: JSON.parse(JSON.stringify([...mixtures, mixture])),
+                    initial: JSON.parse(
+                        JSON.stringify([...initialMixtures, mixture])
+                    ),
+                },
+            }),
+            put({ type: ADD_BATCH_STAGE_SUCCESS }),
+            put(snackSuccess("New brew stage created!")),
+        ]);
     } catch (e) {
         yield put({
             type: ADD_BATCH_STAGE_FAILURE,
-            payload: {
-                error: e.error,
-                message: e.message,
-                color: "danger",
-            },
-        });
-    }
-}
-
-function* createBatchGenerator(action) {
-    try {
-        const batch = get(action, "payload.batch");
-        const res = yield call(api.createBatch, {
-            batchId: "dummy",
-            name: "",
-            description: "",
-            productId: parseInt(batch.product.id),
-            parentBrewId: batch.parentBrewId,
-            startedAt: batch.startedAt,
-            endedAt: batch.endedAt,
-        });
-        yield put({
-            type: CREATE_BATCH_SUCCESS,
-            payload: { data: res.data, initial: res.data },
-        });
-    } catch (e) {
-        yield put({
-            type: CREATE_BATCH_FAILURE,
             payload: {
                 error: e.error,
                 message: e.message,
@@ -357,8 +374,10 @@ function* editBatchGenerator() {
             take(EDIT_BATCH_FINISHED_GOODS_FAILURE),
         ]);
         if (success) {
-            yield put({ type: EDIT_BATCH_SUCCESS });
-            yield put(snackSuccess("Brew updated!"));
+            yield all([
+                yield put({ type: EDIT_BATCH_SUCCESS }),
+                yield put(snackSuccess("Brew updated!")),
+            ]);
         } else {
             yield put({
                 type: EDIT_BATCH_FAILURE,
@@ -390,25 +409,27 @@ function* editBatchDetailsGenerator() {
         });
         if (JSON.stringify(batch) === JSON.stringify(initial)) {
             yield put({ type: EDIT_BATCH_DETAILS_SUCCESS });
-        } else {
-            yield put({ type: UPDATE_BATCH_REQUEST, payload: batch });
-            const [success, failed] = yield race([
-                take(UPDATE_BATCH_SUCCESS),
-                take(UPDATE_BATCH_FAILURE),
-            ]);
-            if (success) {
-                const data = get(success, "payload");
-                yield put({
+            return;
+        }
+        yield put({ type: UPDATE_BATCH_REQUEST, payload: batch });
+        const [success, failed] = yield race([
+            take(UPDATE_BATCH_SUCCESS),
+            take(UPDATE_BATCH_FAILURE),
+        ]);
+        if (success) {
+            const data = get(success, "payload");
+            yield [
+                put({
                     type: SET_BATCH_DETAILS,
                     payload: { data, initial: data },
-                });
-                yield put({ type: EDIT_BATCH_DETAILS_SUCCESS });
-            } else {
-                yield put({
-                    type: EDIT_BATCH_DETAILS_FAILURE,
-                    payload: get(failed, "payload"),
-                });
-            }
+                }),
+                put({ type: EDIT_BATCH_DETAILS_SUCCESS }),
+            ];
+        } else {
+            yield put({
+                type: EDIT_BATCH_DETAILS_FAILURE,
+                payload: get(failed, "payload"),
+            });
         }
     } catch (e) {
         yield put({
@@ -474,15 +495,17 @@ function* deleteBatchGenerator(action) {
 }
 
 function* resetBatchDetailsGenerator() {
-    yield put({ type: RESET_BATCH_STAGES });
-    yield put({ type: RESET_BATCH_MIXTURES });
-    yield put({ type: RESET_BATCH_MATERIAL_PORTIONS });
+    yield all([
+        put({ type: RESET_BATCH_STAGES }),
+        put({ type: RESET_BATCH_MIXTURES }),
+        put({ type: RESET_BATCH_MATERIAL_PORTIONS }),
+    ]);
 }
 
 function* Batch() {
-    yield takeEvery(FETCH_BATCH_REQUEST, fetchBatchGenerator);
-    yield takeEvery(FETCH_BATCH_BY_ID_REQUEST, fetchBatchByIdGenerator);
-    yield takeEvery(ADD_BATCH_REQUEST, addBatchGenerator);
+    yield takeEvery(GET_BATCH, fetchBatchGenerator);
+    yield takeEvery(FETCH_BATCH_REQUEST, fetchBatchByIdGenerator);
+    yield takeEvery(ADD_BATCH, addBatchGenerator);
     yield takeEvery(CREATE_BATCH_REQUEST, createBatchGenerator);
     yield takeEvery(ADD_BATCH_STAGE, addBatchStage);
     yield takeEvery(EDIT_BATCH, editBatchGenerator);

@@ -40,13 +40,11 @@ export default function FinishedGood() {
     const repackage = query.get("repackage");
     const dispatch = useDispatch();
 
-    const finishedGood = useSelector((state) => {
-        return state.FinishedGood.data;
-    });
-
-    const initialFinishedGood = useSelector((state) => {
-        return state.FinishedGood.initialFinishedGood;
-    });
+    const { data: finishedGood, initial: initialFinishedGood } = useSelector(
+        (state) => {
+            return state.FinishedGood;
+        }
+    );
 
     const isRepackageMode =
         repackage || finishedGood?.finishedGoodLotPortions?.length > 0;

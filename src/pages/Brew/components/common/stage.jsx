@@ -21,15 +21,6 @@ export default function BatchStage({
 }) {
     const dispatch = useDispatch();
 
-    const loading = useSelector((state) => {
-        return (
-            state.Batch.MaterialPortions.loading ||
-            state.Batch.MixtureRecordings.loading ||
-            state.Batch.BrewMixtures.loading ||
-            state.Batch.Stages.loading
-        );
-    });
-
     const mixtures = useSelector((state) => {
         return state.Batch.BrewMixtures.content;
     });
@@ -146,7 +137,7 @@ export default function BatchStage({
                         </div>
                     </CardHeader>
                 )}
-                <CardBody isLoading={loading} isOpen={isOpen} className="py-3">
+                <CardBody className="py-3" isOpen={isOpen}>
                     {toolbar && <div className="mb-3">{toolbar}</div>}
                     {stage.task.id !== 6 && (
                         <React.Fragment>

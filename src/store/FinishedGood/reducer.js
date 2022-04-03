@@ -12,22 +12,40 @@ import {
 
 const initialState = {
     data: {
-        id: null,
-        sku: null,
+        id: "",
+        sku: {
+            name: "",
+            quantity: {
+                symbol: "",
+                value: null,
+            },
+        },
         mixturePortions: [],
         materialPortions: [],
         finishedGoodLotPortions: [],
-        quantity: null,
+        quantity: {
+            symbol: "",
+            value: null,
+        },
         packagedOn: null,
         version: null,
     },
-    initialFinishedGood: {
-        id: null,
-        sku: null,
+    initial: {
+        id: "",
+        sku: {
+            name: "",
+            quantity: {
+                symbol: "",
+                value: null,
+            },
+        },
         mixturePortions: [],
         materialPortions: [],
         finishedGoodLotPortions: [],
-        quantity: null,
+        quantity: {
+            symbol: "",
+            value: null,
+        },
         packagedOn: null,
         version: null,
     },

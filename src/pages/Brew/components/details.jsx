@@ -32,10 +32,6 @@ export default function BatchDetails() {
         return state.Batch.Batch;
     });
 
-    const loading = useSelector((state) => {
-        return state.Batch.Batch.loading;
-    });
-
     const { content: products } = useSelector((state) => {
         return state.Products;
     });
@@ -172,11 +168,7 @@ export default function BatchDetails() {
                         </span>
                     </div>
                 </CardHeader>
-                <CardBody
-                    isLoading={loading}
-                    isOpen={isDetailsOpen}
-                    className="pb-0"
-                >
+                <CardBody className="pb-0" isOpen={isDetailsOpen}>
                     <Row>
                         <Col sm="6">
                             <Label for="batchBatchId">Batch ID</Label>

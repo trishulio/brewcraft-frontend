@@ -1,23 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { Row, Col } from "reactstrap";
 import { Card, CardBody } from "../../../component/Common/Card";
 import { prettyVolume, toHl } from "../../../helpers/textUtils";
-import { useQuery } from "../../../helpers/utils";
-import {
-    fetchMiniCardBrewsMixtures,
-    fetchMiniCardFinishedGoods,
-} from "../../../store/MiniCards/actions";
 
 export default function BrewMiniCard() {
-    const dispatch = useDispatch();
-    const query = useQuery();
-    const tab = query.get("tab");
-
-    const batch = useSelector((state) => {
-        return state.Batch.Batch.data;
-    });
+    const { id } = useParams();
 
     const turns = useSelector((state) => {
         return state.MiniCards.brewsMixtures?.length;
@@ -38,30 +27,12 @@ export default function BrewMiniCard() {
     });
 
     const gravity = useSelector((state) => {
-        return state.Batch.TransferMixtureRecordings.content.find(
-            (r) => r.measure.name === "gravity"
+        return state.Batch.MixtureRecordings.content.find(
+            (mr) =>
+                mr.measure.name === "gravity" &&
+                mr.mixture.brewStage.stage.id === id
         )?.value;
     });
-
-    useEffect(() => {
-        if (!tab || tab === "details") {
-            setTimeout(() => {
-                dispatch(
-                    fetchMiniCardBrewsMixtures({
-                        brewIds: [batch.id],
-                        stageStatusIds: [2, 6], // complete, skipped
-                        stageTaskIds: [3],
-                    })
-                );
-                dispatch(
-                    fetchMiniCardFinishedGoods({
-                        brewIds: [batch.id],
-                    })
-                );
-            });
-        }
-        // eslint-disable-next-line
-    }, [tab]);
 
     return (
         <React.Fragment>

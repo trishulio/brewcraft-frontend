@@ -37,14 +37,6 @@ export default function Fermentation() {
         );
     });
 
-    const loading = useSelector((state) => {
-        return (
-            state.Batch.Stages.loading ||
-            state.Batch.BrewMixtures.loading ||
-            state.Batch.MaterialPortions.loading
-        );
-    });
-
     return (
         <React.Fragment>
             <Card className="shadow-none mb-3">
@@ -64,11 +56,7 @@ export default function Fermentation() {
                         </span>
                     </div>
                 </CardHeader>
-                <CardBody
-                    isLoading={!!fermentMixtures.length && loading}
-                    isOpen={isOpen}
-                    className="p-2 pt-3"
-                >
+                <CardBody className="p-2 pt-3" isOpen={isOpen}>
                     {!!fermentMixtures.length && (
                         <React.Fragment>
                             <div className="mb-3">
