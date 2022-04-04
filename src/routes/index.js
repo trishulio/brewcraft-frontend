@@ -21,7 +21,8 @@ import ProductCategory from "../pages/ProductCategory";
 import PurchaseInvoice from "../pages/PurchaseInvoice";
 import PurchaseInvoices from "../pages/PurchaseInvoices";
 import RawMaterials from "../pages/RawMaterials";
-import Reports from "../pages/Reports/k50b";
+import ReportsK50b from "../pages/Reports/k50b";
+import ReportsN10 from "../pages/Reports/n10";
 import SalesReceipts from "../pages/CustomerInvoices/invoices";
 import SalesReceipt from "../pages/CustomerInvoices/view-invoice";
 import Sku from "../pages/Sku";
@@ -97,14 +98,15 @@ const authProtectedRoutes = [
     { path: "/sales/receipts", component: SalesReceipts },
 
     // Reports
-    { path: "/reports", component: Reports },
+    { path: "/reports/k50b", component: ReportsK50b },
+    { path: "/reports/n10", component: ReportsN10 },
 
     // Users
     { path: "/users/:id", component: User },
     { path: "/users", component: Users },
 
     // Default
-    { path: "/", exact: true, component: () => <Redirect to="/brews" /> },
+    { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> },
 ];
 
 export { authProtectedRoutes, publicRoutes };

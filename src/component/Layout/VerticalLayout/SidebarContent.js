@@ -312,20 +312,41 @@ class SidebarContent extends Component {
                             <ul className="sub-menu" aria-expanded="false">
                                 <li>
                                     <Link to="/sales/receipts">
-                                        Sales Receipts
+                                    Sales Receipts
                                     </Link>
                                 </li>
                                 <li>
                                     <Link to="/sales/customers">Customers</Link>
                                 </li>
                             </ul>
-                        </li>
+                        </li> */}
                         <li>
-                            <Link to="/reports" className="waves-effect">
-                                <i className="mdi mdi-chart-pie"></i>
+                            <Link
+                                to="/reports"
+                                className="has-arrow waves-effect"
+                            >
+                                <i className="mdi mdi-clipboard-text"></i>
                                 <span>Reports</span>
                             </Link>
-                        </li> */}
+                            <ul className="sub-menu" aria-expanded="false">
+                                <li>
+                                    <Link
+                                        to="/reports/k50b"
+                                        onClick={this.toggleSidebar.bind(this)}
+                                    >
+                                        K50b
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/reports/n10"
+                                        onClick={this.toggleSidebar.bind(this)}
+                                    >
+                                        N10
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
                         <li className="menu-title">Admin</li>
                         <li>
                             <Link

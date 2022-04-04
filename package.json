@@ -61,6 +61,7 @@
         "react-multiple-datepicker": "^0.1.0",
         "react-multiselect-checkboxes": "^0.1.1",
         "react-number-format": "^4.5.0",
+        "react-pdf": "^5.7.2",
         "react-perfect-scrollbar": "^1.5.8",
         "react-rangeslider": "^2.2.0",
         "react-raphael-chart": "^0.8.0",
