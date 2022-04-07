@@ -42,9 +42,9 @@ export const updateEquipmentItem = (payload) => ({
     payload: payload,
 });
 
-export const deleteEquipmentItem = (payload) => ({
+export const deleteEquipmentItem = (id) => ({
     type: DELETE_EQUIPMENT_ITEM_REQUEST,
-    payload: payload,
+    payload: { id },
 });
 
 export const setEquipmentItem = (payload) => ({

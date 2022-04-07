@@ -25,11 +25,23 @@ export default function EquipmentTable() {
                 }
                 query.append("sort", "name");
                 break;
-            case "equipmentUpc":
-                if (sort !== "upc") {
+            case "equipmentType":
+                if (sort !== "type") {
                     order = undefined;
                 }
-                query.append("sort", "upc");
+                query.append("sort", "type");
+                break;
+            case "equipmentStatus":
+                if (sort !== "status") {
+                    order = undefined;
+                }
+                query.append("sort", "status");
+                break;
+            case "equipmentMaxCapacity":
+                if (sort !== "maxCapacity") {
+                    order = undefined;
+                }
+                query.append("sort", "maxCapacity");
                 break;
             default:
                 break;
@@ -49,11 +61,18 @@ export default function EquipmentTable() {
                     <Th name="equipmentName" id="name" onSort={onSort}>
                         Name
                     </Th>
-                    <th>Class</th>
-                    <th>Category</th>
-                    <th>Measure</th>
-                    <Th name="equipmentUpc" id="upc" onSort={onSort}>
-                        UPC
+                    <Th name="equipmentType" id="type" onSort={onSort}>
+                        Type
+                    </Th>
+                    <Th name="equipmentStatus" id="status" onSort={onSort}>
+                        Status
+                    </Th>
+                    <Th
+                        name="equipmentMaxCapacity"
+                        id="maxCapacity"
+                        onSort={onSort}
+                    >
+                        Max Capactity
                     </Th>
                 </tr>
             </thead>
@@ -62,22 +81,17 @@ export default function EquipmentTable() {
                     <tr
                         key={key}
                         onClick={() =>
-                            history.push("/materials/equipment/" + equipment.id)
+                            history.push("/equipment/" + equipment.id)
                         }
                     >
                         <td>{equipment.name || "-"}</td>
+                        <td>{equipment.type}</td>
+                        <td>{equipment.status}</td>
                         <td>
-                            {equipment.materialClass?.name
-                                ? equipment.materialClass.name
-                                : "-"}
+                            {equipment.maxCapacity.value +
+                                " " +
+                                equipment.maxCapacity.symbol}
                         </td>
-                        <td>
-                            {equipment.category?.name
-                                ? equipment.category.name
-                                : "-"}
-                        </td>
-                        <td>{equipment.baseQuantityUnit || "-"}</td>
-                        <td>{equipment.upc || "-"}</td>
                     </tr>
                 ))}
             </tbody>

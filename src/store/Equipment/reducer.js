@@ -14,6 +14,9 @@ import {
     FETCH_EQUIPMENT_REQUEST,
     FETCH_EQUIPMENT_SUCCESS,
     FETCH_EQUIPMENT_FAILURE,
+    FETCH_EQUIPMENT_ITEM_REQUEST,
+    FETCH_EQUIPMENT_ITEM_FAILURE,
+    FETCH_EQUIPMENT_ITEM_SUCCESS,
 } from "./actionTypes";
 
 const initialState = {
@@ -57,6 +60,7 @@ const EquipmentItem = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: null,
             };
+        case FETCH_EQUIPMENT_ITEM_REQUEST:
         case CREATE_EQUIPMENT_ITEM_REQUEST:
         case UPDATE_EQUIPMENT_ITEM_REQUEST:
         case DELETE_EQUIPMENT_ITEM_REQUEST:
@@ -64,6 +68,7 @@ const EquipmentItem = (state = initialState, { type, payload }) => {
                 ...state,
                 loading: true,
             };
+        case FETCH_EQUIPMENT_ITEM_SUCCESS:
         case CREATE_EQUIPMENT_ITEM_SUCCESS:
         case UPDATE_EQUIPMENT_ITEM_SUCCESS:
         case DELETE_EQUIPMENT_ITEM_SUCCESS:
@@ -72,6 +77,7 @@ const EquipmentItem = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: null,
             };
+        case FETCH_EQUIPMENT_ITEM_FAILURE:
         case CREATE_EQUIPMENT_ITEM_FAILURE:
         case UPDATE_EQUIPMENT_ITEM_FAILURE:
         case DELETE_EQUIPMENT_ITEM_FAILURE:
@@ -92,7 +98,6 @@ const EquipmentItem = (state = initialState, { type, payload }) => {
 const Equipment = (
     state = {
         content: [],
-        all: [],
         loading: false,
         error: null,
         totalElements: 0,

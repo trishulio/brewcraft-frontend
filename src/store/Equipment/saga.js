@@ -1,6 +1,14 @@
-import { call, put, race, select, take, takeEvery } from "redux-saga/effects";
-import { all, get } from "lodash";
-import { snackFailure, snackSuccess } from "../Snackbar/actions";
+import {
+    all,
+    call,
+    put,
+    race,
+    select,
+    take,
+    takeEvery,
+} from "redux-saga/effects";
+import { get } from "lodash";
+import { snackSuccess } from "../Snackbar/actions";
 import { setGlobalRedirect } from "../Brewery/actions";
 import {
     FETCH_EQUIPMENT_ITEM_REQUEST,
@@ -19,9 +27,37 @@ import {
     VALIDATE_EQUIPMENT_ITEM_FAILURE,
     VALIDATE_EQUIPMENT_ITEM_SUCCESS,
     VALIDATE_EQUIPMENT_ITEM,
+    FETCH_EQUIPMENT_SUCCESS,
+    FETCH_EQUIPMENT_FAILURE,
+    FETCH_EQUIPMENT_REQUEST,
+    SET_EQUIPMENT,
 } from "./actionTypes";
 import { api } from "./api";
 import { isValidName, isValidNumberString } from "../../helpers/utils";
+
+function* fetchEquipmentGenerator(action) {
+    try {
+        const res = yield call(api.fetchEquipment, get(action, "payload"));
+        yield all([
+            put({
+                type: SET_EQUIPMENT,
+                payload: { ...res.data },
+            }),
+            put({
+                type: FETCH_EQUIPMENT_SUCCESS,
+            }),
+        ]);
+    } catch (e) {
+        yield put({
+            type: FETCH_EQUIPMENT_FAILURE,
+            payload: {
+                error: e.error,
+                message: e.message,
+                color: "warning",
+            },
+        });
+    }
+}
 
 function* fetchEquipmentItemGenerator(action) {
     try {
@@ -105,13 +141,11 @@ function* createEquipmentItemGenerator() {
             put({
                 type: CREATE_EQUIPMENT_ITEM_SUCCESS,
             }),
-            put({
-                type: SET_EQUIPMENT_ITEM,
-                payload: {
-                    data: res.data,
-                    initial: JSON.parse(JSON.stringify(res.data)),
-                },
-            }),
+            put(
+                setGlobalRedirect({
+                    pathname: "/equipment/" + res.data.id,
+                })
+            ),
             put(snackSuccess("Created Equipment Item")),
         ]);
     } catch (e) {
@@ -126,13 +160,19 @@ function* createEquipmentItemGenerator() {
     }
 }
 
-function* updateEquipmentItemGenerator(action) {
+function* updateEquipmentItemGenerator() {
     try {
-        const res = yield call(
-            api.updateEquipmentItem,
-            get(action, "payload.id"),
-            get(action, "payload.form")
-        );
+        yield put({ type: VALIDATE_EQUIPMENT_ITEM });
+        const [valid] = yield race([
+            take(VALIDATE_EQUIPMENT_ITEM_SUCCESS),
+            take(VALIDATE_EQUIPMENT_ITEM_FAILURE),
+        ]);
+        if (!valid) {
+            yield put({ type: CREATE_EQUIPMENT_ITEM_FAILURE });
+            return;
+        }
+        const equipmentItem = yield select((state) => state.EquipmentItem.data);
+        const res = yield call(api.updateEquipmentItem, equipmentItem);
         yield all([
             put({
                 type: UPDATE_EQUIPMENT_ITEM_SUCCESS,
@@ -163,16 +203,26 @@ function* deleteEquipmentItemGenerator(action) {
         yield call(api.deleteEquipmentItem, get(action, "payload.id"));
         yield all([
             put({ type: DELETE_EQUIPMENT_ITEM_SUCCESS }),
-            put(setGlobalRedirect({ pathname: "/equipment" })),
-            put(snackSuccess()),
+            yield put(setGlobalRedirect({ pathname: "/equipment" })),
         ]);
     } catch (e) {
-        yield put({ type: DELETE_EQUIPMENT_ITEM_FAILURE });
-        yield put(snackFailure());
+        yield put({
+            type: DELETE_EQUIPMENT_ITEM_FAILURE,
+            payload: {
+                error: e.error,
+                message: e.message,
+                color: "warning",
+            },
+        });
     }
 }
 
+function* deleteEquipmentItemSuccessGenerator() {
+    yield put(snackSuccess("Deleted Equipment Item"));
+}
+
 function* EquipmentItem() {
+    yield takeEvery(FETCH_EQUIPMENT_REQUEST, fetchEquipmentGenerator);
     yield takeEvery(FETCH_EQUIPMENT_ITEM_REQUEST, fetchEquipmentItemGenerator);
     yield takeEvery(VALIDATE_EQUIPMENT_ITEM, validateEquipmentItemGenerator);
     yield takeEvery(
@@ -186,6 +236,10 @@ function* EquipmentItem() {
     yield takeEvery(
         DELETE_EQUIPMENT_ITEM_REQUEST,
         deleteEquipmentItemGenerator
+    );
+    yield takeEvery(
+        DELETE_EQUIPMENT_ITEM_SUCCESS,
+        deleteEquipmentItemSuccessGenerator
     );
 }
 

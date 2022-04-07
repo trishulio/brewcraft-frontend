@@ -111,7 +111,9 @@ export default function EquipmentItem() {
                 navigate={(path) => {
                     history.push(path);
                 }}
-                shouldBlockNavigation={() => editMode && isChanged()}
+                shouldBlockNavigation={() =>
+                    equipment.id && editMode && isChanged()
+                }
                 content="There are unsaved changes. Are you sure want to leave this page?"
             />
             <EquipmentInner {...props} />
