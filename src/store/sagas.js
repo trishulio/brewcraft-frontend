@@ -6,6 +6,7 @@ import BatchTasks from "./BatchTask/saga";
 import BrewStage from "./BrewStages/saga";
 import FinishedGood from "./FinishedGood/saga";
 import BatchFinishedGoods from "./BatchFinishedGoods/saga";
+import EquipmentItem from "./Equipment/saga";
 import FinishedGoodsInventory from "./FinishedGoodsInventory/saga";
 import Ingredient from "./Ingredient/saga";
 import Ingredients from "./Ingredients/saga";
@@ -50,6 +51,7 @@ export default function* rootSaga() {
         BatchStatus(),
         BatchTasks(),
         BrewStage(),
+        EquipmentItem(),
         FinishedGood(),
         BatchFinishedGoods(),
         FinishedGoodsInventory(),

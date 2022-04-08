@@ -1,102 +1,142 @@
-import { filter, findIndex, cloneDeep } from "lodash";
 import {
-    FETCH_FACILITY_REQUEST,
-    FETCH_FACILITIES_REQUEST,
-    FETCH_FACILITIES_SUCCESS,
-    FETCH_FACILITIES_FAILURE,
-    CREATE_FACILITY_REQUEST,
-    UPDATE_FACILITY_REQUEST,
-    UPDATE_FACILITIY_SUCCESS,
-    DELETE_FACILITY_REQUEST,
-    CREATE_FACILITIY_SUCCESS,
+    DELETE_EQUIPMENT_ITEM_REQUEST,
+    DELETE_EQUIPMENT_ITEM_SUCCESS,
+    SET_EQUIPMENT_ITEM,
+    RESET_EQUIPMENT_ITEM,
+    UPDATE_EQUIPMENT_ITEM_REQUEST,
+    CREATE_EQUIPMENT_ITEM_REQUEST,
+    CREATE_EQUIPMENT_ITEM_SUCCESS,
+    UPDATE_EQUIPMENT_ITEM_SUCCESS,
+    CREATE_EQUIPMENT_ITEM_FAILURE,
+    UPDATE_EQUIPMENT_ITEM_FAILURE,
+    DELETE_EQUIPMENT_ITEM_FAILURE,
+    SET_EQUIPMENT,
     FETCH_EQUIPMENT_REQUEST,
     FETCH_EQUIPMENT_SUCCESS,
     FETCH_EQUIPMENT_FAILURE,
     FETCH_EQUIPMENT_ITEM_REQUEST,
-    CREATE_EQUIPMENT_ITEM_REQUEST,
-    UPDATE_EQUIPMENT_ITEM_REQUEST,
-    DELETE_EQUIPMENT_ITEM_REQUEST,
-    DELETE_FACILITIY_SUCCESS,
+    FETCH_EQUIPMENT_ITEM_FAILURE,
+    FETCH_EQUIPMENT_ITEM_SUCCESS,
 } from "./actionTypes";
 
 const initialState = {
-    equipment: [],
-    facilities: [],
+    data: {
+        id: "",
+        name: "",
+        type: "",
+        status: "",
+        maxCapacity: {
+            symbol: "",
+            value: "",
+        },
+        version: null,
+    },
+    initial: {
+        id: "",
+        name: "",
+        type: "",
+        status: "",
+        maxCapacity: {
+            symbol: "",
+            value: "",
+        },
+        version: null,
+    },
+    loading: true,
+    error: null,
 };
 
-const Equipment = (state = initialState, { type, payload }) => {
+const EquipmentItem = (state = initialState, { type, payload }) => {
     switch (type) {
-        case FETCH_FACILITY_REQUEST:
-        case CREATE_FACILITY_REQUEST:
-        case UPDATE_FACILITY_REQUEST:
-        case DELETE_FACILITY_REQUEST:
-        case FETCH_FACILITIES_REQUEST:
+        case SET_EQUIPMENT_ITEM:
+            return {
+                ...state,
+                ...payload,
+                error: null,
+            };
+        case RESET_EQUIPMENT_ITEM:
+            return {
+                ...initialState,
+                loading: false,
+                error: null,
+            };
         case FETCH_EQUIPMENT_ITEM_REQUEST:
-        case FETCH_EQUIPMENT_REQUEST:
         case CREATE_EQUIPMENT_ITEM_REQUEST:
         case UPDATE_EQUIPMENT_ITEM_REQUEST:
         case DELETE_EQUIPMENT_ITEM_REQUEST:
             return {
                 ...state,
-                payload: payload,
+                loading: true,
             };
-        case FETCH_FACILITIES_SUCCESS:
-        case FETCH_FACILITIES_FAILURE:
+        case FETCH_EQUIPMENT_ITEM_SUCCESS:
+        case CREATE_EQUIPMENT_ITEM_SUCCESS:
+        case UPDATE_EQUIPMENT_ITEM_SUCCESS:
+        case DELETE_EQUIPMENT_ITEM_SUCCESS:
             return {
                 ...state,
-                facilities: payload,
                 loading: false,
+                error: null,
+            };
+        case FETCH_EQUIPMENT_ITEM_FAILURE:
+        case CREATE_EQUIPMENT_ITEM_FAILURE:
+        case UPDATE_EQUIPMENT_ITEM_FAILURE:
+        case DELETE_EQUIPMENT_ITEM_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: {
+                    ...payload,
+                },
+            };
+        default:
+            return {
+                ...state,
+            };
+    }
+};
+
+const Equipment = (
+    state = {
+        content: [],
+        loading: false,
+        error: null,
+        totalElements: 0,
+        totalPages: 0,
+        pageIndex: 0,
+        pageSize: 20,
+    },
+    { type, payload }
+) => {
+    switch (type) {
+        case SET_EQUIPMENT:
+            return {
+                ...state,
+                ...payload,
+                error: null,
+            };
+        case FETCH_EQUIPMENT_REQUEST:
+            return {
+                ...state,
+                loading: true,
             };
         case FETCH_EQUIPMENT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+            };
         case FETCH_EQUIPMENT_FAILURE:
             return {
                 ...state,
-                equipment: payload,
                 loading: false,
-            };
-        case CREATE_FACILITIY_SUCCESS:
-            return {
-                ...state,
-                facilities: [...state.facilities, payload],
-            };
-        case DELETE_FACILITIY_SUCCESS: {
-            const allFacilities = filter(state.facilities, (value) => {
-                if (value.id !== payload) {
-                    return value;
-                }
-            });
-            return {
-                ...state,
-                facilities: [...allFacilities],
-            };
-        }
-        case UPDATE_FACILITIY_SUCCESS: {
-            const indexFacilite = findIndex(
-                state.facilities,
-                (value) => value.id === payload.id
-            );
-            if (indexFacilite !== -1) {
-                const facilitiesChanged = {
-                    ...state.facilities[indexFacilite],
+                error: {
                     ...payload,
-                };
-                const allFacilities = cloneDeep(state.facilities);
-                allFacilities[indexFacilite] = facilitiesChanged;
-                return {
-                    ...state,
-                    facilities: [...allFacilities],
-                };
-            } else {
-                return {
-                    ...state,
-                };
-            }
-        }
+                },
+            };
         default:
-            state = { ...state };
-            break;
+            return {
+                ...state,
+            };
     }
-    return state;
 };
 
-export default Equipment;
+export { Equipment, EquipmentItem };

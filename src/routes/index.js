@@ -5,6 +5,8 @@ import Brew from "../pages/Brew";
 import Brews from "../pages/Brews";
 import BrewMonitor from "../pages/BrewMonitor";
 import Dashboard from "../pages/Dashboard/dashboard";
+import Equipment from "../pages/Equipment";
+import EquipmentItem from "../pages/EquipmentItem";
 import FinishedGood from "../pages/FinishedGood";
 import FinishedGoods from "../pages/FinishedGoods";
 import FinishedGoodsInventory from "../pages/FinishedGoodsInventory";
@@ -44,6 +46,10 @@ const authProtectedRoutes = [
     { path: "/brews/monitor/:id", component: BrewMonitor },
     { path: "/brews/:id", component: Brew },
     { path: "/brews", component: Brews },
+
+    // Equipment
+    { path: "/equipment/:id", component: EquipmentItem },
+    { path: "/equipment", component: Equipment },
 
     // Inventory
     { path: "/inventory/raw-materials", component: RawMaterials },

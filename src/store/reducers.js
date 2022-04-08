@@ -8,6 +8,7 @@ import BatchTask from "./BatchTask/reducer";
 import Breadcrumb from "./Breadcrumb/reducer";
 import Brewery from "./Brewery/reducer";
 import { Stages } from "./BrewStages/reducer";
+import { Equipment, EquipmentItem } from "./Equipment/reducer";
 import { FinishedGoods } from "./FinishedGoods/reducer";
 import FilterBar from "./FilterBar/reducer";
 import FinishedGood from "./FinishedGood/reducer";
@@ -65,6 +66,8 @@ const rootReducer = combineReducers({
     BatchTask,
     Breadcrumb,
     Brewery,
+    Equipment,
+    EquipmentItem,
     FilterBar,
     FinishedGood,
     FinishedGoods,

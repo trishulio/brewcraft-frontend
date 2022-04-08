@@ -301,6 +301,16 @@ class SidebarContent extends Component {
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <Link
+                                to="/equipment"
+                                className="waves-effect"
+                                onClick={this.toggleSidebar.bind(this)}
+                            >
+                                <i className="mdi mdi-clipboard-check"></i>
+                                <span>Equipment</span>
+                            </Link>
+                        </li>
                         {/* <li>
                             <Link
                                 to="/sales/receipts"

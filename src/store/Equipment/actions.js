@@ -1,14 +1,12 @@
 import {
-    FETCH_FACILITIES_REQUEST,
-    FETCH_FACILITY_REQUEST,
-    CREATE_FACILITY_REQUEST,
-    UPDATE_FACILITY_REQUEST,
-    DELETE_FACILITY_REQUEST,
-    FETCH_EQUIPMENT_REQUEST,
     FETCH_EQUIPMENT_ITEM_REQUEST,
     CREATE_EQUIPMENT_ITEM_REQUEST,
     UPDATE_EQUIPMENT_ITEM_REQUEST,
     DELETE_EQUIPMENT_ITEM_REQUEST,
+    SET_EQUIPMENT_ITEM,
+    RESET_EQUIPMENT_ITEM,
+    FETCH_EQUIPMENT_REQUEST,
+    SET_EQUIPMENT,
 } from "./actionTypes";
 
 export const fetchEquipment = (payload) => ({
@@ -16,14 +14,27 @@ export const fetchEquipment = (payload) => ({
     payload: payload,
 });
 
+export const setEquipmentPageIndex = (index) => ({
+    type: SET_EQUIPMENT,
+    payload: {
+        pageIndex: index,
+    },
+});
+
+export const setEquipmentPageSize = (size) => ({
+    type: SET_EQUIPMENT,
+    payload: {
+        pageSize: size,
+    },
+});
+
 export const fetchEquipmentItem = (payload) => ({
     type: FETCH_EQUIPMENT_ITEM_REQUEST,
     payload: payload,
 });
 
-export const createEquipmentItem = (payload) => ({
+export const createEquipmentItem = () => ({
     type: CREATE_EQUIPMENT_ITEM_REQUEST,
-    payload: payload,
 });
 
 export const updateEquipmentItem = (payload) => ({
@@ -31,31 +42,17 @@ export const updateEquipmentItem = (payload) => ({
     payload: payload,
 });
 
-export const deleteEquipmentItem = (payload) => ({
+export const deleteEquipmentItem = (id) => ({
     type: DELETE_EQUIPMENT_ITEM_REQUEST,
+    payload: { id },
+});
+
+export const setEquipmentItem = (payload) => ({
+    type: SET_EQUIPMENT_ITEM,
     payload: payload,
 });
 
-export const fetchFacilities = () => ({
-    type: FETCH_FACILITIES_REQUEST,
-});
-
-export const fetchFacility = (payload) => ({
-    type: FETCH_FACILITY_REQUEST,
-    payload: payload,
-});
-
-export const createFacility = (payload) => ({
-    type: CREATE_FACILITY_REQUEST,
-    payload: payload,
-});
-
-export const updateFacility = (payload) => ({
-    type: UPDATE_FACILITY_REQUEST,
-    payload: payload,
-});
-
-export const deleteFacilities = (payload) => ({
-    type: DELETE_FACILITY_REQUEST,
+export const resetEquipmentItem = (payload) => ({
+    type: RESET_EQUIPMENT_ITEM,
     payload: payload,
 });
