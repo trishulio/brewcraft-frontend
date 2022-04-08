@@ -1,16 +1,53 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+/* eslint-disable */
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Button, FormGroup, Input, Label } from "reactstrap";
 import { setBreadcrumbItems } from "../../store/actions";
+import n10 from "../../assets/reports/n10-1.png";
 
-export default function FormsN10() {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(
-            setBreadcrumbItems("N10 - Application for Refund/Drawback", [
-                { title: "Dashboard", link: "/dashboard" },
-            ])
+class Reports extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            breadcrumbItems: [
+                { title: "Dashboard", link: "#" },
+                { title: "Reports", link: "#" },
+            ],
+        };
+    }
+
+    componentDidMount() {
+        this.props.setBreadcrumbItems("N10", this.state.breadcrumbItems);
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <FormGroup className="d-block mb-3">
+                    <Label className="mr-2">Date From</Label>
+                    <Input
+                        type="datetime-local"
+                        className="waves-effect mr-3"
+                        style={{
+                            width: "16rem",
+                        }}
+                    />
+                    <Label className="mr-2">Date to</Label>
+                    <Input
+                        type="datetime-local"
+                        className="waves-effect mr-3"
+                        style={{
+                            width: "16rem",
+                        }}
+                    />
+                    <Button className="waves-effect mr-2" color="primary">
+                        Print
+                    </Button>
+                </FormGroup>
+                <img src={n10} className="d-block" />
+            </React.Fragment>
         );
-    });
-
-    return <h1>Hello N10!</h1>;
+    }
 }
+
+export default connect(null, { setBreadcrumbItems })(Reports);
