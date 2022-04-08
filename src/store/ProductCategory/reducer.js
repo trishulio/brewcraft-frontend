@@ -60,7 +60,7 @@ const Product = (state = initialState, { type, payload }) => {
             };
         case RESET_PRODUCT_CATEGORY:
             return {
-                ...state,
+                ...initialState,
                 loading: false,
                 error: null,
             };

@@ -28,10 +28,13 @@ function* createUserGenerator(action) {
         const res = yield call(api.postUser, get(action, "payload.form"));
         yield put({
             type: SET_USER_DETAILS,
-            payload: { data: res.data, initial: res.data },
+            payload: { data: res.data[0], initial: res.data[0] },
         });
         yield put(
-            setGlobalRedirect({ pathname: "/users/" + res.data.id, search: "" })
+            setGlobalRedirect({
+                pathname: "/users/" + res.data[0].id,
+                search: "",
+            })
         );
     } catch (e) {
         yield put({ type: SET_USER_DETAILS_ERROR, payload: { error: true } });
@@ -41,16 +44,19 @@ function* createUserGenerator(action) {
 function* udpateUserGenerator(action) {
     try {
         const res = yield call(
-            api.patchUser,
+            api.putUser,
             get(action, "payload.id"),
             get(action, "payload.form")
         );
         yield put({
             type: SET_USER_DETAILS,
-            payload: { data: res.data, initial: res.data },
+            payload: { data: res.data[0], initial: res.data[0] },
         });
         yield put(
-            setGlobalRedirect({ pathname: "/users/" + res.data.id, search: "" })
+            setGlobalRedirect({
+                pathname: "/users/" + res.data[0].id,
+                search: "",
+            })
         );
     } catch (e) {
         yield put({ type: SET_USER_DETAILS_ERROR, payload: { error: true } });

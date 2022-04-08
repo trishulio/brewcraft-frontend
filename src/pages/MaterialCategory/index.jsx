@@ -38,8 +38,8 @@ export default function MaterialCategory() {
     });
 
     useEffect(() => {
+        dispatch(resetMaterialCategoryDetails());
         if (id === "new") {
-            dispatch(resetMaterialCategoryDetails());
             history.replace("/materials/categories/new?edit=true");
         } else {
             dispatch(fetchMaterialCategoryById({ id }));

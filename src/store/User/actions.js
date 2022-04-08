@@ -13,6 +13,7 @@ import {
     SET_USER_INVALID_EMAIL,
     SET_USER_INVALID_PHONENUMBER,
     SET_USER_INVALID_ROLES,
+    SET_USER_INVALID_IMAGE_FILE,
 } from "./actionTypes";
 
 export const setUserDetails = (payload) => ({
@@ -84,5 +85,10 @@ export const setUserInvalidPhoneNumber = (value) => ({
 
 export const setUserInvalidRoles = (value) => ({
     type: SET_USER_INVALID_ROLES,
+    payload: value,
+});
+
+export const setUserInvalidImageFile = (value) => ({
+    type: SET_USER_INVALID_IMAGE_FILE,
     payload: value,
 });

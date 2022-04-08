@@ -19,6 +19,10 @@ AxiosInstance.interceptors.request.use(
             ?.getAccessToken()
             .getJwtToken()}`;
 
+        config.headers.common["X-Iaas-Token"] = `${getsession
+            ?.getIdToken()
+            .getJwtToken()}`;
+
         return config;
     },
     function (error) {

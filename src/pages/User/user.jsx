@@ -3,6 +3,7 @@ import { Row, Col, Alert } from "reactstrap";
 import Toolbar from "./components/toolbar";
 import UserDetails from "./components/details";
 import { useSelector } from "react-redux";
+import UserImage from "./components/image";
 
 export default function User({
     category,
@@ -39,6 +40,9 @@ export default function User({
                         onSave={onSave}
                         changed={changed}
                     />
+                </Col>
+                <Col sm={6} md={3}>
+                    <UserImage editable={editable} />
                 </Col>
             </Row>
         </React.Fragment>

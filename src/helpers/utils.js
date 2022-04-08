@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { isFloat } from "./textUtils";
+import { v4 as uuidv4 } from "uuid";
 
 export function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -131,4 +132,8 @@ export function calculatedTaxRate(qty, price, taxAmount) {
     let taxRate = 0;
     taxRate = (taxAmount / (qty * price)) * 100;
     return taxRate || "0";
+}
+
+export function generateUuid() {
+    return uuidv4();
 }

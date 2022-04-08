@@ -377,8 +377,7 @@ export default function UserDetails({ editable, onSave, changed }) {
                                             ? { width: "16rem" }
                                             : {
                                                   width: "16rem",
-                                                  "background-color":
-                                                      "lightgrey",
+                                                  backgroundColor: "lightgrey",
                                               }
                                     }
                                     disabled={

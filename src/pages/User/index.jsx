@@ -8,6 +8,7 @@ import {
     updateUser,
     deleteUser,
     resetUserDetails,
+    setUserDetailsError,
     setUserInvalidUserName,
     setUserInvalidFirstName,
     setUserInvalidLastName,
@@ -15,18 +16,21 @@ import {
     setUserInvalidEmail,
     setUserInvalidPhoneNumber,
     setUserInvalidRoles,
+    setUserInvalidImageFile,
     fetchAllUserRoles,
 } from "../../store/actions";
-import { useQuery } from "../../helpers/utils";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 import UserInner from "./user";
 import {
+    useQuery,
     isValidName,
     isValidEmail,
     isValidPhoneNumber,
     isNotEmptyArray,
 } from "../../helpers/utils";
+import { isValidImageFile } from "../../helpers/fileUtils";
+import { putFile } from "../../helpers/vfs";
 
 export default function User() {
     const [editable, setEditable] = useState(false);
@@ -99,10 +103,10 @@ export default function User() {
                     lastName,
                     email,
                     phoneNumber,
-                    imageUrl,
                     status,
                     salutation,
                     roles,
+                    imageFile,
                 }) => ({
                     id,
                     userName,
@@ -111,10 +115,10 @@ export default function User() {
                     lastName,
                     email,
                     phoneNumber,
-                    imageUrl,
                     status,
                     salutation,
                     roles,
+                    imageFile,
                 }))(initialUser)
             ) !==
             JSON.stringify(
@@ -126,10 +130,10 @@ export default function User() {
                     lastName,
                     email,
                     phoneNumber,
-                    imageUrl,
                     status,
                     salutation,
                     roles,
+                    imageFile,
                 }) => ({
                     id,
                     userName,
@@ -138,16 +142,16 @@ export default function User() {
                     lastName,
                     email,
                     phoneNumber,
-                    imageUrl,
                     status,
                     salutation,
                     roles,
+                    imageFile,
                 }))(user)
             )
         );
     }
 
-    function onSave() {
+    async function onSave() {
         if (!isChanged()) {
             history.push("/users/" + id);
             return;
@@ -155,6 +159,19 @@ export default function User() {
 
         if (!validateUserInputs(user)) {
             return;
+        }
+
+        const selectedImageFile = user.imageFile;
+        if (selectedImageFile) {
+            const bPutFileSuccess = await putFile(
+                user.imageSrc,
+                selectedImageFile
+            );
+
+            if (!bPutFileSuccess) {
+                dispatch(setUserDetailsError(true));
+                return;
+            }
         }
 
         if (user.id) {
@@ -183,9 +200,9 @@ export default function User() {
                             user.phoneNumber?.trim().length > 0
                                 ? user.phoneNumber
                                 : null,
-                        imageUrl:
-                            user.imageUrl?.trim().length > 0
-                                ? user.imageUrl
+                        imageSrc:
+                            user.imageSrc?.trim().length > 0
+                                ? user.imageSrc
                                 : null,
                         statusId: 1, //Enforce all new users as "Enabled" until we allow users to be disabled
                         salutationId: user.salutation
@@ -224,9 +241,9 @@ export default function User() {
                             user.phoneNumber?.trim().length > 0
                                 ? user.phoneNumber
                                 : null,
-                        imageUrl:
-                            user.imageUrl?.trim().length > 0
-                                ? user.imageUrl
+                        imageSrc:
+                            user.imageSrc?.trim().length > 0
+                                ? user.imageSrc
                                 : null,
                         statusId: 1, //Enforce all new users as "Enabled" until we allow users to be disabled
                         salutationId: user.salutation
@@ -275,6 +292,15 @@ export default function User() {
             !isValidPhoneNumber(user.phoneNumber)
         ) {
             dispatch(setUserInvalidPhoneNumber(true));
+            result = false;
+        }
+        if (user.imageFile && !isValidImageFile(user.imageFile)) {
+            dispatch(
+                setUserInvalidImageFile({
+                    invalidImageFile: true,
+                    error: true,
+                })
+            );
             result = false;
         }
 

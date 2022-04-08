@@ -9,6 +9,7 @@ import {
     deleteProductCategory,
     fetchAllProductCategories,
     setProductCategoryDetails,
+    resetProductCategory,
 } from "../../store/actions";
 import { useQuery } from "../../helpers/utils";
 import ProductCategoryInner from "./category";
@@ -42,6 +43,7 @@ export default function ProductCategory() {
     });
 
     useEffect(() => {
+        dispatch(resetProductCategory());
         if (!id || id === "new") {
             history.replace("/products/categories/new?edit=true");
         } else {

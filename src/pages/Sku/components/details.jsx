@@ -395,9 +395,7 @@ export default function SkuDetails(props) {
                             </FormGroup>
                             <div className="d-inline-block font-size-12 mb-2">
                                 <div hidden={props.editable}>
-                                    {sku.isPackageable
-                                        ? sku.isPackageable
-                                        : "-"}
+                                    {sku.isPackageable ? "true" : "false"}
                                 </div>
                             </div>
                             <div className="clearFix"></div>

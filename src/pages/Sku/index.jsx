@@ -90,6 +90,7 @@ export default function Sku() {
                     product,
                     materials,
                     quantity,
+                    isPackageable,
                 }) => ({
                     id,
                     number,
@@ -98,6 +99,7 @@ export default function Sku() {
                     product,
                     materials,
                     quantity,
+                    isPackageable,
                 }))(initialSku)
             ) !==
             JSON.stringify(
@@ -109,6 +111,7 @@ export default function Sku() {
                     product,
                     materials,
                     quantity,
+                    isPackageable,
                 }) => ({
                     id,
                     number,
@@ -117,6 +120,7 @@ export default function Sku() {
                     product,
                     materials,
                     quantity,
+                    isPackageable,
                 }))(sku)
             )
         );
@@ -155,6 +159,7 @@ export default function Sku() {
                             symbol: sku.quantity.symbol,
                         },
                         materials: [],
+                        isPackageable: sku.isPackageable,
                         version: sku.version,
                     },
                 })
@@ -172,6 +177,7 @@ export default function Sku() {
                             symbol: sku.quantity.symbol,
                         },
                         materials: [],
+                        isPackageable: sku.isPackageable,
                     },
                 })
             );
