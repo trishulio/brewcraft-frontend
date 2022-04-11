@@ -1,7 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { Alert, Col, Row } from "reactstrap";
-import BrewMiniCard from "./components/mini-card";
+import { Card, CardBody } from "../../../component/Common/Card";
+import BrewMiniCard from "./mini-card";
 import {
     GravityLine,
     AbvLine,
@@ -11,21 +13,12 @@ import {
     IngredientsDoughnut,
     FinishedGoodsBar,
     FinishedGoodsDoughnut,
-} from "./components/charts";
-import {
-    ActiveStageWidget,
-    DaysWidget,
-    ProductWidget,
-} from "./components/widgets";
-import { Card, CardBody } from "../../component/Common/Card";
-import Toolbar from "./components/toolbar";
+} from "./charts";
+// import { ActiveStageWidget, DaysWidget, ProductWidget } from "./widgets";
 
-export default function BatchMetadata({
-    gravityRecords,
-    abvRecords,
-    temperatureRecords,
-    phRecords,
-}) {
+export default function BatchOverview() {
+    const { id } = useParams();
+
     const { error } = useSelector((state) => {
         return state.Batch.Batch;
     });
@@ -36,6 +29,51 @@ export default function BatchMetadata({
 
     const finishedGoods = useSelector((state) => {
         return state.Batch.BatchFinishedGoods.content;
+    });
+
+    const originalGravity = useSelector((state) => {
+        const record = state.Batch.MixtureRecordings.content.find(
+            (mr) =>
+                mr.measure.name === "gravity" &&
+                mr.mixture.brewStage.brew.id === id
+        );
+        return record ? record.value : 0;
+    });
+
+    const gravityRecords = useSelector((state) => {
+        return state.Batch.MixtureRecordings.content.filter(
+            (mr) =>
+                mr.measure.name === "gravity" &&
+                mr.mixture.brewStage.brew.id === id
+        );
+    });
+
+    const abvRecords = useSelector((state) => {
+        return state.Batch.MixtureRecordings.content
+            .filter(
+                (mr) =>
+                    mr.measure.name === "gravity" &&
+                    mr.mixture.brewStage.brew.id === id
+            )
+            .map((r) => ({
+                ...r,
+                value: Math.ceil((originalGravity - r.value) * 131.25),
+            }));
+    });
+
+    const temperatureRecords = useSelector((state) => {
+        return state.Batch.MixtureRecordings.content.filter(
+            (mr) =>
+                mr.measure.name === "temperature" &&
+                mr.mixture.brewStage.brew.id === id
+        );
+    });
+
+    const phRecords = useSelector((state) => {
+        return state.Batch.MixtureRecordings.content.filter(
+            (mr) =>
+                mr.measure.name === "ph" && mr.mixture.brewStage.brew.id === id
+        );
     });
 
     const props = {
@@ -55,10 +93,9 @@ export default function BatchMetadata({
                     submitting again.
                 </Alert>
             )}
-            <Toolbar />
             <BrewMiniCard />
             <Row>
-                <Col sm={6} xl={3}>
+                <Col sm={6}>
                     <Card>
                         <CardBody>
                             <h4 className="font-size-14 mb-2">
@@ -68,7 +105,7 @@ export default function BatchMetadata({
                         </CardBody>
                     </Card>
                 </Col>
-                <Col sm={6} xl={3}>
+                <Col sm={6}>
                     <Card>
                         <CardBody>
                             <h4 className="font-size-14 mb-2">ABV.</h4>
@@ -76,7 +113,7 @@ export default function BatchMetadata({
                         </CardBody>
                     </Card>
                 </Col>
-                <Col sm={6} xl={3}>
+                <Col sm={6}>
                     <Card>
                         <CardBody>
                             <h4 className="font-size-14 mb-2">Temperature</h4>
@@ -84,7 +121,7 @@ export default function BatchMetadata({
                         </CardBody>
                     </Card>
                 </Col>
-                <Col sm={6} xl={3}>
+                <Col sm={6}>
                     <Card>
                         <CardBody>
                             <h4 className="font-size-14 mb-2">PH</h4>
@@ -94,7 +131,7 @@ export default function BatchMetadata({
                 </Col>
             </Row>
             <Row>
-                <Col md={6} lg={2}>
+                {/* <Col md={6}>
                     <Card>
                         <CardBody>
                             <h4 className="font-size-14 mb-2">Product</h4>
@@ -113,8 +150,8 @@ export default function BatchMetadata({
                             <DaysWidget />
                         </CardBody>
                     </Card>
-                </Col>
-                <Col md={8} xl={{ offset: 0, size: 7 }}>
+                </Col> */}
+                <Col md={8}>
                     <Card>
                         <CardBody>
                             <h4 className="font-size-14 mb-2">
@@ -124,7 +161,7 @@ export default function BatchMetadata({
                         </CardBody>
                     </Card>
                 </Col>
-                <Col md={4} xl={3}>
+                <Col md={4}>
                     <Card>
                         <CardBody>
                             <h4 className="font-size-14 mb-2">
@@ -136,7 +173,7 @@ export default function BatchMetadata({
                 </Col>
             </Row>
             <Row>
-                <Col md={8} xl={{ offset: 2, size: 7 }}>
+                <Col md={8}>
                     <Card>
                         <CardBody>
                             <h4 className="font-size-14 mb-2">
@@ -146,7 +183,7 @@ export default function BatchMetadata({
                         </CardBody>
                     </Card>
                 </Col>
-                <Col md={4} xl={3}>
+                <Col md={4}>
                     <Card>
                         <CardBody>
                             <h4 className="font-size-14 mb-2">SKU Portions</h4>

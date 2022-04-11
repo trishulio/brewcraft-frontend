@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { prettyBrewTaskName } from "../../../helpers/textUtils";
-import { Badge } from "./badge";
+import { Badge } from "./common/badge";
 
 export function ProductWidget() {
     const product = useSelector((state) => {
