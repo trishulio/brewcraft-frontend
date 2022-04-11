@@ -8,6 +8,7 @@ import {
 } from "reactstrap";
 import { addBatchStage, deleteBrewStage } from "../../../../store/actions";
 import Ingredients from "../common/ingredients";
+import MixtureRecordings from "../common/mixture-recordings";
 import BatchStage from "../common/stage";
 
 export default function BrewKettle({
@@ -20,9 +21,11 @@ export default function BrewKettle({
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const dispatch = useDispatch();
 
-    const ingredientsProps = {
-        mixture: kettleMixture,
-    };
+    const measures = useSelector((state) => {
+        return state.Measures.data.filter((measure) => {
+            return [3, 4].includes(measure.id);
+        });
+    });
 
     const kettleStage = useSelector((state) => {
         return (
@@ -50,6 +53,15 @@ export default function BrewKettle({
             )
         );
     });
+
+    const ingredientsProps = {
+        mixture: kettleMixture,
+    };
+
+    const recordingsProps = {
+        measures,
+        mixture: kettleMixture,
+    };
 
     const stageProps = {
         title: "Kettle",
@@ -144,6 +156,9 @@ export default function BrewKettle({
                 <BatchStage {...stageProps}>
                     <div className="clearfix mb-3">
                         <Ingredients {...ingredientsProps} />
+                    </div>
+                    <div className="mb-3">
+                        <MixtureRecordings {...recordingsProps} />
                     </div>
                 </BatchStage>
             )}

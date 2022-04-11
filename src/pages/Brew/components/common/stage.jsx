@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Col, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
 import { Card, CardBody, CardHeader } from "../../../../component/Common/Card";
 import {
+    setBatchMixtureRecordings,
     setBrewMixtureDetails,
     setBrewStageDetails,
 } from "../../../../store/actions";
@@ -15,8 +17,6 @@ export default function BatchStage({
     toolbar,
     mixture,
     stage,
-    mixtureRecordings,
-    setMixtureRecords,
     children,
 }) {
     const dispatch = useDispatch();
@@ -27,6 +27,28 @@ export default function BatchStage({
 
     const stages = useSelector((state) => {
         return state.Batch.Stages.content;
+    });
+
+    const mixtureRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.content.filter(
+            (mr) => mr.mixture.id === mixture.id
+        );
+    });
+
+    const initialVolume = useSelector((state) => {
+        const record = state.Batch.MixtureRecordings.content.find((mr) => {
+            return mr.mixture.id === mixture.id && mr.measure.id === 10;
+        });
+        return record ? record.value : "";
+    });
+
+    const originalGravity = useSelector((state) => {
+        const record =
+            stage.task.id === 6 &&
+            state.Batch.MixtureRecordings.content.find((mr) => {
+                return mr.mixture.id === mixture.id && mr.measure.id === 5;
+            });
+        return record ? record.value : "";
     });
 
     function setMixture(mixture) {
@@ -56,6 +78,7 @@ export default function BatchStage({
     }
 
     function onFormInputChange(e) {
+        let record, index;
         switch (e.target.name) {
             case "mixtureStartDateTime":
                 if (stage.startedAt !== e.target.value) {
@@ -73,6 +96,28 @@ export default function BatchStage({
                     });
                 }
                 break;
+            case "mixtureInitialQuantityValue":
+                index = mixtureRecordings.findIndex(
+                    (r) => r.measure.id === 10 // initialVolume
+                );
+                if (index >= 0) {
+                    record = mixtureRecordings.splice(index, 1)[0];
+                    record.value = parseInt(e.target.value);
+                } else {
+                    record = {
+                        mixture,
+                        measure: {
+                            id: 10, // initialVolume
+                        },
+                        value: parseInt(e.target.value),
+                    };
+                }
+                dispatch(
+                    setBatchMixtureRecordings({
+                        content: [...mixtureRecordings, record],
+                    })
+                );
+                break;
             case "mixtureQuantityValue":
                 if (mixture.quantity.value !== e.target.value) {
                     setMixture({
@@ -84,11 +129,8 @@ export default function BatchStage({
                     });
                 }
                 break;
-            case "mixtureGravity":
-                let record;
-                const index = mixtureRecordings.findIndex(
-                    (r) => r.measure.id === 5
-                );
+            case "originalGravity":
+                index = mixtureRecordings.findIndex((r) => r.measure.id === 5);
                 if (index >= 0) {
                     record = mixtureRecordings.splice(index, 1)[0];
                     record.value = parseInt(e.target.value);
@@ -101,9 +143,11 @@ export default function BatchStage({
                         value: parseInt(e.target.value),
                     };
                 }
-                setMixtureRecords({
-                    content: [...mixtureRecordings, record],
-                });
+                dispatch(
+                    setBatchMixtureRecordings({
+                        content: [...mixtureRecordings, record],
+                    })
+                );
                 break;
             case "stageStatus":
                 setStage({
@@ -186,15 +230,35 @@ export default function BatchStage({
                                 </Col>
                             </Row>
                             <Row>
+                                {stage.task.id !== 1 && (
+                                    <Col sm="6">
+                                        <Label for="mixtureInitialQuantityValue">
+                                            Volume In (l)
+                                        </Label>
+                                        <FormGroup className="mb-3">
+                                            <Input
+                                                type="text"
+                                                className="waves-effect"
+                                                value={initialVolume}
+                                                placeholder={"Enter"}
+                                                name="mixtureInitialQuantityValue"
+                                                onChange={onFormInputChange}
+                                            />
+                                            <FormFeedback>
+                                                Enter a valid number.
+                                            </FormFeedback>
+                                        </FormGroup>
+                                    </Col>
+                                )}
                                 <Col sm="6">
                                     <Label for="mixtureQuantityValue">
-                                        Volume In (l)
+                                        Volume Out (l)
                                     </Label>
                                     <FormGroup className="mb-3">
                                         <Input
                                             type="text"
                                             className="waves-effect"
-                                            value={mixture.quantity.value}
+                                            value={mixture.quantity.value || ""}
                                             placeholder={"Enter"}
                                             name="mixtureQuantityValue"
                                             onChange={onFormInputChange}
@@ -204,21 +268,23 @@ export default function BatchStage({
                                         </FormFeedback>
                                     </FormGroup>
                                 </Col>
+                            </Row>
+                        </React.Fragment>
+                    )}
+                    {stage.task.id === 6 && (
+                        <React.Fragment>
+                            <Row>
                                 <Col sm="6">
-                                    <Label for="mixtureQuantityValue">
-                                        Volume Out (l)
+                                    <Label for="originalGravity">
+                                        Orignial Gravity (OG)
                                     </Label>
                                     <FormGroup className="mb-3">
                                         <Input
                                             type="text"
                                             className="waves-effect"
-                                            value={
-                                                stage.status.id === 6
-                                                    ? "-"
-                                                    : mixture.quantity.value
-                                            }
+                                            value={originalGravity}
                                             placeholder={"Enter"}
-                                            name="mixtureQuantityValue"
+                                            name="originalGravity"
                                             onChange={onFormInputChange}
                                         />
                                         <FormFeedback>

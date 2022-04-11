@@ -30,7 +30,7 @@ export default function BrewMiniCard() {
         return state.Batch.MixtureRecordings.content.find(
             (mr) =>
                 mr.measure.name === "gravity" &&
-                mr.mixture.brewStage.stage.id === id
+                mr.mixture.brewStage.brew.id === id
         )?.value;
     });
 

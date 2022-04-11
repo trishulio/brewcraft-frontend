@@ -24,18 +24,23 @@ const MixtureRecordings = (state = initialState, { type, payload }) => {
                 loading: true,
             };
         case FETCH_BATCH_MIXTURE_RECORDINGS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+            };
         case SET_BATCH_MIXTURE_RECORDINGS:
             return {
                 ...state,
                 ...payload,
-                loading: false,
                 error: null,
             };
         case FETCH_BATCH_MIXTURE_RECORDINGS_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: true,
+                error: {
+                    ...payload,
+                },
             };
         case RESET_BATCH_MIXTURE_RECORDINGS:
             return {

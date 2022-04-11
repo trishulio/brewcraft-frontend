@@ -31,13 +31,18 @@ function* fetchMixtureRecordingsGenerator(action) {
             api.fetchMixtureRecordings,
             get(action, "payload")
         );
-        yield put({
-            type: FETCH_BATCH_MIXTURE_RECORDINGS_SUCCESS,
-            payload: {
-                content: [...res.data.content],
-                initial: [...res.data.content],
-            },
-        });
+        yield all([
+            put({
+                type: FETCH_BATCH_MIXTURE_RECORDINGS_SUCCESS,
+            }),
+            put({
+                type: SET_BATCH_MIXTURE_RECORDINGS,
+                payload: {
+                    content: [...res.data.content],
+                    initial: [...res.data.content],
+                },
+            }),
+        ]);
     } catch (e) {
         yield put({
             type: FETCH_BATCH_MIXTURE_RECORDINGS_FAILURE,

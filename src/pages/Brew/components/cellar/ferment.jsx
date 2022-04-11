@@ -27,11 +27,18 @@ export default function BatchFerment({
         );
     });
 
+    const measures = useSelector((state) => {
+        return state.Measures.data.filter((measure) => {
+            return [3, 4, 5].includes(measure.id);
+        });
+    });
+
     const ingredientsProps = {
         mixture: fermentMixture,
     };
 
     const recordingsProps = {
+        measures,
         mixture: fermentMixture,
     };
 

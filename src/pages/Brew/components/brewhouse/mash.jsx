@@ -26,11 +26,18 @@ export default function BrewMash({
         );
     });
 
+    const measures = useSelector((state) => {
+        return state.Measures.data.filter((measure) => {
+            return [3, 4].includes(measure.id);
+        });
+    });
+
     const ingredientsProps = {
         mixture: mashMixture,
     };
 
     const recordingsProps = {
+        measures,
         mixture: mashMixture,
     };
 

@@ -8,7 +8,7 @@ import { isValidNumberString } from "../../../../helpers/utils";
 import { useDispatch } from "react-redux";
 import { setBatchMixtureRecordings } from "../../../../store/actions";
 
-export default function MixtureRecordings({ mixture }) {
+export default function MixtureRecordings({ mixture, measures }) {
     const [items, setItems] = useState([]);
     const [measure, setMeasure] = useState("");
     const [datetime, setDatetime] = useState("");
@@ -20,13 +20,11 @@ export default function MixtureRecordings({ mixture }) {
         return state.Batch.Batch;
     });
 
-    const measures = useSelector((state) => {
-        return state.Measures.data;
-    });
-
     const mixtureRecordings = useSelector((state) => {
         return state.Batch.MixtureRecordings.content.filter(
-            (mr) => mr.mixture.id === mixture.id
+            (mr) =>
+                mr.mixture.id === mixture.id &&
+                [3, 4, 5].includes(mr.measure.id)
         );
     });
 
@@ -86,7 +84,12 @@ export default function MixtureRecordings({ mixture }) {
                                             )}
                                         </div>
                                     </td>
-                                    <td>{record.measure.name}</td>
+                                    <td>
+                                        {record.measure.name
+                                            .charAt(0)
+                                            .toUpperCase() +
+                                            record.measure.name.slice(1)}
+                                    </td>
                                     <td>{formatDatetime(record.recordedAt)}</td>
                                     <td>{record.value}</td>
                                 </tr>
@@ -112,7 +115,8 @@ export default function MixtureRecordings({ mixture }) {
                             <option value="">Measure</option>
                             {map(measures, (value, index) => (
                                 <option value={value.id} key={index}>
-                                    {value.name}
+                                    {value.name.charAt(0).toUpperCase() +
+                                        value.name.slice(1)}
                                 </option>
                             ))}
                         </Input>

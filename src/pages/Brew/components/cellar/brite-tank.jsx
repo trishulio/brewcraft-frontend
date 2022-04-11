@@ -26,11 +26,18 @@ export default function BatchBriteTank({
         );
     });
 
+    const measures = useSelector((state) => {
+        return state.Measures.data.filter((measure) => {
+            return [3, 4, 5].includes(measure.id);
+        });
+    });
+
     const ingredientsProps = {
         mixture: briteTankMixture,
     };
 
     const recordingsProps = {
+        measures,
         mixture: briteTankMixture,
     };
 
