@@ -1,36 +1,31 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { Row, Col } from "reactstrap";
 import { Card, CardBody } from "../../../component/Common/Card";
 import { prettyVolume, toHl } from "../../../helpers/textUtils";
 
 export default function BrewMiniCard() {
-    const { id } = useParams();
-
     const turns = useSelector((state) => {
-        return state.MiniCards.brewsMixtures?.length;
+        return state.Batch.Stages.content.filter((stage) => {
+            return stage.task.id === 1;
+        }).length;
     });
 
     const packagedTotalVolumeHl = useSelector((state) => {
         let volume = 0.0; // hl
-        if (state.MiniCards.finishedGoods) {
-            state.MiniCards.finishedGoods.forEach(
-                (fg) =>
-                    (volume += toHl(
-                        fg.mixturePortions[0].quantity.value,
-                        fg.mixturePortions[0].quantity.symbol
-                    ))
-            );
-        }
+        state.Batch.BatchFinishedGoods.content.forEach(
+            (fg) =>
+                (volume += toHl(
+                    fg.mixturePortions[0].quantity.value,
+                    fg.mixturePortions[0].quantity.symbol
+                ))
+        );
         return volume;
     });
 
     const gravity = useSelector((state) => {
         return state.Batch.MixtureRecordings.content.find(
-            (mr) =>
-                mr.measure.name === "gravity" &&
-                mr.mixture.brewStage.brew.id === id
+            (mr) => mr.measure.id === 5 && mr.mixture.brewStage.task.id === 6
         )?.value;
     });
 

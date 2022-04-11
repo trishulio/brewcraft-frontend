@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Alert, Col, Row } from "reactstrap";
@@ -14,14 +14,17 @@ import {
     FinishedGoodsBar,
     FinishedGoodsDoughnut,
 } from "./charts";
+import { useEffect } from "react";
 // import { ActiveStageWidget, DaysWidget, ProductWidget } from "./widgets";
 
 export default function BatchOverview() {
+    const [batchId, setBatchId] = useState("");
+
     const { id } = useParams();
 
-    const { error } = useSelector((state) => {
-        return state.Batch.Batch;
-    });
+    useEffect(() => {
+        setBatchId(parseInt(id));
+    }, [id]);
 
     const ingredients = useSelector((state) => {
         return state.Batch.MaterialPortions.content;
@@ -35,7 +38,7 @@ export default function BatchOverview() {
         const record = state.Batch.MixtureRecordings.content.find(
             (mr) =>
                 mr.measure.name === "gravity" &&
-                mr.mixture.brewStage.brew.id === id
+                mr.mixture.brewStage.brew.id === batchId
         );
         return record ? record.value : 0;
     });
@@ -43,8 +46,7 @@ export default function BatchOverview() {
     const gravityRecords = useSelector((state) => {
         return state.Batch.MixtureRecordings.content.filter(
             (mr) =>
-                mr.measure.name === "gravity" &&
-                mr.mixture.brewStage.brew.id === id
+                mr.measure.id === 5 && mr.mixture.brewStage.brew.id === batchId
         );
     });
 
@@ -53,7 +55,7 @@ export default function BatchOverview() {
             .filter(
                 (mr) =>
                     mr.measure.name === "gravity" &&
-                    mr.mixture.brewStage.brew.id === id
+                    mr.mixture.brewStage.brew.id === batchId
             )
             .map((r) => ({
                 ...r,
@@ -65,14 +67,15 @@ export default function BatchOverview() {
         return state.Batch.MixtureRecordings.content.filter(
             (mr) =>
                 mr.measure.name === "temperature" &&
-                mr.mixture.brewStage.brew.id === id
+                mr.mixture.brewStage.brew.id === batchId
         );
     });
 
     const phRecords = useSelector((state) => {
         return state.Batch.MixtureRecordings.content.filter(
             (mr) =>
-                mr.measure.name === "ph" && mr.mixture.brewStage.brew.id === id
+                mr.measure.name === "ph" &&
+                mr.mixture.brewStage.brew.id === batchId
         );
     });
 
@@ -87,12 +90,6 @@ export default function BatchOverview() {
 
     return (
         <React.Fragment>
-            {error && (
-                <Alert color="info" className="mt-2 mb-4">
-                    <strong>Oh snap!</strong> Change a few things up and try
-                    submitting again.
-                </Alert>
-            )}
             <BrewMiniCard />
             <Row>
                 <Col sm={6}>
