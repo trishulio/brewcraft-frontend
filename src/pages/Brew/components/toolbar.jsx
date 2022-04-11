@@ -9,7 +9,8 @@ import {
     DropdownToggle,
 } from "reactstrap";
 import Select from "react-select";
-import { addBatchStage } from "../../../store/actions";
+import { addBatchStage, fetchBatches } from "../../../store/actions";
+import { useEffect } from "react";
 
 export default function Toolbar() {
     const [isOpenWorkflowDropdown, setIsOpenWorkflowDropdown] = useState(false);
@@ -25,6 +26,11 @@ export default function Toolbar() {
         return state.Batches.content;
     });
 
+    useEffect(() => {
+        dispatch(fetchBatches({ pageSize: 5000 }));
+        // eslint-disable-next-line
+    }, []);
+
     const renderBatchToolbar = () => (
         <React.Fragment>
             <Select
@@ -33,12 +39,12 @@ export default function Toolbar() {
                 name="brewMonitorId"
                 value={{
                     id,
-                    label: `brew ${batch.id} - ${batch.product.name}`,
+                    label: `Brew ${batch.id} - ${batch.product.name}`,
                 }}
                 placeholder="Select Batch .."
                 options={batches.map((b) => ({
                     value: b.id,
-                    label: `${b.batchId} ${b.product.name}`,
+                    label: `Brew ${b.id} - ${b.product.name}`,
                 }))}
                 onChange={(e) => {
                     history.push({
@@ -78,19 +84,6 @@ export default function Toolbar() {
                 className="waves-effect d-inline align-middle mr-2"
             >
                 <i className="fa fa-print"></i> Print
-            </Button>
-            <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect d-inline align-middle mr-2"
-                onClick={() => {
-                    history.push({
-                        pathname: "/brews/monitor/" + id,
-                    });
-                }}
-            >
-                <i className="fa fa-desktop"></i> Monitor
             </Button>
             <Dropdown
                 isOpen={isOpenWorkflowDropdown}
