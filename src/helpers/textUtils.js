@@ -246,7 +246,7 @@ export function ErrorMessage({ error, message, className, color }) {
     );
 }
 
-export function prettyBrewTaskName(name) {
+export function prettyName(name) {
     return name
         .toLowerCase()
         .split(" ")

@@ -15,7 +15,6 @@ import {
     FinishedGoodsDoughnut,
 } from "./charts";
 import { useEffect } from "react";
-// import { ActiveStageWidget, DaysWidget, ProductWidget } from "./widgets";
 
 export default function BatchOverview() {
     const [batchId, setBatchId] = useState("");
@@ -128,26 +127,6 @@ export default function BatchOverview() {
                 </Col>
             </Row>
             <Row>
-                {/* <Col md={6}>
-                    <Card>
-                        <CardBody>
-                            <h4 className="font-size-14 mb-2">Product</h4>
-                            <ProductWidget {...props} />
-                        </CardBody>
-                    </Card>
-                    <Card>
-                        <CardBody>
-                            <h4 className="font-size-14 mb-2">Current Stage</h4>
-                            <ActiveStageWidget />
-                        </CardBody>
-                    </Card>
-                    <Card>
-                        <CardBody>
-                            <h4 className="font-size-14 mb-2">Batch Time</h4>
-                            <DaysWidget />
-                        </CardBody>
-                    </Card>
-                </Col> */}
                 <Col md={8}>
                     <Card>
                         <CardBody>

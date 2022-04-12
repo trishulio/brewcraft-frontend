@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { map } from "lodash";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
-import { formatDatetime } from "../../.././../helpers/textUtils";
+import { formatDatetime, prettyName } from "../../.././../helpers/textUtils";
 import { isValidNumberString } from "../../../../helpers/utils";
 import { useDispatch } from "react-redux";
 import { setBatchMixtureRecordings } from "../../../../store/actions";
@@ -90,10 +90,7 @@ export default function MixtureRecordings({ mixture, measures }) {
                                             </div>
                                         </td>
                                         <td>
-                                            {record.measure.name
-                                                .charAt(0)
-                                                .toUpperCase() +
-                                                record.measure.name.slice(1)}
+                                            {prettyName(record.measure.name)}
                                         </td>
                                         <td>
                                             {formatDatetime(record.recordedAt)}
@@ -123,8 +120,7 @@ export default function MixtureRecordings({ mixture, measures }) {
                             <option value="">Measure</option>
                             {map(measures, (value, index) => (
                                 <option value={value.id} key={index}>
-                                    {value.name.charAt(0).toUpperCase() +
-                                        value.name.slice(1)}
+                                    {prettyName(value.name)}
                                 </option>
                             ))}
                         </Input>

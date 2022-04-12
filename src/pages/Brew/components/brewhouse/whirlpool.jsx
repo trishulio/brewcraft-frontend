@@ -117,7 +117,6 @@ export default function BrewWhirlpool({
                 <BatchStage {...stageProps}>
                     <div className="clearfix mb-3">
                         <BatchIngredients {...ingredientsProps} />
-                        {console.log(measures)}
                     </div>
                     <div className="mb-3">
                         <MixtureRecordings {...recordingsProps} />
