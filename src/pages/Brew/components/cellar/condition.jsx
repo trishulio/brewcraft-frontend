@@ -28,9 +28,9 @@ export default function BatchCondition({
     });
 
     const measures = useSelector((state) => {
-        return state.Measures.data.filter((measure) => {
-            return [3, 4, 5].includes(measure.id);
-        });
+        return state.Measures.data.filter((measure) =>
+            [3, 4, 5].includes(measure.id)
+        );
     });
 
     const ingredientsProps = {

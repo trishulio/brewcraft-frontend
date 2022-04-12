@@ -40,9 +40,9 @@ export default function BrewWhirlpool({
     });
 
     const measures = useSelector((state) => {
-        return state.Measures.data.filter((measure) => {
-            [3, 4].includes(measure.id);
-        });
+        return state.Measures.data.filter((measure) =>
+            [3, 4].includes(measure.id)
+        );
     });
 
     const ingredientsProps = {
@@ -117,6 +117,7 @@ export default function BrewWhirlpool({
                 <BatchStage {...stageProps}>
                     <div className="clearfix mb-3">
                         <BatchIngredients {...ingredientsProps} />
+                        {console.log(measures)}
                     </div>
                     <div className="mb-3">
                         <MixtureRecordings {...recordingsProps} />

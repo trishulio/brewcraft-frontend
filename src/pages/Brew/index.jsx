@@ -80,6 +80,11 @@ export default function Batch() {
     });
 
     useEffect(() => {
+        if (!edit) {
+            history.replace({
+                search: "?edit=true",
+            });
+        }
         if (id !== "new") {
             dispatch(fetchBatch({ batchId: id }));
         } else {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Alert, Col, Row } from "reactstrap";
+import { Col, Row } from "reactstrap";
 import { Card, CardBody } from "../../../component/Common/Card";
 import BrewMiniCard from "./mini-card";
 import {
