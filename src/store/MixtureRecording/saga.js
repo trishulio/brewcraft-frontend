@@ -31,13 +31,18 @@ function* fetchMixtureRecordingsGenerator(action) {
             api.fetchMixtureRecordings,
             get(action, "payload")
         );
-        yield put({
-            type: FETCH_BATCH_MIXTURE_RECORDINGS_SUCCESS,
-            payload: {
-                content: [...res.data.content],
-                initial: [...res.data.content],
-            },
-        });
+        yield all([
+            put({
+                type: FETCH_BATCH_MIXTURE_RECORDINGS_SUCCESS,
+            }),
+            put({
+                type: SET_BATCH_MIXTURE_RECORDINGS,
+                payload: {
+                    content: [...res.data.content],
+                    initial: [...res.data.content],
+                },
+            }),
+        ]);
     } catch (e) {
         yield put({
             type: FETCH_BATCH_MIXTURE_RECORDINGS_FAILURE,
@@ -61,7 +66,12 @@ function* editMixtureRecordingsGenerator() {
             yield put({ type: EDIT_BATCH_MIXTURE_RECORDINGS_SUCCESS });
             return;
         }
-        const mixtureRecordingsIds = mixtureRecordings.map((mr) => mr.id);
+        const mixtureRecordingsIds = [];
+        mixtureRecordings.forEach((mr) => {
+            if (mr.id) {
+                mixtureRecordingsIds.push(mr.id);
+            }
+        });
         yield all([
             put({
                 type: UPDATE_BATCH_MIXTURE_RECORDINGS_REQUEST,
@@ -119,14 +129,24 @@ function* editMixtureRecordingsGenerator() {
 
 function* updateMixtureRecordingsGenerator(action) {
     try {
-        const res = yield call(
-            api.updateMixtureRecordings,
-            get(action, "payload")
-        );
-        yield put({
-            type: UPDATE_BATCH_MIXTURE_RECORDINGS_SUCCESS,
-            payload: { ...res },
-        });
+        const payload = get(action, "payload");
+        if (!payload.length) {
+            yield put({
+                type: UPDATE_BATCH_MIXTURE_RECORDINGS_SUCCESS,
+                payload: {
+                    data: [],
+                },
+            });
+        } else {
+            const res = yield call(
+                api.updateMixtureRecordings,
+                get(action, "payload")
+            );
+            yield put({
+                type: UPDATE_BATCH_MIXTURE_RECORDINGS_SUCCESS,
+                payload: { ...res },
+            });
+        }
     } catch (e) {
         yield put({
             type: UPDATE_BATCH_MIXTURE_RECORDINGS_FAILURE,
@@ -141,14 +161,17 @@ function* updateMixtureRecordingsGenerator(action) {
 
 function* deleteMixtureRecordingsGenerator(action) {
     try {
-        const res = yield call(
-            api.deleteMixtureRecordings,
-            get(action, "payload")
-        );
-        yield put({
-            type: DELETE_BATCH_MIXTURE_RECORDINGS_SUCCESS,
-            payload: { ...res },
-        });
+        const payload = get(action, "payload");
+        if (!payload.length) {
+            yield put({
+                type: DELETE_BATCH_MIXTURE_RECORDINGS_SUCCESS,
+            });
+        } else {
+            yield call(api.deleteMixtureRecordings, get(action, "payload"));
+            yield put({
+                type: DELETE_BATCH_MIXTURE_RECORDINGS_SUCCESS,
+            });
+        }
     } catch (e) {
         yield put({
             type: DELETE_BATCH_MIXTURE_RECORDINGS_FAILURE,

@@ -14,8 +14,6 @@ export default function BrewTransfer({
     toggleIsOpen,
     transferMixture,
 }) {
-    // const [invalidOg, setInvalidOg] = useState(false);
-    // const [invalidQuantity, setInvalidQuantity] = useState(false);
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const dispatch = useDispatch();
 

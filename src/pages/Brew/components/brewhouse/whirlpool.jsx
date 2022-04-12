@@ -8,6 +8,8 @@ import {
     DropdownToggle,
 } from "reactstrap";
 import { addBatchStage, deleteBrewStage } from "../../../../store/actions";
+import BatchIngredients from "../common/ingredients";
+import MixtureRecordings from "../common/mixture-recordings";
 import BatchStage from "../common/stage";
 
 export default function BrewWhirlpool({
@@ -36,6 +38,21 @@ export default function BrewWhirlpool({
             )
         );
     });
+
+    const measures = useSelector((state) => {
+        return state.Measures.data.filter((measure) =>
+            [3, 4].includes(measure.id)
+        );
+    });
+
+    const ingredientsProps = {
+        mixture: whirlpoolMixture,
+    };
+
+    const recordingsProps = {
+        measures,
+        mixture: whirlpoolMixture,
+    };
 
     const stageProps = {
         title: "Whirlpool",
@@ -96,7 +113,16 @@ export default function BrewWhirlpool({
 
     return (
         <React.Fragment>
-            {whirlpoolStage && <BatchStage {...stageProps}></BatchStage>}
+            {whirlpoolStage && (
+                <BatchStage {...stageProps}>
+                    <div className="clearfix mb-3">
+                        <BatchIngredients {...ingredientsProps} />
+                    </div>
+                    <div className="mb-3">
+                        <MixtureRecordings {...recordingsProps} />
+                    </div>
+                </BatchStage>
+            )}
         </React.Fragment>
     );
 }

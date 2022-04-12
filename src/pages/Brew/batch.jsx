@@ -5,6 +5,7 @@ import { Button, Col, Row, TabContent, TabPane } from "reactstrap";
 import { setBatchDetails } from "../../store/actions";
 import { Card, CardBody } from "../../component/Common/Card";
 import BatchDetails from "./components/details";
+import BatchOverview from "./components/overview";
 import Toolbar from "./components/toolbar";
 import BatchPeople from "./components/people";
 // import BatchComments from "./components/comments";
@@ -76,6 +77,9 @@ export default function Batch(props) {
                                 />
                             </div>
                             <TabContent activeTab={props.activeTab}>
+                                <TabPane tabId="overview">
+                                    <BatchOverview />
+                                </TabPane>
                                 <TabPane tabId="details">
                                     <BatchDetails {...props} />
                                     <BatchFileUploads {...props} />

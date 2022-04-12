@@ -18,8 +18,10 @@ export default function BatchIngredients({ mixture }) {
         return state.Batch.Batch;
     });
 
-    const materialLots = useSelector((state) => {
-        return state.MaterialLots.stock;
+    const ingredientLots = useSelector((state) => {
+        return state.MaterialLots.stock.filter((ml) => {
+            return ml.material.materialClass.id === 1;
+        });
     });
 
     const materialPortions = useSelector((state) => {
@@ -118,7 +120,7 @@ export default function BatchIngredients({ mixture }) {
                             style={{ width: "14rem" }}
                             value={selectedLot.materialLot?.id || ""}
                             onChange={(e) => {
-                                const materialLot = materialLots.find((s) => {
+                                const materialLot = ingredientLots.find((s) => {
                                     return (
                                         s.materialLot.id ===
                                         parseInt(e.target.value)
@@ -128,7 +130,7 @@ export default function BatchIngredients({ mixture }) {
                             }}
                         >
                             <option value="">Ingredient</option>
-                            {map(materialLots, (value, index) => (
+                            {map(ingredientLots, (value, index) => (
                                 <option
                                     value={value.materialLot.id}
                                     key={index}

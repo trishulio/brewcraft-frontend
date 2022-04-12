@@ -3,12 +3,12 @@ import { useSelector } from "react-redux";
 import { map } from "lodash";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
-import { formatDatetime } from "../../.././../helpers/textUtils";
+import { formatDatetime, prettyName } from "../../.././../helpers/textUtils";
 import { isValidNumberString } from "../../../../helpers/utils";
 import { useDispatch } from "react-redux";
 import { setBatchMixtureRecordings } from "../../../../store/actions";
 
-export default function MixtureRecordings({ mixture }) {
+export default function MixtureRecordings({ mixture, measures }) {
     const [items, setItems] = useState([]);
     const [measure, setMeasure] = useState("");
     const [datetime, setDatetime] = useState("");
@@ -20,14 +20,8 @@ export default function MixtureRecordings({ mixture }) {
         return state.Batch.Batch;
     });
 
-    const measures = useSelector((state) => {
-        return state.Measures.data;
-    });
-
     const mixtureRecordings = useSelector((state) => {
-        return state.Batch.MixtureRecordings.content.filter(
-            (mr) => mr.mixture.id === mixture.id
-        );
+        return state.Batch.MixtureRecordings.content;
     });
 
     return (
@@ -53,44 +47,58 @@ export default function MixtureRecordings({ mixture }) {
                             </tr>
                         )}
                         {mixtureRecordings &&
-                            map(mixtureRecordings, (record, index) => (
-                                <tr key={index}>
-                                    <td style={{ width: "2rem" }}>
-                                        <div className="d-flex align-items-center vertical-center">
-                                            {editable && (
-                                                <Input
-                                                    className="ml-1"
-                                                    type="checkbox"
-                                                    disabled={!editable}
-                                                    onChange={(e) => {
-                                                        if (e.target.checked) {
-                                                            setItems([
-                                                                ...items,
-                                                                index,
-                                                            ]);
-                                                        } else {
-                                                            setItems(
-                                                                items.filter(
-                                                                    (l) =>
-                                                                        l !==
-                                                                        index
-                                                                )
-                                                            );
+                            map(
+                                mixtureRecordings.filter(
+                                    (mr) =>
+                                        mr.mixture.id === mixture.id &&
+                                        [3, 4, 5].includes(mr.measure.id)
+                                ),
+                                (record, index) => (
+                                    <tr key={index}>
+                                        <td style={{ width: "2rem" }}>
+                                            <div className="d-flex align-items-center vertical-center">
+                                                {editable && (
+                                                    <Input
+                                                        className="ml-1"
+                                                        type="checkbox"
+                                                        disabled={!editable}
+                                                        onChange={(e) => {
+                                                            if (
+                                                                e.target.checked
+                                                            ) {
+                                                                setItems([
+                                                                    ...items,
+                                                                    index,
+                                                                ]);
+                                                            } else {
+                                                                setItems(
+                                                                    items.filter(
+                                                                        (l) =>
+                                                                            l !==
+                                                                            index
+                                                                    )
+                                                                );
+                                                            }
+                                                        }}
+                                                        checked={
+                                                            items.includes(
+                                                                index
+                                                            ) && editable
                                                         }
-                                                    }}
-                                                    checked={
-                                                        items.includes(index) &&
-                                                        editable
-                                                    }
-                                                />
-                                            )}
-                                        </div>
-                                    </td>
-                                    <td>{record.measure.name}</td>
-                                    <td>{formatDatetime(record.recordedAt)}</td>
-                                    <td>{record.value}</td>
-                                </tr>
-                            ))}
+                                                    />
+                                                )}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {prettyName(record.measure.name)}
+                                        </td>
+                                        <td>
+                                            {formatDatetime(record.recordedAt)}
+                                        </td>
+                                        <td>{record.value}</td>
+                                    </tr>
+                                )
+                            )}
                     </tbody>
                 </CommonTable>
             </div>
@@ -112,7 +120,7 @@ export default function MixtureRecordings({ mixture }) {
                             <option value="">Measure</option>
                             {map(measures, (value, index) => (
                                 <option value={value.id} key={index}>
-                                    {value.name}
+                                    {prettyName(value.name)}
                                 </option>
                             ))}
                         </Input>
@@ -160,7 +168,7 @@ export default function MixtureRecordings({ mixture }) {
                                         ...mixtureRecordings,
                                         {
                                             measure,
-                                            value: recordValue,
+                                            value: parseInt(recordValue),
                                             recordedAt: datetime,
                                             mixture: mixture,
                                         },

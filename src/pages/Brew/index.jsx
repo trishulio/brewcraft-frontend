@@ -20,7 +20,7 @@ import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 import BatchInner from "./batch";
 
 export default function Batch() {
-    const [activeTab, setActiveTab] = useState("details");
+    const [activeTab, setActiveTab] = useState("overview");
     const [showDeletePrompt, setShowDeletePrompt] = useState(false);
     const [showRouterPrompt, setShowRouterPrompt] = useState(false);
 
@@ -80,6 +80,11 @@ export default function Batch() {
     });
 
     useEffect(() => {
+        if (!edit) {
+            history.replace({
+                search: "?edit=true",
+            });
+        }
         if (id !== "new") {
             dispatch(fetchBatch({ batchId: id }));
         } else {

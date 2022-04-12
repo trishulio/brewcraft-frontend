@@ -183,7 +183,6 @@ export default function FinishedGoodsInventoryToolbar() {
             dispatch(setFinishedGoodInvalidMixturePortions(true));
             result = false;
         }
-        debugger;
         if (
             !finishedGood.materialPortions ||
             !isNotEmptyArray(finishedGood.materialPortions)
