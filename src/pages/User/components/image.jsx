@@ -48,7 +48,10 @@ export default function UserImage({ editable }) {
                 clearSelectedImage();
             } else {
                 if (invalidImageFile) {
-                    dispatch(setUserInvalidImageFile(false));
+                    setUserInvalidImageFile({
+                        invalidImageFile: false,
+                        error: false,
+                    });
                 }
                 //If this is the first image being saved for the user generate a uuid for the file key,
                 //otherwise we always use the existing file key to overwrite the old user image.

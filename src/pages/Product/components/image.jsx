@@ -48,7 +48,10 @@ export default function ProductImage({ editable }) {
                 clearSelectedImage();
             } else {
                 if (invalidImageFile) {
-                    dispatch(setProductInvalidImageFile(false));
+                    setProductInvalidImageFile({
+                        invalidImageFile: false,
+                        error: false,
+                    });
                 }
                 //If this is the first image being saved for the product generate a a new file key,
                 //otherwise we always use the existing file key to overwrite the old product image.
