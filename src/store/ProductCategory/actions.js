@@ -90,4 +90,5 @@ export const setProductCategoryInvalidDescription = (enabled) => ({
 
 export const resetProductCategory = () => ({
     type: RESET_PRODUCT_CATEGORY,
+    payload: null,
 });

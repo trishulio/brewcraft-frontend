@@ -40,8 +40,8 @@ export default function PackagingItem() {
     });
 
     useEffect(() => {
+        dispatch(resetPackagingItemDetails());
         if (id === "new") {
-            dispatch(resetPackagingItemDetails());
             history.replace("/materials/packaging/new?edit=true");
         } else {
             dispatch(fetchPackagingItemById({ id }));

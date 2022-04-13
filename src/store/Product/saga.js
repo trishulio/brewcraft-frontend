@@ -5,7 +5,7 @@ import {
     CREATE_PRODUCT,
     UPDATE_PRODUCT,
     DELETE_PRODUCT,
-    SET_PRODUCT_DETAILS_FAILED,
+    SET_PRODUCT_DETAILS_ERROR,
 } from "./actionTypes";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { api } from "./api";
@@ -33,14 +33,14 @@ function* createProductGenerator(action) {
             snackSuccess(`Created product ${get(action, "payload.form.name")}.`)
         );
     } catch (e) {
-        yield put({ type: SET_PRODUCT_DETAILS_FAILED });
+        yield put({ type: SET_PRODUCT_DETAILS_ERROR });
     }
 }
 
 function* udpateProductGenerator(action) {
     try {
         const res = yield call(
-            api.patchProduct,
+            api.putProduct,
             get(action, "payload.id"),
             get(action, "payload.form")
         );
@@ -51,7 +51,7 @@ function* udpateProductGenerator(action) {
             snackSuccess(`Updated product ${get(action, "payload.form.name")}.`)
         );
     } catch (e) {
-        yield put({ type: SET_PRODUCT_DETAILS_FAILED });
+        yield put({ type: SET_PRODUCT_DETAILS_ERROR });
     }
 }
 

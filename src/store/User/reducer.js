@@ -9,6 +9,7 @@ import {
     SET_USER_INVALID_EMAIL,
     SET_USER_INVALID_PHONENUMBER,
     SET_USER_INVALID_ROLES,
+    SET_USER_INVALID_IMAGE_FILE,
 } from "./actionTypes";
 
 const initialState = {
@@ -20,7 +21,9 @@ const initialState = {
         lastName: null,
         email: null,
         phoneNumber: null,
-        imageUrl: null,
+        imageSrc: null, //key for image file in S3
+        objectStoreFile: null,
+        imageFile: null, //user uploaded image to persist
         status: null,
         salutation: null,
         roles: null,
@@ -34,7 +37,9 @@ const initialState = {
         lastName: null,
         email: null,
         phoneNumber: null,
-        imageUrl: null,
+        imageSrc: null, //key for image file in S3
+        objectStoreFile: null,
+        imageFile: null, //user uploaded image to persist
         status: null,
         salutation: null,
         roles: null,
@@ -47,6 +52,7 @@ const initialState = {
     invalidEmail: false,
     invalidPhoneNumber: false,
     invalidRoles: false,
+    invalidImageFile: false,
     loading: true,
     error: null,
 };
@@ -120,6 +126,13 @@ const User = (state = initialState, { type, payload }) => {
                 invalidRoles: payload,
                 loading: false,
                 error: true,
+            };
+        case SET_USER_INVALID_IMAGE_FILE:
+            return {
+                ...state,
+                invalidImageFile: payload.invalidImageFile,
+                loading: false,
+                error: payload.error,
             };
         default:
             return {

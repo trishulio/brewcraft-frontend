@@ -40,12 +40,11 @@ export default function Ingredient() {
     });
 
     useEffect(() => {
+        dispatch(resetIngredientDetails());
         if (id === "new" && !editMode) {
             history.replace("/products/new?edit=true");
         } else {
-            if (id === "new") {
-                dispatch(resetIngredientDetails());
-            } else {
+            if (id !== "new") {
                 dispatch(fetchIngredientById(id));
             }
             if (editMode) {

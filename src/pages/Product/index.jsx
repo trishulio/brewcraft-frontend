@@ -16,11 +16,15 @@ import ProductInner from "./product";
 import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
 import {
+    setProductDetailsError,
     setProductInvalidName,
     setProductInvalidClass,
     setProductInvalidAbv,
+    setProductInvalidImageFile,
 } from "../../store/Product/actions";
-import { validAmount } from "../../helpers/utils";
+import { validAmount, isValidName } from "../../helpers/utils";
+import { isValidImageFile } from "../../helpers/fileUtils";
+import { putFile } from "../../helpers/vfs";
 
 export default function Product() {
     const [editable, setEditable] = useState(false);
@@ -46,20 +50,13 @@ export default function Product() {
         return state.Measures.data.find((measure) => measure.name === "abv");
     });
 
-    const { invalidName, invalidClass, invalidType, invalidAbv } = useSelector(
-        (state) => {
-            return state.Product;
-        }
-    );
-
     useEffect(() => {
+        dispatch(resetProductDetails());
         dispatch(fetchMeasures());
         if (id === "new" && !editMode) {
             history.replace("/products/new?edit=true");
         } else {
-            if (id === "new") {
-                dispatch(resetProductDetails());
-            } else {
+            if (id !== "new") {
                 dispatch(fetchProductById(id));
             }
             if (editMode && editMode !== "false") {
@@ -101,6 +98,7 @@ export default function Product() {
                     type,
                     style,
                     targetMeasures,
+                    imageFile,
                 }) => ({
                     id,
                     name,
@@ -109,6 +107,7 @@ export default function Product() {
                     type,
                     style,
                     targetMeasures,
+                    imageFile,
                 }))(initialProduct)
             ) !==
             JSON.stringify(
@@ -120,6 +119,7 @@ export default function Product() {
                     type,
                     style,
                     targetMeasures,
+                    imageFile,
                 }) => ({
                     id,
                     name,
@@ -128,6 +128,7 @@ export default function Product() {
                     type,
                     style,
                     targetMeasures,
+                    imageFile,
                 }))(product)
             )
         );
@@ -158,27 +159,30 @@ export default function Product() {
             : [];
     }
 
-    function onSave() {
-        const abvValue = parseFloat(
-            product.targetMeasures?.find((elem) => elem.measure?.id === abv?.id)
-                ?.value
-        );
-        if (
-            !product.name ||
-            !product.productClass?.id ||
-            !validAmount(abvValue)
-        ) {
-            dispatch(setProductInvalidName(!product.name));
-            dispatch(setProductInvalidClass(!product.productClass?.id));
-            dispatch(setProductInvalidAbv(!validAmount(abvValue)));
-            return;
-        }
-        if (invalidName || invalidClass || invalidType || invalidAbv) {
-            return;
-        }
+    async function onSave() {
         if (!isChanged()) {
             history.push("/products/" + id);
-        } else if (product.id) {
+            return;
+        }
+
+        if (!validateProductInputs(product)) {
+            return;
+        }
+
+        const selectedImageFile = product.imageFile;
+        if (selectedImageFile) {
+            const bPutFileSuccess = await putFile(
+                product.imageSrc,
+                selectedImageFile
+            );
+
+            if (!bPutFileSuccess) {
+                dispatch(setProductDetailsError(true));
+                return;
+            }
+        }
+
+        if (product.id) {
             dispatch(
                 updateProduct({
                     data: product,
@@ -195,6 +199,38 @@ export default function Product() {
                 })
             );
         }
+    }
+
+    function validateProductInputs() {
+        let result = true;
+
+        const abvValue = parseFloat(
+            product.targetMeasures?.find((elem) => elem.measure?.id === abv?.id)
+                ?.value
+        );
+        if (!validAmount(abvValue)) {
+            dispatch(setProductInvalidAbv(true));
+            result = false;
+        }
+        if (!isValidName(product.name)) {
+            dispatch(setProductInvalidName(true));
+            result = false;
+        }
+        if (!product.productClass || !product.productClass.id) {
+            dispatch(setProductInvalidClass(true));
+            result = false;
+        }
+        if (product.imageFile && !isValidImageFile(product.imageFile)) {
+            dispatch(
+                setProductInvalidImageFile({
+                    invalidImageFile: true,
+                    error: true,
+                })
+            );
+            result = false;
+        }
+
+        return result;
     }
 
     function onDelete() {

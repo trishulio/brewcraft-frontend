@@ -99,7 +99,7 @@ export default function SkusTable() {
                                 ? sku.quantity.value + " " + sku.quantity.symbol
                                 : "-"}
                         </td>
-                        <td>{sku.isPackageable}</td>
+                        <td>{sku.isPackageable ? "true" : "false"}</td>
                     </tr>
                 ))}
             </tbody>
