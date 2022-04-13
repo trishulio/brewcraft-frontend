@@ -43,7 +43,7 @@ async function fetchEquipment({
     order,
     pageIndex,
     pageSize,
-}) {
+} = {}) {
     return await AxiosInstance.get("/api/v1/facilities/equipment", {
         params: {
             ids,

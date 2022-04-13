@@ -13,6 +13,7 @@ import {
     fetchMaterialStockQuantity,
     setBatchDetails,
     addBatch,
+    fetchEquipment,
 } from "../../store/actions";
 import { useQuery } from "../../helpers/utils";
 import DeleteGuard from "../../component/Prompt/DeleteGuard";
@@ -94,6 +95,7 @@ export default function Batch() {
         dispatch(fetchBatchTasks());
         dispatch(fetchMeasures());
         dispatch(fetchMaterialStockQuantity());
+        dispatch(fetchEquipment());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
