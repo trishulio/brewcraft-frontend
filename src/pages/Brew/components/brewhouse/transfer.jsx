@@ -67,9 +67,6 @@ export default function BrewTransfer({
                                 Move to Cellar
                             </span>
                         </DropdownItem>
-                        <DropdownItem>
-                            <span className="text-dark">Delete Mixture</span>
-                        </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
             </React.Fragment>

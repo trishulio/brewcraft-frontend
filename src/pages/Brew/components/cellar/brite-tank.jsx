@@ -6,7 +6,7 @@ import {
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import { deleteBrewStage } from "../../../../store/actions";
+import { deleteBatchMixture } from "../../../../store/actions";
 import Ingredients from "../common/ingredients";
 import Recordings from "../common/mixture-recordings";
 import FinishedGoods from "../common/finished-goods";
@@ -72,7 +72,9 @@ export default function BatchBriteTank({
                             <span
                                 className="text-dark"
                                 onClick={() => {
-                                    dispatch(deleteBrewStage(briteTankStage));
+                                    dispatch(
+                                        deleteBatchMixture(briteTankMixture)
+                                    );
                                 }}
                             >
                                 Delete Mixture
