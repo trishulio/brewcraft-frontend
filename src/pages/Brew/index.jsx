@@ -11,6 +11,7 @@ import {
     fetchBatchTasks,
     fetchMeasures,
     fetchMaterialStockQuantity,
+    fetchAllUsers,
     setBatchDetails,
     addBatch,
     fetchEquipment,
@@ -96,6 +97,7 @@ export default function Batch() {
         dispatch(fetchMeasures());
         dispatch(fetchMaterialStockQuantity());
         dispatch(fetchEquipment());
+        dispatch(fetchAllUsers());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 

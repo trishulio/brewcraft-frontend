@@ -237,6 +237,8 @@ function* createBatchGenerator(action) {
             parentBrewId: batch.parentBrewId,
             startedAt: batch.startedAt,
             endedAt: batch.endedAt,
+            assignedToUserId: batch.assignedTo?.id || null,
+            ownedByUserId: batch.ownedBy?.id || null,
         });
         yield put({
             type: CREATE_BATCH_SUCCESS,
@@ -459,6 +461,8 @@ function* updateBatchGenerator(action) {
             parentBrewId: get(action, "payload.parentBrewId"),
             startedAt: get(action, "payload.startedAt"),
             endedAt: get(action, "payload.endedAt"),
+            assignedToUserId: get(action, "payload.assignedTo.id") || null,
+            ownedByUserId: get(action, "payload.ownedBy.id") || null,
             version: get(action, "payload.version"),
         });
         yield put({

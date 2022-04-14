@@ -1,17 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "../../helpers/utils";
-import {
-    fetchEquipment,
-    setBreadcrumbItems,
-    fetchAllMaterialCategories,
-} from "../../store/actions";
+import { fetchEquipment, setBreadcrumbItems } from "../../store/actions";
 import EquipmentInner from "./equipment";
 
 export default function Equipment() {
     const dispatch = useDispatch();
     const query = useQuery();
-    const parentCategoryId = query.get("category");
+    const types = query.get("types");
     const sort = query.get("sort");
     const order = query.get("order");
 
@@ -27,7 +23,7 @@ export default function Equipment() {
         dispatch(
             setBreadcrumbItems("Equipment", [
                 { title: "Main", link: "#" },
-                { title: "Materials", link: "#" },
+                { title: "Equipment", link: "#" },
             ])
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,14 +33,13 @@ export default function Equipment() {
         const props = {
             pageIndex,
             pageSize,
-            parentCategoryId,
+            types,
             sort,
             order,
         };
         dispatch(fetchEquipment({ ...props }));
-        dispatch(fetchAllMaterialCategories());
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageIndex, pageSize, parentCategoryId, sort, order]);
+    }, [pageIndex, pageSize, types, sort, order]);
 
     return <EquipmentInner equipment={equipment} />;
 }
