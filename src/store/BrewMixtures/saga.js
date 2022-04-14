@@ -12,9 +12,6 @@ import {
     FETCH_BATCH_MIXTURES_REQUEST,
     FETCH_BATCH_MIXTURES_SUCCESS,
     FETCH_BATCH_MIXTURES_FAILURE,
-    DELETE_BREW_MIXTURES_REQUEST,
-    DELETE_BREW_MIXTURE_SUCCESS,
-    DELETE_BREW_MIXTURE_FAILURE,
     CREATE_BATCH_MIXTURE_REQUEST,
     CREATE_BATCH_MIXTURE_SUCCESS,
     CREATE_BATCH_MIXTURE_FAILURE,
@@ -25,6 +22,9 @@ import {
     EDIT_BATCH_MIXTURES_FAILURE,
     SET_BATCH_MIXTURES,
     EDIT_BATCH_MIXTURES,
+    DELETE_BATCH_MIXTURE_REQUEST,
+    DELETE_BATCH_MIXTURE_SUCCESS,
+    DELETE_BATCH_MIXTURE_FAILURE,
 } from "./actionTypes";
 import { api } from "./api";
 
@@ -140,13 +140,13 @@ function* updateBatchMixturesGenerator(action) {
 
 function* deleteBatchMixtureGenerator(action) {
     try {
-        yield call(api.deleteMixture, get(action, "payload.mixtures"));
+        yield call(api.deleteMixture, get(action, "payload.id"));
         yield put({
-            type: DELETE_BREW_MIXTURE_SUCCESS,
+            type: DELETE_BATCH_MIXTURE_SUCCESS,
             payload: get(action, "payload"),
         });
     } catch (e) {
-        yield put({ type: DELETE_BREW_MIXTURE_FAILURE });
+        yield put({ type: DELETE_BATCH_MIXTURE_FAILURE });
     }
 }
 
@@ -159,7 +159,7 @@ function* Mixture() {
         updateBatchMixturesGenerator
     );
 
-    yield takeEvery(DELETE_BREW_MIXTURES_REQUEST, deleteBatchMixtureGenerator);
+    yield takeEvery(DELETE_BATCH_MIXTURE_REQUEST, deleteBatchMixtureGenerator);
 }
 
 export default Mixture;

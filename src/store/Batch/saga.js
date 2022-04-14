@@ -41,6 +41,9 @@ import {
     UPDATE_BATCH_SUCCESS,
     UPDATE_BATCH_FAILURE,
     UPDATE_BATCH_REQUEST,
+    DELETE_BATCH_MIXTURE_AND_STAGE,
+    DELETE_BATCH_MIXTURE_AND_STAGE_SUCCESS,
+    DELETE_BATCH_MIXTURE_AND_STAGE_FAILURE,
 } from "./actionTypes";
 import { isValidName, validDate, validId } from "../../helpers/utils";
 import {
@@ -77,6 +80,9 @@ import {
     EDIT_BATCH_STAGES,
     EDIT_BATCH_STAGES_SUCCESS,
     EDIT_BATCH_STAGES_FAILURE,
+    DELETE_BATCH_STAGE_REQUEST,
+    DELETE_BATCH_STAGE_SUCCESS,
+    DELETE_BATCH_STAGE_FAILURE,
 } from "../BrewStages/actionTypes";
 import {
     EDIT_BATCH_MIXTURE_RECORDINGS,
@@ -471,6 +477,66 @@ function* updateBatchGenerator(action) {
     }
 }
 
+function* deleteBatchMixtureGenerator(action) {
+    try {
+        const mixture = get(action, "payload");
+        yield put({
+            type: DELETE_BATCH_STAGE_REQUEST,
+            payload: {
+                id: mixture.brewStage.id,
+            },
+        });
+        const [success] = yield race([
+            take(DELETE_BATCH_STAGE_SUCCESS),
+            take(DELETE_BATCH_STAGE_FAILURE),
+        ]);
+        if (!success) {
+            throw new Error("Failed to delete mixture");
+        }
+        const stages = yield select((state) => {
+            const stages = state.Batch.Stages.content;
+            const index = stages.findIndex(
+                (s) => s.id === mixture.brewStage.id
+            );
+            stages.splice(index, 1);
+            return stages;
+        });
+        const mixtures = yield select((state) => {
+            const mixtures = state.Batch.BrewMixtures.content;
+            const index = mixtures.findIndex((m) => m.id === mixture.id);
+            mixtures.splice(index, 1);
+            return mixtures;
+        });
+        yield all([
+            put({
+                type: SET_BATCH_MIXTURES,
+                payload: {
+                    content: mixtures,
+                    initial: JSON.parse(JSON.stringify(mixtures)),
+                },
+            }),
+            put({
+                type: SET_BATCH_STAGES,
+                payload: {
+                    content: stages,
+                    initial: JSON.parse(JSON.stringify(stages)),
+                },
+            }),
+            put({ type: DELETE_BATCH_MIXTURE_AND_STAGE_SUCCESS }),
+            put(snackSuccess("Deleted mixture")),
+        ]);
+    } catch (e) {
+        yield put({
+            type: DELETE_BATCH_MIXTURE_AND_STAGE_FAILURE,
+            payload: {
+                error: e.error,
+                message: e.message,
+                color: "warning",
+            },
+        });
+    }
+}
+
 function* validateBrewGenerator(action) {
     const batch = get(action, "payload.batch");
     yield put({
@@ -511,6 +577,10 @@ function* Batch() {
     yield takeEvery(EDIT_BATCH, editBatchGenerator);
     yield takeEvery(EDIT_BATCH_DETAILS, editBatchDetailsGenerator);
     yield takeEvery(UPDATE_BATCH_REQUEST, updateBatchGenerator);
+    yield takeEvery(
+        DELETE_BATCH_MIXTURE_AND_STAGE,
+        deleteBatchMixtureGenerator
+    );
 
     yield takeEvery(DELETE_BATCH_REQUEST, deleteBatchGenerator);
     yield takeEvery(RESET_BATCH_DETAILS, resetBatchDetailsGenerator);

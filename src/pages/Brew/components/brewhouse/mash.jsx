@@ -6,7 +6,7 @@ import {
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import { addBatchStage, deleteBrewStage } from "../../../../store/actions";
+import { addBatchStage, deleteBatchMixture } from "../../../../store/actions";
 import Ingredients from "../common/ingredients";
 import BatchStage from "../common/stage";
 import Recordings from "../common/mixture-recordings";
@@ -91,7 +91,7 @@ export default function BrewMash({
                                         className="text-dark"
                                         onClick={() => {
                                             dispatch(
-                                                deleteBrewStage(mashStage)
+                                                deleteBatchMixture(mashMixture)
                                             );
                                         }}
                                     >

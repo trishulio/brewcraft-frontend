@@ -1,3 +1,4 @@
+import { map } from "lodash";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -48,6 +49,10 @@ export default function BatchStage({
                 return mr.mixture.id === mixture.id && mr.measure.id === 5;
             });
         return record ? record.value : "";
+    });
+
+    const equipment = useSelector((state) => {
+        return state.Equipment.content;
     });
 
     function setMixture(mixture) {
@@ -125,6 +130,17 @@ export default function BatchStage({
                             ...mixture.quantity,
                             value: e.target.value,
                         },
+                    });
+                }
+                break;
+            case "mixtureEquipment":
+                if (mixture.equipment?.id !== e.target.value) {
+                    const equipmentItem = equipment.find((item) => {
+                        return item.id === parseInt(e.target.value);
+                    });
+                    setMixture({
+                        ...mixture,
+                        equipment: equipmentItem,
                     });
                 }
                 break;
@@ -264,6 +280,36 @@ export default function BatchStage({
                                         />
                                         <FormFeedback>
                                             Enter a valid number.
+                                        </FormFeedback>
+                                    </FormGroup>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col sm="6">
+                                    <Label for="mixtureEquipment">
+                                        Equipment
+                                    </Label>
+                                    <FormGroup className="mb-3">
+                                        <Input
+                                            type="select"
+                                            className="waves-effect"
+                                            value={mixture.equipment?.id || ""}
+                                            placeholder={"Enter"}
+                                            name="mixtureEquipment"
+                                            onChange={onFormInputChange}
+                                        >
+                                            <option value="">Select</option>
+                                            {map(equipment, (value, index) => (
+                                                <option
+                                                    value={value.id}
+                                                    key={index}
+                                                >
+                                                    {value.name}
+                                                </option>
+                                            ))}
+                                        </Input>
+                                        <FormFeedback>
+                                            Select a valid equipment item.
                                         </FormFeedback>
                                     </FormGroup>
                                 </Col>

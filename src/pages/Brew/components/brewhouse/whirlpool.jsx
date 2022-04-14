@@ -7,7 +7,7 @@ import {
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import { addBatchStage, deleteBrewStage } from "../../../../store/actions";
+import { addBatchStage, deleteBatchMixture } from "../../../../store/actions";
 import BatchIngredients from "../common/ingredients";
 import MixtureRecordings from "../common/mixture-recordings";
 import BatchStage from "../common/stage";
@@ -99,7 +99,9 @@ export default function BrewWhirlpool({
                             <span
                                 className="text-dark"
                                 onClick={() => {
-                                    dispatch(deleteBrewStage(whirlpoolStage));
+                                    dispatch(
+                                        deleteBatchMixture(whirlpoolMixture)
+                                    );
                                 }}
                             >
                                 Delete Mixture

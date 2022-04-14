@@ -12,11 +12,11 @@ async function fetchBrewStages({ batchId }) {
             // order_asc: !params.order || params.order === "asc"
         },
     };
-    return await AxiosInstance.get(`/api/v1/brews/stages`, data).then((r) => r);
+    return await AxiosInstance.get(`/api/v1/brews/stages`, data);
 }
 
 async function fetchBrewStageById(id) {
-    return await AxiosInstance.get(`/api/v1/brews/stages/${id}`).then((r) => r);
+    return await AxiosInstance.get(`/api/v1/brews/stages/${id}`);
 }
 
 async function createBatchStages(params) {
@@ -43,9 +43,7 @@ async function updateBatchStage({
 }
 
 async function deleteBrewStage(id) {
-    return await AxiosInstance.delete(`/api/v1/brews/stages/${id}`).then(
-        (r) => r
-    );
+    return await AxiosInstance.delete(`/api/v1/brews/stages/${id}`);
 }
 
 export const api = {
