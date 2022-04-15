@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Mash from "./mash";
 import Kettle from "./kettle";
@@ -6,7 +6,7 @@ import Whirlpool from "./whirlpool";
 import Transfer from "./transfer";
 
 export default function Brew({ mashMixture }) {
-    const [isMashOpen, setIsMashOpen] = useState(true);
+    const [isMashOpen, setIsMashOpen] = useState(false);
     const [isKettleOpen, setIsKettleOpen] = useState(false);
     const [isWhirlpoolOpen, setIsWhirlpoolOpen] = useState(false);
     const [isTransferOpen, setIsTransferOpen] = useState(false);
@@ -47,19 +47,17 @@ export default function Brew({ mashMixture }) {
         }
     });
 
-    useEffect(() => {
-        // Open the last stage that exists.
-        if (transferMixture) {
-            toggleIsOpen("transfer", true);
-        } else if (whirlpoolMixture) {
-            toggleIsOpen("whirlpool", true);
-        } else if (kettleMixture) {
-            toggleIsOpen("kettle", true);
-        } else {
-            toggleIsOpen("mash", true);
-        }
-        // eslint-disable-next-line
-    }, []);
+    const fermentMixture = useSelector((state) => {
+        return (
+            transferMixture &&
+            state.Batch.BrewMixtures.content.find(
+                (m) =>
+                    m.parentMixtureIds &&
+                    m.parentMixtureIds.includes(transferMixture.id) &&
+                    m.brewStage.task.id === 7
+            )
+        );
+    });
 
     function toggleIsOpen(index, show) {
         switch (index) {
@@ -97,6 +95,7 @@ export default function Brew({ mashMixture }) {
         kettleMixture,
         whirlpoolMixture,
         transferMixture,
+        fermentMixture,
         toggleIsOpen,
     };
 

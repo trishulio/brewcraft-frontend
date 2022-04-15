@@ -32,7 +32,7 @@ export default function BrewMiniCard() {
     return (
         <React.Fragment>
             <Row>
-                <Col md="6">
+                <Col sm="6" xl="3">
                     <Card className="mini-stat bg-primary">
                         <CardBody className="mini-stat-img">
                             <div className="mini-stat-icon">
@@ -53,7 +53,7 @@ export default function BrewMiniCard() {
                         </CardBody>
                     </Card>
                 </Col>
-                <Col md="6">
+                <Col sm="6" xl="3">
                     <Card className="mini-stat bg-primary">
                         <CardBody className="mini-stat-img">
                             <div className="mini-stat-icon">
@@ -81,7 +81,7 @@ export default function BrewMiniCard() {
                         </CardBody>
                     </Card>
                 </Col>
-                <Col md="6">
+                <Col sm="6" xl="3">
                     <Card className="mini-stat bg-primary">
                         <CardBody className="mini-stat-img">
                             <div className="mini-stat-icon">
@@ -98,7 +98,7 @@ export default function BrewMiniCard() {
                         </CardBody>
                     </Card>
                 </Col>
-                <Col md="6">
+                <Col sm="6" xl="3">
                     <Card className="mini-stat bg-primary">
                         <CardBody className="mini-stat-img">
                             <div className="mini-stat-icon">

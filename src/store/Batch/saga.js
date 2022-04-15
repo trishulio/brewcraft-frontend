@@ -44,6 +44,9 @@ import {
     DELETE_BATCH_MIXTURE_AND_STAGE,
     DELETE_BATCH_MIXTURE_AND_STAGE_SUCCESS,
     DELETE_BATCH_MIXTURE_AND_STAGE_FAILURE,
+    UPDATE_BATCH_STAGE,
+    UPDATE_BATCH_STAGE_SUCCESS,
+    UPDATE_BATCH_STAGE_FAILURE,
 } from "./actionTypes";
 import { isValidName, validDate, validId } from "../../helpers/utils";
 import {
@@ -572,6 +575,47 @@ function* resetBatchDetailsGenerator() {
     ]);
 }
 
+function* updateStageStageGenerator(action) {
+    try {
+        const stage = get(action, "payload.stage");
+        const stages = yield select((state) => {
+            return state.Batch.Stages.content;
+        });
+        const index = stages.findIndex((s) => s.id === stage.id);
+        const data = JSON.parse(JSON.stringify(stages));
+        data.splice(index, 1);
+        yield put({
+            type: SET_BATCH_STAGES,
+            payload: {
+                content: [...data, stage],
+            },
+        });
+        yield put({
+            type: EDIT_BATCH_STAGES,
+        });
+        const [success] = yield race([
+            take(EDIT_BATCH_STAGES_SUCCESS),
+            take(EDIT_BATCH_STAGES_FAILURE),
+        ]);
+        if (success) {
+            yield put({
+                type: UPDATE_BATCH_STAGE_SUCCESS,
+            });
+        } else {
+            throw new Error();
+        }
+    } catch (e) {
+        yield put({
+            type: UPDATE_BATCH_STAGE_FAILURE,
+            payload: {
+                error: e.error,
+                message: e.message,
+                color: "warning",
+            },
+        });
+    }
+}
+
 function* Batch() {
     yield takeEvery(GET_BATCH, fetchBatchGenerator);
     yield takeEvery(FETCH_BATCH_REQUEST, fetchBatchByIdGenerator);
@@ -585,6 +629,7 @@ function* Batch() {
         DELETE_BATCH_MIXTURE_AND_STAGE,
         deleteBatchMixtureGenerator
     );
+    yield takeEvery(UPDATE_BATCH_STAGE, updateStageStageGenerator);
 
     yield takeEvery(DELETE_BATCH_REQUEST, deleteBatchGenerator);
     yield takeEvery(RESET_BATCH_DETAILS, resetBatchDetailsGenerator);

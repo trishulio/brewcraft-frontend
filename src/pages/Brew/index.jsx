@@ -22,7 +22,7 @@ import RouteLeavingGuard from "../../component/Prompt/RouteLeavingGuard";
 import BatchInner from "./batch";
 
 export default function Batch() {
-    const [activeTab, setActiveTab] = useState("overview");
+    const [activeTab, setActiveTab] = useState("details");
     const [showDeletePrompt, setShowDeletePrompt] = useState(false);
     const [showRouterPrompt, setShowRouterPrompt] = useState(false);
 

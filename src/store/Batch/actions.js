@@ -13,6 +13,7 @@ import {
     ADD_BATCH_STAGE,
     EDIT_BATCH,
     DELETE_BATCH_MIXTURE_AND_STAGE,
+    UPDATE_BATCH_STAGE,
 } from "./actionTypes";
 
 export const fetchBatch = ({ batchId }) => ({
@@ -66,6 +67,13 @@ export const deleteBatchMixture = ({ id, brewStage }) => ({
     payload: {
         id,
         brewStage,
+    },
+});
+
+export const editBatchStage = (stage) => ({
+    type: UPDATE_BATCH_STAGE,
+    payload: {
+        stage,
     },
 });
 
