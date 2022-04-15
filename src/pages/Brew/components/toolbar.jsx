@@ -29,7 +29,7 @@ export default function Toolbar() {
     useEffect(() => {
         dispatch(fetchBatches({ pageSize: 5000 }));
         // eslint-disable-next-line
-    }, []);
+    }, [id]);
 
     const renderBatchToolbar = () => (
         <React.Fragment>
@@ -49,6 +49,7 @@ export default function Toolbar() {
                 onChange={(e) => {
                     history.push({
                         pathname: "/brews/" + e.value,
+                        search: "?edit=true",
                     });
                 }}
                 styles={{

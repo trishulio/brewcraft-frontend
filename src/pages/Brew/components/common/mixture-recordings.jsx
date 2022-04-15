@@ -6,7 +6,58 @@ import CommonTable from "../../../../component/Common/table";
 import { formatDatetime, prettyName } from "../../.././../helpers/textUtils";
 import { isValidNumberString } from "../../../../helpers/utils";
 import { useDispatch } from "react-redux";
-import { setBatchMixtureRecordings } from "../../../../store/actions";
+import {
+    editBatch,
+    setBatchMixtureRecordings,
+} from "../../../../store/actions";
+import {
+    Modal,
+    ModalBody,
+    ModalFooter,
+} from "../../../../component/Common/modal";
+
+export function MixtureRecordingsModal({
+    show,
+    setShow,
+    afterSave,
+    mixture,
+    measures,
+}) {
+    const dispatch = useDispatch();
+    return (
+        <Modal
+            title="Recordings"
+            size="lg"
+            show={show}
+            close={() => {
+                setShow(false);
+            }}
+        >
+            <ModalBody>
+                <MixtureRecordings mixture={mixture} measures={measures} />
+            </ModalBody>
+            <ModalFooter>
+                <Button
+                    color="primary"
+                    onClick={() => {
+                        dispatch(editBatch());
+                        afterSave();
+                        setShow(false);
+                    }}
+                >
+                    Save
+                </Button>{" "}
+                <Button
+                    onClick={() => {
+                        setShow(false);
+                    }}
+                >
+                    Cancel
+                </Button>
+            </ModalFooter>
+        </Modal>
+    );
+}
 
 export default function MixtureRecordings({ mixture, measures }) {
     const [items, setItems] = useState([]);
@@ -112,7 +163,7 @@ export default function MixtureRecordings({ mixture, measures }) {
                             value={measure?.id || ""}
                             onChange={(e) => {
                                 const measure = measures.find((m) => {
-                                    return m.id === parseInt(e.target.value);
+                                    return m.id === parseFloat(e.target.value);
                                 });
                                 setMeasure(measure || "");
                             }}
@@ -168,7 +219,7 @@ export default function MixtureRecordings({ mixture, measures }) {
                                         ...mixtureRecordings,
                                         {
                                             measure,
-                                            value: parseInt(recordValue),
+                                            value: parseFloat(recordValue),
                                             recordedAt: datetime,
                                             mixture: mixture,
                                         },

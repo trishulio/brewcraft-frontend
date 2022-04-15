@@ -3,10 +3,52 @@ import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import { Button, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
-import { fetchSkus } from "../../../../store/actions";
+import { editBatch, fetchSkus } from "../../../../store/actions";
 import { formatDatetime, prettyVolume } from "../../../../helpers/textUtils";
-import Modal from "../../../../component/FinishedGoods";
+import FinishedGoodModal from "../../../../component/FinishedGoods";
 import { setBatchFinishedGoods } from "../../../../store/BatchFinishedGoods/actions";
+import {
+    Modal,
+    ModalBody,
+    ModalFooter,
+} from "../../../../component/Common/modal";
+
+export function FinishedGoodsModal({ show, setShow, afterSave, mixture }) {
+    const dispatch = useDispatch();
+    return (
+        <Modal
+            title="Finished Goods"
+            size="lg"
+            show={show}
+            close={() => {
+                setShow(false);
+            }}
+        >
+            <ModalBody>
+                <FinishedGoods mixture={mixture} />
+            </ModalBody>
+            <ModalFooter>
+                <Button
+                    color="primary"
+                    onClick={() => {
+                        dispatch(editBatch());
+                        afterSave();
+                        setShow(false);
+                    }}
+                >
+                    Save
+                </Button>{" "}
+                <Button
+                    onClick={() => {
+                        setShow(false);
+                    }}
+                >
+                    Cancel
+                </Button>
+            </ModalFooter>
+        </Modal>
+    );
+}
 
 export default function FinishedGoods({ mixture }) {
     const initialFinishedGood = {
@@ -232,7 +274,7 @@ export default function FinishedGoods({ mixture }) {
                     Remove
                 </Button>
             )} */}
-            <Modal {...modalProps} />
+            <FinishedGoodModal {...modalProps} />
         </React.Fragment>
     );
 }

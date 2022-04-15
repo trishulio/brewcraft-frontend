@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Ferment from "./ferment";
 import Condition from "./condition";
@@ -56,17 +56,6 @@ export default function Brew({ fermentMixture }) {
             )
         );
     });
-
-    useEffect(() => {
-        if (briteTankStage) {
-            toggleIsOpen("britetank", true);
-        } else if (conditionStage) {
-            toggleIsOpen("condition", true);
-        } else {
-            toggleIsOpen("ferment", true);
-        }
-        // eslint-disable-next-line
-    }, [fermentStage, conditionStage, briteTankStage]);
 
     function toggleIsOpen(index, show) {
         switch (index) {

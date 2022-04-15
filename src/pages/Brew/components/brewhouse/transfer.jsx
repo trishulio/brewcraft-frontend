@@ -6,15 +6,19 @@ import {
     DropdownMenu,
     DropdownToggle,
 } from "reactstrap";
-import { addBatchStage } from "../../../../store/actions";
-import BatchStage from "../common/stage";
+import { Card } from "../../../../component/Common/Card";
+import TooltipButton from "../../../../component/Common/tooltip-button";
+import { addBatchStage, deleteBatchMixture } from "../../../../store/actions";
+import BatchStage, { StageHeader, StageModal } from "../common/stage";
 
 export default function BrewTransfer({
     isOpen,
     toggleIsOpen,
     transferMixture,
+    fermentMixture,
 }) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
+    const [isShowEditStage, setIsShowEditStage] = useState(false);
     const dispatch = useDispatch();
 
     const transferStage = useSelector((state) => {
@@ -26,29 +30,55 @@ export default function BrewTransfer({
         );
     });
 
+    const fermentStage = useSelector((state) => {
+        return (
+            fermentMixture &&
+            state.Batch.Stages.content.find(
+                (s) => s.id === fermentMixture.brewStage.id
+            )
+        );
+    });
+
     const stageProps = {
-        title: "Transfer",
+        isOpen,
         stage: transferStage,
         mixture: transferMixture,
-        isOpen,
-        toggleIsOpen: () => {
-            toggleIsOpen("transfer");
+    };
+
+    const modalProps = {
+        mixture: transferMixture,
+        afterSave: () => {
+            toggleIsOpen("transfer", true);
         },
-        toolbar: (
+    };
+
+    function Toolbar() {
+        return (
             <React.Fragment>
+                <TooltipButton
+                    id="editTransferButton"
+                    className="waves-effect mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText="Edit Stage"
+                    placement="bottom"
+                    onClick={() => setIsShowEditStage(true)}
+                >
+                    <i className="mdi mdi-pencil"></i>
+                </TooltipButton>
                 <Dropdown
                     isOpen={isOpenMoreDropdown}
                     toggle={() => setIsOpenMoreDropdown(!isOpenMoreDropdown)}
-                    className="d-inline-block mr-2"
+                    className="d-inline-block m-0"
                 >
                     <DropdownToggle
                         tag="button"
-                        className="waves-effect btn btn-outline-secondary btn-sm"
+                        className="waves-effect btn btn-outline-secondary btn-sm mr-1 mb-1"
                         data-toggle="dropdown"
                     >
-                        Mixture <i className="fa fa-caret-down"></i>
+                        <i className="mdi mdi-dots-horizontal"></i>
                     </DropdownToggle>
-                    <DropdownMenu>
+                    <DropdownMenu right>
                         <DropdownItem>
                             <span
                                 className="text-dark"
@@ -67,15 +97,47 @@ export default function BrewTransfer({
                                 Move to Cellar
                             </span>
                         </DropdownItem>
+                        <DropdownItem disabled={!!fermentStage?.id}>
+                            <span
+                                className="text-dark"
+                                onClick={() => {
+                                    dispatch(
+                                        deleteBatchMixture(transferMixture)
+                                    );
+                                }}
+                            >
+                                Delete Mixture
+                            </span>
+                        </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
             </React.Fragment>
-        ),
-    };
+        );
+    }
 
     return (
         <React.Fragment>
-            {transferStage && <BatchStage {...stageProps} />}
+            {transferStage && (
+                <Card className="shadow-none m-0 p-0">
+                    <StageHeader
+                        title="Transfer: Details"
+                        toggleIsOpen={() => {
+                            toggleIsOpen("transfer");
+                        }}
+                        toolbar={<Toolbar />}
+                    />
+                    <BatchStage {...stageProps} />
+                </Card>
+            )}
+            {transferStage && (
+                <StageModal
+                    show={isShowEditStage}
+                    setShow={setIsShowEditStage}
+                    stage={transferStage}
+                    title={"Edit Details: Transfer"}
+                    {...modalProps}
+                />
+            )}
         </React.Fragment>
     );
 }

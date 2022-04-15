@@ -4,8 +4,50 @@ import { map } from "lodash";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
 import { isValidNumberString } from "../../../../helpers/utils";
-import { setBrewMaterialPortions } from "../../../../store/actions";
+import { editBatch, setBrewMaterialPortions } from "../../../../store/actions";
 import { useDispatch } from "react-redux";
+import {
+    Modal,
+    ModalBody,
+    ModalFooter,
+} from "../../../../component/Common/modal";
+
+export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
+    const dispatch = useDispatch();
+    return (
+        <Modal
+            title="Ingredients"
+            size="lg"
+            show={show}
+            close={() => {
+                setShow(false);
+            }}
+        >
+            <ModalBody>
+                <BatchIngredients mixture={mixture} />
+            </ModalBody>
+            <ModalFooter>
+                <Button
+                    color="primary"
+                    onClick={() => {
+                        dispatch(editBatch());
+                        afterSave();
+                        setShow(false);
+                    }}
+                >
+                    Save
+                </Button>{" "}
+                <Button
+                    onClick={() => {
+                        setShow(false);
+                    }}
+                >
+                    Cancel
+                </Button>
+            </ModalFooter>
+        </Modal>
+    );
+}
 
 export default function BatchIngredients({ mixture }) {
     const [invalidQuantity, setInvalidQuantity] = useState(false);

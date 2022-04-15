@@ -2,15 +2,21 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {
+    Col,
     Dropdown,
     DropdownItem,
     DropdownMenu,
     DropdownToggle,
+    Row,
 } from "reactstrap";
+import { Card } from "../../../../component/Common/Card";
+import TooltipButton from "../../../../component/Common/tooltip-button";
 import { addBatchStage, deleteBatchMixture } from "../../../../store/actions";
-import BatchIngredients from "../common/ingredients";
-import MixtureRecordings from "../common/mixture-recordings";
-import BatchStage from "../common/stage";
+import { BatchIngredientsModal } from "../common/ingredients";
+import { MixtureRecordingsModal } from "../common/mixture-recordings";
+import BatchStage, { StageHeader, StageModal } from "../common/stage";
+import StageIngredients from "../common/stage-ingredients";
+import StageRecordings from "../common/stage-recordings";
 
 export default function BrewWhirlpool({
     whirlpoolMixture,
@@ -19,6 +25,10 @@ export default function BrewWhirlpool({
     toggleIsOpen,
 }) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
+    const [isShowEditStage, setIsShowEditStage] = useState(false);
+    const [isShowIngredients, setIsShowIngredients] = useState(false);
+    const [isShowMixtureRecordings, setIsShowMixtureRecordings] =
+        useState(false);
     const dispatch = useDispatch();
 
     const whirlpoolStage = useSelector((state) => {
@@ -41,42 +51,96 @@ export default function BrewWhirlpool({
 
     const measures = useSelector((state) => {
         return state.Measures.data.filter((measure) =>
-            [3, 4].includes(measure.id)
+            [3, 4, 5].includes(measure.id)
         );
     });
 
-    const ingredientsProps = {
-        mixture: whirlpoolMixture,
-    };
+    const materialPortions = useSelector((state) => {
+        return state.Batch.MaterialPortions.initial.filter(
+            (mp) => mp.mixture.id === whirlpoolMixture.id
+        );
+    });
 
-    const recordingsProps = {
-        measures,
-        mixture: whirlpoolMixture,
-    };
+    const phRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.initial.filter(
+            (mr) => mr.mixture.id === whirlpoolMixture.id && mr.measure.id === 3
+        );
+    });
+
+    const temperatureRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.initial.filter(
+            (mr) => mr.mixture.id === whirlpoolMixture.id && mr.measure.id === 4
+        );
+    });
+
+    const gravityRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.initial.filter(
+            (mr) => mr.mixture.id === whirlpoolMixture.id && mr.measure.id === 5
+        );
+    });
 
     const stageProps = {
-        title: "Whirlpool",
+        isOpen,
         stage: whirlpoolStage,
         mixture: whirlpoolMixture,
-        isOpen,
-        toggleIsOpen: () => {
-            toggleIsOpen("whirlpool");
+    };
+
+    const modalProps = {
+        mixture: whirlpoolMixture,
+        afterSave: () => {
+            toggleIsOpen("whirlpool", true);
         },
-        toolbar: (
+    };
+
+    function Toolbar() {
+        return (
             <React.Fragment>
+                <TooltipButton
+                    id="editWhirlpoolButton"
+                    className="waves-effect mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText="Edit Stage"
+                    placement="bottom"
+                    onClick={() => setIsShowEditStage(true)}
+                >
+                    <i className="mdi mdi-pencil"></i>
+                </TooltipButton>
+                <TooltipButton
+                    id="ingredientsWhirlpoolButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText="Ingredients"
+                    placement="bottom"
+                    onClick={() => setIsShowIngredients(true)}
+                >
+                    <i className="mdi mdi-barley"></i>
+                </TooltipButton>
+                <TooltipButton
+                    id="recordingsWhirlpoolButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText="Recordings"
+                    placement="bottom"
+                    onClick={() => setIsShowMixtureRecordings(true)}
+                >
+                    <i className="mdi mdi-clipboard-outline"></i>
+                </TooltipButton>
                 <Dropdown
                     isOpen={isOpenMoreDropdown}
                     toggle={() => setIsOpenMoreDropdown(!isOpenMoreDropdown)}
-                    className="d-inline-block mr-2"
+                    className="d-inline-block m-0"
                 >
                     <DropdownToggle
                         tag="button"
-                        className="waves-effect btn btn-outline-secondary btn-sm"
+                        className="waves-effect btn btn-outline-secondary btn-sm mr-1 mb-1"
                         data-toggle="dropdown"
                     >
-                        Mixture <i className="fa fa-caret-down"></i>
+                        <i className="mdi mdi-dots-horizontal"></i>
                     </DropdownToggle>
-                    <DropdownMenu>
+                    <DropdownMenu right>
                         <DropdownItem disabled={!!transferStage?.id}>
                             <span
                                 className="text-dark"
@@ -95,7 +159,7 @@ export default function BrewWhirlpool({
                                 Complete Brew
                             </span>
                         </DropdownItem>
-                        <DropdownItem>
+                        <DropdownItem disabled={!!transferStage?.id}>
                             <span
                                 className="text-dark"
                                 onClick={() => {
@@ -110,20 +174,77 @@ export default function BrewWhirlpool({
                     </DropdownMenu>
                 </Dropdown>
             </React.Fragment>
-        ),
-    };
+        );
+    }
 
     return (
         <React.Fragment>
             {whirlpoolStage && (
-                <BatchStage {...stageProps}>
-                    <div className="clearfix mb-3">
-                        <BatchIngredients {...ingredientsProps} />
-                    </div>
-                    <div className="mb-3">
-                        <MixtureRecordings {...recordingsProps} />
-                    </div>
-                </BatchStage>
+                <Card className="shadow-none m-0 p-0">
+                    <StageHeader
+                        title="Stage: Whirlpool"
+                        toggleIsOpen={() => {
+                            toggleIsOpen("whirlpool");
+                        }}
+                        toolbar={<Toolbar />}
+                    />
+                    <BatchStage {...stageProps}>
+                        <Row>
+                            <Col className="mb-3" sm={6}>
+                                <StageIngredients
+                                    lotPortions={materialPortions}
+                                    title="Ingredients"
+                                    noData="No Ingredients"
+                                />
+                            </Col>
+                            <Col className="mb-3" sm={6}>
+                                <StageRecordings
+                                    recordings={temperatureRecordings}
+                                    title="Temperature"
+                                    noData="No Readings"
+                                />
+                            </Col>
+                            <Col className="mb-3" sm={6}>
+                                <StageRecordings
+                                    recordings={phRecordings}
+                                    title="Ph"
+                                    noData="No Readings"
+                                />
+                            </Col>
+                            <Col className="mb-3" sm={6}>
+                                <StageRecordings
+                                    recordings={gravityRecordings}
+                                    title="Gravity"
+                                    noData="No Readings"
+                                />
+                            </Col>
+                        </Row>
+                    </BatchStage>
+                </Card>
+            )}
+            {whirlpoolStage && (
+                <StageModal
+                    show={isShowEditStage}
+                    setShow={setIsShowEditStage}
+                    stage={whirlpoolStage}
+                    title={"Edit Stage: Whirlpool"}
+                    {...modalProps}
+                />
+            )}
+            {whirlpoolStage && (
+                <BatchIngredientsModal
+                    show={isShowIngredients}
+                    setShow={setIsShowIngredients}
+                    {...modalProps}
+                />
+            )}
+            {whirlpoolStage && (
+                <MixtureRecordingsModal
+                    show={isShowMixtureRecordings}
+                    setShow={setIsShowMixtureRecordings}
+                    measures={measures}
+                    {...modalProps}
+                />
             )}
         </React.Fragment>
     );
