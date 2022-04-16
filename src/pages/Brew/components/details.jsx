@@ -236,7 +236,7 @@ export default function BatchDetails() {
                                     ))}
                                 </Input>
                                 <FormFeedback>
-                                    {!batch.product.id
+                                    {!batch.product?.id
                                         ? "Product must be selected"
                                         : "Invalid batch parameter"}
                                 </FormFeedback>

@@ -11,18 +11,18 @@ function FilterBarEquipment() {
     const query = useQuery();
     const history = useHistory();
 
-    const [equipmentTypes, setEquipmentTypes] = useState(query.get("type"));
+    const [equipmentTypes, setEquipmentTypes] = useState(query.get("types"));
     const [isFormChanged, setIsFormChanged] = useState(false);
 
     const types = [
-        "Boil Kettle",
-        "Fermenter",
-        "Serving Tank",
-        "Mix Tank",
-        "Tote",
-        "Whirl Pool",
-        "Barrel",
-        "Brite Tank",
+        { id: "Boil Kettle", name: "Boil Kettle" },
+        { id: "Fermenter", name: "Fermenter" },
+        { id: "Serving Tank", name: "Serving Tank" },
+        { id: "Mix Tank", name: "Mix Tank" },
+        { id: "Tote", name: "Tote" },
+        { id: "Whirl Pool", name: "Whirl Pool" },
+        { id: "Barrel", name: "Barrel" },
+        { id: "Brite Tank", name: "Brite Tank" },
     ];
 
     const EquipmentTypeFilterData = [
@@ -61,10 +61,10 @@ function FilterBarEquipment() {
     }
 
     function saveFilter() {
-        query.delete("type");
+        query.delete("types");
 
         let queryData = {
-            type: equipmentTypes?.map((pc) => pc.value),
+            types: equipmentTypes?.map((pc) => pc.value),
         };
 
         for (const key in queryData) {

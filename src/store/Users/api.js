@@ -3,6 +3,8 @@ import AxiosInstance from "../../helpers/axiosInstance";
 async function fetchUsers(params = {}) {
     const data = {
         params: {
+            user_names: params.userNames,
+            emails: params.emails,
             page: params.pageIndex || 0,
             size: params.pageSize || 500,
             sort: params.sort || "id",
