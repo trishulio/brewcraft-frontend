@@ -17,7 +17,7 @@ import {
     ModalBody,
     ModalFooter,
 } from "../../../../component/Common/modal";
-import { formatDatetime } from "../../../../helpers/textUtils";
+import { formatDatetime, prettyName } from "../../../../helpers/textUtils";
 import {
     editBatch,
     setBatchMixtureRecordings,
@@ -33,16 +33,19 @@ export function StageHeader({ title, toolbar, toggleIsOpen }) {
                 borderBottom: "solid 1px #6c757d",
             }}
             className="pb-0 pl-0 m-0 mx-3"
-            toggleIsOpen={toggleIsOpen}
         >
-            <div className="float-left">
-                <h4
-                    className="waves-effect font-size-16 m-0 p-0"
-                    onClick={() => toggleIsOpen()}
-                >
-                    {title}
-                </h4>
-            </div>
+            {toggleIsOpen ? (
+                <div className="float-left">
+                    <h4
+                        className="waves-effect font-size-16 m-0 p-0"
+                        onClick={() => toggleIsOpen()}
+                    >
+                        {title}
+                    </h4>
+                </div>
+            ) : (
+                <h4 className="d-inline-block font-size-16 m-0 p-0">{title}</h4>
+            )}
             <div className="float-right">
                 <div className="mb-3">{toolbar}</div>
             </div>
@@ -411,31 +414,25 @@ export default function BatchStage({ isOpen, mixture, stage, children }) {
                 <React.Fragment>
                     <CardBody className="py-3">
                         <Row>
-                            <Col className="mb-3" sm="4">
-                                <h4 className="waves-effect font-size-12">
-                                    Mixture Start
-                                </h4>
-                                <span className="d-block waves-effect">
+                            <Col className="mb-3" sm="3">
+                                <h4 className="font-size-12">Mixture Start</h4>
+                                <span className="d-block">
                                     {stage.startedAt
                                         ? formatDatetime(stage.startedAt)
                                         : "-"}
                                 </span>
                             </Col>
-                            <Col className="mb-3" sm="4">
-                                <h4 className="waves-effect font-size-12">
-                                    Mixture Finish
-                                </h4>
-                                <span className="d-block waves-effect">
+                            <Col className="mb-3" sm="3">
+                                <h4 className="font-size-12">Mixture Finish</h4>
+                                <span className="d-block">
                                     {stage.endedAt
                                         ? formatDatetime(stage.endedAt)
                                         : "-"}
                                 </span>
                             </Col>
-                            <Col className="mb-3" sm="4">
-                                <h4 className="waves-effect font-size-12">
-                                    Equipment
-                                </h4>
-                                <span className="d-block waves-effect">
+                            <Col className="mb-3" sm="3">
+                                <h4 className="font-size-12">Equipment</h4>
+                                <span className="d-block">
                                     {mixture.equipment?.id
                                         ? equipment.find((equipmentItem) => {
                                               return (
@@ -446,22 +443,28 @@ export default function BatchStage({ isOpen, mixture, stage, children }) {
                                         : "-"}
                                 </span>
                             </Col>
+                            <Col className="mb-3" sm="3">
+                                <h4 className="font-size-12">Status</h4>
+                                <span className="d-block">
+                                    {prettyName(stage.status.name)}
+                                </span>
+                            </Col>
                         </Row>
                         <Collapse isOpen={isOpen}>
                             <Row>
-                                <Col className="mb-3" sm="4">
-                                    <h4 className="waves-effect font-size-12">
+                                <Col className="mb-3" sm="3">
+                                    <h4 className="font-size-12">
                                         Volume In (l)
                                     </h4>
-                                    <span className="d-block waves-effect">
+                                    <span className="d-block">
                                         {initialVolume || "-"}
                                     </span>
                                 </Col>
-                                <Col className="mb-3" sm="4">
-                                    <h4 className="waves-effect font-size-12">
+                                <Col className="mb-3" sm="3">
+                                    <h4 className="font-size-12">
                                         Volume Out (l)
                                     </h4>
-                                    <span className="d-block waves-effect">
+                                    <span className="d-block">
                                         {mixture.quantity.value}
                                     </span>
                                 </Col>
@@ -475,11 +478,11 @@ export default function BatchStage({ isOpen, mixture, stage, children }) {
                 <React.Fragment>
                     <CardBody className="py-3">
                         <Row>
-                            <Col className="mb-3" sm="4">
-                                <h4 className="waves-effect font-size-12">
+                            <Col className="mb-3" sm="3">
+                                <h4 className="font-size-12">
                                     Orignial Gravity (OG)
                                 </h4>
-                                <span className="d-block waves-effect">
+                                <span className="d-block">
                                     {originalGravity || "-"}
                                 </span>
                             </Col>

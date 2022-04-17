@@ -18,6 +18,7 @@ import TooltipButton from "../../../../component/Common/tooltip-button";
 import StageIngredients from "../common/stage-ingredients";
 import StageRecordings from "../common/stage-recordings";
 import StageFinishedGoods from "../common/stage-finished-goods";
+import StatusDropdownItems from "../common/stage-status-dropdown";
 
 export default function BatchFerment({
     fermentMixture,
@@ -148,6 +149,7 @@ export default function BatchFerment({
                         <i className="mdi mdi-dots-horizontal"></i>
                     </DropdownToggle>
                     <DropdownMenu right>
+                        <StatusDropdownItems stage={fermentStage} />
                         <DropdownItem disabled={!!conditionMixture?.id}>
                             <span
                                 className="text-dark"

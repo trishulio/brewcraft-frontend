@@ -16,6 +16,7 @@ import { MixtureRecordingsModal } from "../common/mixture-recordings";
 import BatchStage, { StageHeader, StageModal } from "../common/stage";
 import StageIngredients from "../common/stage-ingredients";
 import StageRecordings from "../common/stage-recordings";
+import StatusDropdownItems from "../common/stage-status-dropdown";
 
 export default function BrewKettle({
     kettleMixture,
@@ -42,24 +43,6 @@ export default function BrewKettle({
             kettleMixture &&
             state.Batch.Stages.content.find(
                 (s) => s.id === kettleMixture.brewStage.id
-            )
-        );
-    });
-
-    const whirlpoolStage = useSelector((state) => {
-        return (
-            whirlpoolMixture &&
-            state.Batch.Stages.content.find(
-                (s) => s.id === whirlpoolMixture.brewStage.id
-            )
-        );
-    });
-
-    const transferStage = useSelector((state) => {
-        return (
-            transferMixture &&
-            state.Batch.Stages.content.find(
-                (s) => s.id === transferMixture.brewStage.id
             )
         );
     });
@@ -169,13 +152,18 @@ export default function BrewKettle({
                         <i className="mdi mdi-dots-horizontal"></i>
                     </DropdownToggle>
                     <DropdownMenu right>
-                        <DropdownItem
-                            disabled={
-                                !!whirlpoolStage?.id || !!transferStage?.id
+                        <StatusDropdownItems
+                            stage={kettleStage}
+                            startDisabled={
+                                !!whirlpoolMixture?.id || !!transferMixture?.id
                             }
-                        >
-                            <span
-                                className="text-dark"
+                        />
+                        {kettleStage.status.id === 2 && (
+                            <DropdownItem
+                                disabled={
+                                    !!whirlpoolMixture?.id ||
+                                    !!transferMixture?.id
+                                }
                                 onClick={() => {
                                     dispatch(
                                         addBatchStage({
@@ -188,16 +176,17 @@ export default function BrewKettle({
                                     );
                                 }}
                             >
-                                Move to Whirlpool
-                            </span>
-                        </DropdownItem>
-                        <DropdownItem
-                            disabled={
-                                !!whirlpoolStage?.id || !!transferStage?.id
-                            }
-                        >
-                            <span
-                                className="text-dark"
+                                <span className="text-dark">
+                                    Move to Whirlpool
+                                </span>
+                            </DropdownItem>
+                        )}
+                        {kettleStage.status.id === 2 && (
+                            <DropdownItem
+                                disabled={
+                                    !!whirlpoolMixture?.id ||
+                                    !!transferMixture?.id
+                                }
                                 onClick={() => {
                                     dispatch(
                                         addBatchStage({
@@ -210,9 +199,9 @@ export default function BrewKettle({
                                     );
                                 }}
                             >
-                                Complete Brew
-                            </span>
-                        </DropdownItem>
+                                <span className="text-dark">Transfer</span>
+                            </DropdownItem>
+                        )}
                         <DropdownItem
                             disabled={
                                 !!whirlpoolMixture?.id || !!transferMixture?.id

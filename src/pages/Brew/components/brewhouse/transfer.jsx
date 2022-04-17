@@ -13,7 +13,6 @@ import BatchStage, { StageHeader, StageModal } from "../common/stage";
 
 export default function BrewTransfer({
     isOpen,
-    toggleIsOpen,
     transferMixture,
     fermentMixture,
 }) {
@@ -47,9 +46,7 @@ export default function BrewTransfer({
 
     const modalProps = {
         mixture: transferMixture,
-        afterSave: () => {
-            toggleIsOpen("transfer", true);
-        },
+        afterSave: () => {},
     };
 
     function Toolbar() {
@@ -79,35 +76,27 @@ export default function BrewTransfer({
                         <i className="mdi mdi-dots-horizontal"></i>
                     </DropdownToggle>
                     <DropdownMenu right>
-                        <DropdownItem>
-                            <span
-                                className="text-dark"
-                                onClick={() => {
-                                    dispatch(
-                                        addBatchStage({
-                                            parentMixtureIds: [
-                                                transferMixture.id,
-                                            ],
-                                            taskId: 7, // ferment
-                                            statusId: 4,
-                                        })
-                                    );
-                                }}
-                            >
-                                Move to Cellar
-                            </span>
+                        <DropdownItem
+                            disabled={!!fermentStage?.id}
+                            onClick={() => {
+                                dispatch(
+                                    addBatchStage({
+                                        parentMixtureIds: [transferMixture.id],
+                                        taskId: 7, // ferment
+                                        statusId: 4,
+                                    })
+                                );
+                            }}
+                        >
+                            <span className="text-dark">Move to Cellar</span>
                         </DropdownItem>
-                        <DropdownItem disabled={!!fermentStage?.id}>
-                            <span
-                                className="text-dark"
-                                onClick={() => {
-                                    dispatch(
-                                        deleteBatchMixture(transferMixture)
-                                    );
-                                }}
-                            >
-                                Delete Mixture
-                            </span>
+                        <DropdownItem
+                            disabled={!!fermentStage?.id}
+                            onClick={() => {
+                                dispatch(deleteBatchMixture(transferMixture));
+                            }}
+                        >
+                            <span className="text-dark">Delete</span>
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
@@ -121,9 +110,6 @@ export default function BrewTransfer({
                 <Card className="shadow-none m-0 p-0">
                     <StageHeader
                         title="Transfer: Details"
-                        toggleIsOpen={() => {
-                            toggleIsOpen("transfer");
-                        }}
                         toolbar={<Toolbar />}
                     />
                     <BatchStage {...stageProps} />

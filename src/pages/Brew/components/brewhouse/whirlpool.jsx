@@ -17,6 +17,7 @@ import { MixtureRecordingsModal } from "../common/mixture-recordings";
 import BatchStage, { StageHeader, StageModal } from "../common/stage";
 import StageIngredients from "../common/stage-ingredients";
 import StageRecordings from "../common/stage-recordings";
+import StatusDropdownItems from "../common/stage-status-dropdown";
 
 export default function BrewWhirlpool({
     whirlpoolMixture,
@@ -141,9 +142,13 @@ export default function BrewWhirlpool({
                         <i className="mdi mdi-dots-horizontal"></i>
                     </DropdownToggle>
                     <DropdownMenu right>
-                        <DropdownItem disabled={!!transferStage?.id}>
-                            <span
-                                className="text-dark"
+                        <StatusDropdownItems
+                            stage={whirlpoolStage}
+                            startDisabled={!!transferStage?.id}
+                        />
+                        {whirlpoolStage.status.id === 2 && (
+                            <DropdownItem
+                                disabled={!!transferStage?.id}
                                 onClick={() => {
                                     dispatch(
                                         addBatchStage({
@@ -156,20 +161,16 @@ export default function BrewWhirlpool({
                                     );
                                 }}
                             >
-                                Complete Brew
-                            </span>
-                        </DropdownItem>
-                        <DropdownItem disabled={!!transferStage?.id}>
-                            <span
-                                className="text-dark"
-                                onClick={() => {
-                                    dispatch(
-                                        deleteBatchMixture(whirlpoolMixture)
-                                    );
-                                }}
-                            >
-                                Delete Mixture
-                            </span>
+                                <span className="text-dark">Transfer</span>
+                            </DropdownItem>
+                        )}
+                        <DropdownItem
+                            disabled={!!transferStage?.id}
+                            onClick={() => {
+                                dispatch(deleteBatchMixture(whirlpoolMixture));
+                            }}
+                        >
+                            <span className="text-dark">Delete</span>
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>

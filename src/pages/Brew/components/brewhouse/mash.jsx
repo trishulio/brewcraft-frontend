@@ -16,6 +16,7 @@ import TooltipButton from "../../../../component/Common/tooltip-button";
 import { Card } from "../../../../component/Common/Card";
 import StageIngredients from "../common/stage-ingredients";
 import StageRecordings from "../common/stage-recordings";
+import StatusDropdownItems from "../common/stage-status-dropdown";
 
 export default function BrewMash({
     mashMixture,
@@ -147,9 +148,13 @@ export default function BrewMash({
                         <i className="mdi mdi-dots-horizontal"></i>
                     </DropdownToggle>
                     <DropdownMenu right>
-                        <DropdownItem disabled={!!kettleMixture?.id}>
-                            <span
-                                className="text-dark"
+                        <StatusDropdownItems
+                            stage={mashStage}
+                            startDisabled={!!kettleMixture?.id}
+                        />
+                        {mashStage.status.id === 2 && (
+                            <DropdownItem
+                                disabled={!!kettleMixture?.id}
                                 onClick={() => {
                                     dispatch(
                                         addBatchStage({
@@ -160,9 +165,11 @@ export default function BrewMash({
                                     );
                                 }}
                             >
-                                Move to Kettle
-                            </span>
-                        </DropdownItem>
+                                <span className="text-dark">
+                                    Move to Kettle
+                                </span>
+                            </DropdownItem>
+                        )}
                         <DropdownItem disabled={!!kettleMixture?.id}>
                             <span
                                 className="text-dark"

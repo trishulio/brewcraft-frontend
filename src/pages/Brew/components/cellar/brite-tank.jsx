@@ -18,6 +18,7 @@ import TooltipButton from "../../../../component/Common/tooltip-button";
 import StageIngredients from "../common/stage-ingredients";
 import StageRecordings from "../common/stage-recordings";
 import StageFinishedGoods from "../common/stage-finished-goods";
+import StatusDropdownItems from "../common/stage-status-dropdown";
 
 export default function BatchBriteTank({
     briteTankMixture,
@@ -91,7 +92,7 @@ export default function BatchBriteTank({
         return (
             <React.Fragment>
                 <TooltipButton
-                    id="editFermentButton"
+                    id="editBriteTankButton"
                     className="waves-effect mr-1 mb-1"
                     size="sm"
                     outline={true}
@@ -102,7 +103,7 @@ export default function BatchBriteTank({
                     <i className="mdi mdi-pencil"></i>
                 </TooltipButton>
                 <TooltipButton
-                    id="ingredientsFermentButton"
+                    id="ingredientsBriteTankButton"
                     className="waves-effect m-0 mr-1 mb-1"
                     size="sm"
                     outline={true}
@@ -113,7 +114,7 @@ export default function BatchBriteTank({
                     <i className="mdi mdi-barley"></i>
                 </TooltipButton>
                 <TooltipButton
-                    id="recordingsFermentButton"
+                    id="recordingsBriteTankButton"
                     className="waves-effect m-0 mr-1 mb-1"
                     size="sm"
                     outline={true}
@@ -147,6 +148,7 @@ export default function BatchBriteTank({
                         <i className="mdi mdi-dots-horizontal"></i>
                     </DropdownToggle>
                     <DropdownMenu right>
+                        <StatusDropdownItems stage={briteTankStage} />
                         <DropdownItem>
                             <span
                                 className="text-dark"
