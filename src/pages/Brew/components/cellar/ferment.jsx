@@ -21,8 +21,10 @@ import StageFinishedGoods from "../common/stage-finished-goods";
 import StatusDropdownItems from "../common/stage-status-dropdown";
 
 export default function BatchFerment({
+    transferMixture,
     fermentMixture,
     conditionMixture,
+    briteTankMixture,
     isOpen,
     toggleIsOpen,
 }) {
@@ -149,36 +151,67 @@ export default function BatchFerment({
                         <i className="mdi mdi-dots-horizontal"></i>
                     </DropdownToggle>
                     <DropdownMenu right>
-                        <StatusDropdownItems stage={fermentStage} />
-                        <DropdownItem disabled={!!conditionMixture?.id}>
-                            <span
-                                className="text-dark"
-                                onClick={() => {
-                                    dispatch(
-                                        addBatchStage({
-                                            parentMixtureIds: [
-                                                fermentMixture.id,
-                                            ],
-                                            taskId: 5,
-                                            statusId: 4,
-                                        })
-                                    );
-                                }}
-                            >
-                                Move to Conditioner
-                            </span>
-                        </DropdownItem>
-                        <DropdownItem disabled={!!conditionMixture?.id}>
-                            <span
-                                className="text-dark"
-                                onClick={() => {
-                                    dispatch(
-                                        deleteBatchMixture(fermentMixture)
-                                    );
-                                }}
-                            >
-                                Delete Mixture
-                            </span>
+                        <StatusDropdownItems
+                            stage={fermentStage}
+                            startDisabled={
+                                !!conditionMixture?.id || !!briteTankMixture?.id
+                            }
+                        />
+                        {fermentStage.status.id === 2 && (
+                            <React.Fragment>
+                                <DropdownItem
+                                    disabled={
+                                        !!conditionMixture?.id ||
+                                        !!briteTankMixture?.id
+                                    }
+                                    onClick={() => {
+                                        dispatch(
+                                            addBatchStage({
+                                                parentMixtureIds: [
+                                                    fermentMixture.id,
+                                                ],
+                                                taskId: 5,
+                                                statusId: 4,
+                                            })
+                                        );
+                                    }}
+                                >
+                                    <span className="text-dark">
+                                        Move to Conditioner
+                                    </span>
+                                </DropdownItem>
+                                <DropdownItem
+                                    disabled={
+                                        !!conditionMixture?.id ||
+                                        !!briteTankMixture?.id
+                                    }
+                                    onClick={() => {
+                                        dispatch(
+                                            addBatchStage({
+                                                parentMixtureIds: [
+                                                    fermentMixture.id,
+                                                ],
+                                                taskId: 8,
+                                                statusId: 4,
+                                            })
+                                        );
+                                    }}
+                                >
+                                    <span className="text-dark">
+                                        Move to Bite Tank
+                                    </span>
+                                </DropdownItem>
+                            </React.Fragment>
+                        )}
+                        <DropdownItem
+                            disabled={
+                                !!conditionMixture?.id || !!briteTankMixture?.id
+                            }
+                            onClick={() => {
+                                dispatch(deleteBatchMixture(fermentMixture));
+                            }}
+                        >
+                            <span className="text-dark">Delete</span>
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>

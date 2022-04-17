@@ -158,7 +158,7 @@ export default function BatchBriteTank({
                                     );
                                 }}
                             >
-                                Delete Mixture
+                                Delete
                             </span>
                         </DropdownItem>
                     </DropdownMenu>

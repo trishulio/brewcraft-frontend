@@ -170,15 +170,13 @@ export default function BrewMash({
                                 </span>
                             </DropdownItem>
                         )}
-                        <DropdownItem disabled={!!kettleMixture?.id}>
-                            <span
-                                className="text-dark"
-                                onClick={() => {
-                                    dispatch(deleteBatchMixture(mashMixture));
-                                }}
-                            >
-                                Delete
-                            </span>
+                        <DropdownItem
+                            disabled={!!kettleMixture?.id}
+                            onClick={() => {
+                                dispatch(deleteBatchMixture(mashMixture));
+                            }}
+                        >
+                            <span className="text-dark">Delete</span>
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>

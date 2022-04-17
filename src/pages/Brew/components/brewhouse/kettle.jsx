@@ -206,15 +206,11 @@ export default function BrewKettle({
                             disabled={
                                 !!whirlpoolMixture?.id || !!transferMixture?.id
                             }
+                            onClick={() => {
+                                dispatch(deleteBatchMixture(kettleMixture));
+                            }}
                         >
-                            <span
-                                className="text-dark"
-                                onClick={() => {
-                                    dispatch(deleteBatchMixture(kettleMixture));
-                                }}
-                            >
-                                Delete
-                            </span>
+                            <span className="text-dark">Delete</span>
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>

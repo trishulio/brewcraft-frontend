@@ -149,10 +149,13 @@ export default function BatchCondition({
                         <i className="mdi mdi-dots-horizontal"></i>
                     </DropdownToggle>
                     <DropdownMenu right>
-                        <StatusDropdownItems stage={conditionStage} />
-                        <DropdownItem disabled={!!briteTankMixture?.id}>
-                            <span
-                                className="text-dark"
+                        <StatusDropdownItems
+                            stage={conditionStage}
+                            startDisabled={!!briteTankMixture?.id}
+                        />
+                        {conditionStage.status.id === 2 && (
+                            <DropdownItem
+                                disabled={!!briteTankMixture?.id}
                                 onClick={() => {
                                     dispatch(
                                         addBatchStage({
@@ -165,20 +168,18 @@ export default function BatchCondition({
                                     );
                                 }}
                             >
-                                Move to Bite Tank
-                            </span>
-                        </DropdownItem>
-                        <DropdownItem disabled={!!briteTankMixture?.id}>
-                            <span
-                                className="text-dark"
-                                onClick={() => {
-                                    dispatch(
-                                        deleteBatchMixture(conditionMixture)
-                                    );
-                                }}
-                            >
-                                Delete Mixture
-                            </span>
+                                <span className="text-dark">
+                                    Move to Bite Tank
+                                </span>
+                            </DropdownItem>
+                        )}
+                        <DropdownItem
+                            disabled={!!briteTankMixture?.id}
+                            onClick={() => {
+                                dispatch(deleteBatchMixture(conditionMixture));
+                            }}
+                        >
+                            <span className="text-dark">Delete</span>
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
