@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FormGroup, FormFeedback, Input, Label } from "reactstrap";
 import { setEquipmentItem } from "../../../store/actions";
 import { Card, CardBody, CardHeader } from "../../../component/Common/Card";
+import { map } from "lodash";
 
 export default function EquipmentDetails({ editable }) {
     const dispatch = useDispatch();
@@ -19,6 +20,41 @@ export default function EquipmentDetails({ editable }) {
         return state.EquipmentItem;
     });
 
+    const equipmentTypes = [
+        {
+            id: 1,
+            name: "Boil Kettle",
+        },
+        {
+            id: 2,
+            name: "Fermenter",
+        },
+        {
+            id: 3,
+            name: "Serving Tank",
+        },
+        {
+            id: 4,
+            name: "Mix Tank",
+        },
+        {
+            id: 5,
+            name: "Tote",
+        },
+        {
+            id: 6,
+            name: "Whirl Pool",
+        },
+        {
+            id: 7,
+            name: "Barrel",
+        },
+        {
+            id: 8,
+            name: "Brite Tank",
+        },
+    ];
+
     function onFormInputChange(e) {
         switch (e.target.name) {
             case "equipmentName":
@@ -33,11 +69,15 @@ export default function EquipmentDetails({ editable }) {
                 );
                 break;
             case "equipmentType":
+                const type =
+                    equipmentTypes.find(
+                        (eq) => eq.id === parseInt(e.target.value)
+                    ) || {};
                 dispatch(
                     setEquipmentItem({
                         data: {
                             ...equipment,
-                            type: e.target.value,
+                            type: type,
                         },
                         invalidType: false,
                     })
@@ -160,7 +200,7 @@ export default function EquipmentDetails({ editable }) {
                                     type="select"
                                     className="faves-effect"
                                     width="20rem"
-                                    value={equipment.type}
+                                    value={equipment.type.id || ""}
                                     placeholder="Enter"
                                     name="equipmentType"
                                     disabled={!editable}
@@ -168,34 +208,20 @@ export default function EquipmentDetails({ editable }) {
                                     invalid={invalidType}
                                 >
                                     <option value="">Select</option>
-                                    <option value="Boil Kettle">
-                                        Boil Kettle
-                                    </option>
-                                    <option value="Fermenter">Fermenter</option>
-                                    <option value="Serving Tank">
-                                        Serving Tank
-                                    </option>
-                                    <option value="Mix Tank">Mix Tank</option>
-                                    <option value="Tote">Tote</option>
-                                    <option value="Whirl Pool">
-                                        Whirl Pool
-                                    </option>
-                                    <option value="Barrel">Barrel</option>
-
-                                    <option value="Brite Tank">
-                                        Brite Tank
-                                    </option>
+                                    {map(equipmentTypes, (value, index) => (
+                                        <option value={value.id} key={index}>
+                                            {value.name}
+                                        </option>
+                                    ))}
                                 </Input>
                                 <FormFeedback>
-                                    {equipment.type.length > 0
-                                        ? "Invalid equipment type field"
-                                        : "Equipment type field must not be empty"}
+                                    {"Invalid equipment type field"}
                                 </FormFeedback>
                             </FormGroup>
                         )}
                         {!editable && (
                             <div className="d-inline-block mb-2">
-                                {equipment.type ? equipment.type : "-"}
+                                {equipment.type ? equipment.type.name : "-"}
                             </div>
                         )}
                     </div>

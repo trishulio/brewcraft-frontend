@@ -85,7 +85,7 @@ export default function EquipmentTable() {
                         }
                     >
                         <td>{equipment.name || "-"}</td>
-                        <td>{equipment.type}</td>
+                        <td>{equipment.type.name}</td>
                         <td>{equipment.status}</td>
                         <td>
                             {equipment.maxCapacity.value +

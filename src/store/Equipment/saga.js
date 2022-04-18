@@ -96,7 +96,7 @@ function* validateEquipmentItemGenerator() {
         type: SET_EQUIPMENT_ITEM,
         payload: {
             invalidName: !isValidName(name),
-            invalidType: !isValidName(type),
+            invalidType: type.id ? false : true,
             invalidStatus: !isValidName(status),
             invalidMaxCapacityValue:
                 !maxCapacity.value || !isValidNumberString(maxCapacity.value),
@@ -143,7 +143,7 @@ function* createEquipmentItemGenerator() {
             }),
             put(
                 setGlobalRedirect({
-                    pathname: "/equipment/" + res.data.id,
+                    pathname: "/equipment/" + res.data[0].id,
                 })
             ),
             put(snackSuccess("Created Equipment Item")),
@@ -180,12 +180,15 @@ function* updateEquipmentItemGenerator() {
             put({
                 type: SET_EQUIPMENT_ITEM,
                 payload: {
-                    data: res.data,
-                    initial: JSON.parse(JSON.stringify(res.data)),
+                    data: res.data[0],
+                    initial: JSON.parse(JSON.stringify(res.data[0])),
                 },
             }),
             put(snackSuccess("Updated Equipment Item")),
         ]);
+        yield put(
+            setGlobalRedirect({ pathname: "/equipment/" + res.data[0].id })
+        );
     } catch (e) {
         yield put({
             type: UPDATE_EQUIPMENT_ITEM_FAILURE,

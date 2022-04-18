@@ -7,7 +7,7 @@ import EquipmentInner from "./equipment";
 export default function Equipment() {
     const dispatch = useDispatch();
     const query = useQuery();
-    const types = query.get("types");
+    const typeIds = query.get("type_ids");
     const sort = query.get("sort");
     const order = query.get("order");
 
@@ -33,13 +33,13 @@ export default function Equipment() {
         const props = {
             pageIndex,
             pageSize,
-            types,
+            typeIds,
             sort,
             order,
         };
         dispatch(fetchEquipment({ ...props }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageIndex, pageSize, types, sort, order]);
+    }, [pageIndex, pageSize, typeIds, sort, order]);
 
     return <EquipmentInner equipment={equipment} />;
 }
