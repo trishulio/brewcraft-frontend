@@ -39,9 +39,10 @@ export default function EquipmentItem() {
     }, [initialEquipment, equipment]);
 
     useEffect(() => {
+        dispatch(resetEquipmentItem());
+
         if (id === "new") {
             history.replace("/equipment/new?edit=true");
-            dispatch(resetEquipmentItem());
         } else {
             dispatch(fetchEquipmentItem({ id }));
         }

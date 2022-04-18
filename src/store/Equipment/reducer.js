@@ -23,8 +23,9 @@ const initialState = {
     data: {
         id: "",
         name: "",
-        type: "",
+        type: {},
         status: "",
+        facility: {},
         maxCapacity: {
             symbol: "",
             value: "",
@@ -34,8 +35,9 @@ const initialState = {
     initial: {
         id: "",
         name: "",
-        type: "",
+        type: {},
         status: "",
+        facility: {},
         maxCapacity: {
             symbol: "",
             value: "",
