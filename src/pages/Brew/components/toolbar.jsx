@@ -1,19 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import {
-    Button,
-    Dropdown,
-    DropdownItem,
-    DropdownMenu,
-    DropdownToggle,
-} from "reactstrap";
+import { Button } from "reactstrap";
 import Select from "react-select";
 import { addBatchStage, fetchBatches } from "../../../store/actions";
 import { useEffect } from "react";
 
 export default function Toolbar() {
-    const [isOpenWorkflowDropdown, setIsOpenWorkflowDropdown] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
     const { id } = useParams();
@@ -76,51 +69,24 @@ export default function Toolbar() {
                 size="sm"
                 className="waves-effect d-inline align-middle mr-2"
             >
-                <i className="fa fa-user"></i> Assign
+                <i className="fa fa-print"></i> Print
             </Button>
             <Button
                 type="button"
                 color="secondary"
                 size="sm"
                 className="waves-effect d-inline align-middle mr-2"
+                onClick={() => {
+                    dispatch(
+                        addBatchStage({
+                            taskId: 1,
+                            statusId: 4,
+                        })
+                    );
+                }}
             >
-                <i className="fa fa-print"></i> Print
+                <i className="fa fa-plus"></i> Add Turn
             </Button>
-            <Dropdown
-                isOpen={isOpenWorkflowDropdown}
-                toggle={() =>
-                    setIsOpenWorkflowDropdown(!isOpenWorkflowDropdown)
-                }
-                className="d-inline-block mr-2"
-            >
-                <DropdownToggle
-                    tag="button"
-                    className="waves-effect btn btn-secondary btn-sm"
-                    data-toggle="dropdown"
-                >
-                    <i className="fa fa-caret-down"></i> Workflow
-                </DropdownToggle>
-                <DropdownMenu>
-                    <DropdownItem>
-                        <span
-                            className="text-dark"
-                            onClick={() => {
-                                dispatch(
-                                    addBatchStage({
-                                        taskId: 1,
-                                        statusId: 4,
-                                    })
-                                );
-                            }}
-                        >
-                            Add Brewhouse Turn
-                        </span>
-                    </DropdownItem>
-                    <DropdownItem disabled={true}>
-                        <span className="text-dark">Add Packaged Item</span>
-                    </DropdownItem>
-                </DropdownMenu>
-            </Dropdown>
         </React.Fragment>
     );
 

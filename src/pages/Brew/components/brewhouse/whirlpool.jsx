@@ -12,6 +12,7 @@ import {
 import { Card } from "../../../../component/Common/Card";
 import TooltipButton from "../../../../component/Common/tooltip-button";
 import { addBatchStage, deleteBatchMixture } from "../../../../store/actions";
+import { GravityLine, PhLine, TemperatureLine } from "../common/charts";
 import { BatchIngredientsModal } from "../common/ingredients";
 import { MixtureRecordingsModal } from "../common/mixture-recordings";
 import BatchStage, { StageHeader, StageModal } from "../common/stage";
@@ -30,6 +31,7 @@ export default function BrewWhirlpool({
     const [isShowIngredients, setIsShowIngredients] = useState(false);
     const [isShowMixtureRecordings, setIsShowMixtureRecordings] =
         useState(false);
+    const [toggleCharts, setToggleCharts] = useState(false);
     const dispatch = useDispatch();
 
     const whirlpoolStage = useSelector((state) => {
@@ -129,6 +131,37 @@ export default function BrewWhirlpool({
                 >
                     <i className="mdi mdi-clipboard-outline"></i>
                 </TooltipButton>
+                <TooltipButton
+                    id="chartsWhirlpoolButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText={toggleCharts ? "Hide Charts" : "Show Charts"}
+                    placement="bottom"
+                    onClick={() => {
+                        setToggleCharts(!toggleCharts);
+                        toggleIsOpen("whirlpool", true);
+                    }}
+                >
+                    {toggleCharts ? (
+                        <i className="mdi mdi-table"></i>
+                    ) : (
+                        <i className="mdi mdi-chart-bar"></i>
+                    )}
+                </TooltipButton>
+                <TooltipButton
+                    id="toggleWhirlpoolButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText={isOpen ? "Show Less" : "Show More"}
+                    placement="bottom"
+                    onClick={() => {
+                        toggleIsOpen("whirlpool");
+                    }}
+                >
+                    <i className="mdi mdi-arrow-up-down"></i>
+                </TooltipButton>
                 <Dropdown
                     isOpen={isOpenMoreDropdown}
                     toggle={() => setIsOpenMoreDropdown(!isOpenMoreDropdown)}
@@ -194,6 +227,7 @@ export default function BrewWhirlpool({
                             <Col className="mb-3" sm={6}>
                                 <StageIngredients
                                     lotPortions={materialPortions}
+                                    toggleCharts={toggleCharts}
                                     title="Ingredients"
                                     noData="No Ingredients"
                                 />
@@ -201,6 +235,12 @@ export default function BrewWhirlpool({
                             <Col className="mb-3" sm={6}>
                                 <StageRecordings
                                     recordings={temperatureRecordings}
+                                    chart={
+                                        <TemperatureLine
+                                            recordings={temperatureRecordings}
+                                        />
+                                    }
+                                    toggleCharts={toggleCharts}
                                     title="Temperature"
                                     noData="No Readings"
                                 />
@@ -208,6 +248,8 @@ export default function BrewWhirlpool({
                             <Col className="mb-3" sm={6}>
                                 <StageRecordings
                                     recordings={phRecordings}
+                                    chart={<PhLine recordings={phRecordings} />}
+                                    toggleCharts={toggleCharts}
                                     title="Ph"
                                     noData="No Readings"
                                 />
@@ -215,6 +257,12 @@ export default function BrewWhirlpool({
                             <Col className="mb-3" sm={6}>
                                 <StageRecordings
                                     recordings={gravityRecordings}
+                                    chart={
+                                        <GravityLine
+                                            recordings={gravityRecordings}
+                                        />
+                                    }
+                                    toggleCharts={toggleCharts}
                                     title="Gravity"
                                     noData="No Readings"
                                 />

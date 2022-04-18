@@ -19,9 +19,14 @@ import StageIngredients from "../common/stage-ingredients";
 import StageRecordings from "../common/stage-recordings";
 import StageFinishedGoods from "../common/stage-finished-goods";
 import StatusDropdownItems from "../common/stage-status-dropdown";
+import {
+    FinishedGoodsBar,
+    GravityLine,
+    PhLine,
+    TemperatureLine,
+} from "../common/charts";
 
 export default function BatchFerment({
-    transferMixture,
     fermentMixture,
     conditionMixture,
     briteTankMixture,
@@ -34,6 +39,7 @@ export default function BatchFerment({
     const [isShowMixtureRecordings, setIsShowMixtureRecordings] =
         useState(false);
     const [isShowFinishedGoods, setIsShowFinishedGoods] = useState(false);
+    const [toggleCharts, setToggleCharts] = useState(false);
     const dispatch = useDispatch();
 
     const fermentStage = useSelector((state) => {
@@ -72,7 +78,7 @@ export default function BatchFerment({
         );
     });
 
-    const finishedGoods = useSelector((state) => {
+    const skuLots = useSelector((state) => {
         return state.Batch.BatchFinishedGoods.content.filter(
             (fg) => fg.mixturePortions[0].mixture.id === fermentMixture.id
         );
@@ -137,6 +143,37 @@ export default function BatchFerment({
                     onClick={() => setIsShowFinishedGoods(true)}
                 >
                     <i className="mdi mdi-beer"></i>
+                </TooltipButton>
+                <TooltipButton
+                    id="chartsFermentButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText={toggleCharts ? "Hide Charts" : "Show Charts"}
+                    placement="bottom"
+                    onClick={() => {
+                        setToggleCharts(!toggleCharts);
+                        toggleIsOpen("ferment", true);
+                    }}
+                >
+                    {toggleCharts ? (
+                        <i className="mdi mdi-table"></i>
+                    ) : (
+                        <i className="mdi mdi-chart-bar"></i>
+                    )}
+                </TooltipButton>
+                <TooltipButton
+                    id="toggleFermentButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText={isOpen ? "Show Less" : "Show More"}
+                    placement="bottom"
+                    onClick={() => {
+                        toggleIsOpen("ferment");
+                    }}
+                >
+                    <i className="mdi mdi-arrow-up-down"></i>
                 </TooltipButton>
                 <Dropdown
                     isOpen={isOpenMoreDropdown}
@@ -235,6 +272,7 @@ export default function BatchFerment({
                             <Col className="mb-3" sm={6}>
                                 <StageIngredients
                                     lotPortions={materialPortions}
+                                    toggleCharts={toggleCharts}
                                     title="Ingredients"
                                     noData="No Ingredients"
                                 />
@@ -242,6 +280,12 @@ export default function BatchFerment({
                             <Col className="mb-3" sm={6}>
                                 <StageRecordings
                                     recordings={temperatureRecordings}
+                                    chart={
+                                        <TemperatureLine
+                                            recordings={temperatureRecordings}
+                                        />
+                                    }
+                                    toggleCharts={toggleCharts}
                                     title="Temperature"
                                     noData="No Readings"
                                 />
@@ -249,6 +293,8 @@ export default function BatchFerment({
                             <Col className="mb-3" sm={6}>
                                 <StageRecordings
                                     recordings={phRecordings}
+                                    chart={<PhLine recordings={phRecordings} />}
+                                    toggleCharts={toggleCharts}
                                     title="Ph"
                                     noData="No Readings"
                                 />
@@ -256,13 +302,23 @@ export default function BatchFerment({
                             <Col className="mb-3" sm={6}>
                                 <StageRecordings
                                     recordings={gravityRecordings}
+                                    chart={
+                                        <GravityLine
+                                            recordings={gravityRecordings}
+                                        />
+                                    }
+                                    toggleCharts={toggleCharts}
                                     title="Gravity"
                                     noData="No Readings"
                                 />
                             </Col>
                             <Col sm="6">
                                 <StageFinishedGoods
-                                    finishedGoods={finishedGoods}
+                                    finishedGoods={skuLots}
+                                    chart={
+                                        <FinishedGoodsBar skuLots={skuLots} />
+                                    }
+                                    toggleCharts={toggleCharts}
                                     title="Finished Goods"
                                     noData="No Finished Goods"
                                 />

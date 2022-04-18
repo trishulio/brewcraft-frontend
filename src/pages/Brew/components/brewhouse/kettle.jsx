@@ -11,6 +11,7 @@ import {
 import { Card } from "../../../../component/Common/Card";
 import TooltipButton from "../../../../component/Common/tooltip-button";
 import { addBatchStage, deleteBatchMixture } from "../../../../store/actions";
+import { GravityLine, PhLine, TemperatureLine } from "../common/charts";
 import { BatchIngredientsModal } from "../common/ingredients";
 import { MixtureRecordingsModal } from "../common/mixture-recordings";
 import BatchStage, { StageHeader, StageModal } from "../common/stage";
@@ -30,6 +31,7 @@ export default function BrewKettle({
     const [isShowIngredients, setIsShowIngredients] = useState(false);
     const [isShowMixtureRecordings, setIsShowMixtureRecordings] =
         useState(false);
+    const [toggleCharts, setToggleCharts] = useState(false);
     const dispatch = useDispatch();
 
     const measures = useSelector((state) => {
@@ -139,6 +141,37 @@ export default function BrewKettle({
                 >
                     <i className="mdi mdi-clipboard-outline"></i>
                 </TooltipButton>
+                <TooltipButton
+                    id="chartsKettleButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText={toggleCharts ? "Hide Charts" : "Show Charts"}
+                    placement="bottom"
+                    onClick={() => {
+                        setToggleCharts(!toggleCharts);
+                        toggleIsOpen("kettle", true);
+                    }}
+                >
+                    {toggleCharts ? (
+                        <i className="mdi mdi-table"></i>
+                    ) : (
+                        <i className="mdi mdi-chart-bar"></i>
+                    )}
+                </TooltipButton>
+                <TooltipButton
+                    id="toggleKettleButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText={isOpen ? "Show Less" : "Show More"}
+                    placement="bottom"
+                    onClick={() => {
+                        toggleIsOpen("kettle");
+                    }}
+                >
+                    <i className="mdi mdi-arrow-up-down"></i>
+                </TooltipButton>
                 <Dropdown
                     isOpen={isOpenMoreDropdown}
                     toggle={() => setIsOpenMoreDropdown(!isOpenMoreDropdown)}
@@ -234,6 +267,7 @@ export default function BrewKettle({
                             <Col className="mb-3" sm={6}>
                                 <StageIngredients
                                     lotPortions={maltPortions}
+                                    toggleCharts={toggleCharts}
                                     title="Malt"
                                     noData="No Malt"
                                 />
@@ -241,6 +275,7 @@ export default function BrewKettle({
                             <Col className="mb-3" sm={6}>
                                 <StageIngredients
                                     lotPortions={hopPortions}
+                                    toggleCharts={toggleCharts}
                                     title="Hops"
                                     noData="No Hops"
                                 />
@@ -248,6 +283,7 @@ export default function BrewKettle({
                             <Col className="mb-3" sm={6}>
                                 <StageIngredients
                                     lotPortions={otherPortions}
+                                    toggleCharts={toggleCharts}
                                     title="Other Ingredients"
                                     noData="No Ingredients"
                                 />
@@ -255,6 +291,12 @@ export default function BrewKettle({
                             <Col className="mb-3" sm={6}>
                                 <StageRecordings
                                     recordings={temperatureRecordings}
+                                    chart={
+                                        <TemperatureLine
+                                            recordings={temperatureRecordings}
+                                        />
+                                    }
+                                    toggleCharts={toggleCharts}
                                     title="Temperature"
                                     noData="No Readings"
                                 />
@@ -262,6 +304,8 @@ export default function BrewKettle({
                             <Col className="mb-3" sm={6}>
                                 <StageRecordings
                                     recordings={phRecordings}
+                                    chart={<PhLine recordings={phRecordings} />}
+                                    toggleCharts={toggleCharts}
                                     title="Ph"
                                     noData="No Readings"
                                 />
@@ -269,6 +313,12 @@ export default function BrewKettle({
                             <Col className="mb-3" sm={6}>
                                 <StageRecordings
                                     recordings={gravityRecordings}
+                                    chart={
+                                        <GravityLine
+                                            recordings={gravityRecordings}
+                                        />
+                                    }
+                                    toggleCharts={toggleCharts}
                                     title="Gravity"
                                     noData="No Readings"
                                 />

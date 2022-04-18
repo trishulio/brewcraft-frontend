@@ -12,8 +12,15 @@ export default function StatusDropdownItems({ stage, startDisabled }) {
                 <DropdownItem
                     disabled={startDisabled}
                     onClick={() => {
-                        stage.status.id = 1;
-                        dispatch(editBatchStage(stage));
+                        dispatch(
+                            editBatchStage({
+                                ...stage,
+                                status: {
+                                    id: 1,
+                                    name: "IN-PROGRESS",
+                                },
+                            })
+                        );
                     }}
                 >
                     <span className="text-dark">Start</span>
@@ -22,8 +29,15 @@ export default function StatusDropdownItems({ stage, startDisabled }) {
             {stage.status.id === 1 && (
                 <DropdownItem
                     onClick={() => {
-                        stage.status.id = 5;
-                        dispatch(editBatchStage(stage));
+                        dispatch(
+                            editBatchStage({
+                                ...stage,
+                                status: {
+                                    id: 5,
+                                    name: "STOP",
+                                },
+                            })
+                        );
                     }}
                 >
                     <span className="text-dark">Stop</span>
@@ -32,8 +46,15 @@ export default function StatusDropdownItems({ stage, startDisabled }) {
             {stage.status.id === 1 && (
                 <DropdownItem
                     onClick={() => {
-                        stage.status.id = 2;
-                        dispatch(editBatchStage(stage));
+                        dispatch(
+                            editBatchStage({
+                                ...stage,
+                                status: {
+                                    id: 2,
+                                    name: "COMPLETE",
+                                },
+                            })
+                        );
                     }}
                 >
                     <span className="text-dark">Complete</span>
@@ -42,8 +63,15 @@ export default function StatusDropdownItems({ stage, startDisabled }) {
             {stage.status.id === 5 && (
                 <DropdownItem
                     onClick={() => {
-                        stage.status.id = 3;
-                        dispatch(editBatchStage(stage));
+                        dispatch(
+                            editBatchStage({
+                                ...stage,
+                                status: {
+                                    id: 3,
+                                    name: "FAILED",
+                                },
+                            })
+                        );
                     }}
                 >
                     <span className="text-dark">Failed</span>

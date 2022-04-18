@@ -14,6 +14,7 @@ import { ErrorMessage } from "../../helpers/textUtils";
 import Nav from "./components/nav";
 import Brew from "./components/brewhouse";
 import Cellar from "./components/cellar";
+import BrewMiniCard from "./components/mini-card";
 
 function BrewTab({ indexv, mashMixture }) {
     return (
@@ -66,6 +67,7 @@ export default function Batch(props) {
             </div>
 
             {!!error && <ErrorMessage {...error} />}
+            <BrewMiniCard />
             <Row>
                 <Col xl="8">
                     <Card>

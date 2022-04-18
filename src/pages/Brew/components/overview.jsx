@@ -5,15 +5,12 @@ import { Col, Row } from "reactstrap";
 import { Card, CardBody } from "../../../component/Common/Card";
 import BrewMiniCard from "./mini-card";
 import {
-    GravityLine,
     AbvLine,
-    TemperatureLine,
-    PhLine,
     IngredientsBar,
     IngredientsDoughnut,
     FinishedGoodsBar,
     FinishedGoodsDoughnut,
-} from "./charts";
+} from "./common/charts";
 import { useEffect } from "react";
 
 export default function BatchOverview() {
@@ -29,7 +26,7 @@ export default function BatchOverview() {
         return state.Batch.MaterialPortions.content;
     });
 
-    const finishedGoods = useSelector((state) => {
+    const skuLots = useSelector((state) => {
         return state.Batch.BatchFinishedGoods.content;
     });
 
@@ -84,7 +81,7 @@ export default function BatchOverview() {
         temperatureRecords,
         phRecords,
         ingredients,
-        finishedGoods,
+        skuLots,
     };
 
     return (
@@ -94,34 +91,8 @@ export default function BatchOverview() {
                 <Col sm={6}>
                     <Card>
                         <CardBody>
-                            <h4 className="font-size-14 mb-2">
-                                Specific Gravity
-                            </h4>
-                            <GravityLine {...props} />
-                        </CardBody>
-                    </Card>
-                </Col>
-                <Col sm={6}>
-                    <Card>
-                        <CardBody>
                             <h4 className="font-size-14 mb-2">ABV.</h4>
                             <AbvLine {...props} />
-                        </CardBody>
-                    </Card>
-                </Col>
-                <Col sm={6}>
-                    <Card>
-                        <CardBody>
-                            <h4 className="font-size-14 mb-2">Temperature</h4>
-                            <TemperatureLine {...props} />
-                        </CardBody>
-                    </Card>
-                </Col>
-                <Col sm={6}>
-                    <Card>
-                        <CardBody>
-                            <h4 className="font-size-14 mb-2">PH</h4>
-                            <PhLine {...props} />
                         </CardBody>
                     </Card>
                 </Col>

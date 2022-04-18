@@ -1,7 +1,7 @@
 import React from "react";
 import { Bar, Line, Doughnut } from "react-chartjs-2";
 import "chartjs-adapter-date-fns";
-import { toHl } from "../../../helpers/textUtils";
+import { toHl } from "../../../../helpers/textUtils";
 
 export const GravityLine = (props) => {
     const options = {
@@ -33,16 +33,16 @@ export const GravityLine = (props) => {
     };
 
     const data = {
-        labels: props.gravityRecords.map((r) => r.recordedAt),
+        labels: props.recordings.map((r) => r.recordedAt),
         datasets: [
             {
                 label: "Brew Dataset 1",
-                data: props.gravityRecords.map((r) => ({
+                data: props.recordings.map((r) => ({
                     x: r.recordedAt,
                     y: r.value,
                 })),
-                borderColor: "rgb(53, 162, 235)",
-                backgroundColor: "rgba(53, 162, 235, 0.5)",
+                // borderColor: "rgb(53, 162, 235)",
+                // backgroundColor: "rgba(53, 162, 235, 0.5)",
             },
         ],
     };
@@ -127,16 +127,16 @@ export const TemperatureLine = (props) => {
     };
 
     const data = {
-        labels: props.temperatureRecords.map((r) => r.recordedAt),
+        labels: props.recordings.map((r) => r.recordedAt),
         datasets: [
             {
                 label: "Brew Dataset 1",
-                data: props.temperatureRecords.map((r) => ({
+                data: props.recordings.map((r) => ({
                     x: r.recordedAt,
                     y: r.value,
                 })),
-                borderColor: "rgb(128, 128, 0)",
-                backgroundColor: "rgba(128, 128, 0, 0.5)",
+                // borderColor: "rgb(128, 128, 0)",
+                // backgroundColor: "rgba(128, 128, 0, 0.5)",
             },
         ],
     };
@@ -153,7 +153,7 @@ export const PhLine = (props) => {
             },
             title: {
                 display: false,
-                text: "Temperature Line Chart",
+                text: "Ph Line Chart",
             },
         },
         scales: {
@@ -174,16 +174,16 @@ export const PhLine = (props) => {
     };
 
     const data = {
-        labels: props.phRecords.map((r) => r.recordedAt),
+        labels: props.recordings.map((r) => r.recordedAt),
         datasets: [
             {
                 label: "Brew Dataset 1",
-                data: props.phRecords.map((r) => ({
+                data: props.recordings.map((r) => ({
                     x: r.recordedAt,
                     y: r.value,
                 })),
-                borderColor: "rgb(255, 255, 102)",
-                backgroundColor: "rgba(255, 255, 102, 0.5)",
+                // borderColor: "rgb(255, 255, 102)",
+                // backgroundColor: "rgba(255, 255, 102, 0.5)",
             },
         ],
     };
@@ -262,15 +262,13 @@ export function IngredientsDoughnut(props) {
 }
 
 export function FinishedGoodsBar(props) {
-    const labels = props.finishedGoods.map(
-        (i) => `${i.sku.name} ${i.packagedOn}`
-    );
+    const labels = props.skuLots.map((i) => `${i.sku.name} ${i.packagedOn}`);
     const data = {
         labels: labels,
         datasets: [
             {
                 label: "Dataset 1",
-                data: props.finishedGoods.map((i) =>
+                data: props.skuLots.map((i) =>
                     toHl(
                         i.mixturePortions[0].quantity.value,
                         i.mixturePortions[0].quantity.symbol
@@ -303,7 +301,7 @@ export function FinishedGoodsBar(props) {
 
 export function FinishedGoodsDoughnut(props) {
     const groupedBySku = [];
-    props.finishedGoods.forEach((fg) => {
+    props.skuLots.forEach((fg) => {
         const item = groupedBySku.find((i) => i.sku.id === fg.sku.id);
         if (!item) {
             groupedBySku.push({

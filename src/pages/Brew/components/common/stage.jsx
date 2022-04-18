@@ -142,7 +142,7 @@ export function StageModal({
                 break;
             case "mixtureInitialQuantityValue":
                 index = mixtureRecordings.findIndex(
-                    (r) => r.measure.id === 10 // initialVolume
+                    (r) => r.measure.id === 10 && r.mixture.id === mixture.id // initialVolume
                 );
                 if (index >= 0) {
                     record = mixtureRecordings.splice(index, 1)[0];
@@ -185,7 +185,9 @@ export function StageModal({
                 }
                 break;
             case "originalGravity":
-                index = mixtureRecordings.findIndex((r) => r.measure.id === 5);
+                index = mixtureRecordings.findIndex(
+                    (r) => r.measure.id === 5 && r.mixture.id === mixture.id
+                );
                 if (index >= 0) {
                     record = mixtureRecordings.splice(index, 1)[0];
                     record.value = e.target.value;

@@ -17,6 +17,7 @@ import { Card } from "../../../../component/Common/Card";
 import StageIngredients from "../common/stage-ingredients";
 import StageRecordings from "../common/stage-recordings";
 import StatusDropdownItems from "../common/stage-status-dropdown";
+import { GravityLine, PhLine, TemperatureLine } from "../common/charts";
 
 export default function BrewMash({
     mashMixture,
@@ -29,6 +30,7 @@ export default function BrewMash({
     const [isShowIngredients, setIsShowIngredients] = useState(false);
     const [isShowMixtureRecordings, setIsShowMixtureRecordings] =
         useState(false);
+    const [toggleCharts, setToggleCharts] = useState(false);
     const dispatch = useDispatch();
 
     const mashStage = useSelector((state) => {
@@ -135,6 +137,37 @@ export default function BrewMash({
                 >
                     <i className="mdi mdi-clipboard-outline"></i>
                 </TooltipButton>
+                <TooltipButton
+                    id="chartsMashButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText={toggleCharts ? "Hide Charts" : "Show Charts"}
+                    placement="bottom"
+                    onClick={() => {
+                        setToggleCharts(!toggleCharts);
+                        toggleIsOpen("mash", true);
+                    }}
+                >
+                    {toggleCharts ? (
+                        <i className="mdi mdi-table"></i>
+                    ) : (
+                        <i className="mdi mdi-chart-bar"></i>
+                    )}
+                </TooltipButton>
+                <TooltipButton
+                    id="toggleMashButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText={isOpen ? "Show Less" : "Show More"}
+                    placement="bottom"
+                    onClick={() => {
+                        toggleIsOpen("mash");
+                    }}
+                >
+                    <i className="mdi mdi-arrow-up-down"></i>
+                </TooltipButton>
                 <Dropdown
                     isOpen={isOpenMoreDropdown}
                     toggle={() => setIsOpenMoreDropdown(!isOpenMoreDropdown)}
@@ -200,6 +233,7 @@ export default function BrewMash({
                             <Col className="mb-3" sm={6}>
                                 <StageIngredients
                                     lotPortions={maltPortions}
+                                    toggleCharts={toggleCharts}
                                     title="Malt"
                                     noData="No Malt"
                                 />
@@ -207,6 +241,7 @@ export default function BrewMash({
                             <Col className="mb-3" sm={6}>
                                 <StageIngredients
                                     lotPortions={hopPortions}
+                                    toggleCharts={toggleCharts}
                                     title="Hops"
                                     noData="No Hops"
                                 />
@@ -214,6 +249,7 @@ export default function BrewMash({
                             <Col className="mb-3" sm={6}>
                                 <StageIngredients
                                     lotPortions={otherPortions}
+                                    toggleCharts={toggleCharts}
                                     title="Other Ingredients"
                                     noData="No Ingredients"
                                 />
@@ -221,6 +257,12 @@ export default function BrewMash({
                             <Col className="mb-3" sm={6}>
                                 <StageRecordings
                                     recordings={temperatureRecordings}
+                                    chart={
+                                        <TemperatureLine
+                                            recordings={temperatureRecordings}
+                                        />
+                                    }
+                                    toggleCharts={toggleCharts}
                                     title="Temperature"
                                     noData="No Readings"
                                 />
@@ -228,6 +270,8 @@ export default function BrewMash({
                             <Col className="mb-3" sm={6}>
                                 <StageRecordings
                                     recordings={phRecordings}
+                                    chart={<PhLine recordings={phRecordings} />}
+                                    toggleCharts={toggleCharts}
                                     title="Ph"
                                     noData="No Readings"
                                 />
@@ -235,6 +279,12 @@ export default function BrewMash({
                             <Col className="mb-3" sm={6}>
                                 <StageRecordings
                                     recordings={gravityRecordings}
+                                    chart={
+                                        <GravityLine
+                                            recordings={gravityRecordings}
+                                        />
+                                    }
+                                    toggleCharts={toggleCharts}
                                     title="Gravity"
                                     noData="No Readings"
                                 />
