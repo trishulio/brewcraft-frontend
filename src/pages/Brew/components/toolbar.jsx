@@ -55,18 +55,9 @@ export default function Toolbar() {
                     }),
                 }}
             />
-            {/* <Button
-                type="button"
-                color="secondary"
-                size="sm"
-                className="waves-effect d-inline align-middle mr-2"
-            >
-                <i className="fa fa-comment"></i> Comment
-            </Button> */}
             <Button
                 type="button"
                 color="secondary"
-                size="sm"
                 className="waves-effect d-inline align-middle mr-2"
             >
                 <i className="fa fa-print"></i> Print
@@ -74,7 +65,6 @@ export default function Toolbar() {
             <Button
                 type="button"
                 color="secondary"
-                size="sm"
                 className="waves-effect d-inline align-middle mr-2"
                 onClick={() => {
                     dispatch(

@@ -23,6 +23,8 @@ import {
     PhLine,
     TemperatureLine,
 } from "../common/charts";
+import StageCompleteModal from "../common/stage-complete-modal";
+import StageStartModal from "../common/stage-start-modal";
 
 export default function BrewMash({
     mashMixture,
@@ -35,6 +37,9 @@ export default function BrewMash({
     const [isShowIngredients, setIsShowIngredients] = useState(false);
     const [isShowMixtureRecordings, setIsShowMixtureRecordings] =
         useState(false);
+    const [showStageStart, setShowStageStart] = useState(false);
+    const [showStageComplete, setShowStageComplete] = useState(false);
+    const [showStageFailed, setShowStageFailed] = useState(false);
     const [toggleCharts, setToggleCharts] = useState(false);
     const dispatch = useDispatch();
 
@@ -101,6 +106,7 @@ export default function BrewMash({
 
     const modalProps = {
         mixture: mashMixture,
+        stage: mashStage,
         afterSave: () => {
             toggleIsOpen("mash", true);
         },
@@ -187,8 +193,12 @@ export default function BrewMash({
                     </DropdownToggle>
                     <DropdownMenu right>
                         <StatusDropdownItems
+                            mixture={mashMixture}
                             stage={mashStage}
                             startDisabled={!!kettleMixture?.id}
+                            setShowStageStart={setShowStageStart}
+                            setShowStageComplete={setShowStageComplete}
+                            setShowStageFailed={setShowStageFailed}
                         />
                         {mashStage.status.id === 2 && (
                             <DropdownItem
@@ -314,28 +324,52 @@ export default function BrewMash({
                 </Card>
             )}
             {mashStage && (
-                <StageModal
-                    show={isShowEditStage}
-                    setShow={setIsShowEditStage}
-                    stage={mashStage}
-                    title={"Edit Stage: Mash lauter"}
-                    {...modalProps}
-                />
-            )}
-            {mashStage && (
-                <BatchIngredientsModal
-                    show={isShowIngredients}
-                    setShow={setIsShowIngredients}
-                    {...modalProps}
-                />
-            )}
-            {mashStage && (
-                <MixtureRecordingsModal
-                    show={isShowMixtureRecordings}
-                    setShow={setIsShowMixtureRecordings}
-                    measures={measures}
-                    {...modalProps}
-                />
+                <React.Fragment>
+                    <StageModal
+                        show={isShowEditStage}
+                        setShow={setIsShowEditStage}
+                        stage={mashStage}
+                        title={"Edit Stage: Mash lauter"}
+                        {...modalProps}
+                    />
+                    <BatchIngredientsModal
+                        show={isShowIngredients}
+                        setShow={setIsShowIngredients}
+                        {...modalProps}
+                    />
+
+                    <MixtureRecordingsModal
+                        show={isShowMixtureRecordings}
+                        setShow={setIsShowMixtureRecordings}
+                        measures={measures}
+                        {...modalProps}
+                    />
+                    <StageStartModal
+                        show={showStageStart}
+                        setShow={setShowStageStart}
+                        title="Start Stage"
+                        {...modalProps}
+                    />
+                    <StageStartModal
+                        show={showStageComplete}
+                        setShow={setShowStageComplete}
+                        title="Start Stage"
+                        {...modalProps}
+                    />
+                    <StageCompleteModal
+                        show={showStageComplete}
+                        setShow={setShowStageComplete}
+                        title="Complete Stage"
+                        {...modalProps}
+                    />
+                    <StageCompleteModal
+                        show={showStageFailed}
+                        setShow={setShowStageFailed}
+                        title="Failed Stage"
+                        failed={true}
+                        {...modalProps}
+                    />
+                </React.Fragment>
             )}
         </React.Fragment>
     );

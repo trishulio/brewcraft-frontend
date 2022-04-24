@@ -71,8 +71,14 @@ export default function MixtureRecordings({ mixture, measures }) {
         return state.Batch.Batch;
     });
 
-    const mixtureRecordings = useSelector((state) => {
+    const allMixtureRecordings = useSelector((state) => {
         return state.Batch.MixtureRecordings.content;
+    });
+
+    const mixtureRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.content.filter(
+            (mp) => mp.mixture.id === mixture.id
+        );
     });
 
     return (
@@ -216,7 +222,7 @@ export default function MixtureRecordings({ mixture, measures }) {
                             dispatch(
                                 setBatchMixtureRecordings({
                                     content: [
-                                        ...mixtureRecordings,
+                                        ...allMixtureRecordings,
                                         {
                                             measure,
                                             value: parseFloat(recordValue),
@@ -238,7 +244,7 @@ export default function MixtureRecordings({ mixture, measures }) {
                         onClick={() => {
                             dispatch(
                                 setBatchMixtureRecordings({
-                                    content: mixtureRecordings.filter(
+                                    content: allMixtureRecordings.filter(
                                         (_, index) => !items.includes(index)
                                     ),
                                 })
