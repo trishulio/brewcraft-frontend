@@ -244,6 +244,7 @@ export default function PackagingItemDetails({ editable, onSave, changed }) {
                                     data-testid="packagingMeasure"
                                 >
                                     <option value="">Select</option>
+                                    <option value="each">each</option>
                                     <option value="kg">kg</option>
                                     <option value="g">g</option>
                                     <option value="hl">hl</option>

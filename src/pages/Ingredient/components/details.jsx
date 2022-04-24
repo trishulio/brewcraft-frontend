@@ -239,6 +239,7 @@ export default function IngredientDetails({ editable, onSave, changed }) {
                                     data-testid="ingredient-measure"
                                 >
                                     <option value="">Select</option>
+                                    <option value="each">each</option>
                                     <option value="kg">kg</option>
                                     <option value="g">g</option>
                                     <option value="hl">hl</option>
