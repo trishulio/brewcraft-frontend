@@ -66,8 +66,7 @@ export default function StageStartModal({
         >
             <ModalBody>
                 <Alert color="info" fade={false}>
-                    Start time{stage.task.id !== 1 && " and initial volume"} is
-                    required to begin a stage
+                    Enter required stage details.
                 </Alert>
                 <Label for="mixtureStartDateTime">Time Start</Label>
                 <FormGroup className="mb-3">

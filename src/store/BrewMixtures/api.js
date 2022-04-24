@@ -19,7 +19,6 @@ async function createMixture({
     equipment,
     brewStage,
 }) {
-    debugger;
     return await AxiosInstance.post("/api/v1/brews/mixtures", {
         parentMixtureIds,
         quantity,

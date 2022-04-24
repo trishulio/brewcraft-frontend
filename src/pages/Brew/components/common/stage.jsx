@@ -24,6 +24,11 @@ import {
     setBrewMixtureDetails,
     setBrewStageDetails,
 } from "../../../../store/actions";
+import { BatchIngredientsModal } from "./ingredients";
+import { MixtureRecordingsModal } from "./mixture-recordings";
+import StageStartModal from "./stage-start-modal";
+import StageCompleteModal from "./stage-complete-modal";
+import { FinishedGoodsModal } from "./finished-goods";
 
 export function StageHeader({ title, toolbar, toggleIsOpen }) {
     return (
@@ -389,7 +394,28 @@ export function StageModal({
     );
 }
 
-export default function BatchStage({ isOpen, mixture, stage, children }) {
+export default function BatchStage({
+    isOpen,
+    mixture,
+    stage,
+    isShowEditStage,
+    setIsShowEditStage,
+    isShowIngredients,
+    setIsShowIngredients,
+    isShowMixtureRecordings,
+    setIsShowMixtureRecordings,
+    isShowFinishedGoods,
+    setIsShowFinishedGoods,
+    showStageStart,
+    setShowStageStart,
+    showStageComplete,
+    setShowStageComplete,
+    showStageFailed,
+    setShowStageFailed,
+    measures,
+    afterSave,
+    children,
+}) {
     const initialVolume = useSelector((state) => {
         const record = state.Batch.MixtureRecordings.initial.find((mr) => {
             return mr.mixture.id === mixture.id && mr.measure.id === 10;
@@ -474,6 +500,59 @@ export default function BatchStage({ isOpen, mixture, stage, children }) {
                             {children}
                         </Collapse>
                     </CardBody>
+                    <StageModal
+                        show={isShowEditStage}
+                        setShow={setIsShowEditStage}
+                        stage={stage}
+                        title={"Edit Stage"}
+                        mixture={mixture}
+                        afterSave={afterSave}
+                    />
+                    <BatchIngredientsModal
+                        show={isShowIngredients}
+                        setShow={setIsShowIngredients}
+                        mixture={mixture}
+                        afterSave={afterSave}
+                    />
+                    <MixtureRecordingsModal
+                        show={isShowMixtureRecordings}
+                        setShow={setIsShowMixtureRecordings}
+                        measures={measures}
+                        mixture={mixture}
+                        afterSave={afterSave}
+                    />
+                    <FinishedGoodsModal
+                        show={isShowFinishedGoods}
+                        setShow={setIsShowFinishedGoods}
+                        mixture={mixture}
+                        stage={stage}
+                        afterSave={afterSave}
+                    />
+                    <StageStartModal
+                        stage={stage}
+                        show={showStageStart}
+                        setShow={setShowStageStart}
+                        title="Start Stage"
+                        mixture={mixture}
+                        afterSave={afterSave}
+                    />
+                    <StageCompleteModal
+                        stage={stage}
+                        show={showStageComplete}
+                        setShow={setShowStageComplete}
+                        title="Complete Stage"
+                        mixture={mixture}
+                        afterSave={afterSave}
+                    />
+                    <StageCompleteModal
+                        stage={stage}
+                        show={showStageFailed}
+                        setShow={setShowStageFailed}
+                        title="Failed Stage"
+                        failed={true}
+                        mixture={mixture}
+                        afterSave={afterSave}
+                    />
                 </React.Fragment>
             )}
             {stage.task.id === 6 && (

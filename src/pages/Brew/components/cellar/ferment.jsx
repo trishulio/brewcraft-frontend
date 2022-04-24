@@ -9,10 +9,7 @@ import {
     Row,
 } from "reactstrap";
 import { addBatchStage, deleteBatchMixture } from "../../../../store/actions";
-import { BatchIngredientsModal } from "../common/ingredients";
-import { MixtureRecordingsModal } from "../common/mixture-recordings";
-import { FinishedGoodsModal } from "../common/finished-goods";
-import BatchStage, { StageHeader, StageModal } from "../common/stage";
+import BatchStage, { StageHeader } from "../common/stage";
 import { Card } from "../../../../component/Common/Card";
 import TooltipButton from "../../../../component/Common/tooltip-button";
 import StageIngredients from "../common/stage-ingredients";
@@ -27,6 +24,7 @@ import {
     PhLine,
     TemperatureLine,
 } from "../common/charts";
+import StageInitModal from "../common/stage-init-modal";
 
 export default function BatchFerment({
     transferStage,
@@ -43,6 +41,11 @@ export default function BatchFerment({
     const [isShowMixtureRecordings, setIsShowMixtureRecordings] =
         useState(false);
     const [isShowFinishedGoods, setIsShowFinishedGoods] = useState(false);
+    const [showInitConditionStage, setShowInitConditionStage] = useState(false);
+    const [showInitBritetankStage, setShowInitBritetankStage] = useState(false);
+    const [showStageStart, setShowStageStart] = useState(false);
+    const [showStageComplete, setShowStageComplete] = useState(false);
+    const [showStageFailed, setShowStageFailed] = useState(false);
     const [toggleCharts, setToggleCharts] = useState(false);
     const dispatch = useDispatch();
 
@@ -113,12 +116,23 @@ export default function BatchFerment({
 
     const stageProps = {
         isOpen,
+        mixture: fermentMixture,
         stage: fermentStage,
-        mixture: fermentMixture,
-    };
-
-    const modalProps = {
-        mixture: fermentMixture,
+        isShowEditStage,
+        setIsShowEditStage,
+        isShowIngredients,
+        setIsShowIngredients,
+        isShowMixtureRecordings,
+        setIsShowMixtureRecordings,
+        isShowFinishedGoods,
+        setIsShowFinishedGoods,
+        showStageStart,
+        setShowStageStart,
+        showStageComplete,
+        setShowStageComplete,
+        showStageFailed,
+        setShowStageFailed,
+        measures,
         afterSave: () => {
             toggleIsOpen("ferment", true);
         },
@@ -216,10 +230,14 @@ export default function BatchFerment({
                     </DropdownToggle>
                     <DropdownMenu right>
                         <StatusDropdownItems
+                            mixture={fermentMixture}
                             stage={fermentStage}
                             startDisabled={
                                 !!conditionMixture?.id || !!briteTankMixture?.id
                             }
+                            setShowStageStart={setShowStageStart}
+                            setShowStageComplete={setShowStageComplete}
+                            setShowStageFailed={setShowStageFailed}
                         />
                         {fermentStage.status.id === 2 && (
                             <React.Fragment>
@@ -229,15 +247,7 @@ export default function BatchFerment({
                                         !!briteTankMixture?.id
                                     }
                                     onClick={() => {
-                                        dispatch(
-                                            addBatchStage({
-                                                parentMixtureIds: [
-                                                    fermentMixture.id,
-                                                ],
-                                                taskId: 5,
-                                                statusId: 4,
-                                            })
-                                        );
+                                        setShowInitConditionStage(true);
                                     }}
                                 >
                                     <span className="text-dark">
@@ -250,15 +260,7 @@ export default function BatchFerment({
                                         !!briteTankMixture?.id
                                     }
                                     onClick={() => {
-                                        dispatch(
-                                            addBatchStage({
-                                                parentMixtureIds: [
-                                                    fermentMixture.id,
-                                                ],
-                                                taskId: 8,
-                                                statusId: 4,
-                                            })
-                                        );
+                                        setShowInitBritetankStage(true);
                                     }}
                                 >
                                     <span className="text-dark">
@@ -371,34 +373,37 @@ export default function BatchFerment({
                 </Card>
             )}
             {fermentStage && (
-                <StageModal
-                    show={isShowEditStage}
-                    setShow={setIsShowEditStage}
-                    stage={fermentStage}
-                    title={"Edit Stage: Ferment"}
-                    {...modalProps}
+                <StageInitModal
+                    show={showInitConditionStage}
+                    setShow={setShowInitConditionStage}
+                    title="Initialize Condition Stage"
+                    addBatchStage={(equipmentItem) => {
+                        dispatch(
+                            addBatchStage({
+                                parentMixtureIds: [fermentMixture.id],
+                                taskId: 5,
+                                statusId: 4,
+                                equipment: equipmentItem,
+                            })
+                        );
+                    }}
                 />
             )}
             {fermentStage && (
-                <BatchIngredientsModal
-                    show={isShowIngredients}
-                    setShow={setIsShowIngredients}
-                    {...modalProps}
-                />
-            )}
-            {fermentStage && (
-                <MixtureRecordingsModal
-                    show={isShowMixtureRecordings}
-                    setShow={setIsShowMixtureRecordings}
-                    measures={measures}
-                    {...modalProps}
-                />
-            )}
-            {fermentStage && (
-                <FinishedGoodsModal
-                    show={isShowFinishedGoods}
-                    setShow={setIsShowFinishedGoods}
-                    {...modalProps}
+                <StageInitModal
+                    show={showInitBritetankStage}
+                    setShow={setShowInitBritetankStage}
+                    title="Initialize Brite Tank Stage"
+                    addBatchStage={(equipmentItem) => {
+                        dispatch(
+                            addBatchStage({
+                                parentMixtureIds: [fermentMixture.id],
+                                taskId: 8,
+                                statusId: 4,
+                                equipment: equipmentItem,
+                            })
+                        );
+                    }}
                 />
             )}
         </React.Fragment>

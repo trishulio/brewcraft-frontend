@@ -10,6 +10,7 @@ import { Card } from "../../../../component/Common/Card";
 import TooltipButton from "../../../../component/Common/tooltip-button";
 import { addBatchStage, deleteBatchMixture } from "../../../../store/actions";
 import BatchStage, { StageHeader, StageModal } from "../common/stage";
+import StageInitModal from "../common/stage-init-modal";
 
 export default function BrewTransfer({
     isOpen,
@@ -18,6 +19,7 @@ export default function BrewTransfer({
 }) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
     const [isShowEditStage, setIsShowEditStage] = useState(false);
+    const [showInitStage, setShowInitStage] = useState(false);
     const dispatch = useDispatch();
 
     const transferStage = useSelector((state) => {
@@ -79,16 +81,10 @@ export default function BrewTransfer({
                         <DropdownItem
                             disabled={!!fermentStage?.id}
                             onClick={() => {
-                                dispatch(
-                                    addBatchStage({
-                                        parentMixtureIds: [transferMixture.id],
-                                        taskId: 7, // ferment
-                                        statusId: 4,
-                                    })
-                                );
+                                setShowInitStage(true);
                             }}
                         >
-                            <span className="text-dark">Move to Cellar</span>
+                            <span className="text-dark">Move to Fermentor</span>
                         </DropdownItem>
                         <DropdownItem
                             disabled={!!fermentStage?.id}
@@ -122,6 +118,23 @@ export default function BrewTransfer({
                     stage={transferStage}
                     title={"Edit Details: Transfer"}
                     {...modalProps}
+                />
+            )}
+            {transferStage && (
+                <StageInitModal
+                    show={showInitStage}
+                    setShow={setShowInitStage}
+                    title="Initialize Ferment Stage"
+                    addBatchStage={(equipmentItem) => {
+                        dispatch(
+                            addBatchStage({
+                                parentMixtureIds: [transferMixture.id],
+                                taskId: 7, // ferment
+                                statusId: 4,
+                                equipment: equipmentItem,
+                            })
+                        );
+                    }}
                 />
             )}
         </React.Fragment>

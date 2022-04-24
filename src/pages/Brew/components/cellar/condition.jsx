@@ -9,10 +9,7 @@ import {
     Row,
 } from "reactstrap";
 import { addBatchStage, deleteBatchMixture } from "../../../../store/actions";
-import { BatchIngredientsModal } from "../common/ingredients";
-import { MixtureRecordingsModal } from "../common/mixture-recordings";
-import { FinishedGoodsModal } from "../common/finished-goods";
-import BatchStage, { StageHeader, StageModal } from "../common/stage";
+import BatchStage, { StageHeader } from "../common/stage";
 import { Card } from "../../../../component/Common/Card";
 import TooltipButton from "../../../../component/Common/tooltip-button";
 import StageIngredients from "../common/stage-ingredients";
@@ -26,6 +23,7 @@ import {
     PhLine,
     TemperatureLine,
 } from "../common/charts";
+import StageInitModal from "../common/stage-init-modal";
 
 export default function BatchCondition({
     conditionMixture,
@@ -39,6 +37,10 @@ export default function BatchCondition({
     const [isShowMixtureRecordings, setIsShowMixtureRecordings] =
         useState(false);
     const [isShowFinishedGoods, setIsShowFinishedGoods] = useState(false);
+    const [showInitBritetankStage, setShowInitBritetankStage] = useState(false);
+    const [showStageStart, setShowStageStart] = useState(false);
+    const [showStageComplete, setShowStageComplete] = useState(false);
+    const [showStageFailed, setShowStageFailed] = useState(false);
     const [toggleCharts, setToggleCharts] = useState(false);
     const dispatch = useDispatch();
 
@@ -86,12 +88,23 @@ export default function BatchCondition({
 
     const stageProps = {
         isOpen,
+        mixture: conditionMixture,
         stage: conditionStage,
-        mixture: conditionMixture,
-    };
-
-    const modalProps = {
-        mixture: conditionMixture,
+        isShowEditStage,
+        setIsShowEditStage,
+        isShowIngredients,
+        setIsShowIngredients,
+        isShowMixtureRecordings,
+        setIsShowMixtureRecordings,
+        isShowFinishedGoods,
+        setIsShowFinishedGoods,
+        showStageStart,
+        setShowStageStart,
+        showStageComplete,
+        setShowStageComplete,
+        showStageFailed,
+        setShowStageFailed,
+        measures,
         afterSave: () => {
             toggleIsOpen("condition", true);
         },
@@ -189,22 +202,18 @@ export default function BatchCondition({
                     </DropdownToggle>
                     <DropdownMenu right>
                         <StatusDropdownItems
+                            mixture={conditionMixture}
                             stage={conditionStage}
                             startDisabled={!!briteTankMixture?.id}
+                            setShowStageStart={setShowStageStart}
+                            setShowStageComplete={setShowStageComplete}
+                            setShowStageFailed={setShowStageFailed}
                         />
                         {conditionStage.status.id === 2 && (
                             <DropdownItem
                                 disabled={!!briteTankMixture?.id}
                                 onClick={() => {
-                                    dispatch(
-                                        addBatchStage({
-                                            parentMixtureIds: [
-                                                conditionMixture.id,
-                                            ],
-                                            taskId: 8,
-                                            statusId: 4,
-                                        })
-                                    );
+                                    setShowInitBritetankStage(true);
                                 }}
                             >
                                 <span className="text-dark">
@@ -303,34 +312,20 @@ export default function BatchCondition({
                 </Card>
             )}
             {conditionStage && (
-                <StageModal
-                    show={isShowEditStage}
-                    setShow={setIsShowEditStage}
-                    stage={conditionStage}
-                    title={"Edit Stage: Condition"}
-                    {...modalProps}
-                />
-            )}
-            {conditionStage && (
-                <BatchIngredientsModal
-                    show={isShowIngredients}
-                    setShow={setIsShowIngredients}
-                    {...modalProps}
-                />
-            )}
-            {conditionStage && (
-                <MixtureRecordingsModal
-                    show={isShowMixtureRecordings}
-                    setShow={setIsShowMixtureRecordings}
-                    measures={measures}
-                    {...modalProps}
-                />
-            )}
-            {conditionStage && (
-                <FinishedGoodsModal
-                    show={isShowFinishedGoods}
-                    setShow={setIsShowFinishedGoods}
-                    {...modalProps}
+                <StageInitModal
+                    show={showInitBritetankStage}
+                    setShow={setShowInitBritetankStage}
+                    title="Initialize Brite Tank Stage"
+                    addBatchStage={(equipmentItem) => {
+                        dispatch(
+                            addBatchStage({
+                                parentMixtureIds: [conditionMixture.id],
+                                taskId: 8,
+                                statusId: 4,
+                                equipment: equipmentItem,
+                            })
+                        );
+                    }}
                 />
             )}
         </React.Fragment>

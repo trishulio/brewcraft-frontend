@@ -1,6 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
+import {
+    Alert,
+    Button,
+    FormFeedback,
+    FormGroup,
+    Input,
+    Label,
+} from "reactstrap";
 import {
     editBatchStage,
     setBrewMixtureDetails,
@@ -65,7 +72,10 @@ export default function StageCompleteModal({
             }}
         >
             <ModalBody>
-                <Label for="mixtureFinishDateTime">Mixture Finish</Label>
+                <Alert color="info" fade={false}>
+                    Enter required stage details.
+                </Alert>
+                <Label for="mixtureFinishDateTime">Time Finish</Label>
                 <FormGroup>
                     <Input
                         type="datetime-local"

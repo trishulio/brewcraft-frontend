@@ -9,9 +9,7 @@ import {
     Row,
 } from "reactstrap";
 import { addBatchStage, deleteBatchMixture } from "../../../../store/actions";
-import { BatchIngredientsModal } from "../common/ingredients";
-import BatchStage, { StageHeader, StageModal } from "../common/stage";
-import { MixtureRecordingsModal } from "../common/mixture-recordings";
+import BatchStage, { StageHeader } from "../common/stage";
 import TooltipButton from "../../../../component/Common/tooltip-button";
 import { Card } from "../../../../component/Common/Card";
 import StageIngredients from "../common/stage-ingredients";
@@ -23,8 +21,6 @@ import {
     PhLine,
     TemperatureLine,
 } from "../common/charts";
-import StageCompleteModal from "../common/stage-complete-modal";
-import StageStartModal from "../common/stage-start-modal";
 import StageInitModal from "../common/stage-init-modal";
 
 export default function BrewMash({
@@ -102,13 +98,21 @@ export default function BrewMash({
 
     const stageProps = {
         isOpen,
-        stage: mashStage,
-        mixture: mashMixture,
-    };
-
-    const modalProps = {
         mixture: mashMixture,
         stage: mashStage,
+        isShowEditStage,
+        setIsShowEditStage,
+        isShowIngredients,
+        setIsShowIngredients,
+        isShowMixtureRecordings,
+        setIsShowMixtureRecordings,
+        showStageStart,
+        setShowStageStart,
+        showStageComplete,
+        setShowStageComplete,
+        showStageFailed,
+        setShowStageFailed,
+        measures,
         afterSave: () => {
             toggleIsOpen("mash", true);
         },
@@ -198,7 +202,6 @@ export default function BrewMash({
                             mixture={mashMixture}
                             stage={mashStage}
                             startDisabled={!!kettleMixture?.id}
-                            setShowInitStage={setShowInitStage}
                             setShowStageStart={setShowStageStart}
                             setShowStageComplete={setShowStageComplete}
                             setShowStageFailed={setShowStageFailed}
@@ -321,67 +324,21 @@ export default function BrewMash({
                 </Card>
             )}
             {mashStage && (
-                <React.Fragment>
-                    <StageModal
-                        show={isShowEditStage}
-                        setShow={setIsShowEditStage}
-                        stage={mashStage}
-                        title={"Edit Stage: Mash lauter"}
-                        {...modalProps}
-                    />
-                    <BatchIngredientsModal
-                        show={isShowIngredients}
-                        setShow={setIsShowIngredients}
-                        {...modalProps}
-                    />
-
-                    <MixtureRecordingsModal
-                        show={isShowMixtureRecordings}
-                        setShow={setIsShowMixtureRecordings}
-                        measures={measures}
-                        {...modalProps}
-                    />
-                    <StageStartModal
-                        show={showStageStart}
-                        setShow={setShowStageStart}
-                        title="Start Stage"
-                        {...modalProps}
-                    />
-                    <StageStartModal
-                        show={showStageStart}
-                        setShow={setShowStageStart}
-                        title="Start Stage"
-                        {...modalProps}
-                    />
-                    <StageCompleteModal
-                        show={showStageComplete}
-                        setShow={setShowStageComplete}
-                        title="Complete Stage"
-                        {...modalProps}
-                    />
-                    <StageCompleteModal
-                        show={showStageFailed}
-                        setShow={setShowStageFailed}
-                        title="Failed Stage"
-                        failed={true}
-                        {...modalProps}
-                    />
-                    <StageInitModal
-                        show={showInitStage}
-                        setShow={setShowInitStage}
-                        title="Initialize Kettle Stage"
-                        addBatchStage={(equipmentItem) => {
-                            dispatch(
-                                addBatchStage({
-                                    parentMixtureIds: [mashMixture.id],
-                                    taskId: 2,
-                                    statusId: 4,
-                                    equipment: equipmentItem,
-                                })
-                            );
-                        }}
-                    />
-                </React.Fragment>
+                <StageInitModal
+                    show={showInitStage}
+                    setShow={setShowInitStage}
+                    title="Initialize Kettle Stage"
+                    addBatchStage={(equipmentItem) => {
+                        dispatch(
+                            addBatchStage({
+                                parentMixtureIds: [mashMixture.id],
+                                taskId: 2,
+                                statusId: 4,
+                                equipment: equipmentItem,
+                            })
+                        );
+                    }}
+                />
             )}
         </React.Fragment>
     );

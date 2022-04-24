@@ -18,9 +18,7 @@ import {
     PhLine,
     TemperatureLine,
 } from "../common/charts";
-import { BatchIngredientsModal } from "../common/ingredients";
-import { MixtureRecordingsModal } from "../common/mixture-recordings";
-import BatchStage, { StageHeader, StageModal } from "../common/stage";
+import BatchStage, { StageHeader } from "../common/stage";
 import StageIngredients from "../common/stage-ingredients";
 import StageRecordings from "../common/stage-recordings";
 import StatusDropdownItems from "../common/stage-status-dropdown";
@@ -36,6 +34,9 @@ export default function BrewWhirlpool({
     const [isShowIngredients, setIsShowIngredients] = useState(false);
     const [isShowMixtureRecordings, setIsShowMixtureRecordings] =
         useState(false);
+    const [showStageStart, setShowStageStart] = useState(false);
+    const [showStageComplete, setShowStageComplete] = useState(false);
+    const [showStageFailed, setShowStageFailed] = useState(false);
     const [toggleCharts, setToggleCharts] = useState(false);
     const dispatch = useDispatch();
 
@@ -89,12 +90,21 @@ export default function BrewWhirlpool({
 
     const stageProps = {
         isOpen,
+        mixture: whirlpoolMixture,
         stage: whirlpoolStage,
-        mixture: whirlpoolMixture,
-    };
-
-    const modalProps = {
-        mixture: whirlpoolMixture,
+        isShowEditStage,
+        setIsShowEditStage,
+        isShowIngredients,
+        setIsShowIngredients,
+        isShowMixtureRecordings,
+        setIsShowMixtureRecordings,
+        showStageStart,
+        setShowStageStart,
+        showStageComplete,
+        setShowStageComplete,
+        showStageFailed,
+        setShowStageFailed,
+        measures,
         afterSave: () => {
             toggleIsOpen("whirlpool", true);
         },
@@ -181,8 +191,12 @@ export default function BrewWhirlpool({
                     </DropdownToggle>
                     <DropdownMenu right>
                         <StatusDropdownItems
+                            mixture={whirlpoolMixture}
                             stage={whirlpoolStage}
                             startDisabled={!!transferStage?.id}
+                            setShowStageStart={setShowStageStart}
+                            setShowStageComplete={setShowStageComplete}
+                            setShowStageFailed={setShowStageFailed}
                         />
                         {whirlpoolStage.status.id === 2 && (
                             <DropdownItem
@@ -280,30 +294,6 @@ export default function BrewWhirlpool({
                         </Row>
                     </BatchStage>
                 </Card>
-            )}
-            {whirlpoolStage && (
-                <StageModal
-                    show={isShowEditStage}
-                    setShow={setIsShowEditStage}
-                    stage={whirlpoolStage}
-                    title={"Edit Stage: Whirlpool"}
-                    {...modalProps}
-                />
-            )}
-            {whirlpoolStage && (
-                <BatchIngredientsModal
-                    show={isShowIngredients}
-                    setShow={setIsShowIngredients}
-                    {...modalProps}
-                />
-            )}
-            {whirlpoolStage && (
-                <MixtureRecordingsModal
-                    show={isShowMixtureRecordings}
-                    setShow={setIsShowMixtureRecordings}
-                    measures={measures}
-                    {...modalProps}
-                />
             )}
         </React.Fragment>
     );

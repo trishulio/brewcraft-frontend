@@ -9,10 +9,7 @@ import {
     Row,
 } from "reactstrap";
 import { deleteBatchMixture } from "../../../../store/actions";
-import { BatchIngredientsModal } from "../common/ingredients";
-import { MixtureRecordingsModal } from "../common/mixture-recordings";
-import { FinishedGoodsModal } from "../common/finished-goods";
-import BatchStage, { StageHeader, StageModal } from "../common/stage";
+import BatchStage, { StageHeader } from "../common/stage";
 import { Card } from "../../../../component/Common/Card";
 import TooltipButton from "../../../../component/Common/tooltip-button";
 import StageIngredients from "../common/stage-ingredients";
@@ -38,6 +35,9 @@ export default function BatchBriteTank({
     const [isShowMixtureRecordings, setIsShowMixtureRecordings] =
         useState(false);
     const [isShowFinishedGoods, setIsShowFinishedGoods] = useState(false);
+    const [showStageStart, setShowStageStart] = useState(false);
+    const [showStageComplete, setShowStageComplete] = useState(false);
+    const [showStageFailed, setShowStageFailed] = useState(false);
     const [toggleCharts, setToggleCharts] = useState(false);
     const dispatch = useDispatch();
 
@@ -85,12 +85,23 @@ export default function BatchBriteTank({
 
     const stageProps = {
         isOpen,
+        mixture: briteTankMixture,
         stage: briteTankStage,
-        mixture: briteTankMixture,
-    };
-
-    const modalProps = {
-        mixture: briteTankMixture,
+        isShowEditStage,
+        setIsShowEditStage,
+        isShowIngredients,
+        setIsShowIngredients,
+        isShowMixtureRecordings,
+        setIsShowMixtureRecordings,
+        isShowFinishedGoods,
+        setIsShowFinishedGoods,
+        showStageStart,
+        setShowStageStart,
+        showStageComplete,
+        setShowStageComplete,
+        showStageFailed,
+        setShowStageFailed,
+        measures,
         afterSave: () => {
             toggleIsOpen("britetank", true);
         },
@@ -187,7 +198,13 @@ export default function BatchBriteTank({
                         <i className="mdi mdi-dots-horizontal"></i>
                     </DropdownToggle>
                     <DropdownMenu right>
-                        <StatusDropdownItems stage={briteTankStage} />
+                        <StatusDropdownItems
+                            mixture={briteTankMixture}
+                            stage={briteTankStage}
+                            setShowStageStart={setShowStageStart}
+                            setShowStageComplete={setShowStageComplete}
+                            setShowStageFailed={setShowStageFailed}
+                        />
                         <DropdownItem>
                             <span
                                 className="text-dark"
@@ -281,37 +298,6 @@ export default function BatchBriteTank({
                         </Row>
                     </BatchStage>
                 </Card>
-            )}
-            {briteTankStage && (
-                <StageModal
-                    show={isShowEditStage}
-                    setShow={setIsShowEditStage}
-                    stage={briteTankStage}
-                    title={"Edit Stage: Brite Tank"}
-                    {...modalProps}
-                />
-            )}
-            {briteTankStage && (
-                <BatchIngredientsModal
-                    show={isShowIngredients}
-                    setShow={setIsShowIngredients}
-                    {...modalProps}
-                />
-            )}
-            {briteTankStage && (
-                <MixtureRecordingsModal
-                    show={isShowMixtureRecordings}
-                    setShow={setIsShowMixtureRecordings}
-                    measures={measures}
-                    {...modalProps}
-                />
-            )}
-            {briteTankStage && (
-                <FinishedGoodsModal
-                    show={isShowFinishedGoods}
-                    setShow={setIsShowFinishedGoods}
-                    {...modalProps}
-                />
             )}
         </React.Fragment>
     );
