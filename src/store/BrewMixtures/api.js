@@ -13,8 +13,19 @@ async function fetchMixtures(params) {
     return await AxiosInstance.get("/api/v1/brews/mixtures", data);
 }
 
-async function createMixture(params) {
-    return await AxiosInstance.post("/api/v1/brews/mixtures", params);
+async function createMixture({
+    parentMixtureIds,
+    quantity,
+    equipment,
+    brewStage,
+}) {
+    debugger;
+    return await AxiosInstance.post("/api/v1/brews/mixtures", {
+        parentMixtureIds,
+        quantity,
+        equipmentId: equipment?.id,
+        brewStageId: brewStage.id,
+    });
 }
 
 async function updateMixture({

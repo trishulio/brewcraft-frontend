@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { Button } from "reactstrap";
 import Select from "react-select";
 import { addBatchStage, fetchBatches } from "../../../store/actions";
 import { useEffect } from "react";
+import StageInitModal from "./common/stage-init-modal";
 
 export default function Toolbar() {
+    const [showInitStage, setShowInitStage] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
     const { id } = useParams();
@@ -67,16 +69,28 @@ export default function Toolbar() {
                 color="secondary"
                 className="waves-effect d-inline align-middle mr-2"
                 onClick={() => {
-                    dispatch(
-                        addBatchStage({
-                            taskId: 1,
-                            statusId: 4,
-                        })
-                    );
+                    setShowInitStage(true);
                 }}
             >
                 <i className="fa fa-plus"></i> Add Turn
             </Button>
+            <StageInitModal
+                show={showInitStage}
+                setShow={setShowInitStage}
+                title="Initial stage details"
+                addBatchStage={(equipmentItem) => {
+                    dispatch(
+                        addBatchStage({
+                            parentMixtureIds: [],
+                            taskId: 1,
+                            statusId: 4,
+                            equipment: {
+                                ...equipmentItem,
+                            },
+                        })
+                    );
+                }}
+            />
         </React.Fragment>
     );
 

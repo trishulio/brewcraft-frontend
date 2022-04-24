@@ -1,14 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    Button,
-    Col,
-    FormFeedback,
-    FormGroup,
-    Input,
-    Label,
-    Row,
-} from "reactstrap";
+import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import {
     editBatchStage,
     setBrewMixtureDetails,
@@ -67,72 +59,59 @@ export default function StageCompleteModal({
     return (
         <Modal
             title={title}
-            size="lg"
             show={show}
             close={() => {
                 setShow(false);
             }}
         >
             <ModalBody>
-                <Row>
-                    <Col sm="6">
-                        <Label for="mixtureFinishDateTime">
-                            Mixture Finish
-                        </Label>
-                        <FormGroup>
+                <Label for="mixtureFinishDateTime">Mixture Finish</Label>
+                <FormGroup>
+                    <Input
+                        type="datetime-local"
+                        name="mixtureFinishDateTime"
+                        className="waves-effect"
+                        value={stage.endedAt || ""}
+                        onChange={(e) => {
+                            if (stage.endedAt !== e.target.value) {
+                                setStage({
+                                    ...stage,
+                                    endedAt: e.target.value,
+                                });
+                            }
+                        }}
+                    />
+                    <FormFeedback>Enter a valid finish time.</FormFeedback>
+                </FormGroup>
+                {!failed && (
+                    <React.Fragment>
+                        <Label for="mixtureQuantityValue">Volume Out (l)</Label>
+                        <FormGroup className="mb-3">
                             <Input
-                                type="datetime-local"
-                                name="mixtureFinishDateTime"
+                                type="text"
                                 className="waves-effect"
-                                value={stage.endedAt || ""}
+                                value={mixture.quantity.value || ""}
+                                placeholder={"Enter"}
+                                name="mixtureQuantityValue"
                                 onChange={(e) => {
-                                    if (stage.endedAt !== e.target.value) {
-                                        setStage({
-                                            ...stage,
-                                            endedAt: e.target.value,
+                                    if (
+                                        mixture.quantity.value !==
+                                        e.target.value
+                                    ) {
+                                        setMixture({
+                                            ...mixture,
+                                            quantity: {
+                                                ...mixture.quantity,
+                                                value: e.target.value,
+                                            },
                                         });
                                     }
                                 }}
                             />
-                            <FormFeedback>
-                                Enter a valid finish time.
-                            </FormFeedback>
+                            <FormFeedback>Enter a valid number.</FormFeedback>
                         </FormGroup>
-                    </Col>
-                    {!failed && (
-                        <Col sm="6">
-                            <Label for="mixtureQuantityValue">
-                                Volume Out (l)
-                            </Label>
-                            <FormGroup className="mb-3">
-                                <Input
-                                    type="text"
-                                    className="waves-effect"
-                                    value={mixture.quantity.value || ""}
-                                    placeholder={"Enter"}
-                                    name="mixtureQuantityValue"
-                                    onChange={(e) => {
-                                        if (
-                                            mixture.quantity.value !==
-                                            e.target.value
-                                        ) {
-                                            setMixture({
-                                                ...mixture,
-                                                quantity: {
-                                                    ...mixture.quantity,
-                                                    value: e.target.value,
-                                                },
-                                            });
-                                        }
-                                    }}
-                                />
-                                <FormFeedback>
-                                    Enter a valid number.
-                                </FormFeedback>
-                            </FormGroup>
-                        </Col>
-                    )}
-                </Row>
+                    </React.Fragment>
+                )}
             </ModalBody>
             <ModalFooter>
                 <Button

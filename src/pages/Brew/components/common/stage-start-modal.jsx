@@ -1,13 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+    Alert,
     Button,
-    Col,
     FormFeedback,
     FormGroup,
     Input,
     Label,
-    Row,
 } from "reactstrap";
 import {
     editBatchStage,
@@ -60,39 +59,36 @@ export default function StageStartModal({
     return (
         <Modal
             title={title}
-            size="lg"
             show={show}
             close={() => {
                 setShow(false);
             }}
         >
             <ModalBody>
-                <Row>
-                    <Col sm="6">
-                        <Label for="mixtureStartDateTime">Mixture Start</Label>
-                        <FormGroup className="mb-3">
-                            <Input
-                                type="datetime-local"
-                                name="mixtureStartDateTime"
-                                className="waves-effect"
-                                value={stage.startedAt || ""}
-                                onChange={(e) => {
-                                    if (stage.startedAt !== e.target.value) {
-                                        setStage({
-                                            ...stage,
-                                            startedAt: e.target.value,
-                                        });
-                                    }
-                                }}
-                            />
-                            <FormFeedback>
-                                Enter a valid start time.
-                            </FormFeedback>
-                        </FormGroup>
-                    </Col>
-                </Row>
+                <Alert color="info" fade={false}>
+                    Start time{stage.task.id !== 1 && " and initial volume"} is
+                    required to begin a stage
+                </Alert>
+                <Label for="mixtureStartDateTime">Time Start</Label>
+                <FormGroup className="mb-3">
+                    <Input
+                        type="datetime-local"
+                        name="mixtureStartDateTime"
+                        className="waves-effect"
+                        value={stage.startedAt || ""}
+                        onChange={(e) => {
+                            if (stage.startedAt !== e.target.value) {
+                                setStage({
+                                    ...stage,
+                                    startedAt: e.target.value,
+                                });
+                            }
+                        }}
+                    />
+                    <FormFeedback>Enter a valid start time.</FormFeedback>
+                </FormGroup>
                 {stage.task.id !== 1 && (
-                    <Col sm="6">
+                    <React.Fragment>
                         <Label for="mixtureInitialQuantityValue">
                             Volume In (l)
                         </Label>
@@ -137,7 +133,7 @@ export default function StageStartModal({
                             />
                             <FormFeedback>Enter a valid number.</FormFeedback>
                         </FormGroup>
-                    </Col>
+                    </React.Fragment>
                 )}
             </ModalBody>
             <ModalFooter>

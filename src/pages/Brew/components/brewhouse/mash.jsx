@@ -25,6 +25,7 @@ import {
 } from "../common/charts";
 import StageCompleteModal from "../common/stage-complete-modal";
 import StageStartModal from "../common/stage-start-modal";
+import StageInitModal from "../common/stage-init-modal";
 
 export default function BrewMash({
     mashMixture,
@@ -37,6 +38,7 @@ export default function BrewMash({
     const [isShowIngredients, setIsShowIngredients] = useState(false);
     const [isShowMixtureRecordings, setIsShowMixtureRecordings] =
         useState(false);
+    const [showInitStage, setShowInitStage] = useState(false);
     const [showStageStart, setShowStageStart] = useState(false);
     const [showStageComplete, setShowStageComplete] = useState(false);
     const [showStageFailed, setShowStageFailed] = useState(false);
@@ -196,6 +198,7 @@ export default function BrewMash({
                             mixture={mashMixture}
                             stage={mashStage}
                             startDisabled={!!kettleMixture?.id}
+                            setShowInitStage={setShowInitStage}
                             setShowStageStart={setShowStageStart}
                             setShowStageComplete={setShowStageComplete}
                             setShowStageFailed={setShowStageFailed}
@@ -204,13 +207,7 @@ export default function BrewMash({
                             <DropdownItem
                                 disabled={!!kettleMixture?.id}
                                 onClick={() => {
-                                    dispatch(
-                                        addBatchStage({
-                                            parentMixtureIds: [mashMixture.id],
-                                            taskId: 2,
-                                            statusId: 4,
-                                        })
-                                    );
+                                    setShowInitStage(true);
                                 }}
                             >
                                 <span className="text-dark">
@@ -351,8 +348,8 @@ export default function BrewMash({
                         {...modalProps}
                     />
                     <StageStartModal
-                        show={showStageComplete}
-                        setShow={setShowStageComplete}
+                        show={showStageStart}
+                        setShow={setShowStageStart}
                         title="Start Stage"
                         {...modalProps}
                     />
@@ -368,6 +365,21 @@ export default function BrewMash({
                         title="Failed Stage"
                         failed={true}
                         {...modalProps}
+                    />
+                    <StageInitModal
+                        show={showInitStage}
+                        setShow={setShowInitStage}
+                        title="Initialize Kettle Stage"
+                        addBatchStage={(equipmentItem) => {
+                            dispatch(
+                                addBatchStage({
+                                    parentMixtureIds: [mashMixture.id],
+                                    taskId: 2,
+                                    statusId: 4,
+                                    equipment: equipmentItem,
+                                })
+                            );
+                        }}
                     />
                 </React.Fragment>
             )}
