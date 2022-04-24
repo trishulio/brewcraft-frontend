@@ -4,8 +4,50 @@ import { map } from "lodash";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
 import { isValidNumberString } from "../../../../helpers/utils";
-import { setBrewMaterialPortions } from "../../../../store/actions";
+import { editBatch, setBrewMaterialPortions } from "../../../../store/actions";
 import { useDispatch } from "react-redux";
+import {
+    Modal,
+    ModalBody,
+    ModalFooter,
+} from "../../../../component/Common/modal";
+
+export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
+    const dispatch = useDispatch();
+    return (
+        <Modal
+            title="Ingredients"
+            size="lg"
+            show={show}
+            close={() => {
+                setShow(false);
+            }}
+        >
+            <ModalBody>
+                <BatchIngredients mixture={mixture} />
+            </ModalBody>
+            <ModalFooter>
+                <Button
+                    color="primary"
+                    onClick={() => {
+                        dispatch(editBatch());
+                        afterSave();
+                        setShow(false);
+                    }}
+                >
+                    Save
+                </Button>{" "}
+                <Button
+                    onClick={() => {
+                        setShow(false);
+                    }}
+                >
+                    Cancel
+                </Button>
+            </ModalFooter>
+        </Modal>
+    );
+}
 
 export default function BatchIngredients({ mixture }) {
     const [invalidQuantity, setInvalidQuantity] = useState(false);
@@ -28,6 +70,10 @@ export default function BatchIngredients({ mixture }) {
         return state.Batch.MaterialPortions.content.filter(
             (mp) => mp.mixture.id === mixture.id
         );
+    });
+
+    const allMaterialPortions = useSelector((state) => {
+        return state.Batch.MaterialPortions.content;
     });
 
     return (
@@ -173,23 +219,43 @@ export default function BatchIngredients({ mixture }) {
                                     selectedLot.materialLot.id
                             );
                             if (materialPortion) {
-                                materialPortion.quantity.value +=
-                                    parseFloat(selectedLotQuantity);
+                                dispatch(
+                                    setBrewMaterialPortions({
+                                        content: [
+                                            ...allMaterialPortions,
+                                            {
+                                                ...materialPortion,
+                                                quantity: {
+                                                    ...materialPortion.quantity,
+                                                    value: (materialPortion.quantity.value +=
+                                                        parseFloat(
+                                                            selectedLotQuantity
+                                                        )),
+                                                },
+                                            },
+                                        ],
+                                    })
+                                );
                             } else {
-                                materialPortions.push({
-                                    ...selectedLot,
-                                    quantity: {
-                                        symbol: selectedLot.quantity.symbol,
-                                        value: parseFloat(selectedLotQuantity),
-                                    },
-                                    mixture: mixture,
-                                });
+                                dispatch(
+                                    setBrewMaterialPortions({
+                                        content: [
+                                            ...allMaterialPortions,
+                                            {
+                                                ...selectedLot,
+                                                quantity: {
+                                                    symbol: selectedLot.quantity
+                                                        .symbol,
+                                                    value: parseFloat(
+                                                        selectedLotQuantity
+                                                    ),
+                                                },
+                                                mixture: mixture,
+                                            },
+                                        ],
+                                    })
+                                );
                             }
-                            dispatch(
-                                setBrewMaterialPortions({
-                                    content: materialPortions,
-                                })
-                            );
                         }}
                         disabled={!selectedLot || !selectedLotQuantity}
                     >
@@ -202,7 +268,7 @@ export default function BatchIngredients({ mixture }) {
                         onClick={() => {
                             dispatch(
                                 setBrewMaterialPortions({
-                                    content: materialPortions.filter(
+                                    content: allMaterialPortions.filter(
                                         (_, index) => !lots.includes(index)
                                     ),
                                 })

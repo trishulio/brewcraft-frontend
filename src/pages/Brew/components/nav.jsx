@@ -22,22 +22,6 @@ export default function BrewNav({ activeTab, setActiveTab }) {
             <div style={{ maxWidth: "70rem" }} className="mb-0">
                 <Nav className="nav-tabs nav-sm">
                     <NavItem
-                        key={"overview"}
-                        className="waves-effect waves-light"
-                    >
-                        <NavLink
-                            style={{ cursor: "pointer" }}
-                            className={classnames({
-                                active: activeTab === "overview",
-                            })}
-                            onClick={() => {
-                                navToTab("overview");
-                            }}
-                        >
-                            <span>Overview</span>
-                        </NavLink>
-                    </NavItem>
-                    <NavItem
                         key={"details"}
                         className="waves-effect waves-light"
                     >

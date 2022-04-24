@@ -1,13 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Ferment from "./ferment";
 import Condition from "./condition";
 import BriteTank from "./brite-tank";
 
-export default function Brew({ fermentMixture }) {
+export default function Cellar({ fermentMixture }) {
     const [isFermentOpen, setIsFermentOpen] = useState(false);
     const [isConditionOpen, setIsConditionOpen] = useState(false);
     const [isBriteTankOpen, setIsBriteTankOpen] = useState(false);
+
+    const transferMixture = useSelector((state) => {
+        return state.Batch.BrewMixtures.content.find((s) =>
+            fermentMixture.parentMixtureIds.includes(s.id)
+        );
+    });
+
+    const transferStage = useSelector((state) => {
+        return state.Batch.Stages.content.find(
+            (s) => s.id === transferMixture.brewStage.id
+        );
+    });
 
     const fermentStage = useSelector((state) => {
         return state.Batch.Stages.content.find(
@@ -37,14 +49,23 @@ export default function Brew({ fermentMixture }) {
     });
 
     const briteTankMixture = useSelector((state) => {
-        return (
-            conditionMixture &&
+        const mixture =
+            fermentMixture &&
             state.Batch.BrewMixtures.content.find(
                 (m) =>
                     m.parentMixtureIds &&
-                    m.parentMixtureIds.includes(conditionMixture.id) &&
+                    m.parentMixtureIds.includes(fermentMixture.id) &&
                     m.brewStage.task.id === 8
-            )
+            );
+        return (
+            mixture ||
+            (conditionMixture &&
+                state.Batch.BrewMixtures.content.find(
+                    (m) =>
+                        m.parentMixtureIds &&
+                        m.parentMixtureIds.includes(conditionMixture.id) &&
+                        m.brewStage.task.id === 8
+                ))
         );
     });
 
@@ -56,17 +77,6 @@ export default function Brew({ fermentMixture }) {
             )
         );
     });
-
-    useEffect(() => {
-        if (briteTankStage) {
-            toggleIsOpen("britetank", true);
-        } else if (conditionStage) {
-            toggleIsOpen("condition", true);
-        } else {
-            toggleIsOpen("ferment", true);
-        }
-        // eslint-disable-next-line
-    }, [fermentStage, conditionStage, briteTankStage]);
 
     function toggleIsOpen(index, show) {
         switch (index) {
@@ -91,6 +101,8 @@ export default function Brew({ fermentMixture }) {
     }
 
     const props = {
+        transferMixture,
+        transferStage,
         fermentMixture,
         fermentStage,
         conditionMixture,

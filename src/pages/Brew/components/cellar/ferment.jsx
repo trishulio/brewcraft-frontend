@@ -1,24 +1,49 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+    Col,
     Dropdown,
     DropdownItem,
     DropdownMenu,
     DropdownToggle,
+    Row,
 } from "reactstrap";
 import { addBatchStage, deleteBatchMixture } from "../../../../store/actions";
-import Ingredients from "../common/ingredients";
-import Recordings from "../common/mixture-recordings";
-import FinishedGoods from "../common/finished-goods";
-import BatchStage from "../common/stage";
+import { BatchIngredientsModal } from "../common/ingredients";
+import { MixtureRecordingsModal } from "../common/mixture-recordings";
+import { FinishedGoodsModal } from "../common/finished-goods";
+import BatchStage, { StageHeader, StageModal } from "../common/stage";
+import { Card } from "../../../../component/Common/Card";
+import TooltipButton from "../../../../component/Common/tooltip-button";
+import StageIngredients from "../common/stage-ingredients";
+import StageRecordings from "../common/stage-recordings";
+import StageFinishedGoods from "../common/stage-finished-goods";
+import StatusDropdownItems from "../common/stage-status-dropdown";
+import {
+    AbvLine,
+    FinishedGoodsBar,
+    GravityLine,
+    IngredientsBar,
+    PhLine,
+    TemperatureLine,
+} from "../common/charts";
 
 export default function BatchFerment({
+    transferStage,
+    transferMixture,
     fermentMixture,
     conditionMixture,
+    briteTankMixture,
     isOpen,
     toggleIsOpen,
 }) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
+    const [isShowEditStage, setIsShowEditStage] = useState(false);
+    const [isShowIngredients, setIsShowIngredients] = useState(false);
+    const [isShowMixtureRecordings, setIsShowMixtureRecordings] =
+        useState(false);
+    const [isShowFinishedGoods, setIsShowFinishedGoods] = useState(false);
+    const [toggleCharts, setToggleCharts] = useState(false);
     const dispatch = useDispatch();
 
     const fermentStage = useSelector((state) => {
@@ -33,48 +58,176 @@ export default function BatchFerment({
         );
     });
 
-    const ingredientsProps = {
-        mixture: fermentMixture,
-    };
+    const materialPortions = useSelector((state) => {
+        return state.Batch.MaterialPortions.initial.filter(
+            (mp) => mp.mixture.id === fermentMixture.id
+        );
+    });
 
-    const recordingsProps = {
-        measures,
-        mixture: fermentMixture,
-    };
+    const phRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.initial.filter(
+            (mr) => mr.mixture.id === fermentMixture.id && mr.measure.id === 3
+        );
+    });
 
-    const finishedGoodsProps = {
-        mixture: fermentMixture,
-    };
+    const temperatureRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.initial.filter(
+            (mr) => mr.mixture.id === fermentMixture.id && mr.measure.id === 4
+        );
+    });
+
+    const gravityRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.initial.filter(
+            (mr) => mr.mixture.id === fermentMixture.id && mr.measure.id === 5
+        );
+    });
+
+    const originalGravity = useSelector((state) => {
+        const record =
+            transferStage.task.id === 6 &&
+            state.Batch.MixtureRecordings.content.find((mr) => {
+                return (
+                    mr.mixture.id === transferMixture.id && mr.measure.id === 5
+                );
+            });
+        return record ? record.value : "";
+    });
+
+    const abvRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.initial
+            .filter(
+                (mr) =>
+                    mr.mixture.id === fermentMixture.id && mr.measure.id === 5
+            )
+            .map((r) => ({
+                ...r,
+                value: Math.ceil((originalGravity - r.value) * 131.25),
+            }));
+    });
+
+    const skuLots = useSelector((state) => {
+        return state.Batch.BatchFinishedGoods.content.filter(
+            (fg) => fg.mixturePortions[0].mixture.id === fermentMixture.id
+        );
+    });
 
     const stageProps = {
-        title: "Ferment",
+        isOpen,
         stage: fermentStage,
         mixture: fermentMixture,
-        isOpen,
-        toggleIsOpen: () => {
-            toggleIsOpen("ferment");
+    };
+
+    const modalProps = {
+        mixture: fermentMixture,
+        afterSave: () => {
+            toggleIsOpen("ferment", true);
         },
-        toolbar: (
+    };
+
+    function Toolbar() {
+        return (
             <React.Fragment>
-                {!conditionMixture && (
-                    <Dropdown
-                        isOpen={isOpenMoreDropdown}
-                        toggle={() =>
-                            setIsOpenMoreDropdown(!isOpenMoreDropdown)
-                        }
-                        className="d-inline-block mr-2"
+                <TooltipButton
+                    id="editFermentButton"
+                    className="waves-effect mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText="Edit Stage"
+                    placement="bottom"
+                    onClick={() => setIsShowEditStage(true)}
+                >
+                    <i className="mdi mdi-pencil"></i>
+                </TooltipButton>
+                <TooltipButton
+                    id="ingredientsFermentButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText="Ingredients"
+                    placement="bottom"
+                    onClick={() => setIsShowIngredients(true)}
+                >
+                    <i className="mdi mdi-barley"></i>
+                </TooltipButton>
+                <TooltipButton
+                    id="recordingsFermentButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText="Recordings"
+                    placement="bottom"
+                    onClick={() => setIsShowMixtureRecordings(true)}
+                >
+                    <i className="mdi mdi-clipboard-outline"></i>
+                </TooltipButton>
+                <TooltipButton
+                    id="finishedGoodsFermentButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText="Finished Goods"
+                    placement="bottom"
+                    onClick={() => setIsShowFinishedGoods(true)}
+                >
+                    <i className="mdi mdi-beer"></i>
+                </TooltipButton>
+                <TooltipButton
+                    id="chartsFermentButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText={toggleCharts ? "Hide Charts" : "Show Charts"}
+                    placement="bottom"
+                    onClick={() => {
+                        setToggleCharts(!toggleCharts);
+                        toggleIsOpen("ferment", true);
+                    }}
+                >
+                    {toggleCharts ? (
+                        <i className="mdi mdi-table"></i>
+                    ) : (
+                        <i className="mdi mdi-chart-bar"></i>
+                    )}
+                </TooltipButton>
+                <TooltipButton
+                    id="toggleFermentButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText={isOpen ? "Show Less" : "Show More"}
+                    placement="bottom"
+                    onClick={() => {
+                        toggleIsOpen("ferment");
+                    }}
+                >
+                    <i className="mdi mdi-arrow-up-down"></i>
+                </TooltipButton>
+                <Dropdown
+                    isOpen={isOpenMoreDropdown}
+                    toggle={() => setIsOpenMoreDropdown(!isOpenMoreDropdown)}
+                    className="d-inline-block m-0"
+                >
+                    <DropdownToggle
+                        tag="button"
+                        className="waves-effect btn btn-outline-secondary btn-sm mr-1 mb-1"
+                        data-toggle="dropdown"
                     >
-                        <DropdownToggle
-                            tag="button"
-                            className="waves-effect btn btn-outline-secondary btn-sm"
-                            data-toggle="dropdown"
-                        >
-                            Mixture <i className="fa fa-caret-down"></i>
-                        </DropdownToggle>
-                        <DropdownMenu>
-                            <DropdownItem>
-                                <span
-                                    className="text-dark"
+                        <i className="mdi mdi-dots-horizontal"></i>
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                        <StatusDropdownItems
+                            stage={fermentStage}
+                            startDisabled={
+                                !!conditionMixture?.id || !!briteTankMixture?.id
+                            }
+                        />
+                        {fermentStage.status.id === 2 && (
+                            <React.Fragment>
+                                <DropdownItem
+                                    disabled={
+                                        !!conditionMixture?.id ||
+                                        !!briteTankMixture?.id
+                                    }
                                     onClick={() => {
                                         dispatch(
                                             addBatchStage({
@@ -87,42 +240,166 @@ export default function BatchFerment({
                                         );
                                     }}
                                 >
-                                    Move to Conditioner
-                                </span>
-                            </DropdownItem>
-                            <DropdownItem>
-                                <span
-                                    className="text-dark"
+                                    <span className="text-dark">
+                                        Move to Conditioner
+                                    </span>
+                                </DropdownItem>
+                                <DropdownItem
+                                    disabled={
+                                        !!conditionMixture?.id ||
+                                        !!briteTankMixture?.id
+                                    }
                                     onClick={() => {
                                         dispatch(
-                                            deleteBatchMixture(fermentMixture)
+                                            addBatchStage({
+                                                parentMixtureIds: [
+                                                    fermentMixture.id,
+                                                ],
+                                                taskId: 8,
+                                                statusId: 4,
+                                            })
                                         );
                                     }}
                                 >
-                                    Delete Mixture
-                                </span>
-                            </DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
-                )}
+                                    <span className="text-dark">
+                                        Move to Bite Tank
+                                    </span>
+                                </DropdownItem>
+                            </React.Fragment>
+                        )}
+                        <DropdownItem
+                            disabled={
+                                !!conditionMixture?.id || !!briteTankMixture?.id
+                            }
+                            onClick={() => {
+                                dispatch(deleteBatchMixture(fermentMixture));
+                            }}
+                        >
+                            <span className="text-dark">Delete</span>
+                        </DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
             </React.Fragment>
-        ),
-    };
+        );
+    }
 
     return (
         <React.Fragment>
-            {fermentStage?.id && (
-                <BatchStage {...stageProps}>
-                    <div className="mb-3">
-                        <Ingredients {...ingredientsProps} />
-                    </div>
-                    <div className="mb-3">
-                        <Recordings {...recordingsProps} />
-                    </div>
-                    <div className="mb-3">
-                        <FinishedGoods {...finishedGoodsProps} />
-                    </div>
-                </BatchStage>
+            {fermentStage && (
+                <Card className="shadow-none m-0 p-0">
+                    <StageHeader
+                        title="Stage: Ferment"
+                        toggleIsOpen={() => {
+                            toggleIsOpen("ferment");
+                        }}
+                        toolbar={<Toolbar />}
+                    />
+                    <BatchStage {...stageProps}>
+                        <Row>
+                            <Col className="mb-3" sm={6}>
+                                <StageIngredients
+                                    lotPortions={materialPortions}
+                                    chart={
+                                        <IngredientsBar
+                                            ingredients={materialPortions}
+                                        />
+                                    }
+                                    toggleCharts={toggleCharts}
+                                    title="Ingredients"
+                                    noData="No Ingredients"
+                                />
+                            </Col>
+                            <Col className="mb-3" sm={6}>
+                                <StageRecordings
+                                    recordings={temperatureRecordings}
+                                    chart={
+                                        <TemperatureLine
+                                            recordings={temperatureRecordings}
+                                        />
+                                    }
+                                    toggleCharts={toggleCharts}
+                                    title="Temperature"
+                                    noData="No Readings"
+                                />
+                            </Col>
+                            <Col className="mb-3" sm={6}>
+                                <StageRecordings
+                                    recordings={phRecordings}
+                                    chart={<PhLine recordings={phRecordings} />}
+                                    toggleCharts={toggleCharts}
+                                    title="Ph"
+                                    noData="No Readings"
+                                />
+                            </Col>
+                            <Col className="mb-3" sm={6}>
+                                <StageRecordings
+                                    recordings={gravityRecordings}
+                                    chart={
+                                        <GravityLine
+                                            recordings={gravityRecordings}
+                                        />
+                                    }
+                                    toggleCharts={toggleCharts}
+                                    title="Gravity"
+                                    noData="No Readings"
+                                />
+                            </Col>
+                            <Col className="mb-3" sm={6}>
+                                <StageRecordings
+                                    recordings={abvRecordings}
+                                    chart={
+                                        <AbvLine recordings={abvRecordings} />
+                                    }
+                                    toggleCharts={toggleCharts}
+                                    title="ABV"
+                                    noData="No Readings"
+                                />
+                            </Col>
+                            <Col sm="6">
+                                <StageFinishedGoods
+                                    finishedGoods={skuLots}
+                                    chart={
+                                        <FinishedGoodsBar skuLots={skuLots} />
+                                    }
+                                    toggleCharts={toggleCharts}
+                                    title="Finished Goods"
+                                    noData="No Finished Goods"
+                                />
+                            </Col>
+                        </Row>
+                    </BatchStage>
+                </Card>
+            )}
+            {fermentStage && (
+                <StageModal
+                    show={isShowEditStage}
+                    setShow={setIsShowEditStage}
+                    stage={fermentStage}
+                    title={"Edit Stage: Ferment"}
+                    {...modalProps}
+                />
+            )}
+            {fermentStage && (
+                <BatchIngredientsModal
+                    show={isShowIngredients}
+                    setShow={setIsShowIngredients}
+                    {...modalProps}
+                />
+            )}
+            {fermentStage && (
+                <MixtureRecordingsModal
+                    show={isShowMixtureRecordings}
+                    setShow={setIsShowMixtureRecordings}
+                    measures={measures}
+                    {...modalProps}
+                />
+            )}
+            {fermentStage && (
+                <FinishedGoodsModal
+                    show={isShowFinishedGoods}
+                    setShow={setIsShowFinishedGoods}
+                    {...modalProps}
+                />
             )}
         </React.Fragment>
     );

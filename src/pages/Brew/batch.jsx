@@ -5,7 +5,6 @@ import { Button, Col, Row, TabContent, TabPane } from "reactstrap";
 import { setBatchDetails } from "../../store/actions";
 import { Card, CardBody } from "../../component/Common/Card";
 import BatchDetails from "./components/details";
-import BatchOverview from "./components/overview";
 import Toolbar from "./components/toolbar";
 import BatchPeople from "./components/people";
 // import BatchComments from "./components/comments";
@@ -14,6 +13,7 @@ import { ErrorMessage } from "../../helpers/textUtils";
 import Nav from "./components/nav";
 import Brew from "./components/brewhouse";
 import Cellar from "./components/cellar";
+import BrewMiniCard from "./components/mini-card";
 
 function BrewTab({ indexv, mashMixture }) {
     return (
@@ -66,6 +66,7 @@ export default function Batch(props) {
             </div>
 
             {!!error && <ErrorMessage {...error} />}
+            <BrewMiniCard />
             <Row>
                 <Col xl="8">
                     <Card>
@@ -77,9 +78,6 @@ export default function Batch(props) {
                                 />
                             </div>
                             <TabContent activeTab={props.activeTab}>
-                                <TabPane tabId="overview">
-                                    <BatchOverview />
-                                </TabPane>
                                 <TabPane tabId="details">
                                     <BatchDetails {...props} />
                                     <BatchFileUploads {...props} />

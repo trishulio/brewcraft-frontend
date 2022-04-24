@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
-import { Input, Label, FormGroup, FormFeedback, Row, Col } from "reactstrap";
+import {
+    Input,
+    Label,
+    FormGroup,
+    FormFeedback,
+    Row,
+    Col,
+    Button,
+    Collapse,
+} from "reactstrap";
 import {
     setBatchDetails,
     setBatchInvalidName,
     setBatchInvalidDescription,
     setBatchInvalidParentBrew,
     fetchProducts,
+    editBatch,
 } from "../../../store/actions";
 import {
     isValidName,
@@ -15,13 +25,16 @@ import {
     validDate,
     validId,
 } from "../../../helpers/utils";
-import { Card, CardBody, CardHeader } from "../../../component/Common/Card";
+import { Card, CardBody } from "../../../component/Common/Card";
+import TooltipButton from "../../../component/Common/tooltip-button";
+import { formatDatetime } from "../../../helpers/textUtils";
+import { Modal, ModalBody, ModalFooter } from "../../../component/Common/modal";
+import { StageHeader } from "./common/stage";
+import StageIngredients from "./common/stage-ingredients";
+import { IngredientsDoughnut } from "./common/charts";
 
-export default function BatchDetails() {
-    const [isDetailsOpen, setIsDetailsOpen] = useState(true);
+function BatchDetailsModal({ show, setShow, afterSave }) {
     const dispatch = useDispatch();
-    const query = useQuery();
-    const tab = query.get("tab");
 
     const {
         data: batch,
@@ -35,17 +48,6 @@ export default function BatchDetails() {
     const { content: products } = useSelector((state) => {
         return state.Products;
     });
-
-    useEffect(() => {
-        setTimeout(() => {
-            dispatch(
-                fetchProducts({
-                    pageSize: 1000,
-                })
-            );
-        });
-        // eslint-disable-next-line
-    }, [tab]);
 
     function onFormInputChange(e) {
         switch (e.target.name) {
@@ -145,47 +147,19 @@ export default function BatchDetails() {
                 break;
         }
     }
-
     return (
         <React.Fragment>
-            <Card className="shadow-none mb-1">
-                <CardHeader>
-                    <div
-                        className="mr-2"
-                        onClick={() => setIsDetailsOpen(!isDetailsOpen)}
-                    >
-                        <i
-                            className={`fa fa-caret-right font-size-13 mr-2 ${
-                                isDetailsOpen ? " rotate-down" : ""
-                            }`}
-                        ></i>
-                        <span
-                            className="text-dark"
-                            onClick={() => setIsDetailsOpen(!isDetailsOpen)}
-                            style={{ cursor: "pointer" }}
-                        >
-                            Batch Overview
-                        </span>
-                    </div>
-                </CardHeader>
-                <CardBody className="pb-0" isOpen={isDetailsOpen}>
+            <Modal
+                title="Batch Details"
+                size="lg"
+                show={show}
+                close={() => {
+                    setShow(false);
+                }}
+            >
+                <ModalBody>
                     <Row>
                         <Col sm="6">
-                            <Label for="batchBatchId">Batch ID</Label>
-                            <div
-                                className="mb-3"
-                                style={{
-                                    height: "2.09375rem",
-                                }}
-                            >
-                                <span
-                                    id="batchBatchId"
-                                    className="align-middle font-size-14"
-                                >
-                                    {batch.id ? batch.id : "-"}
-                                </span>
-                            </div>
-                            <div className="clearfix"></div>
                             <Label
                                 for="batchStartDateTime"
                                 className="align-top"
@@ -203,6 +177,30 @@ export default function BatchDetails() {
                                 />
                                 <FormFeedback>
                                     {!batch.startedAt
+                                        ? "Enter a valid time and date"
+                                        : "Invalid batch parameter"}
+                                </FormFeedback>
+                            </FormGroup>
+                        </Col>
+                        <Col sm="6">
+                            <Label
+                                for="batchFinishDateTime"
+                                className="align-top"
+                            >
+                                Batch Finish
+                            </Label>
+                            <FormGroup className="align-middle">
+                                <Input
+                                    type="datetime-local"
+                                    name="batchFinishDateTime"
+                                    className="waves-effect"
+                                    value={batch.endedAt || ""}
+                                    onChange={onFormInputChange}
+                                    disabled={!batch.id}
+                                    invalid={invalidBatchEndedAt}
+                                />
+                                <FormFeedback>
+                                    {!batch.endedAt
                                         ? "Enter a valid time and date"
                                         : "Invalid batch parameter"}
                                 </FormFeedback>
@@ -241,35 +239,223 @@ export default function BatchDetails() {
                                         : "Invalid batch parameter"}
                                 </FormFeedback>
                             </FormGroup>
-                            <div className="clearfix"></div>
-                            <React.Fragment>
-                                <Label
-                                    for="batchFinishDateTime"
-                                    className="align-top"
-                                >
-                                    Batch Finish
-                                </Label>
-                                <FormGroup className="align-middle">
-                                    <Input
-                                        type="datetime-local"
-                                        name="batchFinishDateTime"
-                                        className="waves-effect"
-                                        value={batch.endedAt || ""}
-                                        onChange={onFormInputChange}
-                                        disabled={!batch.id}
-                                        invalid={invalidBatchEndedAt}
-                                    />
-                                    <FormFeedback>
-                                        {!batch.endedAt
-                                            ? "Enter a valid time and date"
-                                            : "Invalid batch parameter"}
-                                    </FormFeedback>
-                                </FormGroup>
-                            </React.Fragment>
                         </Col>
                     </Row>
+                </ModalBody>
+                <ModalFooter>
+                    <Button
+                        color="primary"
+                        onClick={() => {
+                            dispatch(editBatch());
+                            afterSave();
+                            setShow(false);
+                        }}
+                    >
+                        Save
+                    </Button>{" "}
+                    <Button
+                        onClick={() => {
+                            setShow(false);
+                        }}
+                    >
+                        Cancel
+                    </Button>
+                </ModalFooter>
+            </Modal>
+        </React.Fragment>
+    );
+}
+
+export default function BatchDetails() {
+    const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+    const [show, setShow] = useState(false);
+    const [toggleCharts, setToggleCharts] = useState(false);
+    const dispatch = useDispatch();
+    const query = useQuery();
+    const tab = query.get("tab");
+
+    const { data: batch } = useSelector((state) => {
+        return state.Batch.Batch;
+    });
+
+    const maltPortions = useSelector((state) => {
+        return state.Batch.MaterialPortions.initial.filter(
+            (mp) =>
+                mp.materialLot.invoiceItem.material.category?.name === "Malt"
+        );
+    });
+
+    const hopPortions = useSelector((state) => {
+        return state.Batch.MaterialPortions.initial.filter(
+            (mp) => mp.materialLot.invoiceItem.material.category?.name === "Hop"
+        );
+    });
+
+    const otherPortions = useSelector((state) => {
+        return state.Batch.MaterialPortions.initial.filter(
+            (mp) =>
+                mp.materialLot.invoiceItem.material.category?.name !== "Malt" &&
+                mp.materialLot.invoiceItem.material.category?.name !== "Hop"
+        );
+    });
+
+    useEffect(() => {
+        setTimeout(() => {
+            dispatch(
+                fetchProducts({
+                    pageSize: 1000,
+                })
+            );
+        });
+        // eslint-disable-next-line
+    }, [tab]);
+
+    return (
+        <React.Fragment>
+            <Card className="shadow-none mb-1">
+                <StageHeader
+                    title="Batch Details"
+                    toggleIsOpen={() => {
+                        setIsDetailsOpen(!isDetailsOpen);
+                    }}
+                    toolbar={
+                        <React.Fragment>
+                            <TooltipButton
+                                id="editDetailsButton"
+                                className="waves-effect mr-1 mb-1"
+                                size="sm"
+                                outline={true}
+                                tooltipText="Edit Details"
+                                placement="bottom"
+                                onClick={() => setShow(true)}
+                            >
+                                <i className="mdi mdi-pencil"></i>
+                            </TooltipButton>
+                            <TooltipButton
+                                id="chartsDetailsButton"
+                                className="waves-effect m-0 mr-1 mb-1"
+                                size="sm"
+                                outline={true}
+                                tooltipText={
+                                    toggleCharts ? "Hide Charts" : "Show Charts"
+                                }
+                                placement="bottom"
+                                onClick={() => {
+                                    setToggleCharts(!toggleCharts);
+                                    setIsDetailsOpen(true);
+                                }}
+                            >
+                                {toggleCharts ? (
+                                    <i className="mdi mdi-table"></i>
+                                ) : (
+                                    <i className="mdi mdi-chart-bar"></i>
+                                )}
+                            </TooltipButton>
+                            <TooltipButton
+                                id="toggleDetailsButton"
+                                className="waves-effect m-0 mr-1 mb-1"
+                                size="sm"
+                                outline={true}
+                                tooltipText={
+                                    isDetailsOpen ? "Show Less" : "Show More"
+                                }
+                                placement="bottom"
+                                onClick={() => {
+                                    setIsDetailsOpen(!isDetailsOpen);
+                                }}
+                            >
+                                <i className="mdi mdi-arrow-up-down"></i>
+                            </TooltipButton>
+                        </React.Fragment>
+                    }
+                />
+                <CardBody className="pb-0">
+                    <Row>
+                        <Col className="mb-3" sm="3">
+                            <h4 className="font-size-12">Batch ID</h4>
+                            <span className="d-block">
+                                {batch.id ? batch.id : "-"}
+                            </span>
+                        </Col>
+                        <Col className="mb-3" sm="3">
+                            <h4 className="font-size-12">Batch Start</h4>
+                            <span className="d-block">
+                                {batch.startedAt
+                                    ? formatDatetime(batch.startedAt)
+                                    : "-"}
+                            </span>
+                        </Col>
+                        <Col className="mb-3" sm="3">
+                            <h4 className="font-size-12">Batch Finish</h4>
+                            <span className="d-block">
+                                {batch.endedAt
+                                    ? formatDatetime(batch.endedAt)
+                                    : "-"}
+                            </span>
+                        </Col>
+                        <Col className="mb-3" sm="3">
+                            <h4 className="font-size-12">Product</h4>
+                            <span className="d-block">
+                                {batch.product.name ? batch.product.name : "-"}
+                            </span>
+                        </Col>
+                    </Row>
+                    <Collapse isOpen={isDetailsOpen}>
+                        <Row>
+                            <Col className="mb-3" sm={toggleCharts ? 4 : 6}>
+                                <StageIngredients
+                                    lotPortions={maltPortions}
+                                    chart={
+                                        <div style={{ maxWidth: "180px" }}>
+                                            <IngredientsDoughnut
+                                                materialLots={maltPortions}
+                                            />
+                                        </div>
+                                    }
+                                    toggleCharts={toggleCharts}
+                                    title="Total Malt"
+                                    noData="No Malt"
+                                />
+                            </Col>
+                            <Col className="mb-3" sm={toggleCharts ? 4 : 6}>
+                                <StageIngredients
+                                    lotPortions={hopPortions}
+                                    chart={
+                                        <div style={{ maxWidth: "180px" }}>
+                                            <IngredientsDoughnut
+                                                materialLots={hopPortions}
+                                            />
+                                        </div>
+                                    }
+                                    toggleCharts={toggleCharts}
+                                    title="Total Hops"
+                                    noData="No Hops"
+                                />
+                            </Col>
+                            <Col className="mb-3" sm={toggleCharts ? 4 : 6}>
+                                <StageIngredients
+                                    lotPortions={otherPortions}
+                                    chart={
+                                        <div style={{ maxWidth: "180px" }}>
+                                            <IngredientsDoughnut
+                                                materialLots={otherPortions}
+                                            />
+                                        </div>
+                                    }
+                                    toggleCharts={toggleCharts}
+                                    title="Other Ingredients"
+                                    noData="No Ingredients"
+                                />
+                            </Col>
+                        </Row>
+                    </Collapse>
                 </CardBody>
             </Card>
+            <BatchDetailsModal
+                show={show}
+                setShow={setShow}
+                afterSave={() => setShow(true)}
+            />
         </React.Fragment>
     );
 }

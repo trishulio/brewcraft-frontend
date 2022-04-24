@@ -1,15 +1,28 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+    Col,
     Dropdown,
     DropdownItem,
     DropdownMenu,
     DropdownToggle,
+    Row,
 } from "reactstrap";
+import { Card } from "../../../../component/Common/Card";
+import TooltipButton from "../../../../component/Common/tooltip-button";
 import { addBatchStage, deleteBatchMixture } from "../../../../store/actions";
-import Ingredients from "../common/ingredients";
-import MixtureRecordings from "../common/mixture-recordings";
-import BatchStage from "../common/stage";
+import {
+    GravityLine,
+    IngredientsBar,
+    PhLine,
+    TemperatureLine,
+} from "../common/charts";
+import { BatchIngredientsModal } from "../common/ingredients";
+import { MixtureRecordingsModal } from "../common/mixture-recordings";
+import BatchStage, { StageHeader, StageModal } from "../common/stage";
+import StageIngredients from "../common/stage-ingredients";
+import StageRecordings from "../common/stage-recordings";
+import StatusDropdownItems from "../common/stage-status-dropdown";
 
 export default function BrewKettle({
     kettleMixture,
@@ -19,11 +32,16 @@ export default function BrewKettle({
     toggleIsOpen,
 }) {
     const [isOpenMoreDropdown, setIsOpenMoreDropdown] = useState(false);
+    const [isShowEditStage, setIsShowEditStage] = useState(false);
+    const [isShowIngredients, setIsShowIngredients] = useState(false);
+    const [isShowMixtureRecordings, setIsShowMixtureRecordings] =
+        useState(false);
+    const [toggleCharts, setToggleCharts] = useState(false);
     const dispatch = useDispatch();
 
     const measures = useSelector((state) => {
         return state.Measures.data.filter((measure) =>
-            [3, 4].includes(measure.id)
+            [3, 4, 5].includes(measure.id)
         );
     });
 
@@ -36,133 +54,322 @@ export default function BrewKettle({
         );
     });
 
-    const whirlpoolStage = useSelector((state) => {
-        return (
-            whirlpoolMixture &&
-            state.Batch.Stages.content.find(
-                (s) => s.id === whirlpoolMixture.brewStage.id
-            )
+    const maltPortions = useSelector((state) => {
+        return state.Batch.MaterialPortions.initial.filter(
+            (mp) =>
+                mp.mixture.id === kettleMixture.id &&
+                mp.materialLot.invoiceItem.material.category?.name === "Malt"
         );
     });
 
-    const transferStage = useSelector((state) => {
-        return (
-            transferMixture &&
-            state.Batch.Stages.content.find(
-                (s) => s.id === transferMixture.brewStage.id
-            )
+    const hopPortions = useSelector((state) => {
+        return state.Batch.MaterialPortions.initial.filter(
+            (mp) =>
+                mp.mixture.id === kettleMixture.id &&
+                mp.materialLot.invoiceItem.material.category?.name === "Hop"
         );
     });
 
-    const ingredientsProps = {
-        mixture: kettleMixture,
-    };
+    const otherPortions = useSelector((state) => {
+        return state.Batch.MaterialPortions.initial.filter(
+            (mp) =>
+                mp.mixture.id === kettleMixture.id &&
+                mp.materialLot.invoiceItem.material.category?.name !== "Malt" &&
+                mp.materialLot.invoiceItem.material.category?.name !== "Hop"
+        );
+    });
 
-    const recordingsProps = {
-        measures,
-        mixture: kettleMixture,
-    };
+    const phRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.initial.filter(
+            (mr) => mr.mixture.id === kettleMixture.id && mr.measure.id === 3
+        );
+    });
+
+    const temperatureRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.initial.filter(
+            (mr) => mr.mixture.id === kettleMixture.id && mr.measure.id === 4
+        );
+    });
+
+    const gravityRecordings = useSelector((state) => {
+        return state.Batch.MixtureRecordings.initial.filter(
+            (mr) => mr.mixture.id === kettleMixture.id && mr.measure.id === 5
+        );
+    });
 
     const stageProps = {
-        title: "Kettle",
+        isOpen,
         stage: kettleStage,
         mixture: kettleMixture,
-        isOpen,
-        toggleIsOpen: () => {
-            toggleIsOpen("kettle");
+    };
+
+    const modalProps = {
+        mixture: kettleMixture,
+        afterSave: () => {
+            toggleIsOpen("kettle", true);
         },
-        toolbar: (
+    };
+
+    function Toolbar() {
+        return (
             <React.Fragment>
-                {!whirlpoolMixture?.id && !transferMixture?.id && (
-                    <Dropdown
-                        isOpen={isOpenMoreDropdown}
-                        toggle={() =>
-                            setIsOpenMoreDropdown(!isOpenMoreDropdown)
-                        }
-                        className="d-inline-block mr-2"
+                <TooltipButton
+                    id="editKettleButton"
+                    className="waves-effect mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText="Edit Stage"
+                    placement="bottom"
+                    onClick={() => setIsShowEditStage(true)}
+                >
+                    <i className="mdi mdi-pencil"></i>
+                </TooltipButton>
+                <TooltipButton
+                    id="ingredientsKettleButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText="Ingredients"
+                    placement="bottom"
+                    onClick={() => setIsShowIngredients(true)}
+                >
+                    <i className="mdi mdi-barley"></i>
+                </TooltipButton>
+                <TooltipButton
+                    id="recordingsKettleButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText="Recordings"
+                    placement="bottom"
+                    onClick={() => setIsShowMixtureRecordings(true)}
+                >
+                    <i className="mdi mdi-clipboard-outline"></i>
+                </TooltipButton>
+                <TooltipButton
+                    id="chartsKettleButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText={toggleCharts ? "Hide Charts" : "Show Charts"}
+                    placement="bottom"
+                    onClick={() => {
+                        setToggleCharts(!toggleCharts);
+                        toggleIsOpen("kettle", true);
+                    }}
+                >
+                    {toggleCharts ? (
+                        <i className="mdi mdi-table"></i>
+                    ) : (
+                        <i className="mdi mdi-chart-bar"></i>
+                    )}
+                </TooltipButton>
+                <TooltipButton
+                    id="toggleKettleButton"
+                    className="waves-effect m-0 mr-1 mb-1"
+                    size="sm"
+                    outline={true}
+                    tooltipText={isOpen ? "Show Less" : "Show More"}
+                    placement="bottom"
+                    onClick={() => {
+                        toggleIsOpen("kettle");
+                    }}
+                >
+                    <i className="mdi mdi-arrow-up-down"></i>
+                </TooltipButton>
+                <Dropdown
+                    isOpen={isOpenMoreDropdown}
+                    toggle={() => setIsOpenMoreDropdown(!isOpenMoreDropdown)}
+                    className="d-inline-block m-0"
+                >
+                    <DropdownToggle
+                        tag="button"
+                        className="waves-effect btn btn-outline-secondary btn-sm mr-1 mb-1"
+                        data-toggle="dropdown"
                     >
-                        <DropdownToggle
-                            tag="button"
-                            className="waves-effect btn btn-outline-secondary btn-sm"
-                            data-toggle="dropdown"
-                        >
-                            Mixture <i className="fa fa-caret-down"></i>
-                        </DropdownToggle>
-                        <DropdownMenu>
+                        <i className="mdi mdi-dots-horizontal"></i>
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                        <StatusDropdownItems
+                            stage={kettleStage}
+                            startDisabled={
+                                !!whirlpoolMixture?.id || !!transferMixture?.id
+                            }
+                        />
+                        {kettleStage.status.id === 2 && (
                             <DropdownItem
                                 disabled={
-                                    !!whirlpoolStage?.id || !!transferStage?.id
+                                    !!whirlpoolMixture?.id ||
+                                    !!transferMixture?.id
                                 }
+                                onClick={() => {
+                                    dispatch(
+                                        addBatchStage({
+                                            parentMixtureIds: [
+                                                kettleMixture.id,
+                                            ],
+                                            taskId: 3,
+                                            statusId: 4,
+                                        })
+                                    );
+                                }}
                             >
-                                <span
-                                    className="text-dark"
-                                    onClick={() => {
-                                        dispatch(
-                                            addBatchStage({
-                                                parentMixtureIds: [
-                                                    kettleMixture.id,
-                                                ],
-                                                taskId: 3,
-                                                statusId: 4,
-                                            })
-                                        );
-                                    }}
-                                >
+                                <span className="text-dark">
                                     Move to Whirlpool
                                 </span>
                             </DropdownItem>
+                        )}
+                        {kettleStage.status.id === 2 && (
                             <DropdownItem
                                 disabled={
-                                    !!whirlpoolStage?.id || !!transferStage?.id
+                                    !!whirlpoolMixture?.id ||
+                                    !!transferMixture?.id
                                 }
+                                onClick={() => {
+                                    dispatch(
+                                        addBatchStage({
+                                            parentMixtureIds: [
+                                                kettleMixture.id,
+                                            ],
+                                            taskId: 6, // transfer
+                                            statusId: 4,
+                                        })
+                                    );
+                                }}
                             >
-                                <span
-                                    className="text-dark"
-                                    onClick={() => {
-                                        dispatch(
-                                            addBatchStage({
-                                                parentMixtureIds: [
-                                                    kettleMixture.id,
-                                                ],
-                                                taskId: 6, // transfer
-                                                statusId: 4,
-                                            })
-                                        );
-                                    }}
-                                >
-                                    Complete Brew
-                                </span>
+                                <span className="text-dark">Transfer</span>
                             </DropdownItem>
-                            <DropdownItem>
-                                <span
-                                    className="text-dark"
-                                    onClick={() => {
-                                        dispatch(
-                                            deleteBatchMixture(kettleMixture)
-                                        );
-                                    }}
-                                >
-                                    Delete
-                                </span>
-                            </DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
-                )}
+                        )}
+                        <DropdownItem
+                            disabled={
+                                !!whirlpoolMixture?.id || !!transferMixture?.id
+                            }
+                            onClick={() => {
+                                dispatch(deleteBatchMixture(kettleMixture));
+                            }}
+                        >
+                            <span className="text-dark">Delete</span>
+                        </DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
             </React.Fragment>
-        ),
-    };
+        );
+    }
 
     return (
         <React.Fragment>
             {kettleStage && (
-                <BatchStage {...stageProps}>
-                    <div className="clearfix mb-3">
-                        <Ingredients {...ingredientsProps} />
-                    </div>
-                    <div className="mb-3">
-                        <MixtureRecordings {...recordingsProps} />
-                    </div>
-                </BatchStage>
+                <Card className="shadow-none m-0 p-0">
+                    <StageHeader
+                        title="Stage: Kettle"
+                        toggleIsOpen={() => {
+                            toggleIsOpen("kettle");
+                        }}
+                        toolbar={<Toolbar />}
+                    />
+                    <BatchStage {...stageProps}>
+                        <Row>
+                            <Col className="mb-3" sm={6}>
+                                <StageIngredients
+                                    lotPortions={maltPortions}
+                                    chart={
+                                        <IngredientsBar
+                                            ingredients={maltPortions}
+                                        />
+                                    }
+                                    toggleCharts={toggleCharts}
+                                    title="Malt"
+                                    noData="No Malt"
+                                />
+                            </Col>
+                            <Col className="mb-3" sm={6}>
+                                <StageIngredients
+                                    lotPortions={hopPortions}
+                                    chart={
+                                        <IngredientsBar
+                                            ingredients={hopPortions}
+                                        />
+                                    }
+                                    toggleCharts={toggleCharts}
+                                    title="Hops"
+                                    noData="No Hops"
+                                />
+                            </Col>
+                            <Col className="mb-3" sm={6}>
+                                <StageIngredients
+                                    lotPortions={otherPortions}
+                                    chart={
+                                        <IngredientsBar
+                                            ingredients={otherPortions}
+                                        />
+                                    }
+                                    toggleCharts={toggleCharts}
+                                    title="Other Ingredients"
+                                    noData="No Ingredients"
+                                />
+                            </Col>
+                            <Col className="mb-3" sm={6}>
+                                <StageRecordings
+                                    recordings={temperatureRecordings}
+                                    chart={
+                                        <TemperatureLine
+                                            recordings={temperatureRecordings}
+                                        />
+                                    }
+                                    toggleCharts={toggleCharts}
+                                    title="Temperature"
+                                    noData="No Readings"
+                                />
+                            </Col>
+                            <Col className="mb-3" sm={6}>
+                                <StageRecordings
+                                    recordings={phRecordings}
+                                    chart={<PhLine recordings={phRecordings} />}
+                                    toggleCharts={toggleCharts}
+                                    title="Ph"
+                                    noData="No Readings"
+                                />
+                            </Col>
+                            <Col className="mb-3" sm={6}>
+                                <StageRecordings
+                                    recordings={gravityRecordings}
+                                    chart={
+                                        <GravityLine
+                                            recordings={gravityRecordings}
+                                        />
+                                    }
+                                    toggleCharts={toggleCharts}
+                                    title="Gravity"
+                                    noData="No Readings"
+                                />
+                            </Col>
+                        </Row>
+                    </BatchStage>
+                </Card>
+            )}
+            {kettleStage && (
+                <StageModal
+                    show={isShowEditStage}
+                    setShow={setIsShowEditStage}
+                    stage={kettleStage}
+                    title={"Edit Stage: Kettle"}
+                    {...modalProps}
+                />
+            )}
+            {kettleStage && (
+                <BatchIngredientsModal
+                    show={isShowIngredients}
+                    setShow={setIsShowIngredients}
+                    {...modalProps}
+                />
+            )}
+            {kettleStage && (
+                <MixtureRecordingsModal
+                    show={isShowMixtureRecordings}
+                    setShow={setIsShowMixtureRecordings}
+                    measures={measures}
+                    {...modalProps}
+                />
             )}
         </React.Fragment>
     );

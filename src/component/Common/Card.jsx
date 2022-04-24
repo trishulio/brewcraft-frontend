@@ -5,6 +5,7 @@ import { ContentLoader } from "./loading";
 export const Card = (props) => {
     return (
         <ReactStrap.Card
+            style={props.style}
             className={props.className ? " " + props.className : ""}
         >
             {props.children}
@@ -15,6 +16,7 @@ export const Card = (props) => {
 export const CardHeader = (props) => {
     return (
         <ReactStrap.CardHeader
+            style={props.style}
             className={`font-size-14${
                 props.className ? " " + props.className : ""
             }`}
@@ -29,6 +31,7 @@ export const CardBody = (props) => {
         <ContentLoader isLoading={props.isLoading}>
             <ReactStrap.CardBody
                 className={props.className ? " " + props.className : ""}
+                style={props.style}
             >
                 {props.hasOwnProperty("isOpen") ? (
                     <ReactStrap.Collapse isOpen={props.isOpen}>

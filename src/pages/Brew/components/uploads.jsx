@@ -1,31 +1,40 @@
 import React, { useState } from "react";
 import Dropzone from "react-dropzone";
-import { Card, CardBody, CardHeader } from "../../../component/Common/Card";
+import { Card, CardBody } from "../../../component/Common/Card";
+import TooltipButton from "../../../component/Common/tooltip-button";
+import { StageHeader } from "./common/stage";
 
 export default function BatchFileUploads() {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     function handleAcceptedFiles() {}
 
     return (
         <React.Fragment>
             <Card className="shadow-none mb-1">
-                <CardHeader>
-                    <div className="mr-2" onClick={() => setIsOpen(!isOpen)}>
-                        <i
-                            className={`fa fa-caret-right font-size-13 mr-2 ${
-                                isOpen ? " rotate-down" : ""
-                            }`}
-                        ></i>
-                        <span
-                            className="text-dark"
-                            onClick={() => setIsOpen(!isOpen)}
-                            style={{ cursor: "pointer" }}
-                        >
-                            Attachments
-                        </span>
-                    </div>
-                </CardHeader>
+                <StageHeader
+                    title="Attachments"
+                    toggleIsOpen={() => {
+                        setIsOpen(!isOpen);
+                    }}
+                    toolbar={
+                        <React.Fragment>
+                            <TooltipButton
+                                id="toggleAttachmentsButton"
+                                className="waves-effect m-0 mr-1 mb-1"
+                                size="sm"
+                                outline={true}
+                                tooltipText={isOpen ? "Show Less" : "Show More"}
+                                placement="bottom"
+                                onClick={() => {
+                                    setIsOpen(!isOpen);
+                                }}
+                            >
+                                <i className="mdi mdi-arrow-up-down"></i>
+                            </TooltipButton>
+                        </React.Fragment>
+                    }
+                />
                 <CardBody isOpen={isOpen} className="pb-0">
                     <Dropzone
                         onDrop={(acceptedFiles) =>
