@@ -54,7 +54,7 @@ export default function BrewMash({
         return state.Batch.MaterialPortions.initial.filter(
             (mp) =>
                 mp.mixture.id === mashMixture.id &&
-                mp.materialLot.invoiceItem.material.category.name === "Malt"
+                mp.materialLot.invoiceItem.material.category?.name === "Malt"
         );
     });
 
@@ -62,7 +62,7 @@ export default function BrewMash({
         return state.Batch.MaterialPortions.initial.filter(
             (mp) =>
                 mp.mixture.id === mashMixture.id &&
-                mp.materialLot.invoiceItem.material.category.name === "Hop"
+                mp.materialLot.invoiceItem.material.category?.name === "Hop"
         );
     });
 
@@ -70,8 +70,8 @@ export default function BrewMash({
         return state.Batch.MaterialPortions.initial.filter(
             (mp) =>
                 mp.mixture.id === mashMixture.id &&
-                mp.materialLot.invoiceItem.material.category.name !== "Malt" &&
-                mp.materialLot.invoiceItem.material.category.name !== "Hop"
+                mp.materialLot.invoiceItem.material.category?.name !== "Malt" &&
+                mp.materialLot.invoiceItem.material.category?.name !== "Hop"
         );
     });
 

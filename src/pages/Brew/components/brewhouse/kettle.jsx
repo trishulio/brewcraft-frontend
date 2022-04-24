@@ -58,7 +58,7 @@ export default function BrewKettle({
         return state.Batch.MaterialPortions.initial.filter(
             (mp) =>
                 mp.mixture.id === kettleMixture.id &&
-                mp.materialLot.invoiceItem.material.category.name === "Malt"
+                mp.materialLot.invoiceItem.material.category?.name === "Malt"
         );
     });
 
@@ -66,7 +66,7 @@ export default function BrewKettle({
         return state.Batch.MaterialPortions.initial.filter(
             (mp) =>
                 mp.mixture.id === kettleMixture.id &&
-                mp.materialLot.invoiceItem.material.category.name === "Hop"
+                mp.materialLot.invoiceItem.material.category?.name === "Hop"
         );
     });
 
@@ -74,8 +74,8 @@ export default function BrewKettle({
         return state.Batch.MaterialPortions.initial.filter(
             (mp) =>
                 mp.mixture.id === kettleMixture.id &&
-                mp.materialLot.invoiceItem.material.category.name !== "Malt" &&
-                mp.materialLot.invoiceItem.material.category.name !== "Hop"
+                mp.materialLot.invoiceItem.material.category?.name !== "Malt" &&
+                mp.materialLot.invoiceItem.material.category?.name !== "Hop"
         );
     });
 

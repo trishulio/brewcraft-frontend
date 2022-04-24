@@ -280,21 +280,22 @@ export default function BatchDetails() {
 
     const maltPortions = useSelector((state) => {
         return state.Batch.MaterialPortions.initial.filter(
-            (mp) => mp.materialLot.invoiceItem.material.category.name === "Malt"
+            (mp) =>
+                mp.materialLot.invoiceItem.material.category?.name === "Malt"
         );
     });
 
     const hopPortions = useSelector((state) => {
         return state.Batch.MaterialPortions.initial.filter(
-            (mp) => mp.materialLot.invoiceItem.material.category.name === "Hop"
+            (mp) => mp.materialLot.invoiceItem.material.category?.name === "Hop"
         );
     });
 
     const otherPortions = useSelector((state) => {
         return state.Batch.MaterialPortions.initial.filter(
             (mp) =>
-                mp.materialLot.invoiceItem.material.category.name !== "Malt" &&
-                mp.materialLot.invoiceItem.material.category.name !== "Hop"
+                mp.materialLot.invoiceItem.material.category?.name !== "Malt" &&
+                mp.materialLot.invoiceItem.material.category?.name !== "Hop"
         );
     });
 
