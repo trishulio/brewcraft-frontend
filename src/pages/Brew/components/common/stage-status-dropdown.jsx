@@ -3,7 +3,14 @@ import { useDispatch } from "react-redux";
 import { DropdownItem } from "reactstrap";
 import { editBatchStage } from "../../../../store/actions";
 
-export default function StatusDropdownItems({ stage, startDisabled }) {
+export default function StatusDropdownItems({
+    mixture,
+    stage,
+    startDisabled,
+    setShowStageStart,
+    setShowStageComplete,
+    setShowStageFailed,
+}) {
     const dispatch = useDispatch();
 
     return (
@@ -12,15 +19,19 @@ export default function StatusDropdownItems({ stage, startDisabled }) {
                 <DropdownItem
                     disabled={startDisabled}
                     onClick={() => {
-                        dispatch(
-                            editBatchStage({
-                                ...stage,
-                                status: {
-                                    id: 1,
-                                    name: "IN-PROGRESS",
-                                },
-                            })
-                        );
+                        if (!stage.startedAt) {
+                            setShowStageStart(true);
+                        } else {
+                            dispatch(
+                                editBatchStage({
+                                    ...stage,
+                                    status: {
+                                        id: 1,
+                                        name: "IN-PROGRESS",
+                                    },
+                                })
+                            );
+                        }
                     }}
                 >
                     <span className="text-dark">Start</span>
@@ -46,15 +57,19 @@ export default function StatusDropdownItems({ stage, startDisabled }) {
             {stage.status.id === 1 && (
                 <DropdownItem
                     onClick={() => {
-                        dispatch(
-                            editBatchStage({
-                                ...stage,
-                                status: {
-                                    id: 2,
-                                    name: "COMPLETE",
-                                },
-                            })
-                        );
+                        if (!stage.endedAt || !mixture.quantity.value) {
+                            setShowStageComplete(true);
+                        } else {
+                            dispatch(
+                                editBatchStage({
+                                    ...stage,
+                                    status: {
+                                        id: 2,
+                                        name: "COMPLETE",
+                                    },
+                                })
+                            );
+                        }
                     }}
                 >
                     <span className="text-dark">Complete</span>
@@ -63,15 +78,19 @@ export default function StatusDropdownItems({ stage, startDisabled }) {
             {stage.status.id === 5 && (
                 <DropdownItem
                     onClick={() => {
-                        dispatch(
-                            editBatchStage({
-                                ...stage,
-                                status: {
-                                    id: 3,
-                                    name: "FAILED",
-                                },
-                            })
-                        );
+                        if (!stage.endedAt) {
+                            setShowStageFailed(true);
+                        } else {
+                            dispatch(
+                                editBatchStage({
+                                    ...stage,
+                                    status: {
+                                        id: 3,
+                                        name: "FAILED",
+                                    },
+                                })
+                            );
+                        }
                     }}
                 >
                     <span className="text-dark">Failed</span>

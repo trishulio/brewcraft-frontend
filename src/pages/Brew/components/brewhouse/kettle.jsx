@@ -17,10 +17,9 @@ import {
     PhLine,
     TemperatureLine,
 } from "../common/charts";
-import { BatchIngredientsModal } from "../common/ingredients";
-import { MixtureRecordingsModal } from "../common/mixture-recordings";
-import BatchStage, { StageHeader, StageModal } from "../common/stage";
+import BatchStage, { StageHeader } from "../common/stage";
 import StageIngredients from "../common/stage-ingredients";
+import StageInitModal from "../common/stage-init-modal";
 import StageRecordings from "../common/stage-recordings";
 import StatusDropdownItems from "../common/stage-status-dropdown";
 
@@ -36,6 +35,11 @@ export default function BrewKettle({
     const [isShowIngredients, setIsShowIngredients] = useState(false);
     const [isShowMixtureRecordings, setIsShowMixtureRecordings] =
         useState(false);
+    useState(false);
+    const [showInitWhirlpoolStage, setShowInitWhirlpoolStage] = useState(false);
+    const [showStageStart, setShowStageStart] = useState(false);
+    const [showStageComplete, setShowStageComplete] = useState(false);
+    const [showStageFailed, setShowStageFailed] = useState(false);
     const [toggleCharts, setToggleCharts] = useState(false);
     const dispatch = useDispatch();
 
@@ -99,12 +103,21 @@ export default function BrewKettle({
 
     const stageProps = {
         isOpen,
+        mixture: kettleMixture,
         stage: kettleStage,
-        mixture: kettleMixture,
-    };
-
-    const modalProps = {
-        mixture: kettleMixture,
+        isShowEditStage,
+        setIsShowEditStage,
+        isShowIngredients,
+        setIsShowIngredients,
+        isShowMixtureRecordings,
+        setIsShowMixtureRecordings,
+        showStageStart,
+        setShowStageStart,
+        showStageComplete,
+        setShowStageComplete,
+        showStageFailed,
+        setShowStageFailed,
+        measures,
         afterSave: () => {
             toggleIsOpen("kettle", true);
         },
@@ -191,10 +204,14 @@ export default function BrewKettle({
                     </DropdownToggle>
                     <DropdownMenu right>
                         <StatusDropdownItems
+                            mixture={kettleMixture}
                             stage={kettleStage}
                             startDisabled={
                                 !!whirlpoolMixture?.id || !!transferMixture?.id
                             }
+                            setShowStageStart={setShowStageStart}
+                            setShowStageComplete={setShowStageComplete}
+                            setShowStageFailed={setShowStageFailed}
                         />
                         {kettleStage.status.id === 2 && (
                             <DropdownItem
@@ -203,15 +220,7 @@ export default function BrewKettle({
                                     !!transferMixture?.id
                                 }
                                 onClick={() => {
-                                    dispatch(
-                                        addBatchStage({
-                                            parentMixtureIds: [
-                                                kettleMixture.id,
-                                            ],
-                                            taskId: 3,
-                                            statusId: 4,
-                                        })
-                                    );
+                                    setShowInitWhirlpoolStage(true);
                                 }}
                             >
                                 <span className="text-dark">
@@ -348,27 +357,20 @@ export default function BrewKettle({
                 </Card>
             )}
             {kettleStage && (
-                <StageModal
-                    show={isShowEditStage}
-                    setShow={setIsShowEditStage}
-                    stage={kettleStage}
-                    title={"Edit Stage: Kettle"}
-                    {...modalProps}
-                />
-            )}
-            {kettleStage && (
-                <BatchIngredientsModal
-                    show={isShowIngredients}
-                    setShow={setIsShowIngredients}
-                    {...modalProps}
-                />
-            )}
-            {kettleStage && (
-                <MixtureRecordingsModal
-                    show={isShowMixtureRecordings}
-                    setShow={setIsShowMixtureRecordings}
-                    measures={measures}
-                    {...modalProps}
+                <StageInitModal
+                    show={showInitWhirlpoolStage}
+                    setShow={setShowInitWhirlpoolStage}
+                    title="Initialize Whirlpool Stage"
+                    addBatchStage={(equipmentItem) => {
+                        dispatch(
+                            addBatchStage({
+                                parentMixtureIds: [kettleMixture.id],
+                                taskId: 3,
+                                statusId: 4,
+                                equipment: equipmentItem,
+                            })
+                        );
+                    }}
                 />
             )}
         </React.Fragment>

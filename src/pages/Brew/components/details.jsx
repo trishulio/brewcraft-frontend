@@ -18,6 +18,7 @@ import {
     setBatchInvalidParentBrew,
     fetchProducts,
     editBatch,
+    addBatch,
 } from "../../../store/actions";
 import {
     isValidName,
@@ -182,30 +183,32 @@ function BatchDetailsModal({ show, setShow, afterSave }) {
                                 </FormFeedback>
                             </FormGroup>
                         </Col>
-                        <Col sm="6">
-                            <Label
-                                for="batchFinishDateTime"
-                                className="align-top"
-                            >
-                                Batch Finish
-                            </Label>
-                            <FormGroup className="align-middle">
-                                <Input
-                                    type="datetime-local"
-                                    name="batchFinishDateTime"
-                                    className="waves-effect"
-                                    value={batch.endedAt || ""}
-                                    onChange={onFormInputChange}
-                                    disabled={!batch.id}
-                                    invalid={invalidBatchEndedAt}
-                                />
-                                <FormFeedback>
-                                    {!batch.endedAt
-                                        ? "Enter a valid time and date"
-                                        : "Invalid batch parameter"}
-                                </FormFeedback>
-                            </FormGroup>
-                        </Col>
+                        {batch.id && (
+                            <Col sm="6">
+                                <Label
+                                    for="batchFinishDateTime"
+                                    className="align-top"
+                                >
+                                    Batch Finish
+                                </Label>
+                                <FormGroup className="align-middle">
+                                    <Input
+                                        type="datetime-local"
+                                        name="batchFinishDateTime"
+                                        className="waves-effect"
+                                        value={batch.endedAt || ""}
+                                        onChange={onFormInputChange}
+                                        disabled={!batch.id}
+                                        invalid={invalidBatchEndedAt}
+                                    />
+                                    <FormFeedback>
+                                        {!batch.endedAt
+                                            ? "Enter a valid time and date"
+                                            : "Invalid batch parameter"}
+                                    </FormFeedback>
+                                </FormGroup>
+                            </Col>
+                        )}
                         <Col sm="6">
                             <Label
                                 for="batchProduct"
@@ -246,7 +249,11 @@ function BatchDetailsModal({ show, setShow, afterSave }) {
                     <Button
                         color="primary"
                         onClick={() => {
-                            dispatch(editBatch());
+                            if (!batch.id) {
+                                dispatch(addBatch());
+                            } else {
+                                dispatch(editBatch());
+                            }
                             afterSave();
                             setShow(false);
                         }}

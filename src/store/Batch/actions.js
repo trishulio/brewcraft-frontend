@@ -43,6 +43,7 @@ export const addBatchStage = ({
     statusId,
     startedAt,
     parentMixtureIds,
+    equipment,
 }) => ({
     type: ADD_BATCH_STAGE,
     payload: {
@@ -50,6 +51,9 @@ export const addBatchStage = ({
         statusId,
         startedAt,
         parentMixtureIds,
+        equipment: {
+            ...equipment,
+        },
     },
 });
 

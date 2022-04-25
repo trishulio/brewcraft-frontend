@@ -311,11 +311,12 @@ function* addBatchStage(action) {
             type: CREATE_BATCH_MIXTURE_REQUEST,
             payload: {
                 parentMixtureIds: get(action, "payload.parentMixtureIds"),
-                brewStageId: stage.id,
+                brewStage: stage,
                 quantity: {
                     symbol: "hl",
                     value: 0,
                 },
+                equipment: get(action, "payload.equipment"),
             },
         });
         const [mixtureSuccess] = yield race([
