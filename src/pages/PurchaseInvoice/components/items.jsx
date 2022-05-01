@@ -22,7 +22,10 @@ export default function PurchaseInvoiceItems({ editable }) {
             amountTotal = 0.0;
         items.forEach(({ invoiceItem }) => {
             if (invoiceItem.quantity.value && invoiceItem.price.amount) {
-                const taxRate = invoiceItem.tax.amount.amount / 100;
+                const pstRate = invoiceItem.tax.pstRate?.value || 0;
+                const gstRate = invoiceItem.tax.gstRate?.value || 0;
+                const hstRate = invoiceItem.tax.hstRate?.value || 0;
+                const taxRate = pstRate + gstRate + hstRate;
                 const amountItemSubtotalItem =
                     parseFloat(invoiceItem.quantity.value) *
                     parseFloat(invoiceItem.price.amount);
@@ -32,7 +35,11 @@ export default function PurchaseInvoiceItems({ editable }) {
                 ) {
                     amountSubtotal += amountItemSubtotalItem;
                     amountTotal += amountItemSubtotalItem;
-                    if (invoiceItem.tax.amount.amount) {
+                    if (
+                        invoiceItem.tax.pstRate?.value ||
+                        invoiceItem.tax.gstRate?.value ||
+                        invoiceItem.tax.hstRate?.value
+                    ) {
                         const amountItemTax = amountItemSubtotalItem * taxRate;
                         if (
                             Number.isInteger(amountItemTax) ||
@@ -63,8 +70,14 @@ export default function PurchaseInvoiceItems({ editable }) {
                     amount: "",
                 },
                 tax: {
-                    amount: {
-                        amount: "",
+                    pstRate: {
+                        value: "",
+                    },
+                    gstRate: {
+                        value: "",
+                    },
+                    hstRate: {
+                        value: "",
                     },
                 },
                 material: "",
@@ -80,12 +93,14 @@ export default function PurchaseInvoiceItems({ editable }) {
                 <ListGroupItem>
                     <Row>
                         <Col xs="3">Item</Col>
-                        <Col xs="3">Description</Col>
+                        <Col xs="2">Description</Col>
                         <Col xs="1">Lot</Col>
                         <Col xs="1">Qty</Col>
                         <Col xs="1">Price</Col>
-                        <Col xs="1">Tax (%)</Col>
-                        <Col xs="2">Total Amount</Col>
+                        <Col xs="1">PST (%)</Col>
+                        <Col xs="1">GST (%)</Col>
+                        <Col xs="1">HST (%)</Col>
+                        <Col xs="1">Total Amount</Col>
                     </Row>
                 </ListGroupItem>
                 {items.map((value, index) => (

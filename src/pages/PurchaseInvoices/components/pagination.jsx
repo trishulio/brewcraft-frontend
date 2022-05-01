@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    setPurchaseInvoicesPageIndex,
-    setPurchaseInvoicesPageSize,
+    setProcurementsPageIndex,
+    setProcurementsPageSize,
 } from "../../../store/actions";
 import Pagination from "../../../component/Common/pagination";
 
@@ -22,10 +22,10 @@ export default function PurchaseInvoicesPagination({ fetchPage, children }) {
         pageSize,
         fetchItems: fetchPage,
         setPageIndex: (index) => {
-            dispatch(setPurchaseInvoicesPageIndex(index));
+            dispatch(setProcurementsPageIndex(index));
         },
         setPageSize: (size) => {
-            dispatch(setPurchaseInvoicesPageSize(size));
+            dispatch(setProcurementsPageSize(size));
         },
     };
 

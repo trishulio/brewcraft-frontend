@@ -23,7 +23,7 @@ export default function PurchaseInvoice({
                 onSave={onSave}
                 onDelete={onDelete}
             />
-            <div style={{ maxWidth: "1200px" }}>
+            <div style={{ maxWidth: "1400px" }}>
                 {error && (
                     <Alert color="info" className="mt-2 mb-4">
                         <strong>Oh snap!</strong> Change a few things up and try

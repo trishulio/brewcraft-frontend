@@ -25,7 +25,6 @@ import {
 import { call, put, takeEvery } from "redux-saga/effects";
 import { get, map } from "lodash";
 import {
-    calculatedTaxRate,
     validAmount,
     validDate,
     validId,
@@ -108,14 +107,6 @@ function* fetchPurchaseInvoiceByIdGenerator(action) {
             items: res.data.invoiceItems,
         };
         delete data.invoiceItems;
-        data.items.forEach(({ invoiceItem }) => {
-            const { tax, price, quantity } = invoiceItem;
-            invoiceItem.tax.amount.amount = calculatedTaxRate(
-                quantity.value,
-                price.amount,
-                tax.amount.amount
-            );
-        });
         yield put({
             type: SET_PURCHASE_INVOICE_DETAILS,
             payload: {
@@ -155,12 +146,18 @@ function* createPurchaseInvoiceGenerator(action) {
             const temp = get(action, "payload.procurementItems");
             const items = [...temp];
             map(items, (value, index) => {
+                let noTaxRatesSet =
+                    !value.invoiceItem.tax.pstRate.value &&
+                    !value.invoiceItem.tax.gstRate.value &&
+                    !value.invoiceItem.tax.hstRate.value;
                 items[index] = {
                     ...items[index],
                     invalidMaterial: !validId(value.material.id),
                     invalidQuantity: !validAmount(value.quantity.value),
                     invalidPrice: !validAmount(value.price.amount),
-                    invalidTax: !value.tax.amount.amount,
+                    invalidPstTax: noTaxRatesSet,
+                    invalidGstTax: noTaxRatesSet,
+                    invalidHstTax: noTaxRatesSet,
                     invalidLotNumber: !validAmount(value.materialLot.lotNumber),
                 };
             });
@@ -298,27 +295,29 @@ function* createProcurementGenerator(action) {
                         get(action, "payload.invoice.paymentDueDate")
                     ),
                     invalidStatus: !validId(
-                        action,
-                        "payload.invoice.invoiceStatus.id"
+                        get(action, "payload.invoice.invoiceStatusId")
                     ),
                 },
             });
             const temp = get(action, "payload.procurementItems");
-            const items = [...temp];
+            const items = JSON.parse(JSON.stringify(temp));
             map(items, (value, index) => {
+                let noTaxRatesSet =
+                    !value.invoiceItem.tax.pstRate.value &&
+                    !value.invoiceItem.tax.gstRate.value &&
+                    !value.invoiceItem.tax.hstRate.value;
                 items[index] = {
                     ...items[index],
                     invoiceItem: {
                         ...items[index].invoiceItem,
-                        material: {
-                            id: value.invoiceItem.materialId,
-                        },
                         invalidDescription:
                             value.invoiceItem.description.length === 0,
                         invalidMaterial: !validId(value.invoiceItem.materialId),
                         invalidQuantity: !value.invoiceItem.quantity.value,
                         invalidPrice: !value.invoiceItem.price.amount,
-                        invalidTax: !value.invoiceItem.tax.amount.amount,
+                        invalidPstTax: noTaxRatesSet,
+                        invalidGstTax: noTaxRatesSet,
+                        invalidHstTax: noTaxRatesSet,
                     },
                     materialLot: {
                         ...items[index].materialLot,
@@ -363,14 +362,6 @@ function* updateProcurementGenerator(action) {
                 },
                 purchaseOrder,
             };
-            data.procurementItems.forEach(({ invoiceItem }) => {
-                const { tax, price, quantity } = invoiceItem;
-                invoiceItem.tax.amount.amount = calculatedTaxRate(
-                    quantity.value,
-                    price.amount,
-                    tax.amount.amount
-                );
-            });
             yield put({
                 type: SET_PURCHASE_INVOICE_DETAILS,
                 payload: { data: data, initial: data, error: false },
@@ -397,21 +388,21 @@ function* updateProcurementGenerator(action) {
                         get(action, "payload.invoice.paymentDueDate")
                     ),
                     invalidStatus: !validId(
-                        action,
-                        "payload.invoice.invoiceStatus.id"
+                        get(action, "payload.invoice.invoiceStatusId")
                     ),
                 },
             });
             const temp = get(action, "payload.procurementItems");
             const items = [...temp];
             map(items, (value, index) => {
+                let noTaxRatesSet =
+                    !value.invoiceItem.tax.pstRate.value &&
+                    !value.invoiceItem.tax.gstRate.value &&
+                    !value.invoiceItem.tax.hstRate.value;
                 items[index] = {
                     ...items[index],
                     invoiceItem: {
                         ...items[index].invoiceItem,
-                        material: {
-                            id: value.invoiceItem.materialId,
-                        },
                         invalidDescription:
                             value.invoiceItem.description.length === 0,
                         invalidMaterial: !validId(value.invoiceItem.materialId),
@@ -421,7 +412,9 @@ function* updateProcurementGenerator(action) {
                         invalidPrice: !validAmount(
                             value.invoiceItem.price.amount
                         ),
-                        invalidTax: value.invoiceItem.tax.amount.amount,
+                        invalidPstTax: noTaxRatesSet,
+                        invalidGstTax: noTaxRatesSet,
+                        invalidHstTax: noTaxRatesSet,
                     },
                     materialLot: {
                         ...items[index].materialLot,
@@ -464,14 +457,6 @@ function* fetchProcurementGenerator(action) {
             },
             purchaseOrder,
         };
-        data.procurementItems.forEach(({ invoiceItem }) => {
-            const { tax, price, quantity } = invoiceItem;
-            invoiceItem.tax.amount.amount = calculatedTaxRate(
-                quantity.value,
-                price.amount,
-                tax.amount.amount
-            );
-        });
         yield put({
             type: SET_PURCHASE_INVOICE_DETAILS,
             payload: {
