@@ -269,7 +269,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
           <div
             style={
               Object {
-                "maxWidth": "1200px",
+                "maxWidth": "1400px",
               }
             }
           >
@@ -1127,10 +1127,10 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                                 "xl",
                                               ]
                                             }
-                                            xs="3"
+                                            xs="2"
                                           >
                                             <div
-                                              className="col-3"
+                                              className="col-2"
                                             >
                                               Description
                                             </div>
@@ -1208,7 +1208,7 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                             <div
                                               className="col-1"
                                             >
-                                              Tax (%)
+                                              PST (%)
                                             </div>
                                           </Col>
                                           <Col
@@ -1222,10 +1222,48 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                                 "xl",
                                               ]
                                             }
-                                            xs="2"
+                                            xs="1"
                                           >
                                             <div
-                                              className="col-2"
+                                              className="col-1"
+                                            >
+                                              GST (%)
+                                            </div>
+                                          </Col>
+                                          <Col
+                                            tag="div"
+                                            widths={
+                                              Array [
+                                                "xs",
+                                                "sm",
+                                                "md",
+                                                "lg",
+                                                "xl",
+                                              ]
+                                            }
+                                            xs="1"
+                                          >
+                                            <div
+                                              className="col-1"
+                                            >
+                                              HST (%)
+                                            </div>
+                                          </Col>
+                                          <Col
+                                            tag="div"
+                                            widths={
+                                              Array [
+                                                "xs",
+                                                "sm",
+                                                "md",
+                                                "lg",
+                                                "xl",
+                                              ]
+                                            }
+                                            xs="1"
+                                          >
+                                            <div
+                                              className="col-1"
                                             >
                                               Total Amount
                                             </div>
@@ -1304,10 +1342,10 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                                   "xl",
                                                 ]
                                               }
-                                              xs="3"
+                                              xs="2"
                                             >
                                               <div
-                                                className="col-3"
+                                                className="col-2"
                                               >
                                                 <div
                                                   hidden={false}
@@ -1418,7 +1456,6 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               </div>
                                             </Col>
                                             <Col
-                                              className="text-center"
                                               tag="div"
                                               widths={
                                                 Array [
@@ -1432,40 +1469,36 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               xs="1"
                                             >
                                               <div
-                                                className="text-center col-1"
+                                                className="col-1"
                                               >
-                                                <span
-                                                  style={
-                                                    Object {
-                                                      "whiteSpace": "nowrap",
-                                                    }
-                                                  }
+                                                <div
+                                                  hidden={false}
                                                 >
-                                                  <NumberFormat
-                                                    allowEmptyFormatting={false}
-                                                    allowLeadingZeros={false}
-                                                    allowNegative={true}
-                                                    decimalScale={2}
-                                                    decimalSeparator="."
-                                                    displayType="text"
-                                                    fixedDecimalScale={true}
-                                                    isAllowed={[Function]}
-                                                    isNumericString={true}
-                                                    onBlur={[Function]}
-                                                    onChange={[Function]}
-                                                    onFocus={[Function]}
-                                                    onKeyDown={[Function]}
-                                                    onMouseUp={[Function]}
-                                                    onValueChange={[Function]}
-                                                    prefix="$"
-                                                    suffix=""
-                                                    thousandSeparator=","
-                                                    thousandsGroupStyle="thousand"
-                                                    type="text"
-                                                  >
-                                                    <span />
-                                                  </NumberFormat>
-                                                </span>
+                                                  -
+                                                </div>
+                                              </div>
+                                            </Col>
+                                            <Col
+                                              tag="div"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                              xs="1"
+                                            >
+                                              <div
+                                                className="col-1"
+                                              >
+                                                <div
+                                                  hidden={false}
+                                                >
+                                                  -
+                                                </div>
                                               </div>
                                             </Col>
                                             <Col
@@ -1485,14 +1518,111 @@ exports[`PurchaseInvoice -> <Index> render() renders the component 1`] = `
                                               <div
                                                 className="text-center col-1"
                                               >
-                                                <span>
-                                                  <i
-                                                    className="mdi mdi-delete pointer iconhover iconfont"
-                                                    hidden={true}
-                                                    onClick={[Function]}
-                                                    title="delete item"
-                                                  />
-                                                </span>
+                                                <Row
+                                                  style={
+                                                    Object {
+                                                      "alignItems": "baseline",
+                                                      "flexWrap": "nowrap",
+                                                    }
+                                                  }
+                                                  tag="div"
+                                                  widths={
+                                                    Array [
+                                                      "xs",
+                                                      "sm",
+                                                      "md",
+                                                      "lg",
+                                                      "xl",
+                                                    ]
+                                                  }
+                                                >
+                                                  <div
+                                                    className="row"
+                                                    style={
+                                                      Object {
+                                                        "alignItems": "baseline",
+                                                        "flexWrap": "nowrap",
+                                                      }
+                                                    }
+                                                  >
+                                                    <Col
+                                                      tag="div"
+                                                      widths={
+                                                        Array [
+                                                          "xs",
+                                                          "sm",
+                                                          "md",
+                                                          "lg",
+                                                          "xl",
+                                                        ]
+                                                      }
+                                                      xs="9"
+                                                    >
+                                                      <div
+                                                        className="col-9"
+                                                      >
+                                                        <span
+                                                          style={
+                                                            Object {
+                                                              "whiteSpace": "nowrap",
+                                                            }
+                                                          }
+                                                        >
+                                                          <NumberFormat
+                                                            allowEmptyFormatting={false}
+                                                            allowLeadingZeros={false}
+                                                            allowNegative={true}
+                                                            decimalScale={2}
+                                                            decimalSeparator="."
+                                                            displayType="text"
+                                                            fixedDecimalScale={true}
+                                                            isAllowed={[Function]}
+                                                            isNumericString={true}
+                                                            onBlur={[Function]}
+                                                            onChange={[Function]}
+                                                            onFocus={[Function]}
+                                                            onKeyDown={[Function]}
+                                                            onMouseUp={[Function]}
+                                                            onValueChange={[Function]}
+                                                            prefix="$"
+                                                            suffix=""
+                                                            thousandSeparator=","
+                                                            thousandsGroupStyle="thousand"
+                                                            type="text"
+                                                          >
+                                                            <span />
+                                                          </NumberFormat>
+                                                        </span>
+                                                      </div>
+                                                    </Col>
+                                                    <Col
+                                                      tag="div"
+                                                      widths={
+                                                        Array [
+                                                          "xs",
+                                                          "sm",
+                                                          "md",
+                                                          "lg",
+                                                          "xl",
+                                                        ]
+                                                      }
+                                                      xs="3"
+                                                    >
+                                                      <div
+                                                        className="col-3"
+                                                      >
+                                                        <span>
+                                                          <i
+                                                            className="mdi mdi-delete pointer iconhover iconfont"
+                                                            hidden={true}
+                                                            onClick={[Function]}
+                                                            title="delete item"
+                                                          />
+                                                        </span>
+                                                      </div>
+                                                    </Col>
+                                                  </div>
+                                                </Row>
                                               </div>
                                             </Col>
                                           </div>
@@ -5792,7 +5922,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
           <div
             style={
               Object {
-                "maxWidth": "1200px",
+                "maxWidth": "1400px",
               }
             }
           >
@@ -6650,10 +6780,10 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                                 "xl",
                                               ]
                                             }
-                                            xs="3"
+                                            xs="2"
                                           >
                                             <div
-                                              className="col-3"
+                                              className="col-2"
                                             >
                                               Description
                                             </div>
@@ -6731,7 +6861,7 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                             <div
                                               className="col-1"
                                             >
-                                              Tax (%)
+                                              PST (%)
                                             </div>
                                           </Col>
                                           <Col
@@ -6745,10 +6875,48 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                                 "xl",
                                               ]
                                             }
-                                            xs="2"
+                                            xs="1"
                                           >
                                             <div
-                                              className="col-2"
+                                              className="col-1"
+                                            >
+                                              GST (%)
+                                            </div>
+                                          </Col>
+                                          <Col
+                                            tag="div"
+                                            widths={
+                                              Array [
+                                                "xs",
+                                                "sm",
+                                                "md",
+                                                "lg",
+                                                "xl",
+                                              ]
+                                            }
+                                            xs="1"
+                                          >
+                                            <div
+                                              className="col-1"
+                                            >
+                                              HST (%)
+                                            </div>
+                                          </Col>
+                                          <Col
+                                            tag="div"
+                                            widths={
+                                              Array [
+                                                "xs",
+                                                "sm",
+                                                "md",
+                                                "lg",
+                                                "xl",
+                                              ]
+                                            }
+                                            xs="1"
+                                          >
+                                            <div
+                                              className="col-1"
                                             >
                                               Total Amount
                                             </div>
@@ -6827,10 +6995,10 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                                   "xl",
                                                 ]
                                               }
-                                              xs="3"
+                                              xs="2"
                                             >
                                               <div
-                                                className="col-3"
+                                                className="col-2"
                                               >
                                                 <div
                                                   hidden={false}
@@ -6941,7 +7109,6 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               </div>
                                             </Col>
                                             <Col
-                                              className="text-center"
                                               tag="div"
                                               widths={
                                                 Array [
@@ -6955,40 +7122,36 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               xs="1"
                                             >
                                               <div
-                                                className="text-center col-1"
+                                                className="col-1"
                                               >
-                                                <span
-                                                  style={
-                                                    Object {
-                                                      "whiteSpace": "nowrap",
-                                                    }
-                                                  }
+                                                <div
+                                                  hidden={false}
                                                 >
-                                                  <NumberFormat
-                                                    allowEmptyFormatting={false}
-                                                    allowLeadingZeros={false}
-                                                    allowNegative={true}
-                                                    decimalScale={2}
-                                                    decimalSeparator="."
-                                                    displayType="text"
-                                                    fixedDecimalScale={true}
-                                                    isAllowed={[Function]}
-                                                    isNumericString={true}
-                                                    onBlur={[Function]}
-                                                    onChange={[Function]}
-                                                    onFocus={[Function]}
-                                                    onKeyDown={[Function]}
-                                                    onMouseUp={[Function]}
-                                                    onValueChange={[Function]}
-                                                    prefix="$"
-                                                    suffix=""
-                                                    thousandSeparator=","
-                                                    thousandsGroupStyle="thousand"
-                                                    type="text"
-                                                  >
-                                                    <span />
-                                                  </NumberFormat>
-                                                </span>
+                                                  -
+                                                </div>
+                                              </div>
+                                            </Col>
+                                            <Col
+                                              tag="div"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                              xs="1"
+                                            >
+                                              <div
+                                                className="col-1"
+                                              >
+                                                <div
+                                                  hidden={false}
+                                                >
+                                                  -
+                                                </div>
                                               </div>
                                             </Col>
                                             <Col
@@ -7008,14 +7171,111 @@ exports[`PurchaseInvoice -> <Index> render() should call history.replace when pa
                                               <div
                                                 className="text-center col-1"
                                               >
-                                                <span>
-                                                  <i
-                                                    className="mdi mdi-delete pointer iconhover iconfont"
-                                                    hidden={true}
-                                                    onClick={[Function]}
-                                                    title="delete item"
-                                                  />
-                                                </span>
+                                                <Row
+                                                  style={
+                                                    Object {
+                                                      "alignItems": "baseline",
+                                                      "flexWrap": "nowrap",
+                                                    }
+                                                  }
+                                                  tag="div"
+                                                  widths={
+                                                    Array [
+                                                      "xs",
+                                                      "sm",
+                                                      "md",
+                                                      "lg",
+                                                      "xl",
+                                                    ]
+                                                  }
+                                                >
+                                                  <div
+                                                    className="row"
+                                                    style={
+                                                      Object {
+                                                        "alignItems": "baseline",
+                                                        "flexWrap": "nowrap",
+                                                      }
+                                                    }
+                                                  >
+                                                    <Col
+                                                      tag="div"
+                                                      widths={
+                                                        Array [
+                                                          "xs",
+                                                          "sm",
+                                                          "md",
+                                                          "lg",
+                                                          "xl",
+                                                        ]
+                                                      }
+                                                      xs="9"
+                                                    >
+                                                      <div
+                                                        className="col-9"
+                                                      >
+                                                        <span
+                                                          style={
+                                                            Object {
+                                                              "whiteSpace": "nowrap",
+                                                            }
+                                                          }
+                                                        >
+                                                          <NumberFormat
+                                                            allowEmptyFormatting={false}
+                                                            allowLeadingZeros={false}
+                                                            allowNegative={true}
+                                                            decimalScale={2}
+                                                            decimalSeparator="."
+                                                            displayType="text"
+                                                            fixedDecimalScale={true}
+                                                            isAllowed={[Function]}
+                                                            isNumericString={true}
+                                                            onBlur={[Function]}
+                                                            onChange={[Function]}
+                                                            onFocus={[Function]}
+                                                            onKeyDown={[Function]}
+                                                            onMouseUp={[Function]}
+                                                            onValueChange={[Function]}
+                                                            prefix="$"
+                                                            suffix=""
+                                                            thousandSeparator=","
+                                                            thousandsGroupStyle="thousand"
+                                                            type="text"
+                                                          >
+                                                            <span />
+                                                          </NumberFormat>
+                                                        </span>
+                                                      </div>
+                                                    </Col>
+                                                    <Col
+                                                      tag="div"
+                                                      widths={
+                                                        Array [
+                                                          "xs",
+                                                          "sm",
+                                                          "md",
+                                                          "lg",
+                                                          "xl",
+                                                        ]
+                                                      }
+                                                      xs="3"
+                                                    >
+                                                      <div
+                                                        className="col-3"
+                                                      >
+                                                        <span>
+                                                          <i
+                                                            className="mdi mdi-delete pointer iconhover iconfont"
+                                                            hidden={true}
+                                                            onClick={[Function]}
+                                                            title="delete item"
+                                                          />
+                                                        </span>
+                                                      </div>
+                                                    </Col>
+                                                  </div>
+                                                </Row>
                                               </div>
                                             </Col>
                                           </div>
@@ -7633,7 +7893,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
           <div
             style={
               Object {
-                "maxWidth": "1200px",
+                "maxWidth": "1400px",
               }
             }
           >
@@ -8491,10 +8751,10 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                                 "xl",
                                               ]
                                             }
-                                            xs="3"
+                                            xs="2"
                                           >
                                             <div
-                                              className="col-3"
+                                              className="col-2"
                                             >
                                               Description
                                             </div>
@@ -8572,7 +8832,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                             <div
                                               className="col-1"
                                             >
-                                              Tax (%)
+                                              PST (%)
                                             </div>
                                           </Col>
                                           <Col
@@ -8586,10 +8846,48 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                                 "xl",
                                               ]
                                             }
-                                            xs="2"
+                                            xs="1"
                                           >
                                             <div
-                                              className="col-2"
+                                              className="col-1"
+                                            >
+                                              GST (%)
+                                            </div>
+                                          </Col>
+                                          <Col
+                                            tag="div"
+                                            widths={
+                                              Array [
+                                                "xs",
+                                                "sm",
+                                                "md",
+                                                "lg",
+                                                "xl",
+                                              ]
+                                            }
+                                            xs="1"
+                                          >
+                                            <div
+                                              className="col-1"
+                                            >
+                                              HST (%)
+                                            </div>
+                                          </Col>
+                                          <Col
+                                            tag="div"
+                                            widths={
+                                              Array [
+                                                "xs",
+                                                "sm",
+                                                "md",
+                                                "lg",
+                                                "xl",
+                                              ]
+                                            }
+                                            xs="1"
+                                          >
+                                            <div
+                                              className="col-1"
                                             >
                                               Total Amount
                                             </div>
@@ -8668,10 +8966,10 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                                   "xl",
                                                 ]
                                               }
-                                              xs="3"
+                                              xs="2"
                                             >
                                               <div
-                                                className="col-3"
+                                                className="col-2"
                                               >
                                                 <div
                                                   hidden={false}
@@ -8782,7 +9080,6 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               </div>
                                             </Col>
                                             <Col
-                                              className="text-center"
                                               tag="div"
                                               widths={
                                                 Array [
@@ -8796,40 +9093,36 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               xs="1"
                                             >
                                               <div
-                                                className="text-center col-1"
+                                                className="col-1"
                                               >
-                                                <span
-                                                  style={
-                                                    Object {
-                                                      "whiteSpace": "nowrap",
-                                                    }
-                                                  }
+                                                <div
+                                                  hidden={false}
                                                 >
-                                                  <NumberFormat
-                                                    allowEmptyFormatting={false}
-                                                    allowLeadingZeros={false}
-                                                    allowNegative={true}
-                                                    decimalScale={2}
-                                                    decimalSeparator="."
-                                                    displayType="text"
-                                                    fixedDecimalScale={true}
-                                                    isAllowed={[Function]}
-                                                    isNumericString={true}
-                                                    onBlur={[Function]}
-                                                    onChange={[Function]}
-                                                    onFocus={[Function]}
-                                                    onKeyDown={[Function]}
-                                                    onMouseUp={[Function]}
-                                                    onValueChange={[Function]}
-                                                    prefix="$"
-                                                    suffix=""
-                                                    thousandSeparator=","
-                                                    thousandsGroupStyle="thousand"
-                                                    type="text"
-                                                  >
-                                                    <span />
-                                                  </NumberFormat>
-                                                </span>
+                                                  -
+                                                </div>
+                                              </div>
+                                            </Col>
+                                            <Col
+                                              tag="div"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                              xs="1"
+                                            >
+                                              <div
+                                                className="col-1"
+                                              >
+                                                <div
+                                                  hidden={false}
+                                                >
+                                                  -
+                                                </div>
                                               </div>
                                             </Col>
                                             <Col
@@ -8849,14 +9142,111 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action fetchProcuem
                                               <div
                                                 className="text-center col-1"
                                               >
-                                                <span>
-                                                  <i
-                                                    className="mdi mdi-delete pointer iconhover iconfont"
-                                                    hidden={true}
-                                                    onClick={[Function]}
-                                                    title="delete item"
-                                                  />
-                                                </span>
+                                                <Row
+                                                  style={
+                                                    Object {
+                                                      "alignItems": "baseline",
+                                                      "flexWrap": "nowrap",
+                                                    }
+                                                  }
+                                                  tag="div"
+                                                  widths={
+                                                    Array [
+                                                      "xs",
+                                                      "sm",
+                                                      "md",
+                                                      "lg",
+                                                      "xl",
+                                                    ]
+                                                  }
+                                                >
+                                                  <div
+                                                    className="row"
+                                                    style={
+                                                      Object {
+                                                        "alignItems": "baseline",
+                                                        "flexWrap": "nowrap",
+                                                      }
+                                                    }
+                                                  >
+                                                    <Col
+                                                      tag="div"
+                                                      widths={
+                                                        Array [
+                                                          "xs",
+                                                          "sm",
+                                                          "md",
+                                                          "lg",
+                                                          "xl",
+                                                        ]
+                                                      }
+                                                      xs="9"
+                                                    >
+                                                      <div
+                                                        className="col-9"
+                                                      >
+                                                        <span
+                                                          style={
+                                                            Object {
+                                                              "whiteSpace": "nowrap",
+                                                            }
+                                                          }
+                                                        >
+                                                          <NumberFormat
+                                                            allowEmptyFormatting={false}
+                                                            allowLeadingZeros={false}
+                                                            allowNegative={true}
+                                                            decimalScale={2}
+                                                            decimalSeparator="."
+                                                            displayType="text"
+                                                            fixedDecimalScale={true}
+                                                            isAllowed={[Function]}
+                                                            isNumericString={true}
+                                                            onBlur={[Function]}
+                                                            onChange={[Function]}
+                                                            onFocus={[Function]}
+                                                            onKeyDown={[Function]}
+                                                            onMouseUp={[Function]}
+                                                            onValueChange={[Function]}
+                                                            prefix="$"
+                                                            suffix=""
+                                                            thousandSeparator=","
+                                                            thousandsGroupStyle="thousand"
+                                                            type="text"
+                                                          >
+                                                            <span />
+                                                          </NumberFormat>
+                                                        </span>
+                                                      </div>
+                                                    </Col>
+                                                    <Col
+                                                      tag="div"
+                                                      widths={
+                                                        Array [
+                                                          "xs",
+                                                          "sm",
+                                                          "md",
+                                                          "lg",
+                                                          "xl",
+                                                        ]
+                                                      }
+                                                      xs="3"
+                                                    >
+                                                      <div
+                                                        className="col-3"
+                                                      >
+                                                        <span>
+                                                          <i
+                                                            className="mdi mdi-delete pointer iconhover iconfont"
+                                                            hidden={true}
+                                                            onClick={[Function]}
+                                                            title="delete item"
+                                                          />
+                                                        </span>
+                                                      </div>
+                                                    </Col>
+                                                  </div>
+                                                </Row>
                                               </div>
                                             </Col>
                                           </div>
@@ -9474,7 +9864,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
           <div
             style={
               Object {
-                "maxWidth": "1200px",
+                "maxWidth": "1400px",
               }
             }
           >
@@ -10332,10 +10722,10 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                                 "xl",
                                               ]
                                             }
-                                            xs="3"
+                                            xs="2"
                                           >
                                             <div
-                                              className="col-3"
+                                              className="col-2"
                                             >
                                               Description
                                             </div>
@@ -10413,7 +10803,7 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                             <div
                                               className="col-1"
                                             >
-                                              Tax (%)
+                                              PST (%)
                                             </div>
                                           </Col>
                                           <Col
@@ -10427,10 +10817,48 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                                 "xl",
                                               ]
                                             }
-                                            xs="2"
+                                            xs="1"
                                           >
                                             <div
-                                              className="col-2"
+                                              className="col-1"
+                                            >
+                                              GST (%)
+                                            </div>
+                                          </Col>
+                                          <Col
+                                            tag="div"
+                                            widths={
+                                              Array [
+                                                "xs",
+                                                "sm",
+                                                "md",
+                                                "lg",
+                                                "xl",
+                                              ]
+                                            }
+                                            xs="1"
+                                          >
+                                            <div
+                                              className="col-1"
+                                            >
+                                              HST (%)
+                                            </div>
+                                          </Col>
+                                          <Col
+                                            tag="div"
+                                            widths={
+                                              Array [
+                                                "xs",
+                                                "sm",
+                                                "md",
+                                                "lg",
+                                                "xl",
+                                              ]
+                                            }
+                                            xs="1"
+                                          >
+                                            <div
+                                              className="col-1"
                                             >
                                               Total Amount
                                             </div>
@@ -10509,10 +10937,10 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                                   "xl",
                                                 ]
                                               }
-                                              xs="3"
+                                              xs="2"
                                             >
                                               <div
-                                                className="col-3"
+                                                className="col-2"
                                               >
                                                 <div
                                                   hidden={false}
@@ -10623,7 +11051,6 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               </div>
                                             </Col>
                                             <Col
-                                              className="text-center"
                                               tag="div"
                                               widths={
                                                 Array [
@@ -10637,40 +11064,36 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               xs="1"
                                             >
                                               <div
-                                                className="text-center col-1"
+                                                className="col-1"
                                               >
-                                                <span
-                                                  style={
-                                                    Object {
-                                                      "whiteSpace": "nowrap",
-                                                    }
-                                                  }
+                                                <div
+                                                  hidden={false}
                                                 >
-                                                  <NumberFormat
-                                                    allowEmptyFormatting={false}
-                                                    allowLeadingZeros={false}
-                                                    allowNegative={true}
-                                                    decimalScale={2}
-                                                    decimalSeparator="."
-                                                    displayType="text"
-                                                    fixedDecimalScale={true}
-                                                    isAllowed={[Function]}
-                                                    isNumericString={true}
-                                                    onBlur={[Function]}
-                                                    onChange={[Function]}
-                                                    onFocus={[Function]}
-                                                    onKeyDown={[Function]}
-                                                    onMouseUp={[Function]}
-                                                    onValueChange={[Function]}
-                                                    prefix="$"
-                                                    suffix=""
-                                                    thousandSeparator=","
-                                                    thousandsGroupStyle="thousand"
-                                                    type="text"
-                                                  >
-                                                    <span />
-                                                  </NumberFormat>
-                                                </span>
+                                                  -
+                                                </div>
+                                              </div>
+                                            </Col>
+                                            <Col
+                                              tag="div"
+                                              widths={
+                                                Array [
+                                                  "xs",
+                                                  "sm",
+                                                  "md",
+                                                  "lg",
+                                                  "xl",
+                                                ]
+                                              }
+                                              xs="1"
+                                            >
+                                              <div
+                                                className="col-1"
+                                              >
+                                                <div
+                                                  hidden={false}
+                                                >
+                                                  -
+                                                </div>
                                               </div>
                                             </Col>
                                             <Col
@@ -10690,14 +11113,111 @@ exports[`PurchaseInvoice -> <Index> render() should dispatch action setBreadcrum
                                               <div
                                                 className="text-center col-1"
                                               >
-                                                <span>
-                                                  <i
-                                                    className="mdi mdi-delete pointer iconhover iconfont"
-                                                    hidden={true}
-                                                    onClick={[Function]}
-                                                    title="delete item"
-                                                  />
-                                                </span>
+                                                <Row
+                                                  style={
+                                                    Object {
+                                                      "alignItems": "baseline",
+                                                      "flexWrap": "nowrap",
+                                                    }
+                                                  }
+                                                  tag="div"
+                                                  widths={
+                                                    Array [
+                                                      "xs",
+                                                      "sm",
+                                                      "md",
+                                                      "lg",
+                                                      "xl",
+                                                    ]
+                                                  }
+                                                >
+                                                  <div
+                                                    className="row"
+                                                    style={
+                                                      Object {
+                                                        "alignItems": "baseline",
+                                                        "flexWrap": "nowrap",
+                                                      }
+                                                    }
+                                                  >
+                                                    <Col
+                                                      tag="div"
+                                                      widths={
+                                                        Array [
+                                                          "xs",
+                                                          "sm",
+                                                          "md",
+                                                          "lg",
+                                                          "xl",
+                                                        ]
+                                                      }
+                                                      xs="9"
+                                                    >
+                                                      <div
+                                                        className="col-9"
+                                                      >
+                                                        <span
+                                                          style={
+                                                            Object {
+                                                              "whiteSpace": "nowrap",
+                                                            }
+                                                          }
+                                                        >
+                                                          <NumberFormat
+                                                            allowEmptyFormatting={false}
+                                                            allowLeadingZeros={false}
+                                                            allowNegative={true}
+                                                            decimalScale={2}
+                                                            decimalSeparator="."
+                                                            displayType="text"
+                                                            fixedDecimalScale={true}
+                                                            isAllowed={[Function]}
+                                                            isNumericString={true}
+                                                            onBlur={[Function]}
+                                                            onChange={[Function]}
+                                                            onFocus={[Function]}
+                                                            onKeyDown={[Function]}
+                                                            onMouseUp={[Function]}
+                                                            onValueChange={[Function]}
+                                                            prefix="$"
+                                                            suffix=""
+                                                            thousandSeparator=","
+                                                            thousandsGroupStyle="thousand"
+                                                            type="text"
+                                                          >
+                                                            <span />
+                                                          </NumberFormat>
+                                                        </span>
+                                                      </div>
+                                                    </Col>
+                                                    <Col
+                                                      tag="div"
+                                                      widths={
+                                                        Array [
+                                                          "xs",
+                                                          "sm",
+                                                          "md",
+                                                          "lg",
+                                                          "xl",
+                                                        ]
+                                                      }
+                                                      xs="3"
+                                                    >
+                                                      <div
+                                                        className="col-3"
+                                                      >
+                                                        <span>
+                                                          <i
+                                                            className="mdi mdi-delete pointer iconhover iconfont"
+                                                            hidden={true}
+                                                            onClick={[Function]}
+                                                            title="delete item"
+                                                          />
+                                                        </span>
+                                                      </div>
+                                                    </Col>
+                                                  </div>
+                                                </Row>
                                               </div>
                                             </Col>
                                           </div>
