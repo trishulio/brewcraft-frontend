@@ -35,15 +35,18 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
     });
 
     const pstRate = useSelector((state) => {
-        return state.Procurement.data.procurementItems[indexv].invoiceItem.tax.pstRate?.value;
+        return state.Procurement.data.procurementItems[indexv].invoiceItem.tax
+            .pstRate?.value;
     });
 
     const gstRate = useSelector((state) => {
-        return state.Procurement.data.procurementItems[indexv].invoiceItem.tax.gstRate?.value;
+        return state.Procurement.data.procurementItems[indexv].invoiceItem.tax
+            .gstRate?.value;
     });
 
     const hstRate = useSelector((state) => {
-        return state.Procurement.data.procurementItems[indexv].invoiceItem.tax.hstRate?.value;
+        return state.Procurement.data.procurementItems[indexv].invoiceItem.tax
+            .hstRate?.value;
     });
 
     const materials = useSelector((state) => {
@@ -54,14 +57,8 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
         setHstEnabled(
             parseFloat(pstRate || 0) <= 0 && parseFloat(gstRate || 0) <= 0
         );
-        setPstGstEnabled(
-            parseFloat(hstRate || 0) <= 0
-        );
-    }, [
-        pstRate,
-        gstRate,
-        hstRate,
-    ]);
+        setPstGstEnabled(parseFloat(hstRate || 0) <= 0);
+    }, [pstRate, gstRate, hstRate]);
 
     function changeevent(e) {
         const itemsNew = JSON.parse(JSON.stringify(items));
@@ -154,7 +151,10 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
             item.invoiceItem.price.amount &&
             (pstRate || gstRate || hstRate)
         ) {
-            const taxRate = (parseFloat(pstRate) || 0) + (parseFloat(gstRate) || 0) + (parseFloat(hstRate) || 0);
+            const taxRate =
+                (parseFloat(pstRate) || 0) +
+                (parseFloat(gstRate) || 0) +
+                (parseFloat(hstRate) || 0);
             const amount =
                 parseFloat(item.invoiceItem.quantity.value) *
                 parseFloat(item.invoiceItem.price.amount) *
@@ -303,9 +303,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                     disabled={!pstGstEnabled}
                                     value={
                                         parseFloat(
-                                            (
-                                                pstRate * 100
-                                            ).toFixed(2)
+                                            (pstRate * 100).toFixed(2)
                                         ) || ""
                                     }
                                     onChange={changeevent}
@@ -320,11 +318,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             </FormGroup>
                         )}
                         <div hidden={editable}>
-                            {parseFloat(
-                                (
-                                    pstRate * 100
-                                ).toFixed(2)
-                            ) || "-"}
+                            {parseFloat((pstRate * 100).toFixed(2)) || "-"}
                         </div>
                     </Col>
                     <Col xs="1">
@@ -341,9 +335,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                     disabled={!pstGstEnabled}
                                     value={
                                         parseFloat(
-                                            (
-                                                gstRate * 100
-                                            ).toFixed(2)
+                                            (gstRate * 100).toFixed(2)
                                         ) || ""
                                     }
                                     onChange={changeevent}
@@ -358,11 +350,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             </FormGroup>
                         )}
                         <div hidden={editable}>
-                            {parseFloat(
-                                (
-                                     gstRate * 100
-                                ).toFixed(2)
-                            ) || "-"}
+                            {parseFloat((gstRate * 100).toFixed(2)) || "-"}
                         </div>
                     </Col>
                     <Col xs="1">
@@ -379,9 +367,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                     disabled={!hstEnabled}
                                     value={
                                         parseFloat(
-                                            (
-                                                hstRate * 100
-                                            ).toFixed(2)
+                                            (hstRate * 100).toFixed(2)
                                         ) || ""
                                     }
                                     onChange={changeevent}
@@ -396,11 +382,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             </FormGroup>
                         )}
                         <div hidden={editable}>
-                            {parseFloat(
-                                (
-                                    hstRate * 100
-                                ).toFixed(2)
-                            ) || "-"}
+                            {parseFloat((hstRate * 100).toFixed(2)) || "-"}
                         </div>
                     </Col>
                     <Col xs="1" className="text-center">
