@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     Row,
@@ -21,6 +21,9 @@ import { setPurchaseInvoiceItems } from "../../../store/actions";
  */
 
 export default function PurchaseInvoiceItem({ indexv, editable }) {
+    const [hstEnabled, setHstEnabled] = useState(true);
+    const [pstGstEnabled, setPstGstEnabled] = useState(true);
+
     const dispatch = useDispatch();
 
     const { procurementItems: items } = useSelector((state) => {
@@ -31,12 +34,34 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
         return state.Procurement.data.procurementItems[indexv];
     });
 
+    const pstRate = useSelector((state) => {
+        return state.Procurement.data.procurementItems[indexv].invoiceItem.tax
+            .pstRate?.value;
+    });
+
+    const gstRate = useSelector((state) => {
+        return state.Procurement.data.procurementItems[indexv].invoiceItem.tax
+            .gstRate?.value;
+    });
+
+    const hstRate = useSelector((state) => {
+        return state.Procurement.data.procurementItems[indexv].invoiceItem.tax
+            .hstRate?.value;
+    });
+
     const materials = useSelector((state) => {
         return state.Materials.all;
     });
 
+    useEffect(() => {
+        setHstEnabled(
+            parseFloat(pstRate || 0) <= 0 && parseFloat(gstRate || 0) <= 0
+        );
+        setPstGstEnabled(parseFloat(hstRate || 0) <= 0);
+    }, [pstRate, gstRate, hstRate]);
+
     function changeevent(e) {
-        const itemsNew = [...items];
+        const itemsNew = JSON.parse(JSON.stringify(items));
         switch (e.target.name) {
             case "purchaseInvoiceItemMaterial":
                 itemsNew[indexv].invoiceItem.material =
@@ -63,13 +88,47 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                     parseFloat(e.target.value)
                 );
                 break;
-            case "purchaseInvoiceItemTax":
-                if (e.target.value < 0) e.target.value = 0;
+            case "purchaseInvoiceItemPstTax":
+                if (e.target.value < 0 || e.target.value === "")
+                    e.target.value = 0;
                 if (e.target.value > 100) e.target.value = 100;
-                itemsNew[indexv].invoiceItem.tax.amount.amount = e.target.value;
-                itemsNew[indexv].invoiceItem.invalidTax = !validAmount(
-                    parseFloat(e.target.value)
-                );
+                itemsNew[indexv].invoiceItem.tax.pstRate.value =
+                    e.target.value / 100;
+                let validPstTax =
+                    e.target.value && validAmount(parseFloat(e.target.value));
+                if (validPstTax) {
+                    itemsNew[indexv].invoiceItem.invalidPstTax = false;
+                    itemsNew[indexv].invoiceItem.invalidGstTax = false;
+                    itemsNew[indexv].invoiceItem.invalidHstTax = false;
+                }
+                break;
+            case "purchaseInvoiceItemGstTax":
+                if (e.target.value < 0 || e.target.value === "")
+                    e.target.value = 0;
+                if (e.target.value > 100) e.target.value = 100;
+                itemsNew[indexv].invoiceItem.tax.gstRate.value =
+                    e.target.value / 100;
+                let validGstTax =
+                    e.target.value && validAmount(parseFloat(e.target.value));
+                if (validGstTax) {
+                    itemsNew[indexv].invoiceItem.invalidPstTax = false;
+                    itemsNew[indexv].invoiceItem.invalidGstTax = false;
+                    itemsNew[indexv].invoiceItem.invalidHstTax = false;
+                }
+                break;
+            case "purchaseInvoiceItemHstTax":
+                if (e.target.value < 0 || e.target.value === "")
+                    e.target.value = 0;
+                if (e.target.value > 100) e.target.value = 100;
+                itemsNew[indexv].invoiceItem.tax.hstRate.value =
+                    e.target.value / 100;
+                let validHstTax =
+                    e.target.value && validAmount(parseFloat(e.target.value));
+                if (validHstTax) {
+                    itemsNew[indexv].invoiceItem.invalidPstTax = false;
+                    itemsNew[indexv].invoiceItem.invalidGstTax = false;
+                    itemsNew[indexv].invoiceItem.invalidHstTax = false;
+                }
                 break;
             case "purchaseInvoiceItemLot":
                 itemsNew[indexv].materialLot.lotNumber = e.target.value;
@@ -90,15 +149,16 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
         if (
             item.invoiceItem.quantity.value &&
             item.invoiceItem.price.amount &&
-            item.invoiceItem.tax.amount.amount
+            (pstRate || gstRate || hstRate)
         ) {
-            const taxRate = parseFloat(
-                item.invoiceItem.tax.amount.amount / 100
-            );
+            const taxRate =
+                (parseFloat(pstRate) || 0) +
+                (parseFloat(gstRate) || 0) +
+                (parseFloat(hstRate) || 0);
             const amount =
                 parseFloat(item.invoiceItem.quantity.value) *
                 parseFloat(item.invoiceItem.price.amount) *
-                (parseFloat(taxRate) + 1.0);
+                (taxRate + 1.0);
             if (Number.isInteger(amount) || isFloat(amount)) {
                 return amount.toFixed(2);
             }
@@ -139,7 +199,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             {item.invoiceItem.material?.name || "-"}
                         </div>
                     </Col>
-                    <Col xs="3">
+                    <Col xs="2">
                         {editable && (
                             <FormGroup>
                                 <Input
@@ -196,7 +256,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                 />
                                 <FormFeedback>
                                     {!item.invoiceItem.quantity.value &&
-                                    item.invoiceItem.quantity.value !== "0"
+                                    item.invoiceItem.quantity.value !== 0
                                         ? "Required invoice field"
                                         : "Invalid invoice field"}
                                 </FormFeedback>
@@ -219,7 +279,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                 />
                                 <FormFeedback>
                                     {!item.invoiceItem.price.amount &&
-                                    item.invoiceItem.price.amount !== "0"
+                                    item.invoiceItem.price.amount !== 0
                                         ? "Required invoice field"
                                         : "Invalid invoice field"}
                                 </FormFeedback>
@@ -234,45 +294,124 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                             <FormGroup>
                                 <Input
                                     type="text"
-                                    name="purchaseInvoiceItemTax"
+                                    name="purchaseInvoiceItemPstTax"
+                                    style={
+                                        !pstGstEnabled
+                                            ? { backgroundColor: "lightGrey" }
+                                            : null
+                                    }
+                                    disabled={!pstGstEnabled}
                                     value={
-                                        item.invoiceItem.tax.amount?.amount ||
-                                        ""
+                                        parseFloat(
+                                            (pstRate * 100).toFixed(2)
+                                        ) || ""
                                     }
                                     onChange={changeevent}
-                                    invalid={item.invoiceItem.invalidTax}
-                                    data-testid="purchase-invoice-item-tax"
+                                    invalid={item.invoiceItem.invalidPstTax}
+                                    data-testid="purchase-invoice-item-pst-tax"
                                 />
                                 <FormFeedback>
-                                    {!item.invoiceItem.tax.amount.amount &&
-                                    item.invoiceItem.tax.amount.amount !== "0"
+                                    {!pstRate
                                         ? "Required invoice field"
                                         : "Invalid invoice field"}
                                 </FormFeedback>
                             </FormGroup>
                         )}
                         <div hidden={editable}>
-                            {item.invoiceItem.tax.amount.amount || "-"}
+                            {parseFloat((pstRate * 100).toFixed(2)) || "-"}
+                        </div>
+                    </Col>
+                    <Col xs="1">
+                        {editable && (
+                            <FormGroup>
+                                <Input
+                                    type="text"
+                                    name="purchaseInvoiceItemGstTax"
+                                    style={
+                                        !pstGstEnabled
+                                            ? { backgroundColor: "lightGrey" }
+                                            : null
+                                    }
+                                    disabled={!pstGstEnabled}
+                                    value={
+                                        parseFloat(
+                                            (gstRate * 100).toFixed(2)
+                                        ) || ""
+                                    }
+                                    onChange={changeevent}
+                                    invalid={item.invoiceItem.invalidGstTax}
+                                    data-testid="purchase-invoice-item-gst-tax"
+                                />
+                                <FormFeedback>
+                                    {!gstRate
+                                        ? "Required invoice field"
+                                        : "Invalid invoice field"}
+                                </FormFeedback>
+                            </FormGroup>
+                        )}
+                        <div hidden={editable}>
+                            {parseFloat((gstRate * 100).toFixed(2)) || "-"}
+                        </div>
+                    </Col>
+                    <Col xs="1">
+                        {editable && (
+                            <FormGroup>
+                                <Input
+                                    type="text"
+                                    name="purchaseInvoiceItemHstTax"
+                                    style={
+                                        !hstEnabled
+                                            ? { backgroundColor: "lightGrey" }
+                                            : null
+                                    }
+                                    disabled={!hstEnabled}
+                                    value={
+                                        parseFloat(
+                                            (hstRate * 100).toFixed(2)
+                                        ) || ""
+                                    }
+                                    onChange={changeevent}
+                                    invalid={item.invoiceItem.invalidHstTax}
+                                    data-testid="purchase-invoice-item-hst-tax"
+                                />
+                                <FormFeedback>
+                                    {!hstRate
+                                        ? "Required invoice field"
+                                        : "Invalid invoice field"}
+                                </FormFeedback>
+                            </FormGroup>
+                        )}
+                        <div hidden={editable}>
+                            {parseFloat((hstRate * 100).toFixed(2)) || "-"}
                         </div>
                     </Col>
                     <Col xs="1" className="text-center">
-                        <span
+                        <Row
                             style={{
-                                whiteSpace: "nowrap",
+                                alignItems: "baseline",
+                                flexWrap: "nowrap",
                             }}
                         >
-                            {formatCurrency(formatAmount()) || "-"}
-                        </span>
-                    </Col>
-                    <Col xs="1" className="text-center">
-                        <span>
-                            <i
-                                className="mdi mdi-delete pointer iconhover iconfont"
-                                title="delete item"
-                                onClick={removeItem}
-                                hidden={!editable}
-                            ></i>
-                        </span>
+                            <Col xs="9">
+                                <span
+                                    style={{
+                                        whiteSpace: "nowrap",
+                                    }}
+                                >
+                                    {formatCurrency(formatAmount()) || "-"}
+                                </span>
+                            </Col>
+                            <Col xs="3">
+                                <span>
+                                    <i
+                                        className="mdi mdi-delete pointer iconhover iconfont"
+                                        title="delete item"
+                                        onClick={removeItem}
+                                        hidden={!editable}
+                                    ></i>
+                                </span>
+                            </Col>
+                        </Row>
                     </Col>
                 </Row>
             </ListGroupItem>

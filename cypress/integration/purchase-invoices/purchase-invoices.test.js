@@ -83,9 +83,12 @@ describe("PurchaseInvoices", () => {
         cy.get("[data-testid=purchase-invoice-item-price]")
             .should("exist")
             .type(200);
-        cy.get("[data-testid=purchase-invoice-item-tax]")
+        cy.get("[data-testid=purchase-invoice-item-pst-tax]")
             .should("exist")
-            .type(0);
+            .type(2);
+        cy.get("[data-testid=purchase-invoice-item--gst-tax]")
+            .should("exist")
+            .type(2);
         cy.get("[data-testid=invoice-save]").should("exist").click();
         cy.wait("@procurementCreate").then(({ response }) => {
             expect(response.statusCode).to.equal(201);
@@ -134,7 +137,10 @@ describe("PurchaseInvoices", () => {
         cy.get("[data-testid=purchase-invoice-item-price]")
             .should("exist")
             .should("not.have.value", "");
-        cy.get("[data-testid=purchase-invoice-item-tax]")
+        cy.get("[data-testid=purchase-invoice-item-pst-tax]")
+            .should("exist")
+            .should("not.have.value", "");
+        cy.get("[data-testid=purchase-invoice-item-gst-tax]")
             .should("exist")
             .should("not.have.value", "");
         cy.get("[data-testid=invoice-details-invoice-number]")

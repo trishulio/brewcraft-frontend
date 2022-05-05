@@ -66,10 +66,6 @@ export default function PurchaseInvoice() {
         if (!isSaving) {
             dispatch(resetPurchaseInvoiceDetails());
         }
-        // eslint-disable-next-line
-    }, [shipmentId, invoiceId, editMode]);
-
-    useEffect(() => {
         if (!shipmentId || !invoiceId) {
             history.replace("/purchases/invoices/new?edit=true");
         } else if (shipmentId && invoiceId && !isSaving) {
@@ -195,12 +191,14 @@ export default function PurchaseInvoice() {
                         amount: parseFloat(invoiceItem.price.amount),
                     },
                     tax: {
-                        amount: {
-                            currency: "CAD",
-                            amount:
-                                parseFloat(invoiceItem.taxAmount).toPrecision(
-                                    2
-                                ) || "0",
+                        gstRate: {
+                            value: invoiceItem.tax.gstRate?.value,
+                        },
+                        pstRate: {
+                            value: invoiceItem.tax.pstRate?.value,
+                        },
+                        hstRate: {
+                            value: invoiceItem.tax.hstRate?.value,
                         },
                     },
                     materialId: invoiceItem.material.id,

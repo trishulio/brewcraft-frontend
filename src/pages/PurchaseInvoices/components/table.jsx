@@ -23,41 +23,41 @@ export default function PurchaseInvoicesTable() {
         query.delete("order");
         switch (name) {
             case "purchaseInvoiceNumber":
-                if (sort !== "invoiceNumber") {
+                if (sort !== "invoice.invoiceNumber") {
                     order = undefined;
                 }
-                query.append("sort", "invoiceNumber");
+                query.append("sort", "invoice.invoiceNumber");
                 break;
             case "purchaseInvoiceSupplier":
-                if (sort !== "purchaseOrder.supplier.name") {
+                if (sort !== "invoice.purchaseOrder.supplier.name") {
                     order = undefined;
                 }
-                query.append("sort", "purchaseOrder.supplier.name");
+                query.append("sort", "invoice.purchaseOrder.supplier.name");
                 break;
             case "purchaseInvoiceDate":
-                if (sort !== "generatedOn") {
+                if (sort !== "invoice.generatedOn") {
                     order = undefined;
                 }
-                query.append("sort", "generatedOn");
+                query.append("sort", "invoice.generatedOn");
                 break;
             case "purchaseInvoicePaymentDue":
-                if (sort !== "paymentDueDate") {
+                if (sort !== "invoice.paymentDueDate") {
                     order = undefined;
                 }
-                query.append("sort", "paymentDueDate");
+                query.append("sort", "invoice.paymentDueDate");
                 break;
             case "purchaseInvoiceAmount":
-                if (sort !== "amount.amount") {
+                if (sort !== "invoice.amount.total.amount") {
                     order = undefined;
                 }
-                query.append("sort", "amount.amount");
+                query.append("sort", "invoice.amount.total.amount");
                 break;
 
             case "purchaseInvoiceStatus":
-                if (sort !== "status") {
+                if (sort !== "invoice.invoiceStatus.name") {
                     order = undefined;
                 }
-                query.append("sort", "status");
+                query.append("sort", "invoice.invoiceStatus.name");
                 break;
             default:
                 break;
@@ -145,7 +145,7 @@ export default function PurchaseInvoicesTable() {
                             </td>
                             <td>
                                 {formatCurrency(
-                                    procurement.invoice.amount.amount
+                                    procurement.invoice.amount.total.amount
                                 )}
                             </td>
                             <td>

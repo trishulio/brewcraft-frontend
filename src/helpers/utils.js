@@ -53,7 +53,7 @@ export function validInvoiceItems(invoiceItems) {
         validId(materialId) &&
         price.amount &&
         quantity.value &&
-        tax.amount.amount
+        (tax.gstRate.value || tax.pstRate.value || tax.hstRate.value)
     );
 }
 
@@ -126,12 +126,6 @@ export function arrayEquals(a, b) {
         aSorted.length === bSorted.length &&
         aSorted.every((val, index) => val === bSorted[index])
     );
-}
-
-export function calculatedTaxRate(qty, price, taxAmount) {
-    let taxRate = 0;
-    taxRate = (taxAmount / (qty * price)) * 100;
-    return taxRate || "0";
 }
 
 export function generateUuid() {

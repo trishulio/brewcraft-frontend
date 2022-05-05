@@ -67,9 +67,14 @@ const initialState = {
                         amount: 0,
                     },
                     tax: {
-                        amount: {
-                            currency: "",
-                            amount: 0,
+                        pstRate: {
+                            value: 0,
+                        },
+                        gstRate: {
+                            value: 0,
+                        },
+                        hstRate: {
+                            value: 0,
                         },
                     },
                     material: "",
@@ -134,9 +139,14 @@ const initialState = {
                         amount: 0,
                     },
                     tax: {
-                        amount: {
-                            currency: "",
-                            amount: 0,
+                        pstRate: {
+                            value: 0,
+                        },
+                        gstRate: {
+                            value: 0,
+                        },
+                        hstRate: {
+                            value: 0,
                         },
                     },
                     material: "",
