@@ -192,13 +192,13 @@ export default function PurchaseInvoice() {
                     },
                     tax: {
                         gstRate: {
-                            value: invoiceItem.tax.gstRate?.value,
+                            value: invoiceItem.tax.gstRate.value,
                         },
                         pstRate: {
-                            value: invoiceItem.tax.pstRate?.value,
+                            value: invoiceItem.tax.pstRate.value,
                         },
                         hstRate: {
-                            value: invoiceItem.tax.hstRate?.value,
+                            value: invoiceItem.tax.hstRate.value,
                         },
                     },
                     materialId: invoiceItem.material.id,

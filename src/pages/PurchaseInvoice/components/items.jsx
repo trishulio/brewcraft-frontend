@@ -22,9 +22,12 @@ export default function PurchaseInvoiceItems({ editable }) {
             amountTotal = 0.0;
         items.forEach(({ invoiceItem }) => {
             if (invoiceItem.quantity.value && invoiceItem.price.amount) {
-                const pstRate = invoiceItem.tax.pstRate?.value || 0;
-                const gstRate = invoiceItem.tax.gstRate?.value || 0;
-                const hstRate = invoiceItem.tax.hstRate?.value || 0;
+                const pstRate =
+                    parseFloat(invoiceItem.tax.pstRate.value / 100) || 0;
+                const gstRate =
+                    parseFloat(invoiceItem.tax.gstRate.value / 100) || 0;
+                const hstRate =
+                    parseFloat(invoiceItem.tax.hstRate.value / 100) || 0;
                 const taxRate = pstRate + gstRate + hstRate;
                 const amountItemSubtotalItem =
                     parseFloat(invoiceItem.quantity.value) *
@@ -36,9 +39,9 @@ export default function PurchaseInvoiceItems({ editable }) {
                     amountSubtotal += amountItemSubtotalItem;
                     amountTotal += amountItemSubtotalItem;
                     if (
-                        invoiceItem.tax.pstRate?.value ||
-                        invoiceItem.tax.gstRate?.value ||
-                        invoiceItem.tax.hstRate?.value
+                        invoiceItem.tax.pstRate.value ||
+                        invoiceItem.tax.gstRate.value ||
+                        invoiceItem.tax.hstRate.value
                     ) {
                         const amountItemTax = amountItemSubtotalItem * taxRate;
                         if (
