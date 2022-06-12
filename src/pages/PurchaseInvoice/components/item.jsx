@@ -36,17 +36,17 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
 
     const pstRate = useSelector((state) => {
         return state.Procurement.data.procurementItems[indexv].invoiceItem.tax
-            .pstRate?.value;
+            .pstRate.value;
     });
 
     const gstRate = useSelector((state) => {
         return state.Procurement.data.procurementItems[indexv].invoiceItem.tax
-            .gstRate?.value;
+            .gstRate.value;
     });
 
     const hstRate = useSelector((state) => {
         return state.Procurement.data.procurementItems[indexv].invoiceItem.tax
-            .hstRate?.value;
+            .hstRate.value;
     });
 
     const materials = useSelector((state) => {
@@ -89,11 +89,9 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                 );
                 break;
             case "purchaseInvoiceItemPstTax":
-                if (e.target.value < 0 || e.target.value === "")
-                    e.target.value = 0;
+                if (e.target.value < 0) e.target.value = 0;
                 if (e.target.value > 100) e.target.value = 100;
-                itemsNew[indexv].invoiceItem.tax.pstRate.value =
-                    e.target.value / 100;
+                itemsNew[indexv].invoiceItem.tax.pstRate.value = e.target.value;
                 let validPstTax =
                     e.target.value && validAmount(parseFloat(e.target.value));
                 if (validPstTax) {
@@ -103,11 +101,9 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                 }
                 break;
             case "purchaseInvoiceItemGstTax":
-                if (e.target.value < 0 || e.target.value === "")
-                    e.target.value = 0;
+                if (e.target.value < 0) e.target.value = 0;
                 if (e.target.value > 100) e.target.value = 100;
-                itemsNew[indexv].invoiceItem.tax.gstRate.value =
-                    e.target.value / 100;
+                itemsNew[indexv].invoiceItem.tax.gstRate.value = e.target.value;
                 let validGstTax =
                     e.target.value && validAmount(parseFloat(e.target.value));
                 if (validGstTax) {
@@ -117,11 +113,9 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                 }
                 break;
             case "purchaseInvoiceItemHstTax":
-                if (e.target.value < 0 || e.target.value === "")
-                    e.target.value = 0;
+                if (e.target.value < 0) e.target.value = 0;
                 if (e.target.value > 100) e.target.value = 100;
-                itemsNew[indexv].invoiceItem.tax.hstRate.value =
-                    e.target.value / 100;
+                itemsNew[indexv].invoiceItem.tax.hstRate.value = e.target.value;
                 let validHstTax =
                     e.target.value && validAmount(parseFloat(e.target.value));
                 if (validHstTax) {
@@ -152,9 +146,9 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
             (pstRate || gstRate || hstRate)
         ) {
             const taxRate =
-                (parseFloat(pstRate) || 0) +
-                (parseFloat(gstRate) || 0) +
-                (parseFloat(hstRate) || 0);
+                (parseFloat(pstRate / 100) || 0) +
+                (parseFloat(gstRate / 100) || 0) +
+                (parseFloat(hstRate / 100) || 0);
             const amount =
                 parseFloat(item.invoiceItem.quantity.value) *
                 parseFloat(item.invoiceItem.price.amount) *
@@ -301,11 +295,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                             : null
                                     }
                                     disabled={!pstGstEnabled}
-                                    value={
-                                        parseFloat(
-                                            (pstRate * 100).toFixed(2)
-                                        ) || ""
-                                    }
+                                    value={pstRate || ""}
                                     onChange={changeevent}
                                     invalid={item.invoiceItem.invalidPstTax}
                                     data-testid="purchase-invoice-item-pst-tax"
@@ -317,9 +307,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                 </FormFeedback>
                             </FormGroup>
                         )}
-                        <div hidden={editable}>
-                            {parseFloat((pstRate * 100).toFixed(2)) || "-"}
-                        </div>
+                        <div hidden={editable}>{pstRate || "-"}</div>
                     </Col>
                     <Col xs="1">
                         {editable && (
@@ -333,11 +321,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                             : null
                                     }
                                     disabled={!pstGstEnabled}
-                                    value={
-                                        parseFloat(
-                                            (gstRate * 100).toFixed(2)
-                                        ) || ""
-                                    }
+                                    value={gstRate || ""}
                                     onChange={changeevent}
                                     invalid={item.invoiceItem.invalidGstTax}
                                     data-testid="purchase-invoice-item-gst-tax"
@@ -349,9 +333,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                 </FormFeedback>
                             </FormGroup>
                         )}
-                        <div hidden={editable}>
-                            {parseFloat((gstRate * 100).toFixed(2)) || "-"}
-                        </div>
+                        <div hidden={editable}>{gstRate || "-"}</div>
                     </Col>
                     <Col xs="1">
                         {editable && (
@@ -365,11 +347,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                             : null
                                     }
                                     disabled={!hstEnabled}
-                                    value={
-                                        parseFloat(
-                                            (hstRate * 100).toFixed(2)
-                                        ) || ""
-                                    }
+                                    value={hstRate || ""}
                                     onChange={changeevent}
                                     invalid={item.invoiceItem.invalidHstTax}
                                     data-testid="purchase-invoice-item-hst-tax"
@@ -381,9 +359,7 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                 </FormFeedback>
                             </FormGroup>
                         )}
-                        <div hidden={editable}>
-                            {parseFloat((hstRate * 100).toFixed(2)) || "-"}
-                        </div>
+                        <div hidden={editable}>{hstRate || "-"}</div>
                     </Col>
                     <Col xs="1" className="text-center">
                         <Row

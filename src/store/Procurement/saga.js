@@ -107,6 +107,35 @@ function* fetchPurchaseInvoiceByIdGenerator(action) {
             items: res.data.invoiceItems,
         };
         delete data.invoiceItems;
+        data.items.forEach(({ invoiceItem }) => {
+            if (invoiceItem.tax.pstRate?.value) {
+                invoiceItem.tax.pstRate.value = parseFloat(
+                    (invoiceItem.tax.pstRate.value * 100).toFixed(2)
+                );
+            } else {
+                invoiceItem.tax.pstRate = {
+                    value: 0,
+                };
+            }
+            if (invoiceItem.tax.gstRate?.value) {
+                invoiceItem.tax.gstRate.value = parseFloat(
+                    (invoiceItem.tax.gstRate.value * 100).toFixed(2)
+                );
+            } else {
+                invoiceItem.tax.gstRate = {
+                    value: 0,
+                };
+            }
+            if (invoiceItem.tax.hstRate?.value) {
+                invoiceItem.tax.hstRate.value = parseFloat(
+                    (invoiceItem.tax.hstRate.value * 100).toFixed(2)
+                );
+            } else {
+                invoiceItem.tax.hstRate = {
+                    value: 0,
+                };
+            }
+        });
         yield put({
             type: SET_PURCHASE_INVOICE_DETAILS,
             payload: {
@@ -174,6 +203,35 @@ function* createPurchaseInvoiceGenerator(action) {
                 items: res.data[0].procurementItems,
             };
             delete data.procurementItems;
+            data.items.forEach(({ invoiceItem }) => {
+                if (invoiceItem.tax.pstRate?.value) {
+                    invoiceItem.tax.pstRate.value = parseFloat(
+                        (invoiceItem.tax.pstRate.value * 100).toFixed(2)
+                    );
+                } else {
+                    invoiceItem.tax.pstRate = {
+                        value: 0,
+                    };
+                }
+                if (invoiceItem.tax.gstRate?.value) {
+                    invoiceItem.tax.gstRate.value = parseFloat(
+                        (invoiceItem.tax.gstRate.value * 100).toFixed(2)
+                    );
+                } else {
+                    invoiceItem.tax.gstRate = {
+                        value: 0,
+                    };
+                }
+                if (invoiceItem.tax.hstRate?.value) {
+                    invoiceItem.tax.hstRate.value = parseFloat(
+                        (invoiceItem.tax.hstRate.value * 100).toFixed(2)
+                    );
+                } else {
+                    invoiceItem.tax.hstRate = {
+                        value: 0,
+                    };
+                }
+            });
             yield put({
                 type: SET_PURCHASE_INVOICE_DETAILS,
                 payload: { data: data, initial: data, error: false },
@@ -245,10 +303,25 @@ function* deletePurchaseInvoiceGenerator(action) {
 function* createProcurementGenerator(action) {
     try {
         if (validInvoice(get(action, "payload"))) {
-            let res, params;
+            let res, params, payload;
             params = { ...get(action, "payload.purchaseOrder") };
             params.supplierId = params.supplier.id;
             delete params.supplier;
+            payload = { ...get(action, "payload") };
+            payload.procurementItems.forEach(({ invoiceItem }) => {
+                if (invoiceItem.tax.pstRate?.value) {
+                    invoiceItem.tax.pstRate.value =
+                        invoiceItem.tax.pstRate.value / 100;
+                }
+                if (invoiceItem.tax.gstRate?.value) {
+                    invoiceItem.tax.gstRate.value =
+                        invoiceItem.tax.gstRate.value / 100;
+                }
+                if (invoiceItem.tax.hstRate?.value) {
+                    invoiceItem.tax.hstRate.value =
+                        invoiceItem.tax.hstRate.value / 100;
+                }
+            });
             res = yield call(api.postPurchaseOrders, [params]);
             params = { ...get(action, "payload") };
             params.invoice.purchaseOrderId = res.data[0].id;
@@ -269,6 +342,35 @@ function* createProcurementGenerator(action) {
                 },
                 purchaseOrder,
             };
+            data.procurementItems.forEach(({ invoiceItem }) => {
+                if (invoiceItem.tax.pstRate?.value) {
+                    invoiceItem.tax.pstRate.value = parseFloat(
+                        (invoiceItem.tax.pstRate.value * 100).toFixed(2)
+                    );
+                } else {
+                    invoiceItem.tax.pstRate = {
+                        value: 0,
+                    };
+                }
+                if (invoiceItem.tax.gstRate?.value) {
+                    invoiceItem.tax.gstRate.value = parseFloat(
+                        (invoiceItem.tax.gstRate.value * 100).toFixed(2)
+                    );
+                } else {
+                    invoiceItem.tax.gstRate = {
+                        value: 0,
+                    };
+                }
+                if (invoiceItem.tax.hstRate?.value) {
+                    invoiceItem.tax.hstRate.value = parseFloat(
+                        (invoiceItem.tax.hstRate.value * 100).toFixed(2)
+                    );
+                } else {
+                    invoiceItem.tax.hstRate = {
+                        value: 0,
+                    };
+                }
+            });
             yield put({
                 type: SET_PURCHASE_INVOICE_DETAILS,
                 payload: { data: data, initial: data, error: false },
@@ -349,6 +451,20 @@ function* updateProcurementGenerator(action) {
             params = { ...get(action, "payload") };
             params.invoice.purchaseOrderId = params.purchaseOrder.id;
             delete params.purchaseOrder;
+            params.procurementItems.forEach(({ invoiceItem }) => {
+                if (invoiceItem.tax.pstRate?.value) {
+                    invoiceItem.tax.pstRate.value =
+                        invoiceItem.tax.pstRate.value / 100;
+                }
+                if (invoiceItem.tax.gstRate?.value) {
+                    invoiceItem.tax.gstRate.value =
+                        invoiceItem.tax.gstRate.value / 100;
+                }
+                if (invoiceItem.tax.hstRate?.value) {
+                    invoiceItem.tax.hstRate.value =
+                        invoiceItem.tax.hstRate.value / 100;
+                }
+            });
             res = yield call(api.putProcurements, [params]);
             const purchaseOrder = { ...res.data[0].invoice.purchaseOrder };
             delete res.data[0].invoice.purchaseOrder;
@@ -362,6 +478,35 @@ function* updateProcurementGenerator(action) {
                 },
                 purchaseOrder,
             };
+            data.procurementItems.forEach(({ invoiceItem }) => {
+                if (invoiceItem.tax.pstRate?.value) {
+                    invoiceItem.tax.pstRate.value = parseFloat(
+                        (invoiceItem.tax.pstRate.value * 100).toFixed(2)
+                    );
+                } else {
+                    invoiceItem.tax.pstRate = {
+                        value: 0,
+                    };
+                }
+                if (invoiceItem.tax.gstRate?.value) {
+                    invoiceItem.tax.gstRate.value = parseFloat(
+                        (invoiceItem.tax.gstRate.value * 100).toFixed(2)
+                    );
+                } else {
+                    invoiceItem.tax.gstRate = {
+                        value: 0,
+                    };
+                }
+                if (invoiceItem.tax.hstRate?.value) {
+                    invoiceItem.tax.hstRate.value = parseFloat(
+                        (invoiceItem.tax.hstRate.value * 100).toFixed(2)
+                    );
+                } else {
+                    invoiceItem.tax.hstRate = {
+                        value: 0,
+                    };
+                }
+            });
             yield put({
                 type: SET_PURCHASE_INVOICE_DETAILS,
                 payload: { data: data, initial: data, error: false },
@@ -457,6 +602,35 @@ function* fetchProcurementGenerator(action) {
             },
             purchaseOrder,
         };
+        data.procurementItems.forEach(({ invoiceItem }) => {
+            if (invoiceItem.tax.pstRate?.value) {
+                invoiceItem.tax.pstRate.value = parseFloat(
+                    (invoiceItem.tax.pstRate.value * 100).toFixed(2)
+                );
+            } else {
+                invoiceItem.tax.pstRate = {
+                    value: 0,
+                };
+            }
+            if (invoiceItem.tax.gstRate?.value) {
+                invoiceItem.tax.gstRate.value = parseFloat(
+                    (invoiceItem.tax.gstRate.value * 100).toFixed(2)
+                );
+            } else {
+                invoiceItem.tax.gstRate = {
+                    value: 0,
+                };
+            }
+            if (invoiceItem.tax.hstRate?.value) {
+                invoiceItem.tax.hstRate.value = parseFloat(
+                    (invoiceItem.tax.hstRate.value * 100).toFixed(2)
+                );
+            } else {
+                invoiceItem.tax.hstRate = {
+                    value: 0,
+                };
+            }
+        });
         yield put({
             type: SET_PURCHASE_INVOICE_DETAILS,
             payload: {
