@@ -31,6 +31,17 @@ user: admin@brewcraft.io
 password: Password123$
 ```
 
+## Docker
+Build Image:
+```
+docker build -t brewcraft-ui:1.0.0-SNAPSHOT .
+```
+
+Run Image:
+```
+docker run -it --rm -p 3000:3000 brewcraft-ui:1.0.0-SNAPSHOT
+```
+
 ## Cypress Test
 ```
 echo '
