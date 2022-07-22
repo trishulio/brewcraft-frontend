@@ -1,0 +1,6 @@
+nginx:
+  ingress:
+    enabled: true
+  service:
+    type: ClusterIP
+  staticSiteConfigmap: static

@@ -1,0 +1,14 @@
+apiVersion: v2
+name: brewcraft-frontend
+description: Brewcraft frontend deployment chart
+
+type: application
+
+version: 0.1.0
+
+appVersion: 1.0.0
+
+dependencies:
+- name: nginx
+  version: "13.1.2"
+  repository: "https://charts.bitnami.com/bitnami"
