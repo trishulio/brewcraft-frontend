@@ -1,0 +1,5 @@
+nginx:
+  ingress:
+    hostname: brewcraft.local
+  service:
+    type: NodePort
