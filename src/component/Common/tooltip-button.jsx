@@ -18,7 +18,7 @@ export default function TooltipButton(props) {
             <Button
                 id={`tooltip-${props.id}`}
                 className={props.className || "waves-effect"}
-                size={props.size || "sm"}
+                size={props.size || "lg"}
                 outline={!!props.outline}
                 onClick={props.onClick}
             >

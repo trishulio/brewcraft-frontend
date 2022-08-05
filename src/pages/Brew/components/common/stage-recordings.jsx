@@ -12,7 +12,7 @@ export default function StageRecordings({
 }) {
     return (
         <React.Fragment>
-            <h4 className="waves-effect font-size-12">{title}</h4>
+            <h4 className="waves-effect">{title}</h4>
             {!!chart && toggleCharts && !!recordings.length && chart}
             {(!toggleCharts || !recordings.length) && (
                 <CommonTable>

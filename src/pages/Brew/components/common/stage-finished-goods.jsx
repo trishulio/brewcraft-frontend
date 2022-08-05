@@ -12,7 +12,7 @@ export default function StageFinishedGoods({
 }) {
     return (
         <React.Fragment>
-            <h4 className="waves-effect font-size-12">{title}</h4>
+            <h4 className="waves-effect">{title}</h4>
             {!!chart && toggleCharts && !!finishedGoods.length && chart}
             {(!toggleCharts || !finishedGoods.length) && (
                 <CommonTable>

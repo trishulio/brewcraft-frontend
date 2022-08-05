@@ -11,7 +11,7 @@ export default function BatchDescription() {
                 <CardHeader>
                     <div className="mr-2" onClick={() => setIsOpen(!isOpen)}>
                         <i
-                            className={`fa fa-caret-right font-size-13 mr-2 ${
+                            className={`fa fa-caret-right mr-2 ${
                                 isOpen ? " rotate-down" : ""
                             }`}
                         ></i>

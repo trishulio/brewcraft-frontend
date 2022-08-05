@@ -116,7 +116,6 @@ export default function BrewWhirlpool({
                 <TooltipButton
                     id="editWhirlpoolButton"
                     className="waves-effect mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText="Edit Stage"
                     placement="bottom"
@@ -127,7 +126,6 @@ export default function BrewWhirlpool({
                 <TooltipButton
                     id="ingredientsWhirlpoolButton"
                     className="waves-effect m-0 mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText="Ingredients"
                     placement="bottom"
@@ -138,7 +136,6 @@ export default function BrewWhirlpool({
                 <TooltipButton
                     id="recordingsWhirlpoolButton"
                     className="waves-effect m-0 mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText="Recordings"
                     placement="bottom"
@@ -149,7 +146,6 @@ export default function BrewWhirlpool({
                 <TooltipButton
                     id="chartsWhirlpoolButton"
                     className="waves-effect m-0 mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText={toggleCharts ? "Hide Charts" : "Show Charts"}
                     placement="bottom"
@@ -167,7 +163,6 @@ export default function BrewWhirlpool({
                 <TooltipButton
                     id="toggleWhirlpoolButton"
                     className="waves-effect m-0 mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText={isOpen ? "Show Less" : "Show More"}
                     placement="bottom"

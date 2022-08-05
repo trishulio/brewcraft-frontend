@@ -16,6 +16,9 @@
 //Import Custome scss
 @import "./assets/scss/custom-style.scss";
 
+body {
+    font-size: 1rem;
+}
 .DragHandler {
     cursor: move;
 }

@@ -330,7 +330,6 @@ export default function BatchDetails() {
                             <TooltipButton
                                 id="editDetailsButton"
                                 className="waves-effect mr-1 mb-1"
-                                size="sm"
                                 outline={true}
                                 tooltipText="Edit Details"
                                 placement="bottom"
@@ -341,7 +340,6 @@ export default function BatchDetails() {
                             <TooltipButton
                                 id="chartsDetailsButton"
                                 className="waves-effect m-0 mr-1 mb-1"
-                                size="sm"
                                 outline={true}
                                 tooltipText={
                                     toggleCharts ? "Hide Charts" : "Show Charts"
@@ -361,7 +359,6 @@ export default function BatchDetails() {
                             <TooltipButton
                                 id="toggleDetailsButton"
                                 className="waves-effect m-0 mr-1 mb-1"
-                                size="sm"
                                 outline={true}
                                 tooltipText={
                                     isDetailsOpen ? "Show Less" : "Show More"
@@ -379,13 +376,13 @@ export default function BatchDetails() {
                 <CardBody className="pb-0">
                     <Row>
                         <Col className="mb-3" sm="3">
-                            <h4 className="font-size-12">Batch ID</h4>
+                            <h4 className="">Batch ID</h4>
                             <span className="d-block">
                                 {batch.id ? batch.id : "-"}
                             </span>
                         </Col>
                         <Col className="mb-3" sm="3">
-                            <h4 className="font-size-12">Batch Start</h4>
+                            <h4 className="">Batch Start</h4>
                             <span className="d-block">
                                 {batch.startedAt
                                     ? formatDatetime(batch.startedAt)
@@ -393,7 +390,7 @@ export default function BatchDetails() {
                             </span>
                         </Col>
                         <Col className="mb-3" sm="3">
-                            <h4 className="font-size-12">Batch Finish</h4>
+                            <h4 className="">Batch Finish</h4>
                             <span className="d-block">
                                 {batch.endedAt
                                     ? formatDatetime(batch.endedAt)
@@ -401,7 +398,7 @@ export default function BatchDetails() {
                             </span>
                         </Col>
                         <Col className="mb-3" sm="3">
-                            <h4 className="font-size-12">Product</h4>
+                            <h4 className="">Product</h4>
                             <span className="d-block">
                                 {batch.product.name ? batch.product.name : "-"}
                             </span>

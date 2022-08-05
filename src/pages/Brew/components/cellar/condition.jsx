@@ -116,7 +116,6 @@ export default function BatchCondition({
                 <TooltipButton
                     id="editConditionButton"
                     className="waves-effect mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText="Edit Stage"
                     placement="bottom"
@@ -127,7 +126,6 @@ export default function BatchCondition({
                 <TooltipButton
                     id="ingredientsConditionButton"
                     className="waves-effect m-0 mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText="Ingredients"
                     placement="bottom"
@@ -138,7 +136,6 @@ export default function BatchCondition({
                 <TooltipButton
                     id="recordingsConditionButton"
                     className="waves-effect m-0 mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText="Recordings"
                     placement="bottom"
@@ -149,7 +146,6 @@ export default function BatchCondition({
                 <TooltipButton
                     id="finishedGoodsConditionButton"
                     className="waves-effect m-0 mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText="Finished Goods"
                     placement="bottom"
@@ -160,7 +156,6 @@ export default function BatchCondition({
                 <TooltipButton
                     id="chartsConditionButton"
                     className="waves-effect m-0 mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText={toggleCharts ? "Hide Charts" : "Show Charts"}
                     placement="bottom"
@@ -178,7 +173,6 @@ export default function BatchCondition({
                 <TooltipButton
                     id="toggleConditionButton"
                     className="waves-effect m-0 mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText={isOpen ? "Show Less" : "Show More"}
                     placement="bottom"

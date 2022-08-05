@@ -67,7 +67,7 @@ export default function Batch(props) {
 
             {!!error && <ErrorMessage {...error} />}
             <BrewMiniCard />
-            <Row>
+            <Row style={{ maxWidth: "120rem" }}>
                 <Col xl="8">
                     <Card>
                         <CardBody className="px-2 px-sm-3" isLoading={loading}>
@@ -118,7 +118,6 @@ export default function Batch(props) {
                                 color="primary"
                                 className="waves-effect mr-2"
                                 onClick={props.onSave}
-                                size="sm"
                                 disabled={!props.changed}
                             >
                                 {!batch.id ? "Create" : "Save"}
@@ -127,7 +126,6 @@ export default function Batch(props) {
                                 type="button"
                                 color="secondary"
                                 className="waves-effect mr-2"
-                                size="sm"
                                 onClick={() => {
                                     if (!batch.id) {
                                         history.goBack();

@@ -11,7 +11,7 @@ export default function StageIngredients({
 }) {
     return (
         <React.Fragment>
-            <h4 className="waves-effect font-size-12">{title}</h4>
+            <h4 className="waves-effect">{title}</h4>
             {!!chart && toggleCharts && !!lotPortions.length && chart}
             {(!toggleCharts || !lotPortions.length) && (
                 <CommonTable>
