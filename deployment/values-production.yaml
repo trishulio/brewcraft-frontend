@@ -1,0 +1,3 @@
+nginx:
+  ingress:
+    hostname: brewcraft.io
