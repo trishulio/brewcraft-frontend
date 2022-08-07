@@ -72,9 +72,8 @@ export default function PageWrapper({
                 <Col xs="12">
                     <Input
                         type="select"
-                        bsSize="sm"
                         className="waves-effect float-left mr-2 my-2"
-                        style={{ width: 60 }}
+                        style={{ width: "4rem", fontSize: "0.875rem" }}
                         value={pageSize}
                         onChange={onChangePageSize}
                     >
@@ -90,7 +89,10 @@ export default function PageWrapper({
 
             <Row>
                 <Col sm={6}>
-                    <span className="font-size-12 float-left mt-3">
+                    <span
+                        className="float-left mt-3"
+                        style={{ fontSize: "0.875rem" }}
+                    >
                         {totalElements
                             ? `${pageIndex * pageSize + 1} to ${min([
                                   pageIndex * pageSize + pageSize,
@@ -104,6 +106,7 @@ export default function PageWrapper({
                         <PaginationItem disabled={!pageIndex} key="-1">
                             <PaginationLink
                                 tabIndex="-1"
+                                style={{ fontSize: "0.875rem" }}
                                 onClick={onPagnationItemClick}
                             >
                                 Previous
@@ -118,6 +121,7 @@ export default function PageWrapper({
                                     tabIndex={page.value}
                                     onClick={onPagnationItemClick}
                                     data-testid="paginationLink"
+                                    style={{ fontSize: "0.875rem" }}
                                 >
                                     {page.value}{" "}
                                     {page.active && (
@@ -136,6 +140,7 @@ export default function PageWrapper({
                         >
                             <PaginationLink
                                 tabIndex="-2"
+                                style={{ fontSize: "0.875rem" }}
                                 onClick={onPagnationItemClick}
                             >
                                 Next
