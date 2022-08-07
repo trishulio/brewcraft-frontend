@@ -483,7 +483,7 @@ exports[`SupplierContacts -> <Index> <FilterBar/> Component Should dispatch setS
                                               <span
                                                 className="font-size-12 float-left mt-3"
                                               >
-                                                Showing 0 results ..
+                                                Showing 0 results
                                               </span>
                                             </div>
                                           </Col>
@@ -679,7 +679,7 @@ exports[`SupplierContacts -> <Index> <FilterBar/> Component Should dispatch setS
                                   className="float-right px-2 py-3"
                                   type="button"
                                 >
-                                  Hide 
+                                  Hide
                                   <i
                                     className="ion ion-md-close"
                                   />
@@ -787,7 +787,7 @@ exports[`SupplierContacts -> <Index> <FilterBar/> Component Should dispatch setS
                                         <i
                                           className="ion ion-ios-arrow-forward"
                                         />
-                                         
+
                                          
                                         Supplier
                                       </label>
@@ -2715,7 +2715,7 @@ exports[`SupplierContacts -> <Index> <Pagination/> Component Should dispatch set
                                               <span
                                                 className="font-size-12 float-left mt-3"
                                               >
-                                                Showing 0 results ..
+                                                Showing 0 results
                                               </span>
                                             </div>
                                           </Col>
@@ -2911,7 +2911,7 @@ exports[`SupplierContacts -> <Index> <Pagination/> Component Should dispatch set
                                   className="float-right px-2 py-3"
                                   type="button"
                                 >
-                                  Hide 
+                                  Hide
                                   <i
                                     className="ion ion-md-close"
                                   />
@@ -3019,7 +3019,7 @@ exports[`SupplierContacts -> <Index> <Pagination/> Component Should dispatch set
                                         <i
                                           className="ion ion-ios-arrow-forward"
                                         />
-                                         
+
                                          
                                         Supplier
                                       </label>
@@ -4996,7 +4996,7 @@ exports[`SupplierContacts -> <Index> <Table/> Component Should call history.push
                                               <span
                                                 className="font-size-12 float-left mt-3"
                                               >
-                                                Showing 0 results ..
+                                                Showing 0 results
                                               </span>
                                             </div>
                                           </Col>
@@ -5192,7 +5192,7 @@ exports[`SupplierContacts -> <Index> <Table/> Component Should call history.push
                                   className="float-right px-2 py-3"
                                   type="button"
                                 >
-                                  Hide 
+                                  Hide
                                   <i
                                     className="ion ion-md-close"
                                   />
@@ -5300,7 +5300,7 @@ exports[`SupplierContacts -> <Index> <Table/> Component Should call history.push
                                         <i
                                           className="ion ion-ios-arrow-forward"
                                         />
-                                         
+
                                          
                                         Supplier
                                       </label>
@@ -7228,7 +7228,7 @@ exports[`SupplierContacts -> <Index> <ToolBar/> Component Histroy.push should be
                                               <span
                                                 className="font-size-12 float-left mt-3"
                                               >
-                                                Showing 0 results ..
+                                                Showing 0 results
                                               </span>
                                             </div>
                                           </Col>
@@ -7424,7 +7424,7 @@ exports[`SupplierContacts -> <Index> <ToolBar/> Component Histroy.push should be
                                   className="float-right px-2 py-3"
                                   type="button"
                                 >
-                                  Hide 
+                                  Hide
                                   <i
                                     className="ion ion-md-close"
                                   />
@@ -7532,7 +7532,7 @@ exports[`SupplierContacts -> <Index> <ToolBar/> Component Histroy.push should be
                                         <i
                                           className="ion ion-ios-arrow-forward"
                                         />
-                                         
+
                                          
                                         Supplier
                                       </label>
@@ -9460,7 +9460,7 @@ exports[`SupplierContacts -> <Index> <ToolBar/> Component Histroy.push should be
                                               <span
                                                 className="font-size-12 float-left mt-3"
                                               >
-                                                Showing 0 results ..
+                                                Showing 0 results
                                               </span>
                                             </div>
                                           </Col>
@@ -9656,7 +9656,7 @@ exports[`SupplierContacts -> <Index> <ToolBar/> Component Histroy.push should be
                                   className="float-right px-2 py-3"
                                   type="button"
                                 >
-                                  Hide 
+                                  Hide
                                   <i
                                     className="ion ion-md-close"
                                   />
@@ -9764,7 +9764,7 @@ exports[`SupplierContacts -> <Index> <ToolBar/> Component Histroy.push should be
                                         <i
                                           className="ion ion-ios-arrow-forward"
                                         />
-                                         
+
                                          
                                         Supplier
                                       </label>
@@ -11692,7 +11692,7 @@ exports[`SupplierContacts -> <Index> render() renders the component 1`] = `
                                               <span
                                                 className="font-size-12 float-left mt-3"
                                               >
-                                                Showing 0 results ..
+                                                Showing 0 results
                                               </span>
                                             </div>
                                           </Col>
@@ -11888,7 +11888,7 @@ exports[`SupplierContacts -> <Index> render() renders the component 1`] = `
                                   className="float-right px-2 py-3"
                                   type="button"
                                 >
-                                  Hide 
+                                  Hide
                                   <i
                                     className="ion ion-md-close"
                                   />
@@ -11996,7 +11996,7 @@ exports[`SupplierContacts -> <Index> render() renders the component 1`] = `
                                         <i
                                           className="ion ion-ios-arrow-forward"
                                         />
-                                         
+
                                          
                                         Supplier
                                       </label>
