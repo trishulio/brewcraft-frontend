@@ -1,6 +1,9 @@
 nginx:
+  staticSiteConfigmap: static
   ingress:
     enabled: true
+    pathType: Prefix
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /index.html
   service:
     type: ClusterIP
-  staticSiteConfigmap: static
