@@ -95,8 +95,8 @@ export default function PageWrapper({
                             ? `${pageIndex * pageSize + 1} to ${min([
                                   pageIndex * pageSize + pageSize,
                                   totalElements,
-                              ])} of ${totalElements} results ..`
-                            : "Showing 0 results .."}
+                              ])} of ${totalElements} results`
+                            : "Showing 0 results"}
                     </span>
                 </Col>
                 <Col sm={6}>
