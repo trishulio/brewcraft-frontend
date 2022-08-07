@@ -216,7 +216,6 @@ export default function MixtureRecordings({ mixture, measures }) {
                         <FormFeedback>Enter a valid number.</FormFeedback>
                     </FormGroup>
                     <Button
-                        size="sm"
                         className="waves-effect mr-2"
                         onClick={() => {
                             dispatch(
@@ -238,7 +237,6 @@ export default function MixtureRecordings({ mixture, measures }) {
                         Enter
                     </Button>
                     <Button
-                        size="sm"
                         color="warning"
                         className="waves-effect"
                         onClick={() => {

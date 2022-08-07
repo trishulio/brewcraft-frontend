@@ -233,7 +233,6 @@ export default function FinishedGoods({ mixture }) {
             </CommonTable>
             {editable && (
                 <Button
-                    size="sm"
                     className="waves-effect mr-2"
                     onClick={() => {
                         setFinishedGood(initialFinishedGood);
@@ -246,7 +245,7 @@ export default function FinishedGoods({ mixture }) {
             )}
             {/* {editable && (
                 <Button
-                    size="sm"
+
                     className="waves-effect mr-2"
                     onClick={() => {}}
                     disabled={!sku.id || !quantity}
@@ -256,7 +255,7 @@ export default function FinishedGoods({ mixture }) {
             )}
             {editable && (
                 <Button
-                    size="sm"
+
                     color="warning"
                     className="waves-effect"
                     onClick={() => {

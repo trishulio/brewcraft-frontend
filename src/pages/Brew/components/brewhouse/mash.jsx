@@ -124,7 +124,6 @@ export default function BrewMash({
                 <TooltipButton
                     id="editMashButton"
                     className="waves-effect mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText="Edit Stage"
                     placement="bottom"
@@ -135,7 +134,6 @@ export default function BrewMash({
                 <TooltipButton
                     id="ingredientsMashButton"
                     className="waves-effect m-0 mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText="Ingredients"
                     placement="bottom"
@@ -146,7 +144,6 @@ export default function BrewMash({
                 <TooltipButton
                     id="recordingsMashButton"
                     className="waves-effect m-0 mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText="Recordings"
                     placement="bottom"
@@ -157,7 +154,6 @@ export default function BrewMash({
                 <TooltipButton
                     id="chartsMashButton"
                     className="waves-effect m-0 mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText={toggleCharts ? "Hide Charts" : "Show Charts"}
                     placement="bottom"
@@ -175,7 +171,6 @@ export default function BrewMash({
                 <TooltipButton
                     id="toggleMashButton"
                     className="waves-effect m-0 mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText={isOpen ? "Show Less" : "Show More"}
                     placement="bottom"

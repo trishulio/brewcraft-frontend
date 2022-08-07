@@ -31,7 +31,7 @@ export default function BrewMiniCard() {
 
     return (
         <React.Fragment>
-            <Row>
+            <Row style={{ maxWidth: "80rem" }}>
                 <Col sm="6" xl="3">
                     <Card className="mini-stat bg-primary">
                         <CardBody className="mini-stat-img">

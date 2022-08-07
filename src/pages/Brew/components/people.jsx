@@ -15,7 +15,7 @@ export default function BatchPeople() {
 
     const { id } = useParams();
 
-    const { data: batch } = useSelector((state) => {
+    const { data: batch, loading } = useSelector((state) => {
         return state.Batch.Batch;
     });
 
@@ -45,23 +45,7 @@ export default function BatchPeople() {
     return (
         <React.Fragment>
             <Card className="shadow-none mb-3">
-                <CardHeader>
-                    <div className="mr-2" onClick={() => setIsOpen(!isOpen)}>
-                        <i
-                            className={`fa fa-caret-right font-size-13 mr-2 ${
-                                isOpen ? " rotate-down" : ""
-                            }`}
-                        ></i>
-                        <span
-                            className="text-dark"
-                            onClick={() => setIsOpen(!isOpen)}
-                            style={{ cursor: "pointer" }}
-                        >
-                            People
-                        </span>
-                    </div>
-                </CardHeader>
-                <CardBody isOpen={isOpen} className="pb-0">
+                <CardBody isOpen={isOpen} isLoading={loading} className="pb-0">
                     <Label for="batchAssignedId">Assigned To</Label>
                     <FormGroup>
                         <Select

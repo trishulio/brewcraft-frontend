@@ -22,7 +22,6 @@ export default function BatchFileUploads() {
                             <TooltipButton
                                 id="toggleAttachmentsButton"
                                 className="waves-effect m-0 mr-1 mb-1"
-                                size="sm"
                                 outline={true}
                                 tooltipText={isOpen ? "Show Less" : "Show More"}
                                 placement="bottom"

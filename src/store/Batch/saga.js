@@ -430,13 +430,13 @@ function* editBatchDetailsGenerator() {
         ]);
         if (success) {
             const data = get(success, "payload");
-            yield [
+            yield all([
                 put({
                     type: SET_BATCH_DETAILS,
                     payload: { data, initial: data },
                 }),
                 put({ type: EDIT_BATCH_DETAILS_SUCCESS }),
-            ];
+            ]);
         } else {
             yield put({
                 type: EDIT_BATCH_DETAILS_FAILURE,

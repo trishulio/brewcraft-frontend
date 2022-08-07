@@ -41,15 +41,15 @@ export function StageHeader({ title, toolbar, toggleIsOpen }) {
         >
             {toggleIsOpen ? (
                 <div className="float-left">
-                    <h4
-                        className="waves-effect font-size-16 m-0 p-0"
+                    <h2
+                        className="waves-effect m-0 p-0"
                         onClick={() => toggleIsOpen()}
                     >
                         {title}
-                    </h4>
+                    </h2>
                 </div>
             ) : (
-                <h4 className="d-inline-block font-size-16 m-0 p-0">{title}</h4>
+                <h2 className="d-inline-block m-0 p-0">{title}</h2>
             )}
             <div className="float-right">
                 <div className="mb-3">{toolbar}</div>
@@ -443,7 +443,7 @@ export default function BatchStage({
                     <CardBody className="py-3">
                         <Row>
                             <Col className="mb-3" sm="3">
-                                <h4 className="font-size-12">Mixture Start</h4>
+                                <h4 className="">Mixture Start</h4>
                                 <span className="d-block">
                                     {stage.startedAt
                                         ? formatDatetime(stage.startedAt)
@@ -451,7 +451,7 @@ export default function BatchStage({
                                 </span>
                             </Col>
                             <Col className="mb-3" sm="3">
-                                <h4 className="font-size-12">Mixture Finish</h4>
+                                <h4 className="">Mixture Finish</h4>
                                 <span className="d-block">
                                     {stage.endedAt
                                         ? formatDatetime(stage.endedAt)
@@ -459,7 +459,7 @@ export default function BatchStage({
                                 </span>
                             </Col>
                             <Col className="mb-3" sm="3">
-                                <h4 className="font-size-12">Equipment</h4>
+                                <h4 className="">Equipment</h4>
                                 <span className="d-block">
                                     {mixture.equipment?.id
                                         ? equipment.find((equipmentItem) => {
@@ -472,7 +472,7 @@ export default function BatchStage({
                                 </span>
                             </Col>
                             <Col className="mb-3" sm="3">
-                                <h4 className="font-size-12">Status</h4>
+                                <h4 className="">Status</h4>
                                 <span className="d-block">
                                     {prettyName(stage.status.name)}
                                 </span>
@@ -481,17 +481,13 @@ export default function BatchStage({
                         <Collapse isOpen={isOpen}>
                             <Row>
                                 <Col className="mb-3" sm="3">
-                                    <h4 className="font-size-12">
-                                        Volume In (l)
-                                    </h4>
+                                    <h4 className="">Volume In (l)</h4>
                                     <span className="d-block">
                                         {initialVolume || "-"}
                                     </span>
                                 </Col>
                                 <Col className="mb-3" sm="3">
-                                    <h4 className="font-size-12">
-                                        Volume Out (l)
-                                    </h4>
+                                    <h4 className="">Volume Out (l)</h4>
                                     <span className="d-block">
                                         {mixture.quantity.value}
                                     </span>
@@ -560,9 +556,7 @@ export default function BatchStage({
                     <CardBody className="py-3">
                         <Row>
                             <Col className="mb-3" sm="3">
-                                <h4 className="font-size-12">
-                                    Orignial Gravity (OG)
-                                </h4>
+                                <h4 className="">Orignial Gravity (OG)</h4>
                                 <span className="d-block">
                                     {originalGravity || "-"}
                                 </span>

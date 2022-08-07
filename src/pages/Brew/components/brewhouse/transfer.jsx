@@ -57,7 +57,6 @@ export default function BrewTransfer({
                 <TooltipButton
                     id="editTransferButton"
                     className="waves-effect mr-1 mb-1"
-                    size="sm"
                     outline={true}
                     tooltipText="Edit Stage"
                     placement="bottom"

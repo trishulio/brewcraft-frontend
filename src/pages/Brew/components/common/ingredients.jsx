@@ -210,7 +210,6 @@ export default function BatchIngredients({ mixture }) {
                         <FormFeedback>Enter a valid number.</FormFeedback>
                     </FormGroup>
                     <Button
-                        size="sm"
                         className="waves-effect mr-2 mb-0"
                         onClick={() => {
                             const materialPortion = materialPortions.find(
@@ -262,7 +261,6 @@ export default function BatchIngredients({ mixture }) {
                         Enter
                     </Button>
                     <Button
-                        size="sm"
                         color="warning"
                         className="waves-effect"
                         onClick={() => {
