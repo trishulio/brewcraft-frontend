@@ -69,9 +69,9 @@ class Breadcrumb extends Component {
                                         Go back
                                     </Button>
                                 )}
-                            <h4 className="d-inline align-middle">
+                            <h1 className="d-inline font-size-24 align-middle">
                                 {this.props.title}
-                            </h4>
+                            </h1>
                             <ol className="breadcrumb m-0 mt-2">
                                 {this.props.breadcrumbItems.map((item, key) =>
                                     !item.link || item.link === "#" ? (
