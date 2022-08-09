@@ -1,7 +1,6 @@
 /* eslint-disable */
 import React, { Fragment } from "react";
 import { Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 
 const AppRoute = function ({
     component: Component,
@@ -15,7 +14,6 @@ const AppRoute = function ({
             render={(props) => {
                 return (
                     <Fragment>
-                        <ToastContainer />
                         <Component {...props} />
                     </Fragment>
                 );
