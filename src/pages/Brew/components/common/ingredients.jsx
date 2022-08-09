@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { map } from "lodash";
+import { map, findIndex } from "lodash";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
 import { isValidNumberString } from "../../../../helpers/utils";
@@ -212,27 +212,35 @@ export default function BatchIngredients({ mixture }) {
                     <Button
                         className="waves-effect mr-2 mb-0"
                         onClick={() => {
-                            const materialPortion = materialPortions.find(
-                                (mp) =>
-                                    mp.materialLot.id ===
-                                    selectedLot.materialLot.id
+                            const materialPortionIndex = findIndex(
+                                materialPortions,
+                                {
+                                    materialLot: {
+                                        id: selectedLot.materialLot.id,
+                                    },
+                                }
                             );
-                            if (materialPortion) {
+
+                            if (materialPortionIndex !== -1) {
+                                const tempAllMaterialPortions = [
+                                    ...allMaterialPortions,
+                                ];
+                                const materialPortion =
+                                    allMaterialPortions[materialPortionIndex];
+                                tempAllMaterialPortions[materialPortionIndex] =
+                                    {
+                                        ...materialPortion,
+                                        quantity: {
+                                            ...materialPortion.quantity,
+                                            value: (materialPortion.quantity.value +=
+                                                parseFloat(
+                                                    selectedLotQuantity
+                                                )),
+                                        },
+                                    };
                                 dispatch(
                                     setBrewMaterialPortions({
-                                        content: [
-                                            ...allMaterialPortions,
-                                            {
-                                                ...materialPortion,
-                                                quantity: {
-                                                    ...materialPortion.quantity,
-                                                    value: (materialPortion.quantity.value +=
-                                                        parseFloat(
-                                                            selectedLotQuantity
-                                                        )),
-                                                },
-                                            },
-                                        ],
+                                        content: tempAllMaterialPortions,
                                     })
                                 );
                             } else {
