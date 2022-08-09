@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { map, findIndex } from "lodash";
+import { map, findIndex, find } from "lodash";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
 import { isValidNumberString } from "../../../../helpers/utils";
-import { editBatch, setBrewMaterialPortions } from "../../../../store/actions";
+import {
+    editBatch,
+    setBrewMaterialPortions,
+    snackFailure,
+} from "../../../../store/actions";
 import { useDispatch } from "react-redux";
 import {
     Modal,
@@ -14,6 +18,16 @@ import {
 
 export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
     const dispatch = useDispatch();
+    const ingredientLots = useSelector((state) => {
+        return state.MaterialLots.stock.filter((ml) => {
+            return ml.material.materialClass.id === 1;
+        });
+    });
+
+    const allMaterialPortions = useSelector((state) => {
+        return state.Batch.MaterialPortions.content;
+    });
+
     return (
         <Modal
             title="Ingredients"
@@ -30,9 +44,31 @@ export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
                 <Button
                     color="primary"
                     onClick={() => {
-                        dispatch(editBatch());
-                        afterSave();
-                        setShow(false);
+                        let isValid = true;
+                        allMaterialPortions.forEach((materialPortion) => {
+                            const ingredient = find(ingredientLots, {
+                                materialLot: {
+                                    id: materialPortion.materialLot.id,
+                                },
+                            });
+                            if (
+                                ingredient.quantity.value <
+                                materialPortion.quantity.value
+                            ) {
+                                isValid = false;
+                            }
+                        });
+                        if (isValid) {
+                            dispatch(editBatch());
+                            afterSave();
+                            setShow(false);
+                        } else {
+                            dispatch(
+                                snackFailure(
+                                    "Ingredient's quantity is bigger than status"
+                                )
+                            );
+                        }
                     }}
                 >
                     Save

@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FormFeedback, FormGroup, Label } from "reactstrap";
 import { useParams } from "react-router-dom";
 import Select from "react-select";
 import { setBatchDetails } from "../../../store/actions";
-import { Card, CardBody, CardHeader } from "../../../component/Common/Card";
+import { Card, CardBody } from "../../../component/Common/Card";
 import { formatDatetime } from "../../../helpers/textUtils";
 import { getLoggedInUser } from "../../../helpers/authUtils";
 
 export default function BatchPeople() {
-    const [isOpen, setIsOpen] = useState(true);
-
     const dispatch = useDispatch();
 
     const { id } = useParams();
@@ -45,7 +43,7 @@ export default function BatchPeople() {
     return (
         <React.Fragment>
             <Card className="shadow-none mb-3">
-                <CardBody isOpen={isOpen} isLoading={loading} className="pb-0">
+                <CardBody isOpen={true} isLoading={loading} className="pb-0">
                     <Label for="batchAssignedId">Assigned To</Label>
                     <FormGroup>
                         <Select
