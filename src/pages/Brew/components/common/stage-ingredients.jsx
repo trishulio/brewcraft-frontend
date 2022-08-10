@@ -9,12 +9,22 @@ export default function StageIngredients({
     chart,
     toggleCharts,
 }) {
+    console.log(lotPortions);
     return (
         <React.Fragment>
             <h4 className="waves-effect">{title}</h4>
             {!!chart && toggleCharts && !!lotPortions.length && chart}
             {(!toggleCharts || !lotPortions.length) && (
                 <CommonTable>
+                    {!!lotPortions.length && (
+                        <thead>
+                            <tr>
+                                <th>Ingredient</th>
+                                <th>Lot Number</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                    )}
                     <tbody>
                         {!lotPortions.length && (
                             <tr>
@@ -30,7 +40,7 @@ export default function StageIngredients({
                                     }
                                 </td>
                                 <td>{value.materialLot.lotNumber}</td>
-                                <td className="text-right">
+                                <td>
                                     {value.quantity.value}{" "}
                                     {value.quantity.symbol}
                                 </td>
