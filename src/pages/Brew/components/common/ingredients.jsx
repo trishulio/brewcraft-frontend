@@ -4,19 +4,17 @@ import { map, findIndex, find } from "lodash";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
 import { isValidNumberString } from "../../../../helpers/utils";
-import {
-    editBatch,
-    setBrewMaterialPortions,
-    snackFailure,
-} from "../../../../store/actions";
+import { editBatch, setBrewMaterialPortions } from "../../../../store/actions";
 import { useDispatch } from "react-redux";
 import {
     Modal,
     ModalBody,
     ModalFooter,
 } from "../../../../component/Common/modal";
+import { ErrorMessage } from "../../../../helpers/textUtils";
 
 export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
+    const [isValid, setIsValid] = useState(true);
     const dispatch = useDispatch();
     const ingredientLots = useSelector((state) => {
         return state.MaterialLots.stock.filter((ml) => {
@@ -38,6 +36,12 @@ export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
             }}
         >
             <ModalBody>
+                {!isValid && (
+                    <ErrorMessage
+                        message="Ingredient's quantity is too big!"
+                        color="danger"
+                    />
+                )}
                 <BatchIngredients mixture={mixture} />
             </ModalBody>
             <ModalFooter>
@@ -63,11 +67,7 @@ export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
                             afterSave();
                             setShow(false);
                         } else {
-                            dispatch(
-                                snackFailure(
-                                    "Ingredient's quantity is bigger than status"
-                                )
-                            );
+                            setIsValid(false);
                         }
                     }}
                 >
