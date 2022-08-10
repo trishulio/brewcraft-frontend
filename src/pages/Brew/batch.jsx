@@ -61,91 +61,104 @@ export default function Batch(props) {
 
     return (
         <React.Fragment>
-            <div className="mb-3">
-                <Toolbar {...props} />
-            </div>
-
             {!!error && <ErrorMessage {...error} />}
-            <BrewMiniCard />
-            <Row style={{ maxWidth: "120rem" }}>
-                <Col xl="8">
-                    <Card>
-                        <CardBody className="px-2 px-sm-3" isLoading={loading}>
-                            <div className="mb-3">
-                                <Nav
-                                    activeTab={props.activeTab}
-                                    setActiveTab={props.setActiveTab}
-                                />
-                            </div>
-                            <TabContent activeTab={props.activeTab}>
-                                <TabPane tabId="details">
+            <div className="mb-3">
+                <Nav
+                    activeTab={props.activeTab}
+                    setActiveTab={props.setActiveTab}
+                />
+            </div>
+            <TabContent activeTab={props.activeTab}>
+                <TabPane tabId="details">
+                    <div style={{ maxWidth: "120rem" }}>
+                        <BrewMiniCard />
+                    </div>
+                    <Row style={{ maxWidth: "120rem" }}>
+                        <Col xl="8">
+                            <Card>
+                                <CardBody
+                                    className="px-2 px-sm-3"
+                                    isLoading={loading}
+                                >
                                     <BatchDetails {...props} />
                                     <BatchFileUploads {...props} />
-                                </TabPane>
-                                {mashMixtures.map((mixture, index) => {
-                                    return (
-                                        <BrewTab
-                                            key={index}
-                                            indexv={index}
-                                            mashMixture={mixture}
-                                        />
-                                    );
-                                })}
-                                {fermentMixtures.map((mixture, index) => {
-                                    return (
-                                        <CellarTab
-                                            key={index + mashMixtures.length}
-                                            indexv={index + mashMixtures.length}
-                                            fermentMixture={mixture}
-                                        />
-                                    );
-                                })}
-                            </TabContent>
-                        </CardBody>
-                    </Card>
-                    {/* <Card>
-                        <CardBody className="px-2 px-sm-3">
-                            <BatchComments {...props} />
-                        </CardBody>
-                    </Card> */}
-                </Col>
-                <Col sm={6} xl="4">
-                    <Card>
-                        <CardBody className="px-2 px-sm-3">
-                            <BatchPeople />
-                            <Button
-                                type="button"
-                                color="primary"
-                                className="waves-effect mr-2"
-                                onClick={props.onSave}
-                                disabled={!props.changed}
+                                </CardBody>
+                            </Card>
+                        </Col>
+                        <Col sm={6} xl="4">
+                            <Card>
+                                <CardBody className="px-2 px-sm-3">
+                                    <BatchPeople />
+                                    <Button
+                                        type="button"
+                                        color="primary"
+                                        className="waves-effect mr-2"
+                                        onClick={props.onSave}
+                                        disabled={!props.changed}
+                                    >
+                                        {!batch.id ? "Create" : "Save"}
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        color="secondary"
+                                        className="waves-effect mr-2"
+                                        onClick={() => {
+                                            if (!batch.id) {
+                                                history.goBack();
+                                            }
+                                            dispatch(
+                                                setBatchDetails({
+                                                    data: {
+                                                        ...initialBatch,
+                                                    },
+                                                    editable: false,
+                                                })
+                                            );
+                                        }}
+                                    >
+                                        Cancel
+                                    </Button>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
+                </TabPane>
+                <TabPane tabId="stages">
+                    <div className="mb-3">
+                        <Toolbar />
+                    </div>
+                    {mashMixtures.map((mixture, index) => (
+                        <Card>
+                            <CardBody
+                                className="px-2 px-sm-3"
+                                isLoading={loading}
                             >
-                                {!batch.id ? "Create" : "Save"}
-                            </Button>
-                            <Button
-                                type="button"
-                                color="secondary"
-                                className="waves-effect mr-2"
-                                onClick={() => {
-                                    if (!batch.id) {
-                                        history.goBack();
-                                    }
-                                    dispatch(
-                                        setBatchDetails({
-                                            data: {
-                                                ...initialBatch,
-                                            },
-                                            editable: false,
-                                        })
-                                    );
-                                }}
-                            >
-                                Cancel
-                            </Button>
-                        </CardBody>
-                    </Card>
-                </Col>
-            </Row>
+                                <BrewTab
+                                    key={index}
+                                    indexv={index}
+                                    mashMixture={mixture}
+                                />
+                            </CardBody>
+                        </Card>
+                    ))}
+                    {fermentMixtures.map((mixture, index) => {
+                        return (
+                            <Card>
+                                <CardBody
+                                    className="px-2 px-sm-3"
+                                    isLoading={loading}
+                                >
+                                    <CellarTab
+                                        key={index + mashMixtures.length}
+                                        indexv={index + mashMixtures.length}
+                                        fermentMixture={mixture}
+                                    />
+                                </CardBody>
+                            </Card>
+                        );
+                    })}
+                </TabPane>
+            </TabContent>
         </React.Fragment>
     );
 }

@@ -32,10 +32,12 @@ export default function Toolbar() {
                 className="d-inline-block align-middle mr-3"
                 isMulti={false}
                 name="brewMonitorId"
-                value={{
-                    id,
-                    label: `Brew ${batch.id} - ${batch.product.name}`,
-                }}
+                value={
+                    batch.id && {
+                        id,
+                        label: `Brew ${batch.id} - ${batch.product.name}`,
+                    }
+                }
                 placeholder="Select Batch .."
                 options={batches.map((b) => ({
                     value: b.id,
@@ -56,6 +58,7 @@ export default function Toolbar() {
                         },
                     }),
                 }}
+                enabled={batch.id}
             />
             <Button
                 type="button"
@@ -94,5 +97,5 @@ export default function Toolbar() {
         </React.Fragment>
     );
 
-    return <React.Fragment>{batch.id && renderBatchToolbar()}</React.Fragment>;
+    return <React.Fragment>{renderBatchToolbar()}</React.Fragment>;
 }

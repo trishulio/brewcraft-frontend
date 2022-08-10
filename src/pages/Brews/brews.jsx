@@ -15,7 +15,7 @@ export default function Batches() {
     return (
         <React.Fragment>
             <Row>
-                <Col style={{ maxWidth: "1024px" }}>
+                <Col style={{ maxWidth: "80rem" }}>
                     <Toolbar />
                     <Card>
                         <CardBody isLoading={loading} className="py-2">

@@ -20,7 +20,7 @@ export default function BrewNav({ activeTab, setActiveTab }) {
     return (
         <React.Fragment>
             <div style={{ maxWidth: "70rem" }} className="mb-0">
-                <Nav className="nav-tabs nav-sm">
+                <Nav className="nav-pills">
                     <NavItem
                         key={"details"}
                         className="waves-effect waves-light"
@@ -37,55 +37,19 @@ export default function BrewNav({ activeTab, setActiveTab }) {
                             <span>Details</span>
                         </NavLink>
                     </NavItem>
-                    {mashStages.map((_, index) => {
-                        return (
-                            <NavItem
-                                key={"brew-" + index}
-                                className="waves-effect waves-light"
-                            >
-                                <NavLink
-                                    style={{ cursor: "pointer" }}
-                                    className={classnames({
-                                        active:
-                                            activeTab === "brew-" + (index + 1),
-                                    })}
-                                    onClick={() => {
-                                        navToTab("brew-" + (index + 1));
-                                    }}
-                                >
-                                    <span>Turn {index + 1}</span>{" "}
-                                    <Badge statusId={""} />
-                                </NavLink>
-                            </NavItem>
-                        );
-                    })}
-                    {fermentStages.map((_, index) => {
-                        return (
-                            <NavItem
-                                key={"brew-" + index + mashStages.length}
-                                className="waves-effect waves-light"
-                            >
-                                <NavLink
-                                    style={{ cursor: "pointer" }}
-                                    className={classnames({
-                                        active:
-                                            activeTab ===
-                                            "brew-" +
-                                                (index + mashStages.length + 1),
-                                    })}
-                                    onClick={() => {
-                                        navToTab(
-                                            "brew-" +
-                                                (index + mashStages.length + 1)
-                                        );
-                                    }}
-                                >
-                                    <span>Cellar {index + 1}</span>{" "}
-                                    <Badge statusId={""} />
-                                </NavLink>
-                            </NavItem>
-                        );
-                    })}
+                    <NavItem key="stages" className="waves-effect waves-light">
+                        <NavLink
+                            style={{ cursor: "pointer" }}
+                            className={classnames({
+                                active: activeTab === "stages",
+                            })}
+                            onClick={() => {
+                                navToTab("stages");
+                            }}
+                        >
+                            <span>Stages</span>
+                        </NavLink>
+                    </NavItem>
                 </Nav>
             </div>
         </React.Fragment>
