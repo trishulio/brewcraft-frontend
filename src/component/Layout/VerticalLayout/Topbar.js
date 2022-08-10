@@ -30,10 +30,9 @@ class Topbar extends Component {
     componentDidMount() {
         if (this.state.isMobile) {
             this.props.changeSidebarType("default", true);
+        } else {
+            this.props.changeSidebarType("condensed", false);
         }
-        // else {
-        //     this.props.changeSidebarType("condensed", false);
-        // }
     }
 
     sidebarToggle = () => {

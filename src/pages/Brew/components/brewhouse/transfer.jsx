@@ -71,7 +71,7 @@ export default function BrewTransfer({
                 >
                     <DropdownToggle
                         tag="button"
-                        className="waves-effect btn btn-outline-secondary btn-sm mr-1 mb-1"
+                        className="waves-effect btn btn-outline-secondary mr-2 mb-1"
                         data-toggle="dropdown"
                     >
                         <i className="mdi mdi-dots-horizontal"></i>

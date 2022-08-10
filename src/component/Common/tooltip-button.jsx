@@ -1,26 +1,29 @@
 import React, { useState } from "react";
 import { Button, Tooltip } from "reactstrap";
 
-export default function TooltipButton(props) {
+export default function TooltipButton({
+    tooltipText,
+    placement,
+    id,
+    ...props
+}) {
     const [isOpen, setIsOpen] = useState(false);
     return (
         <React.Fragment>
-            {props.tooltipText && (
+            {tooltipText && (
                 <Tooltip
-                    placement={props.placement || "auto"}
+                    placement={placement || "auto"}
                     isOpen={isOpen}
-                    target={`tooltip-${props.id}`}
+                    target={`tooltip-${id}`}
                     toggle={() => setIsOpen(!isOpen)}
                 >
-                    {props.tooltipText}
+                    {tooltipText}
                 </Tooltip>
             )}
             <Button
-                id={`tooltip-${props.id}`}
+                id={`tooltip-${id}`}
                 className={props.className || "waves-effect"}
-                size={props.size || "lg"}
-                outline={!!props.outline}
-                onClick={props.onClick}
+                {...props}
             >
                 {props.children}
             </Button>
