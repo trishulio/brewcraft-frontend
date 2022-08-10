@@ -7,7 +7,7 @@ import { addBatchStage, fetchBatches } from "../../../store/actions";
 import { useEffect } from "react";
 import StageInitModal from "./common/stage-init-modal";
 
-export default function Toolbar() {
+export default function Toolbar({ onDelete }) {
     const [showInitStage, setShowInitStage] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -73,6 +73,14 @@ export default function Toolbar() {
                 }}
             >
                 <i className="fa fa-plus"></i> Add Turn
+            </Button>
+            <Button
+                type="button"
+                color="danger"
+                className="waves-effect d-inline align-middle mr-2"
+                onClick={onDelete}
+            >
+                <i className="fa fa-minus-circle"></i> Delete Brew
             </Button>
             <StageInitModal
                 show={showInitStage}
