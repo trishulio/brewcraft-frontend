@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { map, findIndex, find } from "lodash";
+import { map, findIndex } from "lodash";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
 import { isValidNumberString } from "../../../../helpers/utils";
@@ -12,19 +12,21 @@ import {
     ModalFooter,
 } from "../../../../component/Common/modal";
 import { ErrorMessage } from "../../../../helpers/textUtils";
+import { useEffect } from "react";
 
 export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
-    const [isValid, setIsValid] = useState(true);
     const dispatch = useDispatch();
-    const ingredientLots = useSelector((state) => {
-        return state.MaterialLots.stock.filter((ml) => {
-            return ml.material.materialClass.id === 1;
-        });
+
+    const { error, loading } = useSelector((state) => {
+        return state.Batch.Batch;
     });
 
-    const allMaterialPortions = useSelector((state) => {
-        return state.Batch.MaterialPortions.content;
-    });
+    useEffect(() => {
+        if (!loading && !error) {
+            afterSave();
+            setShow(false);
+        }
+    }, [loading, error]);
 
     return (
         <Modal
@@ -36,39 +38,16 @@ export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
             }}
         >
             <ModalBody>
-                {!isValid && (
-                    <ErrorMessage
-                        message="Ingredient's quantity is too big!"
-                        color="danger"
-                    />
+                {error && (
+                    <ErrorMessage message={error.message} color={error.color} />
                 )}
                 <BatchIngredients mixture={mixture} />
             </ModalBody>
             <ModalFooter>
                 <Button
                     color="primary"
-                    onClick={() => {
-                        let isValid = true;
-                        allMaterialPortions.forEach((materialPortion) => {
-                            const ingredient = find(ingredientLots, {
-                                materialLot: {
-                                    id: materialPortion.materialLot.id,
-                                },
-                            });
-                            if (
-                                ingredient.quantity.value <
-                                materialPortion.quantity.value
-                            ) {
-                                isValid = false;
-                            }
-                        });
-                        if (isValid) {
-                            dispatch(editBatch());
-                            afterSave();
-                            setShow(false);
-                        } else {
-                            setIsValid(false);
-                        }
+                    onClick={async () => {
+                        await dispatch(editBatch());
                     }}
                 >
                     Save
