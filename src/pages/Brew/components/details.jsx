@@ -28,15 +28,11 @@ import {
 } from "../../../helpers/utils";
 import { Card, CardBody } from "../../../component/Common/Card";
 import TooltipButton from "../../../component/Common/tooltip-button";
-import { ErrorMessage, formatDatetime } from "../../../helpers/textUtils";
+import { formatDatetime } from "../../../helpers/textUtils";
 import { Modal, ModalBody, ModalFooter } from "../../../component/Common/modal";
 import { StageHeader } from "./common/stage";
 import StageIngredients from "./common/stage-ingredients";
 import { IngredientsDoughnut } from "./common/charts";
-import Toolbar from "./toolbar";
-import BrewMiniCard from "./mini-card";
-import { useHistory } from "react-router-dom";
-import BatchPeople from "./people";
 
 function BatchDetailsModal({ show, setShow, afterSave }) {
     const dispatch = useDispatch();
@@ -285,12 +281,7 @@ export default function BatchDetails(props) {
     const query = useQuery();
     const tab = query.get("tab");
 
-    const {
-        data: batch,
-        initial: initialBatch,
-        error,
-        loading,
-    } = useSelector((state) => {
+    const { data: batch } = useSelector((state) => {
         return state.Batch.Batch;
     });
 
@@ -314,8 +305,6 @@ export default function BatchDetails(props) {
                 mp.materialLot.invoiceItem.material.category?.name !== "Hop"
         );
     });
-
-    const history = useHistory();
 
     useEffect(() => {
         setTimeout(() => {

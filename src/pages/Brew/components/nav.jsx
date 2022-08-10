@@ -1,18 +1,8 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Nav, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
-import { Badge } from "./common/badge";
 
 export default function BrewNav({ activeTab, setActiveTab }) {
-    const mashStages = useSelector((state) => {
-        return state.Batch.Stages.initial.filter((s) => s.task.id === 1);
-    });
-
-    const fermentStages = useSelector((state) => {
-        return state.Batch.Stages.initial.filter((s) => s.task.id === 7);
-    });
-
     function navToTab(tab) {
         setActiveTab(tab);
     }
