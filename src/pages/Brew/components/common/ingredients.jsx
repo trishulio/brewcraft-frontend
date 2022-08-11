@@ -54,6 +54,7 @@ export default function BatchIngredients({ mixture }) {
     const [lots, setLots] = useState([]);
     const [selectedLot, setSelectedLot] = useState("");
     const [selectedLotQuantity, setSelectedLotQuantity] = useState(0);
+    const [selectedQuantityUnit, setSelectedQuantityUnit] = useState("");
     const dispatch = useDispatch();
 
     const { editable } = useSelector((state) => {
@@ -74,6 +75,10 @@ export default function BatchIngredients({ mixture }) {
 
     const allMaterialPortions = useSelector((state) => {
         return state.Batch.MaterialPortions.content;
+    });
+
+    const quantityUnits = useSelector((state) => {
+        return state.QuantityUnits.data;
     });
 
     return (
@@ -209,6 +214,28 @@ export default function BatchIngredients({ mixture }) {
                         />
                         <FormFeedback>Enter a valid number.</FormFeedback>
                     </FormGroup>
+                    <FormGroup className="d-block d-sm-inline-block mr-2 mb-0">
+                        <Input
+                            type="select"
+                            className="waves-effect"
+                            style={{ width: "10rem" }}
+                            value={selectedQuantityUnit}
+                            onChange={(e) => {
+                                setSelectedQuantityUnit(e.target.value);
+                            }}
+                        >
+                            <option value="">unit</option>
+                            {quantityUnits.map((quantityUnit) => (
+                                <option
+                                    key={quantityUnit.symbol}
+                                    value={quantityUnit.symbol}
+                                >
+                                    {quantityUnit.symbol}
+                                </option>
+                            ))}
+                        </Input>
+                        <FormFeedback>Enter a valid unit.</FormFeedback>
+                    </FormGroup>
                     <Button
                         className="waves-effect mr-2 mb-0"
                         onClick={() => {
@@ -251,8 +278,7 @@ export default function BatchIngredients({ mixture }) {
                                             {
                                                 ...selectedLot,
                                                 quantity: {
-                                                    symbol: selectedLot.quantity
-                                                        .symbol,
+                                                    symbol: selectedQuantityUnit.symbol,
                                                     value: parseFloat(
                                                         selectedLotQuantity
                                                     ),
