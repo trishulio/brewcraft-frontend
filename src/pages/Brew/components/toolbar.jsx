@@ -32,7 +32,7 @@ export default function Toolbar({ onDelete }) {
                 className="d-inline-block align-middle mr-3"
                 isMulti={false}
                 name="brewMonitorId"
-                value={
+                defaultValue={
                     batch.id && {
                         id,
                         label: `Brew ${batch.id} - ${batch.product.name}`,

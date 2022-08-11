@@ -28,15 +28,11 @@ import {
 } from "../../../helpers/utils";
 import { Card, CardBody } from "../../../component/Common/Card";
 import TooltipButton from "../../../component/Common/tooltip-button";
-import { ErrorMessage, formatDatetime } from "../../../helpers/textUtils";
+import { formatDatetime } from "../../../helpers/textUtils";
 import { Modal, ModalBody, ModalFooter } from "../../../component/Common/modal";
 import { StageHeader } from "./common/stage";
 import StageIngredients from "./common/stage-ingredients";
 import { IngredientsDoughnut } from "./common/charts";
-import Toolbar from "./toolbar";
-import BrewMiniCard from "./mini-card";
-import { useHistory } from "react-router-dom";
-import BatchPeople from "./people";
 
 function BatchDetailsModal({ show, setShow, afterSave }) {
     const dispatch = useDispatch();
@@ -277,7 +273,7 @@ function BatchDetailsModal({ show, setShow, afterSave }) {
     );
 }
 
-export default function BatchDetails(props) {
+export default function BatchDetails() {
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
     const [show, setShow] = useState(false);
     const [toggleCharts, setToggleCharts] = useState(false);
@@ -285,12 +281,7 @@ export default function BatchDetails(props) {
     const query = useQuery();
     const tab = query.get("tab");
 
-    const {
-        data: batch,
-        initial: initialBatch,
-        error,
-        loading,
-    } = useSelector((state) => {
+    const { data: batch } = useSelector((state) => {
         return state.Batch.Batch;
     });
 
@@ -314,8 +305,6 @@ export default function BatchDetails(props) {
                 mp.materialLot.invoiceItem.material.category?.name !== "Hop"
         );
     });
-
-    const history = useHistory();
 
     useEffect(() => {
         setTimeout(() => {
@@ -421,11 +410,7 @@ export default function BatchDetails(props) {
                                 <StageIngredients
                                     lotPortions={maltPortions}
                                     chart={
-                                        <div
-                                            style={{
-                                                maxWidth: "180px",
-                                            }}
-                                        >
+                                        <div style={{ maxWidth: "180px" }}>
                                             <IngredientsDoughnut
                                                 materialLots={maltPortions}
                                             />
@@ -440,11 +425,7 @@ export default function BatchDetails(props) {
                                 <StageIngredients
                                     lotPortions={hopPortions}
                                     chart={
-                                        <div
-                                            style={{
-                                                maxWidth: "180px",
-                                            }}
-                                        >
+                                        <div style={{ maxWidth: "180px" }}>
                                             <IngredientsDoughnut
                                                 materialLots={hopPortions}
                                             />
@@ -459,11 +440,7 @@ export default function BatchDetails(props) {
                                 <StageIngredients
                                     lotPortions={otherPortions}
                                     chart={
-                                        <div
-                                            style={{
-                                                maxWidth: "180px",
-                                            }}
-                                        >
+                                        <div style={{ maxWidth: "180px" }}>
                                             <IngredientsDoughnut
                                                 materialLots={otherPortions}
                                             />
@@ -478,7 +455,6 @@ export default function BatchDetails(props) {
                     </Collapse>
                 </CardBody>
             </Card>
-
             <BatchDetailsModal
                 show={show}
                 setShow={setShow}

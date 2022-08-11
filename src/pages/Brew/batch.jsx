@@ -128,7 +128,7 @@ export default function Batch(props) {
                         <Toolbar />
                     </div>
                     {mashMixtures.map((mixture, index) => (
-                        <Card>
+                        <Card key={mixture.id}>
                             <CardBody
                                 className="px-2 px-sm-3"
                                 isLoading={loading}
@@ -143,7 +143,7 @@ export default function Batch(props) {
                     ))}
                     {fermentMixtures.map((mixture, index) => {
                         return (
-                            <Card>
+                            <Card key={mixture.id}>
                                 <CardBody
                                     className="px-2 px-sm-3"
                                     isLoading={loading}

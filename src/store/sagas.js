@@ -42,6 +42,7 @@ import RawMaterials from "./RawMaterials/saga";
 import User from "./User/saga";
 import Users from "./Users/saga";
 import UserRoles from "./UserRoles/saga";
+import QuantityUnits from "./QuantityUnits/saga";
 
 export default function* rootSaga() {
     yield all([
@@ -88,5 +89,6 @@ export default function* rootSaga() {
         User(),
         Users(),
         UserRoles(),
+        QuantityUnits(),
     ]);
 }
