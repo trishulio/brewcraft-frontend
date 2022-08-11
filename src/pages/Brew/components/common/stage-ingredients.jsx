@@ -9,7 +9,6 @@ export default function StageIngredients({
     chart,
     toggleCharts,
 }) {
-    console.log(lotPortions);
     return (
         <React.Fragment>
             <h4 className="waves-effect">{title}</h4>
