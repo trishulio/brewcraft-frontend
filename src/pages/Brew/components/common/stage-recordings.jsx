@@ -16,6 +16,14 @@ export default function StageRecordings({
             {!!chart && toggleCharts && !!recordings.length && chart}
             {(!toggleCharts || !recordings.length) && (
                 <CommonTable>
+                    {!!recordings.length && (
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                    )}
                     <tbody>
                         {!recordings.length && (
                             <tr>
@@ -24,10 +32,10 @@ export default function StageRecordings({
                         )}
                         {map(recordings, (recording, index) => (
                             <tr key={index}>
-                                <td>{formatDatetime(recording.recordedAt)}</td>
-                                <td className="text-right">
-                                    {recording.value}
+                                <td className="text-left">
+                                    {formatDatetime(recording.recordedAt)}
                                 </td>
+                                <td className="text-left">{recording.value}</td>
                             </tr>
                         ))}
                     </tbody>
