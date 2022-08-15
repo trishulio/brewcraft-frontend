@@ -84,7 +84,8 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                 break;
             case "purchaseInvoiceItemQuantitySymbol":
                 itemsNew[indexv].invoiceItem.quantity.symbol = e.target.value;
-                itemsNew[indexv].invoiceItem.invalidQuantitySymbol = !e.target.value;
+                itemsNew[indexv].invoiceItem.invalidQuantitySymbol =
+                    !e.target.value;
                 break;
             case "purchaseInvoiceItemPrice":
                 itemsNew[indexv].invoiceItem.price.amount = e.target.value;
@@ -267,29 +268,33 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                     <Col xs="1">
                         {editable && (
                             <FormGroup hidden={!editable}>
-                            <Input
-                                type="select"
-                                name="purchaseInvoiceItemQuantitySymbol"
-                                disabled={!editable}
-                                invalid={item.invoiceItem.invalidQuantitySymbol}
-                                value={item.invoiceItem.quantity?.symbol || ""}
-                                onChange={(e) => {
-                                    changeevent(e);
-                                }}
-                            >
-                                <option disabled hidden value=""></option>
-                                <option value="each">each</option>
-                                <option value="mg">mg</option>
-                                <option value="g">g</option>
-                                <option value="kg">kg</option>
-                                <option value="ml">ml</option>
-                                <option value="l">l</option>
-                                <option value="hl">hl</option>
-                            </Input>
-                            <FormFeedback>
-                                Enter a valid unit of measure.
-                            </FormFeedback>
-                        </FormGroup>
+                                <Input
+                                    type="select"
+                                    name="purchaseInvoiceItemQuantitySymbol"
+                                    disabled={!editable}
+                                    invalid={
+                                        item.invoiceItem.invalidQuantitySymbol
+                                    }
+                                    value={
+                                        item.invoiceItem.quantity?.symbol || ""
+                                    }
+                                    onChange={(e) => {
+                                        changeevent(e);
+                                    }}
+                                >
+                                    <option disabled hidden value=""></option>
+                                    <option value="each">each</option>
+                                    <option value="mg">mg</option>
+                                    <option value="g">g</option>
+                                    <option value="kg">kg</option>
+                                    <option value="ml">ml</option>
+                                    <option value="l">l</option>
+                                    <option value="hl">hl</option>
+                                </Input>
+                                <FormFeedback>
+                                    Enter a valid unit of measure.
+                                </FormFeedback>
+                            </FormGroup>
                         )}
                         <div hidden={editable}>
                             {item.invoiceItem.quantity.symbol || "-"}
@@ -326,11 +331,14 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                     name="purchaseInvoiceItemPstTax"
                                     style={
                                         !pstGstEnabled
-                                            ? { width: "70%", backgroundColor: "lightGrey" }
+                                            ? {
+                                                  width: "70%",
+                                                  backgroundColor: "lightGrey",
+                                              }
                                             : { width: "70%" }
                                     }
                                     disabled={!pstGstEnabled}
-                                    value={ pstRate || ""}
+                                    value={pstRate || ""}
                                     onChange={changeevent}
                                     invalid={item.invoiceItem.invalidPstTax}
                                     data-testid="purchase-invoice-item-pst-tax"
@@ -352,7 +360,10 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                     name="purchaseInvoiceItemGstTax"
                                     style={
                                         !pstGstEnabled
-                                            ? { width: "70%", backgroundColor: "lightGrey" }
+                                            ? {
+                                                  width: "70%",
+                                                  backgroundColor: "lightGrey",
+                                              }
                                             : { width: "70%" }
                                     }
                                     disabled={!pstGstEnabled}
@@ -385,13 +396,18 @@ export default function PurchaseInvoiceItem({ indexv, editable }) {
                                             name="purchaseInvoiceItemHstTax"
                                             style={
                                                 !hstEnabled
-                                                    ? { backgroundColor: "lightGrey" }
+                                                    ? {
+                                                          backgroundColor:
+                                                              "lightGrey",
+                                                      }
                                                     : null
                                             }
                                             disabled={!hstEnabled}
                                             value={hstRate || ""}
                                             onChange={changeevent}
-                                            invalid={item.invoiceItem.invalidHstTax}
+                                            invalid={
+                                                item.invoiceItem.invalidHstTax
+                                            }
                                             data-testid="purchase-invoice-item-hst-tax"
                                         />
                                         <FormFeedback>
