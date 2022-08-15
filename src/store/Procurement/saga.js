@@ -183,6 +183,7 @@ function* createPurchaseInvoiceGenerator(action) {
                     ...items[index],
                     invalidMaterial: !validId(value.material.id),
                     invalidQuantity: !validAmount(value.quantity.value),
+                    invalidQuantitySymbol: !value.quantity.symbol,
                     invalidPrice: !validAmount(value.price.amount),
                     invalidPstTax: noTaxRatesSet,
                     invalidGstTax: noTaxRatesSet,
@@ -416,6 +417,8 @@ function* createProcurementGenerator(action) {
                             value.invoiceItem.description.length === 0,
                         invalidMaterial: !validId(value.invoiceItem.materialId),
                         invalidQuantity: !value.invoiceItem.quantity.value,
+                        invalidQuantitySymbol:
+                            !value.invoiceItem.quantity.symbol,
                         invalidPrice: !value.invoiceItem.price.amount,
                         invalidPstTax: noTaxRatesSet,
                         invalidGstTax: noTaxRatesSet,
@@ -554,6 +557,8 @@ function* updateProcurementGenerator(action) {
                         invalidQuantity: !validAmount(
                             value.invoiceItem.quantity.value
                         ),
+                        invalidQuantitySymbol:
+                            !value.invoiceItem.quantity.symbol,
                         invalidPrice: !validAmount(
                             value.invoiceItem.price.amount
                         ),
