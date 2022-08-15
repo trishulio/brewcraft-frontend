@@ -30,7 +30,6 @@ After performing authentication, the request reaches the view layer of the appli
 
 - The view returns the response object untouched.
 
-
  # Terminology:
 
 - Data Transfer Object (DTO): The payload object with only data. (Can be serialized into and from JSON string)
