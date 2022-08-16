@@ -1,2 +1,27 @@
+# Enable CORS
+https://brewcraft.io/*
+  Access-Control-Allow-Origin: https://static.brewcraft.io
+
+https://:env.brewcraft.io/*
+  Access-Control-Allow-Origin: https://:env-static.brewcraft.io
+
+# Preventing indexing of the static assets
+
+https://fuzzy-potato.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:commit.fuzzy-potato.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://static.brewcraft.io/*
+  X-Robots-Tag: noindex
+
+https://:env-static.brewcraft.io/*
+  X-Robots-Tag: noindex
+
+# Security
+
 /static/*
-  Access-Control-Allow-Origin: *
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer

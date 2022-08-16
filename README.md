@@ -45,14 +45,9 @@ echo '
   }
 ' > cypress.env.json
 
-
 ## Run
 
 ```
 npm run start cypress:open
-
-
-
-
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
