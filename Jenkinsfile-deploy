@@ -3,14 +3,15 @@ pipeline {
         label 'docker'
     }
 
+    environment {
+        HOST_WORKSPACE = env.WORKSPACE.replaceFirst(env.WORKSPACE_HOME, env.HOST_WORKSPACE_HOME)
+    }
+
     parameters {
+        string(name: 'initialDelay', defaultValue: '0', description: 'Wait for N minutes before deploying')
         string(name: 'branch', defaultValue: 'master', description: 'Branch to deploy')
         choice(name: 'environment', choices: ['staging', 'production'], description: 'Environment to deploy to')
         booleanParam(name: 'rollingUpdate', defaultValue: true, description: 'Setting to false will first uninstall the existing deployment and then perform a fresh install. In most cases, you don\'t need this.')
-    }
-
-    triggers {
-        cron('H */4 * * *')
     }
 
     stages {
@@ -43,7 +44,7 @@ pipeline {
                     VALUES_FILE = envConfig['valuesFile'];
                     NAMESPACE = envConfig['namespace'];
 
-                    INDEX_URL = params.branch == 'release' ? "https://fuzzy-potato.pages.dev/" : "https://${params.branch}.fuzzy-potato.pages.dev/dashboard";
+                    INDEX_URL = params.branch == 'release' ? "https://fuzzy-potato.pages.dev/" : "https://${params.branch}.fuzzy-potato.pages.dev/";
                 }
             }
         }
@@ -61,14 +62,25 @@ pipeline {
             }
         }
 
+        stage('Waiting') {
+            steps {
+                script {
+                    sh """
+                        sleep ${params.initialDelay}m
+                    """
+                }
+            }
+        }
+
         stage('Undeploy') {
             when {
                 expression { !params.rollingUpdate }
             }
 
             steps {
+                // Hack: The sibling container mounts on the host and therefore the mount path needs to be relative to the host, not the parent container. PWD and HOME are manipulated to be relative to the host.
                 sh """
-                    make undeploy PWD='${env.WORKSPACE.replaceFirst(env.WORKSPACE_HOME, env.HOST_WORKSPACE_HOME)}' HOME='${env.WORKSPACE.replaceFirst(env.WORKSPACE_HOME, env.HOST_WORKSPACE_HOME)}' NAMESPACE=${NAMESPACE}
+                    make undeploy PWD=${HOST_WORKSPACE} HOME='${HOST_WORKSPACE}' NAMESPACE=${NAMESPACE}
                 """
             }
         }
@@ -77,7 +89,7 @@ pipeline {
             steps {
                 // Hack: The sibling container mounts on the host and therefore the mount path needs to be relative to the host, not the parent container. PWD and HOME are manipulated to be relative to the host.
                 sh """
-                    make deploy PWD='${env.WORKSPACE.replaceFirst(env.WORKSPACE_HOME, env.HOST_WORKSPACE_HOME)}' HOME='${env.WORKSPACE.replaceFirst(env.WORKSPACE_HOME, env.HOST_WORKSPACE_HOME)}' VALUES_FILE=${VALUES_FILE} NAMESPACE=${NAMESPACE} INDEX_URL=${INDEX_URL}
+                    make deploy PWD='${HOST_WORKSPACE}' HOME='${HOST_WORKSPACE}' VALUES_FILE=${VALUES_FILE} NAMESPACE=${NAMESPACE} INDEX_URL=${INDEX_URL}
                 """
             }
         }
