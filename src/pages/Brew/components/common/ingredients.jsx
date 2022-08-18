@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { map, findIndex } from "lodash";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
@@ -51,7 +51,7 @@ export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
                     }}
                 >
                     Save
-                </Button>{" "}
+                </Button>
                 <Button
                     onClick={() => {
                         setShow(false);
@@ -69,6 +69,8 @@ export default function BatchIngredients({ mixture }) {
     const [lots, setLots] = useState([]);
     const [selectedLot, setSelectedLot] = useState("");
     const [selectedLotQuantity, setSelectedLotQuantity] = useState(0);
+    const [reducedAmounts, setReducedAmounts] = useState({});
+
     const dispatch = useDispatch();
 
     const { editable } = useSelector((state) => {
@@ -90,6 +92,80 @@ export default function BatchIngredients({ mixture }) {
     const allMaterialPortions = useSelector((state) => {
         return state.Batch.MaterialPortions.content;
     });
+
+    const isIngredientValid = useMemo(() => {
+        if (selectedLot?.quantity?.value) {
+            const value =
+                selectedLot?.quantity?.value -
+                (reducedAmounts[selectedLot.materialLot.id] ?? 0);
+            return !(value < selectedLotQuantity);
+        }
+        return true;
+    }, [selectedLot, selectedLotQuantity, reducedAmounts]);
+
+    const onChangeQuantityValue = (e) => {
+        setSelectedLotQuantity(e.target.value);
+
+        if (e.target.value > selectedLot)
+            if (!e.target.value) {
+                setInvalidQuantity(false);
+            } else {
+                setInvalidQuantity(!isValidNumberString(e.target.value));
+            }
+    };
+
+    const handleEnter = () => {
+        const materialPortionIndex = findIndex(materialPortions, {
+            materialLot: {
+                id: selectedLot.materialLot.id,
+            },
+        });
+
+        setReducedAmounts({
+            ...reducedAmounts,
+            [selectedLot.materialLot.id]:
+                (reducedAmounts[selectedLot.materialLot.id] ?? 0) +
+                parseInt(selectedLotQuantity),
+        });
+
+        if (materialPortionIndex !== -1) {
+            const tempAllMaterialPortions = [...allMaterialPortions];
+            const materialPortion = allMaterialPortions[materialPortionIndex];
+            tempAllMaterialPortions[materialPortionIndex] = {
+                ...materialPortion,
+                quantity: {
+                    ...materialPortion.quantity,
+                    value: (materialPortion.quantity.value +=
+                        parseFloat(selectedLotQuantity)),
+                },
+            };
+
+            if (selectedLot.quantity.value < 0) {
+            } else {
+                dispatch(
+                    setBrewMaterialPortions({
+                        content: tempAllMaterialPortions,
+                    })
+                );
+            }
+        } else {
+            dispatch(
+                setBrewMaterialPortions({
+                    content: [
+                        ...allMaterialPortions,
+                        {
+                            ...selectedLot,
+                            quantity: {
+                                symbol: selectedLot.quantity.symbol,
+                                value: parseFloat(selectedLotQuantity),
+                            },
+                            mixture: mixture,
+                        },
+                    ],
+                })
+            );
+        }
+    };
 
     return (
         <React.Fragment>
@@ -197,7 +273,9 @@ export default function BatchIngredients({ mixture }) {
                                     key={index}
                                 >
                                     {value.material.name} (
-                                    {value.quantity.value}
+                                    {value.quantity.value -
+                                        (reducedAmounts[value.materialLot.id] ??
+                                            0)}
                                     {value.quantity.symbol})
                                 </option>
                             ))}
@@ -207,79 +285,22 @@ export default function BatchIngredients({ mixture }) {
                     <FormGroup className="d-block d-sm-inline-block mr-2 mb-0">
                         <Input
                             type="text"
-                            className="waves-effect"
+                            className={"waves-effect"}
                             style={{ width: "8rem" }}
                             value={selectedLotQuantity}
-                            invalid={invalidQuantity}
-                            onChange={(e) => {
-                                setSelectedLotQuantity(e.target.value);
-                                if (!e.target.value) {
-                                    setInvalidQuantity(false);
-                                } else {
-                                    setInvalidQuantity(
-                                        !isValidNumberString(e.target.value)
-                                    );
-                                }
-                            }}
+                            invalid={invalidQuantity || !isIngredientValid}
+                            onChange={onChangeQuantityValue}
                         />
                         <FormFeedback>Enter a valid number.</FormFeedback>
                     </FormGroup>
                     <Button
                         className="waves-effect mr-2 mb-0"
-                        onClick={() => {
-                            const materialPortionIndex = findIndex(
-                                materialPortions,
-                                {
-                                    materialLot: {
-                                        id: selectedLot.materialLot.id,
-                                    },
-                                }
-                            );
-
-                            if (materialPortionIndex !== -1) {
-                                const tempAllMaterialPortions = [
-                                    ...allMaterialPortions,
-                                ];
-                                const materialPortion =
-                                    allMaterialPortions[materialPortionIndex];
-                                tempAllMaterialPortions[materialPortionIndex] =
-                                    {
-                                        ...materialPortion,
-                                        quantity: {
-                                            ...materialPortion.quantity,
-                                            value: (materialPortion.quantity.value +=
-                                                parseFloat(
-                                                    selectedLotQuantity
-                                                )),
-                                        },
-                                    };
-                                dispatch(
-                                    setBrewMaterialPortions({
-                                        content: tempAllMaterialPortions,
-                                    })
-                                );
-                            } else {
-                                dispatch(
-                                    setBrewMaterialPortions({
-                                        content: [
-                                            ...allMaterialPortions,
-                                            {
-                                                ...selectedLot,
-                                                quantity: {
-                                                    symbol: selectedLot.quantity
-                                                        .symbol,
-                                                    value: parseFloat(
-                                                        selectedLotQuantity
-                                                    ),
-                                                },
-                                                mixture: mixture,
-                                            },
-                                        ],
-                                    })
-                                );
-                            }
-                        }}
-                        disabled={!selectedLot || !selectedLotQuantity}
+                        onClick={handleEnter}
+                        disabled={
+                            !selectedLot ||
+                            !selectedLotQuantity ||
+                            !isIngredientValid
+                        }
                     >
                         Enter
                     </Button>

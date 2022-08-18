@@ -2,7 +2,7 @@
     "name": "brewcraft-ui",
     "version": "0.1.0",
     "private": true,
-    "proxy": "https://brewcraft.io/",
+    "proxy": "https://staging.brewcraft.io",
     "babel": {},
     "dependencies": {
         "@fullcalendar/bootstrap": "^4.4.2",
