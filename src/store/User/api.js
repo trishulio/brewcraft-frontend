@@ -9,7 +9,7 @@ async function fetchUserById(id) {
 async function postUser(data) {
     return await AxiosInstance.post("/api/v1/users", [data]).then((r) => r);
 }
-async function putUser(id, data) {
+async function putUser(data) {
     return await AxiosInstance.put(`/api/v1/users/`, [data]).then((r) => r);
 }
 

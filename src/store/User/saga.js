@@ -43,11 +43,7 @@ function* createUserGenerator(action) {
 
 function* udpateUserGenerator(action) {
     try {
-        const res = yield call(
-            api.putUser,
-            get(action, "payload.id"),
-            get(action, "payload.form")
-        );
+        const res = yield call(api.putUser, get(action, "payload.form"));
         yield put({
             type: SET_USER_DETAILS,
             payload: { data: res.data[0], initial: res.data[0] },
