@@ -15,20 +15,20 @@ REACT_APP_USER_POOL_WEB_CLIENT_ID=5jtpovtf41orn9hs35qt5ovnal
 REACT_APP_USER_POOL_DOMAIN=staging-brewcraft.auth.ca-central-1.amazoncognito.com
 " > .env
 
-npm install
+yarn
 ```
 
 ## Run
 ```
-npm run start
+yarn start
 
 # start on http://localhost:3000
 ```
 
 ## Auth
 ```
-user: admin@brewcraft.io
-password: Password123$
+user: tenant_admin
+password: Freebeer1
 ```
 
 ## Cypress Test
@@ -48,6 +48,6 @@ echo '
 ## Run
 
 ```
-npm run start cypress:open
+yarn cypress:open
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
