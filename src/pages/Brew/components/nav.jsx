@@ -40,6 +40,38 @@ export default function BrewNav({ activeTab, setActiveTab }) {
                             <span>Stages</span>
                         </NavLink>
                     </NavItem>
+                    <NavItem
+                        key="materials"
+                        className="waves-effect waves-light"
+                    >
+                        <NavLink
+                            style={{ cursor: "pointer" }}
+                            className={classnames({
+                                active: activeTab === "materials",
+                            })}
+                            onClick={() => {
+                                navToTab("materials");
+                            }}
+                        >
+                            <span>Materials</span>
+                        </NavLink>
+                    </NavItem>
+                    <NavItem
+                        key="finished-goods"
+                        className="waves-effect waves-light"
+                    >
+                        <NavLink
+                            style={{ cursor: "pointer" }}
+                            className={classnames({
+                                active: activeTab === "finished-goods",
+                            })}
+                            onClick={() => {
+                                navToTab("finished-goods");
+                            }}
+                        >
+                            <span>Finished Goods</span>
+                        </NavLink>
+                    </NavItem>
                 </Nav>
             </div>
         </React.Fragment>
