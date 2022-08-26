@@ -23,6 +23,10 @@ function FilterBarEquipment() {
         { id: "6", name: "Whirl Pool" },
         { id: "7", name: "Barrel" },
         { id: "8", name: "Brite Tank" },
+        { id: "9", name: "Mash Lauter Tun" },
+        { id: "10", name: "Mash" },
+        { id: "11", name: "Lauter Tun" },
+        { id: "12", name: "Conditioner" },
     ];
 
     const EquipmentTypeFilterData = [
