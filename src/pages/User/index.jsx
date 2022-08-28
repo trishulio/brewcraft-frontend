@@ -177,8 +177,8 @@ export default function User() {
         if (user.id) {
             dispatch(
                 updateUser({
-                    id: user.id,
                     form: {
+                        id: user.id,
                         userName:
                             user.userName?.trim().length > 0
                                 ? user.userName

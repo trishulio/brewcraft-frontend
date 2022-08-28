@@ -53,6 +53,22 @@ export default function EquipmentDetails({ editable }) {
             id: 8,
             name: "Brite Tank",
         },
+        {
+            id: 9,
+            name: "Mash Lauter Tun",
+        },
+        {
+            id: 10,
+            name: "Mash",
+        },
+        {
+            id: 11,
+            name: "Lauter Tun",
+        },
+        {
+            id: 12,
+            name: "Conditioner",
+        },
     ];
 
     function onFormInputChange(e) {

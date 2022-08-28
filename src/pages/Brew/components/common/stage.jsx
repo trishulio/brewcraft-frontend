@@ -37,22 +37,14 @@ export function StageHeader({ title, toolbar, toggleIsOpen }) {
                 background: "none",
                 borderBottom: "solid 1px #6c757d",
             }}
-            className="pb-0 pl-0 m-0 mx-3"
+            className="p-0 m-0 mx-2"
         >
-            {toggleIsOpen ? (
-                <div className="float-left">
-                    <h2
-                        className="waves-effect m-0 p-0"
-                        onClick={() => toggleIsOpen()}
-                    >
-                        {title}
-                    </h2>
-                </div>
-            ) : (
-                <h2 className="d-inline-block m-0 p-0">{title}</h2>
-            )}
-            <div className="float-right">
-                <div className="mb-3">{toolbar}</div>
+            <div className="d-flex align-items-center mb-2">
+                <h2 className="waves-effect m-0 p-0" onClick={toggleIsOpen}>
+                    {title}
+                </h2>
+                <div className="flex-grow-1"></div>
+                {toolbar}
             </div>
         </CardHeader>
     );

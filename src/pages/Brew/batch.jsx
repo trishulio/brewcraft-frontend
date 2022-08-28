@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Button, Col, Row, TabContent, TabPane } from "reactstrap";
 import { setBatchDetails } from "../../store/actions";
 import { Card, CardBody } from "../../component/Common/Card";
@@ -8,6 +8,7 @@ import BatchDetails from "./components/details";
 import Toolbar from "./components/toolbar";
 import BatchPeople from "./components/people";
 // import BatchComments from "./components/comments";
+import Select from "react-select";
 import BatchFileUploads from "./components/uploads";
 import { ErrorMessage } from "../../helpers/textUtils";
 import Nav from "./components/nav";
@@ -36,6 +37,7 @@ function CellarTab({ indexv, fermentMixture }) {
 }
 
 export default function Batch(props) {
+    const { id } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
     const {
@@ -45,6 +47,10 @@ export default function Batch(props) {
         loading,
     } = useSelector((state) => {
         return state.Batch.Batch;
+    });
+
+    const batches = useSelector((state) => {
+        return state.Batches.content;
     });
 
     const mashMixtures = useSelector((state) => {
@@ -62,7 +68,43 @@ export default function Batch(props) {
     return (
         <React.Fragment>
             {!!error && <ErrorMessage {...error} />}
-            <div className="mb-3">
+            <div
+                className="d-flex align-items-center flex-wrap mb-3"
+                style={{ gap: "0.75rem 0" }}
+            >
+                <Select
+                    className="d-inline-block align-middle mr-3"
+                    isMulti={false}
+                    name="brewMonitorId"
+                    value={
+                        batch.id && {
+                            id,
+                            label: `Brew ${batch.id} - ${batch.product.name}`,
+                        }
+                    }
+                    placeholder="Select Batch .."
+                    options={batches.map((b) => ({
+                        value: b.id,
+                        label: `Brew ${b.id} - ${b.product.name}`,
+                    }))}
+                    onChange={(e) => {
+                        history.push({
+                            pathname: "/brews/" + e.value,
+                            search: "?edit=true",
+                        });
+                    }}
+                    styles={{
+                        control: (styles) => ({
+                            ...styles,
+                            width: "20rem",
+                            maxWidth: "20rem",
+                            "@media screen and (max-width: 750px)": {
+                                width: "100%",
+                            },
+                        }),
+                    }}
+                    enabled={batch.id}
+                />
                 <Nav
                     activeTab={props.activeTab}
                     setActiveTab={props.setActiveTab}
@@ -117,6 +159,15 @@ export default function Batch(props) {
                                         }}
                                     >
                                         Cancel
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        color="danger"
+                                        className="waves-effect d-inline align-middle mr-2"
+                                        onClick={props.onDelete}
+                                    >
+                                        <i className="fa fa-minus-circle"></i>{" "}
+                                        Delete Brew
                                     </Button>
                                 </CardBody>
                             </Card>
