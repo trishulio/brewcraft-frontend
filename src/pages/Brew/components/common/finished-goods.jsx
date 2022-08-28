@@ -5,7 +5,7 @@ import { Button, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
 import { editBatch, fetchSkus } from "../../../../store/actions";
 import { formatDatetime, prettyVolume } from "../../../../helpers/textUtils";
-import FinishedGoodModal from "../../../../component/FinishedGoods";
+import FinishedGoodModal from "../../../../component/FinishedGoodsModal";
 import { setBatchFinishedGoods } from "../../../../store/BatchFinishedGoods/actions";
 import {
     Modal,
@@ -53,36 +53,20 @@ export function FinishedGoodsModal({ show, setShow, afterSave, mixture }) {
 export default function FinishedGoods({ mixture }) {
     const initialFinishedGood = {
         id: "",
-        sku: {
-            name: "",
-            quantity: {
-                symbol: "",
-                value: null,
-            },
-        },
-        mixturePortions: [
-            {
-                mixture,
-            },
-        ],
+        mixturePortions: [],
         materialPortions: [],
-        finishedGoodLotPortions: [],
         quantity: {
             symbol: "",
             value: null,
         },
         packagedOn: null,
     };
-    const [items, setItems] = useState([]);
     const [finishedGood, setFinishedGood] = useState(initialFinishedGood);
+    const [items, setItems] = useState([]);
     const [editFinishedGood, setEditFinishedGood] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
     const dispatch = useDispatch();
-
-    const { editable } = useSelector((state) => {
-        return state.Batch.Batch;
-    });
 
     const finishedGoods = useSelector((state) => {
         return state.Batch.BatchFinishedGoods.content.filter(
@@ -90,37 +74,15 @@ export default function FinishedGoods({ mixture }) {
         );
     });
 
-    useEffect(() => {
-        dispatch(
-            fetchSkus({
-                pageSize: 500,
-            })
-        );
-        // eslint-disable-next-line
-    }, []);
-
     const modalProps = {
-        finishedGood,
+        finishedGood: finishedGood || initialFinishedGood,
         setFinishedGood,
         show: showModal,
-        editable: true,
-        repackage: false,
-        handleClose: () => {
+        onClose: () => {
             setShowModal(false);
         },
-        handleSave: () => {
+        onSave: () => {
             if (editFinishedGood) {
-                // const mp = finishedGood.mixturePortions.find(
-                //     (mp) => mp.addedAt === finishedGood.datetime
-                // );
-                // mp.quantity.value =
-                //     toL(mp.quantity.value, mp.quantity.symbol) +
-                //     toL(
-                //         finishedGood.sku.quantity.value,
-                //         finishedGood.sku.quantity.symbol
-                //     ) *
-                //         parseFloat(finishedGood.quantity);
-                // finishedGood.quantity.value += parseFloat(quantity);
                 const index = finishedGoods.findIndex((fg) => {
                     return fg.id === finishedGood.id;
                 });
@@ -138,6 +100,15 @@ export default function FinishedGoods({ mixture }) {
                             ...finishedGoods,
                             {
                                 ...finishedGood,
+                                mixturePortions: [
+                                    {
+                                        mixture,
+                                        quantity: {
+                                            value: finishedGood.quantity.value,
+                                            symbol: "hl",
+                                        },
+                                    },
+                                ],
                             },
                         ],
                     })
@@ -152,9 +123,9 @@ export default function FinishedGoods({ mixture }) {
             <Label>Packaged Items</Label>
             <CommonTable>
                 <thead>
+                    {console.log(finishedGoods)}
                     <tr>
                         <th></th>
-                        <th>SKU</th>
                         <th>Time</th>
                         <th>Total Vol.</th>
                         <th>Num. Units</th>
@@ -164,7 +135,6 @@ export default function FinishedGoods({ mixture }) {
                     {!finishedGoods.length && (
                         <tr>
                             <td></td>
-                            <td>-</td>
                             <td>-</td>
                             <td>-</td>
                             <td>-</td>
@@ -182,67 +152,52 @@ export default function FinishedGoods({ mixture }) {
                             >
                                 <td style={{ width: "2rem" }}>
                                     <div className="d-flex align-items-center vertical-center">
-                                        {editable && (
-                                            <Input
-                                                className="ml-1"
-                                                type="checkbox"
-                                                disabled={!editable}
-                                                onChange={(e) => {
-                                                    if (e.target.checked) {
-                                                        setItems([
-                                                            ...items,
-                                                            index,
-                                                        ]);
-                                                    } else {
-                                                        setItems(
-                                                            items.filter(
-                                                                (item) =>
-                                                                    item !==
-                                                                    index
-                                                            )
-                                                        );
-                                                    }
-                                                }}
-                                                checked={
-                                                    items.includes(index) &&
-                                                    editable
+                                        <Input
+                                            className="ml-1"
+                                            type="checkbox"
+                                            onChange={(e) => {
+                                                if (e.target.checked) {
+                                                    setItems([...items, index]);
+                                                } else {
+                                                    setItems(
+                                                        items.filter(
+                                                            (item) =>
+                                                                item !== index
+                                                        )
+                                                    );
                                                 }
-                                            />
-                                        )}
+                                            }}
+                                            checked={items.includes(index)}
+                                        />
                                     </div>
-                                </td>
-                                <td>
-                                    {finishedGood.sku.number} -{" "}
-                                    {finishedGood.sku.name}
                                 </td>
                                 <td>
                                     {formatDatetime(finishedGood.packagedOn)}
                                 </td>
                                 <td>
-                                    {prettyVolume(
-                                        finishedGood.mixturePortions[0].quantity
-                                            .value,
-                                        finishedGood.mixturePortions[0].quantity
-                                            .symbol
-                                    )}
+                                    {finishedGood.mixturePortions &&
+                                        prettyVolume(
+                                            finishedGood.mixturePortions[0]
+                                                .quantity.value,
+                                            finishedGood.mixturePortions[0]
+                                                .quantity.symbol
+                                        )}
                                 </td>
                                 <td>{finishedGood.quantity.value}</td>
                             </tr>
                         ))}
                 </tbody>
             </CommonTable>
-            {editable && (
-                <Button
-                    className="waves-effect mr-2"
-                    onClick={() => {
-                        setFinishedGood(initialFinishedGood);
-                        setEditFinishedGood(false);
-                        setShowModal(true);
-                    }}
-                >
-                    Add Item
-                </Button>
-            )}
+            <Button
+                className="waves-effect mr-2"
+                onClick={() => {
+                    setFinishedGood(initialFinishedGood);
+                    setEditFinishedGood(false);
+                    setShowModal(true);
+                }}
+            >
+                Add Item
+            </Button>
             {/* {editable && (
                 <Button
 

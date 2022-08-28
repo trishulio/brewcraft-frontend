@@ -44,6 +44,7 @@ function* fetchBatchFinishedGoodsGenerator(action) {
 }
 
 function* editFinishedGoodsGenerator() {
+    debugger;
     try {
         const { content: finishedGoods, initial } = yield select((state) => {
             return state.Batch.BatchFinishedGoods;
@@ -109,6 +110,7 @@ function* editFinishedGoodsGenerator() {
 }
 
 function* updateFinishedGoodsGenerator(action) {
+    debugger;
     try {
         const res = yield call(api.updateFinishedGoods, get(action, "payload"));
         yield put({
@@ -128,6 +130,7 @@ function* updateFinishedGoodsGenerator(action) {
 }
 
 function* deleteFinishedGoodsGenerator(action) {
+    debugger;
     try {
         const res = yield call(api.deleteFinishedGoods, get(action, "payload"));
         yield put({

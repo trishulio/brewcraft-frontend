@@ -273,7 +273,6 @@ export default function FinishedGoodDetails({
 
     return (
         <React.Fragment>
-            {console.log(finishedGood)}
             <Row>
                 <Col xs="2">
                     <Label for="name" className="mb-3">

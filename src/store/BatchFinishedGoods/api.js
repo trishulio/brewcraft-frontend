@@ -27,8 +27,8 @@ async function updateFinishedGoods(finishedGoods) {
     return await AxiosInstance.put(
         "/api/v1/finished-goods",
         finishedGoods.map((fg) => ({
-            id: fg.id,
-            skuId: fg.sku.id,
+            id: fg.id || undefined,
+            skuId: fg.sku?.id,
             mixturePortions: fg.mixturePortions.map((mp) => ({
                 id: mp.id,
                 mixtureId: mp.mixture.id,
@@ -42,12 +42,14 @@ async function updateFinishedGoods(finishedGoods) {
                 addedAt: mp.addedAt,
                 version: mp.version,
             })),
-            finishedGoodLotPortions: fg.finishedGoodLotPortions.map((lp) => ({
-                id: lp.id,
-                finishedGoodLotId: lp.id,
-                quantity: lp.quantity,
-                version: lp.version,
-            })),
+            finishedGoodLotPortions: fg.finishedGoodLotPortions
+                ? fg.finishedGoodLotPortions.map((lp) => ({
+                      id: lp.id,
+                      finishedGoodLotId: lp.id,
+                      quantity: lp.quantity,
+                      version: lp.version,
+                  }))
+                : [],
             quantity: fg.quantity,
             packagedOn: fg.packagedOn,
             version: fg.version,
