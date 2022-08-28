@@ -212,6 +212,17 @@ export function IngredientsBar(props) {
 
     const options = {
         responsive: true,
+        scales: {
+            yAxis: {
+                ticks: {
+                    callback: function (value) {
+                        return `${
+                            value + props.ingredients[0].quantity.symbol
+                        }`;
+                    },
+                },
+            },
+        },
         plugins: {
             legend: {
                 display: false,

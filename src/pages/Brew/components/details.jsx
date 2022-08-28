@@ -273,7 +273,7 @@ function BatchDetailsModal({ show, setShow, afterSave }) {
     );
 }
 
-export default function BatchDetails() {
+export default function BatchDetails(props) {
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
     const [show, setShow] = useState(false);
     const [toggleCharts, setToggleCharts] = useState(false);
@@ -410,7 +410,11 @@ export default function BatchDetails() {
                                 <StageIngredients
                                     lotPortions={maltPortions}
                                     chart={
-                                        <div style={{ maxWidth: "180px" }}>
+                                        <div
+                                            style={{
+                                                maxWidth: "180px",
+                                            }}
+                                        >
                                             <IngredientsDoughnut
                                                 materialLots={maltPortions}
                                             />
@@ -425,7 +429,11 @@ export default function BatchDetails() {
                                 <StageIngredients
                                     lotPortions={hopPortions}
                                     chart={
-                                        <div style={{ maxWidth: "180px" }}>
+                                        <div
+                                            style={{
+                                                maxWidth: "180px",
+                                            }}
+                                        >
                                             <IngredientsDoughnut
                                                 materialLots={hopPortions}
                                             />
@@ -440,7 +448,11 @@ export default function BatchDetails() {
                                 <StageIngredients
                                     lotPortions={otherPortions}
                                     chart={
-                                        <div style={{ maxWidth: "180px" }}>
+                                        <div
+                                            style={{
+                                                maxWidth: "180px",
+                                            }}
+                                        >
                                             <IngredientsDoughnut
                                                 materialLots={otherPortions}
                                             />
@@ -455,6 +467,7 @@ export default function BatchDetails() {
                     </Collapse>
                 </CardBody>
             </Card>
+
             <BatchDetailsModal
                 show={show}
                 setShow={setShow}

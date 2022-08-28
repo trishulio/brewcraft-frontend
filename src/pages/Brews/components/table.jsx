@@ -63,6 +63,7 @@ export default function BatchesTable() {
 
     return (
         <Table hover>
+            {console.log(batches)}
             <thead>
                 <tr>
                     <Th name="batchesBatchId" id="batchId" onSort={onSort}>
@@ -71,13 +72,13 @@ export default function BatchesTable() {
                     <Th name="batchesProduct" id="product" onSort={onSort}>
                         Product
                     </Th>
+                    <th>Assignee</th>
                     <Th name="batchesStartedAt" id="startedAt" onSort={onSort}>
                         Started
                     </Th>
                     <Th name="batchesEndedAt" id="endedAt" onSort={onSort}>
                         Ended
                     </Th>
-                    <th>Parent Batch</th>
                 </tr>
             </thead>
             <tbody>
@@ -93,15 +94,20 @@ export default function BatchesTable() {
                     >
                         <td>{batch.id}</td>
                         <td>{batch.product.name}</td>
+                        <td>
+                            {batch.assignedTo ? (
+                                <img
+                                    src={batch.assignedTo.imageSrc}
+                                    alt={batch.assignedTo.displayName}
+                                />
+                            ) : (
+                                "-"
+                            )}
+                        </td>
                         <td>{formatDatetime(batch.startedAt)}</td>
                         <td>
                             {batch.endedAt
                                 ? formatDatetime(batch.endedAt)
-                                : "-"}
-                        </td>
-                        <td>
-                            {batch.parentBatch
-                                ? batch.parentBatch.batchId
                                 : "-"}
                         </td>
                     </tr>

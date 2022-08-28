@@ -48,25 +48,8 @@ class CreateMenu extends Component {
                         >
                             Ingredient
                         </DropdownItem>
-                        <DropdownItem
-                            tag={Link}
-                            to="/inventory/finished-goods/new"
-                        >
-                            Finished Good
-                        </DropdownItem>
-                        <DropdownItem tag={Link} to="/products/new">
-                            Product
-                        </DropdownItem>
-                        <DropdownItem divider></DropdownItem>
                         <DropdownItem tag={Link} to="/purchases/invoices/new">
                             Purchase Invoice
-                        </DropdownItem>
-                        <DropdownItem tag={Link} to="/suppliers/new">
-                            Supplier
-                        </DropdownItem>
-                        <DropdownItem divider></DropdownItem>
-                        <DropdownItem tag={Link} to="/dashboard">
-                            Report
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>

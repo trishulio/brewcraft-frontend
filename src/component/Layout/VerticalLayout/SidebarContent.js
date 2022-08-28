@@ -368,7 +368,7 @@ class SidebarContent extends Component {
                                 <span>Users</span>
                             </Link>
                         </li>
-                        <li className="menu-title">beta v0.1.0</li>
+                        <li className="menu-title">{`Beta v${process.env.REACT_APP_VERSION}`}</li>
                     </ul>
                 </div>
             </React.Fragment>

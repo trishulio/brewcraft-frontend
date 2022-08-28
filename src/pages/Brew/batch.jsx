@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Button, Col, Row, TabContent, TabPane } from "reactstrap";
 import { setBatchDetails } from "../../store/actions";
 import { Card, CardBody } from "../../component/Common/Card";
@@ -8,6 +8,7 @@ import BatchDetails from "./components/details";
 import Toolbar from "./components/toolbar";
 import BatchPeople from "./components/people";
 // import BatchComments from "./components/comments";
+import Select from "react-select";
 import BatchFileUploads from "./components/uploads";
 import { ErrorMessage } from "../../helpers/textUtils";
 import Nav from "./components/nav";
@@ -36,6 +37,7 @@ function CellarTab({ indexv, fermentMixture }) {
 }
 
 export default function Batch(props) {
+    const { id } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
     const {
@@ -45,6 +47,10 @@ export default function Batch(props) {
         loading,
     } = useSelector((state) => {
         return state.Batch.Batch;
+    });
+
+    const batches = useSelector((state) => {
+        return state.Batches.content;
     });
 
     const mashMixtures = useSelector((state) => {
@@ -61,91 +67,149 @@ export default function Batch(props) {
 
     return (
         <React.Fragment>
-            <div className="mb-3">
-                <Toolbar {...props} />
-            </div>
-
             {!!error && <ErrorMessage {...error} />}
-            <BrewMiniCard />
-            <Row style={{ maxWidth: "120rem" }}>
-                <Col xl="8">
-                    <Card>
-                        <CardBody className="px-2 px-sm-3" isLoading={loading}>
-                            <div className="mb-3">
-                                <Nav
-                                    activeTab={props.activeTab}
-                                    setActiveTab={props.setActiveTab}
-                                />
-                            </div>
-                            <TabContent activeTab={props.activeTab}>
-                                <TabPane tabId="details">
+            <div
+                className="d-flex align-items-center flex-wrap mb-3"
+                style={{ gap: "0.75rem 0" }}
+            >
+                <Select
+                    className="d-inline-block align-middle mr-3"
+                    isMulti={false}
+                    name="brewMonitorId"
+                    value={
+                        batch.id && {
+                            id,
+                            label: `Brew ${batch.id} - ${batch.product.name}`,
+                        }
+                    }
+                    placeholder="Select Batch .."
+                    options={batches.map((b) => ({
+                        value: b.id,
+                        label: `Brew ${b.id} - ${b.product.name}`,
+                    }))}
+                    onChange={(e) => {
+                        history.push({
+                            pathname: "/brews/" + e.value,
+                            search: "?edit=true",
+                        });
+                    }}
+                    styles={{
+                        control: (styles) => ({
+                            ...styles,
+                            width: "20rem",
+                            maxWidth: "20rem",
+                            "@media screen and (max-width: 750px)": {
+                                width: "100%",
+                            },
+                        }),
+                    }}
+                    enabled={batch.id}
+                />
+                <Nav
+                    activeTab={props.activeTab}
+                    setActiveTab={props.setActiveTab}
+                />
+            </div>
+            <TabContent activeTab={props.activeTab}>
+                <TabPane tabId="details">
+                    <div style={{ maxWidth: "120rem" }}>
+                        <BrewMiniCard />
+                    </div>
+                    <Row style={{ maxWidth: "120rem" }}>
+                        <Col xl="8">
+                            <Card>
+                                <CardBody
+                                    className="px-2 px-sm-3"
+                                    isLoading={loading}
+                                >
                                     <BatchDetails {...props} />
                                     <BatchFileUploads {...props} />
-                                </TabPane>
-                                {mashMixtures.map((mixture, index) => {
-                                    return (
-                                        <BrewTab
-                                            key={index}
-                                            indexv={index}
-                                            mashMixture={mixture}
-                                        />
-                                    );
-                                })}
-                                {fermentMixtures.map((mixture, index) => {
-                                    return (
-                                        <CellarTab
-                                            key={index + mashMixtures.length}
-                                            indexv={index + mashMixtures.length}
-                                            fermentMixture={mixture}
-                                        />
-                                    );
-                                })}
-                            </TabContent>
-                        </CardBody>
-                    </Card>
-                    {/* <Card>
-                        <CardBody className="px-2 px-sm-3">
-                            <BatchComments {...props} />
-                        </CardBody>
-                    </Card> */}
-                </Col>
-                <Col sm={6} xl="4">
-                    <Card>
-                        <CardBody className="px-2 px-sm-3">
-                            <BatchPeople />
-                            <Button
-                                type="button"
-                                color="primary"
-                                className="waves-effect mr-2"
-                                onClick={props.onSave}
-                                disabled={!props.changed}
+                                </CardBody>
+                            </Card>
+                        </Col>
+                        <Col sm={6} xl="4">
+                            <Card>
+                                <CardBody className="px-2 px-sm-3">
+                                    <BatchPeople />
+                                    <Button
+                                        type="button"
+                                        color="primary"
+                                        className="waves-effect mr-2"
+                                        onClick={props.onSave}
+                                        disabled={!props.changed}
+                                    >
+                                        {!batch.id ? "Create" : "Save"}
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        color="secondary"
+                                        className="waves-effect mr-2"
+                                        onClick={() => {
+                                            if (!batch.id) {
+                                                history.goBack();
+                                            }
+                                            dispatch(
+                                                setBatchDetails({
+                                                    data: {
+                                                        ...initialBatch,
+                                                    },
+                                                    editable: false,
+                                                })
+                                            );
+                                        }}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        color="danger"
+                                        className="waves-effect d-inline align-middle mr-2"
+                                        onClick={props.onDelete}
+                                    >
+                                        <i className="fa fa-minus-circle"></i>{" "}
+                                        Delete Brew
+                                    </Button>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
+                </TabPane>
+                <TabPane tabId="stages">
+                    <div className="mb-3">
+                        <Toolbar />
+                    </div>
+                    {mashMixtures.map((mixture, index) => (
+                        <Card>
+                            <CardBody
+                                className="px-2 px-sm-3"
+                                isLoading={loading}
                             >
-                                {!batch.id ? "Create" : "Save"}
-                            </Button>
-                            <Button
-                                type="button"
-                                color="secondary"
-                                className="waves-effect mr-2"
-                                onClick={() => {
-                                    if (!batch.id) {
-                                        history.goBack();
-                                    }
-                                    dispatch(
-                                        setBatchDetails({
-                                            data: {
-                                                ...initialBatch,
-                                            },
-                                            editable: false,
-                                        })
-                                    );
-                                }}
-                            >
-                                Cancel
-                            </Button>
-                        </CardBody>
-                    </Card>
-                </Col>
-            </Row>
+                                <BrewTab
+                                    key={index}
+                                    indexv={index}
+                                    mashMixture={mixture}
+                                />
+                            </CardBody>
+                        </Card>
+                    ))}
+                    {fermentMixtures.map((mixture, index) => {
+                        return (
+                            <Card>
+                                <CardBody
+                                    className="px-2 px-sm-3"
+                                    isLoading={loading}
+                                >
+                                    <CellarTab
+                                        key={index + mashMixtures.length}
+                                        indexv={index + mashMixtures.length}
+                                        fermentMixture={mixture}
+                                    />
+                                </CardBody>
+                            </Card>
+                        );
+                    })}
+                </TabPane>
+            </TabContent>
         </React.Fragment>
     );
 }

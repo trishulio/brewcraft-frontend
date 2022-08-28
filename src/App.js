@@ -7,6 +7,7 @@ import { setInterceptorHistory } from "./helpers/axiosInstance";
 import { togglePreloader } from "./store/layout/actions";
 import { setProfileLoggedIn, setGlobalRedirect } from "./store/actions";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 import "./theme.scss";
 import "./jadc.scss";
 import { useHistory } from "react-router-dom";
@@ -78,6 +79,7 @@ const App = () => {
 
     return (
         <React.Fragment>
+            <ToastContainer />
             {isAuthLayout() && <NonAuthLayout />}
             <AuthLayout />
         </React.Fragment>
