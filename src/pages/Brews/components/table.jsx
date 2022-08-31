@@ -63,7 +63,6 @@ export default function BatchesTable() {
 
     return (
         <Table hover>
-            {console.log(batches)}
             <thead>
                 <tr>
                     <Th name="batchesBatchId" id="batchId" onSort={onSort}>

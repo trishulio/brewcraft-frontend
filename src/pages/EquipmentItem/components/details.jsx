@@ -148,7 +148,6 @@ export default function EquipmentDetails({ editable }) {
             <Card>
                 <CardHeader>Equipment Item</CardHeader>
                 <CardBody isLoading={loading}>
-                    {console.log(equipment)}
                     <div className="form-group-validation">
                         <Label
                             for="equipmentName"

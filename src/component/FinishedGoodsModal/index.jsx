@@ -1,46 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
+import { ErrorMessage } from "../../helpers/textUtils";
 import { isValidNumberString, validDate } from "../../helpers/utils";
 import { Modal, ModalBody, ModalFooter } from "../Common/modal";
 import Materials from "./materials";
 
 export default function FinishedGoodModal({
+    mixture,
     finishedGood,
     setFinishedGood,
     show,
+    error,
     onSave,
     onClose,
 }) {
+    const [volume, setVolume] = useState(
+        finishedGood.mixturePortions[0]?.quantity.value || ""
+    );
+    const [unit, setUnit] = useState(
+        finishedGood.mixturePortions[0]?.quantity.symbol || ""
+    );
+    const [quantity, setQuantity] = useState(finishedGood.quantity?.value);
+    const [packagedOn, setPackagedOn] = useState(finishedGood.packagedOn);
+    const [materialPortions, setMaterialPortions] = useState(
+        JSON.parse(JSON.stringify(finishedGood.materialPortions))
+    );
     return (
-        <Modal title="Finished Good Lot Details" show={show} close={onClose}>
+        <Modal
+            title={finishedGood.id ? "Edit Finished Good" : "New Finished Good"}
+            show={show}
+            close={onClose}
+        >
             <ModalBody>
+                {error && <ErrorMessage props={{ ...error }} toggle />}
                 <div className="d-flex">
-                    {console.log(finishedGood)}
+                    {}
                     <FormGroup className="p-2">
-                        <Label for="finishedGoodQuantity">Quantity</Label>
+                        <Label for="finishedGoodVolume">Volume / Unit</Label>
                         <Input
                             type="number"
                             className="waves-effect"
-                            value={finishedGood.quantity.value}
+                            value={volume}
                             placeholder="Enter"
-                            name="finishedGoodQuantity"
+                            name="finishedGoodVolume"
                             onChange={(e) => {
-                                setFinishedGood({
-                                    ...finishedGood,
-                                    quantity: {
-                                        ...finishedGood.quantity,
-                                        value: e.target.value,
-                                    },
-                                });
+                                setVolume(e.target.value);
                             }}
                             invalid={
-                                finishedGood.quantity.value !== null &&
-                                !isValidNumberString(
-                                    finishedGood.quantity.value
-                                )
+                                volume !== "" && !isValidNumberString(volume)
                             }
                         />
-                        <FormFeedback>Enter a valid quantity.</FormFeedback>
+                        <FormFeedback>Enter a valid volume.</FormFeedback>
                     </FormGroup>
                     <FormGroup
                         className="p-2"
@@ -48,37 +58,47 @@ export default function FinishedGoodModal({
                             width: "6rem",
                         }}
                     >
-                        <Label for="finishedGoodQuantity">Units</Label>
+                        <Label for="finishedGoodVolumeUnit">Unit</Label>
                         <Input
                             type="select"
                             className="waves-effect"
-                            value={finishedGood.quantity.symbol || "hl"}
+                            value={unit || "ml"}
                             placeholder="Enter"
-                            name="finishedGoodQuantity"
+                            name="finishedGoodVolumeUnit"
                             onChange={(e) => {
-                                setFinishedGood({
-                                    ...finishedGood,
-                                    quantity: {
-                                        ...finishedGood.quantity,
-                                        symbol: e.target.value,
-                                    },
-                                });
+                                setUnit(e.target.value);
                             }}
-                            invalid={
-                                !finishedGood.quantity.symbol &&
-                                finishedGood.quantity.symbol !== ""
-                            }
+                            invalid={!unit && unit !== ""}
                         >
-                            <option value="hl" selected>
-                                hl
-                            </option>
+                            <option value="hl">hl</option>
                             <option value="l">l</option>
                             <option value="ml">ml</option>
-                            <option value="each">each</option>
                         </Input>
                         <FormFeedback>Invalid form value.</FormFeedback>
                     </FormGroup>
                 </div>
+                <FormGroup
+                    className="p-2"
+                    style={{
+                        maxWidth: "20rem",
+                    }}
+                >
+                    <Label for="finishedGoodQuantity">Number of Units</Label>
+                    <Input
+                        type="number"
+                        className="waves-effect"
+                        value={quantity}
+                        placeholder="Enter"
+                        name="finishedGoodQuantity"
+                        onChange={(e) => {
+                            setQuantity(e.target.value);
+                        }}
+                        invalid={
+                            quantity !== null && !isValidNumberString(quantity)
+                        }
+                    />
+                    <FormFeedback>Enter a valid quantity.</FormFeedback>
+                </FormGroup>
                 <FormGroup
                     className="p-2"
                     style={{
@@ -90,40 +110,56 @@ export default function FinishedGoodModal({
                         type="datetime-local"
                         name="finishedGoodPackagedOn"
                         className="waves-effect"
-                        value={finishedGood.packagedOn}
+                        value={packagedOn}
                         onChange={(e) => {
-                            setFinishedGood({
-                                ...finishedGood,
-                                packagedOn: e.target.value,
-                            });
+                            setPackagedOn(e.target.value);
                         }}
-                        invalid={
-                            finishedGood.packagedOn !== null &&
-                            !validDate(finishedGood.packagedOn)
-                        }
+                        invalid={packagedOn !== "" && !validDate(packagedOn)}
                     />
                     <FormFeedback>Enter a valid time and date</FormFeedback>
                 </FormGroup>
                 <FormGroup className="p-2">
-                    <Label for="finishedGoodPackagedOn">
+                    <Label for="finishedGoodMaterialPortions">
                         Packaging Materials
                     </Label>
                     <Materials
-                        materialPortions={finishedGood.materialPortions}
-                        setMaterialPortions={(materialPortions) => {
-                            setFinishedGood({
-                                ...finishedGood,
-                                materialPortions,
-                            });
-                        }}
+                        name="finishedGoodMaterialPortions"
+                        materialPortions={materialPortions}
+                        setMaterialPortions={setMaterialPortions}
                     />
                     <FormFeedback>Enter a valid time and date</FormFeedback>
                 </FormGroup>
             </ModalBody>
             <ModalFooter>
-                <Button color="primary" onClick={onSave}>
+                <Button
+                    color="primary"
+                    onClick={() => {
+                        setFinishedGood({
+                            ...finishedGood,
+                            materialPortions: JSON.parse(
+                                JSON.stringify(materialPortions)
+                            ),
+                            mixturePortions: [
+                                {
+                                    mixture,
+                                    quantity: {
+                                        value:
+                                            parseFloat(volume) *
+                                            parseFloat(quantity),
+                                        symbol: unit,
+                                    },
+                                },
+                            ],
+                            quantity: {
+                                value: parseFloat(quantity),
+                                symbol: "each",
+                            },
+                        });
+                        onSave();
+                    }}
+                >
                     Save
-                </Button>{" "}
+                </Button>
                 <Button onClick={onClose}>Cancel</Button>
             </ModalFooter>
         </Modal>

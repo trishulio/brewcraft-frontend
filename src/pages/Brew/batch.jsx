@@ -67,7 +67,7 @@ export default function Batch(props) {
 
     return (
         <React.Fragment>
-            {!!error && <ErrorMessage {...error} />}
+            {!!error && <ErrorMessage {...error} toggle />}
             <div
                 className="d-flex align-items-center flex-wrap mb-3"
                 style={{ gap: "0.75rem 0" }}
@@ -175,39 +175,41 @@ export default function Batch(props) {
                     </Row>
                 </TabPane>
                 <TabPane tabId="stages">
-                    <div className="mb-3">
-                        <Toolbar />
-                    </div>
-                    {mashMixtures.map((mixture, index) => (
-                        <Card>
-                            <CardBody
-                                className="px-2 px-sm-3"
-                                isLoading={loading}
-                            >
-                                <BrewTab
-                                    key={index}
-                                    indexv={index}
-                                    mashMixture={mixture}
-                                />
-                            </CardBody>
-                        </Card>
-                    ))}
-                    {fermentMixtures.map((mixture, index) => {
-                        return (
+                    <div style={{ maxWidth: "80rem" }}>
+                        <div className="mb-3">
+                            <Toolbar />
+                        </div>
+                        {mashMixtures.map((mixture, index) => (
                             <Card>
                                 <CardBody
                                     className="px-2 px-sm-3"
                                     isLoading={loading}
                                 >
-                                    <CellarTab
-                                        key={index + mashMixtures.length}
-                                        indexv={index + mashMixtures.length}
-                                        fermentMixture={mixture}
+                                    <BrewTab
+                                        key={index}
+                                        indexv={index}
+                                        mashMixture={mixture}
                                     />
                                 </CardBody>
                             </Card>
-                        );
-                    })}
+                        ))}
+                        {fermentMixtures.map((mixture, index) => {
+                            return (
+                                <Card>
+                                    <CardBody
+                                        className="px-2 px-sm-3"
+                                        isLoading={loading}
+                                    >
+                                        <CellarTab
+                                            key={index + mashMixtures.length}
+                                            indexv={index + mashMixtures.length}
+                                            fermentMixture={mixture}
+                                        />
+                                    </CardBody>
+                                </Card>
+                            );
+                        })}
+                    </div>
                 </TabPane>
             </TabContent>
         </React.Fragment>

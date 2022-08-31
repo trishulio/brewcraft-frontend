@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
-import {
-    Row,
-    Col,
-    Button,
-    FormFeedback,
-    FormGroup,
-    Input,
-    Label,
-} from "reactstrap";
+import { Button, FormFeedback, FormGroup, Input } from "reactstrap";
 import { isValidNumberString } from "../../helpers/utils";
 import { setFinishedGoodInvalidMaterialPortions } from "../../store/actions";
 import CommonTable from "../Common/table";
@@ -146,7 +138,7 @@ export default function FinishedGoodMaterials({
                 </FormGroup>
                 <FormGroup className="flex-shrink-1 px-1">
                     <Input
-                        type="text"
+                        type="number"
                         className="waves-effect"
                         value={selectedLotQuantity}
                         invalid={invalidQuantity}

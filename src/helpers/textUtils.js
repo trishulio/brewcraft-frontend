@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NumberFormat from "react-number-format";
 import { Alert } from "reactstrap";
 
@@ -232,12 +232,15 @@ export function isFloat(n) {
     return Number(n) === n && n % 1 !== 0;
 }
 
-export function ErrorMessage({ error, message, className, color }) {
+export function ErrorMessage({ error, message, className, color, toggle }) {
+    const [open, setOpen] = useState(toggle);
     return (
         <React.Fragment>
             <Alert
                 className={className ? "mb-2 " + className : "mb-2"}
                 color={color ? color : "info"}
+                isOpen={toggle ? open : undefined}
+                toggle={toggle ? () => setOpen(false) : undefined}
             >
                 <strong>{error ? error + "!" : "Oh snap!"}</strong>{" "}
                 {message || "Change a few things up and try submitting again."}

@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import { Button, Input, Label } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
-import { editBatch, fetchSkus } from "../../../../store/actions";
 import { formatDatetime, prettyVolume } from "../../../../helpers/textUtils";
 import FinishedGoodModal from "../../../../component/FinishedGoodsModal";
-import { setBatchFinishedGoods } from "../../../../store/BatchFinishedGoods/actions";
+import {
+    setBatchFinishedGoods,
+    showFinishedGoodModal,
+} from "../../../../store/BatchFinishedGoods/actions";
 import {
     Modal,
     ModalBody,
     ModalFooter,
 } from "../../../../component/Common/modal";
+import { editBatch, setBatchDetails } from "../../../../store/actions";
 
-export function FinishedGoodsModal({ show, setShow, afterSave, mixture }) {
-    const dispatch = useDispatch();
+export function FinishedGoodsModal({ show, setShow, mixture }) {
     return (
         <Modal
             title="Finished Goods"
@@ -29,21 +31,11 @@ export function FinishedGoodsModal({ show, setShow, afterSave, mixture }) {
             </ModalBody>
             <ModalFooter>
                 <Button
-                    color="primary"
-                    onClick={() => {
-                        dispatch(editBatch());
-                        afterSave();
-                        setShow(false);
-                    }}
-                >
-                    Save
-                </Button>{" "}
-                <Button
                     onClick={() => {
                         setShow(false);
                     }}
                 >
-                    Cancel
+                    Close
                 </Button>
             </ModalFooter>
         </Modal>
@@ -57,14 +49,12 @@ export default function FinishedGoods({ mixture }) {
         materialPortions: [],
         quantity: {
             symbol: "",
-            value: null,
+            value: "",
         },
-        packagedOn: null,
+        packagedOn: "",
     };
     const [finishedGood, setFinishedGood] = useState(initialFinishedGood);
     const [items, setItems] = useState([]);
-    const [editFinishedGood, setEditFinishedGood] = useState(false);
-    const [showModal, setShowModal] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -74,47 +64,36 @@ export default function FinishedGoods({ mixture }) {
         );
     });
 
+    const { error } = useSelector((state) => {
+        return state.Batch.Batch;
+    });
+
+    const { showModal } = useSelector((state) => {
+        return state.Batch.BatchFinishedGoods;
+    });
+
     const modalProps = {
-        finishedGood: finishedGood || initialFinishedGood,
-        setFinishedGood,
+        mixture,
+        finishedGood,
+        setFinishedGood: (finishedGood) => {
+            dispatch(
+                setBatchFinishedGoods({
+                    content: [
+                        ...finishedGoods.filter(
+                            (fg) => fg.id !== finishedGood.id
+                        ),
+                        finishedGood,
+                    ],
+                })
+            );
+        },
         show: showModal,
+        error,
         onClose: () => {
-            setShowModal(false);
+            dispatch(showFinishedGoodModal(false));
         },
         onSave: () => {
-            if (editFinishedGood) {
-                const index = finishedGoods.findIndex((fg) => {
-                    return fg.id === finishedGood.id;
-                });
-                const content = JSON.parse(JSON.stringify(finishedGoods));
-                content[index] = finishedGood;
-                dispatch(
-                    setBatchFinishedGoods({
-                        content,
-                    })
-                );
-            } else {
-                dispatch(
-                    setBatchFinishedGoods({
-                        content: [
-                            ...finishedGoods,
-                            {
-                                ...finishedGood,
-                                mixturePortions: [
-                                    {
-                                        mixture,
-                                        quantity: {
-                                            value: finishedGood.quantity.value,
-                                            symbol: "hl",
-                                        },
-                                    },
-                                ],
-                            },
-                        ],
-                    })
-                );
-            }
-            setShowModal(false);
+            dispatch(editBatch());
         },
     };
 
@@ -123,18 +102,19 @@ export default function FinishedGoods({ mixture }) {
             <Label>Packaged Items</Label>
             <CommonTable>
                 <thead>
-                    {console.log(finishedGoods)}
                     <tr>
                         <th></th>
-                        <th>Time</th>
+                        <th>Vol. / Unit</th>
+                        <th>Quantity</th>
                         <th>Total Vol.</th>
-                        <th>Num. Units</th>
+                        <th>Time</th>
                     </tr>
                 </thead>
                 <tbody>
                     {!finishedGoods.length && (
                         <tr>
                             <td></td>
+                            <td>-</td>
                             <td>-</td>
                             <td>-</td>
                             <td>-</td>
@@ -146,8 +126,8 @@ export default function FinishedGoods({ mixture }) {
                                 key={index}
                                 onClick={() => {
                                     setFinishedGood(finishedGood);
-                                    setEditFinishedGood(true);
-                                    setShowModal(true);
+                                    dispatch(showFinishedGoodModal(true));
+                                    dispatch(setBatchDetails({ error: null }));
                                 }}
                             >
                                 <td style={{ width: "2rem" }}>
@@ -172,8 +152,15 @@ export default function FinishedGoods({ mixture }) {
                                     </div>
                                 </td>
                                 <td>
-                                    {formatDatetime(finishedGood.packagedOn)}
+                                    {prettyVolume(
+                                        finishedGood.mixturePortions[0].quantity
+                                            .value /
+                                            finishedGood.quantity.value,
+                                        finishedGood.mixturePortions[0].quantity
+                                            .symbol
+                                    )}
                                 </td>
+                                <td>{finishedGood.quantity.value}</td>
                                 <td>
                                     {finishedGood.mixturePortions &&
                                         prettyVolume(
@@ -183,7 +170,9 @@ export default function FinishedGoods({ mixture }) {
                                                 .quantity.symbol
                                         )}
                                 </td>
-                                <td>{finishedGood.quantity.value}</td>
+                                <td>
+                                    {formatDatetime(finishedGood.packagedOn)}
+                                </td>
                             </tr>
                         ))}
                 </tbody>
@@ -192,42 +181,12 @@ export default function FinishedGoods({ mixture }) {
                 className="waves-effect mr-2"
                 onClick={() => {
                     setFinishedGood(initialFinishedGood);
-                    setEditFinishedGood(false);
-                    setShowModal(true);
+                    dispatch(showFinishedGoodModal(true));
+                    dispatch(setBatchDetails({ error: null }));
                 }}
             >
                 Add Item
             </Button>
-            {/* {editable && (
-                <Button
-
-                    className="waves-effect mr-2"
-                    onClick={() => {}}
-                    disabled={!sku.id || !quantity}
-                >
-                    Enter
-                </Button>
-            )}
-            {editable && (
-                <Button
-
-                    color="warning"
-                    className="waves-effect"
-                    onClick={() => {
-                        dispatch(
-                            setBatchFinishedGoods({
-                                content: finishedGoods.filter(
-                                    (_, index) => !items.includes(index)
-                                ),
-                            })
-                        );
-                        setItems([]);
-                    }}
-                    disabled={!items.length}
-                >
-                    Remove
-                </Button>
-            )} */}
             <FinishedGoodModal {...modalProps} />
         </React.Fragment>
     );

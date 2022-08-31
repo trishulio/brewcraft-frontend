@@ -156,7 +156,6 @@ export default function CreateInvoice(props) {
             return o.id === value;
         });
         const taxDataObject = get(taxData, indexStore);
-        console.log(taxDataObject);
         set(valueSOrted, `${rowId}.tax`, value);
         set(
             valueSOrted,
