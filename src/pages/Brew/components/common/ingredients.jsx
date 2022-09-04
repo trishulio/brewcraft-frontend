@@ -1,10 +1,16 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { map, findIndex } from "lodash";
-import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
+import { Button, FormFeedback, FormGroup, Input } from "reactstrap";
 import CommonTable from "../../../../component/Common/table";
 import { isValidNumberString } from "../../../../helpers/utils";
-import { editBatch, setBrewMaterialPortions } from "../../../../store/actions";
+import {
+    editBatch,
+    setBrewMaterialPortions,
+    setBatchValidationError,
+    setBatchErrorMessageDelete,
+    // setBatchNotSave,
+} from "../../../../store/actions";
 import { useDispatch } from "react-redux";
 import {
     Modal,
@@ -21,6 +27,16 @@ export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
         return state.Batch.Batch;
     });
 
+    const handleCloseModal = () => {
+        setShow(false);
+        dispatch(
+            setBatchErrorMessageDelete({
+                error: null,
+                loading: false,
+            })
+        );
+    };
+
     useEffect(() => {
         if (!loading && !error) {
             afterSave();
@@ -33,9 +49,7 @@ export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
             title="Ingredients"
             size="lg"
             show={show}
-            close={() => {
-                setShow(false);
-            }}
+            close={handleCloseModal}
         >
             <ModalBody>
                 {error && (
@@ -52,13 +66,7 @@ export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
                 >
                     Save
                 </Button>
-                <Button
-                    onClick={() => {
-                        setShow(false);
-                    }}
-                >
-                    Cancel
-                </Button>
+                <Button onClick={handleCloseModal}>Cancel</Button>
             </ModalFooter>
         </Modal>
     );
@@ -93,16 +101,6 @@ export default function BatchIngredients({ mixture }) {
         return state.Batch.MaterialPortions.content;
     });
 
-    const isIngredientValid = useMemo(() => {
-        if (selectedLot?.quantity?.value) {
-            const value =
-                selectedLot?.quantity?.value -
-                (reducedAmounts[selectedLot.materialLot.id] ?? 0);
-            return !(value < selectedLotQuantity);
-        }
-        return true;
-    }, [selectedLot, selectedLotQuantity, reducedAmounts]);
-
     const onChangeQuantityValue = (e) => {
         setSelectedLotQuantity(e.target.value);
 
@@ -129,8 +127,8 @@ export default function BatchIngredients({ mixture }) {
         });
 
         if (materialPortionIndex !== -1) {
-            const tempAllMaterialPortions = [...allMaterialPortions];
-            const materialPortion = allMaterialPortions[materialPortionIndex];
+            const tempAllMaterialPortions = [...materialPortions];
+            const materialPortion = materialPortions[materialPortionIndex];
             tempAllMaterialPortions[materialPortionIndex] = {
                 ...materialPortion,
                 quantity: {
@@ -140,13 +138,18 @@ export default function BatchIngredients({ mixture }) {
                 },
             };
 
-            if (selectedLot.quantity.value < 0) {
-            } else {
-                dispatch(
-                    setBrewMaterialPortions({
-                        content: tempAllMaterialPortions,
-                    })
-                );
+            if (selectedLot?.quantity?.value) {
+                const value =
+                    selectedLot?.quantity?.value -
+                    (reducedAmounts[selectedLot.materialLot.id] ?? 0);
+                if (value < selectedLotQuantity) {
+                    dispatch(
+                        setBatchValidationError({
+                            message: "The amount has been exceeded!",
+                            color: "danger",
+                        })
+                    );
+                }
             }
         } else {
             dispatch(
@@ -169,7 +172,6 @@ export default function BatchIngredients({ mixture }) {
 
     return (
         <React.Fragment>
-            <Label>Mixture Ingredients</Label>
             <div className="mb-3">
                 <CommonTable>
                     <thead>
@@ -240,7 +242,7 @@ export default function BatchIngredients({ mixture }) {
                                     </td>
                                     <td>{portion.materialLot.lotNumber}</td>
                                     <td>
-                                        {portion.quantity.value}{" "}
+                                        {portion.quantity.value}
                                         {portion.quantity.symbol}
                                     </td>
                                 </tr>
@@ -288,7 +290,7 @@ export default function BatchIngredients({ mixture }) {
                             className={"waves-effect"}
                             style={{ width: "8rem" }}
                             value={selectedLotQuantity}
-                            invalid={invalidQuantity || !isIngredientValid}
+                            invalid={invalidQuantity}
                             onChange={onChangeQuantityValue}
                         />
                         <FormFeedback>Enter a valid number.</FormFeedback>
@@ -296,11 +298,6 @@ export default function BatchIngredients({ mixture }) {
                     <Button
                         className="waves-effect mr-2 mb-0"
                         onClick={handleEnter}
-                        disabled={
-                            !selectedLot ||
-                            !selectedLotQuantity ||
-                            !isIngredientValid
-                        }
                     >
                         Enter
                     </Button>

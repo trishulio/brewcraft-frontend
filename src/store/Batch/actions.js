@@ -14,6 +14,8 @@ import {
     EDIT_BATCH,
     DELETE_BATCH_MIXTURE_AND_STAGE,
     UPDATE_BATCH_STAGE,
+    UPDATE_BATCH_STAGE_FAILURE,
+    UPDATE_BATCH_STAGE_SUCCESS,
 } from "./actionTypes";
 
 export const fetchBatch = ({ batchId }) => ({
@@ -127,5 +129,19 @@ export const setBatchInvalidDescription = (value) => ({
     type: SET_BATCH_INVALID_DESCRIPTION,
     payload: {
         invalidDescription: value,
+    },
+});
+
+export const setBatchValidationError = (error) => ({
+    type: UPDATE_BATCH_STAGE_FAILURE,
+    payload: {
+        ...error,
+    },
+});
+
+export const setBatchErrorMessageDelete = (error) => ({
+    type: UPDATE_BATCH_STAGE_SUCCESS,
+    payload: {
+        ...error,
     },
 });
