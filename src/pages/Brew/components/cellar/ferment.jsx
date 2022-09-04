@@ -143,7 +143,7 @@ export default function BatchFerment({
             <React.Fragment>
                 <TooltipButton
                     id="editFermentButton"
-                    className="waves-effect mr-1 mb-1"
+                    className="waves-effect mr-2 mb-1"
                     outline={true}
                     tooltipText="Edit Stage"
                     placement="bottom"
@@ -153,7 +153,7 @@ export default function BatchFerment({
                 </TooltipButton>
                 <TooltipButton
                     id="ingredientsFermentButton"
-                    className="waves-effect m-0 mr-1 mb-1"
+                    className="waves-effect m-0 mr-2 mb-1"
                     outline={true}
                     tooltipText="Ingredients"
                     placement="bottom"
@@ -163,7 +163,7 @@ export default function BatchFerment({
                 </TooltipButton>
                 <TooltipButton
                     id="recordingsFermentButton"
-                    className="waves-effect m-0 mr-1 mb-1"
+                    className="waves-effect m-0 mr-2 mb-1"
                     outline={true}
                     tooltipText="Recordings"
                     placement="bottom"
@@ -173,7 +173,7 @@ export default function BatchFerment({
                 </TooltipButton>
                 <TooltipButton
                     id="finishedGoodsFermentButton"
-                    className="waves-effect m-0 mr-1 mb-1"
+                    className="waves-effect m-0 mr-2 mb-1"
                     outline={true}
                     tooltipText="Finished Goods"
                     placement="bottom"
@@ -183,7 +183,7 @@ export default function BatchFerment({
                 </TooltipButton>
                 <TooltipButton
                     id="chartsFermentButton"
-                    className="waves-effect m-0 mr-1 mb-1"
+                    className="waves-effect m-0 mr-2 mb-1"
                     outline={true}
                     tooltipText={toggleCharts ? "Hide Charts" : "Show Charts"}
                     placement="bottom"
@@ -200,7 +200,7 @@ export default function BatchFerment({
                 </TooltipButton>
                 <TooltipButton
                     id="toggleFermentButton"
-                    className="waves-effect m-0 mr-1 mb-1"
+                    className="waves-effect m-0 mr-2 mb-1"
                     outline={true}
                     tooltipText={isOpen ? "Show Less" : "Show More"}
                     placement="bottom"
@@ -217,7 +217,7 @@ export default function BatchFerment({
                 >
                     <DropdownToggle
                         tag="button"
-                        className="waves-effect btn btn-outline-secondary btn-sm mr-1 mb-1"
+                        className="waves-effect btn btn-outline-secondary mr-2 mb-1"
                         data-toggle="dropdown"
                     >
                         <i className="mdi mdi-dots-horizontal"></i>

@@ -26,19 +26,19 @@ export const FilterBarIcon = () => {
     return (
         <Button
             type="button"
-            size="sm"
             className="waves-effect float-right mr-2 my-2"
             outline={true}
             onClick={() => {
                 dispatch(toggleFilterBar(pagesKey));
             }}
             style={{
+                fontSize: "0.875rem",
                 backgroundColor: visible[pagesKey] && "#7a6fbe",
                 color: visible[pagesKey] && "#FFFFFF",
                 borderColor: "#ced4da",
             }}
         >
-            <i className="fa fa-filter"></i> Filter
+            <i className="fa fa-filter"></i>
         </Button>
     );
 };

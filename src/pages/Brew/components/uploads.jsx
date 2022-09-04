@@ -4,8 +4,8 @@ import { Card, CardBody } from "../../../component/Common/Card";
 import TooltipButton from "../../../component/Common/tooltip-button";
 import { StageHeader } from "./common/stage";
 
-export default function BatchFileUploads() {
-    const [isOpen, setIsOpen] = useState(false);
+export default function BatchFileUploads({ open = true }) {
+    const [isOpen, setIsOpen] = useState(open);
 
     function handleAcceptedFiles() {}
 

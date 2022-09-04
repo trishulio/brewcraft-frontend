@@ -30,9 +30,9 @@ class Pages404 extends Component {
                                 </Card>
                                 <div className="mt-5 text-center">
                                     <p>
-                                        ©2021 - Crafted with{" "}
+                                        ©2022 - Crafted with{" "}
                                         <i className="mdi mdi-heart text-danger"></i>{" "}
-                                        by ns3
+                                        by JADC
                                     </p>
                                 </div>
                             </Col>

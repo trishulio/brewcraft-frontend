@@ -564,7 +564,7 @@ function* deleteBatchGenerator(action) {
     try {
         yield call(api.deleteBatch, get(action, "payload.id"));
         yield put(setGlobalRedirect({ pathname: "/brews" }));
-        yield put(snackSuccess());
+        yield put(snackSuccess("Brew deleted"));
     } catch (e) {
         yield put(snackFailure(e.message));
     }

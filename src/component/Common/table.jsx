@@ -28,7 +28,7 @@ export function Th(props) {
 export default function CommonTable(props) {
     return (
         <React.Fragment>
-            <div className="table-responsive table-striped table-sm">
+            <div className="table-responsive table-striped">
                 <Table
                     hover={props.hover}
                     style={{

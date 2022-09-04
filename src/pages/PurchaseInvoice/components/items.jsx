@@ -99,11 +99,11 @@ export default function PurchaseInvoiceItems({ editable }) {
                         <Col xs="2">Description</Col>
                         <Col xs="1">Lot</Col>
                         <Col xs="1">Qty</Col>
+                        <Col xs="1">Unit</Col>
                         <Col xs="1">Price</Col>
                         <Col xs="1">PST (%)</Col>
                         <Col xs="1">GST (%)</Col>
                         <Col xs="1">HST (%)</Col>
-                        <Col xs="1">Total Amount</Col>
                     </Row>
                 </ListGroupItem>
                 {items.map((value, index) => (

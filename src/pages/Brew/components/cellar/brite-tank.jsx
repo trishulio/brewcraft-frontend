@@ -112,7 +112,7 @@ export default function BatchBriteTank({
             <React.Fragment>
                 <TooltipButton
                     id="editBriteTankButton"
-                    className="waves-effect mr-1 mb-1"
+                    className="waves-effect mr-2 mb-1"
                     outline={true}
                     tooltipText="Edit Stage"
                     placement="bottom"
@@ -122,7 +122,7 @@ export default function BatchBriteTank({
                 </TooltipButton>
                 <TooltipButton
                     id="ingredientsBriteTankButton"
-                    className="waves-effect m-0 mr-1 mb-1"
+                    className="waves-effect m-0 mr-2 mb-1"
                     outline={true}
                     tooltipText="Ingredients"
                     placement="bottom"
@@ -132,7 +132,7 @@ export default function BatchBriteTank({
                 </TooltipButton>
                 <TooltipButton
                     id="recordingsBriteTankButton"
-                    className="waves-effect m-0 mr-1 mb-1"
+                    className="waves-effect m-0 mr-2 mb-1"
                     outline={true}
                     tooltipText="Recordings"
                     placement="bottom"
@@ -142,7 +142,7 @@ export default function BatchBriteTank({
                 </TooltipButton>
                 <TooltipButton
                     id="finishedGoodsBriteTankButton"
-                    className="waves-effect m-0 mr-1 mb-1"
+                    className="waves-effect m-0 mr-2 mb-1"
                     outline={true}
                     tooltipText="Finished Goods"
                     placement="bottom"
@@ -152,7 +152,7 @@ export default function BatchBriteTank({
                 </TooltipButton>
                 <TooltipButton
                     id="chartsBriteTankButton"
-                    className="waves-effect m-0 mr-1 mb-1"
+                    className="waves-effect m-0 mr-2 mb-1"
                     outline={true}
                     tooltipText={toggleCharts ? "Hide Charts" : "Show Charts"}
                     placement="bottom"
@@ -169,7 +169,7 @@ export default function BatchBriteTank({
                 </TooltipButton>
                 <TooltipButton
                     id="toggleBriteTankButton"
-                    className="waves-effect m-0 mr-1 mb-1"
+                    className="waves-effect m-0 mr-2 mb-1"
                     outline={true}
                     tooltipText={isOpen ? "Show Less" : "Show More"}
                     placement="bottom"
@@ -186,7 +186,7 @@ export default function BatchBriteTank({
                 >
                     <DropdownToggle
                         tag="button"
-                        className="waves-effect btn btn-outline-secondary btn-sm mr-1 mb-1"
+                        className="waves-effect btn btn-outline-secondary btn-sm mb-1"
                         data-toggle="dropdown"
                     >
                         <i className="mdi mdi-dots-horizontal"></i>

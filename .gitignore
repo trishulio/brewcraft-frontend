@@ -15,7 +15,6 @@ lerna-debug.log*
 #coverage
 test-coverage
 
-
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
@@ -116,3 +115,5 @@ dist
 
 package-lock.json
 cypress.env.json
+
+deployment/index.html

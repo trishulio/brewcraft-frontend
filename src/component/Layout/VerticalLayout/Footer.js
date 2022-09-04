@@ -14,7 +14,7 @@ class Footer extends Component {
                                     {" "}
                                     - Crafted with{" "}
                                     <i className="mdi mdi-heart text-danger"></i>{" "}
-                                    by ns3.
+                                    by JADC.
                                 </span>
                             </Col>
                         </Row>

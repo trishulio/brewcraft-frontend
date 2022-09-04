@@ -199,7 +199,7 @@ export default function Batch() {
                 close={() => {
                     setShowDeletePrompt(false);
                 }}
-                content="This cannot be undone. Are you sure want to delete this batch?"
+                content="This cannot be undone. Are you sure want to delete this brew?"
             />
             <RouteLeavingGuard
                 when={showRouterPrompt}

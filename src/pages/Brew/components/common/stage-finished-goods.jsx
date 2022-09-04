@@ -16,6 +16,14 @@ export default function StageFinishedGoods({
             {!!chart && toggleCharts && !!finishedGoods.length && chart}
             {(!toggleCharts || !finishedGoods.length) && (
                 <CommonTable>
+                    {!!finishedGoods.length && (
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Total Vol.</th>
+                            </tr>
+                        </thead>
+                    )}
                     <tbody>
                         {!finishedGoods.length && (
                             <tr>
@@ -27,7 +35,7 @@ export default function StageFinishedGoods({
                                 <td>
                                     {formatDatetime(finishedGood.packagedOn)}
                                 </td>
-                                <td className="text-right">
+                                <td className="text-left">
                                     {prettyVolume(
                                         finishedGood.mixturePortions[0].quantity
                                             .value,

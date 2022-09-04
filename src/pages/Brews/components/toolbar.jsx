@@ -12,7 +12,6 @@ export default function ProductCategoriesToolbar() {
                 <Button
                     type="button"
                     color="secondary"
-                    size="sm"
                     className="waves-effect mr-2 mb-3"
                     onClick={() => {
                         history.push({
