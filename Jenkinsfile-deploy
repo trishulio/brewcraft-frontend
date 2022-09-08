@@ -9,9 +9,9 @@ pipeline {
 
     parameters {
         string(name: 'initialDelay', defaultValue: '0', description: 'Wait for N minutes before deploying')
-        string(name: 'branch', defaultValue: 'master', description: 'Branch to deploy')
+        string(name: 'branch', defaultValue: 'master', description: 'Branch to deploy (Note: This branch should be available as deployment on CDN)')
         choice(name: 'environment', choices: ['staging', 'production'], description: 'Environment to deploy to')
-        booleanParam(name: 'rollingUpdate', defaultValue: true, description: 'Setting to false will first uninstall the existing deployment and then perform a fresh install. In most cases, you don\'t need this.')
+        booleanParam(name: 'rollingUpdate', defaultValue: true, description: 'Setting to false will first uninstall the existing deployment and then perform a fresh install. (Note: In most cases, you don\'t need this)')
     }
 
     stages {
