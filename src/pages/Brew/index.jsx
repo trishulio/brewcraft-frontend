@@ -171,6 +171,31 @@ export default function Batch() {
         setShowDeletePrompt(!!batch.id);
     }
 
+    function onCancel(initial) {
+        setShowRouterPrompt(!!batch.id);
+        history.goBack();
+        if (changed) {
+            dispatch(
+                setBatchDetails({
+                    data: {
+                        ...initial,
+                        changed: true,
+                    },
+                    editable: false,
+                })
+            );
+        } else {
+            dispatch(
+                setBatchDetails({
+                    data: {
+                        ...initial,
+                    },
+                    editable: false,
+                })
+            );
+        }
+    }
+
     function setEditable() {
         history.push({
             search: "?edit=true",
@@ -185,6 +210,7 @@ export default function Batch() {
         error,
         onSave,
         onDelete,
+        onCancel,
         batch,
     };
 
@@ -205,6 +231,13 @@ export default function Batch() {
                 when={showRouterPrompt}
                 navigate={(path) => {
                     history.push(path);
+                }}
+                confirm={() => {
+                    dispatch(deleteBatch(batch.id));
+                    setShowRouterPrompt(false);
+                }}
+                close={() => {
+                    setShowDeletePrompt(false);
                 }}
                 shouldBlockNavigation={() => changed}
                 content="There are unsaved changes. Are you sure want to leave this page?"

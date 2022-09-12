@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { Button, Col, Row, TabContent, TabPane } from "reactstrap";
-import { setBatchDetails } from "../../store/actions";
 import { Card, CardBody } from "../../component/Common/Card";
 import BatchDetails from "./components/details";
 import Toolbar from "./components/toolbar";
@@ -146,19 +145,9 @@ export default function Batch(props) {
                                         type="button"
                                         color="secondary"
                                         className="waves-effect mr-2"
-                                        onClick={() => {
-                                            if (!batch.id) {
-                                                history.goBack();
-                                            }
-                                            dispatch(
-                                                setBatchDetails({
-                                                    data: {
-                                                        ...initialBatch,
-                                                    },
-                                                    editable: false,
-                                                })
-                                            );
-                                        }}
+                                        onClick={() =>
+                                            props.onCancel(initialBatch)
+                                        }
                                     >
                                         Cancel
                                     </Button>
