@@ -62,6 +62,7 @@ export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
                     color="primary"
                     onClick={async () => {
                         await dispatch(editBatch());
+                        setShow(false);
                     }}
                 >
                     Save
