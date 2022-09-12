@@ -179,7 +179,7 @@ export default function Batch(props) {
                         <Toolbar />
                     </div>
                     {mashMixtures.map((mixture, index) => (
-                        <Card>
+                        <Card key={index}>
                             <CardBody
                                 className="px-2 px-sm-3"
                                 isLoading={loading}

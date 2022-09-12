@@ -8,8 +8,8 @@ import {
     editBatch,
     setBrewMaterialPortions,
     setBatchValidationError,
-    setBatchErrorMessageDelete,
-    // setBatchNotSave,
+    setBatchErrorMessageHide,
+    setBatchModalErrorMessageHide,
 } from "../../../../store/actions";
 import { useDispatch } from "react-redux";
 import {
@@ -30,7 +30,7 @@ export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
     const handleCloseModal = () => {
         setShow(false);
         dispatch(
-            setBatchErrorMessageDelete({
+            setBatchErrorMessageHide({
                 error: null,
                 loading: false,
             })
@@ -40,7 +40,7 @@ export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
     useEffect(() => {
         if (!loading && !error) {
             afterSave();
-            setShow(false);
+            // setShow(false);
         }
     }, [loading, error]);
 
@@ -78,7 +78,9 @@ export default function BatchIngredients({ mixture }) {
     const [selectedLot, setSelectedLot] = useState("");
     const [selectedLotQuantity, setSelectedLotQuantity] = useState(0);
     const [reducedAmounts, setReducedAmounts] = useState({});
-
+    const { error } = useSelector((state) => {
+        return state.Batch.Batch;
+    });
     const dispatch = useDispatch();
 
     const { editable } = useSelector((state) => {
@@ -119,54 +121,62 @@ export default function BatchIngredients({ mixture }) {
             },
         });
 
-        setReducedAmounts({
-            ...reducedAmounts,
-            [selectedLot.materialLot.id]:
-                (reducedAmounts[selectedLot.materialLot.id] ?? 0) +
-                parseInt(selectedLotQuantity),
-        });
-
-        if (materialPortionIndex !== -1) {
-            const tempAllMaterialPortions = [...materialPortions];
-            const materialPortion = materialPortions[materialPortionIndex];
-            tempAllMaterialPortions[materialPortionIndex] = {
-                ...materialPortion,
-                quantity: {
-                    ...materialPortion.quantity,
-                    value: (materialPortion.quantity.value +=
-                        parseFloat(selectedLotQuantity)),
-                },
-            };
-
-            if (selectedLot?.quantity?.value) {
-                const value =
-                    selectedLot?.quantity?.value -
-                    (reducedAmounts[selectedLot.materialLot.id] ?? 0);
-                if (value < selectedLotQuantity) {
+        if (selectedLot?.quantity?.value) {
+            const value =
+                selectedLot?.quantity?.value -
+                (reducedAmounts[selectedLot.materialLot.id] ?? 0);
+            if (value < selectedLotQuantity) {
+                dispatch(
+                    setBatchValidationError({
+                        message: "The amount has been exceeded!",
+                        color: "danger",
+                    })
+                );
+            } else {
+                setReducedAmounts({
+                    ...reducedAmounts,
+                    [selectedLot.materialLot.id]:
+                        (reducedAmounts[selectedLot.materialLot.id] ?? 0) +
+                        parseInt(selectedLotQuantity),
+                });
+                error &&
                     dispatch(
-                        setBatchValidationError({
-                            message: "The amount has been exceeded!",
-                            color: "danger",
+                        setBatchModalErrorMessageHide({
+                            error: null,
+                        })
+                    );
+
+                if (materialPortionIndex !== -1) {
+                    const tempAllMaterialPortions = [...materialPortions];
+                    const materialPortion =
+                        materialPortions[materialPortionIndex];
+                    tempAllMaterialPortions[materialPortionIndex] = {
+                        ...materialPortion,
+                        error: false,
+                        quantity: {
+                            ...materialPortion.quantity,
+                            value: (materialPortion.quantity.value +=
+                                parseFloat(selectedLotQuantity)),
+                        },
+                    };
+                } else {
+                    dispatch(
+                        setBrewMaterialPortions({
+                            content: [
+                                ...allMaterialPortions,
+                                {
+                                    ...selectedLot,
+                                    quantity: {
+                                        symbol: selectedLot.quantity.symbol,
+                                        value: parseFloat(selectedLotQuantity),
+                                    },
+                                    mixture: mixture,
+                                },
+                            ],
                         })
                     );
                 }
             }
-        } else {
-            dispatch(
-                setBrewMaterialPortions({
-                    content: [
-                        ...allMaterialPortions,
-                        {
-                            ...selectedLot,
-                            quantity: {
-                                symbol: selectedLot.quantity.symbol,
-                                value: parseFloat(selectedLotQuantity),
-                            },
-                            mixture: mixture,
-                        },
-                    ],
-                })
-            );
         }
     };
 

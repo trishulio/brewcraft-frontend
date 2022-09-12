@@ -11,6 +11,7 @@ import {
     SET_BATCH_INVALID_DESCRIPTION,
     GET_BATCH,
     ADD_BATCH_STAGE,
+    HIDE_ERROR_MESSAGE,
     EDIT_BATCH,
     DELETE_BATCH_MIXTURE_AND_STAGE,
     UPDATE_BATCH_STAGE,
@@ -139,8 +140,15 @@ export const setBatchValidationError = (error) => ({
     },
 });
 
-export const setBatchErrorMessageDelete = (error) => ({
+export const setBatchErrorMessageHide = (error) => ({
     type: UPDATE_BATCH_STAGE_SUCCESS,
+    payload: {
+        ...error,
+    },
+});
+
+export const setBatchModalErrorMessageHide = (error) => ({
+    type: HIDE_ERROR_MESSAGE,
     payload: {
         ...error,
     },

@@ -273,7 +273,7 @@ function BatchDetailsModal({ show, setShow, afterSave }) {
     );
 }
 
-export default function BatchDetails(props) {
+export default function BatchDetails() {
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
     const [show, setShow] = useState(false);
     const [toggleCharts, setToggleCharts] = useState(false);

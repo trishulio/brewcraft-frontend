@@ -19,6 +19,7 @@ import {
     UPDATE_BATCH_STAGE,
     UPDATE_BATCH_STAGE_SUCCESS,
     UPDATE_BATCH_STAGE_FAILURE,
+    HIDE_ERROR_MESSAGE,
 } from "./actionTypes";
 
 const initialState = {
@@ -79,6 +80,7 @@ const Batch = (state = initialState, { type, payload }) => {
         case ADD_BATCH_STAGE_SUCCESS:
         case DELETE_BATCH_MIXTURE_AND_STAGE_SUCCESS:
         case UPDATE_BATCH_STAGE_SUCCESS:
+        case HIDE_ERROR_MESSAGE:
             return {
                 ...state,
                 loading: false,
