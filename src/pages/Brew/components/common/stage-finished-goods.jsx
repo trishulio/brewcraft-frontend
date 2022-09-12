@@ -37,10 +37,8 @@ export default function StageFinishedGoods({
                                 </td>
                                 <td className="text-left">
                                     {prettyVolume(
-                                        finishedGood.mixturePortions[0].quantity
-                                            .value,
-                                        finishedGood.mixturePortions[0].quantity
-                                            .symbol
+                                        finishedGood.quantity.value,
+                                        finishedGood.quantity.symbol
                                     )}
                                 </td>
                             </tr>

@@ -6,6 +6,7 @@ import {
     FETCH_BATCH_FINISHED_GOODS_REQUEST,
     FETCH_BATCH_FINISHED_GOODS_SUCCESS,
     FETCH_BATCH_FINISHED_GOODS_FAILURE,
+    EDIT_BATCH_FINISHED_GOODS_MODAL_SUCCESS,
 } from "./actionTypes";
 
 const initialState = {
@@ -42,6 +43,11 @@ const BatchFinishedGoods = (state = initialState, { type, payload }) => {
                 ...initialState,
                 loading: false,
                 error: null,
+            };
+        case EDIT_BATCH_FINISHED_GOODS_MODAL_SUCCESS:
+            return {
+                ...state,
+                showModal: false,
             };
         default:
             return {

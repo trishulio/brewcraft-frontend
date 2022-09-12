@@ -22,6 +22,7 @@ import {
     UPDATE_BATCH_FINISHED_GOODS_FAILURE,
     UPDATE_BATCH_FINISHED_GOODS_SUCCESS,
     SET_BATCH_FINISHED_GOODS,
+    EDIT_BATCH_FINISHED_GOODS_MODAL_SUCCESS,
 } from "./actionTypes";
 import { api } from "./api";
 
@@ -48,6 +49,7 @@ function* editFinishedGoodsGenerator() {
         const { content: finishedGoods, initial } = yield select((state) => {
             return state.Batch.BatchFinishedGoods;
         });
+
         if (JSON.stringify(finishedGoods) === JSON.stringify(initial)) {
             yield put({ type: EDIT_BATCH_FINISHED_GOODS_SUCCESS });
             return;
@@ -85,15 +87,16 @@ function* editFinishedGoodsGenerator() {
             yield put({
                 type: EDIT_BATCH_FINISHED_GOODS_SUCCESS,
             });
-        } else if (failedUpdate) {
             yield put({
-                type: EDIT_BATCH_FINISHED_GOODS_FAILURE,
-                payload: get(failedUpdate, "payload"),
+                type: EDIT_BATCH_FINISHED_GOODS_MODAL_SUCCESS,
             });
         } else {
             yield put({
                 type: EDIT_BATCH_FINISHED_GOODS_FAILURE,
-                payload: get(failedDelete, "payload"),
+                payload: get(
+                    failedUpdate ? failedUpdate : failedDelete,
+                    "payload"
+                ),
             });
         }
     } catch (e) {
