@@ -103,6 +103,7 @@ import {
     FETCH_BATCH_FINISHED_GOODS_REQUEST,
     FETCH_BATCH_FINISHED_GOODS_SUCCESS,
 } from "../BatchFinishedGoods/actionTypes";
+import { FETCH_INVENTORY_STOCK_QUANTITY_REQUEST } from "../MaterialLots/actionTypes";
 
 function* fetchBatchGenerator(action) {
     try {
@@ -389,6 +390,7 @@ function* editBatchGenerator() {
             yield all([
                 yield put({ type: EDIT_BATCH_SUCCESS }),
                 yield put(snackSuccess("Brew updated!")),
+                yield put({ type: FETCH_INVENTORY_STOCK_QUANTITY_REQUEST }),
             ]);
         } else {
             yield put({
