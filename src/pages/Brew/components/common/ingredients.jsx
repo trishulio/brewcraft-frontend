@@ -27,6 +27,27 @@ export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
         return state.Batch.Batch;
     });
 
+    const materialPortions = useSelector((state) => {
+        return state.Batch.MaterialPortions.content.filter(
+            (mp) => mp.mixture.id === mixture.id
+        );
+    });
+
+    const [firstMaterialPortions, setFirstMaterialPortions] = useState("");
+
+    useEffect(() => {
+        if (show)
+            setFirstMaterialPortions(
+                JSON.parse(JSON.stringify(materialPortions))
+            );
+    }, [show]);
+
+    useEffect(() => {
+        if (!loading && !error) {
+            afterSave();
+        }
+    }, [loading, error]);
+
     const handleCloseModal = () => {
         setShow(false);
         dispatch(
@@ -35,14 +56,12 @@ export function BatchIngredientsModal({ show, setShow, afterSave, mixture }) {
                 loading: false,
             })
         );
+        dispatch(
+            setBrewMaterialPortions({
+                content: [...firstMaterialPortions],
+            })
+        );
     };
-
-    useEffect(() => {
-        if (!loading && !error) {
-            afterSave();
-            // setShow(false);
-        }
-    }, [loading, error]);
 
     return (
         <Modal
