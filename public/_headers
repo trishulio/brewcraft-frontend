@@ -7,10 +7,10 @@ https://:env.brewcraft.io/*
 
 # Preventing indexing of the static assets
 
-https://fuzzy-potato.pages.dev/*
+https://brewcraft-frontend.pages.dev/*
   X-Robots-Tag: noindex
 
-https://:commit.fuzzy-potato.pages.dev/*
+https://:commit.brewcraft-frontend.pages.dev/*
   X-Robots-Tag: noindex
 
 https://static.brewcraft.io/*

@@ -1,4 +1,4 @@
-# Fuzzy Potato - Brewcraft UI
+# Brewcraft-Frontend
 
 ## Node version
 ```
