@@ -44,7 +44,7 @@ pipeline {
                     VALUES_FILE = envConfig['valuesFile'];
                     NAMESPACE = envConfig['namespace'];
 
-                    INDEX_URL = params.branch == 'release' ? "https://fuzzy-potato.pages.dev/" : "https://${params.branch}.fuzzy-potato.pages.dev/";
+                    INDEX_URL = params.branch == 'release' ? "https://brewcraft-frontend.pages.dev/" : "https://${params.branch}.brewcraft-frontend.pages.dev/";
                 }
             }
         }
