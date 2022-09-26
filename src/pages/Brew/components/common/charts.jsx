@@ -32,12 +32,18 @@ export const GravityLine = (props) => {
         },
     };
 
+    const recordingsSorted = props.recordings.sort(function (a, b) {
+        var aDate = new Date(a.recordedAt);
+        var bDate = new Date(b.recordedAt);
+        return aDate.getTime() - bDate.getTime();
+    });
+
     const data = {
-        labels: props.recordings.map((r) => r.recordedAt),
+        labels: recordingsSorted.map((r) => r.recordedAt),
         datasets: [
             {
                 label: "Brew Dataset 1",
-                data: props.recordings.map((r) => ({
+                data: recordingsSorted.map((r) => ({
                     x: r.recordedAt,
                     y: r.value,
                 })),
@@ -79,12 +85,18 @@ export const AbvLine = (props) => {
         },
     };
 
+    const recordingsSorted = props.recordings.sort(function (a, b) {
+        var aDate = new Date(a.recordedAt);
+        var bDate = new Date(b.recordedAt);
+        return aDate.getTime() - bDate.getTime();
+    });
+
     const data = {
-        labels: props.recordings.map((r) => r.recordedAt),
+        labels: recordingsSorted.map((r) => r.recordedAt),
         datasets: [
             {
                 label: "Brew Dataset 1",
-                data: props.recordings.map((r) => ({
+                data: recordingsSorted.map((r) => ({
                     x: r.recordedAt,
                     y: r.value,
                 })),
@@ -126,12 +138,18 @@ export const TemperatureLine = (props) => {
         },
     };
 
+    const recordingsSorted = props.recordings.sort(function (a, b) {
+        var aDate = new Date(a.recordedAt);
+        var bDate = new Date(b.recordedAt);
+        return aDate.getTime() - bDate.getTime();
+    });
+
     const data = {
-        labels: props.recordings.map((r) => r.recordedAt),
+        labels: recordingsSorted.map((r) => r.recordedAt),
         datasets: [
             {
                 label: "Brew Dataset 1",
-                data: props.recordings.map((r) => ({
+                data: recordingsSorted.map((r) => ({
                     x: r.recordedAt,
                     y: r.value,
                 })),
@@ -173,12 +191,18 @@ export const PhLine = (props) => {
         },
     };
 
+    const recordingsSorted = props.recordings.sort(function (a, b) {
+        var aDate = new Date(a.recordedAt);
+        var bDate = new Date(b.recordedAt);
+        return aDate.getTime() - bDate.getTime();
+    });
+
     const data = {
-        labels: props.recordings.map((r) => r.recordedAt),
+        labels: recordingsSorted.map((r) => r.recordedAt),
         datasets: [
             {
                 label: "Brew Dataset 1",
-                data: props.recordings.map((r) => ({
+                data: recordingsSorted.map((r) => ({
                     x: r.recordedAt,
                     y: r.value,
                 })),
