@@ -17,6 +17,7 @@ import {
 import { editBatch, setBatchDetails } from "../../../../store/actions";
 
 export function FinishedGoodsModal({ show, setShow, mixture }) {
+    console.log(mixture);
     return (
         <Modal
             title="Finished Goods"
@@ -42,7 +43,8 @@ export function FinishedGoodsModal({ show, setShow, mixture }) {
     );
 }
 
-export default function FinishedGoods({ mixture }) {
+function FinishedGoods({ mixture }) {
+    console.log(mixture);
     const initialFinishedGood = {
         id: "",
         mixturePortions: [],
@@ -76,6 +78,7 @@ export default function FinishedGoods({ mixture }) {
         mixture,
         finishedGood,
         setFinishedGood: (finishedGood) => {
+            debugger;
             dispatch(
                 setBatchFinishedGoods({
                     content: [
@@ -93,6 +96,7 @@ export default function FinishedGoods({ mixture }) {
             dispatch(showFinishedGoodModal(false));
         },
         onSave: () => {
+            debugger;
             dispatch(editBatch());
         },
     };

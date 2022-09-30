@@ -15,7 +15,6 @@ import Brew from "./components/brewhouse";
 import Cellar from "./components/cellar";
 import BrewMiniCard from "./components/mini-card";
 import Materials from "./components/materials";
-import FinishedGoods from "./components/common/finished-goods";
 
 function BrewTab({ indexv, mashMixture }) {
     return (
@@ -205,9 +204,7 @@ export default function Batch(props) {
                 <TabPane tabId="materials">
                     <Materials />
                 </TabPane>
-                <TabPane tabId="finished-goods">
-                    <FinishedGoods />
-                </TabPane>
+                <TabPane tabId="finished-goods"></TabPane>
             </TabContent>
         </React.Fragment>
     );
