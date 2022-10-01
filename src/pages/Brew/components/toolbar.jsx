@@ -6,7 +6,7 @@ import { addBatchStage, fetchBatches } from "../../../store/actions";
 import { useEffect } from "react";
 import StageInitModal from "./common/stage-init-modal";
 
-export default function Toolbar({ onDelete }) {
+export default function Toolbar({ onSave, onDelete, changed }) {
     const [showInitStage, setShowInitStage] = useState(false);
     const dispatch = useDispatch();
     const { id } = useParams();
@@ -22,6 +22,15 @@ export default function Toolbar({ onDelete }) {
                 style={{ gap: "0.75rem 0" }}
                 className="d-flex align-items-center flex-wrap"
             >
+                <Button
+                    type="button"
+                    color="primary"
+                    className="waves-effect mr-2"
+                    onClick={onSave}
+                    disabled={!changed}
+                >
+                    Save
+                </Button>
                 <Button
                     type="button"
                     color="secondary"

@@ -53,17 +53,6 @@ export default function FinishedGoodModal({
         handleClose();
     }
 
-    const props = {
-        finishedGood,
-        setFinishedGood,
-        showBatch,
-        show,
-        editable,
-        repackage,
-        onSave,
-        onClose,
-    };
-
     return (
         <Modal
             title="Finished Good Lot Details"

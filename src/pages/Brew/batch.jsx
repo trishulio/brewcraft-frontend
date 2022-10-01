@@ -1,12 +1,11 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { Button, Col, Row, TabContent, TabPane } from "reactstrap";
 import { Card, CardBody } from "../../component/Common/Card";
 import BatchDetails from "./components/details";
 import Toolbar from "./components/toolbar";
 import BatchPeople from "./components/people";
-// import BatchComments from "./components/comments";
 import Select from "react-select";
 import BatchFileUploads from "./components/uploads";
 import { ErrorMessage } from "../../helpers/textUtils";
@@ -38,7 +37,6 @@ function CellarTab({ indexv, fermentMixture }) {
 
 export default function Batch(props) {
     const { id } = useParams();
-    const dispatch = useDispatch();
     const history = useHistory();
     const {
         data: batch,
@@ -167,7 +165,10 @@ export default function Batch(props) {
                 <TabPane tabId="stages">
                     <div style={{ maxWidth: "80rem" }}>
                         <div className="mb-3">
-                            <Toolbar />
+                            <Toolbar
+                                onSave={props.onSave}
+                                changed={props.changed}
+                            />
                         </div>
                         {mashMixtures.map((mixture, index) => (
                             <Card>

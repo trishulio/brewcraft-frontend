@@ -17,7 +17,6 @@ import {
 import { editBatch, setBatchDetails } from "../../../../store/actions";
 
 export function FinishedGoodsModal({ show, setShow, mixture }) {
-    console.log(mixture);
     return (
         <Modal
             title="Finished Goods"
@@ -44,7 +43,6 @@ export function FinishedGoodsModal({ show, setShow, mixture }) {
 }
 
 function FinishedGoods({ mixture }) {
-    console.log(mixture);
     const initialFinishedGood = {
         id: "",
         mixturePortions: [],
@@ -78,7 +76,6 @@ function FinishedGoods({ mixture }) {
         mixture,
         finishedGood,
         setFinishedGood: (finishedGood) => {
-            debugger;
             dispatch(
                 setBatchFinishedGoods({
                     content: [
@@ -96,7 +93,6 @@ function FinishedGoods({ mixture }) {
             dispatch(showFinishedGoodModal(false));
         },
         onSave: () => {
-            debugger;
             dispatch(editBatch());
         },
     };
@@ -182,12 +178,13 @@ function FinishedGoods({ mixture }) {
                 </tbody>
             </CommonTable>
             <Button
-                className="waves-effect mr-2"
+                className="waves-effect mt-2"
                 onClick={() => {
                     setFinishedGood(initialFinishedGood);
                     dispatch(showFinishedGoodModal(true));
                     dispatch(setBatchDetails({ error: null }));
                 }}
+                color="link"
             >
                 Add Item
             </Button>
