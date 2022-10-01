@@ -10,7 +10,7 @@ import {
     Input,
     Label,
 } from "reactstrap";
-import CommonTable from "../../Common/table";
+import CommonTable from "../../../component/Common/table";
 import { isValidNumberString } from "../../../helpers/utils";
 import { setFinishedGoodInvalidMaterialPortions } from "../../../store/actions";
 
