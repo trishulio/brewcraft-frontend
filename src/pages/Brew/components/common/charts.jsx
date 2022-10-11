@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Bar, Line, Doughnut } from "react-chartjs-2";
 import "chartjs-adapter-date-fns";
 import { toHl } from "../../../../helpers/textUtils";
@@ -32,11 +32,13 @@ export const GravityLine = (props) => {
         },
     };
 
-    const recordingsSorted = props.recordings.sort(function (a, b) {
-        var aDate = new Date(a.recordedAt);
-        var bDate = new Date(b.recordedAt);
-        return aDate.getTime() - bDate.getTime();
-    });
+    const recordingsSorted = useMemo(() => {
+        return props.recordings.sort(function (a, b) {
+            var aDate = new Date(a.recordedAt);
+            var bDate = new Date(b.recordedAt);
+            return aDate.getTime() - bDate.getTime();
+        })
+    }, [props.recordings]);
 
     const data = {
         labels: recordingsSorted.map((r) => r.recordedAt),
@@ -85,11 +87,13 @@ export const AbvLine = (props) => {
         },
     };
 
-    const recordingsSorted = props.recordings.sort(function (a, b) {
-        var aDate = new Date(a.recordedAt);
-        var bDate = new Date(b.recordedAt);
-        return aDate.getTime() - bDate.getTime();
-    });
+    const recordingsSorted = useMemo(() => {
+        return props.recordings.sort(function (a, b) {
+            var aDate = new Date(a.recordedAt);
+            var bDate = new Date(b.recordedAt);
+            return aDate.getTime() - bDate.getTime();
+        })
+    }, [props.recordings]);
 
     const data = {
         labels: recordingsSorted.map((r) => r.recordedAt),
@@ -138,11 +142,13 @@ export const TemperatureLine = (props) => {
         },
     };
 
-    const recordingsSorted = props.recordings.sort(function (a, b) {
-        var aDate = new Date(a.recordedAt);
-        var bDate = new Date(b.recordedAt);
-        return aDate.getTime() - bDate.getTime();
-    });
+    const recordingsSorted = useMemo(() => {
+        return props.recordings.sort(function (a, b) {
+            var aDate = new Date(a.recordedAt);
+            var bDate = new Date(b.recordedAt);
+            return aDate.getTime() - bDate.getTime();
+        })
+    }, [props.recordings]);
 
     const data = {
         labels: recordingsSorted.map((r) => r.recordedAt),
@@ -191,11 +197,13 @@ export const PhLine = (props) => {
         },
     };
 
-    const recordingsSorted = props.recordings.sort(function (a, b) {
-        var aDate = new Date(a.recordedAt);
-        var bDate = new Date(b.recordedAt);
-        return aDate.getTime() - bDate.getTime();
-    });
+    const recordingsSorted = useMemo(() => {
+        return props.recordings.sort(function (a, b) {
+            var aDate = new Date(a.recordedAt);
+            var bDate = new Date(b.recordedAt);
+            return aDate.getTime() - bDate.getTime();
+        })
+    }, [props.recordings]);
 
     const data = {
         labels: recordingsSorted.map((r) => r.recordedAt),
