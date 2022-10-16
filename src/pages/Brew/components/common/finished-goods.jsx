@@ -42,7 +42,7 @@ export function FinishedGoodsModal({ show, setShow, mixture }) {
     );
 }
 
-export default function FinishedGoods({ mixture }) {
+function FinishedGoods({ mixture }) {
     const initialFinishedGood = {
         id: "",
         mixturePortions: [],
@@ -178,12 +178,13 @@ export default function FinishedGoods({ mixture }) {
                 </tbody>
             </CommonTable>
             <Button
-                className="waves-effect mr-2"
+                className="waves-effect mt-2"
                 onClick={() => {
                     setFinishedGood(initialFinishedGood);
                     dispatch(showFinishedGoodModal(true));
                     dispatch(setBatchDetails({ error: null }));
                 }}
+                color="link"
             >
                 Add Item
             </Button>

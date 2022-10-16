@@ -1,30 +1,32 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
-import { ErrorMessage } from "../../helpers/textUtils";
-import { isValidNumberString, validDate } from "../../helpers/utils";
-import { Modal, ModalBody, ModalFooter } from "../Common/modal";
+import { ErrorMessage } from "../../../helpers/textUtils";
+import { isValidNumberString, validDate } from "../../../helpers/utils";
+import { Modal, ModalBody, ModalFooter } from "../../Common/modal";
 import Materials from "./materials";
 
 export default function FinishedGoodModal({
     mixture,
-    finishedGood,
-    setFinishedGood,
+    finishedGood: initialFinishedGood = {},
     show,
     error,
     onSave,
     onClose,
 }) {
-    const [volume, setVolume] = useState(
-        finishedGood.mixturePortions[0]?.quantity.value || ""
-    );
-    const [unit, setUnit] = useState(
-        finishedGood.mixturePortions[0]?.quantity.symbol || "ml"
-    );
-    const [quantity, setQuantity] = useState(finishedGood.quantity?.value);
-    const [packagedOn, setPackagedOn] = useState(finishedGood.packagedOn);
-    const [materialPortions, setMaterialPortions] = useState(
-        JSON.parse(JSON.stringify(finishedGood.materialPortions))
-    );
+    const [finishedGood, setFinishedGood] = useState({});
+
+    useEffect(() => {
+        setFinishedGood({
+            mixture,
+            materialPortions: [],
+            mixturePortions: [],
+            packagedOn: "",
+            quantity: "",
+            ...initialFinishedGood,
+        });
+    }, [initialFinishedGood, mixture]);
+
     return (
         <Modal
             title={finishedGood.id ? "Edit Finished Good" : "New Finished Good"}
@@ -34,20 +36,36 @@ export default function FinishedGoodModal({
             <ModalBody>
                 {error && <ErrorMessage props={{ ...error }} toggle />}
                 <div className="d-flex">
-                    {}
                     <FormGroup className="p-2">
                         <Label for="finishedGoodVolume">Volume / Unit</Label>
                         <Input
                             type="number"
                             className="waves-effect"
-                            value={volume}
+                            value={
+                                finishedGood.mixturePortions[0]?.quantity
+                                    .value || ""
+                            }
                             placeholder="Enter"
                             name="finishedGoodVolume"
                             onChange={(e) => {
-                                setVolume(e.target.value);
+                                setFinishedGood({
+                                    ...finishedGood,
+                                    mixturePortions: [
+                                        {
+                                            quantity: {
+                                                value: e.target.value,
+                                            },
+                                        },
+                                    ],
+                                });
                             }}
                             invalid={
-                                volume !== "" && !isValidNumberString(volume)
+                                finishedGood.mixturePortions[0]?.quantity
+                                    .value !== "" &&
+                                !isValidNumberString(
+                                    finishedGood.mixturePortions[0]?.quantity
+                                        .value
+                                )
                             }
                         />
                         <FormFeedback>Enter a valid volume.</FormFeedback>
@@ -62,13 +80,28 @@ export default function FinishedGoodModal({
                         <Input
                             type="select"
                             className="waves-effect"
-                            value={unit || "ml"}
+                            value={
+                                finishedGood.mixturePortions[0]?.quantity
+                                    .symbol || "ml"
+                            }
                             placeholder="Enter"
                             name="finishedGoodVolumeUnit"
                             onChange={(e) => {
-                                setUnit(e.target.value);
+                                setFinishedGood({
+                                    ...finishedGood,
+                                    mixturePortions: [
+                                        {
+                                            quantity: {
+                                                symbol: e.target.value,
+                                            },
+                                        },
+                                    ],
+                                });
                             }}
-                            invalid={!unit && unit !== ""}
+                            invalid={
+                                finishedGood.mixturePortions.length &&
+                                !finishedGood.mixturePortions[0].quantity.symbol
+                            }
                         >
                             <option value="hl">hl</option>
                             <option value="l">l</option>
@@ -87,14 +120,18 @@ export default function FinishedGoodModal({
                     <Input
                         type="number"
                         className="waves-effect"
-                        value={quantity}
+                        value={finishedGood.quantity}
                         placeholder="Enter"
                         name="finishedGoodQuantity"
                         onChange={(e) => {
-                            setQuantity(e.target.value);
+                            setFinishedGood({
+                                ...finishedGood,
+                                quantity: e.target.value,
+                            });
                         }}
                         invalid={
-                            quantity !== null && !isValidNumberString(quantity)
+                            finishedGood.quantity !== null &&
+                            !isValidNumberString(finishedGood.quantity)
                         }
                     />
                     <FormFeedback>Enter a valid quantity.</FormFeedback>
@@ -110,11 +147,17 @@ export default function FinishedGoodModal({
                         type="datetime-local"
                         name="finishedGoodPackagedOn"
                         className="waves-effect"
-                        value={packagedOn}
+                        value={finishedGood.packagedOn}
                         onChange={(e) => {
-                            setPackagedOn(e.target.value);
+                            setFinishedGood({
+                                ...finishedGood,
+                                packagedOn: e.target.value,
+                            });
                         }}
-                        invalid={packagedOn !== "" && !validDate(packagedOn)}
+                        invalid={
+                            finishedGood.packagedOn !== "" &&
+                            !validDate(finishedGood.packagedOn)
+                        }
                     />
                     <FormFeedback>Enter a valid time and date</FormFeedback>
                 </FormGroup>
@@ -124,8 +167,13 @@ export default function FinishedGoodModal({
                     </Label>
                     <Materials
                         name="finishedGoodMaterialPortions"
-                        materialPortions={materialPortions}
-                        setMaterialPortions={setMaterialPortions}
+                        materialPortions={finishedGood.materialPortions}
+                        setMaterialPortions={(materialPortions) => {
+                            setFinishedGood({
+                                ...finishedGood,
+                                materialPortions,
+                            });
+                        }}
                     />
                     <FormFeedback>Enter a valid time and date</FormFeedback>
                 </FormGroup>
@@ -134,29 +182,14 @@ export default function FinishedGoodModal({
                 <Button
                     color="primary"
                     onClick={() => {
-                        setFinishedGood({
-                            ...finishedGood,
-                            materialPortions: JSON.parse(
-                                JSON.stringify(materialPortions)
-                            ),
-                            mixturePortions: [
-                                {
-                                    mixture,
-                                    quantity: {
-                                        value:
-                                            parseFloat(volume) *
-                                            parseFloat(quantity),
-                                        symbol: unit,
-                                    },
-                                },
-                            ],
-                            quantity: {
-                                value: parseFloat(quantity),
-                                symbol: "each",
-                            },
-                            packagedOn,
-                        });
-                        onClose();
+                        if (
+                            JSON.stringify(initialFinishedGood) !==
+                            JSON.stringify(finishedGood)
+                        ) {
+                            onSave(finishedGood);
+                        } else {
+                            onClose();
+                        }
                     }}
                 >
                     Save

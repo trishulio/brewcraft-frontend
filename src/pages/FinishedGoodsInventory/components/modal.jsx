@@ -6,8 +6,10 @@ import {
     fetchMixtures,
     fetchFinishedGoodsInventory,
     fetchMaterialStockQuantity,
-} from "../../store/actions";
-import Modal from "./modal";
+} from "../../../store/actions";
+import { Modal, ModalBody, ModalFooter } from "../../../component/Common/modal";
+import FinishedGoodDetails from "./details";
+import { Button } from "reactstrap";
 
 export default function FinishedGoodModal({
     finishedGood,
@@ -51,16 +53,28 @@ export default function FinishedGoodModal({
         handleClose();
     }
 
-    const props = {
-        finishedGood,
-        setFinishedGood,
-        showBatch,
-        show,
-        editable,
-        repackage,
-        onSave,
-        onClose,
-    };
-
-    return <Modal {...props} />;
+    return (
+        <Modal
+            title="Finished Good Lot Details"
+            size="lg"
+            show={show}
+            close={onClose}
+        >
+            <ModalBody>
+                <FinishedGoodDetails
+                    finishedGood={finishedGood}
+                    setFinishedGood={setFinishedGood}
+                    showBatch={showBatch}
+                    editable={editable}
+                    repackage={repackage}
+                ></FinishedGoodDetails>
+            </ModalBody>
+            <ModalFooter>
+                <Button color="primary" onClick={onSave}>
+                    Save
+                </Button>{" "}
+                <Button onClick={onClose}>Cancel</Button>
+            </ModalFooter>
+        </Modal>
+    );
 }

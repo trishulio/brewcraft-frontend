@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import Toolbar from "../../../component/Common/toolbar";
 import { Button } from "reactstrap";
-import Modal from "../../../component/FinishedGoods";
+import Modal from "./modal";
 import {
     createFinishedGood,
     fetchFinishedGoodById,
