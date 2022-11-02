@@ -2,13 +2,14 @@
 
 APP_NAME:=brewcraft-frontend
 INDEX_URL=https://staging-static.brewcraft.io/
-VALUES_FILE:=values-development.yaml
-NAMESPACE:=local
+
+# Binaries Path
+HELM=helm
 
 deploy:
-	(cd deployment && wget -O index.html "${INDEX_URL}")
-	docker-compose -f docker-compose-helm.yml run --rm -T helm dependency update
-	docker-compose -f docker-compose-helm.yml run --rm -T helm upgrade --install -f values.yaml -f ${VALUES_FILE} -n ${NAMESPACE} ${APP_NAME} .
+	# (cd deployment && wget -O index.html "${INDEX_URL}")
+	(cd deployment && ${HELM} dependency update)
+	(cd deployment && ${HELM} upgrade --install -f values.yaml -f ${VALUES_FILE} -n ${NAMESPACE} ${APP_NAME} .)
 
 undeploy:
-	docker-compose -f docker-compose-helm.yml run --rm -T helm uninstall -n ${NAMESPACE} ${APP_NAME}
+	(cd deployment && ${HELM} uninstall -n ${NAMESPACE} ${APP_NAME})
