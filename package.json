@@ -22,7 +22,7 @@
         "array-move": "^3.0.1",
         "availity-reactstrap-validation": "^2.7.0",
         "aws-amplify": "^3.3.24",
-        "axios": "^0.19.2",
+        "axios": "^0.21.2",
         "axios-mock-adapter": "^1.19.0",
         "bootstrap": "^4.6.0",
         "browserslist": "^4.16.3",
